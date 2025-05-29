@@ -1,0 +1,20 @@
+/* Caffeine Calculator Theme */
+:root {
+    --primary: #6F4E37;    /* Coffee brown */
+    --secondary: #C4A484;  /* Latte */
+    --accent: #E6B325;     /* Espresso gold */
+    --text: #3E2723;       /* Dark coffee */
+    --bg: #F9F5F0;         /* Cream */
+    --card-bg: #FFFFFF;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Coffee-specific styling can be added here */
+.coffee-icon {
+    font-size: 1.5em;
+    vertical-align: middle;
+    margin: 0 5px;
+}

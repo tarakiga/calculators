@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inflation Impact Calculator</title>
+
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+</head>
+<body>
+                <!-- Enhanced Navigation Bar -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="../../index.html">🧮 Docket One</a>
+            </div>
+            <div class="nav-search">
+                <label for="input-eyyatj7sp" class="sr-only">Input field</label>
+            <input type="text" i id="input-eyyatj7sp" aria-label="Calculator input"d="calc-search" placeholder="Search calculators..." class="search-input">
+                <div id="search-results" class="search-results"></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../BigKidMath/index.html" class="category-main-link">Big Kid Math</a></li>
+                <li><a href="../CipherLab/index.html" class="category-main-link">Cipher Lab</a></li>
+                <li><a href="../GeekGalaxy/index.html" class="category-main-link">Geek Galaxy</a></li>
+                <li><a href="../LifeHacks/index.html" class="category-main-link">Life Hacks</a></li>
+                <li><a href="../Math_Magik/index.html" class="category-main-link">Math Magik</a></li>
+                <li><a href="../Otaku_Ops/index.html" class="category-main-link">Otaku Ops</a></li>
+                <li><a href="../../index.html" class="home-link">Unit Converter</a></li>
+            </ul>
+            <button class="mobile-menu-btn" a aria-label="Perform action"ria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+    
+
+    
+
+
+    <header>
+        <h1>Inflation Impact Calculator</h1>
+        <p class="subtitle">See how inflation erodes your money's purchasing power</p>
+    </header>
+    
+    <div class="calculator">
+        <div class="input-group">
+            <label for="current-amount">Current Amount ($)</label>
+            <label for="input-6tusj5w6q" class="sr-only">Input field</label>
+            <input type="number" i id="input-6tusj5w6q" aria-label="Calculator input"d="current-amount" min="100" max="10000000" value="10000">
+        </div>
+        
+        <div class="input-group">
+            <label for="inflation-rate">Annual Inflation Rate (%)</label>
+            <div class="range-container">
+                <input type="range" id="inflation-rate" min="0.1" max="20" step="0.1" value="3">
+                <span class="range-value" id="inflation-rate-value">3%</span>
+            </div>
+            <small>Historical average: ~3% in developed countries</small>
+        </div>
+        
+        <div class="input-group">
+            <label for="years">Time Horizon (years)</label>
+            <label for="input-pip4h2azr" class="sr-only">Input field</label>
+            <input type="number" i id="input-pip4h2azr" aria-label="Calculator input"d="years" min="1" max="100" value="10">
+        </div>
+        
+        <button aria-label="Perform action" onclick="calculateInflation()">Calculate Inflation Impact</button>
+    </div>
+    
+    <div class="results" id="results">
+        <h2>Inflation Results</h2>
+        
+        <div class="result-item">
+            <span class="result-label">Future Value Equivalent:</span>
+            <span class="result-value" id="future-value">$0</span>
+        </div>
+        
+        <div class="result-item">
+            <span class="result-label">Purchasing Power Lost:</span>
+            <span class="result-value" id="power-lost">0%</span>
+        </div>
+        
+        <div class="timeline">
+            <h3>Purchasing Power Timeline</h3>
+            <div id="timeline-items">
+                <!-- Filled by JavaScript -->
+            </div>
+        </div>
+        
+        <div class="explanation">
+            <h3>How Inflation Works</h3>
+            <p>Inflation means your money buys less over time. <span class="highlight">$100 today</span> won't buy the same amount in 10 years.</p>
+            <p>The calculation uses the formula: <strong>Future Value = Current Amount ÷ (1 + Inflation Rate)<sup>Years</sup></strong></p>
+            <p>At 3% inflation, prices double about every <span class="highlight">24 years</span>.</p>
+        </div>
+    </div>
+
+    <script>
+        // Update range value display
+        document.getElementById('inflation-rate').addEventListener('input', function() {
+            document.getElementById('inflation-rate-value').textContent = this.value + '%';
+        });
+        
+        function calculateInflation() {
+            // Get inputs
+            const currentAmount = parseFloat(document.getElementById('current-amount').value);
+            const inflationRate = parseFloat(document.getElementById('inflation-rate').value) / 100;
+            const years = parseInt(document.getElementById('years').value);
+            
+            // Calculate future value
+            const futureValue = currentAmount / Math.pow(1 + inflationRate, years);
+            const powerLost = ((currentAmount - futureValue) / currentAmount) * 100;
+            
+            // Update main results
+            document.getElementById('future-value').textContent = formatCurrency(futureValue);
+            document.getElementById('power-lost').textContent = powerLost.toFixed(1) + '%';
+            
+            // Generate timeline
+            const timelineItems = document.getElementById('timeline-items');
+            timelineItems.innerHTML = '';
+            
+            for (let y = 0; y <= years; y += Math.max(1, Math.floor(years/5))) {
+                const value = currentAmount / Math.pow(1 + inflationRate, y);
+                const percent = (1 - (value / currentAmount)) * 100;
+                
+                const item = document.createElement('div');
+                item.className = 'timeline-item';
+                item.innerHTML = `
+                    <div class="timeline-year">${y} year${y !== 1 ? 's' : ''}</div>
+                    <div class="timeline-bar">
+                        <div class="timeline-progress" style="width: ${percent}%"></div>
+                    </div>
+                    <div class="timeline-value">${formatCurrency(value)}</div>
+                `;
+                
+                timelineItems.appendChild(item);
+            }
+            
+            // Show results
+            document.getElementById('results').style.display = 'block';
+        }
+        
+        function formatCurrency(amount) {
+            return '$' + amount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+        
+        // Initialize on load
+        window.onload = function() {
+            calculateInflation();
+        };
+    </script>
+
+    <div class="related-calculators" style="margin-top: 2rem; padding: 1rem; background: rgba(0,0,0,0.1); border-radius: 8px;">
+        <h3 style="margin-top: 0;">Related Math Magik Tools</h3>
+        <a href="./Double Pendulum Chaos.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Double Pendulum Chaos</a><a href="./entropy and feigenbaums constant.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">entropy and feigenbaums constant</a><a href="./FIRE Number Calculator.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">FIRE Number Calculator</a>
+        <a href="./index.html" style="display: block; padding: 0.5rem; margin-top: 1rem; background: rgba(74,144,226,0.2); border-radius: 4px; text-decoration: none; color: inherit; font-weight: bold;">← Back to Math Magik Hub</a>
+    </div>
+
+        <script>
+        // 🎅 Santa Claude's Interactive Enhancements
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🎅 Santa Claude's enhancements loaded!');
+            
+            // Enhanced button interactions
+            const buttons = document.querySelectorAll('button, .btn');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.classList.add('loading');
+                    setTimeout(() => {
+                        this.classList.remove('loading');
+                    }, 500);
+                });
+            });
+            
+            // Enhanced results display
+            const resultElements = document.querySelectorAll('.result, .results, .output, #result, #output');
+            resultElements.forEach(el => {
+                const observer = new MutationObserver(function(mutations) {
+                    mutations.forEach(function(mutation) {
+                        if (mutation.type === 'childList' || mutation.type === 'characterData') {
+                            el.classList.add('show');
+                        }
+                    });
+                });
+                observer.observe(el, { childList: true, subtree: true, characterData: true });
+            });
+            
+            // Form validation enhancements
+            const inputs = document.querySelectorAll('input[type="number"], input[type="text"]');
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    if (this.checkValidity()) {
+                        this.classList.remove('input-error');
+                        this.classList.add('input-success');
+                    } else {
+                        this.classList.remove('input-success');
+                        this.classList.add('input-error');
+                    }
+                });
+            });
+        });
+        </script>
+</body>
+</html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizza Pi Calculator</title>
+
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+    <link rel="stylesheet" href="../../common/themes/pizza-theme.css">
+</head>
+<body>
+                <!-- Enhanced Navigation Bar -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="../../index.html">🧮 Docket One</a>
+            </div>
+            <div class="nav-search">
+                <label for="input-zsimrbu4f" class="sr-only">Input field</label>
+            <input type="text" i id="input-zsimrbu4f" aria-label="Calculator input"d="calc-search" placeholder="Search calculators..." class="search-input">
+                <div id="search-results" class="search-results"></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../BigKidMath/index.html" class="category-main-link">Big Kid Math</a></li>
+                <li><a href="../CipherLab/index.html" class="category-main-link">Cipher Lab</a></li>
+                <li><a href="../GeekGalaxy/index.html" class="category-main-link">Geek Galaxy</a></li>
+                <li><a href="../LifeHacks/index.html" class="category-main-link">Life Hacks</a></li>
+                <li><a href="../Math_Magik/index.html" class="category-main-link">Math Magik</a></li>
+                <li><a href="../Otaku_Ops/index.html" class="category-main-link">Otaku Ops</a></li>
+                <li><a href="../../index.html" class="home-link">Unit Converter</a></li>
+            </ul>
+            <button class="mobile-menu-btn" a aria-label="Perform action"ria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+    
+
+    
+
+
+    <header>
+        <h1>PIZZA <span class="pizza-icon">🍕</span> PI CALCULATOR</h1>
+        <p>Because size <em>does</em> matter when it comes to pizza value!</p>
+    </header>
+    
+    <div class="calculator">
+        <div class="pizza-option">
+            <h3>Pizza #1</h3>
+            <div class="input-group">
+                <label for="size1">Diameter (inches):</label>
+                <label for="input-l98cqf6n9" class="sr-only">Input field</label>
+            <input type="number" i id="input-l98cqf6n9" aria-label="Calculator input"d="size1" min="5" max="30" step="0.1" value="12">
+            </div>
+            <div class="input-group">
+                <label for="price1">Price ($):</label>
+                <label for="input-hab7gquoc" class="sr-only">Input field</label>
+            <input type="number" i id="input-hab7gquoc" aria-label="Calculator input"d="price1" min="1" max="100" step="0.01" value="15.99">
+            </div>
+        </div>
+        
+        <div class="pizza-option">
+            <h3>Pizza #2</h3>
+            <div class="input-group">
+                <label for="size2">Diameter (inches):</label>
+                <label for="input-w1mmi3asd" class="sr-only">Input field</label>
+            <input type="number" i id="input-w1mmi3asd" aria-label="Calculator input"d="size2" min="5" max="30" step="0.1" value="14">
+            </div>
+            <div class="input-group">
+                <label for="price2">Price ($):</label>
+                <label for="input-1r9vlubih" class="sr-only">Input field</label>
+            <input type="number" i id="input-1r9vlubih" aria-label="Calculator input"d="price2" min="1" max="100" step="0.01" value="19.99">
+            </div>
+        </div>
+        
+        <div class="pizza-option">
+            <h3>Pizza #3 (Optional)</h3>
+            <div class="input-group">
+                <label for="size3">Diameter (inches):</label>
+                <label for="input-sht9w0ly2" class="sr-only">Input field</label>
+            <input type="number" i id="input-sht9w0ly2" aria-label="Calculator input"d="size3" min="5" max="30" step="0.1">
+            </div>
+            <div class="input-group">
+                <label for="price3">Price ($):</label>
+                <label for="input-h6varlgnw" class="sr-only">Input field</label>
+            <input type="number" i id="input-h6varlgnw" aria-label="Calculator input"d="price3" min="1" max="100" step="0.01">
+            </div>
+        </div>
+        
+        <button aria-label="Perform action" onclick="calculatePizza()">CALCULATE PIZZA VALUE</button>
+    </div>
+    
+    <div class="results" id="results">
+        <div class="result-item">
+            <div class="result-title">PIZZA VALUE ANALYSIS</div>
+            
+            <div class="pizza-comparison" id="pizza-comparison">
+                <!-- Filled by JavaScript -->
+            </div>
+        </div>
+        
+        <div class="fun-fact" id="fun-fact">
+            <!-- Filled by JavaScript -->
+        </div>
+        
+        <div class="result-item">
+            <div class="result-title">PIZZA MATH FORMULAS</div>
+            <p>• <strong>Area</strong> = π × (radius)² (radius = diameter ÷ 2)</p>
+            <p>• <strong>Value Score</strong> = Area ÷ Price (higher is better)</p>
+            <p>• <strong>Crust Length</strong> = π × diameter (total inches of delicious crust)</p>
+        </div>
+    </div>
+
+    <script>
+        function calculatePizza() {
+            const pizzas = [];
+            
+            // Get pizza data
+            for (let i = 1; i <= 3; i++) {
+                const size = parseFloat(document.getElementById(`size${i}`).value);
+                const price = parseFloat(document.getElementById(`price${i}`).value);
+                
+                if (size && price) {
+                    const radius = size / 2;
+                    const area = Math.PI * Math.pow(radius, 2);
+                    const value = area / price;
+                    const crust = Math.PI * size;
+                    
+                    pizzas.push({
+                        size: size,
+                        price: price,
+                        area: area,
+                        value: value,
+                        crust: crust
+                    });
+                }
+            }
+            
+            // Find best value
+            let bestValueIndex = 0;
+            pizzas.forEach((pizza, index) => {
+                if (pizza.value > pizzas[bestValueIndex].value) {
+                    bestValueIndex = index;
+                }
+            });
+            
+            // Generate comparison cards
+            const comparison = document.getElementById('pizza-comparison');
+            comparison.innerHTML = '';
+            
+            pizzas.forEach((pizza, index) => {
+                const card = document.createElement('div');
+                card.className = `pizza-card ${index === bestValueIndex ? 'best-value' : ''}`;
+                
+                card.innerHTML = `
+                    <h3>Pizza #${index + 1}</h3>
+                    <div class="pizza-size">${pizza.size.toFixed(1)}"</div>
+                    <p>$${pizza.price.toFixed(2)}</p>
+                    <div class="value-score">${pizza.value.toFixed(2)} in²/$</div>
+                    <p>${pizza.area.toFixed(1)} in² total</p>
+                    <p>${pizza.crust.toFixed(1)}" crust</p>
+                `;
+                
+                comparison.appendChild(card);
+            });
+            
+            // Generate fun fact
+            const funFact = document.getElementById('fun-fact');
+            if (pizzas.length >= 2) {
+                const areaRatio = (pizzas[0].area + pizzas[1].area) / pizzas[2]?.area || pizzas[0].area;
+                const crustRatio = (pizzas[0].crust + pizzas[1].crust) / pizzas[2]?.crust || pizzas[0].crust;
+                
+                if (pizzas.length === 2) {
+                    funFact.innerHTML = `
+                        <p>🍕 <strong>Fun Fact:</strong> 2 ${pizzas[0].size.toFixed(0)}" pizzas give you 
+                        ${((pizzas[0].area + pizzas[1].area - pizzas[1].area) / pizzas[1].area * 100).toFixed(0)}% 
+                        more pizza than 1 ${pizzas[1].size.toFixed(0)}" pizza!</p>
+                        <p>And ${((pizzas[0].crust + pizzas[1].crust - pizzas[1].crust) / pizzas[1].crust * 100).toFixed(0)}% 
+                        more crust for dipping!</p>
+                    `;
+                } else if (pizzas.length === 3) {
+                    funFact.innerHTML = `
+                        <p>🍕 <strong>Fun Fact:</strong> Combining Pizza #1 and #2 gives you 
+                        ${(areaRatio > 1 ? 'more' : 'less')} pizza than Pizza #3 
+                        (${Math.abs(areaRatio * 100 - 100).toFixed(0)}% ${areaRatio > 1 ? 'more' : 'less'})</p>
+                    `;
+                }
+            } else {
+                funFact.innerHTML = `
+                    <p>🍕 <strong>Tip:</strong> Add more pizza options to compare value!</p>
+                `;
+            }
+            
+            // Show results
+            document.getElementById('results').style.display = 'block';
+        }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if (mobileMenuBtn && navLinks) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    navLinks.classList.toggle('active');
+                    mobileMenuBtn.classList.toggle('active');
+                });
+                document.addEventListener('click', function(event) {
+                    if (!event.target.closest('.main-nav')) {
+                        navLinks.classList.remove('active');
+                        mobileMenuBtn.classList.remove('active');
+                    }
+                });
+            }
+        });
+    </script>
+
+    <div class="related-calculators" style="margin-top: 2rem; padding: 1rem; background: rgba(0,0,0,0.1); border-radius: 8px;">
+        <h3 style="margin-top: 0;">Related Math Magik Tools</h3>
+        <a href="./Double Pendulum Chaos.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Double Pendulum Chaos</a><a href="./entropy and feigenbaums constant.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">entropy and feigenbaums constant</a><a href="./FIRE Number Calculator.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">FIRE Number Calculator</a>
+        <a href="./index.html" style="display: block; padding: 0.5rem; margin-top: 1rem; background: rgba(74,144,226,0.2); border-radius: 4px; text-decoration: none; color: inherit; font-weight: bold;">← Back to Math Magik Hub</a>
+    </div>
+
+        <script>
+        // 🎅 Santa Claude's Interactive Enhancements
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🎅 Santa Claude's enhancements loaded!');
+            
+            // Enhanced button interactions
+            const buttons = document.querySelectorAll('button, .btn');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.classList.add('loading');
+                    setTimeout(() => {
+                        this.classList.remove('loading');
+                    }, 500);
+                });
+            });
+            
+            // Enhanced results display
+            const resultElements = document.querySelectorAll('.result, .results, .output, #result, #output');
+            resultElements.forEach(el => {
+                const observer = new MutationObserver(function(mutations) {
+                    mutations.forEach(function(mutation) {
+                        if (mutation.type === 'childList' || mutation.type === 'characterData') {
+                            el.classList.add('show');
+                        }
+                    });
+                });
+                observer.observe(el, { childList: true, subtree: true, characterData: true });
+            });
+            
+            // Form validation enhancements
+            const inputs = document.querySelectorAll('input[type="number"], input[type="text"]');
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    if (this.checkValidity()) {
+                        this.classList.remove('input-error');
+                        this.classList.add('input-success');
+                    } else {
+                        this.classList.remove('input-success');
+                        this.classList.add('input-error');
+                    }
+                });
+            });
+        });
+        </script>
+</body>
+</html>

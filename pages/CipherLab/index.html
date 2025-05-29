@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cipher Lab - Cryptography & Security Tools | Docket One</title>
+    <meta name="description" content="Decode the secrets of cryptography with our cipher and security tools. From Morse code to password analysis.">
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    
+    <!-- Premium Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Senior UX/UI Variables - Cryptography Theme */
+        :root {
+            /* Brand Colors - Security/Cryptography Palette */
+            --primary: #7c3aed;
+            --primary-light: #8b5cf6;
+            --primary-dark: #6d28d9;
+            --secondary: #06b6d4;
+            --secondary-light: #0891b2;
+            --accent: #f59e0b;
+            --accent-light: #fbbf24;
+            
+            /* Semantic Colors */
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --info: #06b6d4;
+            
+            /* Neutral Palette */
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            
+            /* Surface Colors */
+            --bg-primary: #ffffff;
+            --bg-secondary: var(--gray-50);
+            --bg-tertiary: var(--gray-100);
+            --surface-elevated: #ffffff;
+            --surface-overlay: rgba(255, 255, 255, 0.95);
+            
+            /* Typography */
+            --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'JetBrains Mono', 'Fira Code', monospace;            
+            /* Spacing Scale */
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+            --space-3xl: 4rem;
+            --space-4xl: 6rem;
+            
+            /* Border Radius */
+            --radius-sm: 6px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --radius-full: 9999px;
+            
+            /* Shadows */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            
+            /* Transitions */
+            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-bounce: 500ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: var(--font-primary);
+            background: var(--bg-secondary);
+            color: var(--gray-800);
+            line-height: 1.6;
+            font-feature-settings: 'kern' 1, 'liga' 1;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        /* Premium Hero Section - Cryptography Theme */
+        .hero {
+            position: relative;
+            background: linear-gradient(135deg, 
+                var(--primary) 0%, 
+                var(--primary-light) 30%,
+                var(--secondary) 70%,
+                var(--primary-dark) 100%);
+            color: white;
+            padding: var(--space-4xl) var(--space-xl);
+            text-align: center;
+            overflow: hidden;
+        }        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="binary" width="20" height="20" patternUnits="userSpaceOnUse"><text x="2" y="15" font-family="monospace" font-size="12" fill="rgba(255,255,255,0.1)">01</text></pattern></defs><rect width="100%" height="100%" fill="url(%23binary)"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-full);
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: var(--space-xl);
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        .hero-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            margin: 0 0 var(--space-lg) 0;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 0.6s ease-out 0.2s both;
+        }
+        
+        .hero-subtitle {
+            font-size: clamp(1.125rem, 2vw, 1.25rem);
+            font-weight: 400;
+            opacity: 0.9;
+            margin: 0 0 var(--space-2xl) 0;
+            animation: fadeInUp 0.6s ease-out 0.4s both;
+        }
+        
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: var(--space-md) var(--space-xl);
+            text-decoration: none;
+            border-radius: var(--radius-full);
+            font-weight: 600;
+            transition: var(--transition-base);
+            animation: fadeInUp 0.6s ease-out 0.6s both;
+        }
+        
+        .hero-cta:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }        
+        /* Premium Container & Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-xl);
+        }
+        
+        .section {
+            padding: var(--space-4xl) 0;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--space-3xl);
+        }
+        
+        .section-title {
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            font-weight: 700;
+            color: var(--gray-900);
+            margin: 0 0 var(--space-md) 0;
+        }
+        
+        .section-subtitle {
+            font-size: 1.125rem;
+            color: var(--gray-600);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Premium Calculator Grid */
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: var(--space-xl);
+            margin: var(--space-3xl) 0;
+        }
+        
+        .calculator-card {
+            background: var(--surface-elevated);
+            border-radius: var(--radius-xl);
+            padding: var(--space-2xl);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--gray-200);
+            transition: var(--transition-base);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .calculator-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transition: var(--transition-base);
+        }
+        
+        .calculator-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-2xl);
+            border-color: var(--primary);
+        }
+        
+        .calculator-card:hover::before {
+            transform: scaleX(1);
+        }        
+        .card-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: var(--radius-lg);
+            font-size: 2rem;
+            margin-bottom: var(--space-lg);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin: 0 0 var(--space-md) 0;
+        }
+        
+        .card-description {
+            color: var(--gray-600);
+            margin: 0 0 var(--space-xl) 0;
+            line-height: 1.7;
+        }
+        
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .tag {
+            background: var(--gray-100);
+            color: var(--gray-700);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            padding: var(--space-md) var(--space-lg);
+            text-decoration: none;
+            border-radius: var(--radius-full);
+            font-weight: 600;
+            font-size: 0.875rem;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition-base);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero {
+                padding: var(--space-3xl) var(--space-md);
+            }
+            
+            .calculator-grid {
+                grid-template-columns: 1fr;
+                gap: var(--space-lg);
+            }
+            
+            .container {
+                padding: 0 var(--space-md);
+            }
+            
+            .section {
+                padding: var(--space-2xl) 0;
+            }
+        }
+        
+        *:focus-visible {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+            border-radius: var(--radius-sm);
+        }
+    </style>
+</head>
+<body>
+    <!-- Enhanced Navigation Bar -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="../../index.html">🧮 Docket One</a>
+            </div>
+            <div class="nav-search">
+                <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input" aria-label="Search calculators">
+                <div id="search-results" class="search-results"></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../BigKidMath/index.html" class="category-main-link">Big Kid Math</a></li>
+                <li><a href="../CipherLab/index.html" class="category-main-link">Cipher Lab</a></li>
+                <li><a href="../GeekGalaxy/index.html" class="category-main-link">Geek Galaxy</a></li>
+                <li><a href="../LifeHacks/index.html" class="category-main-link">Life Hacks</a></li>
+                <li><a href="../Math_Magik/index.html" class="category-main-link">Math Magik</a></li>
+                <li><a href="../Otaku_Ops/index.html" class="category-main-link">Otaku Ops</a></li>
+                <li><a href="../../index.html" class="home-link">Unit Converter</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Premium Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span>🔐</span>
+                <span>Cryptography & Security</span>
+            </div>
+            <h1 class="hero-title">Cipher Lab</h1>
+            <p class="hero-subtitle">Decode the secrets of cryptography with our cipher and security tools. From ancient codes to modern password analysis.</p>
+            <a href="#tools" class="hero-cta">
+                <span>Explore Tools</span>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M8 1L15 8L8 15M15 8H1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <main class="container">
+        <!-- Tools Section -->
+        <section id="tools" class="section">
+            <div class="section-header">
+                <h2 class="section-title">Cryptography Tools</h2>
+                <p class="section-subtitle">Professional-grade tools for encoding, decoding, and security analysis</p>
+            </div>
+            
+            <div class="calculator-grid">
+                <article class="calculator-card">
+                    <div class="card-icon float-animation">📡</div>
+                    <h3 class="card-title">Morse Code Translator</h3>
+                    <p class="card-description">Encode and decode Morse code messages with our comprehensive translator. Perfect for amateur radio, emergency communications, or learning this timeless communication method.</p>
+                    <div class="card-tags">
+                        <span class="tag">Communication</span>
+                        <span class="tag">Encoding</span>
+                        <span class="tag">Historical</span>
+                    </div>
+                    <a href="morseCodeTranslatorEncoderDecoder.html" class="btn-primary">
+                        <span>Translate Morse</span>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                </article>
+                
+                <article class="calculator-card">
+                    <div class="card-icon float-animation" style="animation-delay: 0.2s;">🗿</div>
+                    <h3 class="card-title">Ogham Translator</h3>
+                    <p class="card-description">Explore the ancient Celtic alphabet with our Ogham translator. Convert modern text to and from this fascinating Irish script used from the 4th to 6th centuries.</p>
+                    <div class="card-tags">
+                        <span class="tag">Ancient</span>
+                        <span class="tag">Celtic</span>
+                        <span class="tag">Historical</span>
+                    </div>
+                    <a href="oghamTranslatorEncoderDecoder.html" class="btn-primary">
+                        <span>Translate Ogham</span>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                </article>
+                
+                <article class="calculator-card">
+                    <div class="card-icon float-animation" style="animation-delay: 0.4s;">🔒</div>
+                    <h3 class="card-title">Password Strength Analyzer</h3>
+                    <p class="card-description">Evaluate your password security with our comprehensive strength analyzer. Get detailed feedback and suggestions to create unbreakable passwords that protect your digital life.</p>
+                    <div class="card-tags">
+                        <span class="tag">Security</span>
+                        <span class="tag">Analysis</span>
+                        <span class="tag">Privacy</span>
+                    </div>
+                    <a href="passwordStrengthAngerScaleCalculator.html" class="btn-primary">
+                        <span>Analyze Password</span>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Enhanced Mobile Menu
+        (function() {
+            'use strict';
+            
+            let isInitialized = false;
+            
+            function initEnhancedMobileMenu() {
+                if (isInitialized) return;
+                
+                const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+                const navLinks = document.querySelector('.nav-links');
+                const navContainer = document.querySelector('.nav-container');
+                
+                if (!mobileMenuBtn || !navLinks) return;
+                
+                mobileMenuBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    const isActive = navLinks.classList.contains('active');
+                    
+                    if (isActive) {
+                        closeMenuWithAnimation();
+                    } else {
+                        openMenuWithAnimation();
+                    }
+                });
+                
+                function openMenuWithAnimation() {
+                    navLinks.classList.add('active');
+                    mobileMenuBtn.classList.add('active');
+                    
+                    const menuItems = navLinks.querySelectorAll('a');
+                    menuItems.forEach((item, index) => {
+                        item.style.transform = 'translateX(-20px)';
+                        item.style.opacity = '0';
+                        setTimeout(() => {
+                            item.style.transform = 'translateX(0)';
+                            item.style.opacity = '1';
+                        }, index * 50 + 100);
+                    });
+                }
+                
+                function closeMenuWithAnimation() {
+                    const menuItems = navLinks.querySelectorAll('a');
+                    menuItems.forEach((item, index) => {
+                        setTimeout(() => {
+                            item.style.transform = 'translateX(-10px)';
+                            item.style.opacity = '0.5';
+                        }, index * 20);
+                    });
+                    
+                    setTimeout(() => {
+                        navLinks.classList.remove('active');
+                        mobileMenuBtn.classList.remove('active');
+                        menuItems.forEach(item => {
+                            item.style.transform = '';
+                            item.style.opacity = '';
+                        });
+                    }, menuItems.length * 20 + 50);
+                }
+                
+                document.addEventListener('click', function(event) {
+                    if (!navContainer.contains(event.target) && navLinks.classList.contains('active')) {
+                        closeMenuWithAnimation();
+                    }
+                }, true);
+                
+                const navLinkItems = navLinks.querySelectorAll('a');
+                navLinkItems.forEach(link => {
+                    link.addEventListener('click', function() {
+                        if (window.innerWidth <= 768) {
+                            setTimeout(closeMenuWithAnimation, 100);
+                        }
+                    });
+                });
+                
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 768) {
+                        navLinks.classList.remove('active');
+                        mobileMenuBtn.classList.remove('active');
+                    }
+                });
+                
+                isInitialized = true;
+            }
+            
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initEnhancedMobileMenu);
+            } else {
+                initEnhancedMobileMenu();
+            }
+        })();
+
+        // Premium Interactive Enhancements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Intersection Observer for animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            
+            document.querySelectorAll('.calculator-card').forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+                observer.observe(card);
+            });
+            
+            // Enhanced interactions
+            document.querySelectorAll('.calculator-card').forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-12px)';
+                    this.querySelector('.card-icon').style.transform = 'scale(1.1) rotate(5deg)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                    this.querySelector('.card-icon').style.transform = 'scale(1) rotate(0deg)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+/* Pizza Pi Calculator Theme */
+:root {
+    --primary: #E53935;    /* Pizza sauce red */
+    --secondary: #FDD835;  /* Cheese yellow */
+    --accent: #4CAF50;     /* Basil green */
+    --text: #3E2723;       /* Crust brown */
+    --bg: #FFEBEE;         /* Light pink */
+    --card-bg: #FFFFFF;
+}
+
+body {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    background-image: 
+        radial-gradient(circle at 20% 30%, rgba(253, 216, 53, 0.2) 0%, transparent 20%),
+        radial-gradient(circle at 80% 70%, rgba(229, 57, 53, 0.2) 0%, transparent 20%);
+}
+
+h1 {
+    text-shadow: 2px 2px 0 var(--secondary);
+}
+
+.pizza-icon {
+    font-size: 1.5em;
+    vertical-align: middle;
+    margin: 0 5px;
+}
+
+.calculator {
+    border: 3px dashed var(--primary);
+    position: relative;
+    overflow: hidden;
+}
+
+.calculator:before {
+    content: "🍕";
+    position: absolute;
+    font-size: 100px;
+    opacity: 0.1;
+    right: -20px;
+    top: -20px;
+    z-index: 0;
+}

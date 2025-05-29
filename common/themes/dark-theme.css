@@ -1,0 +1,43 @@
+/* Dark/Zombie Theme for Tailwind-based calculators */
+:root {
+    --primary: #4ade80;    /* Green */
+    --secondary: #22c55e;  /* Dark green */
+    --accent: #16a34a;     /* Darker green */
+    --text: #f3f4f6;       /* Light gray */
+    --bg: #111827;         /* Dark gray */
+    --card-bg: #1f2937;    /* Darker gray */
+    --danger: #ef4444;     /* Red */
+}
+
+/* Tailwind compatibility - preserve existing Tailwind classes */
+body.bg-gray-900 {
+    background: var(--bg) !important;
+}
+
+.zombie-bg {
+    background: linear-gradient(135deg, #4a7729 0%, #2c4a1a 100%);
+}
+
+/* Animation keyframes */
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+.animate-pulse { 
+    animation: pulse 2s infinite; 
+}
+
+.animate-shake { 
+    animation: shake 0.5s; 
+}
+
+.progress-bar {
+    transition: width 0.5s ease-in-out;
+}

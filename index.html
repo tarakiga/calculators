@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Free universal unit converter tool. Convert between different units of measurement including length, weight, temperature, currency, and more. Instant, accurate conversions for everyday use.">
+    <meta name="keywords"
+        content="unit converter, measurement converter, length converter, weight converter, temperature converter, currency converter, metric converter, imperial converter">
+    <meta name="author" content="Universal Unit Converter">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://docket.one/">
+    <meta property="og:title" content="Universal Unit Converter - Free Online Conversion Tool">
+    <meta property="og:description"
+        content="Free universal unit converter tool. Convert between different units of measurement including length, weight, temperature, currency, and more.">
+    <meta property="og:image"
+        content="https://images.unsplash.com/photo-1564037506955-df759682f96f?auto=format&fit=crop&w=1200&h=630">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://docket.one/">
+    <meta property="twitter:title" content="Universal Unit Converter - Free Online Conversion Tool">
+    <meta property="twitter:description"
+        content="Free universal unit converter tool. Convert between different units of measurement including length, weight, temperature, currency, and more.">
+    <meta property="twitter:image"
+        content="https://images.unsplash.com/photo-1564037506955-df759682f96f?auto=format&fit=crop&w=1200&h=630">
+
+    <title>Universal Unit Converter - Free Online Conversion Tool</title>
+    <link rel="canonical" href="https://docket.one/">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="common/navbar-enhanced.css">
+    <link rel="stylesheet" href="common/santa-improvements.css">
+    <script src="https://analytics.ahrefs.com/analytics.js" data-key="LJUZ/Iuc9YVDc6biyso88A" async></script>
+
+    <!-- Schema.org markup for Google -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Universal Unit Converter",
+      "description": "Free universal unit converter tool. Convert between different units of measurement including length, weight, temperature, currency, and more.",
+      "url": "https://docket.one",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "featureList": [
+        "Length conversion",
+        "Weight conversion",
+        "Temperature conversion",
+        "Currency conversion",
+        "Area conversion",
+        "Volume conversion",
+        "Time conversion",
+        "Speed conversion",
+        "Data storage conversion",
+        "Energy conversion",
+        "Power conversion",
+        "Pressure conversion",
+        "Angle conversion",
+        "Density conversion",
+        "Fuel consumption conversion",
+        "Cooking measurements conversion"
+      ]
+    }
+    </script>
+
+    <style>
+        /* Homepage-specific mobile improvements */
+        @media (max-width: 768px) {
+            .more-calculators .calculator-categories {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .category-card {
+                padding: 1.5rem !important;
+            }
+            
+            .converter-select {
+                margin: 1rem 0;
+            }
+            
+            .converter-dropdown {
+                width: 100%;
+                padding: 0.75rem;
+                font-size: 16px;
+            }
+            
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            header p {
+                font-size: 1rem;
+            }
+        }
+        
+        /* Enhanced category card interactions */
+        .category-btn:hover {
+            background: rgba(255,255,255,0.3) !important;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+
+<body>
+            <!-- Enhanced Navigation Bar -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">🧮 Docket One</a>
+            </div>
+            <div class="nav-search">
+                <label for="calc-search" class="sr-only">Search calculators</label>
+                <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input" aria-label="Search calculators">
+                <div id="search-results" class="search-results"></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="pages/BigKidMath/index.html" class="category-main-link">Big Kid Math</a></li>
+                <li><a href="pages/CipherLab/index.html" class="category-main-link">Cipher Lab</a></li>
+                <li><a href="pages/GeekGalaxy/index.html" class="category-main-link">Geek Galaxy</a></li>
+                <li><a href="pages/LifeHacks/index.html" class="category-main-link">Life Hacks</a></li>
+                <li><a href="pages/Math_Magik/index.html" class="category-main-link">Math Magik</a></li>
+                <li><a href="pages/Otaku_Ops/index.html" class="category-main-link">Otaku Ops</a></li>
+                <li><a href="#" onclick="location.reload()" class="home-link">Unit Converter</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+    
+
+    
+
+    
+    <main class="container" role="main">
+        <header>
+            <h1>Universal Unit Converter</h1>
+            <p>Convert between different units instantly</p>
+        </header>
+
+        <nav class="converter-select" role="navigation" aria-label="Converter selection">
+            <div class="select-wrapper">
+                <select id="converterSelect" class="converter-dropdown" aria-label="Select converter type">
+                    <option value="length">Length Converter</option>
+                    <option value="weight">Weight Converter</option>
+                    <option value="area">Area Converter</option>
+                    <option value="volume">Volume Converter</option>
+                    <option value="temperature">Temperature Converter</option>
+                    <option value="time">Time Converter</option>
+                    <option value="speed">Speed Converter</option>
+                    <option value="data">Data Storage Converter</option>
+                    <option value="currency">Currency Converter</option>
+                    <option value="energy">Energy Converter</option>
+                    <option value="power">Power Converter</option>
+                    <option value="pressure">Pressure Converter</option>
+                    <option value="angle">Angle Converter</option>
+                    <option value="density">Density Converter</option>
+                    <option value="fuel">Fuel Consumption Converter</option>
+                    <option value="cooking">Cooking Converter</option>
+                </select>
+            </div>
+        </nav>
+        <section class="converter-content" role="region" aria-label="Converter interface">
+            <!-- Length Converter -->
+            <div id="length" class="tab-content active">
+                <p class="converter-description">Convert between different units of length, including metric
+                    (millimeters, centimeters, meters, kilometers) and imperial (inches, feet, yards, miles)
+                    measurements.</p>
+                <div class="input-group">
+                    <div class="input-wrapper">
+                        <label class="input-label">Millimeters (mm)</label>
+                        <label for="input-vgqvyqqek" class="sr-only">Input field</label>
+            <input type="number" id="input-vgqvyqqek" aria-label="Calculator input" data-unit="mm" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Centimeters (cm)</label>
+                        <label for="input-sst745afy" class="sr-only">Input field</label>
+            <input type="number" id="input-sst745afy" aria-label="Calculator input" data-unit="cm" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Meters (m)</label>
+                        <label for="input-scmn1wphy" class="sr-only">Input field</label>
+            <input type="number" id="input-scmn1wphy" aria-label="Calculator input" data-unit="meters" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Kilometers (km)</label>
+                        <label for="input-bsntt39pg" class="sr-only">Input field</label>
+            <input type="number" id="input-bsntt39pg" aria-label="Calculator input" data-unit="km" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Inches (in)</label>
+                        <label for="input-ktk5nwyv6" class="sr-only">Input field</label>
+            <input type="number" id="input-ktk5nwyv6" aria-label="Calculator input" data-unit="inches" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Feet (ft)</label>
+                        <label for="input-ssmlodh5z" class="sr-only">Input field</label>
+            <input type="number" id="input-ssmlodh5z" aria-label="Calculator input" data-unit="feet" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Yards (yd)</label>
+                        <label for="input-tqu46imj5" class="sr-only">Input field</label>
+            <input type="number" id="input-tqu46imj5" aria-label="Calculator input" data-unit="yards" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Miles (mi)</label>
+                        <label for="input-i4ao063nw" class="sr-only">Input field</label>
+            <input type="number" id="input-i4ao063nw" aria-label="Calculator input" data-unit="miles" placeholder="Enter value">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Weight Converter -->
+            <div id="weight" class="tab-content">
+                <p class="converter-description">Convert between various weight and mass units, including metric
+                    (milligrams, grams, kilograms, tonnes) and imperial (ounces, pounds, stone) measurements.</p>
+                <div class="input-group">
+                    <div class="input-wrapper">
+                        <label class="input-label">Milligrams (mg)</label>
+                        <label for="input-3l26ic7zw" class="sr-only">Input field</label>
+            <input type="number" id="input-3l26ic7zw" aria-label="Calculator input" data-unit="mg" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Grams (g)</label>
+                        <label for="input-ko6ut95rv" class="sr-only">Input field</label>
+            <input type="number" id="input-ko6ut95rv" aria-label="Calculator input" data-unit="g" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Kilograms (kg)</label>
+                        <label for="input-b9ji5up2y" class="sr-only">Input field</label>
+            <input type="number" id="input-b9ji5up2y" aria-label="Calculator input" data-unit="kg" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Tonnes (t)</label>
+                        <label for="input-564nuo4ga" class="sr-only">Input field</label>
+            <input type="number" id="input-564nuo4ga" aria-label="Calculator input" data-unit="tonnes" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Ounces (oz)</label>
+                        <label for="input-yjaov32i0" class="sr-only">Input field</label>
+            <input type="number" id="input-yjaov32i0" aria-label="Calculator input" data-unit="ounces" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Pounds (lb)</label>
+                        <label for="input-3pkespejj" class="sr-only">Input field</label>
+            <input type="number" id="input-3pkespejj" aria-label="Calculator input" data-unit="pounds" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Stone (st)</label>
+                        <label for="input-1uhys3w0x" class="sr-only">Input field</label>
+            <input type="number" id="input-1uhys3w0x" aria-label="Calculator input" data-unit="stone" placeholder="Enter value">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Area Converter -->
+            <div id="area" class="tab-content">
+                <p class="converter-description">Convert between different units of area, from small measurements like
+                    square millimeters to large ones like square kilometers, acres, and hectares.</p>
+                <div class="input-group">
+                    <div class="input-wrapper">
+                        <label class="input-label">Square Millimeters (mm²)</label>
+                        <label for="input-871baqqbr" class="sr-only">Input field</label>
+            <input type="number" id="input-871baqqbr" aria-label="Calculator input" data-unit="sqmm" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Square Centimeters (cm²)</label>
+                        <label for="input-unqi5bujz" class="sr-only">Input field</label>
+            <input type="number" id="input-unqi5bujz" aria-label="Calculator input" data-unit="sqcm" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Square Meters (m²)</label>
+                        <label for="input-4blmg0uwn" class="sr-only">Input field</label>
+            <input type="number" id="input-4blmg0uwn" aria-label="Calculator input" data-unit="sqm" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Square Kilometers (km²)</label>
+                        <label for="input-wjq467bah" class="sr-only">Input field</label>
+            <input type="number" id="input-wjq467bah" aria-label="Calculator input" data-unit="sqkm" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Square Inches (in²)</label>
+                        <label for="input-sjqd3sdg4" class="sr-only">Input field</label>
+            <input type="number" id="input-sjqd3sdg4" aria-label="Calculator input" data-unit="sqin" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Square Feet (ft²)</label>
+                        <label for="input-w6c4bw941" class="sr-only">Input field</label>
+            <input type="number" id="input-w6c4bw941" aria-label="Calculator input" data-unit="sqft" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Square Yards (yd²)</label>
+                        <label for="input-f0oszss7j" class="sr-only">Input field</label>
+            <input type="number" id="input-f0oszss7j" aria-label="Calculator input" data-unit="sqyd" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Acres</label>
+                        <label for="input-586hsvups" class="sr-only">Input field</label>
+            <input type="number" id="input-586hsvups" aria-label="Calculator input" data-unit="acres" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Hectares</label>
+                        <label for="input-bywsp1ynn" class="sr-only">Input field</label>
+            <input type="number" id="input-bywsp1ynn" aria-label="Calculator input" data-unit="hectares" placeholder="Enter value">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Volume Converter -->
+            <div id="volume" class="tab-content">
+                <p class="converter-description">Convert between various volume units, including metric (milliliters,
+                    liters, cubic meters) and imperial (cubic inches, cubic feet, gallons) measurements.</p>
+                <div class="input-group">
+                    <div class="input-wrapper">
+                        <label class="input-label">Milliliters (ml)</label>
+                        <label for="input-mvgi1byt7" class="sr-only">Input field</label>
+            <input type="number" id="input-mvgi1byt7" aria-label="Calculator input" data-unit="ml" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Liters (L)</label>
+                        <label for="input-7lrbpnl7l" class="sr-only">Input field</label>
+            <input type="number" id="input-7lrbpnl7l" aria-label="Calculator input" data-unit="l" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Cubic Meters (m³)</label>
+                        <label for="input-a1cicv7df" class="sr-only">Input field</label>
+            <input type="number" id="input-a1cicv7df" aria-label="Calculator input" data-unit="cubicm" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Cubic Inches (in³)</label>
+                        <label for="input-xdblj1bcd" class="sr-only">Input field</label>
+            <input type="number" id="input-xdblj1bcd" aria-label="Calculator input" data-unit="cubicin" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Cubic Feet (ft³)</label>
+                        <label for="input-eoivb6hkx" class="sr-only">Input field</label>
+            <input type="number" id="input-eoivb6hkx" aria-label="Calculator input" data-unit="cubicft" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">US Gallons</label>
+                        <label for="input-mf6fhvgxj" class="sr-only">Input field</label>
+            <input type="number" id="input-mf6fhvgxj" aria-label="Calculator input" data-unit="usgal" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Imperial Gallons</label>
+                        <label for="input-5y9mrux7m" class="sr-only">Input field</label>
+            <input type="number" id="input-5y9mrux7m" aria-label="Calculator input" data-unit="impgal" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Quarts</label>
+                        <label for="input-mrcqw0tbr" class="sr-only">Input field</label>
+            <input type="number" id="input-mrcqw0tbr" aria-label="Calculator input" data-unit="quarts" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Pints</label>
+                        <label for="input-htk4z6de5" class="sr-only">Input field</label>
+            <input type="number" id="input-htk4z6de5" aria-label="Calculator input" data-unit="pints" placeholder="Enter value">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Temperature Converter -->
+            <div id="temperature" class="tab-content">
+                <p class="converter-description">Convert between different temperature scales: Celsius (°C), Fahrenheit
+                    (°F), Kelvin (K), and Rankine (°R). Perfect for scientific and everyday use.</p>
+                <div class="input-group">
+                    <div class="input-wrapper">
+                        <label class="input-label">Celsius (°C)</label>
+                        <label for="input-ymvx8pkut" class="sr-only">Input field</label>
+            <input type="number" id="input-ymvx8pkut" aria-label="Calculator input" data-unit="celsius" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Fahrenheit (°F)</label>
+                        <label for="input-c0ije4pqe" class="sr-only">Input field</label>
+            <input type="number" id="input-c0ije4pqe" aria-label="Calculator input" data-unit="fahrenheit" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Kelvin (K)</label>
+                        <label for="input-vu0h7lv04" class="sr-only">Input field</label>
+            <input type="number" id="input-vu0h7lv04" aria-label="Calculator input" data-unit="kelvin" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Rankine (°R)</label>
+                        <label for="input-ajn7qhsma" class="sr-only">Input field</label>
+            <input type="number" id="input-ajn7qhsma" aria-label="Calculator input" data-unit="rankine" placeholder="Enter value">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Time Converter -->
+            <div id="time" class="tab-content">
+                <p class="converter-description">Convert between various units of time, from seconds to years. Useful
+                    for calculating durations and time intervals.</p>
+                <div class="input-group">
+                    <div class="input-wrapper">
+                        <label class="input-label">Seconds</label>
+                        <label for="input-uifq3quns" class="sr-only">Input field</label>
+            <input type="number" id="input-uifq3quns" aria-label="Calculator input" data-unit="seconds" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Minutes</label>
+                        <label for="input-gm9oa8wr8" class="sr-only">Input field</label>
+            <input type="number" id="input-gm9oa8wr8" aria-label="Calculator input" data-unit="minutes" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Hours</label>
+                        <label for="input-dvhmh7aas" class="sr-only">Input field</label>
+            <input type="number" id="input-dvhmh7aas" aria-label="Calculator input" data-unit="hours" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Days</label>
+                        <label for="input-ad21s3tvs" class="sr-only">Input field</label>
+            <input type="number" id="input-ad21s3tvs" aria-label="Calculator input" data-unit="days" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Weeks</label>
+                        <label for="input-7420i5gi1" class="sr-only">Input field</label>
+            <input type="number" id="input-7420i5gi1" aria-label="Calculator input" data-unit="weeks" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Months</label>
+                        <label for="input-hmtlxy1ut" class="sr-only">Input field</label>
+            <input type="number" id="input-hmtlxy1ut" aria-label="Calculator input" data-unit="months" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Years</label>
+                        <label for="input-5z0crjv4d" class="sr-only">Input field</label>
+            <input type="number" id="input-5z0crjv4d" aria-label="Calculator input" data-unit="years" placeholder="Enter value">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Speed Converter -->
+            <div id="speed" class="tab-content">
+                <p class="converter-description">Convert between different units of speed, including meters per second,
+                    kilometers per hour, miles per hour, knots, and feet per second.</p>
+                <div class="input-group">
+                    <div class="input-wrapper">
+                        <label class="input-label">Meters per Second</label>
+                        <label for="input-230qq9zsa" class="sr-only">Input field</label>
+            <input type="number" id="input-230qq9zsa" aria-label="Calculator input" data-unit="mps" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Kilometers per Hour</label>
+                        <label for="input-m111jbmay" class="sr-only">Input field</label>
+            <input type="number" id="input-m111jbmay" aria-label="Calculator input" data-unit="kph" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Miles per Hour</label>
+                        <label for="input-jhbnkbdxu" class="sr-only">Input field</label>
+            <input type="number" id="input-jhbnkbdxu" aria-label="Calculator input" data-unit="mph" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Knots</label>
+                        <label for="input-rl5t3goj0" class="sr-only">Input field</label>
+            <input type="number" id="input-rl5t3goj0" aria-label="Calculator input" data-unit="knots" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Feet per Second</label>
+                        <label for="input-1fwf49df6" class="sr-only">Input field</label>
+            <input type="number" id="input-1fwf49df6" aria-label="Calculator input" data-unit="fps" placeholder="Enter value">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Storage Converter -->
+            <div id="data" class="tab-content">
+                <p class="converter-description">Convert between digital storage units, from bits to terabytes.
+                    Essential for understanding file sizes and storage capacity.</p>
+                <div class="input-group">
+                    <div class="input-wrapper">
+                        <label class="input-label">Bits</label>
+                        <label for="input-3kf0h8q1m" class="sr-only">Input field</label>
+            <input type="number" id="input-3kf0h8q1m" aria-label="Calculator input" data-unit="bits" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Bytes</label>
+                        <label for="input-6w38gss1n" class="sr-only">Input field</label>
+            <input type="number" id="input-6w38gss1n" aria-label="Calculator input" data-unit="bytes" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Kilobytes</label>
+                        <label for="input-b1dpjj8gc" class="sr-only">Input field</label>
+            <input type="number" id="input-b1dpjj8gc" aria-label="Calculator input" data-unit="kb" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Megabytes</label>
+                        <label for="input-yfb11dt2o" class="sr-only">Input field</label>
+            <input type="number" id="input-yfb11dt2o" aria-label="Calculator input" data-unit="mb" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Gigabytes</label>
+                        <label for="input-g43ob38vs" class="sr-only">Input field</label>
+            <input type="number" id="input-g43ob38vs" aria-label="Calculator input" data-unit="gb" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Terabytes</label>
+                        <label for="input-nd80v4oto" class="sr-only">Input field</label>
+            <input type="number" id="input-nd80v4oto" aria-label="Calculator input" data-unit="tb" placeholder="Enter value">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Energy Converter -->
+            <div id="energy" class="tab-content">
+                <p class="converter-description">Convert between different units of energy, including joules, calories,
+                    kilowatt-hours, and BTUs. Useful for physics, nutrition, and power consumption calculations.</p>
+                <div class="input-group">
+                    <div class="input-wrapper">
+                        <label class="input-label">Joules</label>
+                        <label for="input-jodabfodt" class="sr-only">Input field</label>
+            <input type="number" id="input-jodabfodt" aria-label="Calculator input" data-unit="joules" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Kilojoules</label>
+                        <label for="input-hoq9zldoa" class="sr-only">Input field</label>
+            <input type="number" id="input-hoq9zldoa" aria-label="Calculator input" data-unit="kilojoules" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Calories</label>
+                        <label for="input-munydnw0z" class="sr-only">Input field</label>
+            <input type="number" id="input-munydnw0z" aria-label="Calculator input" data-unit="calories" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Kilocalories</label>
+                        <label for="input-qbryo56cj" class="sr-only">Input field</label>
+            <input type="number" id="input-qbryo56cj" aria-label="Calculator input" data-unit="kilocalories" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Kilowatt Hours</label>
+                        <label for="input-zlfqhp6b5" class="sr-only">Input field</label>
+            <input type="number" id="input-zlfqhp6b5" aria-label="Calculator input" data-unit="kwh" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">BTU</label>
+                        <label for="input-bbty5npl6" class="sr-only">Input field</label>
+            <input type="number" id="input-bbty5npl6" aria-label="Calculator input" data-unit="btu" placeholder="Enter value">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Power Converter -->
+            <div id="power" class="tab-content">
+                <p class="converter-description">Convert between units of power, including watts, kilowatts, and
+                    horsepower. Perfect for understanding electrical and mechanical power ratings.</p>
+                <div class="input-group">
+                    <div class="input-wrapper">
+                        <label class="input-label">Watts</label>
+                        <label for="input-u660rzxbb" class="sr-only">Input field</label>
+            <input type="number" id="input-u660rzxbb" aria-label="Calculator input" data-unit="watts" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Kilowatts</label>
+                        <label for="input-9p27dv0n1" class="sr-only">Input field</label>
+            <input type="number" id="input-9p27dv0n1" aria-label="Calculator input" data-unit="kilowatts" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Horsepower</label>
+                        <label for="input-h6jf9vx55" class="sr-only">Input field</label>
+            <input type="number" id="input-h6jf9vx55" aria-label="Calculator input" data-unit="horsepower" placeholder="Enter value">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pressure Converter -->
+            <div id="pressure" class="tab-content">
+                <p class="converter-description">Convert between different pressure units, including pascals, bars, PSI,
+                    and atmospheres. Essential for engineering and scientific calculations.</p>
+                <div class="input-group">
+                    <div class="input-wrapper">
+                        <label class="input-label">Pascals</label>
+                        <label for="input-1qm57bhv7" class="sr-only">Input field</label>
+            <input type="number" id="input-1qm57bhv7" aria-label="Calculator input" data-unit="pascals" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Kilopascals</label>
+                        <label for="input-qj5jqfr5n" class="sr-only">Input field</label>
+            <input type="number" id="input-qj5jqfr5n" aria-label="Calculator input" data-unit="kilopascals" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Bar</label>
+                        <label for="input-40estonmt" class="sr-only">Input field</label>
+            <input type="number" id="input-40estonmt" aria-label="Calculator input" data-unit="bar" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">PSI</label>
+                        <label for="input-kca7fr1uc" class="sr-only">Input field</label>
+            <input type="number" id="input-kca7fr1uc" aria-label="Calculator input" data-unit="psi" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Atmospheres</label>
+                        <label for="input-exnwwcyek" class="sr-only">Input field</label>
+            <input type="number" id="input-exnwwcyek" aria-label="Calculator input" data-unit="atmosphere" placeholder="Enter value">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Angle Converter -->
+            <div id="angle" class="tab-content">
+                <p class="converter-description">Convert between different angle measurements: degrees, radians, and
+                    gradians. Useful for mathematics, engineering, and navigation.</p>
+                <div class="input-group">
+                    <div class="input-wrapper">
+                        <label class="input-label">Degrees</label>
+                        <label for="input-qu4buwxyp" class="sr-only">Input field</label>
+            <input type="number" id="input-qu4buwxyp" aria-label="Calculator input" data-unit="degrees" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Radians</label>
+                        <label for="input-jruoej4zx" class="sr-only">Input field</label>
+            <input type="number" id="input-jruoej4zx" aria-label="Calculator input" data-unit="radians" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Gradians</label>
+                        <label for="input-e6ebbw5x2" class="sr-only">Input field</label>
+            <input type="number" id="input-e6ebbw5x2" aria-label="Calculator input" data-unit="gradians" placeholder="Enter value">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Density Converter -->
+            <div id="density" class="tab-content">
+                <p class="converter-description">Convert between different density units, including kg/m³, g/cm³, and
+                    lb/ft³. Important for material science and engineering calculations.</p>
+                <div class="input-group">
+                    <div class="input-wrapper">
+                        <label class="input-label">kg/m³</label>
+                        <label for="input-dra09p4pa" class="sr-only">Input field</label>
+            <input type="number" id="input-dra09p4pa" aria-label="Calculator input" data-unit="kgm3" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">g/cm³</label>
+                        <label for="input-xrn6xlg7y" class="sr-only">Input field</label>
+            <input type="number" id="input-xrn6xlg7y" aria-label="Calculator input" data-unit="gcm3" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">lb/ft³</label>
+                        <label for="input-qpzu0heg7" class="sr-only">Input field</label>
+            <input type="number" id="input-qpzu0heg7" aria-label="Calculator input" data-unit="lbft3" placeholder="Enter value">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fuel Consumption Converter -->
+            <div id="fuel" class="tab-content">
+                <p class="converter-description">Convert between different fuel consumption measurements: miles per
+                    gallon (MPG), kilometers per liter (km/L), and liters per 100 kilometers (L/100km).</p>
+                <div class="input-group">
+                    <div class="input-wrapper">
+                        <label class="input-label">Miles per Gallon</label>
+                        <label for="input-3b50tib5p" class="sr-only">Input field</label>
+            <input type="number" id="input-3b50tib5p" aria-label="Calculator input" data-unit="mpg" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Kilometers per Liter</label>
+                        <label for="input-hog4vork0" class="sr-only">Input field</label>
+            <input type="number" id="input-hog4vork0" aria-label="Calculator input" data-unit="kml" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Liters per 100 km</label>
+                        <label for="input-dhieq78tf" class="sr-only">Input field</label>
+            <input type="number" id="input-dhieq78tf" aria-label="Calculator input" data-unit="l100km" placeholder="Enter value">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cooking Converter -->
+            <div id="cooking" class="tab-content">
+                <p class="converter-description">Convert between common cooking measurements, including cups,
+                    tablespoons, teaspoons, fluid ounces, milliliters, and grams. Perfect for recipe conversions.</p>
+                <div class="input-group">
+                    <div class="input-wrapper">
+                        <label class="input-label">Cups</label>
+                        <label for="input-k1mxdeabl" class="sr-only">Input field</label>
+            <input type="number" id="input-k1mxdeabl" aria-label="Calculator input" data-unit="cups" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Tablespoons</label>
+                        <label for="input-i9n7reemk" class="sr-only">Input field</label>
+            <input type="number" id="input-i9n7reemk" aria-label="Calculator input" data-unit="tablespoons" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Teaspoons</label>
+                        <label for="input-84rszve3a" class="sr-only">Input field</label>
+            <input type="number" id="input-84rszve3a" aria-label="Calculator input" data-unit="teaspoons" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Fluid Ounces</label>
+                        <label for="input-0ixs11t0s" class="sr-only">Input field</label>
+            <input type="number" id="input-0ixs11t0s" aria-label="Calculator input" data-unit="fluidounces" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Milliliters</label>
+                        <label for="input-j7pnfofus" class="sr-only">Input field</label>
+            <input type="number" id="input-j7pnfofus" aria-label="Calculator input" data-unit="milliliters" placeholder="Enter value">
+                    </div>
+                    <div class="input-wrapper">
+                        <label class="input-label">Grams</label>
+                        <label for="input-zjlz4wzj7" class="sr-only">Input field</label>
+            <input type="number" id="input-zjlz4wzj7" aria-label="Calculator input" data-unit="grams" placeholder="Enter value">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Currency Converter -->
+            <div id="currency" class="tab-content">
+                <p class="converter-description">Convert between different world currencies with real-time exchange
+                    rates. Stay updated with the latest currency conversion values.</p>
+                <div class="currency-converter">
+                    <div class="input-group">
+                        <div class="input-wrapper">
+                            <label class="input-label">Amount</label>
+                            <label for="input-ds31k2tpl" class="sr-only">Input field</label>
+                            <input type="number" id="amount" aria-label="Currency amount" placeholder="Enter amount">
+                        </div>
+                        <div class="input-wrapper">
+                            <label class="input-label">From Currency</label>
+                            <select id="fromCurrency" class="currency-select"></select>
+                        </div>
+                        <div class="input-wrapper">
+                            <label class="input-label">To Currency</label>
+                            <select id="toCurrency" class="currency-select"></select>
+                        </div>
+                    </div>
+                    <div class="result">
+                        <p>Result: <span id="currencyResult">0.00</span></p>
+                        <p class="update-time">Last updated: <span id="lastUpdate">-</span></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="page-footer">
+            <p>Universal Unit Converter is a free online tool for quick and accurate unit conversions. Perfect for
+                students, professionals, and anyone who needs to convert between different units of measurement.</p>
+            <nav class="footer-nav">
+                <h2>Available Converters</h2>
+                <ul>
+                    <li><a href="#length">Length Converter</a></li>
+                    <li><a href="#weight">Weight Converter</a></li>
+                    <li><a href="#area">Area Converter</a></li>
+                    <li><a href="#volume">Volume Converter</a></li>
+                    <li><a href="#temperature">Temperature Converter</a></li>
+                    <li><a href="#time">Time Converter</a></li>
+                    <li><a href="#speed">Speed Converter</a></li>
+                    <li><a href="#data">Data Storage Converter</a></li>
+                    <li><a href="#energy">Energy Converter</a></li>
+                    <li><a href="#power">Power Converter</a></li>
+                    <li><a href="#pressure">Pressure Converter</a></li>
+                    <li><a href="#angle">Angle Converter</a></li>
+                    <li><a href="#density">Density Converter</a></li>
+                    <li><a href="#fuel">Fuel Consumption Converter</a></li>
+                    <li><a href="#cooking">Cooking Converter</a></li>
+                    <li><a href="#currency">Currency Converter</a></li>
+                </ul>
+            </nav>
+        </footer>
+    </main>
+    
+    <!-- Additional Calculator Categories Section -->
+    <section class="more-calculators" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 3rem 0; margin-top: 2rem;">
+        <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
+            <h2 style="text-align: center; color: white; margin-bottom: 2rem; font-size: 2.5rem;">Explore More Calculators</h2>
+            <p style="text-align: center; color: rgba(255,255,255,0.9); margin-bottom: 3rem; font-size: 1.2rem;">Discover specialized calculators for every aspect of life</p>
+            
+            <div class="calculator-categories" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                <div class="category-card" style="background: rgba(255,255,255,0.1); border-radius: 12px; padding: 2rem; text-align: center; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2);">
+                    <h3 style="color: white; margin-bottom: 1rem;">🧠 Big Kid Math</h3>
+                    <p style="color: rgba(255,255,255,0.8); margin-bottom: 1.5rem;">Practical calculators for adult life decisions</p>
+                    <a href="pages/BigKidMath/index.html" class="category-btn" style="display: inline-block; background: rgba(255,255,255,0.2); color: white; padding: 0.75rem 2rem; border-radius: 6px; text-decoration: none; font-weight: bold; transition: all 0.3s;">Explore →</a>
+                </div>
+                
+                <div class="category-card" style="background: rgba(255,255,255,0.1); border-radius: 12px; padding: 2rem; text-align: center; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2);">
+                    <h3 style="color: white; margin-bottom: 1rem;">🔐 Cipher Lab</h3>
+                    <p style="color: rgba(255,255,255,0.8); margin-bottom: 1.5rem;">Cryptography and security tools</p>
+                    <a href="pages/CipherLab/index.html" class="category-btn" style="display: inline-block; background: rgba(255,255,255,0.2); color: white; padding: 0.75rem 2rem; border-radius: 6px; text-decoration: none; font-weight: bold; transition: all 0.3s;">Explore →</a>
+                </div>
+                
+                <div class="category-card" style="background: rgba(255,255,255,0.1); border-radius: 12px; padding: 2rem; text-align: center; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2);">
+                    <h3 style="color: white; margin-bottom: 1rem;">🚀 Geek Galaxy</h3>
+                    <p style="color: rgba(255,255,255,0.8); margin-bottom: 1.5rem;">Sci-fi and fantasy calculators</p>
+                    <a href="pages/GeekGalaxy/index.html" class="category-btn" style="display: inline-block; background: rgba(255,255,255,0.2); color: white; padding: 0.75rem 2rem; border-radius: 6px; text-decoration: none; font-weight: bold; transition: all 0.3s;">Explore →</a>
+                </div>
+                
+                <div class="category-card" style="background: rgba(255,255,255,0.1); border-radius: 12px; padding: 2rem; text-align: center; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2);">
+                    <h3 style="color: white; margin-bottom: 1rem;">🎯 Life Hacks</h3>
+                    <p style="color: rgba(255,255,255,0.8); margin-bottom: 1.5rem;">Optimize your daily life</p>
+                    <a href="pages/LifeHacks/index.html" class="category-btn" style="display: inline-block; background: rgba(255,255,255,0.2); color: white; padding: 0.75rem 2rem; border-radius: 6px; text-decoration: none; font-weight: bold; transition: all 0.3s;">Explore →</a>
+                </div>
+                
+                <div class="category-card" style="background: rgba(255,255,255,0.1); border-radius: 12px; padding: 2rem; text-align: center; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2);">
+                    <h3 style="color: white; margin-bottom: 1rem;">🔢 Math Magik</h3>
+                    <p style="color: rgba(255,255,255,0.8); margin-bottom: 1.5rem;">Advanced mathematical tools</p>
+                    <a href="pages/Math_Magik/index.html" class="category-btn" style="display: inline-block; background: rgba(255,255,255,0.2); color: white; padding: 0.75rem 2rem; border-radius: 6px; text-decoration: none; font-weight: bold; transition: all 0.3s;">Explore →</a>
+                </div>
+                
+                <div class="category-card" style="background: rgba(255,255,255,0.1); border-radius: 12px; padding: 2rem; text-align: center; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2);">
+                    <h3 style="color: white; margin-bottom: 1rem;">🎮 Otaku Ops</h3>
+                    <p style="color: rgba(255,255,255,0.8); margin-bottom: 1.5rem;">Anime, manga, and gaming tools</p>
+                    <a href="pages/Otaku_Ops/index.html" class="category-btn" style="display: inline-block; background: rgba(255,255,255,0.2); color: white; padding: 0.75rem 2rem; border-radius: 6px; text-decoration: none; font-weight: bold; transition: all 0.3s;">Explore →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <script>
+        // COMPLETE OVERRIDE: Enhanced mobile menu functionality 
+        // This completely replaces script.js mobile menu functionality
+        (function() {
+            'use strict';
+            
+            let isInitialized = false;
+            
+            function initEnhancedMobileMenu() {
+                if (isInitialized) return;
+                
+                console.log('🚀 Initializing ENHANCED mobile menu (overriding script.js)');
+                console.log('📱 Current viewport width:', window.innerWidth);
+                
+                const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+                const navLinks = document.querySelector('.nav-links');
+                const navContainer = document.querySelector('.nav-container');
+                
+                console.log('🔍 Element check:', {
+                    mobileMenuBtn: mobileMenuBtn ? '✅ Found' : '❌ Missing',
+                    navLinks: navLinks ? '✅ Found' : '❌ Missing', 
+                    navContainer: navContainer ? '✅ Found' : '❌ Missing'
+                });
+                
+                if (!mobileMenuBtn || !navLinks) {
+                    console.error('❌ Critical elements missing - cannot initialize mobile menu');
+                    return;
+                }
+                
+                console.log('✅ Mobile menu elements found');
+                
+                // CRITICAL: Remove all existing event listeners by replacing the element
+                const newMobileMenuBtn = mobileMenuBtn.cloneNode(true);
+                mobileMenuBtn.parentNode.replaceChild(newMobileMenuBtn, mobileMenuBtn);
+                
+                // Get fresh reference
+                const enhancedMenuBtn = document.querySelector('.mobile-menu-btn');
+                
+                console.log('🔄 Mobile menu button replaced to remove old listeners');
+                
+                // Enhanced click handler
+                enhancedMenuBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    e.stopImmediatePropagation();
+                    
+                    console.log('🎯 Enhanced mobile menu button clicked');
+                    
+                    const isActive = navLinks.classList.contains('active');
+                    
+                    if (isActive) {
+                        closeMenuWithAnimation();
+                    } else {
+                        openMenuWithAnimation();
+                    }
+                });
+                
+                function openMenuWithAnimation() {
+                    console.log('📱 Opening mobile menu');
+                    navLinks.classList.add('active');
+                    enhancedMenuBtn.classList.add('active');
+                    
+                    // Stagger animation for menu items
+                    const menuItems = navLinks.querySelectorAll('a');
+                    menuItems.forEach((item, index) => {
+                        item.style.transform = 'translateX(-20px)';
+                        item.style.opacity = '0';
+                        setTimeout(() => {
+                            item.style.transform = 'translateX(0)';
+                            item.style.opacity = '1';
+                        }, index * 50 + 100);
+                    });
+                }
+                
+                function closeMenuWithAnimation() {
+                    console.log('📱 Closing mobile menu');
+                    const menuItems = navLinks.querySelectorAll('a');
+                    menuItems.forEach((item, index) => {
+                        setTimeout(() => {
+                            item.style.transform = 'translateX(-10px)';
+                            item.style.opacity = '0.5';
+                        }, index * 20);
+                    });
+                    
+                    setTimeout(() => {
+                        navLinks.classList.remove('active');
+                        enhancedMenuBtn.classList.remove('active');
+                        // Reset transforms
+                        menuItems.forEach(item => {
+                            item.style.transform = '';
+                            item.style.opacity = '';
+                        });
+                    }, menuItems.length * 20 + 50);
+                }
+                
+                // Enhanced outside click handler (with namespace to avoid conflicts)
+                document.addEventListener('click', function enhancedOutsideClickHandler(event) {
+                    if (!navContainer.contains(event.target) && navLinks.classList.contains('active')) {
+                        console.log('🎯 Outside click detected - enhanced handler');
+                        event.stopImmediatePropagation();
+                        closeMenuWithAnimation();
+                    }
+                }, true); // Use capture phase to run before other handlers
+                
+                // Enhanced link click handlers
+                const navLinkItems = navLinks.querySelectorAll('a');
+                navLinkItems.forEach(link => {
+                    link.addEventListener('click', function enhancedLinkClickHandler(e) {
+                        if (window.innerWidth <= 768) {
+                            console.log('🔗 Link clicked in mobile menu');
+                            
+                            // Add click animation
+                            this.style.transform = 'scale(0.95)';
+                            this.style.transition = 'all 0.1s ease';
+                            
+                            setTimeout(() => {
+                                this.style.transform = '';
+                                this.style.transition = '';
+                                closeMenuWithAnimation();
+                            }, 100);
+                        }
+                    });
+                });
+                
+                // Enhanced resize handler
+                window.addEventListener('resize', function enhancedResizeHandler() {
+                    if (window.innerWidth > 768) {
+                        navLinks.classList.remove('active');
+                        enhancedMenuBtn.classList.remove('active');
+                        console.log('🖥️ Window resized - mobile menu closed');
+                    }
+                });
+                
+                isInitialized = true;
+                console.log('✅ Enhanced mobile menu initialized successfully');
+            }
+            
+            // Initialize when DOM is ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', function() {
+                    setTimeout(initEnhancedMobileMenu, 300); // Delay to ensure other scripts load first
+                });
+            } else {
+                setTimeout(initEnhancedMobileMenu, 300);
+            }
+        })();
+    </script>
+    <script src="script.js"></script>
+    <script>
+        // Search functionality only (mobile menu now handled by enhanced script above)
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🔍 Setting up search functionality');
+            
+            // Search functionality
+            const searchInput = document.getElementById('calc-search');
+            const searchResults = document.getElementById('search-results');
+            
+            if (searchInput && searchResults) {
+                const calculators = [
+                    // Big Kid Math
+                    {name: 'Caffeine Half-Life Calculator', path: 'pages/BigKidMath/Caffeine%20Half-Life%20Calculator.html', category: 'Big Kid Math'},
+                    {name: 'Car Ownership vs. Uber Cost Calculator', path: 'pages/BigKidMath/Car%20Ownership%20vs.%20Uber%20Cost%20Calculator.html', category: 'Big Kid Math'},
+                    {name: 'Generational Timeline Calculator', path: 'pages/BigKidMath/Generational%20Timeline%20Calculator.html', category: 'Big Kid Math'},
+                    // Math Magik
+                    {name: 'Double Pendulum Chaos', path: 'pages/Math_Magik/Double%20Pendulum%20Chaos.html', category: 'Math Magik'},
+                    {name: 'Pizza Pi Calculator', path: 'pages/Math_Magik/Pizza%20Pi%20Calculator.html', category: 'Math Magik'},
+                    {name: 'FIRE Number Calculator', path: 'pages/Math_Magik/FIRE%20Number%20Calculator.html', category: 'Math Magik'},
+                    {name: 'Chaos Theory Explorer', path: 'pages/Math_Magik/entropy%20and%20feigenbaums%20constant.html', category: 'Math Magik'},
+                    // Geek Galaxy
+                    {name: 'Zombie Apocalypse Survival Calculator', path: 'pages/GeekGalaxy/Zombie%20Apocalypse%20Survival%20Calculator.html', category: 'Geek Galaxy'},
+                    {name: 'Lightsaber Battery Life Calculator', path: 'pages/GeekGalaxy/Lightsaber%20Battery%20Life%20Calculator.html', category: 'Geek Galaxy'},
+                    {name: 'Space Travel Time Calculator', path: 'pages/GeekGalaxy/Space%20Travel%20Time%20Calculator.html', category: 'Geek Galaxy'},
+                    {name: 'AI Doomsday Countdown', path: 'pages/GeekGalaxy/AI%20Doomsday%20Countdown.html', category: 'Geek Galaxy'},
+                    // Cipher Lab
+                    {name: 'Morse Code Translator', path: 'pages/CipherLab/Morse%20Code%20Translator_Encoder_Decoder.html', category: 'Cipher Lab'},
+                    {name: 'Ogham Translator', path: 'pages/CipherLab/Ogham%20Translator%20Encoder_Decoder.html', category: 'Cipher Lab'},
+                    {name: 'Password Strength Analyzer', path: 'pages/CipherLab/Password%20Strength%20→%20Anger%20Scale%20Calculator.html', category: 'Cipher Lab'},
+                    // Life Hacks
+                    {name: 'Sleep Cycle Optimizer', path: 'pages/LifeHacks/Sleep%20Cycle%20Optimizer.html', category: 'Life Hacks'},
+                    {name: 'Procrastination ROI Calculator', path: 'pages/LifeHacks/Procrastination%20ROI%20Calculator.html', category: 'Life Hacks'},
+                    {name: 'Social Media Addiction Calculator', path: 'pages/LifeHacks/Social%20Media%20Addiction%20Calculator.html', category: 'Life Hacks'},
+                    // Otaku Ops
+                    {name: 'Anime Training Montage Planner', path: 'pages/Otaku_Ops/Anime%20Training%20Montage%20Planner.html', category: 'Otaku Ops'},
+                    {name: 'Minecraft Portal Planner', path: 'pages/Otaku_Ops/MINECRAFT%20PORTAL%20PLANNER.html', category: 'Otaku Ops'}
+                ];
+                
+                searchInput.addEventListener('input', function(e) {
+                    const query = e.target.value.trim().toLowerCase();
+                    
+                    if (query.length < 2) {
+                        searchResults.style.display = 'none';
+                        return;
+                    }
+                    
+                    const matches = calculators.filter(calc => 
+                        calc.name.toLowerCase().includes(query) ||
+                        calc.category.toLowerCase().includes(query)
+                    ).slice(0, 6);
+                    
+                    if (matches.length > 0) {
+                        searchResults.innerHTML = matches.map(match => `
+                            <a href="${match.path}" class="search-result-item">
+                                <strong>${match.name}</strong>
+                                <span class="category-tag">${match.category}</span>
+                            </a>
+                        `).join('');
+                        searchResults.style.display = 'block';
+                    } else {
+                        searchResults.innerHTML = '<div class="no-results">No calculators found</div>';
+                        searchResults.style.display = 'block';
+                    }
+                });
+                
+                // Hide search results when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!e.target.closest('.nav-search')) {
+                        searchResults.style.display = 'none';
+                    }
+                });
+            }
+            
+            // Check if converter dropdown exists and is working
+            const converterSelect = document.getElementById('converterSelect');
+            console.log('Converter dropdown found:', !!converterSelect);
+            if (converterSelect) {
+                console.log('Converter dropdown value:', converterSelect.value);
+                // Log when dropdown changes
+                converterSelect.addEventListener('change', function() {
+                    console.log('Dropdown changed to:', this.value);
+                });
+            }
+        });
+    </script>
+
+        <script>
+        // 🎅 Santa Claude's Interactive Enhancements
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🎅 Santa Claude's enhancements loaded!');
+            
+            // Enhanced button interactions
+            const buttons = document.querySelectorAll('button, .btn');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.classList.add('loading');
+                    setTimeout(() => {
+                        this.classList.remove('loading');
+                    }, 500);
+                });
+            });
+            
+            // Enhanced results display
+            const resultElements = document.querySelectorAll('.result, .results, .output, #result, #output');
+            resultElements.forEach(el => {
+                const observer = new MutationObserver(function(mutations) {
+                    mutations.forEach(function(mutation) {
+                        if (mutation.type === 'childList' || mutation.type === 'characterData') {
+                            el.classList.add('show');
+                        }
+                    });
+                });
+                observer.observe(el, { childList: true, subtree: true, characterData: true });
+            });
+            
+            // Form validation enhancements
+            const inputs = document.querySelectorAll('input[type="number"], input[type="text"]');
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    if (this.checkValidity()) {
+                        this.classList.remove('input-error');
+                        this.classList.add('input-success');
+                    } else {
+                        this.classList.remove('input-success');
+                        this.classList.add('input-error');
+                    }
+                });
+            });
+        });
+        </script>
+</body>
+
+</html>

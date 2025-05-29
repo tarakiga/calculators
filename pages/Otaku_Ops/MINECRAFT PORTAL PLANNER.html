@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft Portal Planner</title>
+
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+</head>
+<body>
+                <!-- Enhanced Navigation Bar -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="../../index.html">🧮 Docket One</a>
+            </div>
+            <div class="nav-search">
+                <label for="input-jt7rkq1kt" class="sr-only">Input field</label>
+            <input type="text" i id="input-jt7rkq1kt" aria-label="Calculator input"d="calc-search" placeholder="Search calculators..." class="search-input">
+                <div id="search-results" class="search-results"></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../BigKidMath/index.html" class="category-main-link">Big Kid Math</a></li>
+                <li><a href="../CipherLab/index.html" class="category-main-link">Cipher Lab</a></li>
+                <li><a href="../GeekGalaxy/index.html" class="category-main-link">Geek Galaxy</a></li>
+                <li><a href="../LifeHacks/index.html" class="category-main-link">Life Hacks</a></li>
+                <li><a href="../Math_Magik/index.html" class="category-main-link">Math Magik</a></li>
+                <li><a href="../Otaku_Ops/index.html" class="category-main-link">Otaku Ops</a></li>
+                <li><a href="../../index.html" class="home-link">Unit Converter</a></li>
+            </ul>
+            <button class="mobile-menu-btn" a aria-label="Perform action"ria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+    
+
+    
+
+
+    <header>
+        <h1>MINECRAFT PORTAL PLANNER</h1>
+        <p>Build perfect Nether portals every time!</p>
+    </header>
+    
+    <div class="calculator">
+        <div class="input-group">
+            <label for="portal-type">Portal Size:</label>
+            <select id="portal-type">
+                <option value="small">Small (Minimum: 4×5)</option>
+                <option value="medium">Medium (6×7)</option>
+                <option value="large">Large (8×9)</option>
+                <option value="custom">Custom Size</option>
+            </select>
+        </div>
+        
+        <div id="custom-portal-inputs" style="display:none;">
+            <div class="input-group">
+                <label for="portal-width">Width (blocks, 4-20):</label>
+                <label for="input-144lug9l8" class="sr-only">Input field</label>
+            <input type="number" i id="input-144lug9l8" aria-label="Calculator input"d="portal-width" min="4" max="20" value="4">
+            </div>
+            <div class="input-group">
+                <label for="portal-height">Height (blocks, 5-20):</label>
+                <label for="input-sy37i8k1e" class="sr-only">Input field</label>
+            <input type="number" i id="input-sy37i8k1e" aria-label="Calculator input"d="portal-height" min="5" max="20" value="5">
+            </div>
+        </div>
+        
+        <button aria-label="Perform action" onclick="calculatePortal()">PLAN PORTAL</button>
+        
+        <div class="results" id="portal-results">
+            <div class="result-item">
+                <div class="result-title">PORTAL REQUIREMENTS</div>
+                <p>Obsidian needed: <span id="obsidian-count">0</span></p>
+                <p>Portal blocks: <span id="portal-blocks">0</span></p>
+                <p>Dimensions: <span id="portal-dimensions">0×0</span> (frame size)</p>
+            </div>
+            
+            <div class="portal-visual" id="portal-visual">
+                <!-- Portal visualization will be inserted here -->
+            </div>
+            
+            <div class="result-item">
+                <div class="result-title">BUILDING TIPS</div>
+                <p>1. Build the frame first with obsidian</p>
+                <p>2. Light any portal block with flint and steel</p>
+                <p>3. Minimum inside dimensions: 2×3 blocks</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Show/hide custom size inputs
+        document.getElementById('portal-type').addEventListener('change', function() {
+            document.getElementById('custom-portal-inputs').style.display = 
+                this.value === 'custom' ? 'block' : 'none';
+        });
+
+        function calculatePortal() {
+            const portalType = document.getElementById('portal-type').value;
+            let width, height;
+            
+            // Set dimensions based on portal type
+            switch(portalType) {
+                case 'small':
+                    width = 4;
+                    height = 5;
+                    break;
+                case 'medium':
+                    width = 6;
+                    height = 7;
+                    break;
+                case 'large':
+                    width = 8;
+                    height = 9;
+                    break;
+                case 'custom':
+                    width = parseInt(document.getElementById('portal-width').value);
+                    height = parseInt(document.getElementById('portal-height').value);
+                    
+                    // Validate dimensions
+                    if (width < 4) width = 4;
+                    if (width > 20) width = 20;
+                    if (height < 5) height = 5;
+                    if (height > 20) height = 20;
+                    break;
+            }
+            
+            // Calculate requirements
+            const obsidian = (width * 2) + (height * 2) - 4; // Subtract 4 for overlapping corners
+            const portalBlocks = (width - 2) * (height - 2);
+            
+            // Update results
+            document.getElementById('obsidian-count').textContent = obsidian;
+            document.getElementById('portal-blocks').textContent = portalBlocks;
+            document.getElementById('portal-dimensions').textContent = `${width}×${height}`;
+            
+            // Generate portal visualization
+            const portalVisual = document.getElementById('portal-visual');
+            portalVisual.innerHTML = '';
+            
+            for (let y = 0; y < height; y++) {
+                const row = document.createElement('div');
+                row.className = 'portal-row';
+                
+                for (let x = 0; x < width; x++) {
+                    const block = document.createElement('div');
+                    block.className = 'portal-block';
+                    
+                    // Frame blocks (outer edges)
+                    if (x === 0 || x === width - 1 || y === 0 || y === height - 1) {
+                        block.classList.add('obsidian');
+                        block.textContent = 'O'; // Obsidian
+                    } else {
+                        block.classList.add('air');
+                        block.textContent = 'P'; // Portal block
+                    }
+                    
+                    row.appendChild(block);
+                }
+                
+                portalVisual.appendChild(row);
+            }
+            
+            // Show results
+            document.getElementById('portal-results').style.display = 'block';
+        }
+        
+        // Initialize with default portal
+        window.onload = function() {
+            calculatePortal();
+        };
+    </script>
+
+    <div class="related-calculators" style="margin-top: 2rem; padding: 1rem; background: rgba(0,0,0,0.1); border-radius: 8px;">
+        <h3 style="margin-top: 0;">Related Otaku Ops Tools</h3>
+        <a href="./Anime Training Montage Planner.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Anime Training Montage Planner</a><a href="./Conspiracy Theory Plausibility Index.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Conspiracy Theory Plausibility Index</a>
+        <a href="./index.html" style="display: block; padding: 0.5rem; margin-top: 1rem; background: rgba(74,144,226,0.2); border-radius: 4px; text-decoration: none; color: inherit; font-weight: bold;">← Back to Otaku Ops Hub</a>
+    </div>
+
+        <script>
+        // 🎅 Santa Claude's Interactive Enhancements
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🎅 Santa Claude's enhancements loaded!');
+            
+            // Enhanced button interactions
+            const buttons = document.querySelectorAll('button, .btn');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.classList.add('loading');
+                    setTimeout(() => {
+                        this.classList.remove('loading');
+                    }, 500);
+                });
+            });
+            
+            // Enhanced results display
+            const resultElements = document.querySelectorAll('.result, .results, .output, #result, #output');
+            resultElements.forEach(el => {
+                const observer = new MutationObserver(function(mutations) {
+                    mutations.forEach(function(mutation) {
+                        if (mutation.type === 'childList' || mutation.type === 'characterData') {
+                            el.classList.add('show');
+                        }
+                    });
+                });
+                observer.observe(el, { childList: true, subtree: true, characterData: true });
+            });
+            
+            // Form validation enhancements
+            const inputs = document.querySelectorAll('input[type="number"], input[type="text"]');
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    if (this.checkValidity()) {
+                        this.classList.remove('input-error');
+                        this.classList.add('input-success');
+                    } else {
+                        this.classList.remove('input-success');
+                        this.classList.add('input-error');
+                    }
+                });
+            });
+        });
+        </script>
+</body>
+</html>

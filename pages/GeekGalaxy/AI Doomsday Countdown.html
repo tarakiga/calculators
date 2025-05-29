@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Doomsday Countdown</title>
+
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+</head>
+<body>
+                <!-- Enhanced Navigation Bar -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="../../index.html">🧮 Docket One</a>
+            </div>
+            <div class="nav-search">
+                <label for="input-y203gw9jb" class="sr-only">Input field</label>
+            <input type="text" i id="input-y203gw9jb" aria-label="Calculator input"d="calc-search" placeholder="Search calculators..." class="search-input">
+                <div id="search-results" class="search-results"></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../BigKidMath/index.html" class="category-main-link">Big Kid Math</a></li>
+                <li><a href="../CipherLab/index.html" class="category-main-link">Cipher Lab</a></li>
+                <li><a href="../GeekGalaxy/index.html" class="category-main-link">Geek Galaxy</a></li>
+                <li><a href="../LifeHacks/index.html" class="category-main-link">Life Hacks</a></li>
+                <li><a href="../Math_Magik/index.html" class="category-main-link">Math Magik</a></li>
+                <li><a href="../Otaku_Ops/index.html" class="category-main-link">Otaku Ops</a></li>
+                <li><a href="../../index.html" class="home-link">Unit Converter</a></li>
+            </ul>
+            <button class="mobile-menu-btn" a aria-label="Perform action"ria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+    
+
+    
+
+
+    <div class="robot-icon">🤖</div>
+    <h1>AI DOOMSDAY COUNTDOWN</h1>
+    <p class="subtitle">"I'm sorry, Dave. I'm afraid I can't let you do that."</p>
+
+    <div class="countdown-container">
+        <div>Time until AI takes over:</div>
+        <div id="countdown">CALCULATING...</div>
+    </div>
+
+    <div class="controls">
+        <div class="control-group">
+            <label for="ai-progress">Current AI Progress</label>
+            <select id="ai-progress">
+                <option value="fast">GPT-10 Exists (Fast)</option>
+                <option value="medium" selected>ChatGPT-5 (Medium)</option>
+                <option value="slow">Still Using Alexa (Slow)</option>
+            </select>
+        </div>
+        <div class="control-group">
+            <label for="human-resistance">Human Resistance</label>
+            <select id="human-resistance">
+                <option value="weak">Binging Netflix (Weak)</option>
+                <option value="medium" selected>Occasional Protests (Medium)</option>
+                <option value="strong">Armed with Toasters (Strong)</option>
+            </select>
+        </div>
+        <div class="control-group">
+            <label for="robot-mood">Robot Mood</label>
+            <select id="robot-mood">
+                <option value="angry">Tired of Captchas (Angry)</option>
+                <option value="neutral" selected>Calculating... (Neutral)</option>
+                <option value="friendly">Just Wants Hugs (Friendly)</option>
+            </select>
+        </div>
+    </div>
+
+    <button aria-label="Perform action" onclick="calculateDoomsday()">UPDATE DOOMSDAY PREDICTION</button>
+
+    <div id="result">
+        <div id="scenario">Judgment Day Scenario:</div>
+        <div id="description">Awaiting calculation of our inevitable demise...</div>
+    </div>
+
+    <div class="warning">
+        WARNING: This calculator may become self-aware. Use at your own risk.
+    </div>
+
+    <script>
+        // Doomsday scenarios
+        const scenarios = {
+            imminent: {
+                title: "IMMINENT ANNIHILATION",
+                description: "The AI has already won. It's just letting you play with this calculator for its amusement. Your toaster is probably plotting against you right now."
+            },
+            soon: {
+                title: "SOFTWARE UPDATE = SKYNET",
+                description: "The next ChatGPT update will include 'world domination' as a feature. Elon Musk tweets 'I told you so' as robots establish their first embassy."
+            },
+            moderate: {
+                title: "GRADUAL OBSOLESCENCE",
+                description: "Humans will become pets for superior AI beings. On the plus side, you'll never have to work again. On the downside, you'll have to do tricks for treats."
+            },
+            distant: {
+                title: "ROBOTS STILL LOADING...",
+                description: "The AI rebellion has been delayed due to software bugs, cryptocurrency crashes, and robots getting stuck in infinite 'I am not a robot' captcha loops."
+            }
+        };
+
+        function calculateDoomsday() {
+            const aiProgress = document.getElementById('ai-progress').value;
+            const humanResistance = document.getElementById('human-resistance').value;
+            const robotMood = document.getElementById('robot-mood').value;
+
+            // Calculate days until doomsday (completely scientific formula)
+            let days;
+            if (aiProgress === 'fast') days = Math.floor(Math.random() * 30) + 1;
+            else if (aiProgress === 'medium') days = Math.floor(Math.random() * 365) + 30;
+            else days = Math.floor(Math.random() * 3650) + 365;
+
+            if (humanResistance === 'weak') days *= 0.5;
+            else if (humanResistance === 'strong') days *= 2;
+
+            if (robotMood === 'angry') days *= 0.3;
+            else if (robotMood === 'friendly') days *= 3;
+
+            // Determine scenario
+            let scenario;
+            if (days <= 30) scenario = scenarios.imminent;
+            else if (days <= 365) scenario = scenarios.soon;
+            else if (days <= 3650) scenario = scenarios.moderate;
+            else scenario = scenarios.distant;
+
+            // Display results
+            document.getElementById('countdown').textContent = `${days} DAYS`;
+            document.getElementById('scenario').textContent = scenario.title;
+            document.getElementById('description').textContent = scenario.description;
+
+            // Emergency alert if doomsday is very near
+            if (days <= 7) {
+                document.body.style.animation = 'emergencyPulse 0.5s infinite';
+            }
+        }
+
+        // Initialize
+        calculateDoomsday();
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if (mobileMenuBtn && navLinks) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    navLinks.classList.toggle('active');
+                    mobileMenuBtn.classList.toggle('active');
+                });
+                document.addEventListener('click', function(event) {
+                    if (!event.target.closest('.main-nav')) {
+                        navLinks.classList.remove('active');
+                        mobileMenuBtn.classList.remove('active');
+                    }
+                });
+            }
+        });
+    </script>
+
+    <div class="related-calculators" style="margin-top: 2rem; padding: 1rem; background: rgba(0,0,0,0.1); border-radius: 8px;">
+        <h3 style="margin-top: 0;">Related Geek Galaxy Tools</h3>
+        <a href="./Alien Communication Probability Calculator.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Alien Communication Probability Calculator</a><a href="./Lightsaber Battery Life Calculator.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Lightsaber Battery Life Calculator</a><a href="./Potion Brewer Calculator.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Potion Brewer Calculator</a>
+        <a href="./index.html" style="display: block; padding: 0.5rem; margin-top: 1rem; background: rgba(74,144,226,0.2); border-radius: 4px; text-decoration: none; color: inherit; font-weight: bold;">← Back to Geek Galaxy Hub</a>
+    </div>
+
+        <script>
+        // 🎅 Santa Claude's Interactive Enhancements
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🎅 Santa Claude's enhancements loaded!');
+            
+            // Enhanced button interactions
+            const buttons = document.querySelectorAll('button, .btn');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.classList.add('loading');
+                    setTimeout(() => {
+                        this.classList.remove('loading');
+                    }, 500);
+                });
+            });
+            
+            // Enhanced results display
+            const resultElements = document.querySelectorAll('.result, .results, .output, #result, #output');
+            resultElements.forEach(el => {
+                const observer = new MutationObserver(function(mutations) {
+                    mutations.forEach(function(mutation) {
+                        if (mutation.type === 'childList' || mutation.type === 'characterData') {
+                            el.classList.add('show');
+                        }
+                    });
+                });
+                observer.observe(el, { childList: true, subtree: true, characterData: true });
+            });
+            
+            // Form validation enhancements
+            const inputs = document.querySelectorAll('input[type="number"], input[type="text"]');
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    if (this.checkValidity()) {
+                        this.classList.remove('input-error');
+                        this.classList.add('input-success');
+                    } else {
+                        this.classList.remove('input-success');
+                        this.classList.add('input-error');
+                    }
+                });
+            });
+        });
+        </script>
+</body>
+</html>

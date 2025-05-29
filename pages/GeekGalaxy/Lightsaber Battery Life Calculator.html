@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lightsaber Battery Life Calculator</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+</head>
+<body>
+                <!-- Enhanced Navigation Bar -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="../../index.html">🧮 Docket One</a>
+            </div>
+            <div class="nav-search">
+                <label for="input-1y2kb5lyl" class="sr-only">Input field</label>
+            <input type="text" i id="input-1y2kb5lyl" aria-label="Calculator input"d="calc-search" placeholder="Search calculators..." class="search-input">
+                <div id="search-results" class="search-results"></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../BigKidMath/index.html" class="category-main-link">Big Kid Math</a></li>
+                <li><a href="../CipherLab/index.html" class="category-main-link">Cipher Lab</a></li>
+                <li><a href="../GeekGalaxy/index.html" class="category-main-link">Geek Galaxy</a></li>
+                <li><a href="../LifeHacks/index.html" class="category-main-link">Life Hacks</a></li>
+                <li><a href="../Math_Magik/index.html" class="category-main-link">Math Magik</a></li>
+                <li><a href="../Otaku_Ops/index.html" class="category-main-link">Otaku Ops</a></li>
+                <li><a href="../../index.html" class="home-link">Unit Converter</a></li>
+            </ul>
+            <button class="mobile-menu-btn" a aria-label="Perform action"ria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+    
+
+    
+
+
+    <h1>LIGHTSABER BATTERY LIFE CALCULATOR</h1>
+    <p class="subtitle">May the charge be with you</p>
+    
+    <div class="calculator">
+        <div class="input-group">
+            <label for="crystal-type">Kyber Crystal Type</label>
+            <select id="crystal-type">
+                <option value="standard">Standard Jedi Blue</option>
+                <option value="sith">Sith Red (Bleached)</option>
+                <option value="ilum">Ilum Natural</option>
+                <option value="dantooine">Dantooine Green</option>
+                <option value="purple">Mace Windu's Purple</option>
+                <option value="black">Darksaber (Black)</option>
+            </select>
+        </div>
+        
+        <div class="input-group">
+            <label for="duel-intensity">Duel Intensity</label>
+            <div class="range-container">
+                <input type="range" id="duel-intensity" min="1" max="10" value="3">
+                <span class="range-value" id="intensity-value">3</span>
+            </div>
+            <small>1 = Meditation, 10 = Mustafar Battle</small>
+        </div>
+        
+        <div class="input-group">
+            <label for="saber-age">Saber Age (years)</label>
+            <div class="range-container">
+                <input type="range" id="saber-age" min="0" max="100" value="5">
+                <span class="range-value" id="age-value">5</span>
+            </div>
+        </div>
+        
+        <button aria-label="Perform action" onclick="calculateBattery()">CALCULATE BATTERY LIFE</button>
+    </div>
+    
+    <div class="results" id="results">
+        <div class="result-item">
+            <div class="result-title">YOUR LIGHTSABER BATTERY</div>
+            <div class="saber-visual">
+                <div class="saber-blade" id="saber-blade"></div>
+                <div class="saber-hilt"></div>
+            </div>
+            <p>Estimated active use time: <strong id="battery-life">0</strong></p>
+            <p>Recharge time: <strong id="recharge-time">0</strong></p>
+            <p>Efficiency rating: <strong id="efficiency">0</strong>/100</p>
+        </div>
+        
+        <div class="crystal-ratings">
+            <div class="result-title">KYBER CRYSTAL EFFICIENCY RATINGS</div>
+            
+            <div class="crystal-card jedi">
+                <div class="crystal-name">Standard Jedi Blue</div>
+                <p>The most balanced crystal, offering reliable performance for typical Jedi activities.</p>
+                <div class="crystal-stats">
+                    <div class="stat">
+                        <div class="stat-value">85%</div>
+                        <div class="stat-label">Efficiency</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">8hr</div>
+                        <div class="stat-label">Avg. Life</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">2hr</div>
+                        <div class="stat-label">Recharge</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="crystal-card sith">
+                <div class="crystal-name">Sith Red (Bleached)</div>
+                <p>Powerful but unstable, bleached crystals drain faster during intense combat.</p>
+                <div class="crystal-stats">
+                    <div class="stat">
+                        <div class="stat-value">65%</div>
+                        <div class="stat-label">Efficiency</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">5hr</div>
+                        <div class="stat-label">Avg. Life</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">3hr</div>
+                        <div class="stat-label">Recharge</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="crystal-card rare">
+                <div class="crystal-name">Mace Windu's Purple</div>
+                <p>Rare crystal with perfect balance between Jedi discipline and Sith power.</p>
+                <div class="crystal-stats">
+                    <div class="stat">
+                        <div class="stat-value">95%</div>
+                        <div class="stat-label">Efficiency</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">12hr</div>
+                        <div class="stat-label">Avg. Life</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">1.5hr</div>
+                        <div class="stat-label">Recharge</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Crystal data
+        const crystals = {
+            standard: { name: "Standard Jedi Blue", efficiency: 0.85, baseLife: 8, recharge: 2, color: "#2A7BDE" },
+            sith: { name: "Sith Red (Bleached)", efficiency: 0.65, baseLife: 5, recharge: 3, color: "#DE2A2A" },
+            ilum: { name: "Ilum Natural", efficiency: 0.9, baseLife: 10, recharge: 1.5, color: "#2ADEA5" },
+            dantooine: { name: "Dantooine Green", efficiency: 0.8, baseLife: 7, recharge: 2, color: "#2ADE5B" },
+            purple: { name: "Mace Windu's Purple", efficiency: 0.95, baseLife: 12, recharge: 1.5, color: "#8A2BE2" },
+            black: { name: "Darksaber (Black)", efficiency: 0.7, baseLife: 6, recharge: 4, color: "#000000" }
+        };
+        
+        // Update range displays
+        document.getElementById('duel-intensity').addEventListener('input', function() {
+            document.getElementById('intensity-value').textContent = this.value;
+        });
+        
+        document.getElementById('saber-age').addEventListener('input', function() {
+            document.getElementById('age-value').textContent = this.value;
+        });
+        
+        function calculateBattery() {
+            const crystalType = document.getElementById('crystal-type').value;
+            const duelIntensity = parseInt(document.getElementById('duel-intensity').value);
+            const saberAge = parseInt(document.getElementById('saber-age').value);
+            
+            const crystal = crystals[crystalType];
+            
+            // Calculate battery life (hours)
+            let batteryLife = crystal.baseLife * crystal.efficiency;
+            
+            // Adjust for duel intensity (1-10 scale)
+            batteryLife *= 1 - (duelIntensity * 0.05);
+            
+            // Adjust for saber age (0-100 years)
+            batteryLife *= 1 - (saberAge * 0.005);
+            
+            // Ensure minimum 15 minutes of battery
+            batteryLife = Math.max(0.25, batteryLife);
+            
+            // Calculate recharge time
+            let rechargeTime = crystal.recharge;
+            rechargeTime *= 1 + (saberAge * 0.01); // Older sabers take longer to recharge
+            
+            // Calculate efficiency rating (0-100)
+            const efficiencyRating = Math.round((batteryLife / crystal.baseLife) * 100);
+            
+            // Update results
+            document.getElementById('battery-life').textContent = batteryLife.toFixed(1) + " hours";
+            document.getElementById('recharge-time').textContent = rechargeTime.toFixed(1) + " hours";
+            document.getElementById('efficiency').textContent = efficiencyRating;
+            
+            // Update saber visual
+            const saberBlade = document.getElementById('saber-blade');
+            saberBlade.style.width = (efficiencyRating * 0.95) + "%"; // 95% max width for hilt space
+            saberBlade.style.background = crystal.color;
+            saberBlade.style.boxShadow = `0 0 10px ${crystal.color}`;
+            
+            // Show results
+            document.getElementById('results').style.display = 'block';
+        }
+        
+        // Initialize on load
+        window.onload = function() {
+            calculateBattery();
+        };
+    </script>
+
+    <div class="related-calculators" style="margin-top: 2rem; padding: 1rem; background: rgba(0,0,0,0.1); border-radius: 8px;">
+        <h3 style="margin-top: 0;">Related Geek Galaxy Tools</h3>
+        <a href="./AI Doomsday Countdown.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">AI Doomsday Countdown</a><a href="./Alien Communication Probability Calculator.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Alien Communication Probability Calculator</a><a href="./Potion Brewer Calculator.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Potion Brewer Calculator</a>
+        <a href="./index.html" style="display: block; padding: 0.5rem; margin-top: 1rem; background: rgba(74,144,226,0.2); border-radius: 4px; text-decoration: none; color: inherit; font-weight: bold;">← Back to Geek Galaxy Hub</a>
+    </div>
+
+        <script>
+        // 🎅 Santa Claude's Interactive Enhancements
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🎅 Santa Claude's enhancements loaded!');
+            
+            // Enhanced button interactions
+            const buttons = document.querySelectorAll('button, .btn');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.classList.add('loading');
+                    setTimeout(() => {
+                        this.classList.remove('loading');
+                    }, 500);
+                });
+            });
+            
+            // Enhanced results display
+            const resultElements = document.querySelectorAll('.result, .results, .output, #result, #output');
+            resultElements.forEach(el => {
+                const observer = new MutationObserver(function(mutations) {
+                    mutations.forEach(function(mutation) {
+                        if (mutation.type === 'childList' || mutation.type === 'characterData') {
+                            el.classList.add('show');
+                        }
+                    });
+                });
+                observer.observe(el, { childList: true, subtree: true, characterData: true });
+            });
+            
+            // Form validation enhancements
+            const inputs = document.querySelectorAll('input[type="number"], input[type="text"]');
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    if (this.checkValidity()) {
+                        this.classList.remove('input-error');
+                        this.classList.add('input-success');
+                    } else {
+                        this.classList.remove('input-success');
+                        this.classList.add('input-error');
+                    }
+                });
+            });
+        });
+        </script>
+</body>
+</html>

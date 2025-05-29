@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffee to Code Efficiency Ratio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+        .animate-pulse { animation: pulse 2s infinite; }
+        .animate-shake { animation: shake 0.5s; }
+        .progress-bar {
+            transition: width 0.5s ease-in-out;
+        }
+        .code-bg {
+            background-color: #1e1e1e;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        .terminal {
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+    
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="../../index.html">🧮 Docket One</a>
+            </div>
+            <div class="nav-search">
+                <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input" aria-label="Search calculators">
+                <div id="search-results" class="search-results"></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../BigKidMath/index.html" class="category-link">Big Kid Math</a></li>
+                <li><a href="../CipherLab/index.html" class="category-link">Cipher Lab</a></li>
+                <li><a href="../GeekGalaxy/index.html" class="category-link ">Geek Galaxy</a></li>
+                <li><a href="../LifeHacks/index.html" class="category-link active">Life Hacks</a></li>
+                <li><a href="../Math_Magik/index.html" class="category-link">Math Magik</a></li>
+                <li><a href="../Otaku_Ops/index.html" class="category-link">Otaku Ops</a></li>
+                <li><a href="../../index.html" class="home-link">🏠 Home</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+
+    <div class="container mx-auto px-4 py-12" x-data="coffeeCodeCalculator()">
+        <div class="max-w-2xl mx-auto bg-white rounded-xl shadow-2xl overflow-hidden">
+            <!-- Header with coffee stain -->
+            <div class="relative h-24 bg-gradient-to-r from-amber-800 to-amber-600 flex items-center justify-center">
+                <div class="absolute -top-4 -right-4 w-16 h-16 bg-amber-200 rounded-full opacity-30"></div>
+                <div class="absolute top-2 right-6 w-8 h-8 bg-amber-300 rounded-full opacity-40"></div>
+                <h1 class="text-3xl md:text-4xl font-bold text-center text-white drop-shadow-lg">
+                    <i class="fas fa-mug-hot mr-2"></i> Coffee to Code Ratio
+                </h1>
+            </div>
+            
+            <!-- Calculator Content -->
+            <div class="p-6 md:p-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                    <!-- Coffee Input -->
+                    <div class="bg-amber-50 p-6 rounded-lg border-l-4 border-amber-500">
+                        <h2 class="text-xl font-bold mb-4 text-amber-800">
+                            <i class="fas fa-coffee mr-2"></i> Caffeine Intake
+                        </h2>
+                        
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium mb-1">Cups of Coffee</label>
+                            <div class="flex items-center">
+                                <button aria-label="Perform action" @click="cups > 0 ? cups-- : null" 
+                                        class="px-3 py-1 bg-amber-200 rounded-l-lg hover:bg-amber-300">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <label for="input-mkbouz3ul" class="sr-only">Input field</label>
+            <input type="number" id="input-mkbouz3ul" aria-label="Calculator input" x-model="cups" min="0" 
+                                       class="w-full py-1 px-3 bg-white text-center border-t border-b border-amber-300">
+                                <button aria-label="Perform action" @click="cups++" 
+                                        class="px-3 py-1 bg-amber-200 rounded-r-lg hover:bg-amber-300">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium mb-1">Other Caffeine Sources</label>
+                            <select x-model="otherSources" class="w-full p-2 border border-amber-300 rounded-lg">
+                                <option value="0">None</option>
+                                <option value="1">Energy drink (1x)</option>
+                                <option value="2">Energy drink (2x+)</option>
+                                <option value="3">Caffeine pills</option>
+                            </select>
+                        </div>
+                        
+                        <div class="text-center mt-4">
+                            <div class="text-3xl font-bold text-amber-800" x-text="totalCaffeine + ' mg'"></div>
+                            <div class="text-sm text-amber-600" x-text="caffeineDescription"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Coding Input -->
+                    <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500">
+                        <h2 class="text-xl font-bold mb-4 text-blue-800">
+                            <i class="fas fa-code mr-2"></i> Coding Output
+                        </h2>
+                        
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium mb-1">Productive Hours</label>
+                            <input type="range" x-model="productiveHours" min="0" max="12" step="0.5" 
+                                   class="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer">
+                            <div class="flex justify-between text-xs text-blue-600">
+                                <span>0h</span>
+                                <span>12h</span>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium mb-1">Code Quality</label>
+                            <select x-model="codeQuality" class="w-full p-2 border border-blue-300 rounded-lg">
+                                <option value="3">Production-ready</option>
+                                <option value="2">Mostly works</option>
+                                <option value="1">Hacky solution</option>
+                                <option value="0">"It compiles"</option>
+                            </select>
+                        </div>
+                        
+                        <div class="text-center mt-4">
+                            <div class="text-3xl font-bold text-blue-800" x-text="productiveHours + 'h'"></div>
+                            <div class="text-sm text-blue-600" x-text="qualityDescription"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Calculate Button -->
+                <button aria-label="Perform action" @click="calculateRatio" 
+                        class="w-full bg-gradient-to-r from-green-600 to-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transition duration-200 mb-8">
+                    <i class="fas fa-calculator mr-2"></i> Calculate Efficiency Ratio
+                </button>
+                
+                <!-- Results -->
+                <div x-show="results" x-transition class="space-y-6">
+                    <div class="code-bg text-white p-6 rounded-lg terminal">
+                        <div class="mb-4">
+                            <span class="text-green-400">$</span> ./coffee2code --analyze
+                        </div>
+                        <div class="mb-2">
+                            <span class="text-blue-400">>></span> Caffeine Input: <span x-text="totalCaffeine + 'mg'"></span>
+                        </div>
+                        <div class="mb-2">
+                            <span class="text-blue-400">>></span> Code Output: <span x-text="productiveHours + 'h'"></span> (<span x-text="qualityDescription"></span>)
+                        </div>
+                        <div class="mb-2">
+                            <span class="text-blue-400">>></span> Efficiency Ratio: 
+                            <span class="font-bold" :class="ratioClass" x-text="efficiencyRatio.toFixed(2) + ':1'"></span>
+                        </div>
+                        <div class="mb-2">
+                            <span class="text-blue-400">>></span> Developer Status: 
+                            <span class="font-bold" :class="statusClass" x-text="developerStatus"></span>
+                        </div>
+                        <div x-show="showWarning" class="mt-4 p-3 bg-yellow-900 rounded animate-shake">
+                            <span class="text-yellow-400">WARNING:</span> 
+                            <span x-text="warningMessage"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <h3 class="text-lg font-bold mb-3 text-gray-800">Efficiency Analysis</h3>
+                        <div class="space-y-3">
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-sm font-medium">Optimal Zone</span>
+                                    <span class="text-xs" x-text="efficiencyScore + '/100'"></span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                    <div class="progress-bar h-2.5 rounded-full" 
+                                         :class="efficiencyBarClass" 
+                                         :style="'width: ' + Math.min(100, efficiencyScore) + '%'"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="grid grid-cols-3 gap-4 text-center mt-4">
+                                <div>
+                                    <div class="text-2xl font-bold" :class="cups >= 5 ? 'text-red-500' : 'text-amber-600'" x-text="cups"></div>
+                                    <div class="text-xs text-gray-600">CUPS</div>
+                                </div>
+                                <div>
+                                    <div class="text-2xl font-bold" :class="ratioClass" x-text="efficiencyRatio.toFixed(2)"></div>
+                                    <div class="text-xs text-gray-600">RATIO</div>
+                                </div>
+                                <div>
+                                    <div class="text-2xl font-bold" :class="productiveHours >= 8 ? 'text-green-600' : 'text-blue-600'" x-text="productiveHours"></div>
+                                    <div class="text-xs text-gray-600">HOURS</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('coffeeCodeCalculator', () => ({
+                cups: 2,
+                otherSources: 0,
+                productiveHours: 4,
+                codeQuality: 2,
+                results: false,
+                showWarning: false,
+                warningMessage: '',
+                
+                get totalCaffeine() {
+                    // Approximate caffeine amounts
+                    const coffeeMg = this.cups * 95; // 95mg per cup average
+                    let otherMg = 0;
+                    
+                    if (this.otherSources == 1) otherMg = 80; // energy drink
+                    if (this.otherSources == 2) otherMg = 160; // 2+ energy drinks
+                    if (this.otherSources == 3) otherMg = 200; // caffeine pills
+                    
+                    return coffeeMg + otherMg;
+                },
+                
+                get caffeineDescription() {
+                    if (this.totalCaffeine == 0) return "Are you even awake?";
+                    if (this.totalCaffeine < 100) return "Lightweight";
+                    if (this.totalCaffeine < 200) return "Standard issue";
+                    if (this.totalCaffeine < 400) return "Overclocked";
+                    return "DANGER ZONE";
+                },
+                
+                get qualityDescription() {
+                    const descriptions = [
+                        "It compiles (good enough)",
+                        "Hacky solution (works for now)",
+                        "Mostly works (needs tests)",
+                        "Production-ready (PR approved)"
+                    ];
+                    return descriptions[this.codeQuality];
+                },
+                
+                get efficiencyRatio() {
+                    if (this.productiveHours == 0) return 0;
+                    
+                    // Base ratio is caffeine mg per productive hour
+                    let ratio = this.totalCaffeine / this.productiveHours;
+                    
+                    // Adjust for code quality (better quality = better efficiency)
+                    ratio = ratio / (this.codeQuality + 1);
+                    
+                    return ratio;
+                },
+                
+                get efficiencyScore() {
+                    // Score based on optimal ratio range (30-70 mg/hour)
+                    const optimalMin = 30;
+                    const optimalMax = 70;
+                    
+                    if (this.efficiencyRatio <= optimalMin) {
+                        return Math.round((this.efficiencyRatio / optimalMin) * 50);
+                    } else if (this.efficiencyRatio <= optimalMax) {
+                        return 50 + Math.round(((this.efficiencyRatio - optimalMin) / (optimalMax - optimalMin)) * 50);
+                    } else {
+                        return 100 - Math.round(Math.min(50, (this.efficiencyRatio - optimalMax) / 2));
+                    }
+                },
+                
+                get ratioClass() {
+                    if (this.efficiencyRatio < 30) return "text-blue-500"; // Under-caffeinated
+                    if (this.efficiencyRatio < 70) return "text-green-500"; // Optimal
+                    if (this.efficiencyRatio < 100) return "text-yellow-500"; // Over-caffeinated
+                    return "text-red-500"; // Danger zone
+                },
+                
+                get efficiencyBarClass() {
+                    if (this.efficiencyScore < 30) return "bg-red-500";
+                    if (this.efficiencyScore < 70) return "bg-yellow-500";
+                    return "bg-green-500";
+                },
+                
+                get developerStatus() {
+                    if (this.totalCaffeine == 0 && this.productiveHours > 0) {
+                        return "Superhuman (coding without caffeine?)";
+                    }
+                    
+                    if (this.efficiencyRatio < 10) {
+                        return "Sleepy Intern";
+                    } else if (this.efficiencyRatio < 30) {
+                        return "Productive Professional";
+                    } else if (this.efficiencyRatio < 70) {
+                        return "In the Zone";
+                    } else if (this.efficiencyRatio < 100) {
+                        return "Jittery Genius";
+                    } else if (this.efficiencyRatio < 150) {
+                        return "Overclocked Hacker";
+                    } else {
+                        return "DANGER: Imminent Burnout";
+                    }
+                },
+                
+                get statusClass() {
+                    if (this.efficiencyRatio < 30) return "text-blue-500";
+                    if (this.efficiencyRatio < 70) return "text-green-500";
+                    if (this.efficiencyRatio < 100) return "text-yellow-500";
+                    return "text-red-500";
+                },
+                
+                calculateRatio() {
+                    this.results = true;
+                    this.showWarning = false;
+                    
+                    // Check for warning conditions
+                    if (this.codeQuality <= 1 && this.productiveHours > 6) {
+                        this.showWarning = true;
+                        this.warningMessage = "You've reached Stack Overflow copy-paste threshold";
+                    } else if (this.totalCaffeine > 400 && this.productiveHours < 2) {
+                        this.showWarning = true;
+                        this.warningMessage = "Excessive caffeine with minimal output - consider taking a walk";
+                    } else if (this.totalCaffeine == 0 && this.productiveHours > 4) {
+                        this.showWarning = true;
+                        this.warningMessage = "Unverified data: no developer works this long without caffeine";
+                    }
+                }
+            }));
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if (mobileMenuBtn && navLinks) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    navLinks.classList.toggle('active');
+                    mobileMenuBtn.classList.toggle('active');
+                });
+                document.addEventListener('click', function(event) {
+                    if (!event.target.closest('.main-nav')) {
+                        navLinks.classList.remove('active');
+                        mobileMenuBtn.classList.remove('active');
+                    }
+                });
+            }
+        });
+    </script>
+
+    <div class="related-calculators" style="margin-top: 2rem; padding: 1rem; background: rgba(0,0,0,0.1); border-radius: 8px;">
+        <h3 style="margin-top: 0;">Related Life Hacks Tools</h3>
+        <a href="./Inflation Impact Calculator.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Inflation Impact Calculator</a><a href="./Procrastination ROI Calculator.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Procrastination ROI Calculator</a><a href="./Sleep Cycle Optimizer.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Sleep Cycle Optimizer</a>
+        <a href="./index.html" style="display: block; padding: 0.5rem; margin-top: 1rem; background: rgba(74,144,226,0.2); border-radius: 4px; text-decoration: none; color: inherit; font-weight: bold;">← Back to Life Hacks Hub</a>
+    </div>
+
+        <script>
+        // 🎅 Santa Claude's Interactive Enhancements
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🎅 Santa Claude's enhancements loaded!');
+            
+            // Enhanced button interactions
+            const buttons = document.querySelectorAll('button, .btn');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.classList.add('loading');
+                    setTimeout(() => {
+                        this.classList.remove('loading');
+                    }, 500);
+                });
+            });
+            
+            // Enhanced results display
+            const resultElements = document.querySelectorAll('.result, .results, .output, #result, #output');
+            resultElements.forEach(el => {
+                const observer = new MutationObserver(function(mutations) {
+                    mutations.forEach(function(mutation) {
+                        if (mutation.type === 'childList' || mutation.type === 'characterData') {
+                            el.classList.add('show');
+                        }
+                    });
+                });
+                observer.observe(el, { childList: true, subtree: true, characterData: true });
+            });
+            
+            // Form validation enhancements
+            const inputs = document.querySelectorAll('input[type="number"], input[type="text"]');
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    if (this.checkValidity()) {
+                        this.classList.remove('input-error');
+                        this.classList.add('input-success');
+                    } else {
+                        this.classList.remove('input-success');
+                        this.classList.add('input-error');
+                    }
+                });
+            });
+        });
+        </script>
+</body>
+</html>

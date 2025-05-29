@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ogham Translator with Text Export</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <style>
+        .ogham-text {
+            font-family: 'Times New Roman', serif;
+            font-size: 2rem;
+            line-height: 1.5;
+            white-space: pre-wrap;
+        }
+        .download-btn {
+            transition: all 0.2s;
+        }
+        .download-btn:hover {
+            transform: translateY(-2px);
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        .animate-pulse { animation: pulse 2s infinite; }
+    </style>
+    
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+</head>
+        <!-- Enhanced Navigation Bar -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="../../index.html">🧮 Docket One</a>
+            </div>
+            <div class="nav-search">
+                <label for="input-2asn6tbiv" class="sr-only">Input field</label>
+            <input type="text" i id="input-2asn6tbiv" aria-label="Calculator input"d="calc-search" placeholder="Search calculators..." class="search-input">
+                <div id="search-results" class="search-results"></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../BigKidMath/index.html" class="category-main-link">Big Kid Math</a></li>
+                <li><a href="../CipherLab/index.html" class="category-main-link">Cipher Lab</a></li>
+                <li><a href="../GeekGalaxy/index.html" class="category-main-link">Geek Galaxy</a></li>
+                <li><a href="../LifeHacks/index.html" class="category-main-link">Life Hacks</a></li>
+                <li><a href="../Math_Magik/index.html" class="category-main-link">Math Magik</a></li>
+                <li><a href="../Otaku_Ops/index.html" class="category-main-link">Otaku Ops</a></li>
+                <li><a href="../../index.html" class="home-link">Unit Converter</a></li>
+            </ul>
+            <button class="mobile-menu-btn" a aria-label="Perform action"ria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+    
+
+    
+
+<body class="bg-amber-50 min-h-screen">
+    <div class="container mx-auto px-4 py-12" x-data="oghamTranslator()">
+        <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden border-2 border-amber-800">
+            <!-- Header -->
+            <div class="bg-amber-800 p-6 text-center text-white">
+                <h1 class="text-3xl font-bold">
+                    <i class="fas fa-tree mr-2"></i> Ogham Translator
+                </h1>
+                <p class="mt-2 text-amber-200">Ancient Celtic Writing System with Text Export</p>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="p-6 md:p-8">
+                <!-- Mode Selector -->
+                <div class="flex justify-center mb-8">
+                    <div class="inline-flex rounded-md shadow-sm">
+                        <button aria-label="Perform action" 
+                            @click="mode = 'encode'" 
+                            :class="mode === 'encode' ? 'bg-amber-700 text-white' : 'bg-gray-200 text-gray-800'" 
+                            class="px-4 py-2 text-sm font-medium rounded-l-lg border border-gray-300 focus:z-10 focus:ring-2 focus:ring-amber-500">
+                            <i class="fas fa-lock mr-2"></i> Latin → Ogham
+                        </button>
+                        <button aria-label="Perform action" 
+                            @click="mode = 'decode'" 
+                            :class="mode === 'decode' ? 'bg-amber-700 text-white' : 'bg-gray-200 text-gray-800'" 
+                            class="px-4 py-2 text-sm font-medium rounded-r-lg border border-gray-300 focus:z-10 focus:ring-2 focus:ring-amber-500">
+                            <i class="fas fa-lock-open mr-2"></i> Ogham → Latin
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Input/Output Areas -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <!-- Input -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            <span x-text="mode === 'encode' ? 'Latin Text' : 'Ogham Script'"></span>:
+                        </label>
+                        <textarea 
+                            x-model="inputText" 
+                            @input="translate" 
+                            class="w-full h-40 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent" 
+                            placeholder="Enter text here..."></textarea>
+                    </div>
+                    
+                    <!-- Output -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            <span x-text="mode === 'encode' ? 'Ogham Script' : 'Latin Text'"></span>:
+                        </label>
+                        <div class="relative">
+                            <div id="ogham-text-output" class="ogham-text w-full h-40 p-3 border border-gray-300 rounded-lg bg-gray-50 overflow-auto">
+                                <span x-text="outputText"></span>
+                            </div>
+                            <button aria-label="Perform action" 
+                                @click="copyToClipboard" 
+                                class="absolute top-2 right-2 p-2 text-gray-500 hover:text-amber-700">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Export Buttons -->
+                <div x-show="outputText" class="flex justify-center space-x-4 mb-8">
+                    <button aria-label="Perform action" @click="exportAsPNG()" class="download-btn px-4 py-2 bg-blue-600 text-white rounded-lg">
+                        <i class="fas fa-download mr-2"></i> Export as PNG
+                    </button>
+                    <button aria-label="Perform action" @click="exportAsJPEG()" class="download-btn px-4 py-2 bg-green-600 text-white rounded-lg">
+                        <i class="fas fa-download mr-2"></i> Export as JPEG
+                    </button>
+                    <button aria-label="Perform action" @click="exportAsPDF()" class="download-btn px-4 py-2 bg-red-600 text-white rounded-lg">
+                        <i class="fas fa-file-pdf mr-2"></i> Export as PDF
+                    </button>
+                </div>
+                
+                <!-- Ogham Reference Guide -->
+                <div class="border-t border-gray-200 pt-6">
+                    <h3 class="text-xl font-bold text-center mb-6 text-amber-900">
+                        <i class="fas fa-book mr-2"></i> Ogham Alphabet Reference
+                    </h3>
+                    
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                        <template x-for="(item, letter) in oghamAlphabet" :key="letter">
+                            <div class="bg-white p-3 rounded-lg border border-amber-200 shadow-sm hover:shadow-md transition">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="font-bold text-lg" x-text="letter"></span>
+                                    <span class="text-sm text-gray-600" x-text="item.latin"></span>
+                                </div>
+                                <div class="text-center text-sm text-amber-800" x-text="item.name"></div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+                
+                <!-- Historical Info -->
+                <div class="mt-8 bg-amber-100 p-6 rounded-lg border border-amber-300">
+                    <h3 class="text-xl font-bold mb-4 text-amber-900 flex items-center">
+                        <i class="fas fa-landmark mr-2"></i> About Ogham
+                    </h3>
+                    <div class="prose prose-amber max-w-none">
+                        <p><strong>Ogham</strong> (OH-am) is an Early Medieval alphabet used primarily to write Primitive Irish (4th-9th century CE).</p>
+                        <ul class="list-disc pl-5">
+                            <li><strong>Origins</strong>: Likely inspired by Latin script, used by Celtic Druids</li>
+                            <li><strong>Structure</strong>: 20 letters (later 25) called <em>feda</em>, grouped into 4 sets of 5 (<em>aicmí</em>)</li>
+                            <li><strong>Usage</strong>: Carved on stone markers (over 400 survive), mostly in Ireland</li>
+                            <li><strong>Direction</strong>: Written bottom-to-top along a central stemline</li>
+                            <li><strong>Tree Alphabet</strong>: Each letter is associated with a tree (e.g., ᚁ = <em>Beith</em> = Birch)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('oghamTranslator', () => ({
+                mode: 'encode',
+                inputText: '',
+                outputText: '',
+                
+                // Ogham alphabet mapping
+                oghamAlphabet: {
+                    'ᚁ': { latin: 'B', name: 'Beith (Birch)' },
+                    'ᚂ': { latin: 'L', name: 'Luis (Rowan)' },
+                    'ᚃ': { latin: 'F/V', name: 'Fearn (Alder)' },
+                    'ᚄ': { latin: 'S', name: 'Sail (Willow)' },
+                    'ᚅ': { latin: 'N', name: 'Nion (Ash)' },
+                    'ᚆ': { latin: 'H', name: 'Úath (Hawthorn)' },
+                    'ᚇ': { latin: 'D', name: 'Dair (Oak)' },
+                    'ᚈ': { latin: 'T', name: 'Tinne (Holly)' },
+                    'ᚉ': { latin: 'C', name: 'Coll (Hazel)' },
+                    'ᚊ': { latin: 'Q', name: 'Ceirt (Apple)' },
+                    'ᚋ': { latin: 'M', name: 'Muin (Vine)' },
+                    'ᚌ': { latin: 'G', name: 'Gort (Ivy)' },
+                    'ᚍ': { latin: 'NG', name: 'nGéadal' },
+                    'ᚎ': { latin: 'Z', name: 'Straif (Blackthorn)' },
+                    'ᚏ': { latin: 'R', name: 'Ruis (Elder)' },
+                    'ᚐ': { latin: 'A', name: 'Ailm (Pine)' },
+                    'ᚑ': { latin: 'O', name: 'Onn (Furze)' },
+                    'ᚒ': { latin: 'U', name: 'Úr (Heather)' },
+                    'ᚓ': { latin: 'E', name: 'Eadhadh (Aspen)' },
+                    'ᚔ': { latin: 'I', name: 'Iodhadh (Yew)' },
+                    'ᚕ': { latin: 'EA', name: 'Éabhadh' },
+                    'ᚖ': { latin: 'OI', name: 'Ór' },
+                    'ᚗ': { latin: 'UI', name: 'Uilleann' },
+                    'ᚘ': { latin: 'IO', name: 'Ifín' },
+                    'ᚙ': { latin: 'AE', name: 'Eamhancholl' },
+                    'ᚚ': { latin: 'P', name: 'Peith (Beech)' },
+                    '᚛': { latin: '[Start]', name: 'Feather Mark' },
+                    '᚜': { latin: '[End]', name: 'Feather Mark' },
+                    ' ': { latin: ' ', name: 'Space' }
+                },
+                
+                // Reverse lookup for decoding
+                latinToOgham: {},
+                
+                init() {
+                    // Create reverse lookup table
+                    for (const [oghamChar, data] of Object.entries(this.oghamAlphabet)) {
+                        if (data.latin) {
+                            this.latinToOgham[data.latin.toUpperCase()] = oghamChar;
+                        }
+                    }
+                    
+                    // Handle multi-character Latin letters
+                    this.latinToOgham['NG'] = 'ᚍ';
+                    this.latinToOgham['EA'] = 'ᚕ';
+                    this.latinToOgham['OI'] = 'ᚖ';
+                    this.latinToOgham['UI'] = 'ᚗ';
+                    this.latinToOgham['IO'] = 'ᚘ';
+                    this.latinToOgham['AE'] = 'ᚙ';
+                },
+                
+                translate() {
+                    if (this.mode === 'encode') {
+                        this.encodeToOgham();
+                    } else {
+                        this.decodeFromOgham();
+                    }
+                },
+                
+                encodeToOgham() {
+                    let text = this.inputText.toUpperCase();
+                    let result = '';
+                    
+                    for (let i = 0; i < text.length; i++) {
+                        const char = text[i];
+                        
+                        // Check for multi-character sequences first
+                        if (i < text.length - 1) {
+                            const twoChars = char + text[i+1];
+                            if (twoChars in this.latinToOgham) {
+                                result += this.latinToOgham[twoChars];
+                                i++; // Skip next character
+                                continue;
+                            }
+                        }
+                        
+                        if (char in this.latinToOgham) {
+                            result += this.latinToOgham[char];
+                        } else if (char === ' ') {
+                            result += ' ';
+                        } else {
+                            // Skip unknown characters or add placeholder
+                            // result += '?';
+                        }
+                    }
+                    
+                    this.outputText = result;
+                },
+                
+                decodeFromOgham() {
+                    let text = this.inputText;
+                    let result = '';
+                    
+                    for (let i = 0; i < text.length; i++) {
+                        const char = text[i];
+                        if (char in this.oghamAlphabet) {
+                            result += this.oghamAlphabet[char].latin;
+                        } else if (char === ' ') {
+                            result += ' ';
+                        } else {
+                            // Skip unknown characters or add placeholder
+                            // result += '?';
+                        }
+                    }
+                    
+                    this.outputText = result;
+                },
+                
+                copyToClipboard() {
+                    if (!this.outputText) return;
+                    
+                    navigator.clipboard.writeText(this.outputText).then(() => {
+                        // Show copied feedback
+                        const copyBtn = event.target;
+                        copyBtn.innerHTML = '<i class="fas fa-check"></i>';
+                        setTimeout(() => {
+                            copyBtn.innerHTML = '<i class="fas fa-copy"></i>';
+                        }, 2000);
+                    });
+                },
+                
+                async exportAsPNG() {
+                    const element = document.getElementById('ogham-text-output');
+                    const canvas = await html2canvas(element, {
+                        scale: 2,
+                        logging: false,
+                        useCORS: true,
+                        allowTaint: true,
+                        backgroundColor: '#f8fafc' // Match the bg-gray-50 color
+                    });
+                    
+                    const link = document.createElement('a');
+                    link.download = 'ogham-text.png';
+                    link.href = canvas.toDataURL('image/png');
+                    link.click();
+                },
+                
+                async exportAsJPEG() {
+                    const element = document.getElementById('ogham-text-output');
+                    const canvas = await html2canvas(element, {
+                        scale: 2,
+                        logging: false,
+                        useCORS: true,
+                        allowTaint: true,
+                        backgroundColor: '#f8fafc' // Match the bg-gray-50 color
+                    });
+                    
+                    const link = document.createElement('a');
+                    link.download = 'ogham-text.jpg';
+                    link.href = canvas.toDataURL('image/jpeg', 0.9);
+                    link.click();
+                },
+                
+                async exportAsPDF() {
+                    const { jsPDF } = window.jspdf;
+                    const element = document.getElementById('ogham-text-output');
+                    const canvas = await html2canvas(element, {
+                        scale: 2,
+                        logging: false,
+                        useCORS: true,
+                        backgroundColor: '#f8fafc' // Match the bg-gray-50 color
+                    });
+                    
+                    const imgData = canvas.toDataURL('image/png');
+                    const pdf = new jsPDF('p', 'mm', 'a4');
+                    const imgWidth = 190;
+                    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                    
+                    pdf.addImage(imgData, 'PNG', 10, 10, imgWidth, imgHeight);
+                    pdf.save('ogham-text.pdf');
+                }
+            }));
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if (mobileMenuBtn && navLinks) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    navLinks.classList.toggle('active');
+                    mobileMenuBtn.classList.toggle('active');
+                });
+                document.addEventListener('click', function(event) {
+                    if (!event.target.closest('.main-nav')) {
+                        navLinks.classList.remove('active');
+                        mobileMenuBtn.classList.remove('active');
+                    }
+                });
+            }
+        });
+    </script>
+
+    <div class="related-calculators" style="margin-top: 2rem; padding: 1rem; background: rgba(0,0,0,0.1); border-radius: 8px;">
+        <h3 style="margin-top: 0;">Related Cipher Lab Tools</h3>
+        <a href="./Morse Code Translator_Encoder_Decoder.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Morse Code Translator Encoder Decoder</a><a href="./Password Strength → Anger Scale Calculator.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Password Strength → Anger Scale Calculator</a>
+        <a href="./index.html" style="display: block; padding: 0.5rem; margin-top: 1rem; background: rgba(74,144,226,0.2); border-radius: 4px; text-decoration: none; color: inherit; font-weight: bold;">← Back to Cipher Lab Hub</a>
+    </div>
+
+        <script>
+        // 🎅 Santa Claude's Interactive Enhancements
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🎅 Santa Claude's enhancements loaded!');
+            
+            // Enhanced button interactions
+            const buttons = document.querySelectorAll('button, .btn');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.classList.add('loading');
+                    setTimeout(() => {
+                        this.classList.remove('loading');
+                    }, 500);
+                });
+            });
+            
+            // Enhanced results display
+            const resultElements = document.querySelectorAll('.result, .results, .output, #result, #output');
+            resultElements.forEach(el => {
+                const observer = new MutationObserver(function(mutations) {
+                    mutations.forEach(function(mutation) {
+                        if (mutation.type === 'childList' || mutation.type === 'characterData') {
+                            el.classList.add('show');
+                        }
+                    });
+                });
+                observer.observe(el, { childList: true, subtree: true, characterData: true });
+            });
+            
+            // Form validation enhancements
+            const inputs = document.querySelectorAll('input[type="number"], input[type="text"]');
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    if (this.checkValidity()) {
+                        this.classList.remove('input-error');
+                        this.classList.add('input-success');
+                    } else {
+                        this.classList.remove('input-success');
+                        this.classList.add('input-error');
+                    }
+                });
+            });
+        });
+        </script>
+</body>
+</html>

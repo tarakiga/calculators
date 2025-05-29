@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en" x-data="spaceCalculator()">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Travel Time Calculator</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            padding: 2rem;
+            background: var(--card);
+            border-radius: 1rem;
+            box-shadow: 0 0 30px rgba(99, 102, 241, 0.2);
+            border: 1px solid var(--border);
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #e2e8f0;
+        }
+        
+        select {
+            width: 100%;
+            padding: 0.75rem;
+            background: #334155;
+            border: 1px solid #475569;
+            border-radius: 0.5rem;
+            color: white;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .speed-control {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .speed-btn {
+            flex: 1;
+            min-width: 120px;
+            padding: 0.75rem;
+            background: #334155;
+            border: none;
+            border-radius: 0.5rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        .speed-btn.active {
+            background: var(--primary-light);
+            font-weight: 500;
+            box-shadow: 0 0 0 2px var(--primary);
+        }
+        
+        .result-card {
+            background: rgba(30, 41, 59, 0.7);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            border: 1px solid #475569;
+            backdrop-filter: blur(10px);
+        }
+        
+        .planet-
+        
+        .planet-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            box-shadow: 0 0 20px currentColor;
+            flex-shrink: 0;
+        }
+        
+        .planet-info {
+            flex: 1;
+        }
+        
+        .planet-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.2rem;
+        }
+        
+        .planet-distance {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+        
+        .travel-times {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .travel-time {
+            background: rgba(51, 65, 85, 0.5);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            text-align: center;
+        }
+        
+        .time-label {
+            font-size: 0.9rem;
+            color: #cbd5e1;
+        }
+        
+        .time-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin: 0.5rem 0;
+            color: #7dd3fc;
+        }
+        
+        .time-comparison {
+            font-size: 0.85rem;
+            color: #94a3b8;
+        }
+        
+        .empty-state {
+            text-align: center;
+            color: #94a3b8;
+            padding: 2rem;
+        }
+        
+        @media (max-width: 500px) {
+            .travel-times {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+</head>
+<body>
+                <!-- Enhanced Navigation Bar -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="../../index.html">🧮 Docket One</a>
+            </div>
+            <div class="nav-search">
+                <label for="input-x0n0y3s4q" class="sr-only">Input field</label>
+            <input type="text" i id="input-x0n0y3s4q" aria-label="Calculator input"d="calc-search" placeholder="Search calculators..." class="search-input">
+                <div id="search-results" class="search-results"></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../BigKidMath/index.html" class="category-main-link">Big Kid Math</a></li>
+                <li><a href="../CipherLab/index.html" class="category-main-link">Cipher Lab</a></li>
+                <li><a href="../GeekGalaxy/index.html" class="category-main-link">Geek Galaxy</a></li>
+                <li><a href="../LifeHacks/index.html" class="category-main-link">Life Hacks</a></li>
+                <li><a href="../Math_Magik/index.html" class="category-main-link">Math Magik</a></li>
+                <li><a href="../Otaku_Ops/index.html" class="category-main-link">Otaku Ops</a></li>
+                <li><a href="../../index.html" class="home-link">Unit Converter</a></li>
+            </ul>
+            <button class="mobile-menu-btn" a aria-label="Perform action"ria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+    
+
+    
+
+
+    <div class="container">
+        <h1>🚀 Space Travel Time Calculator</h1>
+        
+        <div class="input-group">
+            <label for="destination">Select Destination</label>
+            <select id="destination" x-model="destination" @change="calculate()">
+                <option value="" selected disabled>Choose a destination...</option>
+                <template x-for="(body, index) in celestialBodies" :key="index">
+                    <option :value="index" x-text="body.name"></option>
+                </template>
+            </select>
+            
+            <label>Travel Speed</label>
+            <div class="speed-control">
+                <template x-for="(speed, index) in speeds" :key="index">
+                    <button aria-label="Perform action" 
+                        @click="setSpeed(index)"
+                        class="speed-btn"
+                        :class="{ 'active': activeSpeed === index }"
+                        x-text="speed.label"
+                    ></button>
+                </template>
+            </div>
+        </div>
+        
+        <div x-show="result" x-transition class="result-card">
+            <div class="planet-header">
+                <div class="planet-icon" :style="'color: ' + result.color + '; box-shadow: 0 0 30px ' + result.color">
+                    <span x-text="result.emoji"></span>
+                </div>
+                <div class="planet-info">
+                    <div class="planet-name" x-text="result.name"></div>
+                    <div class="planet-distance" x-text="'Distance: ' + result.distance + ' from Earth'"></div>
+                </div>
+            </div>
+            
+            <div class="travel-times">
+                <div class="travel-time">
+                    <div class="time-label">At <span x-text="speeds[activeSpeed].label"></span> speed</div>
+                    <div class="time-value" x-text="result.time"></div>
+                    <div class="time-comparison" x-text="result.comparison"></div>
+                </div>
+                <div class="travel-time">
+                    <div class="time-label">At light speed</div>
+                    <div class="time-value" x-text="result.lightTime"></div>
+                    <div class="time-comparison">(<span x-text="result.lightYears"></span> light-years)</div>
+                </div>
+            </div>
+        </div>
+        
+        <div x-show="!destination" x-transition class="empty-state">
+            Select a destination to see travel times
+        </div>
+    </div>
+
+    <script>
+        function spaceCalculator() {
+            return {
+                destination: null,
+                activeSpeed: 2, // Default to Rocket
+                result: null,
+                
+                speeds: [
+                    { label: "🚗 Car (100 km/h)", value: 100 },
+                    { label: "✈️ Jet (900 km/h)", value: 900 },
+                    { label: "🚀 Rocket (40,000 km/h)", value: 40000 },
+                    { label: "⚡ Light (1.08B km/h)", value: 1079252849 }
+                ],
+                
+                celestialBodies: [
+                    {
+                        name: "Mercury",
+                        emoji: "☿",
+                        distance: "77 million km",
+                        distanceKm: 77000000,
+                        color: "var(--planet-mercury)"
+                    },
+                    {
+                        name: "Venus",
+                        emoji: "♀",
+                        distance: "41 million km",
+                        distanceKm: 41000000,
+                        color: "var(--planet-venus)"
+                    },
+                    {
+                        name: "Earth",
+                        emoji: "🌍",
+                        distance: "0 km",
+                        distanceKm: 0,
+                        color: "var(--planet-earth)"
+                    },
+                    {
+                        name: "Mars",
+                        emoji: "♂",
+                        distance: "78 million km",
+                        distanceKm: 78000000,
+                        color: "var(--planet-mars)"
+                    },
+                    {
+                        name: "Jupiter",
+                        emoji: "♃",
+                        distance: "628 million km",
+                        distanceKm: 628000000,
+                        color: "var(--planet-jupiter)"
+                    },
+                    {
+                        name: "Saturn",
+                        emoji: "♄",
+                        distance: "1.2 billion km",
+                        distanceKm: 1200000000,
+                        color: "var(--planet-saturn)"
+                    },
+                    {
+                        name: "Uranus",
+                        emoji: "♅",
+                        distance: "2.7 billion km",
+                        distanceKm: 2700000000,
+                        color: "var(--planet-uranus)"
+                    },
+                    {
+                        name: "Neptune",
+                        emoji: "♆",
+                        distance: "4.3 billion km",
+                        distanceKm: 4300000000,
+                        color: "var(--planet-neptune)"
+                    },
+                    {
+                        name: "Proxima Centauri",
+                        emoji: "⭐",
+                        distance: "4.24 light-years",
+                        distanceKm: 4.24 * 9.461e12,
+                        color: "#fbbf24"
+                    },
+                    {
+                        name: "Andromeda Galaxy",
+                        emoji: "🌌",
+                        distance: "2.5 million light-years",
+                        distanceKm: 2.5e6 * 9.461e12,
+                        color: "#a78bfa"
+                    }
+                ],
+                
+                setSpeed(index) {
+                    this.activeSpeed = index;
+                    if (this.destination !== null) this.calculate();
+                },
+                
+                calculate() {
+                    if (this.destination === null || this.destination === "") return;
+                    
+                    const body = this.celestialBodies[this.destination];
+                    const speed = this.speeds[this.activeSpeed];
+                    
+                    // Calculate time in hours
+                    const hours = body.distanceKm / speed.value;
+                    
+                    // Convert to readable format
+                    const time = this.formatTime(hours);
+                    const lightHours = body.distanceKm / this.speeds[3].value;
+                    const lightTime = this.formatTime(lightHours);
+                    const lightYears = (body.distanceKm / 9.461e12).toFixed(6);
+                    
+                    // Fun comparisons
+                    let comparison;
+                    if (hours > 24 * 365 * 1000000) {
+                        comparison = Math.round(hours / (24 * 365 * 1000000)) + " million years!";
+                    } else if (hours > 24 * 365 * 1000) {
+                        comparison = Math.round(hours / (24 * 365 * 1000)) + " millennia!";
+                    } else if (hours > 24 * 365) {
+                        comparison = Math.round(hours / (24 * 365)) + " years!";
+                    } else if (hours > 24) {
+                        comparison = Math.round(hours / 24) + " days!";
+                    } else {
+                        comparison = "Pack some snacks!";
+                    }
+                    
+                    this.result = {
+                        ...body,
+                        time: time,
+                        lightTime: lightTime,
+                        lightYears: lightYears,
+                        comparison: comparison
+                    };
+                },
+                
+                formatTime(hours) {
+                    if (hours > 24 * 365 * 1000) {
+                        const millennia = Math.floor(hours / (24 * 365 * 1000));
+                        const years = Math.floor((hours % (24 * 365 * 1000)) / (24 * 365));
+                        return millennia + " million years" + (years > 0 ? ", " + years + " years" : "");
+                    } else if (hours > 24 * 365) {
+                        const years = Math.floor(hours / (24 * 365));
+                        const days = Math.floor((hours % (24 * 365)) / 24);
+                        return years + " years" + (days > 0 ? ", " + days + " days" : "");
+                    } else if (hours > 24) {
+                        const days = Math.floor(hours / 24);
+                        const remainingHours = Math.floor(hours % 24);
+                        return days + " days" + (remainingHours > 0 ? ", " + remainingHours + " hours" : "");
+                    } else {
+                        return Math.round(hours) + " hours";
+                    }
+                }
+            }
+        }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if (mobileMenuBtn && navLinks) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    navLinks.classList.toggle('active');
+                    mobileMenuBtn.classList.toggle('active');
+                });
+                document.addEventListener('click', function(event) {
+                    if (!event.target.closest('.main-nav')) {
+                        navLinks.classList.remove('active');
+                        mobileMenuBtn.classList.remove('active');
+                    }
+                });
+            }
+        });
+    </script>
+
+    <div class="related-calculators" style="margin-top: 2rem; padding: 1rem; background: rgba(0,0,0,0.1); border-radius: 8px;">
+        <h3 style="margin-top: 0;">Related Geek Galaxy Tools</h3>
+        <a href="./AI Doomsday Countdown.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">AI Doomsday Countdown</a><a href="./Alien Communication Probability Calculator.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Alien Communication Probability Calculator</a><a href="./Lightsaber Battery Life Calculator.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Lightsaber Battery Life Calculator</a>
+        <a href="./index.html" style="display: block; padding: 0.5rem; margin-top: 1rem; background: rgba(74,144,226,0.2); border-radius: 4px; text-decoration: none; color: inherit; font-weight: bold;">← Back to Geek Galaxy Hub</a>
+    </div>
+
+        <script>
+        // 🎅 Santa Claude's Interactive Enhancements
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🎅 Santa Claude's enhancements loaded!');
+            
+            // Enhanced button interactions
+            const buttons = document.querySelectorAll('button, .btn');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.classList.add('loading');
+                    setTimeout(() => {
+                        this.classList.remove('loading');
+                    }, 500);
+                });
+            });
+            
+            // Enhanced results display
+            const resultElements = document.querySelectorAll('.result, .results, .output, #result, #output');
+            resultElements.forEach(el => {
+                const observer = new MutationObserver(function(mutations) {
+                    mutations.forEach(function(mutation) {
+                        if (mutation.type === 'childList' || mutation.type === 'characterData') {
+                            el.classList.add('show');
+                        }
+                    });
+                });
+                observer.observe(el, { childList: true, subtree: true, characterData: true });
+            });
+            
+            // Form validation enhancements
+            const inputs = document.querySelectorAll('input[type="number"], input[type="text"]');
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    if (this.checkValidity()) {
+                        this.classList.remove('input-error');
+                        this.classList.add('input-success');
+                    } else {
+                        this.classList.remove('input-success');
+                        this.classList.add('input-error');
+                    }
+                });
+            });
+        });
+        </script>
+</body>
+</html>

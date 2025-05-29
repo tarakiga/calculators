@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sleep Cycle Optimizer</title>
+
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+</head>
+<body>
+                <!-- Enhanced Navigation Bar -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="../../index.html">🧮 Docket One</a>
+            </div>
+            <div class="nav-search">
+                <label for="input-owtqjrg0p" class="sr-only">Input field</label>
+            <input type="text" i id="input-owtqjrg0p" aria-label="Calculator input"d="calc-search" placeholder="Search calculators..." class="search-input">
+                <div id="search-results" class="search-results"></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../BigKidMath/index.html" class="category-main-link">Big Kid Math</a></li>
+                <li><a href="../CipherLab/index.html" class="category-main-link">Cipher Lab</a></li>
+                <li><a href="../GeekGalaxy/index.html" class="category-main-link">Geek Galaxy</a></li>
+                <li><a href="../LifeHacks/index.html" class="category-main-link">Life Hacks</a></li>
+                <li><a href="../Math_Magik/index.html" class="category-main-link">Math Magik</a></li>
+                <li><a href="../Otaku_Ops/index.html" class="category-main-link">Otaku Ops</a></li>
+                <li><a href="../../index.html" class="home-link">Unit Converter</a></li>
+            </ul>
+            <button class="mobile-menu-btn" a aria-label="Perform action"ria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+    
+
+    
+
+
+    <header>
+        <h1><span class="moon-icon">🌙</span>Sleep Cycle Optimizer</h1>
+        <p class="subtitle">Wake up refreshed by aligning with your natural 90-minute sleep cycles</p>
+    </header>
+    
+    <div class="science-section">
+        <h2>The Science of Sleep Cycles</h2>
+        
+        <div class="sleep-stage">
+            <div class="stage-icon">🌜</div>
+            <div class="stage-content">
+                <div class="stage-title">90-Minute Sleep Cycles</div>
+                <p>Your sleep isn't uniform - it progresses through recurring 90-minute cycles containing distinct stages that serve different biological functions.</p>
+            </div>
+        </div>
+        
+        <div class="cycle-visual">
+            <div class="cycle-phase">
+                <div class="phase-bar"></div>
+                <div>Light Sleep</div>
+                <small>Stage 1-2</small>
+            </div>
+            <div class="cycle-phase">
+                <div class="phase-bar phase-deep"></div>
+                <div>Deep Sleep</div>
+                <small>Stage 3</small>
+            </div>
+            <div class="cycle-phase">
+                <div class="phase-bar phase-rem"></div>
+                <div>REM Sleep</div>
+                <small>Dreaming</small>
+            </div>
+        </div>
+        
+        <div class="sleep-stage">
+            <div class="stage-icon">💤</div>
+            <div class="stage-content">
+                <div class="stage-title">Light Sleep (Stages 1-2)</div>
+                <p>The transition between wakefulness and sleep where your body begins to relax and brain waves slow down. This stage becomes longer in later cycles.</p>
+            </div>
+        </div>
+        
+        <div class="sleep-stage">
+            <div class="stage-icon">🛌</div>
+            <div class="stage-content">
+                <div class="stage-title">Deep Sleep (Stage 3)</div>
+                <p>The most restorative phase where your body repairs muscles and tissues, boosts immune function, and consolidates memories. Dominates early sleep cycles.</p>
+            </div>
+        </div>
+        
+        <div class="sleep-stage">
+            <div class="stage-icon">🌌</div>
+            <div class="stage-content">
+                <div class="stage-title">REM Sleep</div>
+                <p>Characterized by rapid eye movement and brain activity similar to being awake. Crucial for emotional processing, memory, and learning. Gets longer in later cycles.</p>
+            </div>
+        </div>
+        
+        <div class="cycle-info">
+            <h3>Why Timing Matters</h3>
+            <p>Waking up at the <strong>end of a complete cycle</strong> (when you're in the lightest sleep phase) helps you feel refreshed rather than groggy. This calculator ensures you wake between cycles, not during deep or REM sleep when being awakened causes sleep inertia.</p>
+            <p>A typical night includes <strong>4-6 complete cycles</strong> (6-9 hours). The recommended 5 cycles (7.5 hours) balances sufficient deep sleep with REM needs.</p>
+        </div>
+    </div>
+    
+    <div class="calculator">
+        <div class="input-group">
+            <label for="sleep-mode">I want to:</label>
+            <div class="radio-group">
+                <div class="radio-option">
+                    <input type="radio" id="wake-up-mode" name="mode" value="wake" checked>
+                    <label for="wake-up-mode">Calculate wake-up times</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" id="bedtime-mode" name="mode" value="bed">
+                    <label for="bedtime-mode">Calculate bedtime</label>
+                </div>
+            </div>
+        </div>
+        
+        <div class="input-group" id="bedtime-input">
+            <label for="bedtime">When do you want to go to bed?</label>
+            <input type="time" id="bedtime" value="22:30">
+        </div>
+        
+        <div class="input-group" id="wakeup-input" style="display:none;">
+            <label for="wakeup">When do you want to wake up?</label>
+            <input type="time" id="wakeup" value="07:00">
+        </div>
+        
+        <div class="input-group">
+            <label for="fall-asleep-time">How long does it take you to fall asleep?</label>
+            <select id="fall-asleep-time">
+                <option value="10">10 minutes (fast sleeper)</option>
+                <option value="15" selected>15 minutes (average)</option>
+                <option value="20">20 minutes (slow sleeper)</option>
+                <option value="30">30+ minutes (insomnia)</option>
+            </select>
+        </div>
+        
+        <button aria-label="Perform action" onclick="calculateSleepCycles()">Optimize My Sleep</button>
+    </div>
+    
+    <div class="results" id="results">
+        <h2>Your Optimal Sleep Times</h2>
+        
+        <div class="cycle-options" id="cycle-options">
+            <!-- Filled by JavaScript -->
+        </div>
+        
+        <div class="explanation">
+            <h3>How This Works</h3>
+            <p>Sleep occurs in 90-minute cycles alternating between light, deep, and REM sleep. Waking at the end of a cycle (when sleep is lightest) helps you feel refreshed.</p>
+            <p>The <strong>recommended</strong> times above include your estimated time to fall asleep plus complete sleep cycles.</p>
+        </div>
+    </div>
+
+    <script>
+        // Toggle between bedtime/wake-up modes
+        document.querySelectorAll('input[name="mode"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                document.getElementById('bedtime-input').style.display = 
+                    this.value === 'wake' ? 'none' : 'block';
+                document.getElementById('wakeup-input').style.display = 
+                    this.value === 'wake' ? 'block' : 'none';
+            });
+        });
+        
+        function calculateSleepCycles() {
+            const mode = document.querySelector('input[name="mode"]:checked').value;
+            const fallAsleepMins = parseInt(document.getElementById('fall-asleep-time').value);
+            const cycleLength = 90; // minutes
+            
+            let baseTime;
+            if (mode === 'wake') {
+                const wakeupTime = document.getElementById('wakeup').value;
+                baseTime = parseTime(wakeupTime);
+            } else {
+                const bedtime = document.getElementById('bedtime').value;
+                baseTime = parseTime(bedtime);
+                // Add fall-asleep time to bedtime
+                baseTime = new Date(baseTime.getTime() + fallAsleepMins * 60000);
+            }
+            
+            // Calculate 6 possible cycles (4.5 to 9 hours sleep)
+            const cycleOptions = document.getElementById('cycle-options');
+            cycleOptions.innerHTML = '';
+            
+            for (let cycles = 3; cycles <= 6; cycles++) {
+                const totalMins = cycles * cycleLength;
+                let time;
+                
+                if (mode === 'wake') {
+                    time = new Date(baseTime.getTime() - totalMins * 60000);
+                } else {
+                    time = new Date(baseTime.getTime() + totalMins * 60000);
+                }
+                
+                const option = document.createElement('div');
+                option.className = `cycle-option ${cycles === 5 ? 'recommended' : ''}`;
+                
+                option.innerHTML = `
+                    <div class="cycle-time">${formatTime(time)}</div>
+                    <div class="cycle-label">${mode === 'wake' ? 'Go to bed at' : 'Wake up at'}</div>
+                    <div class="cycle-cycles">${cycles} cycles (${totalMins/60} hours)</div>
+                `;
+                
+                cycleOptions.appendChild(option);
+            }
+            
+            // Show results
+            document.getElementById('results').style.display = 'block';
+        }
+        
+        function parseTime(timeString) {
+            const now = new Date();
+            const [hours, minutes] = timeString.split(':').map(Number);
+            return new Date(now.getFullYear(), now.getMonth(), now.getDate(), hours, minutes);
+        }
+        
+        function formatTime(date) {
+            return date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+        }
+        
+        // Initialize with current time
+        window.onload = function() {
+            const now = new Date();
+            document.getElementById('bedtime').value = `${now.getHours()}:${now.getMinutes()}`;
+            document.getElementById('wakeup').value = `${(now.getHours() + 8) % 24}:${now.getMinutes()}`;
+        };
+    </script>
+
+    <div class="related-calculators" style="margin-top: 2rem; padding: 1rem; background: rgba(0,0,0,0.1); border-radius: 8px;">
+        <h3 style="margin-top: 0;">Related Life Hacks Tools</h3>
+        <a href="./Coffee to Code Efficiency Ratio Calculator.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Coffee to Code Efficiency Ratio Calculator</a><a href="./Inflation Impact Calculator.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Inflation Impact Calculator</a><a href="./Procrastination ROI Calculator.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Procrastination ROI Calculator</a>
+        <a href="./index.html" style="display: block; padding: 0.5rem; margin-top: 1rem; background: rgba(74,144,226,0.2); border-radius: 4px; text-decoration: none; color: inherit; font-weight: bold;">← Back to Life Hacks Hub</a>
+    </div>
+
+        <script>
+        // 🎅 Santa Claude's Interactive Enhancements
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🎅 Santa Claude's enhancements loaded!');
+            
+            // Enhanced button interactions
+            const buttons = document.querySelectorAll('button, .btn');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.classList.add('loading');
+                    setTimeout(() => {
+                        this.classList.remove('loading');
+                    }, 500);
+                });
+            });
+            
+            // Enhanced results display
+            const resultElements = document.querySelectorAll('.result, .results, .output, #result, #output');
+            resultElements.forEach(el => {
+                const observer = new MutationObserver(function(mutations) {
+                    mutations.forEach(function(mutation) {
+                        if (mutation.type === 'childList' || mutation.type === 'characterData') {
+                            el.classList.add('show');
+                        }
+                    });
+                });
+                observer.observe(el, { childList: true, subtree: true, characterData: true });
+            });
+            
+            // Form validation enhancements
+            const inputs = document.querySelectorAll('input[type="number"], input[type="text"]');
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    if (this.checkValidity()) {
+                        this.classList.remove('input-error');
+                        this.classList.add('input-success');
+                    } else {
+                        this.classList.remove('input-success');
+                        this.classList.add('input-error');
+                    }
+                });
+            });
+        });
+        </script>
+</body>
+</html>

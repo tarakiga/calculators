@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Morse Code Translator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+	<link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <style>
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        .animate-blink { animation: blink 1s infinite; }
+        .morse-active {
+            background-color: #3B82F6;
+            color: white;
+        }
+    </style>
+    
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+</head>
+<body class="bg-gray-100 min-h-screen">
+        <!-- Enhanced Navigation Bar -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="../../index.html">🧮 Docket One</a>
+            </div>
+            <div class="nav-search">
+                <label for="input-mc702jaqn" class="sr-only">Input field</label>
+            <input type="text" i id="input-mc702jaqn" aria-label="Calculator input"d="calc-search" placeholder="Search calculators..." class="search-input">
+                <div id="search-results" class="search-results"></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../BigKidMath/index.html" class="category-main-link">Big Kid Math</a></li>
+                <li><a href="../CipherLab/index.html" class="category-main-link">Cipher Lab</a></li>
+                <li><a href="../GeekGalaxy/index.html" class="category-main-link">Geek Galaxy</a></li>
+                <li><a href="../LifeHacks/index.html" class="category-main-link">Life Hacks</a></li>
+                <li><a href="../Math_Magik/index.html" class="category-main-link">Math Magik</a></li>
+                <li><a href="../Otaku_Ops/index.html" class="category-main-link">Otaku Ops</a></li>
+                <li><a href="../../index.html" class="home-link">Unit Converter</a></li>
+            </ul>
+            <button class="mobile-menu-btn" a aria-label="Perform action"ria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+    
+
+    
+
+    <div class="container mx-auto px-4 py-12" x-data="morseTranslator()">
+        <div class="max-w-2xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
+            <!-- Header -->
+            <div class="bg-blue-600 p-6 text-center">
+                <h1 class="text-3xl font-bold text-white">
+                    <i class="fas fa-broadcast-tower mr-2"></i> Morse Code Translator
+                </h1>
+                <p class="text-blue-100 mt-2">Translate between text and Morse code instantly</p>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="p-6">
+                <!-- Mode Selector -->
+                <div class="flex justify-center mb-8">
+                    <div class="inline-flex rounded-md shadow-sm">
+                        <button aria-label="Perform action" 
+                            @click="mode = 'encode'" 
+                            :class="mode === 'encode' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-800'" 
+                            class="px-4 py-2 text-sm font-medium rounded-l-lg border border-gray-300 focus:z-10 focus:ring-2 focus:ring-blue-500">
+                            <i class="fas fa-lock mr-2"></i> Encode
+                        </button>
+                        <button aria-label="Perform action" 
+                            @click="mode = 'decode'" 
+                            :class="mode === 'decode' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-800'" 
+                            class="px-4 py-2 text-sm font-medium rounded-r-lg border border-gray-300 focus:z-10 focus:ring-2 focus:ring-blue-500">
+                            <i class="fas fa-lock-open mr-2"></i> Decode
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Input/Output Areas -->
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">
+                            <span x-text="mode === 'encode' ? 'Text to encode' : 'Morse code to decode'"></span>:
+                        </label>
+                        <textarea 
+                            x-model="inputText" 
+                            @input="translate" 
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" 
+                            rows="4" 
+                            placeholder="Type your message here..."></textarea>
+                    </div>
+                    
+                    <div class="flex justify-center">
+                        <button aria-label="Perform action" 
+                            @click="playMorse()" 
+                            :disabled="!outputText" 
+                            class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed">
+                            <i class="fas fa-play mr-2"></i> Play Sound
+                        </button>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">
+                            <span x-text="mode === 'encode' ? 'Morse code' : 'Decoded text'"></span>:
+                        </label>
+                        <div class="relative">
+                            <textarea 
+                                x-model="outputText" 
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 focus:outline-none focus:ring-blue-500 focus:border-blue-500" 
+                                rows="4" 
+                                readonly></textarea>
+                            <button aria-label="Perform action" 
+                                @click="copyToClipboard" 
+                                class="absolute top-2 right-2 p-1 text-gray-500 hover:text-gray-700">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Morse Code Visualization -->
+                    <div x-show="mode === 'encode' && outputText" class="mt-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Visualization:</label>
+                        <div class="flex flex-wrap gap-2 p-4 bg-gray-100 rounded-md">
+                            <template x-for="char in outputText.split('')">
+                                <div 
+                                    class="w-6 h-10 flex items-center justify-center border border-gray-300 rounded" 
+                                    :class="{'morse-active': char === '.', 'bg-gray-800': char === '-'}">
+                                    <span class="text-xs" x-text="char === ' ' ? '␣' : char"></span>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Morse Code Reference -->
+                <div class="mt-8 border-t pt-6">
+                    <h3 class="text-lg font-medium text-gray-900 mb-3">
+                        <i class="fas fa-book-open mr-2"></i> Morse Code Reference
+                    </h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="bg-gray-50 p-3 rounded border border-gray-200">
+                            <h4 class="font-bold text-sm mb-2">Letters</h4>
+                            <div class="text-xs space-y-1">
+                                <div>A: <span class="font-mono">.-</span></div>
+                                <div>B: <span class="font-mono">-...</span></div>
+                                <div>C: <span class="font-mono">-.-.</span></div>
+                                <div>D: <span class="font-mono">-..</span></div>
+                                <div>E: <span class="font-mono">.</span></div>
+                                <div>F: <span class="font-mono">..-.</span></div>
+                                <div>G: <span class="font-mono">--.</span></div>
+                                <div>H: <span class="font-mono">....</span></div>
+                                <div>I: <span class="font-mono">..</span></div>
+                                <div>J: <span class="font-mono">.---</span></div>
+                                <div>K: <span class="font-mono">-.-</span></div>
+                                <div>L: <span class="font-mono">.-..</span></div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded border border-gray-200">
+                            <h4 class="font-bold text-sm mb-2">Letters (cont.)</h4>
+                            <div class="text-xs space-y-1">
+                                <div>M: <span class="font-mono">--</span></div>
+                                <div>N: <span class="font-mono">-.</span></div>
+                                <div>O: <span class="font-mono">---</span></div>
+                                <div>P: <span class="font-mono">.--.</span></div>
+                                <div>Q: <span class="font-mono">--.-</span></div>
+                                <div>R: <span class="font-mono">.-.</span></div>
+                                <div>S: <span class="font-mono">...</span></div>
+                                <div>T: <span class="font-mono">-</span></div>
+                                <div>U: <span class="font-mono">..-</span></div>
+                                <div>V: <span class="font-mono">...-</span></div>
+                                <div>W: <span class="font-mono">.--</span></div>
+                                <div>X: <span class="font-mono">-..-</span></div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded border border-gray-200">
+                            <h4 class="font-bold text-sm mb-2">Numbers</h4>
+                            <div class="text-xs space-y-1">
+                                <div>1: <span class="font-mono">.----</span></div>
+                                <div>2: <span class="font-mono">..---</span></div>
+                                <div>3: <span class="font-mono">...--</span></div>
+                                <div>4: <span class="font-mono">....-</span></div>
+                                <div>5: <span class="font-mono">.....</span></div>
+                                <div>6: <span class="font-mono">-....</span></div>
+                                <div>7: <span class="font-mono">--...</span></div>
+                                <div>8: <span class="font-mono">---..</span></div>
+                                <div>9: <span class="font-mono">----.</span></div>
+                                <div>0: <span class="font-mono">-----</span></div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded border border-gray-200">
+                            <h4 class="font-bold text-sm mb-2">Punctuation</h4>
+                            <div class="text-xs space-y-1">
+                                <div>.: <span class="font-mono">.-.-.-</span></div>
+                                <div>,: <span class="font-mono">--..--</span></div>
+                                <div>?: <span class="font-mono">..--..</span></div>
+                                <div>': <span class="font-mono">.----.</span></div>
+                                <div>!: <span class="font-mono">-.-.--</span></div>
+                                <div>/: <span class="font-mono">-..-.</span></div>
+                                <div>(: <span class="font-mono">-.--.</span></div>
+                                <div>): <span class="font-mono">-.--.-</span></div>
+                                <div>&: <span class="font-mono">.-...</span></div>
+                                <div>:: <span class="font-mono">---...</span></div>
+                                <div>;: <span class="font-mono">-.-.-.</span></div>
+                                <div>=: <span class="font-mono">-...-</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('morseTranslator', () => ({
+                mode: 'encode',
+                inputText: '',
+                outputText: '',
+                audioContext: null,
+                oscillator: null,
+                isPlaying: false,
+                
+                // International Morse Code
+                morseCode: {
+                    // Letters
+                    'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 
+                    'F': '..-.', 'G': '--.', 'H': '....', 'I': '..', 'J': '.---', 
+                    'K': '-.-', 'L': '.-..', 'M': '--', 'N': '-.', 'O': '---', 
+                    'P': '.--.', 'Q': '--.-', 'R': '.-.', 'S': '...', 'T': '-', 
+                    'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-', 'Y': '-.--', 'Z': '--..',
+                    // Numbers
+                    '0': '-----', '1': '.----', '2': '..---', '3': '...--', '4': '....-', 
+                    '5': '.....', '6': '-....', '7': '--...', '8': '---..', '9': '----.',
+                    // Punctuation
+                    '.': '.-.-.-', ',': '--..--', '?': '..--..', "'": '.----.', 
+                    '!': '-.-.--', '/': '-..-.', '(': '-.--.', ')': '-.--.-', 
+                    '&': '.-...', ':': '---...', ';': '-.-.-.', '=': '-...-', 
+                    '+': '.-.-.', '-': '-....-', '_': '..--.-', '"': '.-..-.', 
+                    '$': '...-..-', '@': '.--.-.', ' ': '/'
+                },
+                
+                // Reverse lookup for decoding
+                morseToText: {},
+                
+                init() {
+                    // Create reverse lookup table
+                    for (const [key, value] of Object.entries(this.morseCode)) {
+                        this.morseToText[value] = key;
+                    }
+                    
+                    // Initialize Web Audio API
+                    this.setupAudio();
+                },
+                
+                setupAudio() {
+                    try {
+                        this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    } catch (e) {
+                        console.error('Web Audio API not supported');
+                    }
+                },
+                
+                translate() {
+                    if (this.mode === 'encode') {
+                        this.encodeToMorse();
+                    } else {
+                        this.decodeFromMorse();
+                    }
+                },
+                
+                encodeToMorse() {
+                    const text = this.inputText.toUpperCase();
+                    let result = '';
+                    
+                    for (let i = 0; i < text.length; i++) {
+                        const char = text[i];
+                        if (char in this.morseCode) {
+                            result += this.morseCode[char] + ' ';
+                        } else if (char === ' ') {
+                            result += '/ ';
+                        } else {
+                            // Skip unknown characters or add placeholder
+                            // result += '# ';
+                        }
+                    }
+                    
+                    this.outputText = result.trim();
+                },
+                
+                decodeFromMorse() {
+                    const morseWords = this.inputText.trim().split(' / ');
+                    let result = '';
+                    
+                    for (let i = 0; i < morseWords.length; i++) {
+                        const morseChars = morseWords[i].split(' ');
+                        
+                        for (let j = 0; j < morseChars.length; j++) {
+                            const code = morseChars[j];
+                            if (code in this.morseToText) {
+                                result += this.morseToText[code];
+                            } else if (code === '') {
+                                // Skip empty codes (extra spaces)
+                            } else {
+                                // result += '#'; // Unknown code
+                            }
+                        }
+                        
+                        if (i < morseWords.length - 1) {
+                            result += ' ';
+                        }
+                    }
+                    
+                    this.outputText = result;
+                },
+                
+                playMorse() {
+                    if (!this.outputText || !this.audioContext) return;
+                    
+                    if (this.isPlaying) {
+                        this.stopPlayback();
+                        return;
+                    }
+                    
+                    this.isPlaying = true;
+                    const morseString = this.mode === 'encode' ? this.outputText : this.inputText;
+                    this.playMorseSequence(morseString);
+                },
+                
+                playMorseSequence(morseString) {
+                    let time = this.audioContext.currentTime;
+                    
+                    // Dot duration in seconds (affects speed)
+                    const dotDuration = 0.1;
+                    const dashDuration = dotDuration * 3;
+                    const symbolSpace = dotDuration;
+                    const letterSpace = dotDuration * 3;
+                    const wordSpace = dotDuration * 7;
+                    
+                    // Create oscillator
+                    this.oscillator = this.audioContext.createOscillator();
+                    this.oscillator.type = 'sine';
+                    this.oscillator.frequency.value = 600; // Tone frequency
+                    
+                    // Create gain node for amplitude control
+                    const gainNode = this.audioContext.createGain();
+                    gainNode.gain.value = 0;
+                    
+                    this.oscillator.connect(gainNode);
+                    gainNode.connect(this.audioContext.destination);
+                    this.oscillator.start();
+                    
+                    // Process each character
+                    for (let i = 0; i < morseString.length; i++) {
+                        const char = morseString[i];
+                        
+                        if (char === '.') {
+                            // Play dot
+                            gainNode.gain.setValueAtTime(1, time);
+                            time += dotDuration;
+                            gainNode.gain.setValueAtTime(0, time);
+                            time += symbolSpace;
+                        } else if (char === '-') {
+                            // Play dash
+                            gainNode.gain.setValueAtTime(1, time);
+                            time += dashDuration;
+                            gainNode.gain.setValueAtTime(0, time);
+                            time += symbolSpace;
+                        } else if (char === ' ') {
+                            // Letter space
+                            time += letterSpace - symbolSpace;
+                        } else if (char === '/') {
+                            // Word space
+                            time += wordSpace - symbolSpace;
+                        }
+                    }
+                    
+                    // Stop oscillator after playback completes
+                    setTimeout(() => {
+                        this.stopPlayback();
+                    }, (time - this.audioContext.currentTime) * 1000 + 100);
+                },
+                
+                stopPlayback() {
+                    if (this.oscillator) {
+                        this.oscillator.stop();
+                        this.oscillator = null;
+                    }
+                    this.isPlaying = false;
+                },
+                
+                copyToClipboard() {
+                    if (!this.outputText) return;
+                    
+                    navigator.clipboard.writeText(this.outputText).then(() => {
+                        // Show copied feedback
+                        const copyBtn = event.target;
+                        copyBtn.innerHTML = '<i class="fas fa-check"></i>';
+                        setTimeout(() => {
+                            copyBtn.innerHTML = '<i class="fas fa-copy"></i>';
+                        }, 2000);
+                    });
+                }
+            }));
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if (mobileMenuBtn && navLinks) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    navLinks.classList.toggle('active');
+                    mobileMenuBtn.classList.toggle('active');
+                });
+                document.addEventListener('click', function(event) {
+                    if (!event.target.closest('.main-nav')) {
+                        navLinks.classList.remove('active');
+                        mobileMenuBtn.classList.remove('active');
+                    }
+                });
+            }
+        });
+    </script>
+
+    <div class="related-calculators" style="margin-top: 2rem; padding: 1rem; background: rgba(0,0,0,0.1); border-radius: 8px;">
+        <h3 style="margin-top: 0;">Related Cipher Lab Tools</h3>
+        <a href="./Ogham Translator Encoder_Decoder.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Ogham Translator Encoder Decoder</a><a href="./Password Strength → Anger Scale Calculator.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Password Strength → Anger Scale Calculator</a>
+        <a href="./index.html" style="display: block; padding: 0.5rem; margin-top: 1rem; background: rgba(74,144,226,0.2); border-radius: 4px; text-decoration: none; color: inherit; font-weight: bold;">← Back to Cipher Lab Hub</a>
+    </div>
+
+        <script>
+        // 🎅 Santa Claude's Interactive Enhancements
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🎅 Santa Claude's enhancements loaded!');
+            
+            // Enhanced button interactions
+            const buttons = document.querySelectorAll('button, .btn');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.classList.add('loading');
+                    setTimeout(() => {
+                        this.classList.remove('loading');
+                    }, 500);
+                });
+            });
+            
+            // Enhanced results display
+            const resultElements = document.querySelectorAll('.result, .results, .output, #result, #output');
+            resultElements.forEach(el => {
+                const observer = new MutationObserver(function(mutations) {
+                    mutations.forEach(function(mutation) {
+                        if (mutation.type === 'childList' || mutation.type === 'characterData') {
+                            el.classList.add('show');
+                        }
+                    });
+                });
+                observer.observe(el, { childList: true, subtree: true, characterData: true });
+            });
+            
+            // Form validation enhancements
+            const inputs = document.querySelectorAll('input[type="number"], input[type="text"]');
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    if (this.checkValidity()) {
+                        this.classList.remove('input-error');
+                        this.classList.add('input-success');
+                    } else {
+                        this.classList.remove('input-success');
+                        this.classList.add('input-error');
+                    }
+                });
+            });
+        });
+        </script>
+</body>
+</html>

@@ -1,0 +1,1222 @@
+{
+  "timestamp": "2025-05-28T19:39:25.808Z",
+  "summary": {
+    "totalPages": 38,
+    "commonIssues": [],
+    "designStrengths": [
+      [
+        "Proper H1 heading structure",
+        38
+      ],
+      [
+        "Custom spacing implemented",
+        38
+      ],
+      [
+        "Interactive buttons present",
+        38
+      ],
+      [
+        "Mobile navigation implemented",
+        38
+      ],
+      [
+        "CSS custom properties for consistency",
+        38
+      ]
+    ]
+  },
+  "pages": [
+    {
+      "file": "index.html",
+      "path": "D:\\work\\Tar\\PROJECTS\\CALCULATOR\\_public_html\\index.html",
+      "type": "homepage",
+      "category": "",
+      "issues": [],
+      "strengths": [
+        "Proper H1 heading structure",
+        "Good use of H2 subheadings",
+        "Custom spacing implemented",
+        "ARIA labels implemented",
+        "Responsive viewport configured",
+        "Interactive buttons present",
+        "Mobile navigation implemented",
+        "Search/filter functionality available",
+        "CSS custom properties for consistency",
+        "Interactive elements present",
+        "Hover effects and transitions",
+        "Dynamic form interactions"
+      ],
+      "accessibility": [
+        "Some form inputs may lack proper labels"
+      ],
+      "performance": [
+        "Excessive inline styles - consider CSS classes"
+      ],
+      "mobile": [
+        "No media queries found - may not be mobile-optimized"
+      ],
+      "design": [
+        "Custom color scheme implemented",
+        "Custom styling implemented",
+        "Typography customization present"
+      ]
+    },
+    {
+      "file": "index.html",
+      "path": "D:\\work\\Tar\\PROJECTS\\CALCULATOR\\_public_html\\pages\\BigKidMath\\index.html",
+      "type": "category-index",
+      "category": "BigKidMath",
+      "issues": [],
+      "strengths": [
+        "Proper H1 heading structure",
+        "Good use of H2 subheadings",
+        "Custom spacing implemented",
+        "ARIA labels implemented",
+        "Responsive viewport configured",
+        "Media queries for responsive design",
+        "Interactive buttons present",
+        "Mobile navigation implemented",
+        "Form validation present",
+        "Search/filter functionality available",
+        "CSS custom properties for consistency",
+        "Interactive elements present",
+        "Hover effects and transitions"
+      ],
+      "accessibility": [
+        "Some form inputs may lack proper labels"
+      ],
+      "performance": [],
+      "mobile": [],
+      "design": [
+        "Custom color scheme implemented",
+        "Custom styling implemented",
+        "Typography customization present"
+      ]
+    },
+    {
+      "file": "Caffeine Half-Life Calculator.html",
+      "path": "D:\\work\\Tar\\PROJECTS\\CALCULATOR\\_public_html\\pages\\BigKidMath\\Caffeine Half-Life Calculator.html",
+      "type": "calculator",
+      "category": "BigKidMath",
+      "issues": [],
+      "strengths": [
+        "Proper H1 heading structure",
+        "Good use of H2 subheadings",
+        "Custom spacing implemented",
+        "ARIA labels implemented",
+        "Responsive viewport configured",
+        "Interactive buttons present",
+        "Mobile navigation implemented",
+        "Search/filter functionality available",
+        "CSS custom properties for consistency",
+        "Interactive elements present"
+      ],
+      "accessibility": [
+        "Some form inputs may lack proper labels"
+      ],
+      "performance": [],
+      "mobile": [
+        "No media queries found - may not be mobile-optimized"
+      ],
+      "design": [
+        "Custom color scheme implemented",
+        "Custom styling implemented"
+      ]
+    },
+    {
+      "file": "Car Ownership vs. Uber Cost Calculator.html",
+      "path": "D:\\work\\Tar\\PROJECTS\\CALCULATOR\\_public_html\\pages\\BigKidMath\\Car Ownership vs. Uber Cost Calculator.html",
+      "type": "calculator",
+      "category": "BigKidMath",
+      "issues": [],
+      "strengths": [
+        "Proper H1 heading structure",
+        "Good use of H2 subheadings",
+        "Custom spacing implemented",
+        "ARIA labels implemented",
+        "Responsive viewport configured",
+        "Interactive buttons present",
+        "Mobile navigation implemented",
+        "Search/filter functionality available",
+        "CSS custom properties for consistency",
+        "Interactive elements present",
+        "Hover effects and transitions"
+      ],
+      "accessibility": [
+        "Some form inputs may lack proper labels"
+      ],
+      "performance": [],
+      "mobile": [
+        "No media queries found - may not be mobile-optimized"
+      ],
+      "design": [
+        "Custom color scheme implemented",
+        "Custom styling implemented",
+        "Typography customization present"
+      ]
+    },
+    {
+      "file": "Generational Timeline Calculator.html",
+      "path": "D:\\work\\Tar\\PROJECTS\\CALCULATOR\\_public_html\\pages\\BigKidMath\\Generational Timeline Calculator.html",
+      "type": "calculator",
+      "category": "BigKidMath",
+      "issues": [],
+      "strengths": [
+        "Proper H1 heading structure",
+        "Custom spacing implemented",
+        "ARIA labels implemented",
+        "Responsive viewport configured",
+        "Interactive buttons present",
+        "Mobile navigation implemented",
+        "Error handling implemented",
+        "Search/filter functionality available",
+        "CSS custom properties for consistency",
+        "Interactive elements present",
+        "Hover effects and transitions",
+        "Dynamic form interactions"
+      ],
+      "accessibility": [
+        "Some form inputs may lack proper labels"
+      ],
+      "performance": [],
+      "mobile": [
+        "No media queries found - may not be mobile-optimized"
+      ],
+      "design": [
+        "Custom color scheme implemented",
+        "Custom styling implemented",
+        "Typography customization present"
+      ]
+    },
+    {
+      "file": "index.html",
+      "path": "D:\\work\\Tar\\PROJECTS\\CALCULATOR\\_public_html\\pages\\CipherLab\\index.html",
+      "type": "category-index",
+      "category": "CipherLab",
+      "issues": [],
+      "strengths": [
+        "Proper H1 heading structure",
+        "Good use of H2 subheadings",
+        "Custom spacing implemented",
+        "ARIA labels implemented",
+        "Responsive viewport configured",
+        "Media queries for responsive design",
+        "Interactive buttons present",
+        "Mobile navigation implemented",
+        "Form validation present",
+        "Search/filter functionality available",
+        "CSS custom properties for consistency",
+        "Interactive elements present",
+        "Hover effects and transitions"
+      ],
+      "accessibility": [
+        "Some form inputs may lack proper labels"
+      ],
+      "performance": [],
+      "mobile": [],
+      "design": [
+        "Custom color scheme implemented",
+        "Custom styling implemented",
+        "Typography customization present"
+      ]
+    },
+    {
+      "file": "Morse Code Translator_Encoder_Decoder.html",
+      "path": "D:\\work\\Tar\\PROJECTS\\CALCULATOR\\_public_html\\pages\\CipherLab\\Morse Code Translator_Encoder_Decoder.html",
+      "type": "calculator",
+      "category": "CipherLab",
+      "issues": [],
+      "strengths": [
+        "Proper H1 heading structure",
+        "Custom spacing implemented",
+        "ARIA labels implemented",
+        "Responsive viewport configured",
+        "Interactive buttons present",
+        "Mobile navigation implemented",
+        "Error handling implemented",
+        "Search/filter functionality available",
+        "CSS framework for consistency",
+        "CSS custom properties for consistency",
+        "Interactive elements present",
+        "CSS animations implemented"
+      ],
+      "accessibility": [
+        "Some form inputs may lack proper labels"
+      ],
+      "performance": [],
+      "mobile": [
+        "No media queries found - may not be mobile-optimized"
+      ],
+      "design": [
+        "Custom color scheme implemented",
+        "Custom styling implemented"
+      ]
+    },
+    {
+      "file": "Ogham Translator Encoder_Decoder.html",
+      "path": "D:\\work\\Tar\\PROJECTS\\CALCULATOR\\_public_html\\pages\\CipherLab\\Ogham Translator Encoder_Decoder.html",
+      "type": "calculator",
+      "category": "CipherLab",
+      "issues": [],
+      "strengths": [
+        "Proper H1 heading structure",
+        "Custom spacing implemented",
+        "ARIA labels implemented",
+        "Responsive viewport configured",
+        "Interactive buttons present",
+        "Mobile navigation implemented",
+        "Search/filter functionality available",
+        "CSS framework for consistency",
+        "CSS custom properties for consistency",
+        "Interactive elements present",
+        "Hover effects and transitions",
+        "CSS animations implemented"
+      ],
+      "accessibility": [
+        "Some form inputs may lack proper labels"
+      ],
+      "performance": [],
+      "mobile": [
+        "No media queries found - may not be mobile-optimized"
+      ],
+      "design": [
+        "Custom color scheme implemented",
+        "Custom styling implemented",
+        "Typography customization present"
+      ]
+    },
+    {
+      "file": "Password Strength → Anger Scale Calculator.html",
+      "path": "D:\\work\\Tar\\PROJECTS\\CALCULATOR\\_public_html\\pages\\CipherLab\\Password Strength → Anger Scale Calculator.html",
+      "type": "calculator",
+      "category": "CipherLab",
+      "issues": [],
+      "strengths": [
+        "Proper H1 heading structure",
+        "Custom spacing implemented",
+        "ARIA labels implemented",
+        "Responsive viewport configured",
+        "Interactive buttons present",
+        "Mobile navigation implemented",
+        "Form validation present",
+        "Search/filter functionality available",
+        "CSS framework for consistency",
+        "CSS custom properties for consistency",
+        "Interactive elements present",
+        "Hover effects and transitions",
+        "CSS animations implemented"
+      ],
+      "accessibility": [
+        "3 images missing alt text",
+        "Some form inputs may lack proper labels"
+      ],
+      "performance": [
+        "Consider lazy loading for images"
+      ],
+      "mobile": [
+        "No media queries found - may not be mobile-optimized"
+      ],
+      "design": [
+        "Custom color scheme implemented",
+        "Custom styling implemented",
+        "Typography customization present"
+      ]
+    },
+    {
+      "file": "index.html",
+      "path": "D:\\work\\Tar\\PROJECTS\\CALCULATOR\\_public_html\\pages\\GeekGalaxy\\index.html",
+      "type": "category-index",
+      "category": "GeekGalaxy",
+      "issues": [],
+      "strengths": [
+        "Proper H1 heading structure",
+        "Custom spacing implemented",
+        "ARIA labels implemented",
+        "Responsive viewport configured",
+        "Media queries for responsive design",
+        "Interactive buttons present",
+        "Mobile navigation implemented",
+        "Form validation present",
+        "Search/filter functionality available",
+        "CSS custom properties for consistency",
+        "Interactive elements present",
+        "Hover effects and transitions",
+        "CSS animations implemented"
+      ],
+      "accessibility": [
+        "Some form inputs may lack proper labels"
+      ],
+      "performance": [],
+      "mobile": [],
+      "design": [
+        "Custom color scheme implemented",
+        "Custom styling implemented",
+        "Typography customization present"
+      ]
+    },
+    {
+      "file": "AI Doomsday Countdown.html",
+      "path": "D:\\work\\Tar\\PROJECTS\\CALCULATOR\\_public_html\\pages\\GeekGalaxy\\AI Doomsday Countdown.html",
+      "type": "calculator",
+      "category": "GeekGalaxy",
+      "issues": [],
+      "strengths": [
+        "Proper H1 heading structure",
+        "Custom spacing implemented",
+        "ARIA labels implemented",
+        "Interactive buttons present",
+        "Mobile navigation implemented",
+        "Error handling implemented",
+        "Search/filter functionality available",
+        "CSS custom properties for consistency",
+        "Interactive elements present",
+        "CSS animations implemented"
+      ],
+      "accessibility": [
+        "Some form inputs may lack proper labels"
+      ],
+      "performance": [],
+      "mobile": [
+        "Missing viewport meta tag",
+        "No media queries found - may not be mobile-optimized"
+      ],
+      "design": [
+        "Custom color scheme implemented",
+        "Custom styling implemented"
+      ]
+    },
+    {
+      "file": "Alien Communication Probability Calculator.html",
+      "path": "D:\\work\\Tar\\PROJECTS\\CALCULATOR\\_public_html\\pages\\GeekGalaxy\\Alien Communication Probability Calculator.html",
+      "type": "calculator",
+      "category": "GeekGalaxy",
+      "issues": [],
+      "strengths": [
+        "Proper H1 heading structure",
+        "Custom spacing implemented",
+        "ARIA labels implemented",
+        "Interactive buttons present",
+        "Mobile navigation implemented",
+        "Search/filter functionality available",
+        "CSS custom properties for consistency",
+        "Interactive elements present"
+      ],
+      "accessibility": [
+        "Some form inputs may lack proper labels"
+      ],
+      "performance": [],
+      "mobile": [
+        "Missing viewport meta tag",
+        "No media queries found - may not be mobile-optimized"
+      ],
+      "design": [
+        "Custom color scheme implemented",
+        "Custom styling implemented"
+      ]
+    },
+    {
+      "file": "Lightsaber Battery Life Calculator.html",
+      "path": "D:\\work\\Tar\\PROJECTS\\CALCULATOR\\_public_html\\pages\\GeekGalaxy\\Lightsaber Battery Life Calculator.html",
+      "type": "calculator",
+      "category": "GeekGalaxy",
+      "issues": [],
+      "strengths": [
+        "Proper H1 heading structure",
+        "Custom spacing implemented",
+        "ARIA labels implemented",
+        "Interactive buttons present",
+        "Mobile navigation implemented",
+        "Search/filter functionality available",
+        "CSS custom properties for consistency",
+        "Interactive elements present"
+      ],
+      "accessibility": [
+        "Some form inputs may lack proper labels"
+      ],
+      "performance": [],
+      "mobile": [
+        "Missing viewport meta tag",
+        "No media queries found - may not be mobile-optimized"
+      ],
+      "design": [
+        "Custom color scheme implemented",
+        "Custom styling implemented"
+      ]
+    },
+    {
+      "file": "Potion Brewer Calculator.html",
+      "path": "D:\\work\\Tar\\PROJECTS\\CALCULATOR\\_public_html\\pages\\GeekGalaxy\\Potion Brewer Calculator.html",
+      "type": "calculator",
+      "category": "GeekGalaxy",
+      "issues": [],
+      "strengths": [
+        "Proper H1 heading structure",
+        "Custom spacing implemented",
+        "ARIA labels implemented",
+        "Interactive buttons present",
+        "Mobile navigation implemented",
+        "Search/filter functionality available",
+        "CSS custom properties for consistency",
+        "Interactive elements present"
+      ],
+      "accessibility": [
+        "Some form inputs may lack proper labels"
+      ],
+      "performance": [],
+      "mobile": [
+        "Missing viewport meta tag",
+        "No media queries found - may not be mobile-optimized"
+      ],
+      "design": [
+        "Custom color scheme implemented",
+        "Custom styling implemented"
+      ]
+    },
+    {
+      "file": "Space Travel Time Calculator.html",
+      "path": "D:\\work\\Tar\\PROJECTS\\CALCULATOR\\_public_html\\pages\\GeekGalaxy\\Space Travel Time Calculator.html",
+      "type": "calculator",
+      "category": "GeekGalaxy",
+      "issues": [],
+      "strengths": [
+        "Proper H1 heading structure",
+        "Custom spacing implemented",
+        "ARIA labels implemented",
+        "Responsive viewport configured",
+        "Media queries for responsive design",
+        "Interactive buttons present",
+        "Mobile navigation implemented",
+        "Search/filter functionality available",
+        "CSS custom properties for consistency",
+        "Interactive elements present",
+        "Hover effects and transitions",
+        "Dynamic form interactions"
+      ],
+      "accessibility": [
+        "Some form inputs may lack proper labels"
+      ],
+      "performance": [],
+      "mobile": [],
+      "design": [
+        "Custom color scheme implemented",
+        "Custom styling implemented",
+        "Typography customization present"
+      ]
+    },
+    {
+      "file": "Spaceship Fuel Calculator.html",
+      "path": "D:\\work\\Tar\\PROJECTS\\CALCULATOR\\_public_html\\pages\\GeekGalaxy\\Spaceship Fuel Calculator.html",
+      "type": "calculator",
+      "category": "GeekGalaxy",
+      "issues": [],
+      "strengths": [
+        "Proper H1 heading structure",
+        "Custom spacing implemented",
+        "Responsive viewport configured",
+        "Interactive buttons present",
+        "Mobile navigation implemented",
+        "CSS framework for consistency",
+        "CSS custom properties for consistency",
+        "Interactive elements present",
+        "Hover effects and transitions",
+        "CSS animations implemented"
+      ],
+      "accessibility": [
+        "Some form inputs may lack proper labels"
+      ],
+      "performance": [],
+      "mobile": [
+        "No media queries found - may not be mobile-optimized"
+      ],
+      "design": [
+        "Custom color scheme implemented",
+        "Custom styling implemented"
+      ]
+    },
+    {
+      "file": "Star Trek Warp Speed Converte.html",
+      "path": "D:\\work\\Tar\\PROJECTS\\CALCULATOR\\_public_html\\pages\\GeekGalaxy\\Star Trek Warp Speed Converte.html",
+      "type": "calculator",
+      "category": "GeekGalaxy",
+      "issues": [],
+      "strengths": [
+        "Proper H1 heading structure",
+        "Custom spacing implemented",
+        "ARIA labels implemented",
+        "Interactive buttons present",
+        "Mobile navigation implemented",
+        "Search/filter functionality available",
+        "CSS custom properties for consistency",
+        "Interactive elements present"
+      ],
+      "accessibility": [
+        "Some form inputs may lack proper labels"
+      ],
+      "performance": [],
+      "mobile": [
+        "Missing viewport meta tag",
+        "No media queries found - may not be mobile-optimized"
+      ],
+      "design": [
+        "Custom color scheme implemented",
+        "Custom styling implemented"
+      ]
+    },
+    {
+      "file": "Time Machine Paradox Detector.html",
+      "path": "D:\\work\\Tar\\PROJECTS\\CALCULATOR\\_public_html\\pages\\GeekGalaxy\\Time Machine Paradox Detector.html",
+      "type": "calculator",
+      "category": "GeekGalaxy",
+      "issues": [],
+      "strengths": [
+        "Proper H1 heading structure",
+        "Good use of H2 subheadings",
+        "Custom spacing implemented",
+        "Responsive viewport configured",
+        "Interactive buttons present",
+        "Mobile navigation implemented",
+        "CSS framework for consistency",
+        "CSS custom properties for consistency",
+        "Interactive elements present",
+        "Hover effects and transitions",
+        "Dynamic form interactions",
+        "CSS animations implemented"
+      ],
+      "accessibility": [
+        "Some form inputs may lack proper labels"
+      ],
+      "performance": [],
+      "mobile": [
+        "No media queries found - may not be mobile-optimized"
+      ],
+      "design": [
+        "Custom color scheme implemented",
+        "Custom styling implemented"
+      ]
+    },
+    {
+      "file": "Zombie Apocalypse Survival Calculator.html",
+      "path": "D:\\work\\Tar\\PROJECTS\\CALCULATOR\\_public_html\\pages\\GeekGalaxy\\Zombie Apocalypse Survival Calculator.html",
+      "type": "calculator",
+      "category": "GeekGalaxy",
+      "issues": [],
+      "strengths": [
+        "Proper H1 heading structure",
+        "Custom spacing implemented",
+        "Responsive viewport configured",
+        "Interactive buttons present",
+        "Mobile navigation implemented",
+        "CSS framework for consistency",
+        "CSS custom properties for consistency",
+        "Interactive elements present",
+        "Hover effects and transitions",
+        "CSS animations implemented"
+      ],
+      "accessibility": [
+        "Some form inputs may lack proper labels"
+      ],
+      "performance": [],
+      "mobile": [
+        "No media queries found - may not be mobile-optimized"
+      ],
+      "design": [
+        "Custom color scheme implemented",
+        "Custom styling implemented"
+      ]
+    },
+    {
+      "file": "index.html",
+      "path": "D:\\work\\Tar\\PROJECTS\\CALCULATOR\\_public_html\\pages\\LifeHacks\\index.html",
+      "type": "category-index",
+      "category": "LifeHacks",
+      "issues": [],
+      "strengths": [
+        "Proper H1 heading structure",
+        "Custom spacing implemented",
+        "ARIA labels implemented",
+        "Responsive viewport configured",
+        "Media queries for responsive design",
+        "Interactive buttons present",
+        "Mobile navigation implemented",
+        "Form validation present",
+        "Search/filter functionality available",
+        "CSS custom properties for consistency",
+        "Interactive elements present",
+        "Hover effects and transitions"
+      ],
+      "accessibility": [
+        "Some form inputs may lack proper labels"
+      ],
+      "performance": [],
+      "mobile": [],
+      "design": [
+        "Custom color scheme implemented",
+        "Custom styling implemented",
+        "Typography customization present"
+      ]
+    },
+    {
+      "file": "Coffee to Code Efficiency Ratio Calculator.html",
+      "path": "D:\\work\\Tar\\PROJECTS\\CALCULATOR\\_public_html\\pages\\LifeHacks\\Coffee to Code Efficiency Ratio Calculator.html",
+      "type": "calculator",
+      "category": "LifeHacks",
+      "issues": [],
+      "strengths": [
+        "Proper H1 heading structure",
+        "Good use of H2 subheadings",
+        "Custom spacing implemented",
+        "Responsive viewport configured",
+        "Interactive buttons present",
+        "Mobile navigation implemented",
+        "CSS framework for consistency",
+        "CSS custom properties for consistency",
+        "Interactive elements present",
+        "Hover effects and transitions",
+        "CSS animations implemented"
+      ],
+      "accessibility": [
+        "Some form inputs may lack proper labels"
+      ],
+      "performance": [],
+      "mobile": [
+        "No media queries found - may not be mobile-optimized"
+      ],
+      "design": [
+        "Custom color scheme implemented",
+        "Custom styling implemented",
+        "Typography customization present"
+      ]
+    },
+    {
+      "file": "Inflation Impact Calculator.html",
+      "path": "D:\\work\\Tar\\PROJECTS\\CALCULATOR\\_public_html\\pages\\LifeHacks\\Inflation Impact Calculator.html",
+      "type": "calculator",
+      "category": "LifeHacks",
+      "issues": [],
+      "strengths": [
+        "Proper H1 heading structure",
+        "Good use of H2 subheadings",
+        "Custom spacing implemented",
+        "ARIA labels implemented",
+        "Interactive buttons present",
+        "Mobile navigation implemented",
+        "Search/filter functionality available",
+        "CSS custom properties for consistency",
+        "Interactive elements present"
+      ],
+      "accessibility": [
+        "Some form inputs may lack proper labels"
+      ],
+      "performance": [],
+      "mobile": [
+        "Missing viewport meta tag",
+        "No media queries found - may not be mobile-optimized"
+      ],
+      "design": [
+        "Custom color scheme implemented",
+        "Custom styling implemented"
+      ]
+    },
+    {
+      "file": "Procrastination ROI Calculator.html",
+      "path": "D:\\work\\Tar\\PROJECTS\\CALCULATOR\\_public_html\\pages\\LifeHacks\\Procrastination ROI Calculator.html",
+      "type": "calculator",
+      "category": "LifeHacks",
+      "issues": [],
+      "strengths": [
+        "Proper H1 heading structure",
+        "Custom spacing implemented",
+        "ARIA labels implemented",
+        "Interactive buttons present",
+        "Mobile navigation implemented",
+        "Search/filter functionality available",
+        "CSS custom properties for consistency",
+        "Interactive elements present"
+      ],
+      "accessibility": [
+        "Some form inputs may lack proper labels"
+      ],
+      "performance": [],
+      "mobile": [
+        "Missing viewport meta tag",
+        "No media queries found - may not be mobile-optimized"
+      ],
+      "design": [
+        "Custom color scheme implemented",
+        "Custom styling implemented"
+      ]
+    },
+    {
+      "file": "Sleep Cycle Optimizer.html",
+      "path": "D:\\work\\Tar\\PROJECTS\\CALCULATOR\\_public_html\\pages\\LifeHacks\\Sleep Cycle Optimizer.html",
+      "type": "calculator",
+      "category": "LifeHacks",
+      "issues": [],
+      "strengths": [
+        "Proper H1 heading structure",
+        "Good use of H2 subheadings",
+        "Custom spacing implemented",
+        "ARIA labels implemented",
+        "Interactive buttons present",
+        "Mobile navigation implemented",
+        "Search/filter functionality available",
+        "Help/tooltip guidance provided",
+        "CSS custom properties for consistency",
+        "Interactive elements present",
+        "Hover effects and transitions",
+        "Dynamic form interactions"
+      ],
+      "accessibility": [
+        "Some form inputs may lack proper labels"
+      ],
+      "performance": [],
+      "mobile": [
+        "Missing viewport meta tag",
+        "No media queries found - may not be mobile-optimized"
+      ],
+      "design": [
+        "Custom color scheme implemented",
+        "Custom styling implemented"
+      ]
+    },
+    {
+      "file": "Social Media Addiction Calculator.html",
+      "path": "D:\\work\\Tar\\PROJECTS\\CALCULATOR\\_public_html\\pages\\LifeHacks\\Social Media Addiction Calculator.html",
+      "type": "calculator",
+      "category": "LifeHacks",
+      "issues": [],
+      "strengths": [
+        "Proper H1 heading structure",
+        "Custom spacing implemented",
+        "Responsive viewport configured",
+        "Interactive buttons present",
+        "Mobile navigation implemented",
+        "Form validation present",
+        "Search/filter functionality available",
+        "CSS framework for consistency",
+        "CSS custom properties for consistency",
+        "Interactive elements present",
+        "Hover effects and transitions",
+        "CSS animations implemented"
+      ],
+      "accessibility": [
+        "Some form inputs may lack proper labels"
+      ],
+      "performance": [],
+      "mobile": [
+        "No media queries found - may not be mobile-optimized"
+      ],
+      "design": [
+        "Custom color scheme implemented",
+        "Custom styling implemented",
+        "Typography customization present"
+      ]
+    },
+    {
+      "file": "Stress-to-Ice-Cream Ratio Calculator.html",
+      "path": "D:\\work\\Tar\\PROJECTS\\CALCULATOR\\_public_html\\pages\\LifeHacks\\Stress-to-Ice-Cream Ratio Calculator.html",
+      "type": "calculator",
+      "category": "LifeHacks",
+      "issues": [],
+      "strengths": [
+        "Proper H1 heading structure",
+        "Custom spacing implemented",
+        "Responsive viewport configured",
+        "Interactive buttons present",
+        "Mobile navigation implemented",
+        "Search/filter functionality available",
+        "CSS framework for consistency",
+        "CSS custom properties for consistency",
+        "Interactive elements present",
+        "Hover effects and transitions",
+        "CSS animations implemented"
+      ],
+      "accessibility": [
+        "Some form inputs may lack proper labels"
+      ],
+      "performance": [],
+      "mobile": [
+        "No media queries found - may not be mobile-optimized"
+      ],
+      "design": [
+        "Custom color scheme implemented",
+        "Custom styling implemented"
+      ]
+    },
+    {
+      "file": "Time is Money Calculator.html",
+      "path": "D:\\work\\Tar\\PROJECTS\\CALCULATOR\\_public_html\\pages\\LifeHacks\\Time is Money Calculator.html",
+      "type": "calculator",
+      "category": "LifeHacks",
+      "issues": [],
+      "strengths": [
+        "Proper H1 heading structure",
+        "Custom spacing implemented",
+        "Responsive viewport configured",
+        "Interactive buttons present",
+        "Mobile navigation implemented",
+        "CSS framework for consistency",
+        "CSS custom properties for consistency",
+        "Interactive elements present",
+        "Hover effects and transitions",
+        "Dynamic form interactions",
+        "CSS animations implemented"
+      ],
+      "accessibility": [
+        "Some form inputs may lack proper labels"
+      ],
+      "performance": [],
+      "mobile": [
+        "No media queries found - may not be mobile-optimized"
+      ],
+      "design": [
+        "Custom color scheme implemented",
+        "Custom styling implemented"
+      ]
+    },
+    {
+      "file": "index.html",
+      "path": "D:\\work\\Tar\\PROJECTS\\CALCULATOR\\_public_html\\pages\\Math_Magik\\index.html",
+      "type": "category-index",
+      "category": "Math_Magik",
+      "issues": [],
+      "strengths": [
+        "Proper H1 heading structure",
+        "Good use of H2 subheadings",
+        "Custom spacing implemented",
+        "ARIA labels implemented",
+        "Responsive viewport configured",
+        "Media queries for responsive design",
+        "Interactive buttons present",
+        "Mobile navigation implemented",
+        "Form validation present",
+        "Search/filter functionality available",
+        "CSS custom properties for consistency",
+        "Interactive elements present",
+        "Hover effects and transitions",
+        "Dynamic form interactions"
+      ],
+      "accessibility": [
+        "Some form inputs may lack proper labels"
+      ],
+      "performance": [],
+      "mobile": [],
+      "design": [
+        "Custom color scheme implemented",
+        "Custom styling implemented",
+        "Typography customization present"
+      ]
+    },
+    {
+      "file": "Double Pendulum Chaos.html",
+      "path": "D:\\work\\Tar\\PROJECTS\\CALCULATOR\\_public_html\\pages\\Math_Magik\\Double Pendulum Chaos.html",
+      "type": "calculator",
+      "category": "Math_Magik",
+      "issues": [],
+      "strengths": [
+        "Proper H1 heading structure",
+        "Custom spacing implemented",
+        "ARIA labels implemented",
+        "Interactive buttons present",
+        "Mobile navigation implemented",
+        "Search/filter functionality available",
+        "CSS custom properties for consistency",
+        "Interactive elements present",
+        "Dynamic form interactions",
+        "CSS animations implemented"
+      ],
+      "accessibility": [
+        "Some form inputs may lack proper labels"
+      ],
+      "performance": [],
+      "mobile": [
+        "Missing viewport meta tag",
+        "No media queries found - may not be mobile-optimized"
+      ],
+      "design": [
+        "Custom color scheme implemented",
+        "Custom styling implemented"
+      ]
+    },
+    {
+      "file": "entropy and feigenbaums constant.html",
+      "path": "D:\\work\\Tar\\PROJECTS\\CALCULATOR\\_public_html\\pages\\Math_Magik\\entropy and feigenbaums constant.html",
+      "type": "calculator",
+      "category": "Math_Magik",
+      "issues": [],
+      "strengths": [
+        "Proper H1 heading structure",
+        "Good use of H2 subheadings",
+        "Custom spacing implemented",
+        "ARIA labels implemented",
+        "Responsive viewport configured",
+        "Interactive buttons present",
+        "Mobile navigation implemented",
+        "Search/filter functionality available",
+        "CSS custom properties for consistency",
+        "Interactive elements present",
+        "Hover effects and transitions"
+      ],
+      "accessibility": [
+        "Some form inputs may lack proper labels"
+      ],
+      "performance": [],
+      "mobile": [
+        "No media queries found - may not be mobile-optimized"
+      ],
+      "design": [
+        "Custom color scheme implemented",
+        "Custom styling implemented",
+        "Typography customization present"
+      ]
+    },
+    {
+      "file": "FIRE Number Calculator.html",
+      "path": "D:\\work\\Tar\\PROJECTS\\CALCULATOR\\_public_html\\pages\\Math_Magik\\FIRE Number Calculator.html",
+      "type": "calculator",
+      "category": "Math_Magik",
+      "issues": [],
+      "strengths": [
+        "Proper H1 heading structure",
+        "Good use of H2 subheadings",
+        "Custom spacing implemented",
+        "ARIA labels implemented",
+        "Interactive buttons present",
+        "Mobile navigation implemented",
+        "Form validation present",
+        "Search/filter functionality available",
+        "CSS custom properties for consistency",
+        "Interactive elements present"
+      ],
+      "accessibility": [
+        "Some form inputs may lack proper labels"
+      ],
+      "performance": [],
+      "mobile": [
+        "Missing viewport meta tag",
+        "No media queries found - may not be mobile-optimized"
+      ],
+      "design": [
+        "Custom color scheme implemented",
+        "Custom styling implemented"
+      ]
+    },
+    {
+      "file": "Inflation Impact Calculator.html",
+      "path": "D:\\work\\Tar\\PROJECTS\\CALCULATOR\\_public_html\\pages\\Math_Magik\\Inflation Impact Calculator.html",
+      "type": "calculator",
+      "category": "Math_Magik",
+      "issues": [],
+      "strengths": [
+        "Proper H1 heading structure",
+        "Good use of H2 subheadings",
+        "Custom spacing implemented",
+        "ARIA labels implemented",
+        "Interactive buttons present",
+        "Mobile navigation implemented",
+        "Search/filter functionality available",
+        "CSS custom properties for consistency",
+        "Interactive elements present"
+      ],
+      "accessibility": [
+        "Some form inputs may lack proper labels"
+      ],
+      "performance": [],
+      "mobile": [
+        "Missing viewport meta tag",
+        "No media queries found - may not be mobile-optimized"
+      ],
+      "design": [
+        "Custom color scheme implemented",
+        "Custom styling implemented"
+      ]
+    },
+    {
+      "file": "Pizza Pi Calculator.html",
+      "path": "D:\\work\\Tar\\PROJECTS\\CALCULATOR\\_public_html\\pages\\Math_Magik\\Pizza Pi Calculator.html",
+      "type": "calculator",
+      "category": "Math_Magik",
+      "issues": [],
+      "strengths": [
+        "Proper H1 heading structure",
+        "Custom spacing implemented",
+        "ARIA labels implemented",
+        "Interactive buttons present",
+        "Mobile navigation implemented",
+        "Search/filter functionality available",
+        "CSS custom properties for consistency",
+        "Interactive elements present"
+      ],
+      "accessibility": [
+        "Some form inputs may lack proper labels"
+      ],
+      "performance": [],
+      "mobile": [
+        "Missing viewport meta tag",
+        "No media queries found - may not be mobile-optimized"
+      ],
+      "design": [
+        "Custom color scheme implemented",
+        "Custom styling implemented"
+      ]
+    },
+    {
+      "file": "Your Life Visualized.html",
+      "path": "D:\\work\\Tar\\PROJECTS\\CALCULATOR\\_public_html\\pages\\Math_Magik\\Your Life Visualized.html",
+      "type": "calculator",
+      "category": "Math_Magik",
+      "issues": [],
+      "strengths": [
+        "Proper H1 heading structure",
+        "Custom spacing implemented",
+        "ARIA labels implemented",
+        "Interactive buttons present",
+        "Mobile navigation implemented",
+        "Search/filter functionality available",
+        "CSS custom properties for consistency",
+        "Interactive elements present",
+        "Dynamic form interactions"
+      ],
+      "accessibility": [
+        "Some form inputs may lack proper labels"
+      ],
+      "performance": [],
+      "mobile": [
+        "Missing viewport meta tag",
+        "No media queries found - may not be mobile-optimized"
+      ],
+      "design": [
+        "Custom color scheme implemented",
+        "Custom styling implemented"
+      ]
+    },
+    {
+      "file": "index.html",
+      "path": "D:\\work\\Tar\\PROJECTS\\CALCULATOR\\_public_html\\pages\\Otaku_Ops\\index.html",
+      "type": "category-index",
+      "category": "Otaku_Ops",
+      "issues": [],
+      "strengths": [
+        "Proper H1 heading structure",
+        "Good use of H2 subheadings",
+        "Custom spacing implemented",
+        "ARIA labels implemented",
+        "Responsive viewport configured",
+        "Media queries for responsive design",
+        "Interactive buttons present",
+        "Mobile navigation implemented",
+        "Search/filter functionality available",
+        "CSS custom properties for consistency",
+        "Interactive elements present",
+        "Hover effects and transitions"
+      ],
+      "accessibility": [
+        "Some form inputs may lack proper labels"
+      ],
+      "performance": [],
+      "mobile": [],
+      "design": [
+        "Custom color scheme implemented",
+        "Custom styling implemented",
+        "Typography customization present"
+      ]
+    },
+    {
+      "file": "Anime Training Montage Planner.html",
+      "path": "D:\\work\\Tar\\PROJECTS\\CALCULATOR\\_public_html\\pages\\Otaku_Ops\\Anime Training Montage Planner.html",
+      "type": "calculator",
+      "category": "Otaku_Ops",
+      "issues": [],
+      "strengths": [
+        "Proper H1 heading structure",
+        "Good use of H2 subheadings",
+        "Custom spacing implemented",
+        "Responsive viewport configured",
+        "Interactive buttons present",
+        "Mobile navigation implemented",
+        "Form validation present",
+        "CSS framework for consistency",
+        "CSS custom properties for consistency",
+        "Interactive elements present",
+        "Hover effects and transitions",
+        "CSS animations implemented"
+      ],
+      "accessibility": [
+        "Some form inputs may lack proper labels"
+      ],
+      "performance": [],
+      "mobile": [
+        "No media queries found - may not be mobile-optimized"
+      ],
+      "design": [
+        "Custom color scheme implemented",
+        "Custom styling implemented"
+      ]
+    },
+    {
+      "file": "Conspiracy Theory Plausibility Index.html",
+      "path": "D:\\work\\Tar\\PROJECTS\\CALCULATOR\\_public_html\\pages\\Otaku_Ops\\Conspiracy Theory Plausibility Index.html",
+      "type": "calculator",
+      "category": "Otaku_Ops",
+      "issues": [],
+      "strengths": [
+        "Proper H1 heading structure",
+        "Good use of H2 subheadings",
+        "Custom spacing implemented",
+        "Responsive viewport configured",
+        "Interactive buttons present",
+        "Mobile navigation implemented",
+        "Form validation present",
+        "Search/filter functionality available",
+        "CSS framework for consistency",
+        "CSS custom properties for consistency",
+        "Interactive elements present",
+        "Hover effects and transitions",
+        "CSS animations implemented"
+      ],
+      "accessibility": [
+        "Some form inputs may lack proper labels"
+      ],
+      "performance": [],
+      "mobile": [
+        "No media queries found - may not be mobile-optimized"
+      ],
+      "design": [
+        "Custom color scheme implemented",
+        "Custom styling implemented"
+      ]
+    },
+    {
+      "file": "MINECRAFT PORTAL PLANNER.html",
+      "path": "D:\\work\\Tar\\PROJECTS\\CALCULATOR\\_public_html\\pages\\Otaku_Ops\\MINECRAFT PORTAL PLANNER.html",
+      "type": "calculator",
+      "category": "Otaku_Ops",
+      "issues": [],
+      "strengths": [
+        "Proper H1 heading structure",
+        "Custom spacing implemented",
+        "ARIA labels implemented",
+        "Interactive buttons present",
+        "Mobile navigation implemented",
+        "Search/filter functionality available",
+        "CSS custom properties for consistency",
+        "Interactive elements present",
+        "Dynamic form interactions"
+      ],
+      "accessibility": [
+        "Some form inputs may lack proper labels"
+      ],
+      "performance": [],
+      "mobile": [
+        "Missing viewport meta tag",
+        "No media queries found - may not be mobile-optimized"
+      ],
+      "design": [
+        "Custom color scheme implemented",
+        "Custom styling implemented"
+      ]
+    }
+  ],
+  "recommendations": []
+}

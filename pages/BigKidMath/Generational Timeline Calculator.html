@@ -1,0 +1,1511 @@
+<!DOCTYPE html>
+<html lang="en" x-data="generationCalculator()">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generational Timeline Calculator</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            padding: 2rem;
+            background: var(--card);
+            border-radius: 1rem;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+			justify-content: center;
+			align-self: center;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text);
+        }
+        
+        input[type="number"] {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+        
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #8b5cf6;
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+        }
+        
+        .result-card {
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            transition: all 0.3s ease;
+            border-left: 4px solid;
+            background-color: #f8fafc;
+        }
+        
+        .generation-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .generation-range {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .timeline-container {
+            margin: 2rem 0;
+        }
+        
+        .timeline-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+        
+        .timeline {
+            height: 12px;
+            background: #e2e8f0;
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .timeline-progress {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(90deg, 
+                var(--greatest) 0%, 
+                var(--silent) 16%, 
+                var(--boomer) 32%, 
+                var(--genx) 48%, 
+                var(--millennial) 64%, 
+                var(--genz) 80%, 
+                var(--alpha) 100%);
+            width: 100%;
+        }
+        
+        .timeline-marker {
+            position: absolute;
+            top: -6px;
+            width: 12px;
+            height: 24px;
+            background-color: white;
+            border: 3px solid;
+            border-radius: 6px;
+            transform: translateX(-50%);
+        }
+        
+        .timeline-marker::after {
+            content: 'You';
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .generation-info {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            background-color: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        
+        .btn {
+            background-color: #4f46e5;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            width: 100%;
+        }
+        
+        .btn:hover {
+            background-color: #4338ca;
+        }
+        
+        .error-message {
+            color: #ef4444;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+        
+        /* Generation-specific styles */
+        .greatest {
+            border-color: var(--greatest);
+            color: var(--greatest);
+        }
+        .silent {
+            border-color: var(--silent);
+            color: var(--silent);
+        }
+        .boomer {
+            border-color: var(--boomer);
+            color: var(--boomer);
+        }
+        .genx {
+            border-color: var(--genx);
+            color: var(--genx);
+        }
+        .millennial {
+            border-color: var(--millennial);
+            color: var(--millennial);
+        }
+        .genz {
+            border-color: var(--genz);
+            color: var(--genz);
+        }
+        .alpha {
+            border-color: var(--alpha);
+            color: var(--alpha);
+        }
+    </style>
+    
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+</head>
+<body>
+                <!-- Enhanced Navigation Bar -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="../../index.html">🧮 Docket One</a>
+            </div>
+            <div class="nav-search">
+                <label for="input-q5vmiijap" class="sr-only">Input field</label>
+            <input type="text" i id="input-q5vmiijap" aria-label="Calculator input"d="calc-search" placeholder="Search calculators..." class="search-input">
+                <div id="search-results" class="search-results"></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../BigKidMath/index.html" class="category-main-link">Big Kid Math</a></li>
+                <li><a href="../CipherLab/index.html" class="category-main-link">Cipher Lab</a></li>
+                <li><a href="../GeekGalaxy/index.html" class="category-main-link">Geek Galaxy</a></li>
+                <li><a href="../LifeHacks/index.html" class="category-main-link">Life Hacks</a></li>
+                <li><a href="../Math_Magik/index.html" class="category-main-link">Math Magik</a></li>
+                <li><a href="../Otaku_Ops/index.html" class="category-main-link">Otaku Ops</a></li>
+                <li><a href="../../index.html" class="home-link">Unit Converter</a></li>
+            </ul>
+            <button class="mobile-menu-btn" a aria-label="Perform action"ria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+    
+
+    
+
+
+    <div class="container">
+        <h1>Generational Timeline Calculator</h1>
+        
+        <div class="input-group">
+            <label for="birthYear">Enter your birth year:</label>
+            <label for="input-1hrgmhi7y" class="sr-only">Input field</label>
+            <input 
+                type="number" 
+                i id="input-1hrgmhi7y" aria-label="Calculator input"d="birthYear" 
+                x-model="birthYear" 
+                min="1900" 
+                max="2025" 
+                @input="calculateGeneration()"
+                placeholder="e.g. 1990"
+            >
+            <div class="error-message" x-show="error" x-text="error"></div>
+        </div>
+        
+        <div x-show="result" x-transition class="result-card" :class="result.class">
+            <div class="generation-name" x-text="result.generation"></div>
+            <div class="generation-range" x-text="result.range"></div>
+            
+            <div class="timeline-container">
+                <div class="timeline-labels">
+                    <span>1900</span>
+                    <span x-text="new Date().getFullYear()"></span>
+                </div>
+                <div class="timeline">
+                    <div class="timeline-progress"></div>
+                    <div class="timeline-marker" :style="'left: ' + result.percentage + '%; border-color: ' + result.color"></div>
+                </div>
+            </div>
+            
+            <div class="generation-info" x-text="result.description"></div>
+        </div>
+    </div>
+
+    <script>
+        function generationCalculator() {
+            return {
+                birthYear: '',
+                result: null,
+                error: '',
+                
+                generations: [
+                    {
+                        name: "The Greatest Generation",
+                        range: "1901-1927",
+                        start: 1901,
+                        end: 1927,
+                        description: "Lived through the Great Depression and fought in WWII. Known for their strong work ethic and civic duty.",
+                        color: "var(--greatest)",
+                        class: "greatest"
+                    },
+                    {
+                        name: "The Silent Generation",
+                        range: "1928-1945",
+                        start: 1928,
+                        end: 1945,
+                        description: "Grew up during war and economic depression. Valued stability, conformity, and traditional values.",
+                        color: "var(--silent)",
+                        class: "silent"
+                    },
+                    {
+                        name: "Baby Boomers",
+                        range: "1946-1964",
+                        start: 1946,
+                        end: 1964,
+                        description: "Post-WWII population boom. Experienced significant social change and economic prosperity.",
+                        color: "var(--boomer)",
+                        class: "boomer"
+                    },
+                    {
+                        name: "Generation X",
+                        range: "1965-1980",
+                        start: 1965,
+                        end: 1980,
+                        description: "The 'latchkey' generation. Independent, adaptable, and witnessed the digital revolution's beginning.",
+                        color: "var(--genx)",
+                        class: "genx"
+                    },
+                    {
+                        name: "Millennials (Gen Y)",
+                        range: "1981-1996",
+                        start: 1981,
+                        end: 1996,
+                        description: "Came of age with the internet and 9/11. Tech-savvy, diverse, and value experiences over possessions.",
+                        color: "var(--millennial)",
+                        class: "millennial"
+                    },
+                    {
+                        name: "Generation Z",
+                        range: "1997-2012",
+                        start: 1997,
+                        end: 2012,
+                        description: "First true digital natives. Entrepreneurial, socially conscious, and comfortable with rapid change.",
+                        color: "var(--genz)",
+                        class: "genz"
+                    },
+                    {
+                        name: "Generation Alpha",
+                        range: "2013-Present",
+                        start: 2013,
+                        end: new Date().getFullYear(),
+                        description: "Born into fully digital world. Most technologically immersed generation in history.",
+                        color: "var(--alpha)",
+                        class: "alpha"
+                    }
+                ],
+                
+                calculateGeneration() {
+                    this.error = '';
+                    const year = parseInt(this.birthYear);
+                    const currentYear = new Date().getFullYear();
+                    
+                    if (isNaN(year) || year < 1900 || year > currentYear) {
+                        this.error = `Please enter a valid year between 1900 and ${currentYear}`;
+                        this.result = null;
+                        return;
+                    }
+                    
+                    const generation = this.generations.find(gen => 
+                        year >= gen.start && year <= gen.end
+                    );
+                    
+                    if (generation) {
+                        const timelineStart = 1900;
+                        const timelineEnd = currentYear;
+                        const percentage = ((year - timelineStart) / (timelineEnd - timelineStart)) * 100;
+                        
+                        this.result = {
+                            generation: generation.name,
+                            range: `Birth years: ${generation.range}`,
+                            percentage: percentage.toFixed(2),
+                            description: generation.description,
+                            color: generation.color,
+                            class: generation.class
+                        };
+                    } else {
+                        this.error = "Could not determine generation for this year";
+                        this.result = null;
+                    }
+                }
+            }
+        }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if (mobileMenuBtn && navLinks) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    navLinks.classList.toggle('active');
+                    mobileMenuBtn.classList.toggle('active');
+                });
+                document.addEventListener('click', function(event) {
+                    if (!event.target.closest('.main-nav')) {
+                        navLinks.classList.remove('active');
+                        mobileMenuBtn.classList.remove('active');
+                    }
+                });
+            }
+        });
+    </script>
+
+    <div class="related-calculators" style="margin-top: 2rem; padding: 1rem; background: rgba(0,0,0,0.1); border-radius: 8px;">
+        <h3 style="margin-top: 0;">Related Big Kid Math Tools</h3>
+        <a href="./Caffeine Half-Life Calculator.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Caffeine Half Life Calculator</a><a href="./Car Ownership vs. Uber Cost Calculator.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Car Ownership vs. Uber Cost Calculator</a>
+        <a href="./index.html" style="display: block; padding: 0.5rem; margin-top: 1rem; background: rgba(74,144,226,0.2); border-radius: 4px; text-decoration: none; color: inherit; font-weight: bold;">← Back to Big Kid Math Hub</a>
+    </div>
+
+        <script>
+        // 🎅 Santa Claude's Interactive Enhancements
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🎅 Santa Claude's enhancements loaded!');
+            
+            // Enhanced button interactions
+            const buttons = document.querySelectorAll('button, .btn');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.classList.add('loading');
+                    setTimeout(() => {
+                        this.classList.remove('loading');
+                    }, 500);
+                });
+            });
+            
+            // Enhanced results display
+            const resultElements = document.querySelectorAll('.result, .results, .output, #result, #output');
+            resultElements.forEach(el => {
+                const observer = new MutationObserver(function(mutations) {
+                    mutations.forEach(function(mutation) {
+                        if (mutation.type === 'childList' || mutation.type === 'characterData') {
+                            el.classList.add('show');
+                        }
+                    });
+                });
+                observer.observe(el, { childList: true, subtree: true, characterData: true });
+            });
+            
+            // Form validation enhancements
+            const inputs = document.querySelectorAll('input[type="number"], input[type="text"]');
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    if (this.checkValidity()) {
+                        this.classList.remove('input-error');
+                        this.classList.add('input-success');
+                    } else {
+                        this.classList.remove('input-success');
+                        this.classList.add('input-error');
+                    }
+                });
+            });
+        });
+        </script>
+</body>
+</html>,0.3);
+            animation: fadeInUp 0.6s ease-out 0.2s both;
+        }
+        
+        .hero-subtitle {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            opacity: 0.9;
+            margin: 0;
+            animation: fadeInUp 0.6s ease-out 0.4s both;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--space-2xl) var(--space-xl);
+        }
+        
+        /* Premium Calculator Layout */
+        .calculator-layout {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: var(--space-2xl);
+            margin-top: var(--space-2xl);
+        }
+        
+        @media (max-width: 1024px) {
+            .calculator-layout {
+                grid-template-columns: 1fr;
+                gap: var(--space-xl);
+            }
+        }
+        
+        .calculator-panel {
+            background: var(--surface-elevated);
+            border-radius: var(--radius-xl);
+            padding: var(--space-2xl);
+            box-shadow: var(--shadow-generation);
+            border: 1px solid rgba(99, 102, 241, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .calculator-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--primary-light));
+        }
+        
+        .panel-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin: 0 0 var(--space-lg) 0;
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+        
+        /* Input Section */
+        .input-section {
+            margin-bottom: var(--space-xl);
+        }
+        
+        .input-group {
+            margin-bottom: var(--space-lg);
+        }
+        
+        .input-label {
+            display: block;
+            font-weight: 500;
+            color: #1e293b;
+            margin-bottom: var(--space-sm);
+            font-size: 0.875rem;
+        }
+        
+        .input-field {
+            width: 100%;
+            padding: var(--space-md);
+            border: 2px solid rgba(99, 102, 241, 0.1);
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            transition: var(--transition-base);
+            background: var(--bg-primary);
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+        
+        .input-help {
+            font-size: 0.75rem;
+            color: #64748b;
+            margin-top: var(--space-xs);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            border: none;
+            padding: var(--space-md) var(--space-xl);
+            border-radius: var(--radius-full);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition-base);
+            box-shadow: var(--shadow-md);
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        /* Results Display */
+        .results-panel {
+            display: none;
+        }
+        
+        .results-panel.active {
+            display: block;
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        .generation-header {
+            text-align: center;
+            padding: var(--space-2xl);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--space-xl);
+            background: linear-gradient(135deg, var(--surface-generation), rgba(255, 255, 255, 0.5));
+            border: 2px solid;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .generation-header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(255,255,255,0.3) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        
+        .generation-name {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: var(--space-sm);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .generation-range {
+            font-size: 1.125rem;
+            opacity: 0.8;
+            margin-bottom: var(--space-md);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .generation-age {
+            font-size: 1rem;
+            font-weight: 500;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Interactive Timeline */
+        .timeline-section {
+            background: var(--surface-elevated);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-xl);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .timeline-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: var(--space-lg);
+            text-align: center;
+        }
+        
+        .timeline-container {
+            position: relative;
+            height: 120px;
+            margin: var(--space-lg) 0;
+        }
+        
+        .timeline-base {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            transform: translateY(-50%);
+        }
+        
+        .timeline-segments {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 8px;
+            transform: translateY(-50%);
+            display: flex;
+        }
+        
+        .timeline-segment {
+            flex: 1;
+            height: 100%;
+            cursor: pointer;
+            transition: var(--transition-base);
+            position: relative;
+        }
+        
+        .timeline-segment:hover {
+            transform: scaleY(1.5);
+        }
+        
+        .timeline-segment:first-child {
+            border-radius: 4px 0 0 4px;
+        }
+        
+        .timeline-segment:last-child {
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .user-marker {
+            position: absolute;
+            top: 50%;
+            width: 16px;
+            height: 16px;
+            background: white;
+            border: 4px solid;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: var(--shadow-md);
+            z-index: 10;
+        }
+        
+        .user-marker::after {
+            content: 'You';
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: white;
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-sm);
+            white-space: nowrap;
+        }
+        
+        .timeline-labels {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: #64748b;
+            margin-top: var(--space-sm);
+        }
+        
+        /* Generation Insights */
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+        
+        .insight-card {
+            background: var(--surface-elevated);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(99, 102, 241, 0.1);
+        }
+        
+        .insight-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: var(--space-md);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+        
+        .insight-content {
+            font-size: 0.875rem;
+            color: #475569;
+            line-height: 1.6;
+        }
+        
+        /* Cultural Context */
+        .cultural-section {
+            background: linear-gradient(135deg, var(--surface-generation), rgba(255, 255, 255, 0.5));
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+        
+        .cultural-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: var(--space-lg);
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+        }
+        
+        .cultural-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-lg);
+        }
+        
+        .cultural-item {
+            text-align: center;
+            padding: var(--space-md);
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: var(--radius-md);
+        }
+        
+        .cultural-icon {
+            font-size: 2rem;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .cultural-label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #1e293b;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .cultural-value {
+            font-size: 0.75rem;
+            color: #64748b;
+        }
+        
+        /* Historical Events */
+        .events-section {
+            background: var(--surface-elevated);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-xl);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .events-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: var(--space-lg);
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+        }
+        
+        .events-timeline {
+            position: relative;
+            padding-left: var(--space-lg);
+        }
+        
+        .events-timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--primary);
+        }
+        
+        .event-item {
+            position: relative;
+            margin-bottom: var(--space-lg);
+            padding-left: var(--space-lg);
+        }
+        
+        .event-item::before {
+            content: '';
+            position: absolute;
+            left: -5px;
+            top: 6px;
+            width: 10px;
+            height: 10px;
+            background: var(--primary);
+            border-radius: 50%;
+        }
+        
+        .event-year {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: var(--space-xs);
+        }
+        
+        .event-title {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #1e293b;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .event-desc {
+            font-size: 0.875rem;
+            color: #64748b;
+            line-height: 1.5;
+        }
+        
+        /* Cohort Analysis */
+        .cohort-section {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(99, 102, 241, 0.05));
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-xl);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+        
+        .cohort-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: var(--space-lg);
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+        }
+        
+        .cohort-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-lg);
+        }
+        
+        .cohort-stat {
+            text-align: center;
+            padding: var(--space-md);
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: var(--radius-md);
+        }
+        
+        .cohort-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: var(--space-xs);
+        }
+        
+        .cohort-label {
+            font-size: 0.875rem;
+            color: #64748b;
+        }
+        
+        /* Generation-specific colors */
+        .greatest { color: var(--greatest); border-color: var(--greatest); }
+        .silent { color: var(--silent); border-color: var(--silent); }
+        .boomer { color: var(--boomer); border-color: var(--boomer); }
+        .genx { color: var(--genx); border-color: var(--genx); }
+        .millennial { color: var(--millennial); border-color: var(--millennial); }
+        .genz { color: var(--genz); border-color: var(--genz); }
+        .alpha { color: var(--alpha); border-color: var(--alpha); }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero {
+                padding: var(--space-2xl) var(--space-md);
+            }
+            
+            .container {
+                padding: var(--space-xl) var(--space-md);
+            }
+            
+            .insights-grid,
+            .cultural-grid,
+            .cohort-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .generation-name {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Enhanced Navigation Bar -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="../../index.html">🧮 Docket One</a>
+            </div>
+            <div class="nav-search">
+                <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input" aria-label="Search calculators">
+                <div id="search-results" class="search-results"></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../BigKidMath/index.html" class="category-main-link">Big Kid Math</a></li>
+                <li><a href="../CipherLab/index.html" class="category-main-link">Cipher Lab</a></li>
+                <li><a href="../GeekGalaxy/index.html" class="category-main-link">Geek Galaxy</a></li>
+                <li><a href="../LifeHacks/index.html" class="category-main-link">Life Hacks</a></li>
+                <li><a href="../Math_Magik/index.html" class="category-main-link">Math Magik</a></li>
+                <li><a href="../Otaku_Ops/index.html" class="category-main-link">Otaku Ops</a></li>
+                <li><a href="../../index.html" class="home-link">Unit Converter</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Premium Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span>📅</span>
+                <span>Generational Intelligence</span>
+            </div>
+            <h1 class="hero-title">Generational Timeline Calculator</h1>
+            <p class="hero-subtitle">Discover your generation's story, cultural impact, and historical context with deep insights and analysis</p>
+        </div>
+    </section>
+
+    <main class="container">
+        <div class="calculator-layout">
+            <!-- Input Panel -->
+            <div class="calculator-panel">
+                <h2 class="panel-title">
+                    <span>🎯</span>
+                    Discover Your Generation
+                </h2>
+                
+                <div class="input-section">
+                    <div class="input-group">
+                        <label for="birthYear" class="input-label">Enter your birth year</label>
+                        <input 
+                            type="number" 
+                            id="birthYear" 
+                            x-model="birthYear" 
+                            min="1900" 
+                            max="2025" 
+                            @input="calculateGeneration()"
+                            placeholder="e.g. 1990"
+                            class="input-field"
+                        >
+                        <div class="input-help">Enter any year between 1900 and 2025</div>
+                        <div x-show="error" x-text="error" class="error-message" style="color: #ef4444; font-size: 0.875rem; margin-top: 0.5rem;"></div>
+                    </div>
+                </div>
+                
+                <!-- Quick Year Buttons -->
+                <div class="quick-years" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-sm); margin-bottom: var(--space-lg);">
+                    <button @click="birthYear = '1995'; calculateGeneration()" class="btn-secondary" style="padding: var(--space-sm); border: 1px solid var(--primary); background: transparent; color: var(--primary); border-radius: var(--radius-md); cursor: pointer; transition: var(--transition-base);">1995</button>
+                    <button @click="birthYear = '1985'; calculateGeneration()" class="btn-secondary" style="padding: var(--space-sm); border: 1px solid var(--primary); background: transparent; color: var(--primary); border-radius: var(--radius-md); cursor: pointer; transition: var(--transition-base);">1985</button>
+                    <button @click="birthYear = '2000'; calculateGeneration()" class="btn-secondary" style="padding: var(--space-sm); border: 1px solid var(--primary); background: transparent; color: var(--primary); border-radius: var(--radius-md); cursor: pointer; transition: var(--transition-base);">2000</button>
+                </div>
+                
+                <button @click="calculateGeneration()" class="btn-primary" :disabled="!birthYear">
+                    <span>🔍</span>
+                    <span>Analyze My Generation</span>
+                </button>
+                
+                <!-- Generation Overview -->
+                <div style="margin-top: var(--space-xl); padding: var(--space-lg); background: var(--surface-generation); border-radius: var(--radius-md);">
+                    <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: var(--space-md); color: #1e293b;">About Generational Analysis</h3>
+                    <p style="font-size: 0.875rem; color: #64748b; line-height: 1.6;">
+                        Generational analysis examines shared experiences, values, and characteristics of people born during similar time periods. 
+                        These insights help understand cultural trends, workplace dynamics, and social patterns.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Results Panel -->
+            <div class="calculator-panel results-panel" :class="{'active': result}" x-show="result">
+                <!-- Generation Header -->
+                <div class="generation-header" :class="result?.class">
+                    <div class="generation-name" x-text="result?.generation"></div>
+                    <div class="generation-range" x-text="result?.range"></div>
+                    <div class="generation-age" x-text="result?.ageInfo"></div>
+                </div>
+                
+                <!-- Interactive Timeline -->
+                <div class="timeline-section">
+                    <h3 class="timeline-title">Generational Timeline</h3>
+                    <div class="timeline-container">
+                        <div class="timeline-base"></div>
+                        <div class="timeline-segments">
+                            <div class="timeline-segment" :style="'background-color: ' + getGenerationColor('greatest')" title="Greatest Generation (1901-1927)"></div>
+                            <div class="timeline-segment" :style="'background-color: ' + getGenerationColor('silent')" title="Silent Generation (1928-1945)"></div>
+                            <div class="timeline-segment" :style="'background-color: ' + getGenerationColor('boomer')" title="Baby Boomers (1946-1964)"></div>
+                            <div class="timeline-segment" :style="'background-color: ' + getGenerationColor('genx')" title="Generation X (1965-1980)"></div>
+                            <div class="timeline-segment" :style="'background-color: ' + getGenerationColor('millennial')" title="Millennials (1981-1996)"></div>
+                            <div class="timeline-segment" :style="'background-color: ' + getGenerationColor('genz')" title="Generation Z (1997-2012)"></div>
+                            <div class="timeline-segment" :style="'background-color: ' + getGenerationColor('alpha')" title="Generation Alpha (2013+)"></div>
+                        </div>
+                        <div class="user-marker" :style="'left: ' + result?.percentage + '%; border-color: ' + result?.color" x-show="result"></div>
+                        <div class="timeline-labels">
+                            <span>1900</span>
+                            <span>1920</span>
+                            <span>1940</span>
+                            <span>1960</span>
+                            <span>1980</span>
+                            <span>2000</span>
+                            <span>2020</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Generation Insights -->
+                <div class="insights-grid">
+                    <div class="insight-card">
+                        <h4 class="insight-title">
+                            <span>🧠</span>
+                            Core Characteristics
+                        </h4>
+                        <div class="insight-content" x-text="result?.characteristics"></div>
+                    </div>
+                    
+                    <div class="insight-card">
+                        <h4 class="insight-title">
+                            <span>💼</span>
+                            Work Style
+                        </h4>
+                        <div class="insight-content" x-text="result?.workStyle"></div>
+                    </div>
+                    
+                    <div class="insight-card">
+                        <h4 class="insight-title">
+                            <span>📱</span>
+                            Technology Adoption
+                        </h4>
+                        <div class="insight-content" x-text="result?.technology"></div>
+                    </div>
+                    
+                    <div class="insight-card">
+                        <h4 class="insight-title">
+                            <span>💰</span>
+                            Financial Outlook
+                        </h4>
+                        <div class="insight-content" x-text="result?.financial"></div>
+                    </div>
+                </div>
+                
+                <!-- Cultural Context -->
+                <div class="cultural-section">
+                    <h3 class="cultural-title">
+                        <span>🎭</span>
+                        Cultural Context of Your Era
+                    </h3>
+                    <div class="cultural-grid" x-show="result?.cultural">
+                        <div class="cultural-item">
+                            <div class="cultural-icon">🎵</div>
+                            <div class="cultural-label">Popular Music</div>
+                            <div class="cultural-value" x-text="result?.cultural?.music"></div>
+                        </div>
+                        <div class="cultural-item">
+                            <div class="cultural-icon">🎬</div>
+                            <div class="cultural-label">Movies & TV</div>
+                            <div class="cultural-value" x-text="result?.cultural?.entertainment"></div>
+                        </div>
+                        <div class="cultural-item">
+                            <div class="cultural-icon">💻</div>
+                            <div class="cultural-label">Technology</div>
+                            <div class="cultural-value" x-text="result?.cultural?.tech"></div>
+                        </div>
+                        <div class="cultural-item">
+                            <div class="cultural-icon">🌍</div>
+                            <div class="cultural-label">Global Events</div>
+                            <div class="cultural-value" x-text="result?.cultural?.events"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Historical Events -->
+                <div class="events-section" x-show="result?.historicalEvents">
+                    <h3 class="events-title">
+                        <span>📚</span>
+                        Major Events During Your Formative Years
+                    </h3>
+                    <div class="events-timeline">
+                        <template x-for="event in result?.historicalEvents" :key="event.year">
+                            <div class="event-item">
+                                <div class="event-year" x-text="event.year"></div>
+                                <div class="event-title" x-text="event.title"></div>
+                                <div class="event-desc" x-text="event.description"></div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+                
+                <!-- Cohort Analysis -->
+                <div class="cohort-section">
+                    <h3 class="cohort-title">
+                        <span>📊</span>
+                        Your Generation by the Numbers
+                    </h3>
+                    <div class="cohort-stats" x-show="result?.cohortData">
+                        <div class="cohort-stat">
+                            <div class="cohort-value" x-text="result?.cohortData?.population"></div>
+                            <div class="cohort-label">Population (millions)</div>
+                        </div>
+                        <div class="cohort-stat">
+                            <div class="cohort-value" x-text="result?.cohortData?.workforce + '%'"></div>
+                            <div class="cohort-label">of Current Workforce</div>
+                        </div>
+                        <div class="cohort-stat">
+                            <div class="cohort-value" x-text="'$' + result?.cohortData?.income?.toLocaleString()"></div>
+                            <div class="cohort-label">Median Income</div>
+                        </div>
+                        <div class="cohort-stat">
+                            <div class="cohort-value" x-text="result?.cohortData?.education + '%'"></div>
+                            <div class="cohort-label">College Educated</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Enhanced Footer -->
+    <footer style="background: #1e293b; color: white; padding: var(--space-2xl) var(--space-xl); margin-top: var(--space-3xl);">
+        <div class="container">
+            <div style="text-align: center;">
+                <h3 style="margin-bottom: var(--space-md);">📅 Generational Insights</h3>
+                <p style="font-size: 0.875rem; opacity: 0.8; max-width: 600px; margin: 0 auto;">
+                    Generational categories are sociological concepts that help understand broad cultural patterns. 
+                    Individual experiences may vary significantly within each generation.
+                </p>
+            </div>
+        </div>
+    </footer>() {
+            return {
+                birthYear: '',
+                result: null,
+                error: '',
+                
+                generations: [
+                    {
+                        name: "The Greatest Generation",
+                        range: "Birth years: 1901-1927",
+                        start: 1901,
+                        end: 1927,
+                        description: "Lived through the Great Depression and fought in WWII. Known for their strong work ethic and civic duty.",
+                        characteristics: "Disciplined, hardworking, team-oriented, and community-focused. Values sacrifice for the greater good and believes in civic duty.",
+                        workStyle: "Hierarchical respect, long-term employment, face-to-face communication preferred. Values loyalty and dedication to organizations.",
+                        technology: "Adopted technology cautiously. Prefers traditional communication methods but has adapted to essential digital tools.",
+                        financial: "Conservative savers, risk-averse investors. Values financial security and traditional banking relationships.",
+                        cultural: {
+                            music: "Big Band, Jazz, Classical",
+                            entertainment: "Radio shows, Classic Hollywood films",
+                            tech: "Radio, early television",
+                            events: "Great Depression, WWII"
+                        },
+                        historicalEvents: [
+                            { year: "1929", title: "Stock Market Crash", description: "Beginning of the Great Depression, shaping economic outlook" },
+                            { year: "1939-1945", title: "World War II", description: "Defining global conflict that shaped international perspectives" },
+                            { year: "1945", title: "United Nations Founded", description: "Establishment of international cooperation framework" }
+                        ],
+                        cohortData: {
+                            population: 16,
+                            workforce: 2,
+                            income: 45000,
+                            education: 65
+                        },
+                        color: "var(--greatest)",
+                        class: "greatest"
+                    },
+                    {
+                        name: "The Silent Generation",
+                        range: "Birth years: 1928-1945",
+                        start: 1928,
+                        end: 1945,
+                        description: "Grew up during war and economic depression. Valued stability, conformity, and traditional values.",
+                        characteristics: "Cautious, conformist, hardworking, and traditional. Values stability and established social structures.",
+                        workStyle: "Prefers clear hierarchy and structure. Values job security and traditional career advancement paths.",
+                        technology: "Selective adopters. Comfortable with established technologies but cautious with new innovations.",
+                        financial: "Conservative investors focused on security. Prefers traditional investment vehicles and established institutions.",
+                        cultural: {
+                            music: "Early Rock & Roll, Folk, Country",
+                            entertainment: "Television golden age, Classic films",
+                            tech: "Television, early computers",
+                            events: "Korean War, Civil Rights Movement"
+                        },
+                        historicalEvents: [
+                            { year: "1950-1953", title: "Korean War", description: "First major conflict of the Cold War era" },
+                            { year: "1954", title: "Brown v. Board", description: "Landmark civil rights case ending school segregation" },
+                            { year: "1957", title: "Sputnik Launch", description: "Beginning of the Space Race and technological competition" }
+                        ],
+                        cohortData: {
+                            population: 23,
+                            workforce: 13,
+                            income: 52000,
+                            education: 72
+                        },
+                        color: "var(--silent)",
+                        class: "silent"
+                    },
+                    {
+                        name: "Baby Boomers",
+                        range: "Birth years: 1946-1964",
+                        start: 1946,
+                        end: 1964,
+                        description: "Post-WWII population boom. Experienced significant social change and economic prosperity.",
+                        characteristics: "Optimistic, driven, competitive, and idealistic. Values personal growth and social change.",
+                        workStyle: "Workaholics who built careers around long hours. Values face-to-face meetings and phone communication.",
+                        technology: "Learned technology as adults. Comfortable with email and basic internet but prefers traditional methods.",
+                        financial: "Experienced both market booms and busts. Mix of conservative and growth-oriented investment strategies.",
+                        cultural: {
+                            music: "Rock & Roll, Folk, Motown, Psychedelic",
+                            entertainment: "Woodstock, Moon Landing, TV expansion",
+                            tech: "Color TV, early personal computers",
+                            events: "Vietnam War, Civil Rights, Watergate"
+                        },
+                        historicalEvents: [
+                            { year: "1963", title: "JFK Assassination", description: "Pivotal moment that ended the era of innocence" },
+                            { year: "1969", title: "Moon Landing", description: "Humanity's greatest technological achievement" },
+                            { year: "1969", title: "Woodstock Festival", description: "Defining cultural moment of the counterculture movement" },
+                            { year: "1974", title: "Watergate Scandal", description: "Political crisis that eroded trust in government" }
+                        ],
+                        cohortData: {
+                            population: 71,
+                            workforce: 25,
+                            income: 65000,
+                            education: 68
+                        },
+                        color: "var(--boomer)",
+                        class: "boomer"
+                    },
+                    {
+                        name: "Generation X",
+                        range: "Birth years: 1965-1980",
+                        start: 1965,
+                        end: 1980,
+                        description: "The 'latchkey' generation. Independent, adaptable, and witnessed the digital revolution's beginning.",
+                        characteristics: "Independent, skeptical, pragmatic, and self-reliant. Values work-life balance and authenticity.",
+                        workStyle: "Prefers autonomy and flexibility. Comfortable with email and digital tools but values efficiency over process.",
+                        technology: "Bridge generation between analog and digital. Adapted to technology throughout career development.",
+                        financial: "Experienced multiple economic downturns. Cautious but pragmatic approach to investing and saving.",
+                        cultural: {
+                            music: "MTV, Grunge, Hip-Hop, Alternative Rock",
+                            entertainment: "Cable TV, Video games, Blockbuster movies",
+                            tech: "Personal computers, Internet, Mobile phones",
+                            events: "Cold War end, AIDS crisis, Economic recessions"
+                        },
+                        historicalEvents: [
+                            { year: "1986", title: "Chernobyl Disaster", description: "Nuclear accident highlighting environmental concerns" },
+                            { year: "1989", title: "Berlin Wall Falls", description: "End of the Cold War and beginning of globalization" },
+                            { year: "1991", title: "World Wide Web", description: "Beginning of the internet revolution" },
+                            { year: "2001", title: "9/11 Attacks", description: "Defining moment that changed security and global perspectives" }
+                        ],
+                        cohortData: {
+                            population: 55,
+                            workforce: 33,
+                            income: 70000,
+                            education: 75
+                        },
+                        color: "var(--genx)",
+                        class: "genx"
+                    },
+                    {
+                        name: "Millennials (Gen Y)",
+                        range: "Birth years: 1981-1996",
+                        start: 1981,
+                        end: 1996,
+                        description: "Came of age with the internet and 9/11. Tech-savvy, diverse, and value experiences over possessions.",
+                        characteristics: "Collaborative, tech-savvy, diverse, and purpose-driven. Values flexibility, feedback, and meaningful work.",
+                        workStyle: "Prefers collaborative environments and frequent feedback. Comfortable with remote work and digital communication.",
+                        technology: "Digital natives who grew up with evolving technology. Seamlessly integrates multiple platforms and devices.",
+                        financial: "Delayed traditional milestones due to economic challenges. Interest in alternative investments and financial technology.",
+                        cultural: {
+                            music: "Digital music, Streaming, Indie, Electronic",
+                            entertainment: "Social media, Netflix, YouTube, Gaming",
+                            tech: "Smartphones, Social networks, Cloud computing",
+                            events: "9/11, Iraq War, 2008 Financial Crisis, Climate change"
+                        },
+                        historicalEvents: [
+                            { year: "2001", title: "9/11 Terrorist Attacks", description: "Defining moment of security consciousness and global awareness" },
+                            { year: "2004", title: "Facebook Launch", description: "Beginning of social media revolution" },
+                            { year: "2007", title: "iPhone Release", description: "Smartphone revolution transforming daily life" },
+                            { year: "2008", title: "Financial Crisis", description: "Economic recession affecting career and financial outlook" }
+                        ],
+                        cohortData: {
+                            population: 72,
+                            workforce: 35,
+                            income: 68000,
+                            education: 85
+                        },
+                        color: "var(--millennial)",
+                        class: "millennial"
+                    },
+                    {
+                        name: "Generation Z",
+                        range: "Birth years: 1997-2012",
+                        start: 1997,
+                        end: 2012,
+                        description: "First true digital natives. Entrepreneurial, socially conscious, and comfortable with rapid change.",
+                        characteristics: "Pragmatic, entrepreneurial, diverse, and socially conscious. Values authenticity, individuality, and social justice.",
+                        workStyle: "Prefers visual communication and instant feedback. Comfortable with gig economy and non-traditional career paths.",
+                        technology: "True digital natives. Instinctively understands new platforms and seamlessly multitasks across devices.",
+                        financial: "Cautious about debt but interested in investing. Drawn to cryptocurrencies and new financial technologies.",
+                        cultural: {
+                            music: "Streaming, TikTok sounds, Diverse genres",
+                            entertainment: "TikTok, Instagram, Gaming, Streaming platforms",
+                            tech: "Smartphones, Apps, AI, Virtual reality",
+                            events: "COVID-19, Climate activism, Social justice movements"
+                        },
+                        historicalEvents: [
+                            { year: "2016", title: "Social Media Influence", description: "Peak of social media impact on politics and society" },
+                            { year: "2020", title: "COVID-19 Pandemic", description: "Global health crisis reshaping education and work" },
+                            { year: "2020", title: "Climate Strikes", description: "Youth-led environmental activism gaining global momentum" }
+                        ],
+                        cohortData: {
+                            population: 68,
+                            workforce: 24,
+                            income: 45000,
+                            education: 90
+                        },
+                        color: "var(--genz)",
+                        class: "genz"
+                    },
+                    {
+                        name: "Generation Alpha",
+                        range: "Birth years: 2013-Present",
+                        start: 2013,
+                        end: new Date().getFullYear(),
+                        description: "Born into fully digital world. Most technologically immersed generation in history.",
+                        characteristics: "Tech-integrated, globally connected, environmentally conscious. Growing up with AI and voice interfaces.",
+                        workStyle: "Too young to determine, but likely to value flexibility, technology integration, and purpose-driven work.",
+                        technology: "Born into smartphones and tablets. Growing up with AI assistants, voice interfaces, and immersive technology.",
+                        financial: "Too early to determine financial patterns, but growing up with digital payments and cryptocurrency awareness.",
+                        cultural: {
+                            music: "AI-generated, Global fusion, Interactive content",
+                            entertainment: "Interactive media, AR/VR, Personalized content",
+                            tech: "AI assistants, Voice interfaces, Smart homes",
+                            events: "Climate change, AI revolution, Space exploration"
+                        },
+                        historicalEvents: [
+                            { year: "2020", title: "Remote Learning Era", description: "Educational transformation due to global pandemic" },
+                            { year: "2022", title: "AI Breakthrough", description: "Widespread adoption of AI tools like ChatGPT" },
+                            { year: "2023", title: "Climate Action Focus", description: "Growing up with climate change as central concern" }
+                        ],
+                        cohortData: {
+                            population: 32,
+                            workforce: 0,
+                            income: 0,
+                            education: 95
+                        },
+                        color: "var(--alpha)",
+                        class: "alpha"
+                    }
+                ],
+                
+                calculateGeneration() {
+                    this.error = '';
+                    const year = parseInt(this.birthYear);
+                    const currentYear = new Date().getFullYear();
+                    
+                    if (isNaN(year) || year < 1900 || year > currentYear) {
+                        this.error = `Please enter a valid year between 1900 and ${currentYear}`;
+                        this.result = null;
+                        return;
+                    }
+                    
+                    const generation = this.generations.find(gen => 
+                        year >= gen.start && year <= gen.end
+                    );
+                    
+                    if (generation) {
+                        const timelineStart = 1900;
+                        const timelineEnd = currentYear;
+                        const percentage = ((year - timelineStart) / (timelineEnd - timelineStart)) * 100;
+                        
+                        // Calculate current age
+                        const currentAge = currentYear - year;
+                        const ageInfo = `Currently ${currentAge} years old`;
+                        
+                        this.result = {
+                            generation: generation.name,
+                            range: generation.range,
+                            percentage: percentage.toFixed(2),
+                            description: generation.description,
+                            characteristics: generation.characteristics,
+                            workStyle: generation.workStyle,
+                            technology: generation.technology,
+                            financial: generation.financial,
+                            cultural: generation.cultural,
+                            historicalEvents: generation.historicalEvents,
+                            cohortData: generation.cohortData,
+                            color: generation.color,
+                            class: generation.class,
+                            ageInfo: ageInfo
+                        };
+                    } else {
+                        this.error = "Could not determine generation for this year";
+                        this.result = null;
+                    }
+                },
+                
+                getGenerationColor(genType) {
+                    const colors = {
+                        'greatest': '#8B4513',
+                        'silent': '#4682B4',
+                        'boomer': '#DAA520',
+                        'genx': '#DC143C',
+                        'millennial': '#9370DB',
+                        'genz': '#FF69B4',
+                        'alpha': '#00CED1'
+                    };
+                    return colors[genType] || '#6366f1';
+                }
+            }
+        }
+    </script>
+</body>
+</html>

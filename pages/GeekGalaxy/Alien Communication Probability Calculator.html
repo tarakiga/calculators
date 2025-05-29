@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alien Communication Probability Calculator</title>
+
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+</head>
+<body>
+                <!-- Enhanced Navigation Bar -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="../../index.html">🧮 Docket One</a>
+            </div>
+            <div class="nav-search">
+                <label for="input-kqotwvgq2" class="sr-only">Input field</label>
+            <input type="text" i id="input-kqotwvgq2" aria-label="Calculator input"d="calc-search" placeholder="Search calculators..." class="search-input">
+                <div id="search-results" class="search-results"></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../BigKidMath/index.html" class="category-main-link">Big Kid Math</a></li>
+                <li><a href="../CipherLab/index.html" class="category-main-link">Cipher Lab</a></li>
+                <li><a href="../GeekGalaxy/index.html" class="category-main-link">Geek Galaxy</a></li>
+                <li><a href="../LifeHacks/index.html" class="category-main-link">Life Hacks</a></li>
+                <li><a href="../Math_Magik/index.html" class="category-main-link">Math Magik</a></li>
+                <li><a href="../Otaku_Ops/index.html" class="category-main-link">Otaku Ops</a></li>
+                <li><a href="../../index.html" class="home-link">Unit Converter</a></li>
+            </ul>
+            <button class="mobile-menu-btn" a aria-label="Perform action"ria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+    
+
+    
+
+
+    <h1>ALIEN COMMUNICATION PROBABILITY</h1>
+    <p class="subtitle">Calculating your chances of not getting yeeted into space trash</p>
+    <main class="container">
+    <div class="calculator">
+        <div class="input-group">
+            <label for="civilizations">Estimated Communicative Civilizations:</label>
+            <div class="range-container">
+                <input type="range" id="civilizations" min="1" max="1000000" value="10000" step="1000">
+                <span class="range-value" id="civilizations-value">10,000</span>
+            </div>
+            <small>Drake Equation estimate (N)</small>
+        </div>
+        
+        <div class="input-group">
+            <label for="message-quality">Message Quality:</label>
+            <select id="message-quality">
+                <option value="0.1">Primitive (🐒 grunts)</option>
+                <option value="0.3">Basic (Binary code)</option>
+                <option value="0.6" selected>Mathematical (Voyager Golden Record)</option>
+                <option value="0.8">Advanced (Quantum encoded)</option>
+                <option value="0.95">Perfect (Universal semantic)</option>
+            </select>
+        </div>
+        
+        <div class="input-group">
+            <label for="alien-tech">Alien Technology Level:</label>
+            <select id="alien-tech">
+                <option value="1">Stone Age (They're throwing rocks)</option>
+                <option value="3">Industrial (Steam-powered radios)</option>
+                <option value="6" selected>Spacefaring (Like current humans)</option>
+                <option value="9">Type II Civilization (Dyson Sphere builders)</option>
+                <option value="10">God-like (Q Continuum level)</option>
+            </select>
+        </div>
+        
+        <div class="input-group">
+            <label for="alien-mood">Alien Disposition:</label>
+            <select id="alien-mood">
+                <option value="0.1">Xenophobic (Shoot first)</option>
+                <option value="0.3">Cautious (Observe silently)</option>
+                <option value="0.6" selected>Neutral (Wait-and-see)</option>
+                <option value="0.8">Friendly (Star Trek Federation)</option>
+                <option value="0.95">Enthusiastic (They've been waiting for this!)</option>
+            </select>
+        </div>
+        
+        <button aria-label="Perform action" onclick="calculateProbability()">CALCULATE CONTACT PROBABILITY</button>
+    </div>
+    
+    <div class="results" id="results">
+        <div class="result-item">
+            <div class="result-title">COMMUNICATION PROBABILITY</div>
+            <div class="probability-meter">
+                <div class="probability-fill" id="probability-fill" style="width: 0%"></div>
+                <div class="probability-value" id="probability-value">0%</div>
+            </div>
+            <p>Chance of successful two-way communication: <strong id="success-chance">0%</strong></p>
+        </div>
+        
+        <div class="alien-reaction" id="alien-reaction">
+            <!-- Filled by JavaScript -->
+        </div>
+        
+        <div class="drake-equation">
+            <div class="result-title">DRAKE EQUATION PARAMETERS</div>
+            <p>The classic equation for estimating communicative civilizations:</p>
+            <code>N = R* × fₚ × nₑ × fₗ × fᵢ × f꜀ × L</code>
+            <p>Where:<br>
+            N = Number of civilizations we could communicate with<br>
+            R* = Star formation rate<br>
+            fₚ = Fraction with planetary systems<br>
+            nₑ = Planets that could support life per system<br>
+            fₗ = Fraction where life develops<br>
+            fᵢ = Fraction where intelligence develops<br>
+            f꜀ = Fraction that develop communication technology<br>
+            L = Length of time civilizations release detectable signals</p>
+        </div>
+    </div>
+</main>
+    <script>
+        // Reaction messages based on probability
+        const reactions = [
+            { min: 0, max: 10, message: "They'll definitely yeet our message into space trash 🗑️" },
+            { min: 11, max: 30, message: "Might mistake our signals for cosmic static 📡" },
+            { min: 31, max: 50, message: "50/50 chance they'll respond or facepalm at our primitive tech 🤦" },
+            { min: 51, max: 70, message: "Probably send back a 'Read Receipt' but ghost us 👻" },
+            { min: 71, max: 90, message: "High chance of response! (Might still take a few centuries) ⏳" },
+            { min: 91, max: 100, message: "They're already on their way! 🛸🍪 (Hope they bring cookies)" }
+        ];
+        
+        // Format large numbers
+        function formatNumber(num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+        
+        // Update civilizations display
+        document.getElementById('civilizations').addEventListener('input', function() {
+            document.getElementById('civilizations-value').textContent = formatNumber(this.value);
+        });
+        
+        function calculateProbability() {
+            // Get inputs
+            const civilizations = parseInt(document.getElementById('civilizations').value);
+            const messageQuality = parseFloat(document.getElementById('message-quality').value);
+            const alienTech = parseInt(document.getElementById('alien-tech').value);
+            const alienMood = parseFloat(document.getElementById('alien-mood').value);
+            
+            // Base probability (scaled to number of civilizations)
+            let baseProbability = Math.min(1, civilizations / 1000000) * 100;
+            
+            // Adjust for message quality (0.1-0.95)
+            baseProbability *= messageQuality;
+            
+            // Adjust for alien tech level (1-10 scale)
+            const techFactor = alienTech / 10;
+            baseProbability *= techFactor;
+            
+            // Adjust for alien mood (0.1-0.95)
+            baseProbability *= alienMood;
+            
+            // Cap at 99.9% (never certain)
+            baseProbability = Math.min(99.9, baseProbability);
+            
+            // Update probability meter
+            document.getElementById('probability-fill').style.width = baseProbability + '%';
+            document.getElementById('probability-value').textContent = baseProbability.toFixed(1) + '%';
+            document.getElementById('success-chance').textContent = baseProbability.toFixed(1) + '%';
+            
+            // Determine alien reaction
+            let reactionMessage = "";
+            for (const reaction of reactions) {
+                if (baseProbability >= reaction.min && baseProbability <= reaction.max) {
+                    reactionMessage = reaction.message;
+                    break;
+                }
+            }
+            
+            document.getElementById('alien-reaction').innerHTML = `
+                <strong>Alien Reaction Analysis:</strong> ${reactionMessage}
+                <p>Tech gap: ${alienTech < 5 ? "They're behind us" : alienTech > 7 ? "They're way ahead" : "Comparable tech level"}</p>
+            `;
+            
+            // Show results
+            document.getElementById('results').style.display = 'block';
+        }
+        
+        // Initialize on load
+        window.onload = function() {
+            calculateProbability();
+        };
+    </script>
+
+    <div class="related-calculators" style="margin-top: 2rem; padding: 1rem; background: rgba(0,0,0,0.1); border-radius: 8px;">
+        <h3 style="margin-top: 0;">Related Geek Galaxy Tools</h3>
+        <a href="./AI Doomsday Countdown.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">AI Doomsday Countdown</a><a href="./Lightsaber Battery Life Calculator.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Lightsaber Battery Life Calculator</a><a href="./Potion Brewer Calculator.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Potion Brewer Calculator</a>
+        <a href="./index.html" style="display: block; padding: 0.5rem; margin-top: 1rem; background: rgba(74,144,226,0.2); border-radius: 4px; text-decoration: none; color: inherit; font-weight: bold;">← Back to Geek Galaxy Hub</a>
+    </div>
+
+        <script>
+        // 🎅 Santa Claude's Interactive Enhancements
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🎅 Santa Claude's enhancements loaded!');
+            
+            // Enhanced button interactions
+            const buttons = document.querySelectorAll('button, .btn');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.classList.add('loading');
+                    setTimeout(() => {
+                        this.classList.remove('loading');
+                    }, 500);
+                });
+            });
+            
+            // Enhanced results display
+            const resultElements = document.querySelectorAll('.result, .results, .output, #result, #output');
+            resultElements.forEach(el => {
+                const observer = new MutationObserver(function(mutations) {
+                    mutations.forEach(function(mutation) {
+                        if (mutation.type === 'childList' || mutation.type === 'characterData') {
+                            el.classList.add('show');
+                        }
+                    });
+                });
+                observer.observe(el, { childList: true, subtree: true, characterData: true });
+            });
+            
+            // Form validation enhancements
+            const inputs = document.querySelectorAll('input[type="number"], input[type="text"]');
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    if (this.checkValidity()) {
+                        this.classList.remove('input-error');
+                        this.classList.add('input-success');
+                    } else {
+                        this.classList.remove('input-success');
+                        this.classList.add('input-error');
+                    }
+                });
+            });
+        });
+        </script>
+</body>
+</html>
