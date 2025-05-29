@@ -3,221 +3,414 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Morse Code Translator</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-	<link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <style>
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
-        }
-        .animate-blink { animation: blink 1s infinite; }
-        .morse-active {
-            background-color: #3B82F6;
-            color: white;
-        }
-    </style>
+    <title>Morse Code Translator | CipherLab - Docket One</title>
+    <meta name="description" content="Professional Morse code translator with audio playback and visual display.">
     
     <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <style>
+        :root {
+            --primary: #7c3aed;
+            --primary-light: #8b5cf6;
+            --secondary: #06b6d4;
+            --success: #10b981;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-600: #4b5563;
+            --gray-800: #1f2937;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--gray-50);
+            color: var(--gray-800);
+            line-height: 1.6;
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 50%, var(--secondary) 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.125rem;
+            opacity: 0.9;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+        
+        .translator-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+        
+        .translator-panel, .reference-panel {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--gray-200);
+        }
+        
+        .mode-selector {
+            display: flex;
+            background: var(--gray-100);
+            border-radius: 8px;
+            padding: 4px;
+            margin-bottom: 2rem;
+        }
+        
+        .mode-button {
+            flex: 1;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 6px;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .mode-button.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .input-field, .output-field {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--gray-200);
+            border-radius: 12px;
+            font-size: 1rem;
+            min-height: 120px;
+            margin-bottom: 1rem;
+            resize: vertical;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .output-field {
+            background: var(--gray-50);
+            font-weight: 600;
+        }
+        
+        .morse-display {
+            background: #1a1a1a;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            min-height: 80px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .morse-symbol {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 30px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: white;
+        }
+        
+        .morse-dot {
+            width: 30px;
+            background: var(--success);
+        }
+        
+        .morse-dash {
+            width: 60px;
+            background: var(--secondary);
+        }
+        
+        .morse-space {
+            width: 15px;
+            background: var(--gray-600);
+            opacity: 0.5;
+        }
+        
+        .controls {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: var(--gray-200);
+            color: var(--gray-800);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .reference-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .reference-section {
+            background: var(--gray-50);
+            border-radius: 8px;
+            padding: 1rem;
+        }
+        
+        .reference-section h4 {
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+        
+        .reference-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.25rem 0;
+            font-size: 0.75rem;
+        }
+        
+        .reference-morse {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--primary);
+        }
+        
+        @media (max-width: 768px) {
+            .translator-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero {
+                padding: 2rem 1rem;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 2rem 1rem;
+            }
+            
+            .controls {
+                flex-direction: column;
+            }
+            
+            .morse-symbol {
+                height: 24px;
+            }
+            
+            .morse-dot {
+                width: 24px;
+            }
+            
+            .morse-dash {
+                width: 48px;
+            }
+        }
+    </style>
 </head>
-<body class="bg-gray-100 min-h-screen">
-        <!-- Enhanced Navigation Bar -->
+<body>
     <nav class="main-nav">
         <div class="nav-container">
             <div class="nav-logo">
                 <a href="../../index.html">🧮 Docket One</a>
             </div>
-            <div class="nav-search">
-                <label for="input-mc702jaqn" class="sr-only">Input field</label>
-            <input type="text" i id="input-mc702jaqn" aria-label="Calculator input"d="calc-search" placeholder="Search calculators..." class="search-input">
-                <div id="search-results" class="search-results"></div>
-            </div>
             <ul class="nav-links">
-                <li><a href="../BigKidMath/index.html" class="category-main-link">Big Kid Math</a></li>
-                <li><a href="../CipherLab/index.html" class="category-main-link">Cipher Lab</a></li>
-                <li><a href="../GeekGalaxy/index.html" class="category-main-link">Geek Galaxy</a></li>
-                <li><a href="../LifeHacks/index.html" class="category-main-link">Life Hacks</a></li>
-                <li><a href="../Math_Magik/index.html" class="category-main-link">Math Magik</a></li>
-                <li><a href="../Otaku_Ops/index.html" class="category-main-link">Otaku Ops</a></li>
-                <li><a href="../../index.html" class="home-link">Unit Converter</a></li>
+                <li><a href="../BigKidMath/index.html">Big Kid Math</a></li>
+                <li><a href="../CipherLab/index.html">Cipher Lab</a></li>
+                <li><a href="../GeekGalaxy/index.html">Geek Galaxy</a></li>
+                <li><a href="../LifeHacks/index.html">Life Hacks</a></li>
+                <li><a href="../Math_Magik/index.html">Math Magik</a></li>
+                <li><a href="../Otaku_Ops/index.html">Otaku Ops</a></li>
             </ul>
-            <button class="mobile-menu-btn" a aria-label="Perform action"ria-label="Toggle menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
         </div>
     </nav>
-    
 
-    
+    <section class="hero">
+        <h1 class="hero-title">📡 Morse Code Translator</h1>
+        <p class="hero-subtitle">Professional encoder/decoder with audio playback and visual display</p>
+    </section>
 
-    <div class="container mx-auto px-4 py-12" x-data="morseTranslator()">
-        <div class="max-w-2xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
-            <!-- Header -->
-            <div class="bg-blue-600 p-6 text-center">
-                <h1 class="text-3xl font-bold text-white">
-                    <i class="fas fa-broadcast-tower mr-2"></i> Morse Code Translator
-                </h1>
-                <p class="text-blue-100 mt-2">Translate between text and Morse code instantly</p>
+    <main class="container">
+        <div class="translator-grid" x-data="morseTranslator()">
+            <div class="translator-panel">
+                <div class="mode-selector">
+                    <button @click="mode = 'encode'" :class="{ active: mode === 'encode' }" class="mode-button">
+                        Text → Morse
+                    </button>
+                    <button @click="mode = 'decode'" :class="{ active: mode === 'decode' }" class="mode-button">
+                        Morse → Text
+                    </button>
+                </div>
+
+                <label x-text="mode === 'encode' ? 'Enter text to encode:' : 'Enter Morse code to decode:'"></label>
+                <textarea 
+                    x-model="inputText" 
+                    @input="translate"
+                    class="input-field" 
+                    :placeholder="mode === 'encode' ? 'Type your message...' : 'Enter dots and dashes...'"></textarea>
+
+                <div x-show="outputText && mode === 'encode'" class="morse-display">
+                    <template x-for="(symbol, index) in morseSymbols" :key="index">
+                        <div 
+                            :class="{
+                                'morse-dot': symbol === '.',
+                                'morse-dash': symbol === '-',
+                                'morse-space': symbol === ' '
+                            }"
+                            class="morse-symbol"
+                            x-text="symbol === ' ' ? '' : symbol">
+                        </div>
+                    </template>
+                </div>
+
+                <div class="controls">
+                    <button @click="playMorse" :disabled="!outputText || mode !== 'encode'" class="btn btn-success">
+                        <span x-show="!isPlaying">🔊</span>
+                        <span x-show="isPlaying">⏹️</span>
+                        <span x-text="isPlaying ? 'Stop' : 'Play Morse'"></span>
+                    </button>
+                    
+                    <button @click="copyResult" :disabled="!outputText" class="btn btn-primary">
+                        📋 Copy Result
+                    </button>
+                    
+                    <button @click="clearAll" class="btn btn-secondary">
+                        🗑️ Clear All
+                    </button>
+                </div>
+
+                <label x-text="mode === 'encode' ? 'Morse code result:' : 'Decoded text:'"></label>
+                <textarea 
+                    x-model="outputText" 
+                    class="output-field" 
+                    readonly
+                    :placeholder="mode === 'encode' ? 'Your Morse code...' : 'Your decoded text...'"></textarea>
             </div>
-            
-            <!-- Main Content -->
-            <div class="p-6">
-                <!-- Mode Selector -->
-                <div class="flex justify-center mb-8">
-                    <div class="inline-flex rounded-md shadow-sm">
-                        <button aria-label="Perform action" 
-                            @click="mode = 'encode'" 
-                            :class="mode === 'encode' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-800'" 
-                            class="px-4 py-2 text-sm font-medium rounded-l-lg border border-gray-300 focus:z-10 focus:ring-2 focus:ring-blue-500">
-                            <i class="fas fa-lock mr-2"></i> Encode
-                        </button>
-                        <button aria-label="Perform action" 
-                            @click="mode = 'decode'" 
-                            :class="mode === 'decode' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-800'" 
-                            class="px-4 py-2 text-sm font-medium rounded-r-lg border border-gray-300 focus:z-10 focus:ring-2 focus:ring-blue-500">
-                            <i class="fas fa-lock-open mr-2"></i> Decode
-                        </button>
+
+            <div class="reference-panel">
+                <h3>📚 Morse Code Reference</h3>
+                
+                <div class="reference-grid">
+                    <div class="reference-section">
+                        <h4>Letters A-M</h4>
+                        <div class="reference-item"><span>A</span><span class="reference-morse">·−</span></div>
+                        <div class="reference-item"><span>B</span><span class="reference-morse">−···</span></div>
+                        <div class="reference-item"><span>C</span><span class="reference-morse">−·−·</span></div>
+                        <div class="reference-item"><span>D</span><span class="reference-morse">−··</span></div>
+                        <div class="reference-item"><span>E</span><span class="reference-morse">·</span></div>
+                        <div class="reference-item"><span>F</span><span class="reference-morse">··−·</span></div>
+                        <div class="reference-item"><span>G</span><span class="reference-morse">−−·</span></div>
+                        <div class="reference-item"><span>H</span><span class="reference-morse">····</span></div>
+                        <div class="reference-item"><span>I</span><span class="reference-morse">··</span></div>
+                        <div class="reference-item"><span>J</span><span class="reference-morse">·−−−</span></div>
+                        <div class="reference-item"><span>K</span><span class="reference-morse">−·−</span></div>
+                        <div class="reference-item"><span>L</span><span class="reference-morse">·−··</span></div>
+                        <div class="reference-item"><span>M</span><span class="reference-morse">−−</span></div>
+                    </div>
+                    
+                    <div class="reference-section">
+                        <h4>Letters N-Z</h4>
+                        <div class="reference-item"><span>N</span><span class="reference-morse">−·</span></div>
+                        <div class="reference-item"><span>O</span><span class="reference-morse">−−−</span></div>
+                        <div class="reference-item"><span>P</span><span class="reference-morse">·−−·</span></div>
+                        <div class="reference-item"><span>Q</span><span class="reference-morse">−−·−</span></div>
+                        <div class="reference-item"><span>R</span><span class="reference-morse">·−·</span></div>
+                        <div class="reference-item"><span>S</span><span class="reference-morse">···</span></div>
+                        <div class="reference-item"><span>T</span><span class="reference-morse">−</span></div>
+                        <div class="reference-item"><span>U</span><span class="reference-morse">··−</span></div>
+                        <div class="reference-item"><span>V</span><span class="reference-morse">···−</span></div>
+                        <div class="reference-item"><span>W</span><span class="reference-morse">·−−</span></div>
+                        <div class="reference-item"><span>X</span><span class="reference-morse">−··−</span></div>
+                        <div class="reference-item"><span>Y</span><span class="reference-morse">−·−−</span></div>
+                        <div class="reference-item"><span>Z</span><span class="reference-morse">−−··</span></div>
+                    </div>
+                    
+                    <div class="reference-section">
+                        <h4>Numbers 0-9</h4>
+                        <div class="reference-item"><span>0</span><span class="reference-morse">−−−−−</span></div>
+                        <div class="reference-item"><span>1</span><span class="reference-morse">·−−−−</span></div>
+                        <div class="reference-item"><span>2</span><span class="reference-morse">··−−−</span></div>
+                        <div class="reference-item"><span>3</span><span class="reference-morse">···−−</span></div>
+                        <div class="reference-item"><span>4</span><span class="reference-morse">····−</span></div>
+                        <div class="reference-item"><span>5</span><span class="reference-morse">·····</span></div>
+                        <div class="reference-item"><span>6</span><span class="reference-morse">−····</span></div>
+                        <div class="reference-item"><span>7</span><span class="reference-morse">−−···</span></div>
+                        <div class="reference-item"><span>8</span><span class="reference-morse">−−−··</span></div>
+                        <div class="reference-item"><span>9</span><span class="reference-morse">−−−−·</span></div>
                     </div>
                 </div>
-                
-                <!-- Input/Output Areas -->
-                <div class="space-y-6">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">
-                            <span x-text="mode === 'encode' ? 'Text to encode' : 'Morse code to decode'"></span>:
-                        </label>
-                        <textarea 
-                            x-model="inputText" 
-                            @input="translate" 
-                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" 
-                            rows="4" 
-                            placeholder="Type your message here..."></textarea>
-                    </div>
-                    
-                    <div class="flex justify-center">
-                        <button aria-label="Perform action" 
-                            @click="playMorse()" 
-                            :disabled="!outputText" 
-                            class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed">
-                            <i class="fas fa-play mr-2"></i> Play Sound
-                        </button>
-                    </div>
-                    
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">
-                            <span x-text="mode === 'encode' ? 'Morse code' : 'Decoded text'"></span>:
-                        </label>
-                        <div class="relative">
-                            <textarea 
-                                x-model="outputText" 
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 focus:outline-none focus:ring-blue-500 focus:border-blue-500" 
-                                rows="4" 
-                                readonly></textarea>
-                            <button aria-label="Perform action" 
-                                @click="copyToClipboard" 
-                                class="absolute top-2 right-2 p-1 text-gray-500 hover:text-gray-700">
-                                <i class="fas fa-copy"></i>
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <!-- Morse Code Visualization -->
-                    <div x-show="mode === 'encode' && outputText" class="mt-4">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Visualization:</label>
-                        <div class="flex flex-wrap gap-2 p-4 bg-gray-100 rounded-md">
-                            <template x-for="char in outputText.split('')">
-                                <div 
-                                    class="w-6 h-10 flex items-center justify-center border border-gray-300 rounded" 
-                                    :class="{'morse-active': char === '.', 'bg-gray-800': char === '-'}">
-                                    <span class="text-xs" x-text="char === ' ' ? '␣' : char"></span>
-                                </div>
-                            </template>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Morse Code Reference -->
-                <div class="mt-8 border-t pt-6">
-                    <h3 class="text-lg font-medium text-gray-900 mb-3">
-                        <i class="fas fa-book-open mr-2"></i> Morse Code Reference
-                    </h3>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <div class="bg-gray-50 p-3 rounded border border-gray-200">
-                            <h4 class="font-bold text-sm mb-2">Letters</h4>
-                            <div class="text-xs space-y-1">
-                                <div>A: <span class="font-mono">.-</span></div>
-                                <div>B: <span class="font-mono">-...</span></div>
-                                <div>C: <span class="font-mono">-.-.</span></div>
-                                <div>D: <span class="font-mono">-..</span></div>
-                                <div>E: <span class="font-mono">.</span></div>
-                                <div>F: <span class="font-mono">..-.</span></div>
-                                <div>G: <span class="font-mono">--.</span></div>
-                                <div>H: <span class="font-mono">....</span></div>
-                                <div>I: <span class="font-mono">..</span></div>
-                                <div>J: <span class="font-mono">.---</span></div>
-                                <div>K: <span class="font-mono">-.-</span></div>
-                                <div>L: <span class="font-mono">.-..</span></div>
-                            </div>
-                        </div>
-                        <div class="bg-gray-50 p-3 rounded border border-gray-200">
-                            <h4 class="font-bold text-sm mb-2">Letters (cont.)</h4>
-                            <div class="text-xs space-y-1">
-                                <div>M: <span class="font-mono">--</span></div>
-                                <div>N: <span class="font-mono">-.</span></div>
-                                <div>O: <span class="font-mono">---</span></div>
-                                <div>P: <span class="font-mono">.--.</span></div>
-                                <div>Q: <span class="font-mono">--.-</span></div>
-                                <div>R: <span class="font-mono">.-.</span></div>
-                                <div>S: <span class="font-mono">...</span></div>
-                                <div>T: <span class="font-mono">-</span></div>
-                                <div>U: <span class="font-mono">..-</span></div>
-                                <div>V: <span class="font-mono">...-</span></div>
-                                <div>W: <span class="font-mono">.--</span></div>
-                                <div>X: <span class="font-mono">-..-</span></div>
-                            </div>
-                        </div>
-                        <div class="bg-gray-50 p-3 rounded border border-gray-200">
-                            <h4 class="font-bold text-sm mb-2">Numbers</h4>
-                            <div class="text-xs space-y-1">
-                                <div>1: <span class="font-mono">.----</span></div>
-                                <div>2: <span class="font-mono">..---</span></div>
-                                <div>3: <span class="font-mono">...--</span></div>
-                                <div>4: <span class="font-mono">....-</span></div>
-                                <div>5: <span class="font-mono">.....</span></div>
-                                <div>6: <span class="font-mono">-....</span></div>
-                                <div>7: <span class="font-mono">--...</span></div>
-                                <div>8: <span class="font-mono">---..</span></div>
-                                <div>9: <span class="font-mono">----.</span></div>
-                                <div>0: <span class="font-mono">-----</span></div>
-                            </div>
-                        </div>
-                        <div class="bg-gray-50 p-3 rounded border border-gray-200">
-                            <h4 class="font-bold text-sm mb-2">Punctuation</h4>
-                            <div class="text-xs space-y-1">
-                                <div>.: <span class="font-mono">.-.-.-</span></div>
-                                <div>,: <span class="font-mono">--..--</span></div>
-                                <div>?: <span class="font-mono">..--..</span></div>
-                                <div>': <span class="font-mono">.----.</span></div>
-                                <div>!: <span class="font-mono">-.-.--</span></div>
-                                <div>/: <span class="font-mono">-..-.</span></div>
-                                <div>(: <span class="font-mono">-.--.</span></div>
-                                <div>): <span class="font-mono">-.--.-</span></div>
-                                <div>&: <span class="font-mono">.-...</span></div>
-                                <div>:: <span class="font-mono">---...</span></div>
-                                <div>;: <span class="font-mono">-.-.-.</span></div>
-                                <div>=: <span class="font-mono">-...-</span></div>
-                            </div>
-                        </div>
-                    </div>
+
+                <div style="margin-top: 2rem; padding: 1rem; background: var(--gray-50); border-radius: 8px; font-size: 0.875rem;">
+                    <h4 style="margin-bottom: 0.5rem;">💡 Usage Tips</h4>
+                    <p><strong>Encoding:</strong> Type normal text to convert to Morse code.</p>
+                    <p><strong>Decoding:</strong> Use dots (.) and dashes (-) with spaces between letters.</p>
+                    <p><strong>Audio:</strong> Click "Play Morse" to hear the code with proper timing.</p>
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 
     <script>
         document.addEventListener('alpine:init', () => {
@@ -225,51 +418,48 @@
                 mode: 'encode',
                 inputText: '',
                 outputText: '',
-                audioContext: null,
-                oscillator: null,
+                morseSymbols: [],
                 isPlaying: false,
+                audioContext: null,
                 
-                // International Morse Code
                 morseCode: {
-                    // Letters
-                    'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 
-                    'F': '..-.', 'G': '--.', 'H': '....', 'I': '..', 'J': '.---', 
-                    'K': '-.-', 'L': '.-..', 'M': '--', 'N': '-.', 'O': '---', 
-                    'P': '.--.', 'Q': '--.-', 'R': '.-.', 'S': '...', 'T': '-', 
-                    'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-', 'Y': '-.--', 'Z': '--..',
-                    // Numbers
-                    '0': '-----', '1': '.----', '2': '..---', '3': '...--', '4': '....-', 
-                    '5': '.....', '6': '-....', '7': '--...', '8': '---..', '9': '----.',
-                    // Punctuation
-                    '.': '.-.-.-', ',': '--..--', '?': '..--..', "'": '.----.', 
-                    '!': '-.-.--', '/': '-..-.', '(': '-.--.', ')': '-.--.-', 
-                    '&': '.-...', ':': '---...', ';': '-.-.-.', '=': '-...-', 
-                    '+': '.-.-.', '-': '-....-', '_': '..--.-', '"': '.-..-.', 
-                    '$': '...-..-', '@': '.--.-.', ' ': '/'
+                    'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 'F': '..-.', 
+                    'G': '--.', 'H': '....', 'I': '..', 'J': '.---', 'K': '-.-', 'L': '.-..', 
+                    'M': '--', 'N': '-.', 'O': '---', 'P': '.--.', 'Q': '--.-', 'R': '.-.', 
+                    'S': '...', 'T': '-', 'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-', 
+                    'Y': '-.--', 'Z': '--..', '0': '-----', '1': '.----', '2': '..---', 
+                    '3': '...--', '4': '....-', '5': '.....', '6': '-....', '7': '--...', 
+                    '8': '---..', '9': '----.', '.': '.-.-.-', ',': '--..--', '?': '..--..',
+                    ' ': '/'
                 },
                 
-                // Reverse lookup for decoding
                 morseToText: {},
                 
                 init() {
-                    // Create reverse lookup table
-                    for (const [key, value] of Object.entries(this.morseCode)) {
+                    Object.entries(this.morseCode).forEach(([key, value]) => {
                         this.morseToText[value] = key;
-                    }
+                    });
                     
-                    // Initialize Web Audio API
                     this.setupAudio();
+                    this.inputText = 'HELLO WORLD';
+                    this.translate();
                 },
                 
                 setupAudio() {
                     try {
                         this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
                     } catch (e) {
-                        console.error('Web Audio API not supported');
+                        console.warn('Web Audio API not supported');
                     }
                 },
                 
                 translate() {
+                    if (!this.inputText.trim()) {
+                        this.outputText = '';
+                        this.morseSymbols = [];
+                        return;
+                    }
+                    
                     if (this.mode === 'encode') {
                         this.encodeToMorse();
                     } else {
@@ -280,207 +470,107 @@
                 encodeToMorse() {
                     const text = this.inputText.toUpperCase();
                     let result = '';
+                    const symbols = [];
                     
-                    for (let i = 0; i < text.length; i++) {
-                        const char = text[i];
-                        if (char in this.morseCode) {
-                            result += this.morseCode[char] + ' ';
-                        } else if (char === ' ') {
-                            result += '/ ';
-                        } else {
-                            // Skip unknown characters or add placeholder
-                            // result += '# ';
+                    for (const char of text) {
+                        if (this.morseCode[char]) {
+                            const morse = this.morseCode[char];
+                            result += morse + ' ';
+                            
+                            for (const symbol of morse) {
+                                symbols.push(symbol);
+                            }
+                            symbols.push(' ');
                         }
                     }
                     
                     this.outputText = result.trim();
+                    this.morseSymbols = symbols;
                 },
                 
                 decodeFromMorse() {
-                    const morseWords = this.inputText.trim().split(' / ');
+                    const words = this.inputText.split(' / ');
                     let result = '';
                     
-                    for (let i = 0; i < morseWords.length; i++) {
-                        const morseChars = morseWords[i].split(' ');
+                    for (let i = 0; i < words.length; i++) {
+                        const letters = words[i].split(' ').filter(l => l.length > 0);
                         
-                        for (let j = 0; j < morseChars.length; j++) {
-                            const code = morseChars[j];
-                            if (code in this.morseToText) {
-                                result += this.morseToText[code];
-                            } else if (code === '') {
-                                // Skip empty codes (extra spaces)
-                            } else {
-                                // result += '#'; // Unknown code
-                            }
+                        for (const morse of letters) {
+                            result += this.morseToText[morse] || '?';
                         }
                         
-                        if (i < morseWords.length - 1) {
+                        if (i < words.length - 1) {
                             result += ' ';
                         }
                     }
                     
                     this.outputText = result;
+                    this.morseSymbols = [];
                 },
                 
                 playMorse() {
-                    if (!this.outputText || !this.audioContext) return;
+                    if (!this.audioContext || !this.outputText || this.mode !== 'encode') return;
                     
                     if (this.isPlaying) {
-                        this.stopPlayback();
+                        this.isPlaying = false;
                         return;
                     }
                     
                     this.isPlaying = true;
-                    const morseString = this.mode === 'encode' ? this.outputText : this.inputText;
-                    this.playMorseSequence(morseString);
-                },
-                
-                playMorseSequence(morseString) {
-                    let time = this.audioContext.currentTime;
                     
-                    // Dot duration in seconds (affects speed)
-                    const dotDuration = 0.1;
-                    const dashDuration = dotDuration * 3;
-                    const symbolSpace = dotDuration;
-                    const letterSpace = dotDuration * 3;
-                    const wordSpace = dotDuration * 7;
-                    
-                    // Create oscillator
-                    this.oscillator = this.audioContext.createOscillator();
-                    this.oscillator.type = 'sine';
-                    this.oscillator.frequency.value = 600; // Tone frequency
-                    
-                    // Create gain node for amplitude control
+                    const oscillator = this.audioContext.createOscillator();
                     const gainNode = this.audioContext.createGain();
+                    
+                    oscillator.connect(gainNode);
+                    gainNode.connect(this.audioContext.destination);
+                    
+                    oscillator.frequency.value = 600;
+                    oscillator.type = 'sine';
                     gainNode.gain.value = 0;
                     
-                    this.oscillator.connect(gainNode);
-                    gainNode.connect(this.audioContext.destination);
-                    this.oscillator.start();
+                    oscillator.start();
                     
-                    // Process each character
-                    for (let i = 0; i < morseString.length; i++) {
-                        const char = morseString[i];
-                        
+                    let time = this.audioContext.currentTime;
+                    const dotDuration = 0.1;
+                    const dashDuration = 0.3;
+                    const symbolGap = 0.1;
+                    const letterGap = 0.3;
+                    
+                    for (const char of this.outputText) {
                         if (char === '.') {
-                            // Play dot
-                            gainNode.gain.setValueAtTime(1, time);
+                            gainNode.gain.setValueAtTime(0.3, time);
                             time += dotDuration;
                             gainNode.gain.setValueAtTime(0, time);
-                            time += symbolSpace;
+                            time += symbolGap;
                         } else if (char === '-') {
-                            // Play dash
-                            gainNode.gain.setValueAtTime(1, time);
+                            gainNode.gain.setValueAtTime(0.3, time);
                             time += dashDuration;
                             gainNode.gain.setValueAtTime(0, time);
-                            time += symbolSpace;
+                            time += symbolGap;
                         } else if (char === ' ') {
-                            // Letter space
-                            time += letterSpace - symbolSpace;
-                        } else if (char === '/') {
-                            // Word space
-                            time += wordSpace - symbolSpace;
+                            time += letterGap;
                         }
                     }
                     
-                    // Stop oscillator after playback completes
                     setTimeout(() => {
-                        this.stopPlayback();
-                    }, (time - this.audioContext.currentTime) * 1000 + 100);
+                        oscillator.stop();
+                        this.isPlaying = false;
+                    }, (time - this.audioContext.currentTime) * 1000);
                 },
                 
-                stopPlayback() {
-                    if (this.oscillator) {
-                        this.oscillator.stop();
-                        this.oscillator = null;
-                    }
-                    this.isPlaying = false;
-                },
-                
-                copyToClipboard() {
-                    if (!this.outputText) return;
-                    
+                copyResult() {
                     navigator.clipboard.writeText(this.outputText).then(() => {
-                        // Show copied feedback
-                        const copyBtn = event.target;
-                        copyBtn.innerHTML = '<i class="fas fa-check"></i>';
-                        setTimeout(() => {
-                            copyBtn.innerHTML = '<i class="fas fa-copy"></i>';
-                        }, 2000);
+                        alert('Copied to clipboard!');
                     });
+                },
+                
+                clearAll() {
+                    this.inputText = '';
+                    this.outputText = '';
+                    this.morseSymbols = [];
                 }
             }));
         });
     </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-            const navLinks = document.querySelector('.nav-links');
-            
-            if (mobileMenuBtn && navLinks) {
-                mobileMenuBtn.addEventListener('click', function() {
-                    navLinks.classList.toggle('active');
-                    mobileMenuBtn.classList.toggle('active');
-                });
-                document.addEventListener('click', function(event) {
-                    if (!event.target.closest('.main-nav')) {
-                        navLinks.classList.remove('active');
-                        mobileMenuBtn.classList.remove('active');
-                    }
-                });
-            }
-        });
-    </script>
-
-    <div class="related-calculators" style="margin-top: 2rem; padding: 1rem; background: rgba(0,0,0,0.1); border-radius: 8px;">
-        <h3 style="margin-top: 0;">Related Cipher Lab Tools</h3>
-        <a href="./Ogham Translator Encoder_Decoder.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Ogham Translator Encoder Decoder</a><a href="./Password Strength → Anger Scale Calculator.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Password Strength → Anger Scale Calculator</a>
-        <a href="./index.html" style="display: block; padding: 0.5rem; margin-top: 1rem; background: rgba(74,144,226,0.2); border-radius: 4px; text-decoration: none; color: inherit; font-weight: bold;">← Back to Cipher Lab Hub</a>
-    </div>
-
-        <script>
-        // 🎅 Santa Claude's Interactive Enhancements
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('🎅 Santa Claude's enhancements loaded!');
-            
-            // Enhanced button interactions
-            const buttons = document.querySelectorAll('button, .btn');
-            buttons.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    this.classList.add('loading');
-                    setTimeout(() => {
-                        this.classList.remove('loading');
-                    }, 500);
-                });
-            });
-            
-            // Enhanced results display
-            const resultElements = document.querySelectorAll('.result, .results, .output, #result, #output');
-            resultElements.forEach(el => {
-                const observer = new MutationObserver(function(mutations) {
-                    mutations.forEach(function(mutation) {
-                        if (mutation.type === 'childList' || mutation.type === 'characterData') {
-                            el.classList.add('show');
-                        }
-                    });
-                });
-                observer.observe(el, { childList: true, subtree: true, characterData: true });
-            });
-            
-            // Form validation enhancements
-            const inputs = document.querySelectorAll('input[type="number"], input[type="text"]');
-            inputs.forEach(input => {
-                input.addEventListener('input', function() {
-                    if (this.checkValidity()) {
-                        this.classList.remove('input-error');
-                        this.classList.add('input-success');
-                    } else {
-                        this.classList.remove('input-success');
-                        this.classList.add('input-error');
-                    }
-                });
-            });
-        });
-        </script>
 </body>
 </html>
