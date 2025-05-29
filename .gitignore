@@ -7,6 +7,11 @@
 # Test files
 nav-test.html
 
+# Audit files
+comprehensive_site_audit.js
+simple_audit.js
+SANTA_CLAUDE_UIUX_AUDIT.json
+
 # IDE and system files
 .DS_Store
 .idea/
