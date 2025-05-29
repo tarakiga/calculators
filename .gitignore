@@ -12,6 +12,9 @@ comprehensive_site_audit.js
 simple_audit.js
 SANTA_CLAUDE_UIUX_AUDIT.json
 
+# Knowledge base
+knowledgebase/
+
 # IDE and system files
 .DS_Store
 .idea/
