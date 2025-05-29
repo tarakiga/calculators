@@ -1,395 +1,538 @@
 <!DOCTYPE html>
-<html lang="en" x-data="spaceCalculator()">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Space Travel Time Calculator</title>
+    <title>Space Travel Time Calculator | Geek Galaxy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
     <style>
-
+        :root {
+            --space-blue: #00d4ff;
+            --nebula-purple: #8b5cf6;
+            --star-gold: #fbbf24;
+            --mars-red: #ef4444;
+            --space-black: #0a0a0f;
+            --space-dark: #1a1a2e;
+            --surface: rgba(0, 212, 255, 0.08);
+            --text: #e2e8f0;
+            --text-dim: #94a3b8;
+            --radius: 12px;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--space-black);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+                radial-gradient(2px 2px at 20px 30px, var(--space-blue), transparent),
+                radial-gradient(3px 3px at 200px 100px, var(--star-gold), transparent),
+                radial-gradient(1px 1px at 90px 40px, var(--nebula-purple), transparent);
+            background-size: 400px 300px;
+            animation: cosmicDrift 40s linear infinite;
+            opacity: 0.15;
+            z-index: -1;
+        }
+        
+        @keyframes cosmicDrift {
+            0% { transform: translateY(0) translateX(0); }
+            100% { transform: translateY(-300px) translateX(-200px); }
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, var(--space-black), var(--space-dark));
+            padding: 4rem 2rem;
+            text-align: center;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+        }
+        
+        .hero h1 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--space-blue), var(--nebula-purple), var(--star-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-dim);
+        }        
         .container {
-            width: 100%;
-            max-width: 600px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+        
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 3rem;
+        }
+        
+        .panel {
+            background: var(--surface);
+            backdrop-filter: blur(15px);
+            border-radius: var(--radius);
             padding: 2rem;
-            background: var(--card);
-            border-radius: 1rem;
-            box-shadow: 0 0 30px rgba(99, 102, 241, 0.2);
-            border: 1px solid var(--border);
+            border: 1px solid rgba(0, 212, 255, 0.2);
         }
-
-        .input-group {
+        
+        .panel h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
             margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
         }
         
-        label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: #e2e8f0;
+        .destination-grid {
+            display: grid;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+            max-height: 400px;
+            overflow-y: auto;
         }
         
-        select {
+        .destination-option {
+            background: var(--space-dark);
+            border: 2px solid transparent;
+            border-radius: var(--radius);
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .destination-option:hover,
+        .destination-option.active {
+            border-color: var(--destination-color);
+            box-shadow: 0 0 20px rgba(var(--destination-rgb), 0.3);
+        }
+        
+        .destination-icon {
+            font-size: 1.5rem;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            color: var(--destination-color);
+        }
+        
+        .destination-info h3 {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        
+        .destination-info p {
+            font-size: 0.875rem;
+            color: var(--text-dim);
+        }
+        
+        .propulsion-dropdown select {
             width: 100%;
+            background: var(--space-dark);
+            color: var(--text);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: var(--radius);
             padding: 0.75rem;
-            background: #334155;
-            border: 1px solid #475569;
-            border-radius: 0.5rem;
-            color: white;
             font-size: 1rem;
             margin-bottom: 1rem;
         }
         
-        .speed-control {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-            flex-wrap: wrap;
-        }
-        
-        .speed-btn {
-            flex: 1;
-            min-width: 120px;
-            padding: 0.75rem;
-            background: #334155;
-            border: none;
-            border-radius: 0.5rem;
-            color: white;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-align: center;
-            font-size: 0.9rem;
-        }
-        
-        .speed-btn.active {
-            background: var(--primary-light);
-            font-weight: 500;
-            box-shadow: 0 0 0 2px var(--primary);
-        }
-        
-        .result-card {
-            background: rgba(30, 41, 59, 0.7);
-            border-radius: 0.75rem;
-            padding: 1.5rem;
-            margin-top: 1.5rem;
-            border: 1px solid #475569;
-            backdrop-filter: blur(10px);
-        }
-        
-        .planet-
-        
-        .planet-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            box-shadow: 0 0 20px currentColor;
-            flex-shrink: 0;
-        }
-        
-        .planet-info {
-            flex: 1;
-        }
-        
-        .planet-name {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 0.2rem;
-        }
-        
-        .planet-distance {
-            color: #94a3b8;
-            font-size: 0.9rem;
-        }
-        
-        .travel-times {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-        
-        .travel-time {
-            background: rgba(51, 65, 85, 0.5);
-            padding: 1rem;
-            border-radius: 0.5rem;
-            text-align: center;
-        }
-        
-        .time-label {
-            font-size: 0.9rem;
-            color: #cbd5e1;
-        }
-        
-        .time-value {
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin: 0.5rem 0;
-            color: #7dd3fc;
-        }
-        
-        .time-comparison {
-            font-size: 0.85rem;
-            color: #94a3b8;
-        }
-        
-        .empty-state {
-            text-align: center;
-            color: #94a3b8;
-            padding: 2rem;
-        }
-        
-        @media (max-width: 500px) {
-            .travel-times {
-                grid-template-columns: 1fr;
-            }
+        @media (max-width: 1024px) {
+            .calculator-grid { grid-template-columns: 1fr; }
         }
     </style>
-    
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
 </head>
 <body>
-                <!-- Enhanced Navigation Bar -->
+    <!-- Enhanced Navigation Bar -->
     <nav class="main-nav">
         <div class="nav-container">
             <div class="nav-logo">
                 <a href="../../index.html">🧮 Docket One</a>
             </div>
             <div class="nav-search">
-                <label for="input-x0n0y3s4q" class="sr-only">Input field</label>
-            <input type="text" i id="input-x0n0y3s4q" aria-label="Calculator input"d="calc-search" placeholder="Search calculators..." class="search-input">
+                <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input" aria-label="Search calculators">
                 <div id="search-results" class="search-results"></div>
             </div>
             <ul class="nav-links">
                 <li><a href="../BigKidMath/index.html" class="category-main-link">Big Kid Math</a></li>
                 <li><a href="../CipherLab/index.html" class="category-main-link">Cipher Lab</a></li>
-                <li><a href="../GeekGalaxy/index.html" class="category-main-link">Geek Galaxy</a></li>
+                <li><a href="../GeekGalaxy/index.html" class="category-main-link active">Geek Galaxy</a></li>
                 <li><a href="../LifeHacks/index.html" class="category-main-link">Life Hacks</a></li>
                 <li><a href="../Math_Magik/index.html" class="category-main-link">Math Magik</a></li>
                 <li><a href="../Otaku_Ops/index.html" class="category-main-link">Otaku Ops</a></li>
-                <li><a href="../../index.html" class="home-link">Unit Converter</a></li>
+                <li><a href="../../index.html" class="home-link">🏠 Home</a></li>
             </ul>
-            <button class="mobile-menu-btn" a aria-label="Perform action"ria-label="Toggle menu">
+            <button class="mobile-menu-btn" aria-label="Toggle menu">
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
         </div>
     </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Space Travel Time Calculator</h1>
+        <p>Plan your interstellar journey with scientific precision</p>
+    </section>
+
+    <main class="container">
+        <div class="calculator-grid" x-data="spaceCalculator()">
+            <!-- Mission Planning Panel -->
+            <div class="panel">
+                <h2>🚀 Mission Planning</h2>
+                
+                <!-- Destination Selection -->
+                <h3 style="margin-bottom: 1rem;">Select Destination</h3>
+                <div class="destination-grid">
+                    <template x-for="(destination, key) in destinations" :key="key">
+                        <div class="destination-option" 
+                             :class="{ active: selectedDestination === key }"
+                             :style="`--destination-color: ${destination.color}; --destination-rgb: ${destination.rgb}`"
+                             @click="selectDestination(key)">
+                            <div class="destination-icon" x-text="destination.emoji"></div>
+                            <div class="destination-info">
+                                <h3 x-text="destination.name"></h3>
+                                <p x-text="destination.distance"></p>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            <!-- Journey Analysis Panel -->
+            <div class="panel">
+                <h2>🌌 Journey Analysis</h2>
+                
+                <!-- Propulsion Selection Dropdown -->
+                <div class="propulsion-dropdown">
+                    <label style="display: block; font-weight: 600; margin-bottom: 0.5rem;">Propulsion System</label>
+                    <select x-model="selectedPropulsion" @change="calculateJourney()">
+                        <template x-for="(propulsion, key) in propulsionSystems" :key="key">
+                            <option :value="key" x-text="propulsion.name + ' - ' + propulsion.speedDisplay"></option>
+                        </template>
+                    </select>
+                </div>
+                
+                <div x-show="travelTime > 0" x-transition>
+                    <div style="text-align: center; margin: 2rem 0;">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">
+                            <span :style="`color: ${destinations[selectedDestination]?.color}`" x-text="destinations[selectedDestination]?.emoji"></span>
+                        </div>
+                        <div style="font-size: 2rem; font-weight: 800; color: var(--space-blue); margin-bottom: 0.5rem;" x-text="formatTime(travelTime)"></div>
+                        <div style="color: var(--text-dim);">Travel Time to <span x-text="destinations[selectedDestination]?.name"></span></div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-top: 2rem;">
+                        <div style="background: var(--space-dark); padding: 1rem; border-radius: var(--radius); text-align: center;">
+                            <div style="font-size: 1.25rem; font-weight: 700; color: var(--nebula-purple);" x-text="formatSpeed(currentSpeed)"></div>
+                            <div style="font-size: 0.875rem; color: var(--text-dim);">Average Speed</div>
+                        </div>
+                        <div style="background: var(--space-dark); padding: 1rem; border-radius: var(--radius); text-align: center;">
+                            <div style="font-size: 1.25rem; font-weight: 700; color: var(--star-gold);" x-text="formatDistance(currentDistance)"></div>
+                            <div style="font-size: 0.875rem; color: var(--text-dim);">Distance</div>
+                        </div>
+                        <div style="background: var(--space-dark); padding: 1rem; border-radius: var(--radius); text-align: center;">
+                            <div style="font-size: 1.25rem; font-weight: 700; color: var(--mars-red);" x-text="formatFuel(calculateFuel())"></div>
+                            <div style="font-size: 0.875rem; color: var(--text-dim);">Fuel Required</div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 2rem; padding: 1.5rem; background: var(--space-dark); border-radius: var(--radius);">
+                        <h3 style="margin-bottom: 1rem;">Mission Details:</h3>
+                        <div style="display: grid; gap: 0.5rem;">
+                            <div style="display: flex; justify-content: space-between;">
+                                <span>Departure:</span>
+                                <span style="color: var(--space-blue);">Earth Orbit</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between;">
+                                <span>Destination:</span>
+                                <span style="color: var(--space-blue);" x-text="destinations[selectedDestination]?.name"></span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between;">
+                                <span>Propulsion:</span>
+                                <span style="color: var(--space-blue);" x-text="propulsionSystems[selectedPropulsion]?.name"></span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between;">
+                                <span>Round Trip:</span>
+                                <span style="color: var(--space-blue);" x-text="formatTime(travelTime * 2)"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div x-show="!selectedDestination || travelTime === 0" style="text-align: center; color: var(--text-dim); padding: 2rem;">
+                    Select a destination to calculate travel time
+                </div>
+            </div>
+        </div>
+    </main>
     
-
-    
-
-
-    <div class="container">
-        <h1>🚀 Space Travel Time Calculator</h1>
-        
-        <div class="input-group">
-            <label for="destination">Select Destination</label>
-            <select id="destination" x-model="destination" @change="calculate()">
-                <option value="" selected disabled>Choose a destination...</option>
-                <template x-for="(body, index) in celestialBodies" :key="index">
-                    <option :value="index" x-text="body.name"></option>
-                </template>
-            </select>
-            
-            <label>Travel Speed</label>
-            <div class="speed-control">
-                <template x-for="(speed, index) in speeds" :key="index">
-                    <button aria-label="Perform action" 
-                        @click="setSpeed(index)"
-                        class="speed-btn"
-                        :class="{ 'active': activeSpeed === index }"
-                        x-text="speed.label"
-                    ></button>
-                </template>
-            </div>
-        </div>
-        
-        <div x-show="result" x-transition class="result-card">
-            <div class="planet-header">
-                <div class="planet-icon" :style="'color: ' + result.color + '; box-shadow: 0 0 30px ' + result.color">
-                    <span x-text="result.emoji"></span>
-                </div>
-                <div class="planet-info">
-                    <div class="planet-name" x-text="result.name"></div>
-                    <div class="planet-distance" x-text="'Distance: ' + result.distance + ' from Earth'"></div>
-                </div>
-            </div>
-            
-            <div class="travel-times">
-                <div class="travel-time">
-                    <div class="time-label">At <span x-text="speeds[activeSpeed].label"></span> speed</div>
-                    <div class="time-value" x-text="result.time"></div>
-                    <div class="time-comparison" x-text="result.comparison"></div>
-                </div>
-                <div class="travel-time">
-                    <div class="time-label">At light speed</div>
-                    <div class="time-value" x-text="result.lightTime"></div>
-                    <div class="time-comparison">(<span x-text="result.lightYears"></span> light-years)</div>
-                </div>
-            </div>
-        </div>
-        
-        <div x-show="!destination" x-transition class="empty-state">
-            Select a destination to see travel times
-        </div>
-    </div>
-
     <script>
         function spaceCalculator() {
             return {
-                destination: null,
-                activeSpeed: 2, // Default to Rocket
-                result: null,
+                selectedDestination: 'mars',
+                selectedPropulsion: 'chemical',
+                travelTime: 0,
+                currentSpeed: 0,
+                currentDistance: 0,
                 
-                speeds: [
-                    { label: "🚗 Car (100 km/h)", value: 100 },
-                    { label: "✈️ Jet (900 km/h)", value: 900 },
-                    { label: "🚀 Rocket (40,000 km/h)", value: 40000 },
-                    { label: "⚡ Light (1.08B km/h)", value: 1079252849 }
-                ],
-                
-                celestialBodies: [
-                    {
-                        name: "Mercury",
-                        emoji: "☿",
-                        distance: "77 million km",
+                destinations: {
+                    'moon': {
+                        name: 'Moon',
+                        emoji: '🌙',
+                        distance: '384,400 km',
+                        distanceKm: 384400,
+                        color: '#e5e7eb',
+                        rgb: '229, 231, 235'
+                    },
+                    'mercury': {
+                        name: 'Mercury',
+                        emoji: '☿️',
+                        distance: '77 million km',
                         distanceKm: 77000000,
-                        color: "var(--planet-mercury)"
+                        color: '#9ca3af',
+                        rgb: '156, 163, 175'
                     },
-                    {
-                        name: "Venus",
-                        emoji: "♀",
-                        distance: "41 million km",
+                    'venus': {
+                        name: 'Venus',
+                        emoji: '♀️',
+                        distance: '41 million km',
                         distanceKm: 41000000,
-                        color: "var(--planet-venus)"
+                        color: '#fbbf24',
+                        rgb: '251, 191, 36'
                     },
-                    {
-                        name: "Earth",
-                        emoji: "🌍",
-                        distance: "0 km",
-                        distanceKm: 0,
-                        color: "var(--planet-earth)"
-                    },
-                    {
-                        name: "Mars",
-                        emoji: "♂",
-                        distance: "78 million km",
+                    'mars': {
+                        name: 'Mars',
+                        emoji: '🔴',
+                        distance: '78 million km',
                         distanceKm: 78000000,
-                        color: "var(--planet-mars)"
+                        color: '#ef4444',
+                        rgb: '239, 68, 68'
                     },
-                    {
-                        name: "Jupiter",
-                        emoji: "♃",
-                        distance: "628 million km",
+                    'jupiter': {
+                        name: 'Jupiter',
+                        emoji: '🪐',
+                        distance: '628 million km',
                         distanceKm: 628000000,
-                        color: "var(--planet-jupiter)"
+                        color: '#f97316',
+                        rgb: '249, 115, 22'
                     },
-                    {
-                        name: "Saturn",
-                        emoji: "♄",
-                        distance: "1.2 billion km",
+                    'saturn': {
+                        name: 'Saturn',
+                        emoji: '🪐',
+                        distance: '1.2 billion km',
                         distanceKm: 1200000000,
-                        color: "var(--planet-saturn)"
+                        color: '#eab308',
+                        rgb: '234, 179, 8'
                     },
-                    {
-                        name: "Uranus",
-                        emoji: "♅",
-                        distance: "2.7 billion km",
+                    'uranus': {
+                        name: 'Uranus',
+                        emoji: '🔵',
+                        distance: '2.7 billion km',
                         distanceKm: 2700000000,
-                        color: "var(--planet-uranus)"
+                        color: '#06b6d4',
+                        rgb: '6, 182, 212'
                     },
-                    {
-                        name: "Neptune",
-                        emoji: "♆",
-                        distance: "4.3 billion km",
+                    'neptune': {
+                        name: 'Neptune',
+                        emoji: '🔵',
+                        distance: '4.3 billion km',
                         distanceKm: 4300000000,
-                        color: "var(--planet-neptune)"
+                        color: '#3b82f6',
+                        rgb: '59, 130, 246'
                     },
-                    {
-                        name: "Proxima Centauri",
-                        emoji: "⭐",
-                        distance: "4.24 light-years",
+                    'proxima': {
+                        name: 'Proxima Centauri',
+                        emoji: '⭐',
+                        distance: '4.24 light-years',
                         distanceKm: 4.24 * 9.461e12,
-                        color: "#fbbf24"
+                        color: '#fbbf24',
+                        rgb: '251, 191, 36'
                     },
-                    {
-                        name: "Andromeda Galaxy",
-                        emoji: "🌌",
-                        distance: "2.5 million light-years",
+                    'andromeda': {
+                        name: 'Andromeda Galaxy',
+                        emoji: '🌌',
+                        distance: '2.5 million light-years',
                         distanceKm: 2.5e6 * 9.461e12,
-                        color: "#a78bfa"
+                        color: '#8b5cf6',
+                        rgb: '139, 92, 246'
                     }
-                ],
-                
-                setSpeed(index) {
-                    this.activeSpeed = index;
-                    if (this.destination !== null) this.calculate();
                 },
                 
-                calculate() {
-                    if (this.destination === null || this.destination === "") return;
+                propulsionSystems: {
+                    'car': {
+                        name: 'Highway Speed',
+                        speed: 100,
+                        speedDisplay: '100 km/h'
+                    },
+                    'jet': {
+                        name: 'Jet Aircraft',
+                        speed: 900,
+                        speedDisplay: '900 km/h'
+                    },
+                    'chemical': {
+                        name: 'Chemical Rocket',
+                        speed: 40000,
+                        speedDisplay: '40,000 km/h'
+                    },
+                    'ion': {
+                        name: 'Ion Drive',
+                        speed: 200000,
+                        speedDisplay: '200,000 km/h'
+                    },
+                    'fusion': {
+                        name: 'Fusion Ramjet',
+                        speed: 54000000,
+                        speedDisplay: '15% Light Speed'
+                    },
+                    'light': {
+                        name: 'Light Speed',
+                        speed: 1079252849,
+                        speedDisplay: 'Speed of Light'
+                    }
+                },
+                
+                init() {
+                    this.calculateJourney();
+                },
+                
+                selectDestination(key) {
+                    this.selectedDestination = key;
+                    this.calculateJourney();
+                },
+                
+                calculateJourney() {
+                    if (!this.selectedDestination || !this.selectedPropulsion) return;
                     
-                    const body = this.celestialBodies[this.destination];
-                    const speed = this.speeds[this.activeSpeed];
+                    const destination = this.destinations[this.selectedDestination];
+                    const propulsion = this.propulsionSystems[this.selectedPropulsion];
                     
-                    // Calculate time in hours
-                    const hours = body.distanceKm / speed.value;
+                    this.currentDistance = destination.distanceKm;
+                    this.currentSpeed = propulsion.speed;
+                    this.travelTime = destination.distanceKm / propulsion.speed;
+                },
+                
+                calculateFuel() {
+                    if (!this.selectedDestination || !this.selectedPropulsion) return 0;
                     
-                    // Convert to readable format
-                    const time = this.formatTime(hours);
-                    const lightHours = body.distanceKm / this.speeds[3].value;
-                    const lightTime = this.formatTime(lightHours);
-                    const lightYears = (body.distanceKm / 9.461e12).toFixed(6);
+                    const destination = this.destinations[this.selectedDestination];
+                    const propulsion = this.propulsionSystems[this.selectedPropulsion];
                     
-                    // Fun comparisons
-                    let comparison;
-                    if (hours > 24 * 365 * 1000000) {
-                        comparison = Math.round(hours / (24 * 365 * 1000000)) + " million years!";
-                    } else if (hours > 24 * 365 * 1000) {
-                        comparison = Math.round(hours / (24 * 365 * 1000)) + " millennia!";
-                    } else if (hours > 24 * 365) {
-                        comparison = Math.round(hours / (24 * 365)) + " years!";
-                    } else if (hours > 24) {
-                        comparison = Math.round(hours / 24) + " days!";
-                    } else {
-                        comparison = "Pack some snacks!";
+                    // More realistic fuel calculation based on distance and propulsion efficiency
+                    let baseFuel = destination.distanceKm / 1000000; // Base fuel per million km
+                    
+                    // Adjust for propulsion efficiency (better propulsion = less fuel needed)
+                    const efficiencyMap = {
+                        'car': 0.1,
+                        'jet': 0.2,
+                        'chemical': 0.6,
+                        'ion': 0.8,
+                        'fusion': 0.9,
+                        'light': 1.0
+                    };
+                    
+                    const efficiency = efficiencyMap[this.selectedPropulsion] || 0.5;
+                    baseFuel = baseFuel / efficiency;
+                    
+                    // For extremely long distances (intergalactic), use different calculation
+                    if (destination.distanceKm > 9.461e12) { // Beyond 1 light-year
+                        baseFuel = Math.pow(destination.distanceKm / 9.461e12, 0.8) * 1000000; // Logarithmic scaling
                     }
                     
-                    this.result = {
-                        ...body,
-                        time: time,
-                        lightTime: lightTime,
-                        lightYears: lightYears,
-                        comparison: comparison
-                    };
+                    return Math.round(baseFuel * 1000);
+                },
+                
+                formatFuel(kg) {
+                    if (kg < 1000) {
+                        return kg + ' kg';
+                    } else if (kg < 1000000) {
+                        return (kg / 1000).toFixed(1) + ' tons';
+                    } else if (kg < 1000000000) {
+                        return (kg / 1000000).toFixed(1) + ' kt';
+                    } else if (kg < 1000000000000) {
+                        return (kg / 1000000000).toFixed(1) + ' Mt';
+                    } else if (kg < 1000000000000000) {
+                        return (kg / 1000000000000).toFixed(1) + ' Gt';
+                    } else {
+                        return 'Theoretical';
+                    }
                 },
                 
                 formatTime(hours) {
-                    if (hours > 24 * 365 * 1000) {
-                        const millennia = Math.floor(hours / (24 * 365 * 1000));
-                        const years = Math.floor((hours % (24 * 365 * 1000)) / (24 * 365));
-                        return millennia + " million years" + (years > 0 ? ", " + years + " years" : "");
-                    } else if (hours > 24 * 365) {
-                        const years = Math.floor(hours / (24 * 365));
-                        const days = Math.floor((hours % (24 * 365)) / 24);
-                        return years + " years" + (days > 0 ? ", " + days + " days" : "");
-                    } else if (hours > 24) {
+                    if (hours < 1) {
+                        return Math.round(hours * 60) + ' minutes';
+                    } else if (hours < 24) {
+                        return hours.toFixed(1) + ' hours';
+                    } else if (hours < 24 * 365) {
                         const days = Math.floor(hours / 24);
-                        const remainingHours = Math.floor(hours % 24);
-                        return days + " days" + (remainingHours > 0 ? ", " + remainingHours + " hours" : "");
+                        return days.toLocaleString() + ' days';
+                    } else if (hours < 24 * 365 * 1000) {
+                        const years = Math.floor(hours / (24 * 365));
+                        return years.toLocaleString() + ' years';
+                    } else if (hours < 24 * 365 * 1000000) {
+                        const thousands = Math.floor(hours / (24 * 365 * 1000));
+                        return thousands.toLocaleString() + ' thousand years';
                     } else {
-                        return Math.round(hours) + " hours";
+                        const millions = Math.floor(hours / (24 * 365 * 1000000));
+                        return millions.toLocaleString() + ' million years';
+                    }
+                },
+                
+                formatSpeed(kmh) {
+                    if (kmh < 1000) {
+                        return kmh.toFixed(0) + ' km/h';
+                    } else if (kmh < 1000000) {
+                        return (kmh / 1000).toFixed(1) + 'K km/h';
+                    } else {
+                        const lightSpeedPercent = (kmh / 1079252849) * 100;
+                        return lightSpeedPercent.toFixed(1) + '% light speed';
+                    }
+                },
+                
+                formatDistance(km) {
+                    if (km < 1000000) {
+                        return (km / 1000).toFixed(0) + ' thousand km';
+                    } else if (km < 1000000000) {
+                        return (km / 1000000).toFixed(0) + ' million km';
+                    } else if (km < 9.461e12) {
+                        return (km / 1000000000).toFixed(1) + ' billion km';
+                    } else {
+                        const lightYears = km / 9.461e12;
+                        if (lightYears < 1000000) {
+                            return (lightYears / 1000).toFixed(1) + 'K light-years';
+                        } else {
+                            return (lightYears / 1000000).toFixed(1) + 'M light-years';
+                        }
                     }
                 }
             }
         }
     </script>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
@@ -400,6 +543,7 @@
                     navLinks.classList.toggle('active');
                     mobileMenuBtn.classList.toggle('active');
                 });
+                
                 document.addEventListener('click', function(event) {
                     if (!event.target.closest('.main-nav')) {
                         navLinks.classList.remove('active');
@@ -409,56 +553,5 @@
             }
         });
     </script>
-
-    <div class="related-calculators" style="margin-top: 2rem; padding: 1rem; background: rgba(0,0,0,0.1); border-radius: 8px;">
-        <h3 style="margin-top: 0;">Related Geek Galaxy Tools</h3>
-        <a href="./AI Doomsday Countdown.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">AI Doomsday Countdown</a><a href="./Alien Communication Probability Calculator.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Alien Communication Probability Calculator</a><a href="./Lightsaber Battery Life Calculator.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Lightsaber Battery Life Calculator</a>
-        <a href="./index.html" style="display: block; padding: 0.5rem; margin-top: 1rem; background: rgba(74,144,226,0.2); border-radius: 4px; text-decoration: none; color: inherit; font-weight: bold;">← Back to Geek Galaxy Hub</a>
-    </div>
-
-        <script>
-        // 🎅 Santa Claude's Interactive Enhancements
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('🎅 Santa Claude's enhancements loaded!');
-            
-            // Enhanced button interactions
-            const buttons = document.querySelectorAll('button, .btn');
-            buttons.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    this.classList.add('loading');
-                    setTimeout(() => {
-                        this.classList.remove('loading');
-                    }, 500);
-                });
-            });
-            
-            // Enhanced results display
-            const resultElements = document.querySelectorAll('.result, .results, .output, #result, #output');
-            resultElements.forEach(el => {
-                const observer = new MutationObserver(function(mutations) {
-                    mutations.forEach(function(mutation) {
-                        if (mutation.type === 'childList' || mutation.type === 'characterData') {
-                            el.classList.add('show');
-                        }
-                    });
-                });
-                observer.observe(el, { childList: true, subtree: true, characterData: true });
-            });
-            
-            // Form validation enhancements
-            const inputs = document.querySelectorAll('input[type="number"], input[type="text"]');
-            inputs.forEach(input => {
-                input.addEventListener('input', function() {
-                    if (this.checkValidity()) {
-                        this.classList.remove('input-error');
-                        this.classList.add('input-success');
-                    } else {
-                        this.classList.remove('input-success');
-                        this.classList.add('input-error');
-                    }
-                });
-            });
-        });
-        </script>
 </body>
 </html>
