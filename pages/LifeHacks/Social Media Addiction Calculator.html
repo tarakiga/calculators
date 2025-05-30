@@ -3,37 +3,287 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Social Media Addiction Calculator</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-        .animate-blink { animation: blink 2s infinite; }
-        .app-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 20px;
-        }
-        .progress-bar {
-            transition: width 0.5s ease-in-out;
-        }
-    </style>
+    <title>Social Media Digital Wellness Calculator - Reclaim Your Time | Life Hacks | Docket One</title>
+    <meta name="description" content="Premium digital wellness calculator with personalized insights, time visualization, and actionable strategies to optimize your social media usage and reclaim your valuable time.">
     
     <link rel="stylesheet" href="../../common/navbar-enhanced.css">
     <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <style>
+        :root {
+            --primary: #10b981;
+            --primary-light: #34d399;
+            --secondary: #f59e0b;
+            --accent: #8b5cf6;
+            --bg-primary: #f9fafb;
+            --surface-elevated: #ffffff;
+            --text-primary: #111827;
+            --text-secondary: #6b7280;
+            --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        
+        body {
+            font-family: var(--font-primary);
+            background: linear-gradient(135deg, #f0f9ff 0%, #ecfdf5 50%, #fefce8 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 var(--space-xl);
+        }
+        
+        .main-content {
+            padding: var(--space-2xl) 0;
+        }
+        
+        .calculator-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-xl);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .calculator-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            padding: var(--space-2xl);
+            text-align: center;
+        }
+        
+        .header-icon {
+            font-size: 3rem;
+            margin-bottom: var(--space-md);
+            display: inline-block;
+            animation: bounce 2s ease-in-out infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+        
+        .card-title {
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            font-weight: 800;
+            margin-bottom: var(--space-md);
+        }
+        
+        .card-subtitle {
+            font-size: 1.125rem;
+            opacity: 0.9;
+            font-weight: 500;
+        }
+        
+        .card-content {
+            padding: var(--space-2xl);
+        }
+        
+        .tab-navigation {
+            display: flex;
+            background: #f3f4f6;
+            border-radius: var(--radius-lg);
+            padding: 0.25rem;
+            margin-bottom: var(--space-xl);
+            overflow-x: auto;
+        }
+        
+        .tab-button {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: var(--space-md) var(--space-lg);
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: var(--transition-base);
+            color: var(--text-secondary);
+            white-space: nowrap;
+        }
+        
+        .tab-button.active {
+            background: white;
+            color: var(--primary);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .tab-button:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.5);
+        }
+        
+        .tab-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .form-group {
+            margin-bottom: var(--space-xl);
+        }
+        
+        .form-label {
+            display: block;
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-md);
+        }
+        
+        .form-description {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .range-input {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 8px;
+            border-radius: 50px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+            outline: none;
+            cursor: pointer;
+            margin-bottom: var(--space-md);
+        }
+        
+        .range-input::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: white;
+            border: 3px solid var(--primary);
+            cursor: pointer;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition-base);
+        }
+        
+        .range-input::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+        }
+        
+        .range-labels {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+        
+        .range-value {
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+        
+        .btn-primary {
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            border: none;
+            padding: var(--space-lg) var(--space-xl);
+            border-radius: var(--radius-lg);
+            font-size: 1.125rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition-base);
+            box-shadow: 0 8px 32px rgba(16, 185, 129, 0.15);
+            margin-bottom: var(--space-xl);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(16, 185, 129, 0.2);
+        }
+        
+        .btn-primary:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .simple-message {
+            text-align: center;
+            padding: var(--space-2xl);
+            background: white;
+            border-radius: var(--radius-lg);
+            margin: var(--space-xl) 0;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .simple-message h2 {
+            color: var(--primary);
+            margin-bottom: var(--space-md);
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 var(--space-md);
+            }
+            
+            .card-content {
+                padding: var(--space-lg);
+            }
+        }
+    </style>
 </head>
-<body class="bg-gray-100 min-h-screen">
-    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+<body>
+    <!-- Navigation -->
     <nav class="main-nav">
         <div class="nav-container">
             <div class="nav-logo">
@@ -46,7 +296,7 @@
             <ul class="nav-links">
                 <li><a href="../BigKidMath/index.html" class="category-link">Big Kid Math</a></li>
                 <li><a href="../CipherLab/index.html" class="category-link">Cipher Lab</a></li>
-                <li><a href="../GeekGalaxy/index.html" class="category-link ">Geek Galaxy</a></li>
+                <li><a href="../GeekGalaxy/index.html" class="category-link">Geek Galaxy</a></li>
                 <li><a href="../LifeHacks/index.html" class="category-link active">Life Hacks</a></li>
                 <li><a href="../Math_Magik/index.html" class="category-link">Math Magik</a></li>
                 <li><a href="../Otaku_Ops/index.html" class="category-link">Otaku Ops</a></li>
@@ -60,260 +310,139 @@
         </div>
     </nav>
 
+    <main class="main-content">
+        <div class="container">
+            <div class="calculator-card" x-data="digitalWellnessCalculator()">
+                <!-- Header -->
+                <header class="card-header">
+                    <div class="header-icon">📱</div>
+                    <h1 class="card-title">Digital Wellness Calculator</h1>
+                    <p class="card-subtitle">Discover your social media opportunity cost and reclaim your valuable time</p>
+                </header>
 
-    <div class="container mx-auto px-4 py-12" x-data="socialMediaCalculator()">
-        <div class="max-w-2xl mx-auto bg-white rounded-xl shadow-2xl overflow-hidden border-2 border-blue-200">
-            <!-- Header -->
-            <div class="bg-gradient-to-r from-blue-500 to-purple-600 p-6 text-center text-white">
-                <h1 class="text-3xl md:text-4xl font-bold">
-                    <i class="fas fa-mobile-screen mr-2"></i> Social Media Addiction Calculator
-                </h1>
-                <p class="mt-2 opacity-90">See what you're missing in the real world</p>
-            </div>
-            
-            <!-- Calculator Content -->
-            <div class="p-6 md:p-8">
-                <!-- Daily Usage -->
-                <div class="mb-8">
-                    <label class="block text-lg font-medium mb-2">Daily Social Media Usage</label>
-                    <input 
-                        x-model="dailyHours" 
-                        @input="calculate" 
-                        type="range" 
-                        min="0" 
-                        max="12" 
-                        step="0.5" 
-                        class="w-full h-3 bg-blue-200 rounded-lg appearance-none cursor-pointer">
-                    <div class="flex justify-between text-sm text-gray-600 mt-1">
-                        <span>0 hours</span>
-                        <span x-text="dailyHours + ' hours/day'"></span>
-                        <span>12+ hours</span>
-                    </div>
-                </div>
-                
-                <!-- Platform Selection -->
-                <div class="mb-8">
-                    <label class="block text-lg font-medium mb-2">Platforms You Use</label>
-                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                        <template x-for="platform in platforms">
-                            <label class="flex items-center space-x-2">
-                                <input type="checkbox" x-model="platform.selected" class="h-5 w-5 text-blue-600 rounded">
-                                <div class="app-icon" :style="'background-color: ' + platform.color">
-                                    <i :class="platform.icon"></i>
-                                </div>
-                                <span x-text="platform.name"></span>
-                            </label>
-                        </template>
-                    </div>
-                </div>
-                
-                <!-- Usage Breakdown -->
-                <div class="mb-8">
-                    <label class="block text-lg font-medium mb-2">Your Typical Usage</label>
-                    <div class="space-y-3">
+                <!-- Content -->
+                <div class="card-content">
+                    <!-- Daily Usage -->
+                    <div class="form-group">
+                        <label class="form-label" for="daily-usage">Daily Social Media Usage</label>
+                        <p class="form-description">How many hours do you spend on social media each day?</p>
                         <div>
-                            <label class="flex items-center">
-                                <input type="radio" x-model="usagePattern" value="mindless" class="mr-2 h-5 w-5 text-blue-600">
-                                <span>Mostly mindless scrolling</span>
-                            </label>
-                        </div>
-                        <div>
-                            <label class="flex items-center">
-                                <input type="radio" x-model="usagePattern" value="mixed" class="mr-2 h-5 w-5 text-blue-600">
-                                <span>Mix of productive and mindless</span>
-                            </label>
-                        </div>
-                        <div>
-                            <label class="flex items-center">
-                                <input type="radio" x-model="usagePattern" value="productive" class="mr-2 h-5 w-5 text-blue-600">
-                                <span>Mostly productive/work use</span>
-                            </label>
+                            <input 
+                                id="daily-usage"
+                                type="range" 
+                                min="0" 
+                                max="16" 
+                                step="0.25" 
+                                x-model="dailyHours" 
+                                class="range-input"
+                            >
+                            <div class="range-labels">
+                                <span>0h</span>
+                                <div class="range-value" x-text="dailyHours + 'h per day'"></div>
+                                <span>16h+</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                
-                <!-- Calculate Button -->
-                <button aria-label="Perform action" 
-                    @click="calculate" 
-                    class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transition duration-200 mb-8">
-                    <i class="fas fa-calculator mr-2"></i> Calculate Opportunity Cost
-                </button>
-                
-                <!-- Results -->
-                <div x-show="results" x-transition class="space-y-6">
-                    <div class="bg-blue-50 p-6 rounded-lg border-2 border-blue-200">
-                        <h3 class="text-xl font-bold mb-4 text-center">Your Social Media Impact</h3>
-                        
-                        <div class="mb-6">
-                            <div class="flex justify-between mb-1">
-                                <span class="text-sm">Addiction Level</span>
-                                <span class="text-xs" x-text="addictionLevel + '/10'"></span>
-                            </div>
-                            <div class="w-full bg-gray-200 h-4 rounded-full overflow-hidden">
-                                <div class="h-full rounded-full progress-bar" :class="addictionClass" :style="'width: ' + (addictionLevel * 10) + '%'"></div>
-                            </div>
+
+                    <!-- Calculate Button -->
+                    <button 
+                        @click="calculateWellness" 
+                        class="btn-primary"
+                        :disabled="isCalculating"
+                    >
+                        <span x-show="!isCalculating">🧮 Analyze My Digital Wellness</span>
+                        <span x-show="isCalculating">Analyzing...</span>
+                    </button>
+
+                    <!-- Results -->
+                    <div x-show="hasResults" class="simple-message">
+                        <h2>Your Digital Wellness Analysis</h2>
+                        <p><strong>Daily Usage:</strong> <span x-text="dailyHours"></span> hours/day</p>
+                        <p><strong>Weekly Total:</strong> <span x-text="weeklyHours"></span> hours/week</p>
+                        <p><strong>Yearly Total:</strong> <span x-text="yearlyHours"></span> hours/year</p>
+                        <p><strong>Wellness Score:</strong> <span x-text="wellnessScore"></span>/100 - <span x-text="wellnessLevel"></span></p>
+                        <div style="margin-top: 1rem;">
+                            <p><strong>💡 Insight:</strong> <span x-text="opportunityMessage"></span></p>
                         </div>
-                        
-                        <div class="grid grid-cols-2 gap-4 mb-6">
-                            <div class="bg-white p-3 rounded-lg shadow text-center">
-                                <div class="text-sm text-gray-600 mb-1">Weekly Hours</div>
-                                <div class="text-2xl font-bold" x-text="weeklyHours"></div>
-                            </div>
-                            <div class="bg-white p-3 rounded-lg shadow text-center">
-                                <div class="text-sm text-gray-600 mb-1">Yearly Hours</div>
-                                <div class="text-2xl font-bold" x-text="yearlyHours"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="text-center">
-                            <div class="text-lg font-bold mb-1" x-text="'You could have learned ' + learnedSkill + ' instead!'"></div>
-                            <div class="text-sm text-gray-600" x-text="timeEquivalent"></div>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-                        <h3 class="text-lg font-bold mb-3">What You're Missing</h3>
-                        <ul class="list-disc pl-5 space-y-2">
-                            <template x-for="activity in missedActivities">
-                                <li x-text="activity"></li>
-                            </template>
-                        </ul>
-                    </div>
-                    
-                    <div class="bg-purple-50 p-6 rounded-lg border border-purple-200">
-                        <h3 class="text-lg font-bold mb-3 text-purple-800">Reduction Tips</h3>
-                        <ul class="list-disc pl-5 space-y-2 text-purple-900">
-                            <template x-for="tip in reductionTips">
-                                <li x-text="tip"></li>
-                            </template>
-                        </ul>
                     </div>
                 </div>
             </div>
+
+            <!-- Footer -->
+            <div style="margin-top: 2rem; text-align: center; color: #6b7280; font-size: 0.875rem;">
+                <p>💡 This calculator provides insights for awareness and motivation purposes.</p>
+                <p style="margin-top: 0.5rem;">Average social media usage: 2.5 hours/day (Statista 2024)</p>
+            </div>
+
+            <!-- Related Calculators -->
+            <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(255,255,255,0.6); backdrop-filter: blur(10px); border-radius: 16px;">
+                <h3 style="margin-top: 0; font-size: 1.25rem; font-weight: 700;">🔗 Related Life Hacks Tools</h3>
+                <div style="display: grid; gap: 0.75rem; margin-top: 1rem;">
+                    <a href="./Sleep%20Cycle%20Optimizer.html" style="display: block; padding: 1rem; background: rgba(255,255,255,0.8); border-radius: 12px; text-decoration: none; color: #111827;">
+                        <strong>😴 Sleep Cycle Optimizer</strong> - Optimize your sleep for better energy
+                    </a>
+                    <a href="./Procrastination%20ROI%20Calculator.html" style="display: block; padding: 1rem; background: rgba(255,255,255,0.8); border-radius: 12px; text-decoration: none; color: #111827;">
+                        <strong>⏰ Procrastination ROI Calculator</strong> - Calculate the cost of delays
+                    </a>
+                </div>
+                <a href="./index.html" style="display: inline-block; margin-top: 1rem; padding: 0.75rem 1.5rem; background: linear-gradient(135deg, #10b981, #34d399); color: white; border-radius: 50px; text-decoration: none; font-weight: 600;">
+                    ← Back to Life Hacks Hub
+                </a>
+            </div>
         </div>
-        
-        <div class="mt-8 text-center text-gray-500 text-sm">
-            <p>Note: This calculator is for awareness purposes only.</p>
-            <p class="mt-1">Average person spends 2.5 hours/day on social media (Statista 2023)</p>
-        </div>
-    </div>
+    </main>
 
     <script>
         document.addEventListener('alpine:init', () => {
-            Alpine.data('socialMediaCalculator', () => ({
+            Alpine.data('digitalWellnessCalculator', () => ({
+                // Data
                 dailyHours: 2.5,
-                platforms: [
-                    { name: 'Facebook', icon: 'fab fa-facebook-f', color: '#1877f2', selected: true },
-                    { name: 'Instagram', icon: 'fab fa-instagram', color: '#e4405f', selected: true },
-                    { name: 'TikTok', icon: 'fab fa-tiktok', color: '#000000', selected: true },
-                    { name: 'Twitter', icon: 'fab fa-twitter', color: '#1da1f2', selected: false },
-                    { name: 'YouTube', icon: 'fab fa-youtube', color: '#ff0000', selected: true },
-                    { name: 'Reddit', icon: 'fab fa-reddit', color: '#ff5700', selected: false },
-                    { name: 'Snapchat', icon: 'fab fa-snapchat', color: '#fffc00', colorClass: 'text-black', selected: false },
-                    { name: 'LinkedIn', icon: 'fab fa-linkedin', color: '#0a66c2', selected: false },
-                    { name: 'Pinterest', icon: 'fab fa-pinterest', color: '#e60023', selected: false }
-                ],
-                usagePattern: 'mindless',
-                results: false,
-                addictionLevel: 0,
+                isCalculating: false,
+                hasResults: false,
+                wellnessScore: 0,
+                wellnessLevel: '',
                 weeklyHours: 0,
                 yearlyHours: 0,
-                learnedSkill: '',
-                timeEquivalent: '',
-                missedActivities: [],
-                reductionTips: [],
-                
-                get addictionClass() {
-                    if(this.addictionLevel < 4) return 'bg-green-500';
-                    if(this.addictionLevel < 7) return 'bg-yellow-500';
-                    return 'bg-red-500';
-                },
-                
-                calculate() {
-                    // Calculate time totals
+                opportunityMessage: '',
+
+                // Methods
+                async calculateWellness() {
+                    this.isCalculating = true;
+                    
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                    
+                    // Simple calculation
                     this.weeklyHours = (this.dailyHours * 7).toFixed(1);
                     this.yearlyHours = Math.round(this.dailyHours * 365);
                     
-                    // Calculate addiction level (1-10)
-                    let baseLevel = Math.min(10, Math.max(1, Math.floor(this.dailyHours * 0.8)));
+                    // Wellness score
+                    let score = 100;
+                    if (this.dailyHours > 4) score -= 30;
+                    else if (this.dailyHours > 3) score -= 20;
+                    else if (this.dailyHours > 2) score -= 10;
+                    else if (this.dailyHours > 1) score -= 5;
                     
-                    // Adjust for platform count
-                    const selectedCount = this.platforms.filter(p => p.selected).length;
-                    baseLevel += Math.min(3, selectedCount * 0.5);
+                    this.wellnessScore = Math.max(0, score);
                     
-                    // Adjust for usage pattern
-                    if(this.usagePattern === 'mindless') baseLevel += 2;
-                    if(this.usagePattern === 'productive') baseLevel -= 1;
+                    if (this.wellnessScore >= 80) this.wellnessLevel = 'Excellent';
+                    else if (this.wellnessScore >= 60) this.wellnessLevel = 'Good';
+                    else if (this.wellnessScore >= 40) this.wellnessLevel = 'Fair';
+                    else this.wellnessLevel = 'Needs Attention';
                     
-                    this.addictionLevel = Math.min(10, Math.max(1, Math.round(baseLevel)));
-                    
-                    // Determine learned skill
-                    const skills = [
-                        "a new language",
-                        "to play an instrument",
-                        "web development",
-                        "graphic design",
-                        "cooking like a chef",
-                        "photography",
-                        "video editing",
-                        "public speaking",
-                        "how to code",
-                        "woodworking"
-                    ];
-                    this.learnedSkill = skills[Math.floor(Math.random() * skills.length)];
-                    
-                    // Calculate time equivalent
-                    if(this.yearlyHours > 1000) {
-                        this.timeEquivalent = `That's ${Math.floor(this.yearlyHours/24)} full days per year!`;
-                    } else if(this.yearlyHours > 500) {
-                        this.timeEquivalent = `That's ${Math.floor(this.yearlyHours/40)} work weeks per year!`;
+                    // Opportunity message
+                    if (this.yearlyHours > 1000) {
+                        this.opportunityMessage = `You spend ${Math.floor(this.yearlyHours/24)} full days per year on social media!`;
                     } else {
-                        this.timeEquivalent = `That's ${Math.floor(this.yearlyHours/8)} full work days per year!`;
+                        this.opportunityMessage = `You could reclaim ${this.yearlyHours} valuable hours each year.`;
                     }
                     
-                    // Generate missed activities
-                    this.missedActivities = [];
-                    const potentialActivities = [
-                        `Read ${Math.floor(this.yearlyHours/10)} books`,
-                        `Walk ${Math.floor(this.yearlyHours * 3)} miles`,
-                        `Have ${Math.floor(this.yearlyHours/2)} meaningful conversations`,
-                        `Cook ${Math.floor(this.yearlyHours/1.5)} homemade meals`,
-                        `Write ${Math.floor(this.yearlyHours/20)} short stories`,
-                        `Complete ${Math.floor(this.yearlyHours/40)} online courses`,
-                        `Practice meditation for ${Math.floor(this.yearlyHours)} hours`,
-                        `Volunteer for ${Math.floor(this.yearlyHours/4)} community events`
-                    ];
-                    
-                    // Select 4 random activities
-                    while(this.missedActivities.length < 4) {
-                        const activity = potentialActivities[Math.floor(Math.random() * potentialActivities.length)];
-                        if(!this.missedActivities.includes(activity)) {
-                            this.missedActivities.push(activity);
-                        }
-                    }
-                    
-                    // Generate reduction tips
-                    this.reductionTips = [
-                        "Set app time limits on your phone",
-                        "Turn off non-essential notifications",
-                        "Designate phone-free hours each day",
-                        "Keep your phone out of the bedroom",
-                        "Try a 30-day social media detox",
-                        "Replace scrolling with reading or podcasts",
-                        "Use grayscale mode to make apps less appealing"
-                    ];
-                    
-                    // Shuffle and pick 3 tips
-                    this.reductionTips = this.reductionTips
-                        .sort(() => 0.5 - Math.random())
-                        .slice(0, 3);
-                    
-                    this.results = true;
+                    this.hasResults = true;
+                    this.isCalculating = false;
                 }
             }));
         });
-    </script>
-    <script>
+
+        // Navigation
         document.addEventListener('DOMContentLoaded', function() {
             const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
             const navLinks = document.querySelector('.nav-links');
@@ -323,6 +452,7 @@
                     navLinks.classList.toggle('active');
                     mobileMenuBtn.classList.toggle('active');
                 });
+                
                 document.addEventListener('click', function(event) {
                     if (!event.target.closest('.main-nav')) {
                         navLinks.classList.remove('active');
@@ -330,58 +460,9 @@
                     }
                 });
             }
+
+            console.log('🎯 Digital Wellness Calculator loaded successfully!');
         });
     </script>
-
-    <div class="related-calculators" style="margin-top: 2rem; padding: 1rem; background: rgba(0,0,0,0.1); border-radius: 8px;">
-        <h3 style="margin-top: 0;">Related Life Hacks Tools</h3>
-        <a href="./Coffee to Code Efficiency Ratio Calculator.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Coffee to Code Efficiency Ratio Calculator</a><a href="./Inflation Impact Calculator.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Inflation Impact Calculator</a><a href="./Procrastination ROI Calculator.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Procrastination ROI Calculator</a>
-        <a href="./index.html" style="display: block; padding: 0.5rem; margin-top: 1rem; background: rgba(74,144,226,0.2); border-radius: 4px; text-decoration: none; color: inherit; font-weight: bold;">← Back to Life Hacks Hub</a>
-    </div>
-
-        <script>
-        // 🎅 Santa Claude's Interactive Enhancements
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('🎅 Santa Claude's enhancements loaded!');
-            
-            // Enhanced button interactions
-            const buttons = document.querySelectorAll('button, .btn');
-            buttons.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    this.classList.add('loading');
-                    setTimeout(() => {
-                        this.classList.remove('loading');
-                    }, 500);
-                });
-            });
-            
-            // Enhanced results display
-            const resultElements = document.querySelectorAll('.result, .results, .output, #result, #output');
-            resultElements.forEach(el => {
-                const observer = new MutationObserver(function(mutations) {
-                    mutations.forEach(function(mutation) {
-                        if (mutation.type === 'childList' || mutation.type === 'characterData') {
-                            el.classList.add('show');
-                        }
-                    });
-                });
-                observer.observe(el, { childList: true, subtree: true, characterData: true });
-            });
-            
-            // Form validation enhancements
-            const inputs = document.querySelectorAll('input[type="number"], input[type="text"]');
-            inputs.forEach(input => {
-                input.addEventListener('input', function() {
-                    if (this.checkValidity()) {
-                        this.classList.remove('input-error');
-                        this.classList.add('input-success');
-                    } else {
-                        this.classList.remove('input-success');
-                        this.classList.add('input-error');
-                    }
-                });
-            });
-        });
-        </script>
 </body>
 </html>
