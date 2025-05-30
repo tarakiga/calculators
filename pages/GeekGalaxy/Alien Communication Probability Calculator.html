@@ -3,246 +3,858 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alien Communication Probability Calculator</title>
+    <title>Alien Communication Probability Calculator | GeekGalaxy | Docket One</title>
+    <meta name="description" content="Calculate the probability of successful communication with alien civilizations using the Drake Equation and advanced xenosociological analysis.">
 
+    <!-- Required Dependencies -->
     <link rel="stylesheet" href="../../common/navbar-enhanced.css">
     <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        :root {
+            /* GeekGalaxy - Space theme colors */
+            --primary: #4A90E2;
+            --primary-light: #7BB3F0;
+            --primary-dark: #2E5A9B;
+            --secondary: #9B59B6;
+            --accent: #E74C3C;
+            --success: #2ECC71;
+            --warning: #F39C12;
+            --background: #0B0E1A;
+            --surface: #1A1D29;
+            --text: #FFFFFF;
+            --text-muted: #B0B8C3;
+
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+            --space-3xl: 4rem;
+
+            --glow-primary: 0 0 20px rgba(74, 144, 226, 0.3);
+            --glow-secondary: 0 0 20px rgba(155, 89, 182, 0.3);
+            --glow-success: 0 0 20px rgba(46, 204, 113, 0.3);
+
+            --radius-sm: 6px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(74, 144, 226, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(155, 89, 182, 0.1) 0%, transparent 50%),
+                linear-gradient(135deg, var(--background) 0%, var(--surface) 100%);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background-attachment: fixed;
+        }
+
+        /* Animated Stars */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(2px 2px at 20px 30px, rgba(255, 255, 255, 0.3), transparent),
+                radial-gradient(2px 2px at 40px 70px, rgba(74, 144, 226, 0.4), transparent),
+                radial-gradient(1px 1px at 90px 40px, rgba(155, 89, 182, 0.3), transparent);
+            background-size: 200px 200px;
+            animation: starfield 50s linear infinite;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.6;
+        }
+
+        @keyframes starfield {
+            0% { transform: translateY(0) translateX(0); }
+            100% { transform: translateY(-200px) translateX(-200px); }
+        }
+
+        /* Enhanced Navbar */
+        .main-nav {
+            background: rgba(11, 14, 26, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(74, 144, 226, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--space-md) var(--space-xl);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1.25rem;
+            text-shadow: var(--glow-primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--space-lg);
+            align-items: center;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-md);
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: rgba(74, 144, 226, 0.1);
+            color: var(--primary);
+        }
+
+        .nav-link.active {
+            background: var(--primary);
+            color: var(--background);
+            box-shadow: var(--glow-primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: var(--space-3xl) var(--space-xl);
+            text-align: center;
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero-badge {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--background);
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-sm) var(--space-lg);
+            border-radius: 999px;
+            font-weight: 600;
+            margin-bottom: var(--space-lg);
+            box-shadow: var(--glow-primary);
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .alien-icon {
+            font-size: clamp(4rem, 10vw, 8rem);
+            margin-bottom: var(--space-lg);
+            animation: alienFloat 4s ease-in-out infinite, fadeInUp 0.6s ease-out 0.2s both;
+            filter: drop-shadow(0 0 20px rgba(74, 144, 226, 0.5));
+        }
+
+        @keyframes alienFloat {
+            0%, 100% { 
+                transform: translateY(0) rotate(0deg);
+                filter: drop-shadow(0 0 20px rgba(74, 144, 226, 0.5));
+            }
+            25% { 
+                transform: translateY(-10px) rotate(2deg);
+                filter: drop-shadow(0 0 30px rgba(155, 89, 182, 0.7));
+            }
+            50% { 
+                transform: translateY(-20px) rotate(0deg);
+                filter: drop-shadow(0 0 40px rgba(46, 204, 113, 0.6));
+            }
+            75% { 
+                transform: translateY(-10px) rotate(-2deg);
+                filter: drop-shadow(0 0 30px rgba(243, 156, 18, 0.5));
+            }
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 800;
+            margin-bottom: var(--space-lg);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 0.6s ease-out 0.4s both;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+            color: var(--text-muted);
+            animation: fadeInUp 0.6s ease-out 0.6s both;
+        }
+
+        /* Calculator Container */
+        .calculator-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--space-xl);
+        }
+
+        .tabs {
+            display: flex;
+            background: rgba(74, 144, 226, 0.05);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xs);
+            margin-bottom: var(--space-xl);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            border: 1px solid rgba(74, 144, 226, 0.2);
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: var(--space-md) var(--space-lg);
+            background: transparent;
+            border: none;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+        }
+
+        .tab-btn:hover {
+            background: rgba(74, 144, 226, 0.1);
+            color: var(--primary);
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: var(--background);
+            box-shadow: var(--glow-primary);
+        }
+
+        /* Calculator Panel */
+        .calculator-panel {
+            background: rgba(26, 29, 41, 0.8);
+            border-radius: var(--radius-xl);
+            padding: var(--space-xl);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(74, 144, 226, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .calculator-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--success));
+        }
+
+        /* Controls */
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--space-xl);
+            margin-bottom: var(--space-xl);
+        }
+
+        .control-section {
+            background: rgba(74, 144, 226, 0.05);
+            border: 1px solid rgba(74, 144, 226, 0.2);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+        }
+
+        .control-section h3 {
+            color: var(--primary);
+            margin-bottom: var(--space-lg);
+            font-size: 1.2rem;
+            text-shadow: var(--glow-primary);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .control-group {
+            margin-bottom: var(--space-lg);
+        }
+
+        .control-group label {
+            display: block;
+            margin-bottom: var(--space-sm);
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .control-group select {
+            width: 100%;
+            padding: var(--space-md);
+            border: 2px solid rgba(74, 144, 226, 0.3);
+            border-radius: var(--radius-md);
+            background: rgba(0, 0, 0, 0.3);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .control-group select:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+        }
+
+        .control-group select option {
+            background: var(--surface);
+            color: var(--text);
+        }
+
+        /* Slider Controls */
+        .slider-control {
+            margin: var(--space-lg) 0;
+        }
+
+        .slider-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-sm);
+        }
+
+        .slider-value {
+            color: var(--primary);
+            font-weight: 700;
+            text-shadow: var(--glow-primary);
+        }
+
+        .slider {
+            width: 100%;
+            height: 10px;
+            border-radius: 5px;
+            background: rgba(74, 144, 226, 0.2);
+            outline: none;
+            -webkit-appearance: none;
+            margin: var(--space-md) 0;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+            box-shadow: var(--glow-primary);
+        }
+
+        /* Probability Display */
+        .probability-display {
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid var(--primary);
+            border-radius: var(--radius-xl);
+            padding: var(--space-2xl);
+            margin: var(--space-xl) 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--glow-primary);
+        }
+
+        .probability-value {
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 800;
+            color: var(--primary);
+            text-shadow: var(--glow-primary);
+            margin: var(--space-lg) 0;
+            animation: probabilityPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes probabilityPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .probability-label {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: var(--space-md);
+        }
+
+        .confidence-level {
+            display: inline-block;
+            padding: var(--space-sm) var(--space-lg);
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            margin-top: var(--space-md);
+            text-transform: uppercase;
+        }
+
+        .confidence-low { 
+            background: var(--accent); 
+            color: white; 
+        }
+        .confidence-medium { 
+            background: var(--warning); 
+            color: var(--background); 
+        }
+        .confidence-high { 
+            background: var(--success); 
+            color: white; 
+        }
+
+        /* Action Button */
+        .calculate-btn {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--background);
+            border: none;
+            padding: var(--space-lg) var(--space-2xl);
+            border-radius: var(--radius-md);
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            width: 100%;
+            margin: var(--space-xl) 0;
+            font-family: 'Inter', sans-serif;
+            box-shadow: var(--glow-primary);
+        }
+
+        .calculate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(74, 144, 226, 0.4);
+        }
+
+        /* Results Display */
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--space-xl);
+            margin-top: var(--space-xl);
+        }
+
+        .result-card {
+            background: rgba(26, 29, 41, 0.8);
+            border: 1px solid rgba(74, 144, 226, 0.3);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            transition: all 0.3s ease;
+        }
+
+        .result-card:hover {
+            border-color: var(--primary);
+            box-shadow: var(--glow-primary);
+            transform: translateY(-2px);
+        }
+
+        .result-card h3 {
+            color: var(--primary);
+            margin-bottom: var(--space-md);
+            font-size: 1.3rem;
+            text-shadow: var(--glow-primary);
+        }
+
+        /* Loading States */
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(74, 144, 226, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s ease-in-out infinite;
+            margin-left: var(--space-sm);
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .hero {
+                padding: var(--space-2xl) var(--space-lg);
+                min-height: 60vh;
+            }
+
+            .calculator-container {
+                padding: var(--space-lg);
+            }
+
+            .controls {
+                grid-template-columns: 1fr;
+                gap: var(--space-lg);
+            }
+
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .probability-value {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
 </head>
+
 <body>
-                <!-- Enhanced Navigation Bar -->
+    <!-- Navigation -->
     <nav class="main-nav">
         <div class="nav-container">
             <div class="nav-logo">
                 <a href="../../index.html">🧮 Docket One</a>
             </div>
-            <div class="nav-search">
-                <label for="input-kqotwvgq2" class="sr-only">Input field</label>
-            <input type="text" i id="input-kqotwvgq2" aria-label="Calculator input"d="calc-search" placeholder="Search calculators..." class="search-input">
-                <div id="search-results" class="search-results"></div>
+            <div class="nav-links">
+                <a href="../../index.html" class="nav-link">Home</a>
+                <a href="../BigKidMath/index.html" class="nav-link">BigKidMath</a>
+                <a href="../CipherLab/index.html" class="nav-link">CipherLab</a>
+                <a href="../GeekGalaxy/index.html" class="nav-link active">GeekGalaxy</a>
+                <a href="../LifeHacks/index.html" class="nav-link">LifeHacks</a>
+                <a href="../Math_Magik/index.html" class="nav-link">Math Magik</a>
+                <a href="../Otaku_Ops/index.html" class="nav-link">Otaku Ops</a>
             </div>
-            <ul class="nav-links">
-                <li><a href="../BigKidMath/index.html" class="category-main-link">Big Kid Math</a></li>
-                <li><a href="../CipherLab/index.html" class="category-main-link">Cipher Lab</a></li>
-                <li><a href="../GeekGalaxy/index.html" class="category-main-link">Geek Galaxy</a></li>
-                <li><a href="../LifeHacks/index.html" class="category-main-link">Life Hacks</a></li>
-                <li><a href="../Math_Magik/index.html" class="category-main-link">Math Magik</a></li>
-                <li><a href="../Otaku_Ops/index.html" class="category-main-link">Otaku Ops</a></li>
-                <li><a href="../../index.html" class="home-link">Unit Converter</a></li>
-            </ul>
-            <button class="mobile-menu-btn" a aria-label="Perform action"ria-label="Toggle menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
         </div>
     </nav>
-    
 
-    
-
-
-    <h1>ALIEN COMMUNICATION PROBABILITY</h1>
-    <p class="subtitle">Calculating your chances of not getting yeeted into space trash</p>
-    <main class="container">
-    <div class="calculator">
-        <div class="input-group">
-            <label for="civilizations">Estimated Communicative Civilizations:</label>
-            <div class="range-container">
-                <input type="range" id="civilizations" min="1" max="1000000" value="10000" step="1000">
-                <span class="range-value" id="civilizations-value">10,000</span>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span>🛸</span>
+                <span>GeekGalaxy</span>
             </div>
-            <small>Drake Equation estimate (N)</small>
+            <div class="alien-icon">👽</div>
+            <h1 class="hero-title">Alien Communication Probability</h1>
+            <p class="hero-subtitle">
+                Calculate your chances of successfully communicating with extraterrestrial civilizations
+                using the Drake Equation and advanced xenosociological analysis.
+            </p>
         </div>
-        
-        <div class="input-group">
-            <label for="message-quality">Message Quality:</label>
-            <select id="message-quality">
-                <option value="0.1">Primitive (🐒 grunts)</option>
-                <option value="0.3">Basic (Binary code)</option>
-                <option value="0.6" selected>Mathematical (Voyager Golden Record)</option>
-                <option value="0.8">Advanced (Quantum encoded)</option>
-                <option value="0.95">Perfect (Universal semantic)</option>
-            </select>
+    </section>
+
+    <!-- Calculator -->
+    <div class="calculator-container" x-data="alienCalculator()">
+        <!-- Tab Navigation -->
+        <div class="tabs">
+            <button class="tab-btn" :class="{ active: activeTab === 'calculator' }" @click="activeTab = 'calculator'">
+                <span>🧮</span>
+                <span>Calculator</span>
+            </button>
+            <button class="tab-btn" :class="{ active: activeTab === 'results' }" @click="activeTab = 'results'" :disabled="!hasResults">
+                <span>📊</span>
+                <span>Results</span>
+            </button>
+            <button class="tab-btn" :class="{ active: activeTab === 'drake' }" @click="activeTab = 'drake'">
+                <span>🧬</span>
+                <span>Drake Equation</span>
+            </button>
         </div>
-        
-        <div class="input-group">
-            <label for="alien-tech">Alien Technology Level:</label>
-            <select id="alien-tech">
-                <option value="1">Stone Age (They're throwing rocks)</option>
-                <option value="3">Industrial (Steam-powered radios)</option>
-                <option value="6" selected>Spacefaring (Like current humans)</option>
-                <option value="9">Type II Civilization (Dyson Sphere builders)</option>
-                <option value="10">God-like (Q Continuum level)</option>
-            </select>
-        </div>
-        
-        <div class="input-group">
-            <label for="alien-mood">Alien Disposition:</label>
-            <select id="alien-mood">
-                <option value="0.1">Xenophobic (Shoot first)</option>
-                <option value="0.3">Cautious (Observe silently)</option>
-                <option value="0.6" selected>Neutral (Wait-and-see)</option>
-                <option value="0.8">Friendly (Star Trek Federation)</option>
-                <option value="0.95">Enthusiastic (They've been waiting for this!)</option>
-            </select>
-        </div>
-        
-        <button aria-label="Perform action" onclick="calculateProbability()">CALCULATE CONTACT PROBABILITY</button>
-    </div>
-    
-    <div class="results" id="results">
-        <div class="result-item">
-            <div class="result-title">COMMUNICATION PROBABILITY</div>
-            <div class="probability-meter">
-                <div class="probability-fill" id="probability-fill" style="width: 0%"></div>
-                <div class="probability-value" id="probability-value">0%</div>
+
+        <!-- Calculator Panel -->
+        <div class="calculator-panel">
+            <!-- Calculator Tab -->
+            <div x-show="activeTab === 'calculator'" x-transition>
+                <div class="controls">
+                    <!-- Basic Parameters -->
+                    <div class="control-section">
+                        <h3>🌌 Galactic Parameters</h3>
+                        <div class="slider-control">
+                            <div class="slider-label">
+                                <label>Estimated Civilizations</label>
+                                <span class="slider-value" x-text="formatNumber(civilizations)"></span>
+                            </div>
+                            <input type="range" class="slider" min="1" max="1000000" step="1000" x-model="civilizations">
+                        </div>
+                        
+                        <div class="control-group">
+                            <label for="message-quality">Message Quality</label>
+                            <select id="message-quality" x-model="messageQuality">
+                                <option value="0.1">Primitive (🐒 grunts)</option>
+                                <option value="0.3">Basic (Binary code)</option>
+                                <option value="0.6">Mathematical (Prime numbers)</option>
+                                <option value="0.8">Advanced (Scientific data)</option>
+                                <option value="0.95">Perfect (Universal language)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Alien Factors -->
+                    <div class="control-section">
+                        <h3>👽 Alien Civilization</h3>
+                        <div class="control-group">
+                            <label for="alien-tech">Technology Level</label>
+                            <select id="alien-tech" x-model="alienTech">
+                                <option value="1">Stone Age</option>
+                                <option value="3">Industrial</option>
+                                <option value="6">Spacefaring</option>
+                                <option value="9">Type II Civilization</option>
+                                <option value="10">God-like</option>
+                            </select>
+                        </div>
+
+                        <div class="control-group">
+                            <label for="alien-mood">Disposition</label>
+                            <select id="alien-mood" x-model="alienMood">
+                                <option value="0.1">Hostile</option>
+                                <option value="0.3">Suspicious</option>
+                                <option value="0.6">Neutral</option>
+                                <option value="0.8">Friendly</option>
+                                <option value="0.95">Enthusiastic</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live Probability Display -->
+                <div class="probability-display">
+                    <div class="probability-label">Communication Success Probability</div>
+                    <div class="probability-value" x-text="liveProbability + '%'"></div>
+                    <div class="confidence-level" :class="confidenceClass" x-text="confidenceText"></div>
+                </div>
+
+                <button class="calculate-btn" @click="calculateProbability()" :disabled="isLoading">
+                    <span x-show="!isLoading">🚀 INITIATE CONTACT PROTOCOL</span>
+                    <span x-show="isLoading">SCANNING COSMOS...</span>
+                    <span x-show="isLoading" class="loading-spinner"></span>
+                </button>
             </div>
-            <p>Chance of successful two-way communication: <strong id="success-chance">0%</strong></p>
-        </div>
-        
-        <div class="alien-reaction" id="alien-reaction">
-            <!-- Filled by JavaScript -->
-        </div>
-        
-        <div class="drake-equation">
-            <div class="result-title">DRAKE EQUATION PARAMETERS</div>
-            <p>The classic equation for estimating communicative civilizations:</p>
-            <code>N = R* × fₚ × nₑ × fₗ × fᵢ × f꜀ × L</code>
-            <p>Where:<br>
-            N = Number of civilizations we could communicate with<br>
-            R* = Star formation rate<br>
-            fₚ = Fraction with planetary systems<br>
-            nₑ = Planets that could support life per system<br>
-            fₗ = Fraction where life develops<br>
-            fᵢ = Fraction where intelligence develops<br>
-            f꜀ = Fraction that develop communication technology<br>
-            L = Length of time civilizations release detectable signals</p>
+
+            <!-- Results Tab -->
+            <div x-show="activeTab === 'results'" x-transition>
+                <div class="results-grid">
+                    <div class="result-card" style="grid-column: 1 / -1;">
+                        <h3>🎯 Communication Analysis Results</h3>
+                        <div style="text-align: center; margin: var(--space-xl) 0;">
+                            <div style="font-size: 3rem; font-weight: 800; color: var(--primary);" x-text="results.probability + '%'"></div>
+                            <div style="margin: var(--space-md) 0;">Overall Success Rate</div>
+                        </div>
+                        <div style="background: rgba(74, 144, 226, 0.1); padding: var(--space-lg); border-radius: var(--radius-md);">
+                            <h4 style="color: var(--primary); margin-bottom: var(--space-md);">🔬 Modern Discoveries</h4>
+                        <ul style="line-height: 1.6; margin-left: var(--space-lg);">
+                            <li><strong>Kepler Telescope:</strong> Found ~20% of Sun-like stars have Earth-sized planets</li>
+                            <li><strong>Extremophiles:</strong> Life exists in extreme conditions, expanding habitable zones</li>
+                            <li><strong>JWST:</strong> Can detect atmospheric biosignatures on exoplanets</li>
+                            <li><strong>SETI@Home:</strong> Millions of computers searching for alien signals</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</main>
+
     <script>
-        // Reaction messages based on probability
-        const reactions = [
-            { min: 0, max: 10, message: "They'll definitely yeet our message into space trash 🗑️" },
-            { min: 11, max: 30, message: "Might mistake our signals for cosmic static 📡" },
-            { min: 31, max: 50, message: "50/50 chance they'll respond or facepalm at our primitive tech 🤦" },
-            { min: 51, max: 70, message: "Probably send back a 'Read Receipt' but ghost us 👻" },
-            { min: 71, max: 90, message: "High chance of response! (Might still take a few centuries) ⏳" },
-            { min: 91, max: 100, message: "They're already on their way! 🛸🍪 (Hope they bring cookies)" }
-        ];
-        
-        // Format large numbers
-        function formatNumber(num) {
-            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        }
-        
-        // Update civilizations display
-        document.getElementById('civilizations').addEventListener('input', function() {
-            document.getElementById('civilizations-value').textContent = formatNumber(this.value);
-        });
-        
-        function calculateProbability() {
-            // Get inputs
-            const civilizations = parseInt(document.getElementById('civilizations').value);
-            const messageQuality = parseFloat(document.getElementById('message-quality').value);
-            const alienTech = parseInt(document.getElementById('alien-tech').value);
-            const alienMood = parseFloat(document.getElementById('alien-mood').value);
-            
-            // Base probability (scaled to number of civilizations)
-            let baseProbability = Math.min(1, civilizations / 1000000) * 100;
-            
-            // Adjust for message quality (0.1-0.95)
-            baseProbability *= messageQuality;
-            
-            // Adjust for alien tech level (1-10 scale)
-            const techFactor = alienTech / 10;
-            baseProbability *= techFactor;
-            
-            // Adjust for alien mood (0.1-0.95)
-            baseProbability *= alienMood;
-            
-            // Cap at 99.9% (never certain)
-            baseProbability = Math.min(99.9, baseProbability);
-            
-            // Update probability meter
-            document.getElementById('probability-fill').style.width = baseProbability + '%';
-            document.getElementById('probability-value').textContent = baseProbability.toFixed(1) + '%';
-            document.getElementById('success-chance').textContent = baseProbability.toFixed(1) + '%';
-            
-            // Determine alien reaction
-            let reactionMessage = "";
-            for (const reaction of reactions) {
-                if (baseProbability >= reaction.min && baseProbability <= reaction.max) {
-                    reactionMessage = reaction.message;
-                    break;
+        // Alien Communication Calculator
+        function alienCalculator() {
+            return {
+                activeTab: 'calculator',
+                isLoading: false,
+                hasResults: false,
+                
+                // Inputs
+                civilizations: 10000,
+                messageQuality: 0.6,
+                alienTech: 6,
+                alienMood: 0.6,
+                
+                // Results
+                results: {
+                    probability: 0,
+                    scenario: { title: '', description: '' },
+                    alienReaction: ''
+                },
+
+                get liveProbability() {
+                    return this.calculateLiveProbability().toFixed(1);
+                },
+
+                get confidenceClass() {
+                    const prob = parseFloat(this.liveProbability);
+                    if (prob < 20) return 'confidence-low';
+                    if (prob < 60) return 'confidence-medium';
+                    return 'confidence-high';
+                },
+
+                get confidenceText() {
+                    const prob = parseFloat(this.liveProbability);
+                    if (prob < 10) return 'Extremely Unlikely';
+                    if (prob < 25) return 'Low Probability';
+                    if (prob < 50) return 'Moderate Chance';
+                    if (prob < 75) return 'Good Prospects';
+                    return 'High Probability';
+                },
+
+                formatNumber(num) {
+                    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                },
+
+                calculateLiveProbability() {
+                    // Base probability from civilization count
+                    let probability = Math.min(100, (this.civilizations / 100000) * 100);
+                    
+                    // Apply modifiers
+                    probability *= this.messageQuality;
+                    probability *= (this.alienTech / 10);
+                    probability *= this.alienMood;
+                    
+                    // Add some randomness
+                    probability *= (0.8 + Math.random() * 0.4);
+                    
+                    return Math.min(99.9, Math.max(0.1, probability));
+                },
+
+                calculateProbability() {
+                    this.isLoading = true;
+                    
+                    setTimeout(() => {
+                        const finalProb = this.calculateLiveProbability();
+                        this.results.probability = finalProb.toFixed(1);
+                        
+                        // Determine scenario
+                        if (finalProb >= 80) {
+                            this.results.scenario = {
+                                title: "🎉 Highly Probable Contact",
+                                description: "Excellent conditions for successful communication! Multiple civilizations likely within range with high probability of positive response."
+                            };
+                            this.results.alienReaction = "They're probably already composing a welcome message and preparing the universal translator! 🛸🍪";
+                        } else if (finalProb >= 60) {
+                            this.results.scenario = {
+                                title: "🌟 Promising Prospects", 
+                                description: "Good chance of establishing contact with at least one civilization. Message quality and technological compatibility favor success."
+                            };
+                            this.results.alienReaction = "High chance of response! (Might still take a few centuries though) ⏳";
+                        } else if (finalProb >= 40) {
+                            this.results.scenario = {
+                                title: "🎲 Moderate Possibility",
+                                description: "Decent odds of contact, but success depends on optimizing message content and transmission methods."
+                            };
+                            this.results.alienReaction = "50/50 chance they'll respond or facepalm at our primitive tech 🤦‍♂️";
+                        } else if (finalProb >= 20) {
+                            this.results.scenario = {
+                                title: "📡 Long Shot Scenario",
+                                description: "Low but not impossible chance of contact. Major improvements needed in message design or targeting strategy."
+                            };
+                            this.results.alienReaction = "Might mistake our signals for cosmic static 📡";
+                        } else {
+                            this.results.scenario = {
+                                title: "🤐 Cosmic Silence Expected",
+                                description: "Current parameters suggest very low probability of successful contact. Consider fundamental changes to approach."
+                            };
+                            this.results.alienReaction = "They'll definitely yeet our message into space trash 🗑️";
+                        }
+                        
+                        this.hasResults = true;
+                        this.isLoading = false;
+                        this.activeTab = 'results';
+                    }, 2000);
                 }
             }
-            
-            document.getElementById('alien-reaction').innerHTML = `
-                <strong>Alien Reaction Analysis:</strong> ${reactionMessage}
-                <p>Tech gap: ${alienTech < 5 ? "They're behind us" : alienTech > 7 ? "They're way ahead" : "Comparable tech level"}</p>
-            `;
-            
-            // Show results
-            document.getElementById('results').style.display = 'block';
         }
-        
-        // Initialize on load
-        window.onload = function() {
-            calculateProbability();
-        };
     </script>
-
-    <div class="related-calculators" style="margin-top: 2rem; padding: 1rem; background: rgba(0,0,0,0.1); border-radius: 8px;">
-        <h3 style="margin-top: 0;">Related Geek Galaxy Tools</h3>
-        <a href="./AI Doomsday Countdown.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">AI Doomsday Countdown</a><a href="./Lightsaber Battery Life Calculator.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Lightsaber Battery Life Calculator</a><a href="./Potion Brewer Calculator.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Potion Brewer Calculator</a>
-        <a href="./index.html" style="display: block; padding: 0.5rem; margin-top: 1rem; background: rgba(74,144,226,0.2); border-radius: 4px; text-decoration: none; color: inherit; font-weight: bold;">← Back to Geek Galaxy Hub</a>
-    </div>
-
-        <script>
-        // 🎅 Santa Claude's Interactive Enhancements
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('🎅 Santa Claude's enhancements loaded!');
-            
-            // Enhanced button interactions
-            const buttons = document.querySelectorAll('button, .btn');
-            buttons.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    this.classList.add('loading');
-                    setTimeout(() => {
-                        this.classList.remove('loading');
-                    }, 500);
-                });
-            });
-            
-            // Enhanced results display
-            const resultElements = document.querySelectorAll('.result, .results, .output, #result, #output');
-            resultElements.forEach(el => {
-                const observer = new MutationObserver(function(mutations) {
-                    mutations.forEach(function(mutation) {
-                        if (mutation.type === 'childList' || mutation.type === 'characterData') {
-                            el.classList.add('show');
-                        }
-                    });
-                });
-                observer.observe(el, { childList: true, subtree: true, characterData: true });
-            });
-            
-            // Form validation enhancements
-            const inputs = document.querySelectorAll('input[type="number"], input[type="text"]');
-            inputs.forEach(input => {
-                input.addEventListener('input', function() {
-                    if (this.checkValidity()) {
-                        this.classList.remove('input-error');
-                        this.classList.add('input-success');
-                    } else {
-                        this.classList.remove('input-success');
-                        this.classList.add('input-error');
-                    }
-                });
-            });
-        });
-        </script>
 </body>
-</html>
+</html>: var(--space-md);" x-text="results.scenario.title"></h4>
+                            <p x-text="results.scenario.description"></p>
+                        </div>
+                    </div>
+
+                    <div class="result-card">
+                        <h3>📡 Alien Response Prediction</h3>
+                        <p x-text="results.alienReaction"></p>
+                    </div>
+
+                    <div class="result-card">
+                        <h3>🔬 Drake Equation Factors</h3>
+                        <div>
+                            <strong>N = R★ × fp × ne × fl × fi × fc × L</strong>
+                        </div>
+                        <div style="margin-top: var(--space-md); font-size: 0.9rem; opacity: 0.8;">
+                            Current estimate: <span style="color: var(--primary);" x-text="formatNumber(civilizations)"></span> communicative civilizations
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Drake Equation Tab -->
+            <div x-show="activeTab === 'drake'" x-transition>
+                <div style="max-width: 800px; margin: 0 auto;">
+                    <h2 style="text-align: center; color: var(--primary); margin-bottom: var(--space-xl);">The Drake Equation</h2>
+                    
+                    <div style="background: rgba(155, 89, 182, 0.1); padding: var(--space-xl); border-radius: var(--radius-lg); border: 1px solid rgba(155, 89, 182, 0.3); margin-bottom: var(--space-xl);">
+                        <div style="font-family: 'Courier New', monospace; font-size: 1.5rem; color: var(--primary); text-align: center; margin-bottom: var(--space-lg);">
+                            N = R★ × fp × ne × fl × fi × fc × L
+                        </div>
+                        <p style="text-align: center; font-style: italic;">
+                            The fundamental equation for estimating communicating civilizations in our galaxy
+                        </p>
+                    </div>
+
+                    <div style="display: grid; gap: var(--space-lg);">
+                        <div style="background: rgba(0, 0, 0, 0.3); padding: var(--space-lg); border-radius: var(--radius-md); border-left: 4px solid var(--primary);">
+                            <strong style="color: var(--primary);">N:</strong> Number of communicating civilizations<br>
+                            <span style="opacity: 0.8;">Current estimate: 1 to 100,000,000</span>
+                        </div>
+                        <div style="background: rgba(0, 0, 0, 0.3); padding: var(--space-lg); border-radius: var(--radius-md); border-left: 4px solid var(--secondary);">
+                            <strong style="color: var(--secondary);">R★:</strong> Rate of star formation<br>
+                            <span style="opacity: 0.8;">~3 stars per year in our galaxy</span>
+                        </div>
+                        <div style="background: rgba(0, 0, 0, 0.3); padding: var(--space-lg); border-radius: var(--radius-md); border-left: 4px solid var(--success);">
+                            <strong style="color: var(--success);">fp:</strong> Fraction of stars with planets<br>
+                            <span style="opacity: 0.8;">~0.5 (about half of all stars)</span>
+                        </div>
+                        <div style="background: rgba(0, 0, 0, 0.3); padding: var(--space-lg); border-radius: var(--radius-md); border-left: 4px solid var(--warning);">
+                            <strong style="color: var(--warning);">ne:</strong> Habitable planets per system<br>
+                            <span style="opacity: 0.8;">~0.1 to 5 (Earth-like planets)</span>
+                        </div>
+                    </div>
+
+                    <div style="background: rgba(74, 144, 226, 0.1); padding: var(--space-xl); border-radius: var(--radius-lg); margin-top: var(--space-xl);">
+                        <h4 style="color: var(--primary); margin-bottom

@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Force Sensitivity Test (Midichlorian Calculator) | GeekGalaxy | Docket One</title>
+    <meta name="description" content="Test your Force sensitivity and discover your midichlorian count. Calculate your potential as a Jedi or Sith based on your answers and lineage.">
+
+    <!-- Required Dependencies -->
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <style>
+        :root {
+            /* GeekGalaxy - Star Wars inspired color palette */
+            --primary: #FFE81F; /* Jedi Yellow */
+            --primary-light: #FFF5A3;
+            --primary-dark: #B3A300;
+            --secondary: #4BD5EE; /* Lightsaber Blue */
+            --accent: #FF0000; /* Sith Red */
+            --background: #000000; /* Space Black */
+            --surface: #111111;
+            --text: #FFFFFF; /* Pure White */
+            --text-muted: #CCCCCC;
+
+            /* Consistent spacing scale */
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+            --space-3xl: 4rem;
+
+            /* Professional shadows and effects */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --glow-primary: 0 0 20px rgba(255, 232, 31, 0.3);
+            --glow-secondary: 0 0 20px rgba(75, 213, 238, 0.3);
+            --glow-accent: 0 0 20px rgba(255, 0, 0, 0.3);
+
+            /* Border radius system */
+            --radius-sm: 6px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--background);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* Enhanced Navbar */
+        .main-nav {
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 232, 31, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--space-md) var(--space-xl);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            text-shadow: var(--glow-primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--space-lg);
+            align-items: center;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-link {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-md);
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--primary);
+        }
+
+        .nav-link.active {
+            background: var(--primary);
+            color: var(--background);
+            box-shadow: var(--glow-primary);
+        }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: var(--space-sm);
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .nav-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--primary);
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 232, 31, 0.15) 0%, transparent 50%), 
+                radial-gradient(circle at 80% 20%, rgba(75, 213, 238, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(255, 0, 0, 0.1) 0%, transparent 50%),
+                linear-gradient(135deg, #000000 0%, #111111 100%);
+            padding: var(--space-3xl) var(--space-xl);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(2px 2px at 20px 30px, rgba(255, 232, 31, 0.3), transparent),
+                radial-gradient(2px 2px at 40px 70px, rgba(75, 213, 238, 0.2), transparent),
+                radial-gradient(1px 1px at 90px 40px, rgba(255, 255, 255, 0.3), transparent);
+            background-size: 100px 100px;
+            animation: starfield 20s linear infinite;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        @keyframes starfield {
+            0% { transform: translateY(0) translateX(0); }
+            100% { transform: translateY(-100px) translateX(-100px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero-badge {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--background);
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-sm) var(--space-lg);
+            border-radius: 999px;
+            font-weight: 600;
+            margin-bottom: var(--space-lg);
+            box-shadow: var(--glow-primary);
+            animation: fadeInUp 0.6s ease-out;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 800;
+            margin-bottom: var(--space-lg);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 4px 20px rgba(255, 232, 31, 0.3);
+            animation: fadeInUp 0.6s ease-out 0.2s both;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            max-width: 700px;
+            margin: 0 auto var(--space-xl);
+            opacity: 0.9;
+            color: var(--text-muted);
+            animation: fadeInUp 0.6s ease-out 0.4s both;
+            line-height: 1.5;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-xl);
+            margin-top: var(--space-xl);
+            animation: fadeInUp 0.6s ease-out 0.6s both;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: block;
+            text-shadow: var(--glow-primary);
+        }
+
+        .hero-stat-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Calculator Container */
+        .calculator-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--space-xl);
+            position: relative;
+        }
+
+        /* Tab Navigation */
+        .tabs {
+            display: flex;
+            background: rgba(255, 232, 31, 0.05);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xs);
+            margin-bottom: var(--space-xl);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            border: 1px solid rgba(255, 232, 31, 0.2);
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: var(--space-md) var(--space-lg);
+            background: transparent;
+            border: none;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .tab-btn:hover {
+            background: rgba(255, 232, 31, 0.1);
+            color: var(--primary);
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: var(--background);
+            box-shadow: var(--glow-primary);
+        }
+
+        /* Calculator Panel */
+        .calculator-panel {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: var(--radius-xl);
+            padding: var(--space-xl);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .calculator-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+        }
+
+        /* Form Elements */
+        .input-group {
+            margin-bottom: var(--space-lg);
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: var(--space-sm);
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 1rem;
+        }
+
+        .input-group select {
+            width: 100%;
+            padding: var(--space-md);
+            border: 2px solid rgba(255, 232, 31, 0.2);
+            border-radius: var(--radius-md);
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .input-group select:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 232, 31, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .input-group select option {
+            background: var(--surface);
+            color: var(--text);
+            padding: var(--space-sm);
+            border: none;
+        }
+
+        .input-group select option:hover,
+        .input-group select option:focus,
+        .input-group select option:checked {
+            background: rgba(255, 232, 31, 0.2);
+            color: var(--text);
+        }
+
+        /* Question Groups */
+        .question-group {
+            margin-bottom: var(--space-xl);
+        }
+
+        .question {
+            font-weight: 600;
+            margin-bottom: var(--space-md);
+            color: var(--text);
+            font-size: 1.1rem;
+        }
+
+        .options {
+            display: grid;
+            gap: var(--space-sm);
+        }
+
+        .option {
+            background: rgba(255, 255, 255, 0.05);
+            padding: var(--space-md);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        .option:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--primary);
+            transform: translateY(-1px);
+        }
+
+        .option.selected {
+            background: var(--primary);
+            color: var(--background);
+            border-color: var(--primary);
+            box-shadow: var(--glow-primary);
+        }
+
+        /* Action Buttons */
+        .action-btn {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--background);
+            border: none;
+            padding: var(--space-md) var(--space-xl);
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            text-decoration: none;
+            font-family: 'Inter', sans-serif;
+            box-shadow: var(--glow-primary);
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 232, 31, 0.4);
+        }
+
+        .action-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .action-btn.secondary {
+            background: linear-gradient(135deg, var(--secondary), #3BA3C7);
+            box-shadow: var(--glow-secondary);
+        }
+
+        .action-btn.accent {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            box-shadow: none;
+        }
+
+        /* Results Styling */
+        .results-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-xl);
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .count-animation {
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 800;
+            color: var(--primary);
+            text-shadow: var(--glow-primary);
+            margin: var(--space-lg) 0;
+            animation: countUp 2s ease-out forwards, pulse 2s infinite 2s;
+        }
+
+        .potential-meter {
+            height: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin: var(--space-lg) 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .potential-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--secondary), var(--primary));
+            border-radius: 10px;
+            width: 0%;
+            animation: fillMeter 1.5s ease-out forwards 0.5s;
+            position: relative;
+        }
+
+        /* Character Cards */
+        .character-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-lg);
+        }
+
+        .character-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .character-card.highlighted {
+            border-color: var(--primary);
+            background: rgba(255, 232, 31, 0.1);
+            transform: scale(1.05);
+            box-shadow: var(--glow-primary);
+        }
+
+        .character-name {
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+            color: var(--text);
+            font-size: 1.1rem;
+        }
+
+        .character-count {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: var(--space-sm);
+            text-shadow: var(--glow-secondary);
+        }
+
+        .character-description {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            line-height: 1.4;
+            color: var(--text-muted);
+        }
+
+        /* Loading Spinner */
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s ease-in-out infinite;
+            margin-left: var(--space-sm);
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .nav-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(0, 0, 0, 0.95);
+                padding: var(--space-lg);
+                flex-direction: column;
+                gap: var(--space-sm);
+                border-top: 1px solid rgba(255, 232, 31, 0.2);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .hero {
+                padding: var(--space-2xl) var(--space-lg);
+                min-height: 50vh;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                gap: var(--space-lg);
+            }
+
+            .calculator-container {
+                padding: var(--space-lg);
+            }
+
+            .results-container {
+                grid-template-columns: 1fr;
+                gap: var(--space-lg);
+            }
+
+            .character-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .options {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes countUp {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes fillMeter {
+            to { width: var(--meter-width); }
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Enhanced Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="../../index.html">🧮 Docket One</a>
+            </div>
+            <div class="nav-links">
+                <a href="../../index.html" class="nav-link">Home</a>
+                <a href="../BigKidMath/index.html" class="nav-link">BigKidMath</a>
+                <a href="../CipherLab/index.html" class="nav-link">CipherLab</a>
+                <a href="../GeekGalaxy/index.html" class="nav-link active">GeekGalaxy</a>
+                <a href="../LifeHacks/index.html" class="nav-link">LifeHacks</a>
+                <a href="../Math_Magik/index.html" class="nav-link">Math Magik</a>
+                <a href="../Otaku_Ops/index.html" class="nav-link">Otaku Ops</a>
+            </div>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Premium Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span>⭐</span>
+                <span>GeekGalaxy</span>
+            </div>
+            <h1 class="hero-title">Force Sensitivity Test</h1>
+            <p class="hero-subtitle">
+                Discover your midichlorian count and unlock your true potential in the Force. 
+                Are you destined to become a Jedi Master or will you embrace the power of the Dark Side?
+            </p>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <span class="hero-stat-number">27,700</span>
+                    <span class="hero-stat-label">Anakin's Count</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="hero-stat-number">17,700</span>
+                    <span class="hero-stat-label">Yoda's Count</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="hero-stat-number">???</span>
+                    <span class="hero-stat-label">Your Count</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculator Container -->
+    <div class="calculator-container" x-data="forceCalculator()">
+        <!-- Tab Navigation -->
+        <div class="tabs">
+            <button class="tab-btn" :class="{ active: activeTab === 'calculator' }" @click="activeTab = 'calculator'">
+                <span>🧪</span>
+                <span>Test</span>
+            </button>
+            <button class="tab-btn" :class="{ active: activeTab === 'results' }" @click="activeTab = 'results'" :disabled="!hasResults">
+                <span>⭐</span>
+                <span>Results</span>
+            </button>
+            <button class="tab-btn" :class="{ active: activeTab === 'lore' }" @click="activeTab = 'lore'">
+                <span>📚</span>
+                <span>Lore</span>
+            </button>
+        </div>
+
+        <!-- Calculator Panel -->
+        <div class="calculator-panel">
+            <!-- Test Tab -->
+            <div x-show="activeTab === 'calculator'" x-transition>
+                <h2 style="text-align: center; color: var(--primary); margin-bottom: var(--space-xl);">Comprehensive Force Sensitivity Assessment</h2>
+                
+                <!-- Personal Background -->
+                <div style="background: rgba(255, 232, 31, 0.05); padding: var(--space-lg); border-radius: var(--radius-lg); margin-bottom: var(--space-xl); border: 1px solid rgba(255, 232, 31, 0.2);">
+                    <h3 style="color: var(--primary); margin-bottom: var(--space-lg);">🧬 Personal Background</h3>
+                    
+                    <div class="input-group">
+                        <label for="lineage">Force Lineage</label>
+                        <select id="lineage" x-model="lineage">
+                            <option value="random">Unknown Heritage</option>
+                            <option value="skywalker">Skywalker Bloodline</option>
+                            <option value="kenobi">Kenobi Lineage</option>
+                            <option value="palpatine">Palpatine Heritage</option>
+                            <option value="windu">Windu Tradition</option>
+                            <option value="yoda">Yoda's Species</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="training">Current Training Level</label>
+                        <select id="training" x-model="training">
+                            <option value="untrained">Force-Sensitive (Untrained)</option>
+                            <option value="padawan">Padawan Learner</option>
+                            <option value="knight">Jedi Knight</option>
+                            <option value="master">Master of the Force</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Force Experiences -->
+                <div style="background: rgba(75, 213, 238, 0.05); padding: var(--space-lg); border-radius: var(--radius-lg); margin-bottom: var(--space-xl); border: 1px solid rgba(75, 213, 238, 0.2);">
+                    <h3 style="color: var(--secondary); margin-bottom: var(--space-lg);">⚡ Force Experiences</h3>
+                    
+                    <div class="question-group">
+                        <div class="question">How often do you experience strong intuitive feelings?</div>
+                        <div class="options" style="grid-template-columns: repeat(4, 1fr);">
+                            <div class="option" :class="{ selected: intuition === 'never' }" @click="intuition = 'never'">Never</div>
+                            <div class="option" :class="{ selected: intuition === 'rarely' }" @click="intuition = 'rarely'">Rarely</div>
+                            <div class="option" :class="{ selected: intuition === 'sometimes' }" @click="intuition = 'sometimes'">Sometimes</div>
+                            <div class="option" :class="{ selected: intuition === 'often' }" @click="intuition = 'often'">Very Often</div>
+                        </div>
+                    </div>
+
+                    <div class="question-group">
+                        <div class="question">Can you remain calm in chaos?</div>
+                        <div class="options" style="grid-template-columns: repeat(4, 1fr);">
+                            <div class="option" :class="{ selected: emotionalControl === 'never' }" @click="emotionalControl = 'never'">Never</div>
+                            <div class="option" :class="{ selected: emotionalControl === 'sometimes' }" @click="emotionalControl = 'sometimes'">Sometimes</div>
+                            <div class="option" :class="{ selected: emotionalControl === 'usually' }" @click="emotionalControl = 'usually'">Usually</div>
+                            <div class="option" :class="{ selected: emotionalControl === 'always' }" @click="emotionalControl = 'always'">Always</div>
+                        </div>
+                    </div>
+
+                    <div class="question-group">
+                        <div class="question">Do you believe in destiny?</div>
+                        <div class="options" style="grid-template-columns: repeat(4, 1fr);">
+                            <div class="option" :class="{ selected: destinyBelief === 'not' }" @click="destinyBelief = 'not'">Not at all</div>
+                            <div class="option" :class="{ selected: destinyBelief === 'somewhat' }" @click="destinyBelief = 'somewhat'">Somewhat</div>
+                            <div class="option" :class="{ selected: destinyBelief === 'strongly' }" @click="destinyBelief = 'strongly'">Strongly</div>
+                            <div class="option" :class="{ selected: destinyBelief === 'absolutely' }" @click="destinyBelief = 'absolutely'">Absolutely</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; color: var(--text-muted); margin-bottom: var(--space-lg);">
+                    <p>Assessment Progress: <strong x-text="progressPercentage + '%'"></strong></p>
+                    <div style="height: 4px; background: rgba(255, 255, 255, 0.1); border-radius: 2px; margin: var(--space-sm) 0;">
+                        <div style="height: 100%; background: linear-gradient(90deg, var(--primary), var(--secondary)); border-radius: 2px; transition: width 0.3s ease;" :style="`width: ${progressPercentage}%`"></div>
+                    </div>
+                </div>
+
+                <button class="action-btn" @click="calculate()" :disabled="!isValid || isLoading" style="width: 100%;">
+                    <span x-show="!isLoading">🔮 Calculate Force Sensitivity</span>
+                    <span x-show="isLoading">Analyzing Your Force Signature...</span>
+                    <span x-show="isLoading" class="loading-spinner"></span>
+                </button>
+            </div>
+
+            <!-- Results Tab -->
+            <div x-show="activeTab === 'results'" x-transition>
+                <div class="results-container">
+                    <!-- Midichlorian Display -->
+                    <div style="grid-column: 1 / -1; background: rgba(255, 232, 31, 0.05); border-radius: var(--radius-xl); padding: var(--space-xl); text-align: center; border: 1px solid rgba(255, 232, 31, 0.2);">
+                        <h2>Your Midichlorian Count</h2>
+                        <div class="count-animation" x-text="midichlorianCount + ' mc/μL'"></div>
+                        <p x-text="countDescription"></p>
+                    </div>
+
+                    <!-- Force Potential -->
+                    <div style="background: rgba(75, 213, 238, 0.05); border-radius: var(--radius-xl); padding: var(--space-xl); border: 1px solid rgba(75, 213, 238, 0.2);">
+                        <h3>Force Potential</h3>
+                        <h4 style="color: var(--secondary); margin-bottom: var(--space-md);" x-text="forcePotential.title"></h4>
+                        <div class="potential-meter">
+                            <div class="potential-fill" :style="`--meter-width: ${potentialPercentage}%;`"></div>
+                        </div>
+                        <p x-text="forcePotential.description"></p>
+                    </div>
+
+                    <!-- Force Alignment -->
+                    <div style="background: rgba(255, 255, 255, 0.05); border-radius: var(--radius-xl); padding: var(--space-xl); border: 1px solid rgba(255, 255, 255, 0.1);">
+                        <h3 style="color: var(--text); margin-bottom: var(--space-lg);">Force Alignment</h3>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-sm); font-size: 0.9rem; opacity: 0.8;">
+                            <span>🔴 Dark Side</span>
+                            <span>⚖️ Balanced</span>
+                            <span>🔵 Light Side</span>
+                        </div>
+                        <div style="position: relative; height: 60px; background: linear-gradient(90deg, var(--accent), rgba(255, 255, 255, 0.2), var(--secondary)); border-radius: 30px; margin: var(--space-lg) 0;">
+                            <div style="position: absolute; width: 40px; height: 40px; background: var(--primary); border-radius: 50%; top: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; transition: left 1s ease-out; box-shadow: var(--glow-primary);" :style="`left: calc(${alignment}% - 20px)`">⭐</div>
+                        </div>
+                        <p style="text-align: center; font-weight: 600;" x-text="alignmentText"></p>
+                    </div>
+
+                    <!-- Character Comparison -->
+                    <div style="grid-column: 1 / -1; background: rgba(255, 255, 255, 0.05); border-radius: var(--radius-xl); padding: var(--space-xl); border: 1px solid rgba(255, 255, 255, 0.1); margin-top: var(--space-xl);">
+                        <h3 style="text-align: center; color: var(--primary); margin-bottom: var(--space-xl);">How You Rank Among Force Users</h3>
+                        <div class="character-grid">
+                            <template x-for="character in characters" :key="character.name">
+                                <div class="character-card" :class="{ highlighted: character.isPlayer }">
+                                    <div class="character-name" x-text="character.name"></div>
+                                    <div class="character-count" x-text="character.count + ' mc/μL'"></div>
+                                    <div class="character-description" x-text="character.description"></div>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div style="grid-column: 1 / -1; display: flex; gap: var(--space-lg); justify-content: center; flex-wrap: wrap; margin-top: var(--space-xl);">
+                        <button class="action-btn">
+                            <span>📊</span>
+                            <span>Download Report</span>
+                        </button>
+                        <button class="action-btn secondary">
+                            <span>📤</span>
+                            <span>Share Results</span>
+                        </button>
+                        <button class="action-btn accent" @click="resetTest()">
+                            <span>🔄</span>
+                            <span>Retake Test</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lore Tab -->
+            <div x-show="activeTab === 'lore'" x-transition>
+                <div style="max-width: 800px; margin: 0 auto;">
+                    <h2 style="text-align: center; color: var(--primary); margin-bottom: var(--space-xl);">The Science of the Force</h2>
+                    
+                    <div style="background: rgba(255, 232, 31, 0.05); padding: var(--space-xl); border-radius: var(--radius-lg); margin-bottom: var(--space-xl); border: 1px solid rgba(255, 232, 31, 0.2);">
+                        <h3 style="color: var(--primary); margin-bottom: var(--space-md);">🔬 What are Midichlorians?</h3>
+                        <p style="line-height: 1.6; margin-bottom: var(--space-md);">
+                            Midichlorians are microscopic life forms that reside within the cells of all living beings. 
+                            They are the conduit between the living Force and the cosmic Force, allowing Force-sensitive 
+                            individuals to access and manipulate the energy field that binds the galaxy together.
+                        </p>
+                        <p style="line-height: 1.6;">
+                            The higher your midichlorian count, the stronger your potential connection to the Force. 
+                            However, raw power means nothing without proper training and wisdom.
+                        </p>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg); margin-bottom: var(--space-xl);">
+                        <div style="background: rgba(75, 213, 238, 0.05); padding: var(--space-lg); border-radius: var(--radius-lg); border: 1px solid rgba(75, 213, 238, 0.2);">
+                            <h4 style="color: var(--secondary); margin-bottom: var(--space-md);">🌟 Light Side Philosophy</h4>
+                            <p style="font-size: 0.9rem; line-height: 1.5;">
+                                The Jedi seek balance, peace, and harmony. They use the Force for knowledge and defense, 
+                                never for attack. Emotion leads to the dark side - serenity and wisdom guide the Light.
+                            </p>
+                        </div>
+                        <div style="background: rgba(255, 0, 0, 0.05); padding: var(--space-lg); border-radius: var(--radius-lg); border: 1px solid rgba(255, 0, 0, 0.2);">
+                            <h4 style="color: var(--accent); margin-bottom: var(--space-md);">⚡ Dark Side Philosophy</h4>
+                            <p style="font-size: 0.9rem; line-height: 1.5;">
+                                The Sith embrace passion and emotion as sources of power. Through strength and victory, 
+                                they break their chains. The Dark Side offers quick power but demands a terrible price.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div style="background: rgba(255, 255, 255, 0.05); padding: var(--space-xl); border-radius: var(--radius-lg); border: 1px solid rgba(255, 255, 255, 0.1);">
+                        <h3 style="color: var(--text); margin-bottom: var(--space-lg);">📊 Force Sensitivity Scale</h3>
+                        <div style="display: grid; gap: var(--space-md);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: var(--space-sm); background: rgba(255, 255, 255, 0.03); border-radius: var(--radius-sm);">
+                                <span>Basic Sensitivity</span>
+                                <span style="color: var(--text-muted);">2,500 - 5,000 mc/μL</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: var(--space-sm); background: rgba(255, 255, 255, 0.03); border-radius: var(--radius-sm);">
+                                <span>Padawan Level</span>
+                                <span style="color: var(--secondary);">5,000 - 10,000 mc/μL</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: var(--space-sm); background: rgba(255, 255, 255, 0.03); border-radius: var(--radius-sm);">
+                                <span>Knight Level</span>
+                                <span style="color: var(--primary);">10,000 - 15,000 mc/μL</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: var(--space-sm); background: rgba(255, 255, 255, 0.03); border-radius: var(--radius-sm);">
+                                <span>Master Level</span>
+                                <span style="color: var(--primary);">15,000 - 20,000 mc/μL</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: var(--space-sm); background: rgba(255, 232, 31, 0.1); border-radius: var(--radius-sm); border: 1px solid rgba(255, 232, 31, 0.3);">
+                                <span><strong>Chosen One Level</strong></span>
+                                <span style="color: var(--primary);"><strong>20,000+ mc/μL</strong></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mobile Navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            const navToggle = document.querySelector('.nav-toggle');
+            const navLinks = document.querySelector('.nav-links');
+
+            navToggle.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+                this.classList.toggle('active');
+            });
+
+            document.addEventListener('click', function(event) {
+                if (!event.target.closest('.nav-container')) {
+                    navLinks.classList.remove('active');
+                    navToggle.classList.remove('active');
+                }
+            });
+        });
+
+        // Force Calculator
+        function forceCalculator() {
+            return {
+                activeTab: 'calculator',
+                lineage: 'random',
+                training: 'untrained',
+                intuition: '',
+                emotionalControl: '',
+                destinyBelief: '',
+                midichlorianCount: 0,
+                forcePotential: { title: '', description: '' },
+                alignment: 50,
+                isLoading: false,
+                hasResults: false,
+
+                get progressPercentage() {
+                    const fields = [
+                        this.lineage !== 'random',
+                        this.training !== 'untrained',
+                        !!this.intuition,
+                        !!this.emotionalControl,
+                        !!this.destinyBelief
+                    ];
+                    const completed = fields.filter(Boolean).length;
+                    return Math.round((completed / fields.length) * 100);
+                },
+
+                get isValid() {
+                    return this.intuition && this.emotionalControl && this.destinyBelief;
+                },
+
+                get countDescription() {
+                    if (this.midichlorianCount > 20000) {
+                        return "Extraordinary! Your count rivals the legendary Chosen One.";
+                    } else if (this.midichlorianCount > 15000) {
+                        return "Exceptional Force sensitivity - Master level potential.";
+                    } else if (this.midichlorianCount > 10000) {
+                        return "Strong Force connection - Knight level abilities.";
+                    } else if (this.midichlorianCount > 5000) {
+                        return "Good Force sensitivity - Padawan level potential.";
+                    } else {
+                        return "Basic Force awareness - training will unlock your potential.";
+                    }
+                },
+
+                get potentialPercentage() {
+                    return Math.min(100, (this.midichlorianCount / 30000) * 100);
+                },
+
+                get alignmentText() {
+                    if (this.alignment > 75) {
+                        return "Strong connection to the Light Side";
+                    } else if (this.alignment > 60) {
+                        return "Leaning towards the Light Side";
+                    } else if (this.alignment > 40) {
+                        return "Balanced in the Force";
+                    } else if (this.alignment > 25) {
+                        return "Leaning towards the Dark Side";
+                    } else {
+                        return "Strong connection to the Dark Side";
+                    }
+                },
+
+                get characters() {
+                    const baseCharacters = [
+                        { name: "Luke Skywalker", count: 14500, description: "The legendary Jedi who restored balance", isPlayer: false },
+                        { name: "Obi-Wan Kenobi", count: 13400, description: "Master of defensive lightsaber combat", isPlayer: false },
+                        { name: "Yoda", count: 17700, description: "Grand Master of the Jedi Order", isPlayer: false },
+                        { name: "Anakin Skywalker", count: 27700, description: "The Chosen One", isPlayer: false },
+                        { name: "Emperor Palpatine", count: 20500, description: "Dark Lord of the Sith", isPlayer: false },
+                        { name: "Mace Windu", count: 16800, description: "Master of Vaapad lightsaber form", isPlayer: false }
+                    ];
+
+                    if (this.hasResults) {
+                        const playerCharacter = {
+                            name: "You",
+                            count: this.midichlorianCount,
+                            description: "Your Force potential",
+                            isPlayer: true
+                        };
+                        return [...baseCharacters, playerCharacter].sort((a, b) => b.count - a.count);
+                    }
+
+                    return baseCharacters;
+                },
+
+                calculate() {
+                    this.isLoading = true;
+
+                    setTimeout(() => {
+                        // Enhanced calculation
+                        let count = 3000 + Math.random() * 2000;
+
+                        // Lineage modifiers
+                        const lineageModifiers = {
+                            skywalker: 2.2,
+                            kenobi: 1.8,
+                            palpatine: 2.0,
+                            windu: 1.6,
+                            yoda: 1.9,
+                            random: 1.0
+                        };
+
+                        // Training modifiers
+                        const trainingModifiers = {
+                            untrained: 1.0,
+                            padawan: 1.4,
+                            knight: 1.8,
+                            master: 2.2
+                        };
+
+                        // Experience modifiers
+                        const intuitionModifiers = {
+                            never: 0.7,
+                            rarely: 0.9,
+                            sometimes: 1.1,
+                            often: 1.4
+                        };
+
+                        const emotionalModifiers = {
+                            never: 0.8,
+                            sometimes: 1.0,
+                            usually: 1.2,
+                            always: 1.4
+                        };
+
+                        const destinyModifiers = {
+                            not: 0.9,
+                            somewhat: 1.0,
+                            strongly: 1.2,
+                            absolutely: 1.3
+                        };
+
+                        // Apply modifiers
+                        count *= lineageModifiers[this.lineage] || 1.0;
+                        count *= trainingModifiers[this.training] || 1.0;
+                        count *= intuitionModifiers[this.intuition] || 1.0;
+                        count *= emotionalModifiers[this.emotionalControl] || 1.0;
+                        count *= destinyModifiers[this.destinyBelief] || 1.0;
+
+                        this.midichlorianCount = Math.round(count / 100) * 100;
+
+                        // Set potential
+                        if (this.midichlorianCount > 20000) {
+                            this.forcePotential = {
+                                title: "The Chosen One",
+                                description: "Your midichlorian count is legendary! The prophecies speak of one such as you."
+                            };
+                        } else if (this.midichlorianCount > 15000) {
+                            this.forcePotential = {
+                                title: "Jedi Master",
+                                description: "You possess the potential to become a powerful Jedi Master, capable of advanced Force techniques."
+                            };
+                        } else if (this.midichlorianCount > 10000) {
+                            this.forcePotential = {
+                                title: "Jedi Knight",
+                                description: "Strong Force sensitivity flows through you. With proper training, you could become a respected Knight."
+                            };
+                        } else if (this.midichlorianCount > 5000) {
+                            this.forcePotential = {
+                                title: "Padawan Learner",
+                                description: "You have a good connection to the Force. Under guidance, you could develop significant abilities."
+                            };
+                        } else {
+                            this.forcePotential = {
+                                title: "Force Sensitive",
+                                description: "You have a basic connection to the Force. With dedication, you can unlock your potential."
+                            };
+                        }
+
+                        // Calculate alignment
+                        this.alignment = 50;
+                        if (this.emotionalControl === 'always') this.alignment += 20;
+                        if (this.emotionalControl === 'never') this.alignment -= 20;
+                        if (this.lineage === 'palpatine') this.alignment -= 15;
+                        if (this.lineage === 'kenobi') this.alignment += 15;
+                        if (this.destinyBelief === 'absolutely') this.alignment += 10;
+                        
+                        this.alignment = Math.max(0, Math.min(100, this.alignment));
+
+                        this.hasResults = true;
+                        this.isLoading = false;
+                        this.activeTab = 'results';
+                    }, 2000);
+                },
+
+                resetTest() {
+                    this.activeTab = 'calculator';
+                    this.lineage = 'random';
+                    this.training = 'untrained';
+                    this.intuition = '';
+                    this.emotionalControl = '';
+                    this.destinyBelief = '';
+                    this.hasResults = false;
+                    this.midichlorianCount = 0;
+                    this.alignment = 50;
+                }
+            }
+        }
+    </script>
+</body>
+</html>

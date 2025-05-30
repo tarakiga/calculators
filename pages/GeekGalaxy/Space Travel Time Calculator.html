@@ -4,6 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Space Travel Time Calculator | Geek Galaxy</title>
+    
+    <!-- Enhanced Social Media Meta Tags -->
+    <meta property="og:title" content="Space Travel Time Calculator | Plan Your Interstellar Journey">
+    <meta property="og:description" content="Calculate travel times to destinations across the galaxy using real spacecraft and Star Trek ships. From SpaceX to USS Enterprise!">
+    <meta property="og:image" content="https://docket.one/social-preview.jpg">
+    <meta property="og:url" content="https://docket.one/pages/GeekGalaxy/Space%20Travel%20Time%20Calculator.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Docket One Calculators">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Space Travel Time Calculator">
+    <meta name="twitter:description" content="Calculate travel times across the galaxy using SpaceX, Star Trek ships, and more!">
+    <meta name="twitter:image" content="https://docket.one/social-preview.jpg">
+    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../common/navbar-enhanced.css">
     <link rel="stylesheet" href="../../common/santa-improvements.css">
@@ -160,6 +174,85 @@
             margin-bottom: 1rem;
         }
         
+        /* Share Button Styles */
+        .share-button {
+            background: linear-gradient(135deg, var(--nebula-purple), var(--space-blue));
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+        }
+        
+        .share-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+        }
+        
+        .share-button:active {
+            transform: translateY(0);
+        }
+        
+        .share-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .share-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--space-dark);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: var(--radius);
+            padding: 0.5rem;
+            margin-top: 0.5rem;
+            min-width: 200px;
+            z-index: 1000;
+            display: none;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .share-menu.active {
+            display: block;
+        }
+        
+        .share-option {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text);
+            text-decoration: none;
+        }
+        
+        .share-option:hover {
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--space-blue);
+        }
+        
+        .share-icon {
+            width: 20px;
+            height: 20px;
+            font-size: 1.2rem;
+        }
+        
+        /* Hidden canvas for image generation */
+        #shareCanvas {
+            display: none;
+        }
+        
         @media (max-width: 1024px) {
             .calculator-grid { grid-template-columns: 1fr; }
         }
@@ -281,6 +374,44 @@
                                 <span style="color: var(--space-blue);" x-text="formatTime(travelTime * 2)"></span>
                             </div>
                         </div>
+                        
+                        <!-- Share Button -->
+                        <div class="share-dropdown">
+                            <button class="share-button" @click="toggleShareMenu()">
+                                <span>🚀</span>
+                                <span>Share Journey</span>
+                            </button>
+                            <div class="share-menu" :class="{ active: showShareMenu }">
+                                <a class="share-option" @click="shareGeneral()" href="#" @click.prevent>
+                                    <span class="share-icon">📱</span>
+                                    <span>Share with Image</span>
+                                </a>
+                                <a class="share-option" @click="shareOnTwitter()" href="#" @click.prevent>
+                                    <span class="share-icon">🐦</span>
+                                    <span>Share on Twitter</span>
+                                </a>
+                                <a class="share-option" @click="shareOnFacebook()" href="#" @click.prevent>
+                                    <span class="share-icon">📘</span>
+                                    <span>Share on Facebook</span>
+                                </a>
+                                <a class="share-option" @click="shareOnLinkedIn()" href="#" @click.prevent>
+                                    <span class="share-icon">💼</span>
+                                    <span>Share on LinkedIn</span>
+                                </a>
+                                <a class="share-option" @click="shareOnReddit()" href="#" @click.prevent>
+                                    <span class="share-icon">🤖</span>
+                                    <span>Share on Reddit</span>
+                                </a>
+                                <a class="share-option" @click="copyShareLink()" href="#" @click.prevent>
+                                    <span class="share-icon">🔗</span>
+                                    <span>Copy Link</span>
+                                </a>
+                                <a class="share-option" @click="downloadImage()" href="#" @click.prevent>
+                                    <span class="share-icon">💾</span>
+                                    <span>Download Image</span>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -291,6 +422,9 @@
         </div>
     </main>
     
+    <!-- Hidden canvas for generating share images -->
+    <canvas id="shareCanvas" width="1200" height="630"></canvas>
+    
     <script>
         function spaceCalculator() {
             return {
@@ -299,6 +433,7 @@
                 travelTime: 0,
                 currentSpeed: 0,
                 currentDistance: 0,
+                showShareMenu: false,
                 
                 destinations: {
                     'moon': {
@@ -394,10 +529,55 @@
                         speed: 900,
                         speedDisplay: '900 km/h'
                     },
+                    'blue-origin': {
+                        name: 'Blue Origin New Shepard',
+                        speed: 3600,
+                        speedDisplay: '3,600 km/h'
+                    },
+                    'spacex-dragon': {
+                        name: 'SpaceX Dragon',
+                        speed: 27600,
+                        speedDisplay: '27,600 km/h'
+                    },
+                    'spacex-starship': {
+                        name: 'SpaceX Starship',
+                        speed: 28000,
+                        speedDisplay: '28,000 km/h'
+                    },
                     'chemical': {
                         name: 'Chemical Rocket',
                         speed: 40000,
                         speedDisplay: '40,000 km/h'
+                    },
+                    'enterprise-nx01': {
+                        name: 'Enterprise NX-01 (Warp 5)',
+                        speed: 5397763406,
+                        speedDisplay: 'Warp 5 (125x Light Speed)'
+                    },
+                    'enterprise-1701': {
+                        name: 'USS Enterprise NCC-1701 (Warp 8)',
+                        speed: 55834574327,
+                        speedDisplay: 'Warp 8 (512x Light Speed)'
+                    },
+                    'enterprise-d': {
+                        name: 'Enterprise-D (Warp 9.6)',
+                        speed: 180776156663,
+                        speedDisplay: 'Warp 9.6 (1,649x Light Speed)'
+                    },
+                    'voyager': {
+                        name: 'USS Voyager (Warp 9.975)',
+                        speed: 863013247550,
+                        speedDisplay: 'Warp 9.975 (7,912x Light Speed)'
+                    },
+                    'defiant': {
+                        name: 'USS Defiant (Warp 9.5)',
+                        speed: 129659643770,
+                        speedDisplay: 'Warp 9.5 (1,190x Light Speed)'
+                    },
+                    'borg-cube': {
+                        name: 'Borg Cube (Transwarp)',
+                        speed: 2158765619,
+                        speedDisplay: 'Transwarp (20,000x Light Speed)'
                     },
                     'ion': {
                         name: 'Ion Drive',
@@ -449,7 +629,16 @@
                     const efficiencyMap = {
                         'car': 0.1,
                         'jet': 0.2,
+                        'blue-origin': 0.4,
+                        'spacex-dragon': 0.55,
+                        'spacex-starship': 0.58,
                         'chemical': 0.6,
+                        'enterprise-nx01': 0.85,
+                        'enterprise-1701': 0.9,
+                        'enterprise-d': 0.95,
+                        'voyager': 0.97,
+                        'defiant': 0.93,
+                        'borg-cube': 0.99,
                         'ion': 0.8,
                         'fusion': 0.9,
                         'light': 1.0
@@ -528,6 +717,342 @@
                             return (lightYears / 1000000).toFixed(1) + 'M light-years';
                         }
                     }
+                },
+                
+                // Sharing functionality
+                toggleShareMenu() {
+                    this.showShareMenu = !this.showShareMenu;
+                },
+                
+                generateShareText() {
+                    const destination = this.destinations[this.selectedDestination];
+                    const propulsion = this.propulsionSystems[this.selectedPropulsion];
+                    const travelTime = this.formatTime(this.travelTime);
+                    const fuel = this.formatFuel(this.calculateFuel());
+                    
+                    return `🚀 Space Journey: ${destination.name} using ${propulsion.name} = ${travelTime} travel time & ${fuel} fuel! Plan your interstellar mission at docket.one`;
+                },
+                
+                generateShareImage() {
+                    const canvas = document.getElementById('shareCanvas');
+                    const ctx = canvas.getContext('2d');
+                    
+                    // Set canvas dimensions for optimal social media sharing
+                    canvas.width = 1200;
+                    canvas.height = 630;
+                    
+                    // Create gradient background
+                    const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+                    gradient.addColorStop(0, '#0a0a0f');
+                    gradient.addColorStop(0.3, '#1a1a2e');
+                    gradient.addColorStop(0.7, '#1a1a2e');
+                    gradient.addColorStop(1, '#0a0a0f');
+                    ctx.fillStyle = gradient;
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    
+                    // Add stars background
+                    ctx.fillStyle = '#ffffff';
+                    for (let i = 0; i < 150; i++) {
+                        const x = Math.random() * canvas.width;
+                        const y = Math.random() * canvas.height;
+                        const size = Math.random() * 2 + 0.5;
+                        ctx.beginPath();
+                        ctx.arc(x, y, size, 0, 2 * Math.PI);
+                        ctx.fill();
+                    }
+                    
+                    // Add some larger stars
+                    ctx.fillStyle = '#00d4ff';
+                    for (let i = 0; i < 20; i++) {
+                        const x = Math.random() * canvas.width;
+                        const y = Math.random() * canvas.height;
+                        const size = Math.random() * 1.5 + 1;
+                        ctx.beginPath();
+                        ctx.arc(x, y, size, 0, 2 * Math.PI);
+                        ctx.fill();
+                    }
+                    
+                    // Title
+                    ctx.fillStyle = '#00d4ff';
+                    ctx.font = 'bold 40px Inter, sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('SPACE TRAVEL TIME CALCULATOR', canvas.width / 2, 50);
+                    
+                    // Get current mission data
+                    const destination = this.destinations[this.selectedDestination];
+                    const propulsion = this.propulsionSystems[this.selectedPropulsion];
+                    const fuel = this.formatFuel(this.calculateFuel());
+                    
+                    // Create two-column layout for mission details
+                    const leftColumnX = 300;
+                    const rightColumnX = 900;
+                    const startY = 120;
+                    
+                    // Left Column - Destination Info
+                    ctx.fillStyle = '#8b5cf6';
+                    ctx.font = 'bold 28px Inter, sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('DESTINATION', leftColumnX, startY);
+                    
+                    // Destination emoji (larger)
+                    ctx.font = '80px Inter, sans-serif';
+                    ctx.fillText(destination.emoji, leftColumnX, startY + 80);
+                    
+                    ctx.fillStyle = '#ffffff';
+                    ctx.font = 'bold 32px Inter, sans-serif';
+                    ctx.fillText(destination.name, leftColumnX, startY + 130);
+                    
+                    ctx.fillStyle = '#94a3b8';
+                    ctx.font = '20px Inter, sans-serif';
+                    ctx.fillText(destination.distance, leftColumnX, startY + 160);
+                    
+                    // Right Column - Mission Details
+                    ctx.fillStyle = '#fbbf24';
+                    ctx.font = 'bold 28px Inter, sans-serif';
+                    ctx.fillText('MISSION DETAILS', rightColumnX, startY);
+                    
+                    // Mission details with icons
+                    const detailsY = startY + 50;
+                    const lineHeight = 35;
+                    ctx.textAlign = 'left';
+                    ctx.font = '22px Inter, sans-serif';
+                    
+                    // Propulsion
+                    ctx.fillStyle = '#00d4ff';
+                    ctx.fillText('🚀 Propulsion:', rightColumnX - 150, detailsY + lineHeight);
+                    ctx.fillStyle = '#ffffff';
+                    ctx.font = '20px Inter, sans-serif';
+                    ctx.fillText(propulsion.name, rightColumnX - 150, detailsY + lineHeight + 25);
+                    
+                    // Travel Time (highlighted)
+                    ctx.fillStyle = '#00d4ff';
+                    ctx.font = '22px Inter, sans-serif';
+                    ctx.fillText('⏱️ Travel Time:', rightColumnX - 150, detailsY + lineHeight * 3);
+                    ctx.fillStyle = '#fbbf24';
+                    ctx.font = 'bold 28px Inter, sans-serif';
+                    ctx.fillText(this.formatTime(this.travelTime), rightColumnX - 150, detailsY + lineHeight * 3 + 30);
+                    
+                    // Speed
+                    ctx.fillStyle = '#00d4ff';
+                    ctx.font = '22px Inter, sans-serif';
+                    ctx.fillText('⚡ Speed:', rightColumnX - 150, detailsY + lineHeight * 5);
+                    ctx.fillStyle = '#ffffff';
+                    ctx.font = '20px Inter, sans-serif';
+                    ctx.fillText(this.formatSpeed(this.currentSpeed), rightColumnX - 150, detailsY + lineHeight * 5 + 25);
+                    
+                    // Fuel Required
+                    ctx.fillStyle = '#00d4ff';
+                    ctx.font = '22px Inter, sans-serif';
+                    ctx.fillText('⛽ Fuel Required:', rightColumnX - 150, detailsY + lineHeight * 7);
+                    ctx.fillStyle = '#ffffff';
+                    ctx.font = '20px Inter, sans-serif';
+                    ctx.fillText(fuel, rightColumnX - 150, detailsY + lineHeight * 7 + 25);
+                    
+                    // Round Trip
+                    ctx.fillStyle = '#00d4ff';
+                    ctx.font = '22px Inter, sans-serif';
+                    ctx.fillText('🔄 Round Trip:', rightColumnX - 150, detailsY + lineHeight * 9);
+                    ctx.fillStyle = '#8b5cf6';
+                    ctx.font = 'bold 24px Inter, sans-serif';
+                    ctx.fillText(this.formatTime(this.travelTime * 2), rightColumnX - 150, detailsY + lineHeight * 9 + 25);
+                    
+                    // Bottom section - Call to Action
+                    ctx.fillStyle = '#00d4ff';
+                    ctx.font = 'bold 24px Inter, sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('Calculate your own space journey!', canvas.width / 2, 560);
+                    
+                    // Website URL
+                    ctx.fillStyle = '#fbbf24';
+                    ctx.font = '20px Inter, sans-serif';
+                    ctx.fillText('docket.one/pages/GeekGalaxy/Space Travel Time Calculator', canvas.width / 2, 590);
+                    
+                    return canvas.toDataURL('image/png');
+                },
+                
+                // Enhanced sharing functionality with automatic image inclusion
+                async shareOnTwitter() {
+                    const text = this.generateShareText();
+                    const calculatorUrl = 'https://docket.one/pages/GeekGalaxy/Space%20Travel%20Time%20Calculator.html';
+                    
+                    // Check if Web Share API is supported (mobile devices)
+                    if (navigator.share && navigator.canShare) {
+                        try {
+                            // Generate and convert image to blob for native sharing
+                            const imageDataUrl = this.generateShareImage();
+                            const response = await fetch(imageDataUrl);
+                            const blob = await response.blob();
+                            const file = new File([blob], `space-journey-${this.selectedDestination}.png`, { type: 'image/png' });
+                            
+                            if (navigator.canShare({ files: [file] })) {
+                                await navigator.share({
+                                    title: 'Space Travel Time Calculator',
+                                    text: text,
+                                    url: calculatorUrl,
+                                    files: [file]
+                                });
+                                this.showShareMenu = false;
+                                return;
+                            }
+                        } catch (err) {
+                            console.log('Native sharing failed, falling back to Twitter web');
+                        }
+                    }
+                    
+                    // Fallback: Open Twitter with text and URL (image will be from OpenGraph)
+                    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(calculatorUrl)}`;
+                    window.open(twitterUrl, '_blank');
+                    this.showShareMenu = false;
+                },
+                
+                async shareOnFacebook() {
+                    const calculatorUrl = 'https://docket.one/pages/GeekGalaxy/Space%20Travel%20Time%20Calculator.html';
+                    const text = this.generateShareText();
+                    
+                    // Check if Web Share API is supported
+                    if (navigator.share && navigator.canShare) {
+                        try {
+                            const imageDataUrl = this.generateShareImage();
+                            const response = await fetch(imageDataUrl);
+                            const blob = await response.blob();
+                            const file = new File([blob], `space-journey-${this.selectedDestination}.png`, { type: 'image/png' });
+                            
+                            if (navigator.canShare({ files: [file] })) {
+                                await navigator.share({
+                                    title: 'Space Travel Time Calculator',
+                                    text: text,
+                                    url: calculatorUrl,
+                                    files: [file]
+                                });
+                                this.showShareMenu = false;
+                                return;
+                            }
+                        } catch (err) {
+                            console.log('Native sharing failed, falling back to Facebook web');
+                        }
+                    }
+                    
+                    // Fallback: Facebook sharing (will use OpenGraph meta tags for image)
+                    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(calculatorUrl)}&quote=${encodeURIComponent(text)}`;
+                    window.open(facebookUrl, '_blank');
+                    this.showShareMenu = false;
+                },
+                
+                async shareOnLinkedIn() {
+                    const text = this.generateShareText();
+                    const calculatorUrl = 'https://docket.one/pages/GeekGalaxy/Space%20Travel%20Time%20Calculator.html';
+                    
+                    // Check if Web Share API is supported
+                    if (navigator.share && navigator.canShare) {
+                        try {
+                            const imageDataUrl = this.generateShareImage();
+                            const response = await fetch(imageDataUrl);
+                            const blob = await response.blob();
+                            const file = new File([blob], `space-journey-${this.selectedDestination}.png`, { type: 'image/png' });
+                            
+                            if (navigator.canShare({ files: [file] })) {
+                                await navigator.share({
+                                    title: 'Space Travel Time Calculator',
+                                    text: text,
+                                    url: calculatorUrl,
+                                    files: [file]
+                                });
+                                this.showShareMenu = false;
+                                return;
+                            }
+                        } catch (err) {
+                            console.log('Native sharing failed, falling back to LinkedIn web');
+                        }
+                    }
+                    
+                    // Fallback: LinkedIn sharing
+                    const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(calculatorUrl)}&summary=${encodeURIComponent(text)}`;
+                    window.open(linkedInUrl, '_blank');
+                    this.showShareMenu = false;
+                },
+                
+                async shareGeneral() {
+                    const text = this.generateShareText();
+                    const calculatorUrl = 'https://docket.one/pages/GeekGalaxy/Space%20Travel%20Time%20Calculator.html';
+                    
+                    // Try Web Share API first (works great on mobile)
+                    if (navigator.share) {
+                        try {
+                            const imageDataUrl = this.generateShareImage();
+                            const response = await fetch(imageDataUrl);
+                            const blob = await response.blob();
+                            const file = new File([blob], `space-journey-${this.selectedDestination}-${this.selectedPropulsion}.png`, { type: 'image/png' });
+                            
+                            // Check if the device can share files
+                            if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                                await navigator.share({
+                                    title: 'Space Travel Time Calculator - Mission Brief',
+                                    text: text,
+                                    url: calculatorUrl,
+                                    files: [file]
+                                });
+                            } else {
+                                // Share without file if files aren't supported
+                                await navigator.share({
+                                    title: 'Space Travel Time Calculator',
+                                    text: text,
+                                    url: calculatorUrl
+                                });
+                            }
+                            this.showShareMenu = false;
+                            return;
+                        } catch (err) {
+                            if (err.name !== 'AbortError') {
+                                console.log('Web Share API failed:', err);
+                            }
+                        }
+                    }
+                    
+                    // Fallback: Copy to clipboard and show instructions
+                    try {
+                        await navigator.clipboard.writeText(`${text} ${calculatorUrl}`);
+                        alert('✅ Mission details copied to clipboard!\n\nYou can now paste this into any social media platform. The image has been downloaded separately for you to attach.');
+                        this.downloadImage();
+                    } catch (err) {
+                        console.error('Clipboard failed:', err);
+                        alert('Please manually copy the mission details and download the image to share on your preferred platform.');
+                        this.downloadImage();
+                    }
+                    this.showShareMenu = false;
+                },
+                
+                shareOnReddit() {
+                    const text = this.generateShareText();
+                    const calculatorUrl = 'https://docket.one/pages/GeekGalaxy/Space%20Travel%20Time%20Calculator.html';
+                    const redditUrl = `https://reddit.com/submit?title=${encodeURIComponent(text)}&url=${encodeURIComponent(calculatorUrl)}`;
+                    window.open(redditUrl, '_blank');
+                    this.showShareMenu = false;
+                },
+                
+                async copyShareLink() {
+                    const calculatorUrl = 'https://docket.one/pages/GeekGalaxy/Space%20Travel%20Time%20Calculator.html';
+                    try {
+                        await navigator.clipboard.writeText(calculatorUrl);
+                        // Show temporary success message
+                        const button = document.querySelector('.share-button');
+                        const originalText = button.innerHTML;
+                        button.innerHTML = '<span>✅</span><span>Link Copied!</span>';
+                        setTimeout(() => {
+                            button.innerHTML = originalText;
+                        }, 2000);
+                    } catch (err) {
+                        console.error('Failed to copy link:', err);
+                    }
+                    this.showShareMenu = false;
+                },
+                
+                downloadImage() {
+                    const imageDataUrl = this.generateShareImage();
+                    const link = document.createElement('a');
+                    link.download = `space-journey-${this.selectedDestination}-${this.selectedPropulsion}.png`;
+                    link.href = imageDataUrl;
+                    link.click();
+                    this.showShareMenu = false;
                 }
             }
         }
@@ -551,6 +1076,14 @@
                     }
                 });
             }
+            
+            // Close share menu when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!event.target.closest('.share-dropdown')) {
+                    const shareMenus = document.querySelectorAll('.share-menu');
+                    shareMenus.forEach(menu => menu.classList.remove('active'));
+                }
+            });
         });
     </script>
 </body>
