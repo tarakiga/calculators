@@ -134,18 +134,6 @@
             text-align: center;
         }
         
-        .ogham-display::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            top: 1rem;
-            bottom: 1rem;
-            width: 3px;
-            background: var(--accent);
-            transform: translateX(-50%);
-            opacity: 0.3;
-        }
-        
         .ogham-text {
             font-size: 2rem;
             line-height: 1.8;
@@ -596,13 +584,6 @@
                         ctx.font = '16px serif';
                         ctx.fillStyle = '#666';
                         ctx.fillText('Ancient Irish Script (4th-6th Century CE)', canvas.width / 2, 95);
-                        
-                        ctx.strokeStyle = '#cd7f32';
-                        ctx.lineWidth = 4;
-                        ctx.beginPath();
-                        ctx.moveTo(canvas.width / 2, 120);
-                        ctx.lineTo(canvas.width / 2, 320);
-                        ctx.stroke();
                         
                         ctx.fillStyle = '#333';
                         ctx.font = 'bold 18px serif';

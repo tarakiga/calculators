@@ -439,45 +439,6 @@
             opacity: 0.8;
         }
         
-        /* Smart Recommendations */
-        .recommendations {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(139, 69, 19, 0.05));
-            border-radius: var(--radius-lg);
-            padding: var(--space-lg);
-            margin-top: var(--space-xl);
-            border: 1px solid rgba(16, 185, 129, 0.2);
-        }
-        
-        .recommendations-title {
-            font-size: 1.125rem;
-            font-weight: 600;
-            color: var(--coffee-dark);
-            margin-bottom: var(--space-md);
-            display: flex;
-            align-items: center;
-            gap: var(--space-sm);
-        }
-        
-        .recommendation-item {
-            display: flex;
-            align-items: flex-start;
-            gap: var(--space-sm);
-            margin-bottom: var(--space-md);
-            padding: var(--space-sm);
-            border-radius: var(--radius-sm);
-            background: rgba(255, 255, 255, 0.5);
-        }
-        
-        .recommendation-icon {
-            color: var(--success);
-            font-weight: bold;
-        }
-        
-        .recommendation-text {
-            font-size: 0.875rem;
-            color: var(--coffee-dark);
-        }
-        
         /* Animations */
         @keyframes fadeInUp {
             from {
@@ -709,41 +670,6 @@
                 <div class="milestones" id="milestones">
                     <!-- Populated by JavaScript -->
                 </div>
-                
-                <!-- Smart Recommendations -->
-                <div class="recommendations" id="recommendations">
-                    <h3 class="recommendations-title">
-                        <span>💡</span>
-                        Smart Recommendations
-                    </h3>
-                    <div id="recommendation-list">
-                        <!-- Populated by JavaScript -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>;" id="current-time">Live Updates</div>
-                    </div>
-                    <div class="chart-container">
-                        <canvas id="caffeineChart"></canvas>
-                    </div>
-                </div>
-                
-                <!-- Key Milestones -->
-                <div class="milestones" id="milestones">
-                    <!-- Populated by JavaScript -->
-                </div>
-                
-                <!-- Smart Recommendations -->
-                <div class="recommendations" id="recommendations">
-                    <h3 class="recommendations-title">
-                        <span>💡</span>
-                        Smart Recommendations
-                    </h3>
-                    <div id="recommendation-list">
-                        <!-- Populated by JavaScript -->
-                    </div>
-                </div>
             </div>
         </div>
     </main>
@@ -849,9 +775,6 @@
             
             // Generate milestones
             generateMilestones();
-            
-            // Generate recommendations
-            generateRecommendations();
             
             // Start real-time updates
             startRealTimeUpdates();
@@ -1065,81 +988,6 @@
             }
         }
         
-        // Generate smart recommendations
-        function generateRecommendations() {
-            const recommendationsList = document.getElementById('recommendation-list');
-            const recommendations = [];
-            
-            const currentCaffeine = calculateCaffeineAtTime(new Date());
-            const sleepGoal = calculationData.sleepGoal;
-            
-            // Sleep impact recommendation
-            if (sleepGoal) {
-                const sleepTime = new Date();
-                const [hours, minutes] = sleepGoal.split(':');
-                sleepTime.setHours(parseInt(hours), parseInt(minutes), 0, 0);
-                
-                // If sleep time is tomorrow
-                if (sleepTime <= new Date()) {
-                    sleepTime.setDate(sleepTime.getDate() + 1);
-                }
-                
-                const caffeineAtSleep = calculateCaffeineAtTime(sleepTime);
-                
-                if (caffeineAtSleep > 25) {
-                    recommendations.push({
-                        icon: '⚠️',
-                        text: `You'll have ${caffeineAtSleep.toFixed(1)}mg of caffeine at bedtime. This may affect your sleep quality.`
-                    });
-                } else {
-                    recommendations.push({
-                        icon: '✅',
-                        text: `Good news! You'll have minimal caffeine (${caffeineAtSleep.toFixed(1)}mg) at bedtime.`
-                    });
-                }
-            }
-            
-            // Hydration recommendation
-            recommendations.push({
-                icon: '💧',
-                text: 'Drink plenty of water to help metabolize caffeine and prevent dehydration.'
-            });
-            
-            // Next caffeine recommendation
-            const safeNextCaffeineTime = calculateTimeToReachLevel(50);
-            if (safeNextCaffeineTime > new Date()) {
-                recommendations.push({
-                    icon: '⏰',
-                    text: `Wait until ${formatTimeFromNow(safeNextCaffeineTime)} before your next caffeine for optimal effects.`
-                });
-            }
-            
-            // Daily limit warning
-            if (calculationData.initialAmount > 400) {
-                recommendations.push({
-                    icon: '🚨',
-                    text: 'This exceeds the recommended daily limit of 400mg. Consider reducing intake.'
-                });
-            }
-            
-            // Exercise recommendation
-            recommendations.push({
-                icon: '🏃‍♂️',
-                text: 'Light exercise can help metabolize caffeine faster and reduce jitters.'
-            });
-            
-            let recommendationsHTML = '';
-            recommendations.forEach(rec => {
-                recommendationsHTML += `
-                    <div class="recommendation-item">
-                        <div class="recommendation-icon">${rec.icon}</div>
-                        <div class="recommendation-text">${rec.text}</div>
-                    </div>
-                `;
-            });
-            
-            recommendationsList.innerHTML = recommendationsHTML;
-        }
         
         // Start real-time updates
         function startRealTimeUpdates() {

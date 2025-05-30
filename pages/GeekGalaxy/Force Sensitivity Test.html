@@ -6,6 +6,19 @@
     <title>Force Sensitivity Test (Midichlorian Calculator) | GeekGalaxy | Docket One</title>
     <meta name="description" content="Test your Force sensitivity and discover your midichlorian count. Calculate your potential as a Jedi or Sith based on your answers and lineage.">
 
+    <!-- Enhanced Social Media Meta Tags -->
+    <meta property="og:title" content="Force Sensitivity Test (Midichlorian Calculator) | GeekGalaxy | Docket One">
+    <meta property="og:description" content="Test your Force sensitivity and discover your midichlorian count. Calculate your potential as a Jedi or Sith based on your answers and lineage.">
+    <meta property="og:image" content="https://docket.one/social-preview.jpg">
+    <meta property="og:url" content="https://docket.one/pages/GeekGalaxy/Force%20Sensitivity%20Test.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Docket One Calculators">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Force Sensitivity Test - Midichlorian Calculator">
+    <meta name="twitter:description" content="Discover your midichlorian count and Force potential in the Star Wars universe">
+    <meta name="twitter:image" content="https://docket.one/social-preview.jpg">
+
     <!-- Required Dependencies -->
     <link rel="stylesheet" href="../../common/navbar-enhanced.css">
     <link rel="stylesheet" href="../../common/santa-improvements.css">
@@ -627,6 +640,78 @@
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
+        
+        /* Share Button Styles */
+        .share-button {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--background);
+            border: none;
+            border-radius: var(--radius-md);
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            box-shadow: var(--glow-primary);
+            width: 100%;
+            justify-content: center;
+        }
+
+        .share-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 232, 31, 0.4);
+        }
+
+        .share-dropdown {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .share-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--surface);
+            border: 1px solid rgba(255, 232, 31, 0.2);
+            border-radius: var(--radius-md);
+            padding: 0.5rem;
+            margin-top: 0.5rem;
+            z-index: 1000;
+            display: none;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .share-menu.active {
+            display: block;
+        }
+
+        .share-option {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .share-option:hover {
+            background: rgba(255, 232, 31, 0.1);
+            color: var(--primary);
+        }
+
+        /* Hidden canvas for image generation */
+        #shareCanvas {
+            display: none;
+        }
     </style>
 </head>
 
@@ -785,7 +870,7 @@
 
             <!-- Results Tab -->
             <div x-show="activeTab === 'results'" x-transition>
-                <div class="results-container">
+                <div class="results-container" x-show="hasResults">
                     <!-- Midichlorian Display -->
                     <div style="grid-column: 1 / -1; background: rgba(255, 232, 31, 0.05); border-radius: var(--radius-xl); padding: var(--space-xl); text-align: center; border: 1px solid rgba(255, 232, 31, 0.2);">
                         <h2>Your Midichlorian Count</h2>
@@ -837,14 +922,50 @@
                             <span>📊</span>
                             <span>Download Report</span>
                         </button>
-                        <button class="action-btn secondary">
-                            <span>📤</span>
-                            <span>Share Results</span>
-                        </button>
                         <button class="action-btn accent" @click="resetTest()">
                             <span>🔄</span>
                             <span>Retake Test</span>
                         </button>
+                    </div>
+
+                    <!-- Share Button -->
+                    <div style="grid-column: 1 / -1; margin-top: var(--space-xl);">
+                        <div class="share-dropdown">
+                            <button class="share-button" @click="toggleShareMenu()">
+                                <span>⭐</span>
+                                <span>Share Force Analysis</span>
+                            </button>
+                            <div class="share-menu" :class="{ active: showShareMenu }">
+                                <a class="share-option" @click="shareGeneral()" href="#" @click.prevent>
+                                    <span class="share-icon">📱</span>
+                                    <span>Share with Image</span>
+                                </a>
+                                <a class="share-option" @click="shareOnTwitter()" href="#" @click.prevent>
+                                    <span class="share-icon">🐦</span>
+                                    <span>Share on Twitter</span>
+                                </a>
+                                <a class="share-option" @click="shareOnFacebook()" href="#" @click.prevent>
+                                    <span class="share-icon">📘</span>
+                                    <span>Share on Facebook</span>
+                                </a>
+                                <a class="share-option" @click="shareOnLinkedIn()" href="#" @click.prevent>
+                                    <span class="share-icon">💼</span>
+                                    <span>Share on LinkedIn</span>
+                                </a>
+                                <a class="share-option" @click="shareOnReddit()" href="#" @click.prevent>
+                                    <span class="share-icon">🤖</span>
+                                    <span>Share on Reddit</span>
+                                </a>
+                                <a class="share-option" @click="copyShareLink()" href="#" @click.prevent>
+                                    <span class="share-icon">🔗</span>
+                                    <span>Copy Link</span>
+                                </a>
+                                <a class="share-option" @click="downloadImage()" href="#" @click.prevent>
+                                    <span class="share-icon">💾</span>
+                                    <span>Download Image</span>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -914,6 +1035,9 @@
         </div>
     </div>
 
+    <!-- Hidden canvas for generating share images -->
+    <canvas id="shareCanvas" width="1200" height="630"></canvas>
+
     <script>
         // Mobile Navigation
         document.addEventListener('DOMContentLoaded', function() {
@@ -929,6 +1053,12 @@
                 if (!event.target.closest('.nav-container')) {
                     navLinks.classList.remove('active');
                     navToggle.classList.remove('active');
+                }
+                
+                // Close share menu when clicking outside
+                if (!event.target.closest('.share-dropdown')) {
+                    const shareMenus = document.querySelectorAll('.share-menu');
+                    shareMenus.forEach(menu => menu.classList.remove('active'));
                 }
             });
         });
@@ -947,6 +1077,7 @@
                 alignment: 50,
                 isLoading: false,
                 hasResults: false,
+                showShareMenu: false,
 
                 get progressPercentage() {
                     const fields = [
@@ -1129,6 +1260,256 @@
                     this.hasResults = false;
                     this.midichlorianCount = 0;
                     this.alignment = 50;
+                },
+
+                toggleShareMenu() {
+                    this.showShareMenu = !this.showShareMenu;
+                },
+
+                generateShareText() {
+                    return `⭐ Force Sensitivity Test: ${this.midichlorianCount} mc/μL midichlorians! ${this.forcePotential.title} level 🌟 Test yours at docket.one`;
+                },
+
+                generateShareImage() {
+                    try {
+                        const canvas = document.getElementById('shareCanvas');
+                        const ctx = canvas.getContext('2d');
+                        
+                        canvas.width = 1200;
+                        canvas.height = 630;
+                        
+                        // Gradient background
+                        const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+                        gradient.addColorStop(0, '#000000');
+                        gradient.addColorStop(0.3, '#111111');
+                        gradient.addColorStop(0.7, '#111111');
+                        gradient.addColorStop(1, '#000000');
+                        ctx.fillStyle = gradient;
+                        ctx.fillRect(0, 0, canvas.width, canvas.height);
+                        
+                        // Stars
+                        ctx.fillStyle = '#ffffff';
+                        for (let i = 0; i < 200; i++) {
+                            const x = Math.random() * canvas.width;
+                            const y = Math.random() * canvas.height;
+                            const size = Math.random() * 2 + 0.5;
+                            ctx.beginPath();
+                            ctx.arc(x, y, size, 0, 2 * Math.PI);
+                            ctx.fill();
+                        }
+                        
+                        // Title
+                        ctx.fillStyle = '#FFE81F';
+                        ctx.font = 'bold 42px Inter, sans-serif';
+                        ctx.textAlign = 'center';
+                        ctx.fillText('FORCE SENSITIVITY TEST RESULTS', canvas.width / 2, 80);
+                        
+                        // Main result
+                        ctx.fillStyle = '#4BD5EE';
+                        ctx.font = 'bold 64px Inter, sans-serif';
+                        ctx.fillText(`${this.midichlorianCount} mc/μL`, canvas.width / 2, 180);
+                        
+                        // Potential level
+                        ctx.fillStyle = '#FFE81F';
+                        ctx.font = 'bold 32px Inter, sans-serif';
+                        ctx.fillText(this.forcePotential.title, canvas.width / 2, 240);
+                        
+                        // Left Column
+                        const leftX = 200;
+                        ctx.fillStyle = '#FFFFFF';
+                        ctx.font = 'bold 24px Inter, sans-serif';
+                        ctx.textAlign = 'left';
+                        ctx.fillText('⭐ FORCE POTENTIAL', leftX, 320);
+                        ctx.fillText(`${this.potentialPercentage.toFixed(0)}%`, leftX, 350);
+                        
+                        ctx.fillText('⚖️ FORCE ALIGNMENT', leftX, 410);
+                        ctx.fillText(this.alignmentText, leftX, 440);
+                        
+                        ctx.fillText('🧬 LINEAGE', leftX, 500);
+                        ctx.fillText(this.lineage.charAt(0).toUpperCase() + this.lineage.slice(1), leftX, 530);
+                        
+                        // Right Column - Character comparison
+                        const rightX = 700;
+                        ctx.fillText('📊 RANK COMPARISON', rightX, 320);
+                        ctx.font = '20px Inter, sans-serif';
+                        
+                        let yPos = 350;
+                        const topCharacters = this.characters.slice(0, 4);
+                        topCharacters.forEach(char => {
+                            if (char.isPlayer) {
+                                ctx.fillStyle = '#FFE81F';
+                            } else {
+                                ctx.fillStyle = '#CCCCCC';
+                            }
+                            ctx.fillText(`${char.name}: ${char.count}`, rightX, yPos);
+                            yPos += 30;
+                        });
+                        
+                        // Footer
+                        ctx.fillStyle = '#FFE81F';
+                        ctx.font = '20px Inter, sans-serif';
+                        ctx.textAlign = 'center';
+                        ctx.fillText('docket.one/pages/GeekGalaxy/Force%20Sensitivity%20Test', canvas.width / 2, 590);
+                        
+                        return canvas.toDataURL('image/png');
+                    } catch (error) {
+                        console.warn('Canvas image generation failed:', error);
+                        return null;
+                    }
+                },
+
+                async shareGeneral() {
+                    const text = this.generateShareText();
+                    const calculatorUrl = 'https://docket.one/pages/GeekGalaxy/Force%20Sensitivity%20Test.html';
+                    
+                    // Check if we're running locally
+                    const isLocal = window.location.protocol === 'file:';
+                    
+                    if (isLocal) {
+                        // For local files, just copy text and download image
+                        try {
+                            if (navigator.clipboard && navigator.clipboard.writeText) {
+                                await navigator.clipboard.writeText(`${text} ${calculatorUrl}`);
+                                alert('✅ Share text copied to clipboard!\n\nImage will download separately.');
+                            } else {
+                                // Fallback for older browsers
+                                const textArea = document.createElement('textarea');
+                                textArea.value = `${text} ${calculatorUrl}`;
+                                document.body.appendChild(textArea);
+                                textArea.select();
+                                document.execCommand('copy');
+                                document.body.removeChild(textArea);
+                                alert('✅ Share text copied to clipboard!\n\nImage will download separately.');
+                            }
+                            this.downloadImage();
+                        } catch (err) {
+                            console.warn('Clipboard failed, downloading image only:', err);
+                            this.downloadImage();
+                            alert('📥 Image downloaded! Share text:\n\n' + text + '\n\n' + calculatorUrl);
+                        }
+                        this.showShareMenu = false;
+                        return;
+                    }
+                    
+                    // Web Share API for mobile (HTTPS only)
+                    if (navigator.share) {
+                        try {
+                            const imageDataUrl = this.generateShareImage();
+                            if (imageDataUrl) {
+                                const response = await fetch(imageDataUrl);
+                                const blob = await response.blob();
+                                const file = new File([blob], `force-test-${Date.now()}.png`, { type: 'image/png' });
+                                
+                                if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                                    await navigator.share({
+                                        title: 'Force Sensitivity Test - Results',
+                                        text: text,
+                                        url: calculatorUrl,
+                                        files: [file]
+                                    });
+                                } else {
+                                    await navigator.share({
+                                        title: 'Force Sensitivity Test',
+                                        text: text,
+                                        url: calculatorUrl
+                                    });
+                                }
+                            } else {
+                                await navigator.share({
+                                    title: 'Force Sensitivity Test',
+                                    text: text,
+                                    url: calculatorUrl
+                                });
+                            }
+                            this.showShareMenu = false;
+                            return;
+                        } catch (err) {
+                            if (err.name !== 'AbortError') {
+                                console.log('Web Share API failed:', err);
+                            } else {
+                                this.showShareMenu = false;
+                                return;
+                            }
+                        }
+                    }
+                    
+                    // Fallback for desktop
+                    try {
+                        await navigator.clipboard.writeText(`${text} ${calculatorUrl}`);
+                        alert('✅ Results copied to clipboard!\n\nThe image has been downloaded for you to attach.');
+                        this.downloadImage();
+                    } catch (err) {
+                        console.error('Clipboard failed:', err);
+                        this.downloadImage();
+                        alert('📥 Image downloaded! Share text:\n\n' + text + '\n\n' + calculatorUrl);
+                    }
+                    this.showShareMenu = false;
+                },
+
+                async shareOnTwitter() {
+                    const text = this.generateShareText();
+                    const calculatorUrl = 'https://docket.one/pages/GeekGalaxy/Force%20Sensitivity%20Test.html';
+                    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(calculatorUrl)}`;
+                    window.open(twitterUrl, '_blank');
+                    this.showShareMenu = false;
+                },
+
+                async shareOnFacebook() {
+                    const calculatorUrl = 'https://docket.one/pages/GeekGalaxy/Force%20Sensitivity%20Test.html';
+                    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(calculatorUrl)}`;
+                    window.open(facebookUrl, '_blank');
+                    this.showShareMenu = false;
+                },
+
+                async shareOnLinkedIn() {
+                    const calculatorUrl = 'https://docket.one/pages/GeekGalaxy/Force%20Sensitivity%20Test.html';
+                    const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(calculatorUrl)}`;
+                    window.open(linkedInUrl, '_blank');
+                    this.showShareMenu = false;
+                },
+
+                async shareOnReddit() {
+                    const text = this.generateShareText();
+                    const calculatorUrl = 'https://docket.one/pages/GeekGalaxy/Force%20Sensitivity%20Test.html';
+                    const redditUrl = `https://reddit.com/submit?url=${encodeURIComponent(calculatorUrl)}&title=${encodeURIComponent(text)}`;
+                    window.open(redditUrl, '_blank');
+                    this.showShareMenu = false;
+                },
+
+                async copyShareLink() {
+                    const calculatorUrl = 'https://docket.one/pages/GeekGalaxy/Force%20Sensitivity%20Test.html';
+                    try {
+                        await navigator.clipboard.writeText(calculatorUrl);
+                        const button = document.querySelector('.share-button');
+                        const originalText = button.innerHTML;
+                        button.innerHTML = '<span>✅</span><span>Link Copied!</span>';
+                        setTimeout(() => {
+                            button.innerHTML = originalText;
+                        }, 2000);
+                    } catch (err) {
+                        console.error('Failed to copy link:', err);
+                    }
+                    this.showShareMenu = false;
+                },
+
+                downloadImage() {
+                    try {
+                        const imageDataUrl = this.generateShareImage();
+                        if (imageDataUrl) {
+                            const link = document.createElement('a');
+                            link.download = `force-test-${Date.now()}.png`;
+                            link.href = imageDataUrl;
+                            document.body.appendChild(link);
+                            link.click();
+                            document.body.removeChild(link);
+                        } else {
+                            alert('⚠️ Image generation failed. Sharing text only.');
+                        }
+                    } catch (error) {
+                        console.error('Download failed:', error);
+                        alert('⚠️ Image download failed. Please try again or use text sharing.');
+                    }
+                    this.showShareMenu = false;
                 }
             }
         }

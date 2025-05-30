@@ -367,37 +367,6 @@
             transition: var(--transition-fast);
         }
         
-        /* Stats Section */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: var(--space-xl);
-            margin: var(--space-3xl) 0;
-        }
-        
-        .stat-card {
-            text-align: center;
-            padding: var(--space-xl);
-            background: var(--surface-elevated);
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-md);
-            border: 1px solid var(--gray-200);
-        }
-        
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--primary);
-            display: block;
-            font-family: var(--font-mono);
-        }
-        
-        .stat-label {
-            color: var(--gray-600);
-            font-weight: 500;
-            margin-top: var(--space-sm);
-        }
-        
         /* Animations */
         @keyframes fadeInUp {
             from {
@@ -436,18 +405,9 @@
             .section {
                 padding: var(--space-2xl) 0;
             }
-            
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: var(--space-md);
-            }
         }
         
         @media (max-width: 480px) {
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-            
             .calculator-card {
                 padding: var(--space-lg);
             }
@@ -536,28 +496,6 @@
     </section>
 
     <main class="container">
-        <!-- Statistics Section -->
-        <section class="section">
-            <div class="stats-grid">
-                <div class="stat-card interactive">
-                    <span class="stat-number">3</span>
-                    <span class="stat-label">Calculators</span>
-                </div>
-                <div class="stat-card interactive">
-                    <span class="stat-number">∞</span>
-                    <span class="stat-label">Possibilities</span>
-                </div>
-                <div class="stat-card interactive">
-                    <span class="stat-number">24/7</span>
-                    <span class="stat-label">Available</span>
-                </div>
-                <div class="stat-card interactive">
-                    <span class="stat-number">Free</span>
-                    <span class="stat-label">Always</span>
-                </div>
-            </div>
-        </section>
-
         <!-- Calculators Section -->
         <section id="calculators" class="section">
             <div class="section-header">
@@ -617,6 +555,25 @@
                     </div>
                     <a href="Generational%20Timeline%20Calculator.html" class="btn-primary" style="margin-top: 1rem;">
                         <span>Find My Generation</span>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                </article>
+                
+                <article class="calculator-card">
+                    <div class="card-icon float-animation" style="animation-delay: 0.6s;">⚡</div>
+                    <h3 class="card-title">Lightning-Powered Life Calculator</h3>
+                    <p class="card-description">Discover how many lightning strikes it would take to power your entire existence! Transform complex energy consumption into epic, shareable insights that make physics fun and relatable.</p>
+                    <div class="card-footer">
+                        <div class="card-tags">
+                            <span class="tag">Energy</span>
+                            <span class="tag">Physics</span>
+                            <span class="tag">Science</span>
+                        </div>
+                    </div>
+                    <a href="Lightning-Powered Life Calculator.html" class="btn-primary" style="margin-top: 1rem;">
+                        <span>Calculate Lightning Power</span>
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                             <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>

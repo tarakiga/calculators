@@ -4,6 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lightsaber Battery Life Calculator | Geek Galaxy</title>
+    <meta name="description" content="Calculate your lightsaber's battery life and power efficiency. May the Force be with your power management in the Star Wars universe.">
+    
+    <!-- Enhanced Social Media Meta Tags -->
+    <meta property="og:title" content="Lightsaber Battery Life Calculator | Geek Galaxy | Docket One">
+    <meta property="og:description" content="Calculate your lightsaber's battery life based on crystal type, combat intensity, and Force mastery. May the Force be with your power management!">
+    <meta property="og:image" content="https://docket.one/social-preview.jpg">
+    <meta property="og:url" content="https://docket.one/pages/GeekGalaxy/Lightsaber%20Battery%20Life%20Calculator.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Docket One Calculators">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Lightsaber Battery Life Calculator">
+    <meta name="twitter:description" content="Calculate lightsaber battery life and power efficiency in the Star Wars universe">
+    <meta name="twitter:image" content="https://docket.one/social-preview.jpg">
+    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../common/navbar-enhanced.css">
     <link rel="stylesheet" href="../../common/santa-improvements.css">
@@ -135,6 +150,78 @@
             background: var(--space-dark);
             outline: none;
             margin: 0.5rem 0;
+        }
+        
+        /* Share Button Styles */
+        .share-button {
+            background: linear-gradient(135deg, var(--jedi-blue), var(--mace-purple));
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+            width: 100%;
+            justify-content: center;
+        }
+
+        .share-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 212, 255, 0.4);
+        }
+
+        .share-dropdown {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .share-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--space-dark);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: var(--radius);
+            padding: 0.5rem;
+            margin-top: 0.5rem;
+            z-index: 1000;
+            display: none;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .share-menu.active {
+            display: block;
+        }
+
+        .share-option {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .share-option:hover {
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--jedi-blue);
+        }
+
+        /* Hidden canvas for image generation */
+        #shareCanvas {
+            display: none;
         }
         
         @media (max-width: 768px) {
@@ -277,9 +364,50 @@
                     <div x-show="batteryLife >= 3">🌟 Combat: <span x-text="(batteryLife * 0.8).toFixed(1)"></span> hours</div>
                     <div x-show="batteryLife >= 4">💀 Sith Duel: <span x-text="(batteryLife * 0.5).toFixed(1)"></span> hours</div>
                 </div>
+
+                <!-- Share Button -->
+                <div class="share-dropdown">
+                    <button class="share-button" @click="toggleShareMenu()">
+                        <span>⚔️</span>
+                        <span>Share Lightsaber Analysis</span>
+                    </button>
+                    <div class="share-menu" :class="{ active: showShareMenu }">
+                        <a class="share-option" @click="shareGeneral()" href="#" @click.prevent>
+                            <span class="share-icon">📱</span>
+                            <span>Share with Image</span>
+                        </a>
+                        <a class="share-option" @click="shareOnTwitter()" href="#" @click.prevent>
+                            <span class="share-icon">🐦</span>
+                            <span>Share on Twitter</span>
+                        </a>
+                        <a class="share-option" @click="shareOnFacebook()" href="#" @click.prevent>
+                            <span class="share-icon">📘</span>
+                            <span>Share on Facebook</span>
+                        </a>
+                        <a class="share-option" @click="shareOnLinkedIn()" href="#" @click.prevent>
+                            <span class="share-icon">💼</span>
+                            <span>Share on LinkedIn</span>
+                        </a>
+                        <a class="share-option" @click="shareOnReddit()" href="#" @click.prevent>
+                            <span class="share-icon">🤖</span>
+                            <span>Share on Reddit</span>
+                        </a>
+                        <a class="share-option" @click="copyShareLink()" href="#" @click.prevent>
+                            <span class="share-icon">🔗</span>
+                            <span>Copy Link</span>
+                        </a>
+                        <a class="share-option" @click="downloadImage()" href="#" @click.prevent>
+                            <span class="share-icon">💾</span>
+                            <span>Download Image</span>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
+    
+    <!-- Hidden canvas for generating share images -->
+    <canvas id="shareCanvas" width="1200" height="630"></canvas>
     
     <script>
         function lightsaberCalculator() {
@@ -291,6 +419,7 @@
                 batteryLife: 0,
                 rechargeTime: 0,
                 efficiencyRating: 0,
+                showShareMenu: false,
                 
                 crystals: {
                     'jedi-blue': {
@@ -388,6 +517,255 @@
                         10: 'Grand Master'
                     };
                     return descriptions[mastery] || 'Unknown';
+                },
+
+                toggleShareMenu() {
+                    this.showShareMenu = !this.showShareMenu;
+                },
+
+                generateShareText() {
+                    const crystal = this.crystals[this.selectedCrystal];
+                    return `⚔️ Lightsaber Battery Analysis: ${crystal.name} = ${this.batteryLife.toFixed(1)} hours! Force Mastery ${this.forceMastery}/10 🌟 Calculate yours at docket.one`;
+                },
+
+                generateShareImage() {
+                    const canvas = document.getElementById('shareCanvas');
+                    const ctx = canvas.getContext('2d');
+                    
+                    // Set canvas dimensions
+                    canvas.width = 1200;
+                    canvas.height = 630;
+                    
+                    // Create gradient background
+                    const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+                    gradient.addColorStop(0, '#0a0a0f');
+                    gradient.addColorStop(0.3, '#1a1a2e');
+                    gradient.addColorStop(0.7, '#1a1a2e');
+                    gradient.addColorStop(1, '#0a0a0f');
+                    ctx.fillStyle = gradient;
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    
+                    // Add stars background
+                    ctx.fillStyle = '#ffffff';
+                    for (let i = 0; i < 150; i++) {
+                        const x = Math.random() * canvas.width;
+                        const y = Math.random() * canvas.height;
+                        const size = Math.random() * 2 + 0.5;
+                        ctx.beginPath();
+                        ctx.arc(x, y, size, 0, 2 * Math.PI);
+                        ctx.fill();
+                    }
+                    
+                    // Title
+                    ctx.fillStyle = '#00d4ff';
+                    ctx.font = 'bold 42px Inter, sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('LIGHTSABER BATTERY ANALYSIS', canvas.width / 2, 80);
+                    
+                    // Main result
+                    ctx.fillStyle = '#fbbf24';
+                    ctx.font = 'bold 64px Inter, sans-serif';
+                    ctx.fillText(`${this.batteryLife.toFixed(1)} HOURS`, canvas.width / 2, 180);
+                    
+                    // Crystal info
+                    const crystal = this.crystals[this.selectedCrystal];
+                    ctx.fillStyle = crystal.color;
+                    ctx.font = 'bold 32px Inter, sans-serif';
+                    ctx.fillText(crystal.name, canvas.width / 2, 240);
+                    
+                    // Left Column - Combat Stats
+                    const leftX = 200;
+                    ctx.fillStyle = '#e2e8f0';
+                    ctx.font = 'bold 24px Inter, sans-serif';
+                    ctx.textAlign = 'left';
+                    ctx.fillText('⚔️ COMBAT INTENSITY', leftX, 320);
+                    ctx.fillText(`${this.combatIntensity}/10`, leftX, 350);
+                    
+                    ctx.fillText('🌟 FORCE MASTERY', leftX, 410);
+                    ctx.fillText(`${this.forceMastery}/10`, leftX, 440);
+                    
+                    ctx.fillText('⚡ EFFICIENCY', leftX, 500);
+                    ctx.fillText(`${this.efficiencyRating}%`, leftX, 530);
+                    
+                    // Right Column - Battle Scenarios
+                    const rightX = 700;
+                    ctx.fillText('🧘 MEDITATION', rightX, 320);
+                    ctx.fillText(`${(this.batteryLife * 4).toFixed(1)}h`, rightX, 350);
+                    
+                    ctx.fillText('⚔️ SPARRING', rightX, 410);
+                    ctx.fillText(`${this.batteryLife.toFixed(1)}h`, rightX, 440);
+                    
+                    ctx.fillText('💀 SITH DUEL', rightX, 500);
+                    ctx.fillText(`${(this.batteryLife * 0.5).toFixed(1)}h`, rightX, 530);
+                    
+                    // Footer
+                    ctx.fillStyle = '#fbbf24';
+                    ctx.font = '20px Inter, sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('docket.one/pages/GeekGalaxy/Lightsaber%20Battery%20Life%20Calculator', canvas.width / 2, 590);
+                    
+                    return canvas.toDataURL('image/png');
+                },
+
+                async shareGeneral() {
+                    const text = this.generateShareText();
+                    const calculatorUrl = 'https://docket.one/pages/GeekGalaxy/Lightsaber%20Battery%20Life%20Calculator.html';
+                    
+                    // Check if we're running locally
+                    const isLocal = window.location.protocol === 'file:';
+                    
+                    if (isLocal) {
+                        // For local files, just copy text and download image
+                        try {
+                            if (navigator.clipboard && navigator.clipboard.writeText) {
+                                await navigator.clipboard.writeText(`${text} ${calculatorUrl}`);
+                                alert('✅ Share text copied to clipboard!\n\nImage will download separately.');
+                            } else {
+                                // Fallback for older browsers
+                                const textArea = document.createElement('textarea');
+                                textArea.value = `${text} ${calculatorUrl}`;
+                                document.body.appendChild(textArea);
+                                textArea.select();
+                                document.execCommand('copy');
+                                document.body.removeChild(textArea);
+                                alert('✅ Share text copied to clipboard!\n\nImage will download separately.');
+                            }
+                            this.downloadImage();
+                        } catch (err) {
+                            console.warn('Clipboard failed, downloading image only:', err);
+                            this.downloadImage();
+                            alert('📥 Image downloaded! Share text:\n\n' + text + '\n\n' + calculatorUrl);
+                        }
+                        this.showShareMenu = false;
+                        return;
+                    }
+                    
+                    // Web Share API for mobile (HTTPS only)
+                    if (navigator.share) {
+                        try {
+                            const imageDataUrl = this.generateShareImage();
+                            const response = await fetch(imageDataUrl);
+                            const blob = await response.blob();
+                            const file = new File([blob], `lightsaber-analysis-${Date.now()}.png`, { type: 'image/png' });
+                            
+                            if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                                await navigator.share({
+                                    title: 'Lightsaber Battery Analysis - Results',
+                                    text: text,
+                                    url: calculatorUrl,
+                                    files: [file]
+                                });
+                            } else {
+                                await navigator.share({
+                                    title: 'Lightsaber Battery Calculator',
+                                    text: text,
+                                    url: calculatorUrl
+                                });
+                            }
+                            this.showShareMenu = false;
+                            return;
+                        } catch (err) {
+                            if (err.name !== 'AbortError') {
+                                console.log('Web Share API failed:', err);
+                            } else {
+                                this.showShareMenu = false;
+                                return;
+                            }
+                        }
+                    }
+                    
+                    // Fallback for desktop
+                    try {
+                        await navigator.clipboard.writeText(`${text} ${calculatorUrl}`);
+                        alert('✅ Results copied to clipboard!\n\nThe image has been downloaded for you to attach.');
+                        this.downloadImage();
+                    } catch (err) {
+                        console.error('Clipboard failed:', err);
+                        this.downloadImage();
+                        alert('📥 Image downloaded! Share text:\n\n' + text + '\n\n' + calculatorUrl);
+                    }
+                    this.showShareMenu = false;
+                },
+
+                async shareOnTwitter() {
+                    const text = this.generateShareText();
+                    const calculatorUrl = 'https://docket.one/pages/GeekGalaxy/Lightsaber%20Battery%20Life%20Calculator.html';
+                    
+                    // Try Web Share API first
+                    if (navigator.share && navigator.canShare) {
+                        try {
+                            const imageDataUrl = this.generateShareImage();
+                            const response = await fetch(imageDataUrl);
+                            const blob = await response.blob();
+                            const file = new File([blob], `lightsaber-analysis.png`, { type: 'image/png' });
+                            
+                            if (navigator.canShare({ files: [file] })) {
+                                await navigator.share({
+                                    title: 'Lightsaber Battery Calculator',
+                                    text: text,
+                                    url: calculatorUrl,
+                                    files: [file]
+                                });
+                                this.showShareMenu = false;
+                                return;
+                            }
+                        } catch (err) {
+                            console.log('Native sharing failed, falling back to Twitter web');
+                        }
+                    }
+                    
+                    // Fallback to Twitter web
+                    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(calculatorUrl)}`;
+                    window.open(twitterUrl, '_blank');
+                    this.showShareMenu = false;
+                },
+
+                async shareOnFacebook() {
+                    const calculatorUrl = 'https://docket.one/pages/GeekGalaxy/Lightsaber%20Battery%20Life%20Calculator.html';
+                    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(calculatorUrl)}`;
+                    window.open(facebookUrl, '_blank');
+                    this.showShareMenu = false;
+                },
+
+                async shareOnLinkedIn() {
+                    const text = this.generateShareText();
+                    const calculatorUrl = 'https://docket.one/pages/GeekGalaxy/Lightsaber%20Battery%20Life%20Calculator.html';
+                    const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(calculatorUrl)}`;
+                    window.open(linkedInUrl, '_blank');
+                    this.showShareMenu = false;
+                },
+
+                async shareOnReddit() {
+                    const text = this.generateShareText();
+                    const calculatorUrl = 'https://docket.one/pages/GeekGalaxy/Lightsaber%20Battery%20Life%20Calculator.html';
+                    const redditUrl = `https://reddit.com/submit?url=${encodeURIComponent(calculatorUrl)}&title=${encodeURIComponent(text)}`;
+                    window.open(redditUrl, '_blank');
+                    this.showShareMenu = false;
+                },
+
+                async copyShareLink() {
+                    const calculatorUrl = 'https://docket.one/pages/GeekGalaxy/Lightsaber%20Battery%20Life%20Calculator.html';
+                    try {
+                        await navigator.clipboard.writeText(calculatorUrl);
+                        const button = document.querySelector('.share-button');
+                        const originalText = button.innerHTML;
+                        button.innerHTML = '<span>✅</span><span>Link Copied!</span>';
+                        setTimeout(() => {
+                            button.innerHTML = originalText;
+                        }, 2000);
+                    } catch (err) {
+                        console.error('Failed to copy link:', err);
+                    }
+                    this.showShareMenu = false;
+                },
+
+                downloadImage() {
+                    const imageDataUrl = this.generateShareImage();
+                    const link = document.createElement('a');
+                    link.download = `lightsaber-analysis-${Date.now()}.png`;
+                    link.href = imageDataUrl;
+                    link.click();
+                    this.showShareMenu = false;
                 }
             }
         }
@@ -409,6 +787,12 @@
                     if (!event.target.closest('.main-nav')) {
                         navLinks.classList.remove('active');
                         mobileMenuBtn.classList.remove('active');
+                    }
+                    
+                    // Close share menu when clicking outside
+                    if (!event.target.closest('.share-dropdown')) {
+                        const shareMenus = document.querySelectorAll('.share-menu');
+                        shareMenus.forEach(menu => menu.classList.remove('active'));
                     }
                 });
             }
