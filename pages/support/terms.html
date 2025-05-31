@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Terms of Service | Docket One Calculators</title>
-    <meta name="description" content="Terms of Service for Docket One calculators. Learn about acceptable use, user responsibilities, and our service terms.">
-    
+    <meta name="description"
+        content="Terms of Service for Docket One calculators. Learn about acceptable use, user responsibilities, and our service terms.">
+
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
     <!-- Shared Styles -->
     <link rel="stylesheet" href="../common/navbar-enhanced.css">
     <link rel="stylesheet" href="../common/santa-improvements.css">
-    
+
     <style>
         :root {
             /* Color System */
@@ -24,7 +27,7 @@
             --success: #10b981;
             --warning: #f59e0b;
             --error: #ef4444;
-            
+
             /* Neutral Colors */
             --white: #ffffff;
             --gray-50: #f9fafb;
@@ -37,14 +40,14 @@
             --gray-700: #374151;
             --gray-800: #1f2937;
             --gray-900: #111827;
-            
+
             /* Semantic Colors */
             --background: var(--white);
             --background-secondary: var(--gray-50);
             --text: var(--gray-900);
             --text-secondary: var(--gray-600);
             --border: var(--gray-200);
-            
+
             /* Spacing Scale */
             --space-xs: 0.25rem;
             --space-sm: 0.5rem;
@@ -53,32 +56,32 @@
             --space-xl: 2rem;
             --space-2xl: 3rem;
             --space-3xl: 4rem;
-            
+
             /* Border Radius */
             --radius: 0.5rem;
             --radius-lg: 0.75rem;
             --radius-xl: 1rem;
-            
+
             /* Shadows */
             --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
             --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
             --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             line-height: 1.6;
             color: var(--text);
             background: var(--background);
         }
-        
+
         /* Header */
         .page-header {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
@@ -86,20 +89,20 @@
             padding: var(--space-3xl) var(--space-xl);
             text-align: center;
         }
-        
+
         .page-header h1 {
             font-size: clamp(2rem, 5vw, 3rem);
             font-weight: 800;
             margin-bottom: var(--space-md);
         }
-        
+
         .page-header p {
             font-size: 1.125rem;
             opacity: 0.9;
             max-width: 600px;
             margin: 0 auto;
         }
-        
+
         .effective-date {
             background: rgba(255, 255, 255, 0.2);
             padding: var(--space-md) var(--space-lg);
@@ -107,20 +110,20 @@
             margin-top: var(--space-lg);
             font-weight: 500;
         }
-        
+
         /* Main Content */
         .main-content {
             max-width: 800px;
             margin: 0 auto;
             padding: var(--space-3xl) var(--space-xl);
         }
-        
+
         /* Legal Content Styles */
         .legal-section {
             margin-bottom: var(--space-3xl);
             scroll-margin-top: 100px;
         }
-        
+
         .legal-section h2 {
             font-size: 1.75rem;
             font-weight: 700;
@@ -129,43 +132,43 @@
             padding-bottom: var(--space-md);
             border-bottom: 2px solid var(--border);
         }
-        
+
         .legal-section h3 {
             font-size: 1.25rem;
             font-weight: 600;
             color: var(--text);
             margin: var(--space-xl) 0 var(--space-lg);
         }
-        
+
         .legal-section h4 {
             font-size: 1.125rem;
             font-weight: 600;
             color: var(--accent);
             margin: var(--space-lg) 0 var(--space-md);
         }
-        
+
         .legal-section p {
             margin-bottom: var(--space-lg);
             color: var(--text-secondary);
             line-height: 1.7;
         }
-        
+
         .legal-section strong {
             color: var(--text);
             font-weight: 600;
         }
-        
+
         /* Lists */
         .legal-section ul {
             margin: var(--space-lg) 0;
             padding-left: var(--space-xl);
         }
-        
+
         .legal-section li {
             margin-bottom: var(--space-sm);
             color: var(--text-secondary);
         }
-        
+
         /* Important Notices */
         .important-notice {
             background: linear-gradient(135deg, #fef2f2, #fee2e2);
@@ -174,12 +177,12 @@
             padding: var(--space-xl);
             margin: var(--space-xl) 0;
         }
-        
+
         .important-notice h3 {
             color: var(--primary);
             margin-top: 0;
         }
-        
+
         /* Terms Highlights */
         .terms-highlight {
             display: grid;
@@ -187,7 +190,7 @@
             gap: var(--space-lg);
             margin: var(--space-xl) 0;
         }
-        
+
         .highlight-item {
             background: white;
             padding: var(--space-lg);
@@ -195,28 +198,28 @@
             box-shadow: var(--shadow-sm);
             border-left: 4px solid var(--primary);
         }
-        
+
         .highlight-item h4 {
             margin: 0 0 var(--space-md);
             color: var(--primary);
         }
-        
+
         .highlight-item.allowed {
             border-left-color: var(--success);
         }
-        
+
         .highlight-item.allowed h4 {
             color: var(--success);
         }
-        
+
         .highlight-item.prohibited {
             border-left-color: var(--error);
         }
-        
+
         .highlight-item.prohibited h4 {
             color: var(--error);
         }
-        
+
         /* Contact Section */
         .contact-section {
             background: linear-gradient(135deg, var(--primary), var(--accent));
@@ -226,20 +229,20 @@
             text-align: center;
             margin-top: var(--space-3xl);
         }
-        
+
         .contact-section h2 {
             font-size: 1.75rem;
             margin-bottom: var(--space-lg);
             border: none;
             padding: 0;
         }
-        
+
         .contact-section p {
             font-size: 1.125rem;
             opacity: 0.9;
             margin-bottom: var(--space-xl);
         }
-        
+
         .contact-button {
             display: inline-block;
             background: white;
@@ -251,12 +254,12 @@
             transition: all 0.3s ease;
             margin: 0 var(--space-sm);
         }
-        
+
         .contact-button:hover {
             transform: translateY(-2px);
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
         }
-        
+
         /* Table of Contents */
         .toc {
             background: var(--background-secondary);
@@ -265,14 +268,14 @@
             margin-bottom: var(--space-3xl);
             box-shadow: var(--shadow-sm);
         }
-        
+
         .toc h2 {
             font-size: 1.25rem;
             font-weight: 600;
             margin-bottom: var(--space-lg);
             color: var(--primary);
         }
-        
+
         .toc ul {
             list-style: none;
             padding: 0;
@@ -281,19 +284,19 @@
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: var(--space-md);
         }
-        
+
         .toc li {
             background: white;
             border-radius: var(--radius);
             box-shadow: var(--shadow-sm);
             transition: all 0.3s ease;
         }
-        
+
         .toc li:hover {
             transform: translateY(-2px);
             box-shadow: var(--shadow-md);
         }
-        
+
         .toc a {
             display: block;
             padding: var(--space-lg);
@@ -301,25 +304,25 @@
             color: var(--text);
             font-weight: 500;
         }
-        
+
         .toc a:hover {
             color: var(--primary);
         }
-        
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .page-header {
                 padding: var(--space-2xl) var(--space-lg);
             }
-            
+
             .main-content {
                 padding: var(--space-xl) var(--space-lg);
             }
-            
+
             .terms-highlight {
                 grid-template-columns: 1fr;
             }
-            
+
             .toc ul {
                 grid-template-columns: 1fr;
             }
@@ -337,36 +340,39 @@
     <link rel="stylesheet" href="common/global-calculator.css">
     <link rel="stylesheet" href="common/themes/dark-theme.css">
     <link rel="stylesheet" href="common/footer/premium-footer.css">
-    <script src="common/footer/premium-footer.js"></script></head>
+    <script src="common/footer/premium-footer.js"></script>
+</head>
+
 <body>
     <!-- Navigation -->
     <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-<nav class="main-nav">
-    <div class="nav-container">
-        <div class="nav-logo">
-            <a href="index.html">🧮 Docket One</a>
+    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="../../index.html">🧮 Docket One</a>
+            </div>
+            <div class="nav-search">
+                <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input"
+                    aria-label="Search calculators">
+                <div id="search-results" class="search-results"></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../../pages/BigKidMath/index.html" class="category-link">Big Kid Math</a></li>
+                <li><a href="../../pages/CipherLab/index.html" class="category-link">Cipher Lab</a></li>
+                <li><a href="../../pages/GeekGalaxy/index.html" class="category-link">Geek Galaxy</a></li>
+                <li><a href="../../pages/LifeHacks/index.html" class="category-link">Life Hacks</a></li>
+                <li><a href="../../pages/Math_Magik/index.html" class="category-link">Math Magik</a></li>
+                <li><a href="../../pages/Otaku_Ops/index.html" class="category-link">Otaku Ops</a></li>
+                <li><a href="../../index.html" class="home-link">🏠 Home</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
-        <div class="nav-search">
-            <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input" aria-label="Search calculators">
-            <div id="search-results" class="search-results"></div>
-        </div>
-        <ul class="nav-links">
-            <li><a href="pages/BigKidMath/index.html" class="category-link">Big Kid Math</a></li>
-            <li><a href="pages/CipherLab/index.html" class="category-link">Cipher Lab</a></li>
-            <li><a href="pages/GeekGalaxy/index.html" class="category-link">Geek Galaxy</a></li>
-            <li><a href="pages/LifeHacks/index.html" class="category-link">Life Hacks</a></li>
-            <li><a href="pages/Math_Magik/index.html" class="category-link">Math Magik</a></li>
-            <li><a href="pages/Otaku_Ops/index.html" class="category-link">Otaku Ops</a></li>
-            <li><a href="index.html" class="home-link">🏠 Home</a></li>
-        </ul>
-        <button class="mobile-menu-btn" aria-label="Toggle menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-    </div>
-</nav>
+    </nav>
 
     <!-- Header -->
     <header class="page-header">
@@ -401,14 +407,17 @@
         <!-- Agreement to Terms -->
         <section id="agreement" class="legal-section">
             <h2>Agreement to Terms</h2>
-            <p>Welcome to Docket One. These Terms of Service ("Terms") govern your use of our website located at docket.one and our calculator services (collectively, the "Service") operated by Docket One ("we," "us," or "our").</p>
-            <p><strong>By accessing or using our Service, you agree to be bound by these Terms.</strong> If you disagree with any part of these Terms, you may not access the Service.</p>
+            <p>Welcome to Docket One. These Terms of Service ("Terms") govern your use of our website located at
+                docket.one and our calculator services (collectively, the "Service") operated by Docket One ("we," "us,"
+                or "our").</p>
+            <p><strong>By accessing or using our Service, you agree to be bound by these Terms.</strong> If you disagree
+                with any part of these Terms, you may not access the Service.</p>
         </section>
 
         <!-- Service Description -->
         <section id="service-description" class="legal-section">
             <h2>Description of Service</h2>
-            
+
             <h3>What We Provide</h3>
             <p>Docket One offers a collection of specialized online calculators organized into themed categories:</p>
             <ul>
@@ -442,7 +451,7 @@
         <!-- Acceptable Use -->
         <section id="acceptable-use" class="legal-section">
             <h2>Acceptable Use</h2>
-            
+
             <div class="terms-highlight">
                 <div class="highlight-item allowed">
                     <h4>✅ You May Use Our Service To:</h4>
@@ -454,7 +463,7 @@
                         <li><strong>Research:</strong> Academic or personal research projects</li>
                     </ul>
                 </div>
-                
+
                 <div class="highlight-item prohibited">
                     <h4>❌ You May NOT Use Our Service To:</h4>
                     <ul>
@@ -471,7 +480,7 @@
         <!-- User Responsibilities -->
         <section id="user-responsibilities" class="legal-section">
             <h2>User Responsibilities</h2>
-            
+
             <h3>Accurate Information</h3>
             <ul>
                 <li>You are responsible for the accuracy of information you input</li>
@@ -498,7 +507,7 @@
         <!-- Intellectual Property -->
         <section id="intellectual-property" class="legal-section">
             <h2>Intellectual Property Rights</h2>
-            
+
             <h3>Our Intellectual Property</h3>
             <p>Docket One and its licensors own all intellectual property rights in the Service, including:</p>
             <ul>
@@ -530,10 +539,11 @@
         <!-- Disclaimers -->
         <section id="disclaimers" class="legal-section">
             <h2>Disclaimers and Limitations</h2>
-            
+
             <div class="important-notice">
                 <h3>⚠️ No Professional Advice</h3>
-                <p><strong>IMPORTANT:</strong> Our calculators are tools for information and entertainment purposes only. They do not constitute:</p>
+                <p><strong>IMPORTANT:</strong> Our calculators are tools for information and entertainment purposes
+                    only. They do not constitute:</p>
                 <ul>
                     <li>Financial, investment, or tax advice</li>
                     <li>Legal advice or legal opinions</li>
@@ -562,13 +572,15 @@
             </ul>
 
             <h3>No Warranty</h3>
-            <p>THE SERVICE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, INCLUDING implied warranties of merchantability, fitness for a particular purpose, accuracy, reliability, or uninterrupted operation.</p>
+            <p>THE SERVICE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, INCLUDING implied
+                warranties of merchantability, fitness for a particular purpose, accuracy, reliability, or uninterrupted
+                operation.</p>
         </section>
 
         <!-- Limitation of Liability -->
         <section id="liability" class="legal-section">
             <h2>Limitation of Liability</h2>
-            
+
             <h3>Exclusion of Damages</h3>
             <p>TO THE MAXIMUM EXTENT PERMITTED BY LAW, DOCKET ONE SHALL NOT BE LIABLE FOR:</p>
             <ul>
@@ -595,7 +607,7 @@
         <!-- Privacy -->
         <section id="privacy" class="legal-section">
             <h2>Privacy and Data Protection</h2>
-            
+
             <h3>Data Processing</h3>
             <ul>
                 <li>All calculations are performed locally in your browser</li>
@@ -617,7 +629,7 @@
         <!-- Prohibited Uses -->
         <section id="prohibited-uses" class="legal-section">
             <h2>Prohibited Uses</h2>
-            
+
             <h3>System Abuse</h3>
             <p>You may not:</p>
             <ul>
@@ -649,7 +661,7 @@
         <!-- Enforcement -->
         <section id="enforcement" class="legal-section">
             <h2>Enforcement and Termination</h2>
-            
+
             <h3>Termination Rights</h3>
             <p>We may suspend or terminate your access to the Service:</p>
             <ul>
@@ -674,20 +686,25 @@
         <!-- Legal Provisions -->
         <section id="legal-provisions" class="legal-section">
             <h2>Legal Provisions</h2>
-            
+
             <h3>Governing Law</h3>
             <p>These Terms are governed by applicable laws, without regard to conflict of law principles.</p>
 
             <h3>Dispute Resolution</h3>
-            <p><strong>Informal Resolution:</strong> Before formal legal action, we encourage you to contact us to resolve disputes informally.</p>
-            <p><strong>Binding Arbitration:</strong> Disputes that cannot be resolved informally shall be resolved through binding arbitration.</p>
-            <p><strong>Class Action Waiver:</strong> You agree to resolve disputes individually and waive the right to participate in class actions.</p>
+            <p><strong>Informal Resolution:</strong> Before formal legal action, we encourage you to contact us to
+                resolve disputes informally.</p>
+            <p><strong>Binding Arbitration:</strong> Disputes that cannot be resolved informally shall be resolved
+                through binding arbitration.</p>
+            <p><strong>Class Action Waiver:</strong> You agree to resolve disputes individually and waive the right to
+                participate in class actions.</p>
 
             <h3>Severability</h3>
-            <p>If any provision of these Terms is found to be unenforceable, the remaining provisions will remain in full force and effect.</p>
+            <p>If any provision of these Terms is found to be unenforceable, the remaining provisions will remain in
+                full force and effect.</p>
 
             <h3>Entire Agreement</h3>
-            <p>These Terms, together with our Privacy Policy, constitute the entire agreement between you and Docket One regarding the Service.</p>
+            <p>These Terms, together with our Privacy Policy, constitute the entire agreement between you and Docket One
+                regarding the Service.</p>
         </section>
 
         <!-- Contact Section -->
@@ -698,28 +715,42 @@
                 <a href="mailto:legal@docket.one" class="contact-button">⚖️ Legal Team</a>
                 <a href="mailto:business@docket.one" class="contact-button">💼 Business Inquiries</a>
             </div>
-            <p style="margin-top: var(--space-lg); font-size: 1rem;">Response Time: 5-7 business days for legal inquiries</p>
+            <p style="margin-top: var(--space-lg); font-size: 1rem;">Response Time: 5-7 business days for legal
+                inquiries</p>
         </section>
     </main>
 
     <!-- Footer -->
-    <footer style="background: var(--gray-800); color: white; padding: var(--space-2xl); text-align: center; margin-top: var(--space-3xl);">
+    <footer
+        style="background: var(--gray-800); color: white; padding: var(--space-2xl); text-align: center; margin-top: var(--space-3xl);">
         <div style="max-width: 1200px; margin: 0 auto;">
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-xl); margin-bottom: var(--space-xl);">
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-xl); margin-bottom: var(--space-xl);">
                 <div>
                     <h3 style="margin-bottom: var(--space-md);">🧮 Docket One</h3>
                     <p style="opacity: 0.8;">Where calculators get fun!</p>
                 </div>
                 <div>
                     <h4 style="margin-bottom: var(--space-md);">Support</h4>
-                    <a href="help.html" style="color: white; text-decoration: none; display: block; margin-bottom: var(--space-xs);">Help & FAQ</a>
-                    <a href="mailto:support@docket.one" style="color: white; text-decoration: none;">Contact Support</a>
+                    <div class="footer-links">
+                        <a href="./help.html"
+                            style="color: white; text-decoration: none; display: block; margin-bottom: var(--space-xs);">Help
+                            & FAQ</a>
+                        <a href="mailto:support@docket.one" style="color: white; text-decoration: none;">Contact
+                            Support</a>
+                    </div>
                 </div>
                 <div>
                     <h4 style="margin-bottom: var(--space-md);">Legal</h4>
-                    <a href="privacy.html" style="color: white; text-decoration: none; display: block; margin-bottom: var(--space-xs);">Privacy Policy</a>
-                    <a href="terms.html" style="color: white; text-decoration: none; display: block; margin-bottom: var(--space-xs);">Terms of Service</a>
-                    <a href="accessibility.html" style="color: white; text-decoration: none;">Accessibility</a>
+                    <div class="footer-links">
+                        <a href="./privacy.html"
+                            style="color: white; text-decoration: none; display: block; margin-bottom: var(--space-xs);">Privacy
+                            Policy</a>
+                        <a href="./terms.html"
+                            style="color: white; text-decoration: none; display: block; margin-bottom: var(--space-xs);">Terms
+                            of Service</a>
+                        <a href="./accessibility.html" style="color: white; text-decoration: none;">Accessibility</a>
+                    </div>
                 </div>
             </div>
             <div style="border-top: 1px solid var(--gray-600); padding-top: var(--space-lg); opacity: 0.8;">
@@ -728,4 +759,5 @@
         </div>
     </footer>
 </body>
+
 </html>
