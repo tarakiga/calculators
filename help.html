@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help & FAQ | Docket One Calculators</title>
+    <meta name="description" content="Get help with Docket One calculators. Find answers to common questions, troubleshooting guides, and technical support information.">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Shared Styles -->
+    <link rel="stylesheet" href="../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../common/santa-improvements.css">
+    
+    <style>
+        :root {
+            /* Color System */
+            --primary: #3b82f6;
+            --primary-light: #60a5fa;
+            --primary-dark: #1d4ed8;
+            --secondary: #06b6d4;
+            --accent: #8b5cf6;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            
+            /* Neutral Colors */
+            --white: #ffffff;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            
+            /* Semantic Colors */
+            --background: var(--white);
+            --background-secondary: var(--gray-50);
+            --text: var(--gray-900);
+            --text-secondary: var(--gray-600);
+            --border: var(--gray-200);
+            
+            /* Spacing Scale */
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+            --space-3xl: 4rem;
+            
+            /* Border Radius */
+            --radius: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            
+            /* Shadows */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--background);
+        }
+        
+        /* Header */
+        .page-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: var(--space-3xl) var(--space-xl);
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 800;
+            margin-bottom: var(--space-md);
+        }
+        
+        .page-header p {
+            font-size: 1.125rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--space-3xl) var(--space-xl);
+        }
+        
+        /* Table of Contents */
+        .toc {
+            background: var(--background-secondary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            margin-bottom: var(--space-3xl);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .toc h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: var(--space-lg);
+            color: var(--primary);
+        }
+        
+        .toc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-md);
+        }
+        
+        .toc-item {
+            background: white;
+            padding: var(--space-lg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+        }
+        
+        .toc-item:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .toc-item a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+        }
+        
+        .toc-item a:hover {
+            color: var(--primary);
+        }
+        
+        /* Content Sections */
+        .content-section {
+            margin-bottom: var(--space-3xl);
+            scroll-margin-top: 100px;
+        }
+        
+        .content-section h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: var(--space-xl);
+            padding-bottom: var(--space-md);
+            border-bottom: 2px solid var(--border);
+        }
+        
+        .content-section h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text);
+            margin: var(--space-xl) 0 var(--space-lg);
+        }
+        
+        .content-section h4 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin: var(--space-lg) 0 var(--space-md);
+        }
+        
+        .content-section p {
+            margin-bottom: var(--space-lg);
+            color: var(--text-secondary);
+        }
+        
+        /* Lists */
+        .content-section ul {
+            margin: var(--space-lg) 0;
+            padding-left: var(--space-xl);
+        }
+        
+        .content-section li {
+            margin-bottom: var(--space-sm);
+            color: var(--text-secondary);
+        }
+        
+        /* FAQ Items */
+        .faq-item {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            margin-bottom: var(--space-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .faq-question {
+            background: var(--background-secondary);
+            padding: var(--space-lg);
+            font-weight: 600;
+            color: var(--text);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .faq-question:hover {
+            background: var(--gray-100);
+        }
+        
+        .faq-answer {
+            padding: var(--space-lg);
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+        
+        .faq-answer strong {
+            color: var(--text);
+        }
+        
+        /* Alert Boxes */
+        .alert {
+            padding: var(--space-lg);
+            border-radius: var(--radius);
+            margin: var(--space-lg) 0;
+            border-left: 4px solid;
+        }
+        
+        .alert-info {
+            background: #eff6ff;
+            border-color: var(--primary);
+            color: #1d4ed8;
+        }
+        
+        .alert-warning {
+            background: #fffbeb;
+            border-color: var(--warning);
+            color: #92400e;
+        }
+        
+        .alert-success {
+            background: #ecfdf5;
+            border-color: var(--success);
+            color: #065f46;
+        }
+        
+        /* Troubleshooting Table */
+        .troubleshooting-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: var(--space-lg) 0;
+            background: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .troubleshooting-table th {
+            background: var(--primary);
+            color: white;
+            padding: var(--space-lg);
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .troubleshooting-table td {
+            padding: var(--space-lg);
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+        
+        .troubleshooting-table tr:hover {
+            background: var(--background-secondary);
+        }
+        
+        /* Contact Section */
+        .contact-section {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            padding: var(--space-3xl);
+            border-radius: var(--radius-xl);
+            text-align: center;
+            margin-top: var(--space-3xl);
+        }
+        
+        .contact-section h2 {
+            font-size: 1.75rem;
+            margin-bottom: var(--space-lg);
+            border: none;
+            padding: 0;
+        }
+        
+        .contact-section p {
+            font-size: 1.125rem;
+            opacity: 0.9;
+            margin-bottom: var(--space-xl);
+        }
+        
+        .contact-button {
+            display: inline-block;
+            background: white;
+            color: var(--primary);
+            padding: var(--space-lg) var(--space-2xl);
+            border-radius: var(--radius);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .page-header {
+                padding: var(--space-2xl) var(--space-lg);
+            }
+            
+            .main-content {
+                padding: var(--space-xl) var(--space-lg);
+            }
+            
+            .toc-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .troubleshooting-table {
+                font-size: 0.875rem;
+            }
+            
+            .troubleshooting-table th,
+            .troubleshooting-table td {
+                padding: var(--space-md);
+            }
+        }
+    </style>
+
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
+    <script src="../../common/footer/premium-footer.js"></script>
+    <link rel="stylesheet" href="common/navbar-enhanced.css">
+    <link rel="stylesheet" href="common/santa-improvements.css">
+    <link rel="stylesheet" href="common/global-calculator.css">
+    <link rel="stylesheet" href="common/themes/dark-theme.css">
+    <link rel="stylesheet" href="common/footer/premium-footer.css">
+    <script src="common/footer/premium-footer.js"></script></head>
+<body>
+    <!-- Navigation -->
+    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+<nav class="main-nav">
+    <div class="nav-container">
+        <div class="nav-logo">
+            <a href="index.html">🧮 Docket One</a>
+        </div>
+        <div class="nav-search">
+            <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input" aria-label="Search calculators">
+            <div id="search-results" class="search-results"></div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="pages/BigKidMath/index.html" class="category-link">Big Kid Math</a></li>
+            <li><a href="pages/CipherLab/index.html" class="category-link">Cipher Lab</a></li>
+            <li><a href="pages/GeekGalaxy/index.html" class="category-link">Geek Galaxy</a></li>
+            <li><a href="pages/LifeHacks/index.html" class="category-link">Life Hacks</a></li>
+            <li><a href="pages/Math_Magik/index.html" class="category-link">Math Magik</a></li>
+            <li><a href="pages/Otaku_Ops/index.html" class="category-link">Otaku Ops</a></li>
+            <li><a href="index.html" class="home-link">🏠 Home</a></li>
+        </ul>
+        <button class="mobile-menu-btn" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</nav>
+
+    <!-- Header -->
+    <header class="page-header">
+        <h1>🤔 Help & FAQ</h1>
+        <p>Find answers to common questions and get the most out of your Docket One calculator experience</p>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Table of Contents -->
+        <section class="toc">
+            <h2>📋 Quick Navigation</h2>
+            <div class="toc-grid">
+                <div class="toc-item">
+                    <a href="#getting-started">🚀 Getting Started</a>
+                </div>
+                <div class="toc-item">
+                    <a href="#technical-support">🔧 Technical Support</a>
+                </div>
+                <div class="toc-item">
+                    <a href="#privacy-data">🔒 Privacy & Data</a>
+                </div>
+                <div class="toc-item">
+                    <a href="#calculator-help">🧮 Calculator Help</a>
+                </div>
+                <div class="toc-item">
+                    <a href="#features">⚡ Features</a>
+                </div>
+                <div class="toc-item">
+                    <a href="#troubleshooting">🛠️ Troubleshooting</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Getting Started -->
+        <section id="getting-started" class="content-section">
+            <h2>🚀 Getting Started</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    What is Docket One?
+                </div>
+                <div class="faq-answer">
+                    Docket One is where calculators get fun! We've created an entertaining collection of both practical life calculators and delightfully quirky themed tools. Whether you need to figure out serious stuff like "Should I buy a car or use Uber?" or want to explore fun questions like "How long would it take to travel to Mars?" or "What's my caffeine half-life?" - we've got you covered. Think of us as the place where useful math meets creative curiosity, with a dash of geek culture thrown in for good measure.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    How do I use the calculators?
+                </div>
+                <div class="faq-answer">
+                    <strong>Easy as 1-2-3!</strong><br>
+                    1. <strong>Browse Categories</strong>: Choose from BigKidMath, CipherLab, GeekGalaxy, LifeHacks, Math_Magik, or Otaku_Ops<br>
+                    2. <strong>Select Calculator</strong>: Click on any calculator that interests you<br>
+                    3. <strong>Input Data</strong>: Fill in the required fields with your information<br>
+                    4. <strong>Calculate</strong>: Hit the calculate button to see your results<br>
+                    5. <strong>Share Results</strong>: Use our social sharing features to share interesting findings
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    Are the calculators free to use?
+                </div>
+                <div class="faq-answer">
+                    <strong>Yes!</strong> All calculators on Docket One are completely free to use. No registration, subscription, or payment required. Just pure calculator fun!
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Support -->
+        <section id="technical-support" class="content-section">
+            <h2>🔧 Technical Support</h2>
+            
+            <h3>Browser Compatibility</h3>
+            <div class="alert alert-info">
+                <strong>Supported Browsers:</strong><br>
+                • Chrome 89+ (Recommended)<br>
+                • Firefox 88+<br>
+                • Safari 14+<br>
+                • Microsoft Edge 89+<br><br>
+                <strong>Mobile Support:</strong><br>
+                • iOS 14+ (Safari, Chrome)<br>
+                • Android 10+ (Chrome, Firefox)
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    The calculator isn't working properly
+                </div>
+                <div class="faq-answer">
+                    <strong>First, try these steps:</strong><br>
+                    1. <strong>Refresh the page</strong> - Press F5 or Ctrl+R (Cmd+R on Mac)<br>
+                    2. <strong>Clear browser cache</strong> - Clear your browser's cache and cookies<br>
+                    3. <strong>Check browser compatibility</strong> - Ensure you're using a supported browser<br>
+                    4. <strong>Disable ad blockers</strong> - Some ad blockers may interfere with functionality<br>
+                    5. <strong>Enable JavaScript</strong> - Our calculators require JavaScript to function<br><br>
+                    <strong>Still having issues?</strong><br>
+                    • Try using a different browser<br>
+                    • Check your internet connection<br>
+                    • Try accessing the calculator from a different device
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    Mobile-specific issues
+                </div>
+                <div class="faq-answer">
+                    <strong>Common mobile fixes:</strong><br>
+                    • <strong>Touch responsiveness</strong>: Ensure you're tapping directly on buttons and input fields<br>
+                    • <strong>Keyboard not appearing</strong>: Tap directly in the input field to activate mobile keyboard<br>
+                    • <strong>Results not visible</strong>: Try rotating your device or scrolling down<br>
+                    • <strong>Sharing not working</strong>: Ensure you have sharing apps installed (Twitter, Facebook, etc.)
+                </div>
+            </div>
+        </section>
+
+        <!-- Privacy & Data -->
+        <section id="privacy-data" class="content-section">
+            <h2>🔒 Privacy & Data</h2>
+            
+            <div class="alert alert-success">
+                <strong>Your Privacy Matters!</strong> All calculations happen in your browser - we never see or store your input data or results. When you close the calculator, your data is gone forever.
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    Do you collect my data?
+                </div>
+                <div class="faq-answer">
+                    We prioritize your privacy. Here's what we do and don't collect:<br><br>
+                    <strong>We DON'T collect:</strong><br>
+                    • Personal identifying information<br>
+                    • Email addresses or contact details<br>
+                    • Financial information you input into calculators<br>
+                    • Location data (beyond general region for performance)<br><br>
+                    <strong>We DO collect:</strong><br>
+                    • Anonymous usage analytics (which calculators are popular)<br>
+                    • Basic technical information (browser type, device type)<br>
+                    • Performance metrics to improve our service
+                </div>
+            </div>
+        </section>
+
+        <!-- Calculator-Specific Help -->
+        <section id="calculator-help" class="content-section">
+            <h2>🧮 Calculator-Specific Help</h2>
+            
+            <h3>BigKidMath Calculators</h3>
+            <div class="faq-item">
+                <div class="faq-question">
+                    Caffeine Half-Life Calculator: Why is my caffeine timeline different from others?
+                </div>
+                <div class="faq-answer">
+                    Individual metabolism varies significantly. Our calculator uses average rates but your personal metabolism may be faster or slower. Factors like age, weight, genetics, and regular caffeine consumption all affect how quickly you process caffeine.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    Car vs. Uber Calculator: Should I include car insurance in my calculations?
+                </div>
+                <div class="faq-answer">
+                    Yes, include all ownership costs (insurance, maintenance, registration, fuel, depreciation) for accurate comparison. The more complete your cost picture, the better your decision will be.
+                </div>
+            </div>
+
+            <h3>CipherLab Calculators</h3>
+            <div class="faq-item">
+                <div class="faq-question">
+                    Morse Code Translator: The audio playback isn't working
+                </div>
+                <div class="faq-answer">
+                    Ensure your browser allows audio playback and your volume is up. Some browsers require user interaction before playing audio. Try clicking somewhere on the page first, then use the audio feature.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    Password Strength: Why does my password show as weak when it has special characters?
+                </div>
+                <div class="faq-answer">
+                    Password strength depends on multiple factors: length, character variety, predictability, and common patterns. A longer passphrase often beats a short complex password. Our analyzer looks at overall security, not just character types.
+                </div>
+            </div>
+
+            <h3>GeekGalaxy Calculators</h3>
+            <div class="faq-item">
+                <div class="faq-question">
+                    Space Travel Calculator: Are these calculations scientifically accurate?
+                </div>
+                <div class="faq-answer">
+                    Yes! We use real physics formulas and current distance data. However, they don't account for technological limitations we haven't solved yet (like creating actual warp drives or dealing with relativistic effects for near-light-speed travel).
+                </div>
+            </div>
+        </section>
+
+        <!-- Features -->
+        <section id="features" class="content-section">
+            <h2>⚡ Features & Functionality</h2>
+            
+            <h3>Social Sharing</h3>
+            <div class="faq-item">
+                <div class="faq-question">
+                    How to share calculator results
+                </div>
+                <div class="faq-answer">
+                    <strong>Easy sharing in 4 steps:</strong><br>
+                    1. Complete a calculation<br>
+                    2. Click the "Share" button (usually rocket 🚀 or share 📤 icon)<br>
+                    3. Choose your platform or "Share with Image"<br>
+                    4. On mobile: Use native sharing with auto-generated image; On desktop: Copy link or download the custom result image
+                </div>
+            </div>
+
+            <h3>Keyboard Shortcuts</h3>
+            <div class="alert alert-info">
+                <strong>Useful keyboard shortcuts:</strong><br>
+                • <strong>Tab</strong>: Navigate between input fields<br>
+                • <strong>Enter</strong>: Submit/calculate (when in an input field)<br>
+                • <strong>Escape</strong>: Close modals or dropdown menus<br>
+                • <strong>Space</strong>: Activate buttons when focused
+            </div>
+        </section>
+
+        <!-- Troubleshooting -->
+        <section id="troubleshooting" class="content-section">
+            <h2>🛠️ Troubleshooting Quick Reference</h2>
+            
+            <table class="troubleshooting-table">
+                <thead>
+                    <tr>
+                        <th>Problem</th>
+                        <th>Quick Fix</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Calculator won't load</td>
+                        <td>Refresh page, check internet connection</td>
+                    </tr>
+                    <tr>
+                        <td>Results appear incorrect</td>
+                        <td>Verify all input fields are filled correctly</td>
+                    </tr>
+                    <tr>
+                        <td>Mobile keyboard won't appear</td>
+                        <td>Tap directly inside input field</td>
+                    </tr>
+                    <tr>
+                        <td>Sharing failed</td>
+                        <td>Try "Copy Link" option instead</td>
+                    </tr>
+                    <tr>
+                        <td>Charts not displaying</td>
+                        <td>Enable JavaScript, try different browser</td>
+                    </tr>
+                    <tr>
+                        <td>Audio not playing</td>
+                        <td>Check browser audio permissions</td>
+                    </tr>
+                    <tr>
+                        <td>Calculations running slowly</td>
+                        <td>Close other browser tabs, try Chrome</td>
+                    </tr>
+                    <tr>
+                        <td>Print version looks wrong</td>
+                        <td>Use browser print function, not mobile share</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact-section">
+            <h2>💬 Still Need Help?</h2>
+            <p>Can't find your answer here? We're here to help! Reach out to our support team and we'll get back to you within 24-48 hours.</p>
+            <a href="mailto:support@docket.one" class="contact-button">📧 Contact Support</a>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer style="background: var(--gray-800); color: white; padding: var(--space-2xl); text-align: center; margin-top: var(--space-3xl);">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-xl); margin-bottom: var(--space-xl);">
+                <div>
+                    <h3 style="margin-bottom: var(--space-md);">🧮 Docket One</h3>
+                    <p style="opacity: 0.8;">Where calculators get fun!</p>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: var(--space-md);">Support</h4>
+                    <a href="help.html" style="color: white; text-decoration: none; display: block; margin-bottom: var(--space-xs);">Help & FAQ</a>
+                    <a href="mailto:support@docket.one" style="color: white; text-decoration: none;">Contact Support</a>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: var(--space-md);">Legal</h4>
+                    <a href="privacy.html" style="color: white; text-decoration: none; display: block; margin-bottom: var(--space-xs);">Privacy Policy</a>
+                    <a href="terms.html" style="color: white; text-decoration: none; display: block; margin-bottom: var(--space-xs);">Terms of Service</a>
+                    <a href="accessibility.html" style="color: white; text-decoration: none;">Accessibility</a>
+                </div>
+            </div>
+            <div style="border-top: 1px solid var(--gray-600); padding-top: var(--space-lg); opacity: 0.8;">
+                <p>&copy; 2024 Docket One. Made with 💻 and ☕</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

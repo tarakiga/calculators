@@ -1,0 +1,1079 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Morse Code Translator | CipherLab - Docket One</title>
+    <meta name="description" content="Professional Morse code translator with audio playback and visual display.">
+    
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <style>
+        :root {
+            --primary: #7c3aed;
+            --primary-light: #8b5cf6;
+            --secondary: #06b6d4;
+            --success: #10b981;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-600: #4b5563;
+            --gray-800: #1f2937;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--gray-50);
+            color: var(--gray-800);
+            line-height: 1.6;
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 50%, var(--secondary) 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.125rem;
+            opacity: 0.9;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+        
+        .translator-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+        
+        .translator-panel, .reference-panel {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--gray-200);
+        }
+        
+        .mode-selector {
+            display: flex;
+            background: var(--gray-100);
+            border-radius: 8px;
+            padding: 4px;
+            margin-bottom: 2rem;
+        }
+        
+        .mode-button {
+            flex: 1;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 6px;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .mode-button.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .input-field, .output-field {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--gray-200);
+            border-radius: 12px;
+            font-size: 1rem;
+            min-height: 120px;
+            margin-bottom: 1rem;
+            resize: vertical;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .output-field {
+            background: var(--gray-50);
+            font-weight: 600;
+        }
+        
+        .morse-display {
+            background: #1a1a1a;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            min-height: 80px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .morse-symbol {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 30px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: white;
+        }
+        
+        .morse-dot {
+            width: 30px;
+            background: var(--success);
+        }
+        
+        .morse-dash {
+            width: 60px;
+            background: var(--secondary);
+        }
+        
+        .morse-space {
+            width: 15px;
+            background: var(--gray-600);
+            opacity: 0.5;
+        }
+        
+        .controls {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: var(--gray-200);
+            color: var(--gray-800);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .reference-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .reference-section {
+            background: var(--gray-50);
+            border-radius: 8px;
+            padding: 1rem;
+        }
+        
+        .reference-section h4 {
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+        
+        .reference-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.25rem 0;
+            font-size: 0.75rem;
+        }
+        
+        .reference-morse {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--primary);
+        }
+        
+        @media (max-width: 768px) {
+            .translator-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero {
+                padding: 2rem 1rem;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 2rem 1rem;
+            }
+            
+            .controls {
+                flex-direction: column;
+            }
+            
+            .morse-symbol {
+                height: 24px;
+            }
+            
+            .morse-dot {
+                width: 24px;
+            }
+            
+            .morse-dash {
+                width: 48px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
+    <script src="../../common/footer/premium-footer.js"></script>
+</head>
+<body x-data="{ showModal: false }">
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="../../index.html">🧮 Docket One</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../BigKidMath/index.html">Big Kid Math</a></li>
+                <li><a href="../CipherLab/index.html">Cipher Lab</a></li>
+                <li><a href="../GeekGalaxy/index.html">Geek Galaxy</a></li>
+                <li><a href="../LifeHacks/index.html">Life Hacks</a></li>
+                <li><a href="../Math_Magik/index.html">Math Magik</a></li>
+                <li><a href="../Otaku_Ops/index.html">Otaku Ops</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h1 class="hero-title">📡 Morse Code Translator</h1>
+        <p class="hero-subtitle">Professional encoder/decoder with audio playback and visual display</p>
+    </section>
+
+    <main class="container">
+        <div class="translator-grid" x-data="morseTranslator()">
+            <div class="translator-panel">
+                <div class="mode-selector">
+                    <button @click="mode = 'encode'" :class="{ active: mode === 'encode' }" class="mode-button">
+                        Text → Morse
+                    </button>
+                    <button @click="mode = 'decode'" :class="{ active: mode === 'decode' }" class="mode-button">
+                        Morse → Text
+                    </button>
+                </div>
+
+                <label x-text="mode === 'encode' ? 'Enter text to encode:' : 'Enter Morse code to decode:'"></label>
+                <textarea 
+                    x-model="inputText" 
+                    @input="translate"
+                    class="input-field" 
+                    :placeholder="mode === 'encode' ? 'Type your message...' : 'Enter dots and dashes...'"></textarea>
+
+                <div x-show="outputText && mode === 'encode'" class="morse-display">
+                    <template x-for="(symbol, index) in morseSymbols" :key="index">
+                        <div 
+                            :class="{
+                                'morse-dot': symbol === '.',
+                                'morse-dash': symbol === '-',
+                                'morse-space': symbol === ' '
+                            }"
+                            class="morse-symbol"
+                            x-text="symbol === ' ' ? '' : symbol">
+                        </div>
+                    </template>
+                </div>
+
+                <div class="controls">
+                    <button @click="playMorse" :disabled="!outputText || mode !== 'encode'" class="btn btn-success">
+                        <span x-show="!isPlaying">🔊</span>
+                        <span x-show="isPlaying">⏹️</span>
+                        <span x-text="isPlaying ? 'Stop' : 'Play Morse'"></span>
+                    </button>
+                    
+                    <button @click="copyResult" :disabled="!outputText" class="btn btn-primary">
+                        📋 Copy Result
+                    </button>
+                    
+                    <button @click="clearAll" class="btn btn-secondary">
+                        🗑️ Clear All
+                    </button>
+                </div>
+
+                <label x-text="mode === 'encode' ? 'Morse code result:' : 'Decoded text:'"></label>
+                <textarea 
+                    x-model="outputText" 
+                    class="output-field" 
+                    readonly
+                    :placeholder="mode === 'encode' ? 'Your Morse code...' : 'Your decoded text...'"></textarea>
+            </div>
+
+            <div class="reference-panel">
+                <h3>📚 Morse Code Reference</h3>
+                
+                <div class="reference-grid">
+                    <div class="reference-section">
+                        <h4>Letters A-M</h4>
+                        <div class="reference-item"><span>A</span><span class="reference-morse">·−</span></div>
+                        <div class="reference-item"><span>B</span><span class="reference-morse">−···</span></div>
+                        <div class="reference-item"><span>C</span><span class="reference-morse">−·−·</span></div>
+                        <div class="reference-item"><span>D</span><span class="reference-morse">−··</span></div>
+                        <div class="reference-item"><span>E</span><span class="reference-morse">·</span></div>
+                        <div class="reference-item"><span>F</span><span class="reference-morse">··−·</span></div>
+                        <div class="reference-item"><span>G</span><span class="reference-morse">−−·</span></div>
+                        <div class="reference-item"><span>H</span><span class="reference-morse">····</span></div>
+                        <div class="reference-item"><span>I</span><span class="reference-morse">··</span></div>
+                        <div class="reference-item"><span>J</span><span class="reference-morse">·−−−</span></div>
+                        <div class="reference-item"><span>K</span><span class="reference-morse">−·−</span></div>
+                        <div class="reference-item"><span>L</span><span class="reference-morse">·−··</span></div>
+                        <div class="reference-item"><span>M</span><span class="reference-morse">−−</span></div>
+                    </div>
+                    
+                    <div class="reference-section">
+                        <h4>Letters N-Z</h4>
+                        <div class="reference-item"><span>N</span><span class="reference-morse">−·</span></div>
+                        <div class="reference-item"><span>O</span><span class="reference-morse">−−−</span></div>
+                        <div class="reference-item"><span>P</span><span class="reference-morse">·−−·</span></div>
+                        <div class="reference-item"><span>Q</span><span class="reference-morse">−−·−</span></div>
+                        <div class="reference-item"><span>R</span><span class="reference-morse">·−·</span></div>
+                        <div class="reference-item"><span>S</span><span class="reference-morse">···</span></div>
+                        <div class="reference-item"><span>T</span><span class="reference-morse">−</span></div>
+                        <div class="reference-item"><span>U</span><span class="reference-morse">··−</span></div>
+                        <div class="reference-item"><span>V</span><span class="reference-morse">···−</span></div>
+                        <div class="reference-item"><span>W</span><span class="reference-morse">·−−</span></div>
+                        <div class="reference-item"><span>X</span><span class="reference-morse">−··−</span></div>
+                        <div class="reference-item"><span>Y</span><span class="reference-morse">−·−−</span></div>
+                        <div class="reference-item"><span>Z</span><span class="reference-morse">−−··</span></div>
+                    </div>
+                    
+                    <div class="reference-section">
+                        <h4>Numbers 0-9</h4>
+                        <div class="reference-item"><span>0</span><span class="reference-morse">−−−−−</span></div>
+                        <div class="reference-item"><span>1</span><span class="reference-morse">·−−−−</span></div>
+                        <div class="reference-item"><span>2</span><span class="reference-morse">··−−−</span></div>
+                        <div class="reference-item"><span>3</span><span class="reference-morse">···−−</span></div>
+                        <div class="reference-item"><span>4</span><span class="reference-morse">····−</span></div>
+                        <div class="reference-item"><span>5</span><span class="reference-morse">·····</span></div>
+                        <div class="reference-item"><span>6</span><span class="reference-morse">−····</span></div>
+                        <div class="reference-item"><span>7</span><span class="reference-morse">−−···</span></div>
+                        <div class="reference-item"><span>8</span><span class="reference-morse">−−−··</span></div>
+                        <div class="reference-item"><span>9</span><span class="reference-morse">−−−−·</span></div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 2rem; padding: 1rem; background: var(--gray-50); border-radius: 8px; font-size: 0.875rem;">
+                    <h4 style="margin-bottom: 0.5rem;">💡 Usage Tips</h4>
+                    <p><strong>Encoding:</strong> Type normal text to convert to Morse code.</p>
+                    <p><strong>Decoding:</strong> Use dots (.) and dashes (-) with spaces between letters.</p>
+                    <p><strong>Audio:</strong> Click "Play Morse" to hear the code with proper timing.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('morseTranslator', () => ({
+                mode: 'encode',
+                inputText: '',
+                outputText: '',
+                morseSymbols: [],
+                isPlaying: false,
+                audioContext: null,
+                
+                morseCode: {
+                    'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 'F': '..-.', 
+                    'G': '--.', 'H': '....', 'I': '..', 'J': '.---', 'K': '-.-', 'L': '.-..', 
+                    'M': '--', 'N': '-.', 'O': '---', 'P': '.--.', 'Q': '--.-', 'R': '.-.', 
+                    'S': '...', 'T': '-', 'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-', 
+                    'Y': '-.--', 'Z': '--..', '0': '-----', '1': '.----', '2': '..---', 
+                    '3': '...--', '4': '....-', '5': '.....', '6': '-....', '7': '--...', 
+                    '8': '---..', '9': '----.', '.': '.-.-.-', ',': '--..--', '?': '..--..',
+                    ' ': '/'
+                },
+                
+                morseToText: {},
+                
+                init() {
+                    Object.entries(this.morseCode).forEach(([key, value]) => {
+                        this.morseToText[value] = key;
+                    });
+                    
+                    this.setupAudio();
+                    this.inputText = 'HELLO WORLD';
+                    this.translate();
+                },
+                
+                setupAudio() {
+                    try {
+                        this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    } catch (e) {
+                        console.warn('Web Audio API not supported');
+                    }
+                },
+                
+                translate() {
+                    if (!this.inputText.trim()) {
+                        this.outputText = '';
+                        this.morseSymbols = [];
+                        return;
+                    }
+                    
+                    if (this.mode === 'encode') {
+                        this.encodeToMorse();
+                    } else {
+                        this.decodeFromMorse();
+                    }
+                },
+                
+                encodeToMorse() {
+                    const text = this.inputText.toUpperCase();
+                    let result = '';
+                    const symbols = [];
+                    
+                    for (const char of text) {
+                        if (this.morseCode[char]) {
+                            const morse = this.morseCode[char];
+                            result += morse + ' ';
+                            
+                            for (const symbol of morse) {
+                                symbols.push(symbol);
+                            }
+                            symbols.push(' ');
+                        }
+                    }
+                    
+                    this.outputText = result.trim();
+                    this.morseSymbols = symbols;
+                },
+                
+                decodeFromMorse() {
+                    const words = this.inputText.split(' / ');
+                    let result = '';
+                    
+                    for (let i = 0; i < words.length; i++) {
+                        const letters = words[i].split(' ').filter(l => l.length > 0);
+                        
+                        for (const morse of letters) {
+                            result += this.morseToText[morse] || '?';
+                        }
+                        
+                        if (i < words.length - 1) {
+                            result += ' ';
+                        }
+                    }
+                    
+                    this.outputText = result;
+                    this.morseSymbols = [];
+                },
+                
+                playMorse() {
+                    if (!this.audioContext || !this.outputText || this.mode !== 'encode') return;
+                    
+                    if (this.isPlaying) {
+                        this.isPlaying = false;
+                        return;
+                    }
+                    
+                    this.isPlaying = true;
+                    
+                    const oscillator = this.audioContext.createOscillator();
+                    const gainNode = this.audioContext.createGain();
+                    
+                    oscillator.connect(gainNode);
+                    gainNode.connect(this.audioContext.destination);
+                    
+                    oscillator.frequency.value = 600;
+                    oscillator.type = 'sine';
+                    gainNode.gain.value = 0;
+                    
+                    oscillator.start();
+                    
+                    let time = this.audioContext.currentTime;
+                    const dotDuration = 0.1;
+                    const dashDuration = 0.3;
+                    const symbolGap = 0.1;
+                    const letterGap = 0.3;
+                    
+                    for (const char of this.outputText) {
+                        if (char === '.') {
+                            gainNode.gain.setValueAtTime(0.3, time);
+                            time += dotDuration;
+                            gainNode.gain.setValueAtTime(0, time);
+                            time += symbolGap;
+                        } else if (char === '-') {
+                            gainNode.gain.setValueAtTime(0.3, time);
+                            time += dashDuration;
+                            gainNode.gain.setValueAtTime(0, time);
+                            time += symbolGap;
+                        } else if (char === ' ') {
+                            time += letterGap;
+                        }
+                    }
+                    
+                    setTimeout(() => {
+                        oscillator.stop();
+                        this.isPlaying = false;
+                    }, (time - this.audioContext.currentTime) * 1000);
+                },
+                
+                copyResult() {
+                    navigator.clipboard.writeText(this.outputText).then(() => {
+                        alert('Copied to clipboard!');
+                    });
+                },
+                
+                clearAll() {
+                    this.inputText = '';
+                    this.outputText = '';
+                    this.morseSymbols = [];
+                }
+            }));
+        });
+    </script>
+
+    <!-- Newsletter Bar -->
+<!-- Newsletter Bar - Include before footer -->
+<div class="newsletter-bar" x-data="newsletterForm()">
+    <div class="newsletter-container">
+        <div class="newsletter-content">
+            <div class="newsletter-info">
+                <h3>ðŸŽ‰ Join Our Calculator Community!</h3>
+                <p>Get updates on new fun calculators and practical tools</p>
+            </div>
+            <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
+                <input 
+                    type="email" 
+                    class="newsletter-input"
+                    placeholder="Enter your email for calculator updates"
+                    x-model="email"
+                    required
+                >
+                <button 
+                    type="submit" 
+                    class="newsletter-submit"
+                    :disabled="isSubmitting"
+                >
+                    <span x-show="isSubmitting" class="loading-spinner"></span>
+                    <span x-text="isSubmitting ? 'Subscribing...' : 'ðŸš€ Subscribe'"></span>
+                </button>
+            </form>
+            <div x-show="showSuccess" class="newsletter-success" style="display: none;">
+                <p style="color: var(--accent-light); font-weight: 600;">
+                    âœ… Awesome! You'll get updates on the coolest new calculators!
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <!-- Footer -->
+<!-- Main Footer - Include at bottom of every page -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>ðŸŽ¯ About Docket.One</h4>
+                <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the tools for modern life.</p>
+                <p>Practical meets playful. Because adulting is hard enough.</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>ðŸŽª Calculator Categories</h4>
+                <ul class="footer-links">
+                    <li><a href="/pages/BigKidMath/"><span class="calculator-emoji">ðŸ§®</span> BigKidMath - Adult Life Tools</a></li>
+                    <li><a href="/pages/CipherLab/"><span class="calculator-emoji">ðŸ”</span> CipherLab - Secret Codes & Security</a></li>
+                    <li><a href="/pages/GeekGalaxy/"><span class="calculator-emoji">ðŸš€</span> GeekGalaxy - Sci-Fi & Fantasy Fun</a></li>
+                    <li><a href="/pages/LifeHacks/"><span class="calculator-emoji">âš¡</span> LifeHacks - Productivity & Wellness</a></li>
+                    <li><a href="/pages/Math_Magik/"><span class="calculator-emoji">ðŸŽ­</span> Math Magik - Mathematical Wizardry</a></li>
+                    <li><a href="/pages/Otaku_Ops/"><span class="calculator-emoji">ðŸŽŒ</span> Otaku Ops - Anime & Culture</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>ðŸ’¬ Support & Info</h4>
+                <ul class="footer-links">
+                    <li><a href="/help"><span class="calculator-emoji">â“</span> Help & FAQ</a></li>
+                    <li><a href="/privacy"><span class="calculator-emoji">ðŸ”’</span> Privacy Policy</a></li>
+                    <li><a href="/terms"><span class="calculator-emoji">ðŸ“‹</span> Terms of Service</a></li>
+                    <li><a href="/accessibility"><span class="calculator-emoji">â™¿</span> Accessibility</a></li>
+                    <li><a href="/contact"><span class="calculator-emoji">ðŸ“§</span> Contact Us</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <button 
+                    class="request-calculator-btn"
+                    @click="showModal = true"
+                >
+                    ðŸ’¡ Request a Calculator
+                </button>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="footer-logo">ðŸ§® Docket.One</div>
+            <div class="footer-copyright">
+                Â© 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
+            </div>
+            <div class="social-links">
+                <a href="#" class="social-link" aria-label="Twitter">ð•</a>
+                <a href="#" class="social-link" aria-label="LinkedIn">ðŸ’¼</a>
+                <a href="#" class="social-link" aria-label="GitHub">ðŸ™</a>
+                <a href="#" class="social-link" aria-label="Email">ðŸ“§</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- Request Modal -->
+<!-- Calculator Request Modal - Include once per page (usually at end of body) -->
+<div 
+    x-data="calculatorRequestForm()"
+    x-show="showModal"
+    x-cloak
+    class="modal-overlay"
+    @click.self="closeModal()"
+    style="display: none;"
+>
+    <div class="modal-content">
+        <!-- Request Form -->
+        <div x-show="!showConfirmation">
+            <div class="modal-header">
+                <h2 class="modal-title">ðŸ’¡ Request a Fun Calculator</h2>
+                <p class="modal-subtitle">Got an idea for a calculator that would make life easier or more fun? We want to hear it!</p>
+                <button class="modal-close" @click="closeModal()">âœ•</button>
+            </div>
+
+            <div class="modal-body">
+                <form @submit.prevent="submitRequest()">
+                    <div class="form-group">
+                        <label class="form-label" for="userName">Your Name *</label>
+                        <input 
+                            type="text" 
+                            id="userName"
+                            class="form-input"
+                            x-model="formData.name"
+                            required
+                            placeholder="What should we call you?"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="userEmail">Email Address *</label>
+                        <input 
+                            type="email" 
+                            id="userEmail"
+                            class="form-input"
+                            x-model="formData.email"
+                            required
+                            placeholder="your@email.com"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="requestType">What Kind of Request? *</label>
+                        <select 
+                            id="requestType"
+                            class="form-input form-select"
+                            x-model="formData.type"
+                            required
+                        >
+                            <option value="">Choose your request type</option>
+                            <option value="new-calculator">ðŸ†• Brand New Calculator</option>
+                            <option value="enhancement">âš¡ Improve Existing Calculator</option>
+                            <option value="category">ðŸŽª New Category Idea</option>
+                            <option value="feature">âœ¨ Cool New Feature</option>
+                            <option value="other">ðŸ¤” Something Else Entirely</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="calculatorTitle">Calculator Name/Title *</label>
+                        <input 
+                            type="text" 
+                            id="calculatorTitle"
+                            class="form-input"
+                            x-model="formData.title"
+                            required
+                            placeholder="e.g., 'Should I Call In Sick Calculator', 'Pizza vs Ramen Budget Optimizer'"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="description">Tell Us About Your Idea! *</label>
+                        <textarea 
+                            id="description"
+                            class="form-input form-textarea"
+                            x-model="formData.description"
+                            required
+                            placeholder="Describe your calculator idea! What would it calculate? What inputs would users enter? What would be the fun/practical output? Be as creative as you want - the weirder, the better!"
+                        ></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="category">Which Category Fits Best?</label>
+                        <select 
+                            id="category"
+                            class="form-input form-select"
+                            x-model="formData.category"
+                        >
+                            <option value="">Pick a category (or suggest a new one!)</option>
+                            <option value="BigKidMath">ðŸ§® BigKidMath - Adult Life Decisions</option>
+                            <option value="CipherLab">ðŸ” CipherLab - Codes & Security</option>
+                            <option value="GeekGalaxy">ðŸš€ GeekGalaxy - Sci-Fi & Fantasy</option>
+                            <option value="LifeHacks">âš¡ LifeHacks - Productivity & Wellness</option>
+                            <option value="Math_Magik">ðŸŽ­ Math Magik - Mathematical Magic</option>
+                            <option value="Otaku_Ops">ðŸŽŒ Otaku Ops - Anime & Pop Culture</option>
+                            <option value="new-category">ðŸ†• I have a new category idea!</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="priority">How Much Do You Want This?</label>
+                        <select 
+                            id="priority"
+                            class="form-input form-select"
+                            x-model="formData.priority"
+                        >
+                            <option value="low">ðŸ˜Š Would be nice to have</option>
+                            <option value="medium">ðŸ˜ Really want this!</option>
+                            <option value="high">ðŸ¤© NEED this in my life!</option>
+                            <option value="urgent">ðŸš¨ My life depends on it!</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="useCase">Why Would This Be Awesome?</label>
+                        <textarea 
+                            id="useCase"
+                            class="form-input form-textarea"
+                            x-model="formData.useCase"
+                            placeholder="Tell us your story! Are you a student trying to optimize study time? A professional making tough decisions? Someone who just thinks it would be hilarious? We love hearing why calculators matter to you!"
+                        ></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button 
+                            type="button" 
+                            class="btn btn-secondary"
+                            @click="closeModal()"
+                        >
+                            Maybe Later
+                        </button>
+                        <button 
+                            type="submit" 
+                            class="btn btn-primary"
+                            :disabled="isSubmitting"
+                        >
+                            <span x-show="isSubmitting" class="loading-spinner"></span>
+                            <span x-text="isSubmitting ? 'Sending...' : 'ðŸš€ Send My Idea'"></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Confirmation Modal -->
+        <div x-show="showConfirmation" class="confirmation-modal" style="display: none;">
+            <div class="modal-header">
+                <button class="modal-close" @click="closeModal()">âœ•</button>
+            </div>
+            <div class="modal-body">
+                <div class="success-icon">ðŸŽ‰</div>
+                <h3 class="confirmation-title">Awesome! We Got Your Idea!</h3>
+                <p class="confirmation-message">
+                    Thanks for sharing your calculator idea with us! We're excited to check it out and see if we can make it happen. 
+                    <br><br>
+                    <strong>What happens next?</strong><br>
+                    â€¢ You'll get a confirmation email shortly<br>
+                    â€¢ Our team will review your idea<br>
+                    â€¢ If we build it, you'll be the first to know!<br>
+                    â€¢ We might even name you as the inspiration ðŸ˜Š
+                </p>
+                <button 
+                    class="btn btn-primary"
+                    @click="closeModal()"
+                    style="width: 100%;"
+                >
+                    ðŸŽ¯ Close & Keep Calculating!
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Newsletter Bar -->
+<div class="newsletter-bar" x-data="newsletterForm()">
+    <div class="newsletter-container">
+        <div class="newsletter-content">
+            <div class="newsletter-info">
+                <h3>&#127881; Join Our Calculator Community!</h3>
+                <p>Get updates on new fun calculators and practical tools</p>
+            </div>
+            <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
+                <input 
+                    type="email" 
+                    class="newsletter-input"
+                    placeholder="Enter your email for calculator updates"
+                    x-model="email"
+                    required
+                >
+                <button 
+                    type="submit" 
+                    class="newsletter-submit"
+                    :disabled="isSubmitting"
+                >
+                    <span x-show="isSubmitting" class="loading-spinner"></span>
+                    <span x-text="isSubmitting ? 'Subscribing...' : '&#128640; Subscribe'"></span>
+                </button>
+            </form>
+            <div x-show="showSuccess" class="newsletter-success" style="display: none;">
+                <p style="color: var(--accent-light); font-weight: 600;">
+                    &#9989; Awesome! You'll get updates on the coolest new calculators!
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>&#127919; About Docket.One</h4>
+                <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the tools for modern life.</p>
+                <p>Practical meets playful. Because adulting is hard enough.</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>&#127914; Calculator Categories</h4>
+                <ul class="footer-links">
+                    <li><a href="/pages/BigKidMath/"><span class="calculator-emoji">&#129518;</span> BigKidMath - Adult Life Tools</a></li>
+                    <li><a href="/pages/CipherLab/"><span class="calculator-emoji">&#128272;</span> CipherLab - Secret Codes & Security</a></li>
+                    <li><a href="/pages/GeekGalaxy/"><span class="calculator-emoji">&#128640;</span> GeekGalaxy - Sci-Fi & Fantasy Fun</a></li>
+                    <li><a href="/pages/LifeHacks/"><span class="calculator-emoji">&#9889;</span> LifeHacks - Productivity & Wellness</a></li>
+                    <li><a href="/pages/Math_Magik/"><span class="calculator-emoji">&#127917;</span> Math Magik - Mathematical Wizardry</a></li>
+                    <li><a href="/pages/Otaku_Ops/"><span class="calculator-emoji">&#127999;</span> Otaku Ops - Anime & Culture</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>&#128172; Support & Info</h4>
+                <ul class="footer-links">
+                    <li><a href="/help"><span class="calculator-emoji">&#10067;</span> Help & FAQ</a></li>
+                    <li><a href="/privacy"><span class="calculator-emoji">&#128274;</span> Privacy Policy</a></li>
+                    <li><a href="/terms"><span class="calculator-emoji">&#128203;</span> Terms of Service</a></li>
+                    <li><a href="/accessibility"><span class="calculator-emoji">&#9855;</span> Accessibility</a></li>
+                    <li><a href="/contact"><span class="calculator-emoji">&#128231;</span> Contact Us</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <button 
+                    class="request-calculator-btn"
+                    @click="showModal = true"
+                >
+                    &#128161; Request a Calculator
+                </button>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="footer-logo">&#129518; Docket.One</div>
+            <div class="footer-copyright">
+                Â© 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
+            </div>
+            <div class="social-links">
+                <a href="#" class="social-link" aria-label="Twitter">&#120143;</a>
+                <a href="#" class="social-link" aria-label="LinkedIn">&#128188;</a>
+                <a href="#" class="social-link" aria-label="GitHub">&#128025;</a>
+                <a href="#" class="social-link" aria-label="Email">&#128231;</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Request Modal -->
+<div 
+    x-data="calculatorRequestForm()"
+    x-show="showModal"
+    x-cloak
+    class="modal-overlay"
+    @click.self="closeModal()"
+    style="display: none;"
+>
+    <div class="modal-content">
+        <div x-show="!showConfirmation">
+            <div class="modal-header">
+                <h2 class="modal-title">&#128161; Request a Fun Calculator</h2>
+                <p class="modal-subtitle">Got an idea for a calculator that would make life easier or more fun? We want to hear it!</p>
+                <button class="modal-close" @click="closeModal()">&#10005;</button>
+            </div>
+
+            <div class="modal-body">
+                <form @submit.prevent="submitRequest()">
+                    <div class="form-group">
+                        <label class="form-label" for="userName">Your Name *</label>
+                        <input 
+                            type="text" 
+                            id="userName"
+                            class="form-input"
+                            x-model="formData.name"
+                            required
+                            placeholder="What should we call you?"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="userEmail">Email Address *</label>
+                        <input 
+                            type="email" 
+                            id="userEmail"
+                            class="form-input"
+                            x-model="formData.email"
+                            required
+                            placeholder="your@email.com"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="requestType">What Kind of Request? *</label>
+                        <select 
+                            id="requestType"
+                            class="form-input form-select"
+                            x-model="formData.type"
+                            required
+                        >
+                            <option value="">Choose your request type</option>
+                            <option value="new-calculator">&#127358; Brand New Calculator</option>
+                            <option value="enhancement">&#9889; Improve Existing Calculator</option>
+                            <option value="category">&#127914; New Category Idea</option>
+                            <option value="feature">&#10024; Cool New Feature</option>
+                            <option value="other">&#129300; Something Else Entirely</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="calculatorTitle">Calculator Name/Title *</label>
+                        <input 
+                            type="text" 
+                            id="calculatorTitle"
+                            class="form-input"
+                            x-model="formData.title"
+                            required
+                            placeholder="e.g., 'Should I Call In Sick Calculator', 'Pizza vs Ramen Budget Optimizer'"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="description">Tell Us About Your Idea! *</label>
+                        <textarea 
+                            id="description"
+                            class="form-input form-textarea"
+                            x-model="formData.description"
+                            required
+                            placeholder="Describe your calculator idea! What would it calculate? What inputs would users enter? What would be the fun/practical output? Be as creative as you want - the weirder, the better!"
+                        ></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button 
+                            type="button" 
+                            class="btn btn-secondary"
+                            @click="closeModal()"
+                        >
+                            Maybe Later
+                        </button>
+                        <button 
+                            type="submit" 
+                            class="btn btn-primary"
+                            :disabled="isSubmitting"
+                        >
+                            <span x-show="isSubmitting" class="loading-spinner"></span>
+                            <span x-text="isSubmitting ? 'Sending...' : '&#128640; Send My Idea'"></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div x-show="showConfirmation" class="confirmation-modal" style="display: none;">
+            <div class="modal-header">
+                <button class="modal-close" @click="closeModal()">&#10005;</button>
+            </div>
+            <div class="modal-body">
+                <div class="success-icon">&#127881;</div>
+                <h3 class="confirmation-title">Awesome! We Got Your Idea!</h3>
+                <p class="confirmation-message">
+                    Thanks for sharing your calculator idea with us! We're excited to check it out and see if we can make it happen. 
+                    <br><br>
+                    <strong>What happens next?</strong><br>
+                    â€¢ You'll get a confirmation email shortly<br>
+                    â€¢ Our team will review your idea<br>
+                    â€¢ If we build it, you'll be the first to know!<br>
+                    â€¢ We might even name you as the inspiration &#128522;
+                </p>
+                <button 
+                    class="btn btn-primary"
+                    @click="closeModal()"
+                    style="width: 100%;"
+                >
+                    &#127919; Close & Keep Calculating!
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+

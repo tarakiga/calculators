@@ -1,0 +1,518 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star Trek Warp Speed Converter</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body x-data="{ showModal: false }">
+                <!-- Enhanced Navigation Bar -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="../../index.html">🧮 Docket One</a>
+            </div>
+            <div class="nav-search">
+                <label for="input-5ogfy7hak" class="sr-only">Input field</label>
+            <input type="text" i id="input-5ogfy7hak" aria-label="Calculator input"d="calc-search" placeholder="Search calculators..." class="search-input">
+                <div id="search-results" class="search-results"></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../BigKidMath/index.html" class="category-main-link">Big Kid Math</a></li>
+                <li><a href="../CipherLab/index.html" class="category-main-link">Cipher Lab</a></li>
+                <li><a href="../GeekGalaxy/index.html" class="category-main-link">Geek Galaxy</a></li>
+                <li><a href="../LifeHacks/index.html" class="category-main-link">Life Hacks</a></li>
+                <li><a href="../Math_Magik/index.html" class="category-main-link">Math Magik</a></li>
+                <li><a href="../Otaku_Ops/index.html" class="category-main-link">Otaku Ops</a></li>
+                <li><a href="../../index.html" class="home-link">Unit Converter</a></li>
+            </ul>
+            <button class="mobile-menu-btn" a aria-label="Perform action"ria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+    
+
+    
+
+
+    <header>
+        <h1>STAR TREK WARP SPEED CONVERTER</h1>
+        <p>Calculate velocities across the Alpha Quadrant</p>
+    </header>
+    
+    <div class="calculator">
+        <div class="input-group">
+            <label for="warp-factor">Warp Factor (TOS Scale):</label>
+            <div class="range-container">
+                <input type="range" id="warp-factor" min="1" max="9.9" step="0.1" value="5">
+                <span class="range-value" id="warp-factor-value">5.0</span>
+            </div>
+        </div>
+        
+        <div class="input-group">
+            <label for="distance">Distance to Calculate (light-years):</label>
+            <label for="input-6u4qicuow" class="sr-only">Input field</label>
+            <input type="number" i id="input-6u4qicuow" aria-label="Calculator input"d="distance" min="0.1" max="100000" step="0.1" value="4.367">
+            <small>Alpha Centauri distance: 4.367 light-years</small>
+        </div>
+        
+        <button aria-label="Perform action" onclick="calculateWarp()">ENGAGE CALCULATION</button>
+        
+        <div class="results" id="results">
+            <div class="result-item">
+                <div class="result-title">WARP FACTOR <span id="display-warp">5.0</span> RESULTS</div>
+                <p>Speed: <span id="warp-speed">0</span> × lightspeed</p>
+                <p>Speed: <span id="warp-mph">0</span> mph</p>
+                <p>Time to destination: <span id="travel-time">0</span></p>
+            </div>
+            
+            <div class="comparison">
+                <div class="comparison-title">COMMON DESTINATIONS AT WARP <span id="comp-warp">5.0</span></div>
+                <table class="distance-table">
+                    <thead>
+                        <tr>
+                            <th>Destination</th>
+                            <th>Distance (ly)</th>
+                            <th>Travel Time</th>
+                        </tr>
+                    </thead>
+                    <tbody id="destination-table">
+                        <!-- Filled by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="warp-equation">
+                <div class="result-title">WARP SPEED FORMULA</div>
+                <p>For warp factors ≤ 9: v = w<sup>3</sup> × c</p>
+                <p>Where:</p>
+                <p>v = velocity</p>
+                <p>w = warp factor</p>
+                <p>c = speed of light (670,616,629 mph)</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Constants
+        const LIGHT_SPEED_MPH = 670616629;
+        const COMMON_DESTINATIONS = [
+            { name: "Alpha Centauri", distance: 4.367 },
+            { name: "Vulcan", distance: 16 },
+            { name: "Andoria", distance: 30 },
+            { name: "Qo'noS (Klingon Homeworld)", distance: 90 },
+            { name: "Bajor", distance: 300 },
+            { name: "Cardassia Prime", distance: 500 },
+            { name: "Galactic Center", distance: 25000 }
+        ];
+        
+        // Update warp factor display
+        document.getElementById('warp-factor').addEventListener('input', function() {
+            document.getElementById('warp-factor-value').textContent = this.value;
+        });
+        
+        function calculateWarp() {
+            const warpFactor = parseFloat(document.getElementById('warp-factor').value);
+            const distance = parseFloat(document.getElementById('distance').value);
+            
+            // Calculate speed (TOS scale: v = w^3 * c)
+            const warpSpeed = Math.pow(warpFactor, 3);
+            const speedMPH = warpSpeed * LIGHT_SPEED_MPH;
+            
+            // Calculate travel time
+            const travelTimeYears = distance / warpSpeed;
+            let travelTimeString;
+            
+            if (travelTimeYears < 0.1) {
+                const days = travelTimeYears * 365;
+                travelTimeString = `${days.toFixed(1)} days`;
+            } else if (travelTimeYears < 1) {
+                const months = travelTimeYears * 12;
+                travelTimeString = `${months.toFixed(1)} months`;
+            } else {
+                travelTimeString = `${travelTimeYears.toFixed(2)} years`;
+            }
+            
+            // Update results
+            document.getElementById('display-warp').textContent = warpFactor.toFixed(1);
+            document.getElementById('comp-warp').textContent = warpFactor.toFixed(1);
+            document.getElementById('warp-speed').textContent = warpSpeed.toFixed(2);
+            document.getElementById('warp-mph').textContent = speedMPH.toLocaleString();
+            document.getElementById('travel-time').textContent = travelTimeString;
+            
+            // Generate destination table
+            const tableBody = document.getElementById('destination-table');
+            tableBody.innerHTML = '';
+            
+            COMMON_DESTINATIONS.forEach(dest => {
+                const destTimeYears = dest.distance / warpSpeed;
+                let destTimeString;
+                
+                if (destTimeYears < 0.1) {
+                    const days = destTimeYears * 365;
+                    destTimeString = `${days.toFixed(1)} days`;
+                } else if (destTimeYears < 1) {
+                    const months = destTimeYears * 12;
+                    destTimeString = `${months.toFixed(1)} months`;
+                } else {
+                    destTimeString = `${destTimeYears.toFixed(2)} years`;
+                }
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${dest.name}</td>
+                    <td>${dest.distance} ly</td>
+                    <td>${destTimeString}</td>
+                `;
+                
+                tableBody.appendChild(row);
+            });
+            
+            // Show results
+            document.getElementById('results').style.display = 'block';
+        }
+        
+        // Initialize on load
+        window.onload = function() {
+            calculateWarp();
+        };
+    </script>
+
+    <div class="related-calculators" style="margin-top: 2rem; padding: 1rem; background: rgba(0,0,0,0.1); border-radius: 8px;">
+        <h3 style="margin-top: 0;">Related Geek Galaxy Tools</h3>
+        <a href="./AI Doomsday Countdown.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">AI Doomsday Countdown</a><a href="./Alien Communication Probability Calculator.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Alien Communication Probability Calculator</a><a href="./Lightsaber Battery Life Calculator.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Lightsaber Battery Life Calculator</a>
+        <a href="./index.html" style="display: block; padding: 0.5rem; margin-top: 1rem; background: rgba(74,144,226,0.2); border-radius: 4px; text-decoration: none; color: inherit; font-weight: bold;">← Back to Geek Galaxy Hub</a>
+    </div>
+
+        <script>
+        // 🎅 Santa Claude's Interactive Enhancements
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🎅 Santa Claude's enhancements loaded!');
+            
+            // Enhanced button interactions
+            const buttons = document.querySelectorAll('button, .btn');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.classList.add('loading');
+                    setTimeout(() => {
+                        this.classList.remove('loading');
+                    }, 500);
+                });
+            });
+            
+            // Enhanced results display
+            const resultElements = document.querySelectorAll('.result, .results, .output, #result, #output');
+            resultElements.forEach(el => {
+                const observer = new MutationObserver(function(mutations) {
+                    mutations.forEach(function(mutation) {
+                        if (mutation.type === 'childList' || mutation.type === 'characterData') {
+                            el.classList.add('show');
+                        }
+                    });
+                });
+                observer.observe(el, { childList: true, subtree: true, characterData: true });
+            });
+            
+            // Form validation enhancements
+            const inputs = document.querySelectorAll('input[type="number"], input[type="text"]');
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    if (this.checkValidity()) {
+                        this.classList.remove('input-error');
+                        this.classList.add('input-success');
+                    } else {
+                        this.classList.remove('input-success');
+                        this.classList.add('input-error');
+                    }
+                });
+            });
+        });
+        </script>
+
+    <!-- Newsletter Bar -->
+<!-- Newsletter Bar - Include before footer -->
+<div class="newsletter-bar" x-data="newsletterForm()">
+    <div class="newsletter-container">
+        <div class="newsletter-content">
+            <div class="newsletter-info">
+                <h3>ðŸŽ‰ Join Our Calculator Community!</h3>
+                <p>Get updates on new fun calculators and practical tools</p>
+            </div>
+            <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
+                <input 
+                    type="email" 
+                    class="newsletter-input"
+                    placeholder="Enter your email for calculator updates"
+                    x-model="email"
+                    required
+                >
+                <button 
+                    type="submit" 
+                    class="newsletter-submit"
+                    :disabled="isSubmitting"
+                >
+                    <span x-show="isSubmitting" class="loading-spinner"></span>
+                    <span x-text="isSubmitting ? 'Subscribing...' : 'ðŸš€ Subscribe'"></span>
+                </button>
+            </form>
+            <div x-show="showSuccess" class="newsletter-success" style="display: none;">
+                <p style="color: var(--accent-light); font-weight: 600;">
+                    âœ… Awesome! You'll get updates on the coolest new calculators!
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <!-- Footer -->
+<!-- Main Footer - Include at bottom of every page -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>ðŸŽ¯ About Docket.One</h4>
+                <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the tools for modern life.</p>
+                <p>Practical meets playful. Because adulting is hard enough.</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>ðŸŽª Calculator Categories</h4>
+                <ul class="footer-links">
+                    <li><a href="/pages/BigKidMath/"><span class="calculator-emoji">ðŸ§®</span> BigKidMath - Adult Life Tools</a></li>
+                    <li><a href="/pages/CipherLab/"><span class="calculator-emoji">ðŸ”</span> CipherLab - Secret Codes & Security</a></li>
+                    <li><a href="/pages/GeekGalaxy/"><span class="calculator-emoji">ðŸš€</span> GeekGalaxy - Sci-Fi & Fantasy Fun</a></li>
+                    <li><a href="/pages/LifeHacks/"><span class="calculator-emoji">âš¡</span> LifeHacks - Productivity & Wellness</a></li>
+                    <li><a href="/pages/Math_Magik/"><span class="calculator-emoji">ðŸŽ­</span> Math Magik - Mathematical Wizardry</a></li>
+                    <li><a href="/pages/Otaku_Ops/"><span class="calculator-emoji">ðŸŽŒ</span> Otaku Ops - Anime & Culture</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>ðŸ’¬ Support & Info</h4>
+                <ul class="footer-links">
+                    <li><a href="/help"><span class="calculator-emoji">â“</span> Help & FAQ</a></li>
+                    <li><a href="/privacy"><span class="calculator-emoji">ðŸ”’</span> Privacy Policy</a></li>
+                    <li><a href="/terms"><span class="calculator-emoji">ðŸ“‹</span> Terms of Service</a></li>
+                    <li><a href="/accessibility"><span class="calculator-emoji">â™¿</span> Accessibility</a></li>
+                    <li><a href="/contact"><span class="calculator-emoji">ðŸ“§</span> Contact Us</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <button 
+                    class="request-calculator-btn"
+                    @click="showModal = true"
+                >
+                    ðŸ’¡ Request a Calculator
+                </button>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="footer-logo">ðŸ§® Docket.One</div>
+            <div class="footer-copyright">
+                Â© 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
+            </div>
+            <div class="social-links">
+                <a href="#" class="social-link" aria-label="Twitter">ð•</a>
+                <a href="#" class="social-link" aria-label="LinkedIn">ðŸ’¼</a>
+                <a href="#" class="social-link" aria-label="GitHub">ðŸ™</a>
+                <a href="#" class="social-link" aria-label="Email">ðŸ“§</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- Request Modal -->
+<!-- Calculator Request Modal - Include once per page (usually at end of body) -->
+<div 
+    x-data="calculatorRequestForm()"
+    x-show="showModal"
+    x-cloak
+    class="modal-overlay"
+    @click.self="closeModal()"
+    style="display: none;"
+>
+    <div class="modal-content">
+        <!-- Request Form -->
+        <div x-show="!showConfirmation">
+            <div class="modal-header">
+                <h2 class="modal-title">ðŸ’¡ Request a Fun Calculator</h2>
+                <p class="modal-subtitle">Got an idea for a calculator that would make life easier or more fun? We want to hear it!</p>
+                <button class="modal-close" @click="closeModal()">âœ•</button>
+            </div>
+
+            <div class="modal-body">
+                <form @submit.prevent="submitRequest()">
+                    <div class="form-group">
+                        <label class="form-label" for="userName">Your Name *</label>
+                        <input 
+                            type="text" 
+                            id="userName"
+                            class="form-input"
+                            x-model="formData.name"
+                            required
+                            placeholder="What should we call you?"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="userEmail">Email Address *</label>
+                        <input 
+                            type="email" 
+                            id="userEmail"
+                            class="form-input"
+                            x-model="formData.email"
+                            required
+                            placeholder="your@email.com"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="requestType">What Kind of Request? *</label>
+                        <select 
+                            id="requestType"
+                            class="form-input form-select"
+                            x-model="formData.type"
+                            required
+                        >
+                            <option value="">Choose your request type</option>
+                            <option value="new-calculator">ðŸ†• Brand New Calculator</option>
+                            <option value="enhancement">âš¡ Improve Existing Calculator</option>
+                            <option value="category">ðŸŽª New Category Idea</option>
+                            <option value="feature">âœ¨ Cool New Feature</option>
+                            <option value="other">ðŸ¤” Something Else Entirely</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="calculatorTitle">Calculator Name/Title *</label>
+                        <input 
+                            type="text" 
+                            id="calculatorTitle"
+                            class="form-input"
+                            x-model="formData.title"
+                            required
+                            placeholder="e.g., 'Should I Call In Sick Calculator', 'Pizza vs Ramen Budget Optimizer'"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="description">Tell Us About Your Idea! *</label>
+                        <textarea 
+                            id="description"
+                            class="form-input form-textarea"
+                            x-model="formData.description"
+                            required
+                            placeholder="Describe your calculator idea! What would it calculate? What inputs would users enter? What would be the fun/practical output? Be as creative as you want - the weirder, the better!"
+                        ></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="category">Which Category Fits Best?</label>
+                        <select 
+                            id="category"
+                            class="form-input form-select"
+                            x-model="formData.category"
+                        >
+                            <option value="">Pick a category (or suggest a new one!)</option>
+                            <option value="BigKidMath">ðŸ§® BigKidMath - Adult Life Decisions</option>
+                            <option value="CipherLab">ðŸ” CipherLab - Codes & Security</option>
+                            <option value="GeekGalaxy">ðŸš€ GeekGalaxy - Sci-Fi & Fantasy</option>
+                            <option value="LifeHacks">âš¡ LifeHacks - Productivity & Wellness</option>
+                            <option value="Math_Magik">ðŸŽ­ Math Magik - Mathematical Magic</option>
+                            <option value="Otaku_Ops">ðŸŽŒ Otaku Ops - Anime & Pop Culture</option>
+                            <option value="new-category">ðŸ†• I have a new category idea!</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="priority">How Much Do You Want This?</label>
+                        <select 
+                            id="priority"
+                            class="form-input form-select"
+                            x-model="formData.priority"
+                        >
+                            <option value="low">ðŸ˜Š Would be nice to have</option>
+                            <option value="medium">ðŸ˜ Really want this!</option>
+                            <option value="high">ðŸ¤© NEED this in my life!</option>
+                            <option value="urgent">ðŸš¨ My life depends on it!</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="useCase">Why Would This Be Awesome?</label>
+                        <textarea 
+                            id="useCase"
+                            class="form-input form-textarea"
+                            x-model="formData.useCase"
+                            placeholder="Tell us your story! Are you a student trying to optimize study time? A professional making tough decisions? Someone who just thinks it would be hilarious? We love hearing why calculators matter to you!"
+                        ></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button 
+                            type="button" 
+                            class="btn btn-secondary"
+                            @click="closeModal()"
+                        >
+                            Maybe Later
+                        </button>
+                        <button 
+                            type="submit" 
+                            class="btn btn-primary"
+                            :disabled="isSubmitting"
+                        >
+                            <span x-show="isSubmitting" class="loading-spinner"></span>
+                            <span x-text="isSubmitting ? 'Sending...' : 'ðŸš€ Send My Idea'"></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Confirmation Modal -->
+        <div x-show="showConfirmation" class="confirmation-modal" style="display: none;">
+            <div class="modal-header">
+                <button class="modal-close" @click="closeModal()">âœ•</button>
+            </div>
+            <div class="modal-body">
+                <div class="success-icon">ðŸŽ‰</div>
+                <h3 class="confirmation-title">Awesome! We Got Your Idea!</h3>
+                <p class="confirmation-message">
+                    Thanks for sharing your calculator idea with us! We're excited to check it out and see if we can make it happen. 
+                    <br><br>
+                    <strong>What happens next?</strong><br>
+                    â€¢ You'll get a confirmation email shortly<br>
+                    â€¢ Our team will review your idea<br>
+                    â€¢ If we build it, you'll be the first to know!<br>
+                    â€¢ We might even name you as the inspiration ðŸ˜Š
+                </p>
+                <button 
+                    class="btn btn-primary"
+                    @click="closeModal()"
+                    style="width: 100%;"
+                >
+                    ðŸŽ¯ Close & Keep Calculating!
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -34,6 +34,10 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="common/navbar-enhanced.css">
     <link rel="stylesheet" href="common/santa-improvements.css">
+    <link rel="stylesheet" href="common/footer/premium-footer.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="common/footer/premium-footer.js"></script>
     <script src="https://analytics.ahrefs.com/analytics.js" data-key="LJUZ/Iuc9YVDc6biyso88A" async></script>
 
     <!-- Schema.org markup for Google -->
@@ -109,36 +113,51 @@
             transform: scale(1.05);
         }
     </style>
-</head>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-<body>
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
+    <script src="../../common/footer/premium-footer.js"></script>
+    <link rel="stylesheet" href="common/navbar-enhanced.css">
+    <link rel="stylesheet" href="common/santa-improvements.css">
+    <link rel="stylesheet" href="common/global-calculator.css">
+    <link rel="stylesheet" href="common/themes/dark-theme.css">
+    <link rel="stylesheet" href="common/footer/premium-footer.css">
+    <script src="common/footer/premium-footer.js"></script></head>
+
+<body x-data="{ showModal: false }">
             <!-- Enhanced Navigation Bar -->
-    <nav class="main-nav">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <a href="index.html">🧮 Docket One</a>
-            </div>
-            <div class="nav-search">
-                <label for="calc-search" class="sr-only">Search calculators</label>
-                <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input" aria-label="Search calculators">
-                <div id="search-results" class="search-results"></div>
-            </div>
-            <ul class="nav-links">
-                <li><a href="pages/BigKidMath/index.html" class="category-main-link">Big Kid Math</a></li>
-                <li><a href="pages/CipherLab/index.html" class="category-main-link">Cipher Lab</a></li>
-                <li><a href="pages/GeekGalaxy/index.html" class="category-main-link">Geek Galaxy</a></li>
-                <li><a href="pages/LifeHacks/index.html" class="category-main-link">Life Hacks</a></li>
-                <li><a href="pages/Math_Magik/index.html" class="category-main-link">Math Magik</a></li>
-                <li><a href="pages/Otaku_Ops/index.html" class="category-main-link">Otaku Ops</a></li>
-                <li><a href="#" onclick="location.reload()" class="home-link">Unit Converter</a></li>
-            </ul>
-            <button class="mobile-menu-btn" aria-label="Toggle menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+<nav class="main-nav">
+    <div class="nav-container">
+        <div class="nav-logo">
+            <a href="index.html">🧮 Docket One</a>
         </div>
-    </nav>
+        <div class="nav-search">
+            <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input" aria-label="Search calculators">
+            <div id="search-results" class="search-results"></div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="pages/BigKidMath/index.html" class="category-link">Big Kid Math</a></li>
+            <li><a href="pages/CipherLab/index.html" class="category-link">Cipher Lab</a></li>
+            <li><a href="pages/GeekGalaxy/index.html" class="category-link">Geek Galaxy</a></li>
+            <li><a href="pages/LifeHacks/index.html" class="category-link">Life Hacks</a></li>
+            <li><a href="pages/Math_Magik/index.html" class="category-link">Math Magik</a></li>
+            <li><a href="pages/Otaku_Ops/index.html" class="category-link">Otaku Ops</a></li>
+            <li><a href="index.html" class="home-link">🏠 Home</a></li>
+        </ul>
+        <button class="mobile-menu-btn" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</nav>
     
 
     
@@ -741,358 +760,178 @@
                 </div>
             </div>
         </section>
-
-        <footer class="page-footer">
-            <p>Universal Unit Converter is a free online tool for quick and accurate unit conversions. Perfect for
-                students, professionals, and anyone who needs to convert between different units of measurement.</p>
-            <nav class="footer-nav">
-                <h2>Available Converters</h2>
-                <ul>
-                    <li><a href="#length">Length Converter</a></li>
-                    <li><a href="#weight">Weight Converter</a></li>
-                    <li><a href="#area">Area Converter</a></li>
-                    <li><a href="#volume">Volume Converter</a></li>
-                    <li><a href="#temperature">Temperature Converter</a></li>
-                    <li><a href="#time">Time Converter</a></li>
-                    <li><a href="#speed">Speed Converter</a></li>
-                    <li><a href="#data">Data Storage Converter</a></li>
-                    <li><a href="#energy">Energy Converter</a></li>
-                    <li><a href="#power">Power Converter</a></li>
-                    <li><a href="#pressure">Pressure Converter</a></li>
-                    <li><a href="#angle">Angle Converter</a></li>
-                    <li><a href="#density">Density Converter</a></li>
-                    <li><a href="#fuel">Fuel Consumption Converter</a></li>
-                    <li><a href="#cooking">Cooking Converter</a></li>
-                    <li><a href="#currency">Currency Converter</a></li>
-                </ul>
-            </nav>
-        </footer>
     </main>
     
-    <!-- Additional Calculator Categories Section -->
-    <section class="more-calculators" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 3rem 0; margin-top: 2rem;">
-        <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
-            <h2 style="text-align: center; color: white; margin-bottom: 2rem; font-size: 2.5rem;">Explore More Calculators</h2>
-            <p style="text-align: center; color: rgba(255,255,255,0.9); margin-bottom: 3rem; font-size: 1.2rem;">Discover specialized calculators for every aspect of life</p>
-            
-            <div class="calculator-categories" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
-                <div class="category-card" style="background: rgba(255,255,255,0.1); border-radius: 12px; padding: 2rem; text-align: center; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2);">
-                    <h3 style="color: white; margin-bottom: 1rem;">🧠 Big Kid Math</h3>
-                    <p style="color: rgba(255,255,255,0.8); margin-bottom: 1.5rem;">Practical calculators for adult life decisions</p>
-                    <a href="pages/BigKidMath/index.html" class="category-btn" style="display: inline-block; background: rgba(255,255,255,0.2); color: white; padding: 0.75rem 2rem; border-radius: 6px; text-decoration: none; font-weight: bold; transition: all 0.3s;">Explore →</a>
-                </div>
-                
-                <div class="category-card" style="background: rgba(255,255,255,0.1); border-radius: 12px; padding: 2rem; text-align: center; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2);">
-                    <h3 style="color: white; margin-bottom: 1rem;">🔐 Cipher Lab</h3>
-                    <p style="color: rgba(255,255,255,0.8); margin-bottom: 1.5rem;">Cryptography and security tools</p>
-                    <a href="pages/CipherLab/index.html" class="category-btn" style="display: inline-block; background: rgba(255,255,255,0.2); color: white; padding: 0.75rem 2rem; border-radius: 6px; text-decoration: none; font-weight: bold; transition: all 0.3s;">Explore →</a>
-                </div>
-                
-                <div class="category-card" style="background: rgba(255,255,255,0.1); border-radius: 12px; padding: 2rem; text-align: center; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2);">
-                    <h3 style="color: white; margin-bottom: 1rem;">🚀 Geek Galaxy</h3>
-                    <p style="color: rgba(255,255,255,0.8); margin-bottom: 1.5rem;">Sci-fi and fantasy calculators</p>
-                    <a href="pages/GeekGalaxy/index.html" class="category-btn" style="display: inline-block; background: rgba(255,255,255,0.2); color: white; padding: 0.75rem 2rem; border-radius: 6px; text-decoration: none; font-weight: bold; transition: all 0.3s;">Explore →</a>
-                </div>
-                
-                <div class="category-card" style="background: rgba(255,255,255,0.1); border-radius: 12px; padding: 2rem; text-align: center; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2);">
-                    <h3 style="color: white; margin-bottom: 1rem;">🎯 Life Hacks</h3>
-                    <p style="color: rgba(255,255,255,0.8); margin-bottom: 1.5rem;">Optimize your daily life</p>
-                    <a href="pages/LifeHacks/index.html" class="category-btn" style="display: inline-block; background: rgba(255,255,255,0.2); color: white; padding: 0.75rem 2rem; border-radius: 6px; text-decoration: none; font-weight: bold; transition: all 0.3s;">Explore →</a>
-                </div>
-                
-                <div class="category-card" style="background: rgba(255,255,255,0.1); border-radius: 12px; padding: 2rem; text-align: center; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2);">
-                    <h3 style="color: white; margin-bottom: 1rem;">🔢 Math Magik</h3>
-                    <p style="color: rgba(255,255,255,0.8); margin-bottom: 1.5rem;">Advanced mathematical tools</p>
-                    <a href="pages/Math_Magik/index.html" class="category-btn" style="display: inline-block; background: rgba(255,255,255,0.2); color: white; padding: 0.75rem 2rem; border-radius: 6px; text-decoration: none; font-weight: bold; transition: all 0.3s;">Explore →</a>
-                </div>
-                
-                <div class="category-card" style="background: rgba(255,255,255,0.1); border-radius: 12px; padding: 2rem; text-align: center; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2);">
-                    <h3 style="color: white; margin-bottom: 1rem;">🎮 Otaku Ops</h3>
-                    <p style="color: rgba(255,255,255,0.8); margin-bottom: 1.5rem;">Anime, manga, and gaming tools</p>
-                    <a href="pages/Otaku_Ops/index.html" class="category-btn" style="display: inline-block; background: rgba(255,255,255,0.2); color: white; padding: 0.75rem 2rem; border-radius: 6px; text-decoration: none; font-weight: bold; transition: all 0.3s;">Explore →</a>
-                </div>
+<!-- Newsletter Bar -->
+<div class="newsletter-bar" x-data="newsletterForm()">
+    <div class="newsletter-container">
+        <div class="newsletter-content">
+            <div class="newsletter-info">
+                <h3>&#127881; Join Our Calculator Community!</h3>
+                <p>Get updates on new fun calculators and practical tools</p>
+            </div>
+            <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
+                <input 
+                    type="email" 
+                    class="newsletter-input"
+                    placeholder="Enter your email for calculator updates"
+                    x-model="email"
+                    required
+                >
+                <button 
+                    type="submit" 
+                    class="newsletter-submit"
+                    :disabled="isSubmitting"
+                >
+                    <span x-show="isSubmitting" class="loading-spinner"></span>
+                    <span x-text="isSubmitting ? 'Subscribing...' : '&#128640; Subscribe'"></span>
+                </button>
+            </form>
+            <div x-show="showSuccess" class="newsletter-success" style="display: none;">
+                <p style="color: var(--accent-light); font-weight: 600;">
+                    &#9989; Awesome! You'll get updates on the coolest new calculators!
+                </p>
             </div>
         </div>
-    </section>
-    
-    <script>
-        // COMPLETE OVERRIDE: Enhanced mobile menu functionality 
-        // This completely replaces script.js mobile menu functionality
-        (function() {
-            'use strict';
-            
-            let isInitialized = false;
-            
-            function initEnhancedMobileMenu() {
-                if (isInitialized) return;
-                
-                console.log('🚀 Initializing ENHANCED mobile menu (overriding script.js)');
-                console.log('📱 Current viewport width:', window.innerWidth);
-                
-                const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-                const navLinks = document.querySelector('.nav-links');
-                const navContainer = document.querySelector('.nav-container');
-                
-                console.log('🔍 Element check:', {
-                    mobileMenuBtn: mobileMenuBtn ? '✅ Found' : '❌ Missing',
-                    navLinks: navLinks ? '✅ Found' : '❌ Missing', 
-                    navContainer: navContainer ? '✅ Found' : '❌ Missing'
-                });
-                
-                if (!mobileMenuBtn || !navLinks) {
-                    console.error('❌ Critical elements missing - cannot initialize mobile menu');
-                    return;
-                }
-                
-                console.log('✅ Mobile menu elements found');
-                
-                // CRITICAL: Remove all existing event listeners by replacing the element
-                const newMobileMenuBtn = mobileMenuBtn.cloneNode(true);
-                mobileMenuBtn.parentNode.replaceChild(newMobileMenuBtn, mobileMenuBtn);
-                
-                // Get fresh reference
-                const enhancedMenuBtn = document.querySelector('.mobile-menu-btn');
-                
-                console.log('🔄 Mobile menu button replaced to remove old listeners');
-                
-                // Enhanced click handler
-                enhancedMenuBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    e.stopImmediatePropagation();
-                    
-                    console.log('🎯 Enhanced mobile menu button clicked');
-                    
-                    const isActive = navLinks.classList.contains('active');
-                    
-                    if (isActive) {
-                        closeMenuWithAnimation();
-                    } else {
-                        openMenuWithAnimation();
-                    }
-                });
-                
-                function openMenuWithAnimation() {
-                    console.log('📱 Opening mobile menu');
-                    navLinks.classList.add('active');
-                    enhancedMenuBtn.classList.add('active');
-                    
-                    // Stagger animation for menu items
-                    const menuItems = navLinks.querySelectorAll('a');
-                    menuItems.forEach((item, index) => {
-                        item.style.transform = 'translateX(-20px)';
-                        item.style.opacity = '0';
-                        setTimeout(() => {
-                            item.style.transform = 'translateX(0)';
-                            item.style.opacity = '1';
-                        }, index * 50 + 100);
-                    });
-                }
-                
-                function closeMenuWithAnimation() {
-                    console.log('📱 Closing mobile menu');
-                    const menuItems = navLinks.querySelectorAll('a');
-                    menuItems.forEach((item, index) => {
-                        setTimeout(() => {
-                            item.style.transform = 'translateX(-10px)';
-                            item.style.opacity = '0.5';
-                        }, index * 20);
-                    });
-                    
-                    setTimeout(() => {
-                        navLinks.classList.remove('active');
-                        enhancedMenuBtn.classList.remove('active');
-                        // Reset transforms
-                        menuItems.forEach(item => {
-                            item.style.transform = '';
-                            item.style.opacity = '';
-                        });
-                    }, menuItems.length * 20 + 50);
-                }
-                
-                // Enhanced outside click handler (with namespace to avoid conflicts)
-                document.addEventListener('click', function enhancedOutsideClickHandler(event) {
-                    if (!navContainer.contains(event.target) && navLinks.classList.contains('active')) {
-                        console.log('🎯 Outside click detected - enhanced handler');
-                        event.stopImmediatePropagation();
-                        closeMenuWithAnimation();
-                    }
-                }, true); // Use capture phase to run before other handlers
-                
-                // Enhanced link click handlers
-                const navLinkItems = navLinks.querySelectorAll('a');
-                navLinkItems.forEach(link => {
-                    link.addEventListener('click', function enhancedLinkClickHandler(e) {
-                        if (window.innerWidth <= 768) {
-                            console.log('🔗 Link clicked in mobile menu');
-                            
-                            // Add click animation
-                            this.style.transform = 'scale(0.95)';
-                            this.style.transition = 'all 0.1s ease';
-                            
-                            setTimeout(() => {
-                                this.style.transform = '';
-                                this.style.transition = '';
-                                closeMenuWithAnimation();
-                            }, 100);
-                        }
-                    });
-                });
-                
-                // Enhanced resize handler
-                window.addEventListener('resize', function enhancedResizeHandler() {
-                    if (window.innerWidth > 768) {
-                        navLinks.classList.remove('active');
-                        enhancedMenuBtn.classList.remove('active');
-                        console.log('🖥️ Window resized - mobile menu closed');
-                    }
-                });
-                
-                isInitialized = true;
-                console.log('✅ Enhanced mobile menu initialized successfully');
-            }
-            
-            // Initialize when DOM is ready
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', function() {
-                    setTimeout(initEnhancedMobileMenu, 300); // Delay to ensure other scripts load first
-                });
-            } else {
-                setTimeout(initEnhancedMobileMenu, 300);
-            }
-        })();
-    </script>
-    <script src="script.js"></script>
-    <script>
-        // Search functionality only (mobile menu now handled by enhanced script above)
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('🔍 Setting up search functionality');
-            
-            // Search functionality
-            const searchInput = document.getElementById('calc-search');
-            const searchResults = document.getElementById('search-results');
-            
-            if (searchInput && searchResults) {
-                const calculators = [
-                    // Big Kid Math
-                    {name: 'Caffeine Half-Life Calculator', path: 'pages/BigKidMath/Caffeine%20Half-Life%20Calculator.html', category: 'Big Kid Math'},
-                    {name: 'Car Ownership vs. Uber Cost Calculator', path: 'pages/BigKidMath/Car%20Ownership%20vs.%20Uber%20Cost%20Calculator.html', category: 'Big Kid Math'},
-                    {name: 'Generational Timeline Calculator', path: 'pages/BigKidMath/Generational%20Timeline%20Calculator.html', category: 'Big Kid Math'},
-                    // Math Magik
-                    {name: 'Double Pendulum Chaos', path: 'pages/Math_Magik/Double%20Pendulum%20Chaos.html', category: 'Math Magik'},
-                    {name: 'Pizza Pi Calculator', path: 'pages/Math_Magik/Pizza%20Pi%20Calculator.html', category: 'Math Magik'},
-                    {name: 'FIRE Number Calculator', path: 'pages/Math_Magik/FIRE%20Number%20Calculator.html', category: 'Math Magik'},
-                    {name: 'Chaos Theory Explorer', path: 'pages/Math_Magik/entropy%20and%20feigenbaums%20constant.html', category: 'Math Magik'},
-                    // Geek Galaxy
-                    {name: 'Zombie Apocalypse Survival Calculator', path: 'pages/GeekGalaxy/Zombie%20Apocalypse%20Survival%20Calculator.html', category: 'Geek Galaxy'},
-                    {name: 'Lightsaber Battery Life Calculator', path: 'pages/GeekGalaxy/Lightsaber%20Battery%20Life%20Calculator.html', category: 'Geek Galaxy'},
-                    {name: 'Space Travel Time Calculator', path: 'pages/GeekGalaxy/Space%20Travel%20Time%20Calculator.html', category: 'Geek Galaxy'},
-                    {name: 'AI Doomsday Countdown', path: 'pages/GeekGalaxy/AI%20Doomsday%20Countdown.html', category: 'Geek Galaxy'},
-                    // Cipher Lab
-                    {name: 'Morse Code Translator', path: 'pages/CipherLab/Morse%20Code%20Translator_Encoder_Decoder.html', category: 'Cipher Lab'},
-                    {name: 'Ogham Translator', path: 'pages/CipherLab/Ogham%20Translator%20Encoder_Decoder.html', category: 'Cipher Lab'},
-                    {name: 'Password Strength Analyzer', path: 'pages/CipherLab/Password%20Strength%20→%20Anger%20Scale%20Calculator.html', category: 'Cipher Lab'},
-                    // Life Hacks
-                    {name: 'Sleep Cycle Optimizer', path: 'pages/LifeHacks/Sleep%20Cycle%20Optimizer.html', category: 'Life Hacks'},
-                    {name: 'Procrastination ROI Calculator', path: 'pages/LifeHacks/Procrastination%20ROI%20Calculator.html', category: 'Life Hacks'},
-                    {name: 'Social Media Addiction Calculator', path: 'pages/LifeHacks/Social%20Media%20Addiction%20Calculator.html', category: 'Life Hacks'},
-                    // Otaku Ops
-                    {name: 'Anime Training Montage Planner', path: 'pages/Otaku_Ops/Anime%20Training%20Montage%20Planner.html', category: 'Otaku Ops'},
-                    {name: 'Minecraft Portal Planner', path: 'pages/Otaku_Ops/MINECRAFT%20PORTAL%20PLANNER.html', category: 'Otaku Ops'}
-                ];
-                
-                searchInput.addEventListener('input', function(e) {
-                    const query = e.target.value.trim().toLowerCase();
-                    
-                    if (query.length < 2) {
-                        searchResults.style.display = 'none';
-                        return;
-                    }
-                    
-                    const matches = calculators.filter(calc => 
-                        calc.name.toLowerCase().includes(query) ||
-                        calc.category.toLowerCase().includes(query)
-                    ).slice(0, 6);
-                    
-                    if (matches.length > 0) {
-                        searchResults.innerHTML = matches.map(match => `
-                            <a href="${match.path}" class="search-result-item">
-                                <strong>${match.name}</strong>
-                                <span class="category-tag">${match.category}</span>
-                            </a>
-                        `).join('');
-                        searchResults.style.display = 'block';
-                    } else {
-                        searchResults.innerHTML = '<div class="no-results">No calculators found</div>';
-                        searchResults.style.display = 'block';
-                    }
-                });
-                
-                // Hide search results when clicking outside
-                document.addEventListener('click', function(e) {
-                    if (!e.target.closest('.nav-search')) {
-                        searchResults.style.display = 'none';
-                    }
-                });
-            }
-            
-            // Check if converter dropdown exists and is working
-            const converterSelect = document.getElementById('converterSelect');
-            console.log('Converter dropdown found:', !!converterSelect);
-            if (converterSelect) {
-                console.log('Converter dropdown value:', converterSelect.value);
-                // Log when dropdown changes
-                converterSelect.addEventListener('change', function() {
-                    console.log('Dropdown changed to:', this.value);
-                });
-            }
-        });
-    </script>
+    </div>
+</div>
 
-        <script>
-        // 🎅 Santa Claude's Interactive Enhancements
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('🎅 Santa Claude's enhancements loaded!');
-            
-            // Enhanced button interactions
-            const buttons = document.querySelectorAll('button, .btn');
-            buttons.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    this.classList.add('loading');
-                    setTimeout(() => {
-                        this.classList.remove('loading');
-                    }, 500);
-                });
-            });
-            
-            // Enhanced results display
-            const resultElements = document.querySelectorAll('.result, .results, .output, #result, #output');
-            resultElements.forEach(el => {
-                const observer = new MutationObserver(function(mutations) {
-                    mutations.forEach(function(mutation) {
-                        if (mutation.type === 'childList' || mutation.type === 'characterData') {
-                            el.classList.add('show');
-                        }
-                    });
-                });
-                observer.observe(el, { childList: true, subtree: true, characterData: true });
-            });
-            
-            // Form validation enhancements
-            const inputs = document.querySelectorAll('input[type="number"], input[type="text"]');
-            inputs.forEach(input => {
-                input.addEventListener('input', function() {
-                    if (this.checkValidity()) {
-                        this.classList.remove('input-error');
-                        this.classList.add('input-success');
-                    } else {
-                        this.classList.remove('input-success');
-                        this.classList.add('input-error');
-                    }
-                });
-            });
-        });
-        </script>
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>&#127919; About Docket.One</h4>
+                <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the tools for modern life.</p>
+                <p>Practical meets playful. Because adulting is hard enough.</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>&#127914; Calculator Categories</h4>
+                <ul class="footer-links">
+                    <li><a href="/pages/BigKidMath/"><span class="calculator-emoji">&#129518;</span> BigKidMath - Adult Life Tools</a></li>
+                    <li><a href="/pages/CipherLab/"><span class="calculator-emoji">&#128272;</span> CipherLab - Secret Codes & Security</a></li>
+                    <li><a href="/pages/GeekGalaxy/"><span class="calculator-emoji">&#128640;</span> GeekGalaxy - Sci-Fi & Fantasy Fun</a></li>
+                    <li><a href="/pages/LifeHacks/"><span class="calculator-emoji">&#9889;</span> LifeHacks - Productivity & Wellness</a></li>
+                    <li><a href="/pages/Math_Magik/"><span class="calculator-emoji">&#127917;</span> Math Magik - Mathematical Wizardry</a></li>
+                    <li><a href="/pages/Otaku_Ops/"><span class="calculator-emoji">&#127999;</span> Otaku Ops - Anime & Culture</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>&#128172; Support & Info</h4>
+                <ul class="footer-links">
+                    <li><a href="/help"><span class="calculator-emoji">&#10067;</span> Help & FAQ</a></li>
+                    <li><a href="/privacy"><span class="calculator-emoji">&#128274;</span> Privacy Policy</a></li>
+                    <li><a href="/terms"><span class="calculator-emoji">&#128203;</span> Terms of Service</a></li>
+                    <li><a href="/accessibility"><span class="calculator-emoji">&#9855;</span> Accessibility</a></li>
+                    <li><a href="/contact"><span class="calculator-emoji">&#128231;</span> Contact Us</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <button 
+                    class="request-calculator-btn"
+                    @click="showModal = true"
+                >
+                    &#128161; Request a Calculator
+                </button>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="footer-logo">&#129518; Docket.One</div>
+            <div class="footer-copyright">
+                Â© 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
+            </div>
+            <div class="social-links">
+                <a href="#" class="social-link" aria-label="Twitter">&#120143;</a>
+                <a href="#" class="social-link" aria-label="LinkedIn">&#128188;</a>
+                <a href="#" class="social-link" aria-label="GitHub">&#128025;</a>
+                <a href="#" class="social-link" aria-label="Email">&#128231;</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Request Modal -->
+<div 
+    x-data="calculatorRequestForm()"
+    x-show="showModal"
+    x-cloak
+    class="modal-overlay"
+    @click.self="closeModal()"
+    style="display: none;"
+>
+    <div class="modal-content">
+        <div x-show="!showConfirmation">
+            <div class="modal-header">
+                <h2 class="modal-title">&#128161; Request a Fun Calculator</h2>
+                <p class="modal-subtitle">Got an idea for a calculator that would make life easier or more fun? We want to hear it!</p>
+                <button class="modal-close" @click="closeModal()">&#10005;</button>
+            </div>
+            <div class="modal-body">
+                <form @submit.prevent="submitRequest()">
+                    <div class="form-group">
+                        <label class="form-label" for="userName">Your Name *</label>
+                        <input type="text" id="userName" class="form-input" x-model="formData.name" required placeholder="What should we call you?">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="userEmail">Email Address *</label>
+                        <input type="email" id="userEmail" class="form-input" x-model="formData.email" required placeholder="your@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="requestType">What Kind of Request? *</label>
+                        <select id="requestType" class="form-input form-select" x-model="formData.type" required>
+                            <option value="">Choose your request type</option>
+                            <option value="new-calculator">&#127358; Brand New Calculator</option>
+                            <option value="enhancement">&#9889; Improve Existing Calculator</option>
+                            <option value="category">&#127914; New Category Idea</option>
+                            <option value="feature">&#10024; Cool New Feature</option>
+                            <option value="other">&#129300; Something Else Entirely</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="calculatorTitle">Calculator Name/Title *</label>
+                        <input type="text" id="calculatorTitle" class="form-input" x-model="formData.title" required placeholder="e.g., 'Should I Call In Sick Calculator'">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="description">Tell Us About Your Idea! *</label>
+                        <textarea id="description" class="form-input form-textarea" x-model="formData.description" required placeholder="Describe your calculator idea!"></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" @click="closeModal()">Maybe Later</button>
+                        <button type="submit" class="btn btn-primary" :disabled="isSubmitting">
+                            <span x-show="isSubmitting" class="loading-spinner"></span>
+                            <span x-text="isSubmitting ? 'Sending...' : '&#128640; Send My Idea'"></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div x-show="showConfirmation" class="confirmation-modal" style="display: none;">
+            <div class="modal-header">
+                <button class="modal-close" @click="closeModal()">&#10005;</button>
+            </div>
+            <div class="modal-body">
+                <div class="success-icon">&#127881;</div>
+                <h3 class="confirmation-title">Awesome! We Got Your Idea!</h3>
+                <p class="confirmation-message">
+                    Thanks for sharing your calculator idea with us! We're excited to check it out and see if we can make it happen. 
+                    <br><br>
+                    <strong>What happens next?</strong><br>
+                    â€¢ You'll get a confirmation email shortly<br>
+                    â€¢ Our team will review your idea<br>
+                    â€¢ If we build it, you'll be the first to know!<br>
+                    â€¢ We might even name you as the inspiration &#128522;
+                </p>
+                <button class="btn btn-primary" @click="closeModal()" style="width: 100%;">
+                    &#127919; Close & Keep Calculating!
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
-
 </html>

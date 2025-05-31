@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zombie Apocalypse Survival Calculator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+        .animate-pulse { animation: pulse 2s infinite; }
+        .animate-shake { animation: shake 0.5s; }
+        .zombie-bg {
+            background: linear-gradient(135deg, #4a7729 0%, #2c4a1a 100%);
+        }
+        .progress-bar {
+            transition: width 0.5s ease-in-out;
+        }
+    </style>
+    
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
+</head>
+<body class="bg-gray-900 min-h-screen">
+    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="../../index.html">🧮 Docket One</a>
+            </div>
+            <div class="nav-search">
+                <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input" aria-label="Search calculators">
+                <div id="search-results" class="search-results"></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../BigKidMath/index.html" class="category-link">Big Kid Math</a></li>
+                <li><a href="../CipherLab/index.html" class="category-link">Cipher Lab</a></li>
+                <li><a href="../GeekGalaxy/index.html" class="category-link active">Geek Galaxy</a></li>
+                <li><a href="../LifeHacks/index.html" class="category-link ">Life Hacks</a></li>
+                <li><a href="../Math_Magik/index.html" class="category-link">Math Magik</a></li>
+                <li><a href="../Otaku_Ops/index.html" class="category-link">Otaku Ops</a></li>
+                <li><a href="../../index.html" class="home-link">🏠 Home</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+
+    <div class="container mx-auto px-4 py-12" x-data="zombieCalculator()">
+        <div class="max-w-2xl mx-auto bg-gray-800 rounded-xl shadow-2xl overflow-hidden border-t-4 border-green-600">
+            <!-- Header -->
+            <div class="zombie-bg p-6 text-center relative">
+                <div class="absolute top-4 right-4 text-4xl">🧟</div>
+                <h1 class="text-3xl md:text-4xl font-bold text-white drop-shadow-lg">
+                    Zombie Apocalypse Survival Calculator
+                </h1>
+                <p class="mt-2 text-green-200">Will you survive the undead horde?</p>
+            </div>
+            
+            <!-- Calculator Content -->
+            <div class="p-6 md:p-8">
+                <!-- Fitness Level -->
+                <div class="mb-8">
+                    <label class="block text-lg font-medium mb-2 text-white">Your Fitness Level</label>
+                    <div class="flex space-x-4 mb-2">
+                        <button aria-label="Perform action" 
+                            @click="fitnessLevel = 1" 
+                            :class="fitnessLevel === 1 ? 'bg-red-600 text-white' : 'bg-gray-700 text-gray-300'" 
+                            class="px-4 py-2 rounded-lg flex-1">
+                            <i class="fas fa-couch mr-2"></i> Couch Potato
+                        </button>
+                        <button aria-label="Perform action" 
+                            @click="fitnessLevel = 2" 
+                            :class="fitnessLevel === 2 ? 'bg-yellow-600 text-white' : 'bg-gray-700 text-gray-300'" 
+                            class="px-4 py-2 rounded-lg flex-1">
+                            <i class="fas fa-walking mr-2"></i> Average Joe
+                        </button>
+                        <button aria-label="Perform action" 
+                            @click="fitnessLevel = 3" 
+                            :class="fitnessLevel === 3 ? 'bg-green-600 text-white' : 'bg-gray-700 text-gray-300'" 
+                            class="px-4 py-2 rounded-lg flex-1">
+                            <i class="fas fa-running mr-2"></i> Athlete
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Skills -->
+                <div class="mb-8">
+                    <label class="block text-lg font-medium mb-2 text-white">Survival Skills</label>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="flex items-center">
+                                <input type="checkbox" x-model="skills.melee" class="mr-2 h-5 w-5 text-green-600 rounded">
+                                <span class="text-gray-300">Melee Combat</span>
+                            </label>
+                        </div>
+                        <div>
+                            <label class="flex items-center">
+                                <input type="checkbox" x-model="skills.ranged" class="mr-2 h-5 w-5 text-green-600 rounded">
+                                <span class="text-gray-300">Ranged Weapons</span>
+                            </label>
+                        </div>
+                        <div>
+                            <label class="flex items-center">
+                                <input type="checkbox" x-model="skills.firstAid" class="mr-2 h-5 w-5 text-green-600 rounded">
+                                <span class="text-gray-300">First Aid</span>
+                            </label>
+                        </div>
+                        <div>
+                            <label class="flex items-center">
+                                <input type="checkbox" x-model="skills.foraging" class="mr-2 h-5 w-5 text-green-600 rounded">
+                                <span class="text-gray-300">Foraging</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Zombie Type -->
+                <div class="mb-8">
+                    <label class="block text-lg font-medium mb-2 text-white">Zombie Type</label>
+                    <select x-model="zombieType" class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-green-500">
+                        <option value="slow">Slow Shamblers (Walking Dead)</option>
+                        <option value="fast">Fast Runners (28 Days Later)</option>
+                        <option value="smart">Smart Zombies (World War Z)</option>
+                        <option value="mutated">Mutated Abominations (Resident Evil)</option>
+                    </select>
+                </div>
+                
+                <!-- Location -->
+                <div class="mb-8">
+                    <label class="block text-lg font-medium mb-2 text-white">Location</label>
+                    <select x-model="location" class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-green-500">
+                        <option value="city">Dense City</option>
+                        <option value="suburb">Suburban Area</option>
+                        <option value="rural">Rural Countryside</option>
+                        <option value="bunker">Underground Bunker</option>
+                    </select>
+                </div>
+                
+                <!-- Calculate Button -->
+                <button aria-label="Perform action" 
+                    @click="calculateSurvival" 
+                    class="w-full bg-gradient-to-r from-green-600 to-green-800 text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transition duration-200 mb-8">
+                    <i class="fas fa-skull-crossbones mr-2"></i> Calculate Survival Odds
+                </button>
+                
+                <!-- Results -->
+                <div x-show="results" x-transition class="space-y-6">
+                    <div class="bg-gray-700 p-6 rounded-lg border-l-4" :class="survivalClass">
+                        <h3 class="text-xl font-bold mb-2 text-center" x-text="survivalTitle"></h3>
+                        <div class="text-4xl font-bold text-center mb-4" x-text="survivalPercentage + '%'"></div>
+                        
+                        <div class="mb-4">
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm" x-text="'Survival Chance (' + daysSurvived + ' days)'"></span>
+                                <span class="text-xs" x-text="survivalPercentage + '%'"></span>
+                            </div>
+                            <div class="w-full bg-gray-800 h-4 rounded-full overflow-hidden">
+                                <div class="h-full rounded-full" :class="survivalBarClass" :style="'width: ' + survivalPercentage + '%'"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center text-sm" x-text="survivalDescription"></div>
+                    </div>
+                    
+                    <div class="bg-gray-700 p-6 rounded-lg">
+                        <h3 class="text-lg font-bold mb-3 text-white">Survival Strategy</h3>
+                        <ul class="list-disc pl-5 space-y-2 text-gray-300">
+                            <template x-for="tip in survivalTips">
+                                <li x-text="tip"></li>
+                            </template>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-gray-700 p-6 rounded-lg border border-green-600">
+                        <h3 class="text-lg font-bold mb-3 text-white">Weaknesses</h3>
+                        <ul class="list-disc pl-5 space-y-2 text-gray-300">
+                            <template x-for="weakness in weaknesses">
+                                <li x-text="weakness"></li>
+                            </template>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('zombieCalculator', () => ({
+                fitnessLevel: 2, // 1-3
+                skills: {
+                    melee: false,
+                    ranged: false,
+                    firstAid: false,
+                    foraging: false
+                },
+                zombieType: 'slow',
+                location: 'suburb',
+                results: false,
+                survivalPercentage: 0,
+                daysSurvived: 0,
+                survivalTitle: '',
+                survivalDescription: '',
+                survivalTips: [],
+                weaknesses: [],
+                survivalClass: '',
+                survivalBarClass: '',
+                
+                calculateSurvival() {
+                    // Base survival based on fitness level
+                    let baseScore = 0;
+                    switch(this.fitnessLevel) {
+                        case 1: baseScore = 20; break;
+                        case 2: baseScore = 50; break;
+                        case 3: baseScore = 80; break;
+                    }
+                    
+                    // Adjust for skills
+                    let skillBonus = 0;
+                    if(this.skills.melee) skillBonus += 10;
+                    if(this.skills.ranged) skillBonus += 15;
+                    if(this.skills.firstAid) skillBonus += 12;
+                    if(this.skills.foraging) skillBonus += 8;
+                    
+                    // Adjust for zombie type
+                    let zombieModifier = 0;
+                    switch(this.zombieType) {
+                        case 'slow': zombieModifier = 20; break;
+                        case 'fast': zombieModifier = -15; break;
+                        case 'smart': zombieModifier = -25; break;
+                        case 'mutated': zombieModifier = -40; break;
+                    }
+                    
+                    // Adjust for location
+                    let locationModifier = 0;
+                    switch(this.location) {
+                        case 'city': locationModifier = -30; break;
+                        case 'suburb': locationModifier = 10; break;
+                        case 'rural': locationModifier = 25; break;
+                        case 'bunker': locationModifier = 50; break;
+                    }
+                    
+                    // Calculate final percentage (0-100)
+                    this.survivalPercentage = Math.max(0, Math.min(100, 
+                        baseScore + skillBonus + zombieModifier + locationModifier
+                    ));
+                    
+                    // Calculate days survived (1-365)
+                    this.daysSurvived = Math.round((this.survivalPercentage / 100) * 365);
+                    
+                    // Determine survival category
+                    if(this.survivalPercentage >= 75) {
+                        this.survivalTitle = "ZOMBIE PROOF";
+                        this.survivalClass = "border-green-500";
+                        this.survivalBarClass = "bg-green-500";
+                        this.survivalDescription = "You're basically Rick Grimes. The apocalypse is your playground.";
+                    } 
+                    else if(this.survivalPercentage >= 50) {
+                        this.survivalTitle = "LIKELY SURVIVOR";
+                        this.survivalClass = "border-yellow-500";
+                        this.survivalBarClass = "bg-yellow-500";
+                        this.survivalDescription = "You'll probably make it, but it won't be pretty.";
+                    }
+                    else if(this.survivalPercentage >= 25) {
+                        this.survivalTitle = "ZOMBIE BAIT";
+                        this.survivalClass = "border-orange-500";
+                        this.survivalBarClass = "bg-orange-500";
+                        this.survivalDescription = "You might last a few weeks if you're lucky and stay quiet.";
+                    }
+                    else {
+                        this.survivalTitle = "FIRST TO TURN";
+                        this.survivalClass = "border-red-500";
+                        this.survivalBarClass = "bg-red-500";
+                        this.survivalDescription = "RIP. At least you won't suffer long before joining the horde.";
+                    }
+                    
+                    // Generate survival tips
+                    this.survivalTips = [];
+                    if(this.fitnessLevel === 1) {
+                        this.survivalTips.push("Start cardio training immediately - zombies never get tired");
+                    }
+                    if(!this.skills.melee && !this.skills.ranged) {
+                        this.survivalTips.push("Learn basic weapon skills - a baseball bat is better than nothing");
+                    }
+                    if(this.zombieType === 'fast') {
+                        this.survivalTips.push("Find secure shelter - you can't outrun them forever");
+                    }
+                    if(this.location === 'city') {
+                        this.survivalTips.push("Plan an escape route to less populated areas");
+                    }
+                    if(this.survivalPercentage > 60) {
+                        this.survivalTips.push("Consider leading a survivor group - people will need your skills");
+                    }
+                    
+                    // Generate weaknesses
+                    this.weaknesses = [];
+                    if(this.fitnessLevel < 2) {
+                        this.weaknesses.push("Poor physical condition will make escape difficult");
+                    }
+                    if(!this.skills.firstAid) {
+                        this.weaknesses.push("Lack of medical knowledge increases infection risk");
+                    }
+                    if(this.zombieType === 'mutated') {
+                        this.weaknesses.push("Special zombie abilities may overcome your defenses");
+                    }
+                    if(this.location === 'city' && this.zombieType !== 'slow') {
+                        this.weaknesses.push("Dense population means more zombies and less escape routes");
+                    }
+                    
+                    this.results = true;
+                }
+            }));
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if (mobileMenuBtn && navLinks) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    navLinks.classList.toggle('active');
+                    mobileMenuBtn.classList.toggle('active');
+                });
+                document.addEventListener('click', function(event) {
+                    if (!event.target.closest('.main-nav')) {
+                        navLinks.classList.remove('active');
+                        mobileMenuBtn.classList.remove('active');
+                    }
+                });
+            }
+        });
+    </script>
+
+    <div class="related-calculators" style="margin-top: 2rem; padding: 1rem; background: rgba(0,0,0,0.1); border-radius: 8px;">
+        <h3 style="margin-top: 0;">Related Geek Galaxy Tools</h3>
+        <a href="./AI Doomsday Countdown.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">AI Doomsday Countdown</a><a href="./Alien Communication Probability Calculator.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Alien Communication Probability Calculator</a><a href="./Lightsaber Battery Life Calculator.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Lightsaber Battery Life Calculator</a>
+        <a href="./index.html" style="display: block; padding: 0.5rem; margin-top: 1rem; background: rgba(74,144,226,0.2); border-radius: 4px; text-decoration: none; color: inherit; font-weight: bold;">← Back to Geek Galaxy Hub</a>
+    </div>
+
+        <script>
+        // 🎅 Santa Claude's Interactive Enhancements
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🎅 Santa Claude's enhancements loaded!');
+            
+            // Enhanced button interactions
+            const buttons = document.querySelectorAll('button, .btn');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.classList.add('loading');
+                    setTimeout(() => {
+                        this.classList.remove('loading');
+                    }, 500);
+                });
+            });
+            
+            // Enhanced results display
+            const resultElements = document.querySelectorAll('.result, .results, .output, #result, #output');
+            resultElements.forEach(el => {
+                const observer = new MutationObserver(function(mutations) {
+                    mutations.forEach(function(mutation) {
+                        if (mutation.type === 'childList' || mutation.type === 'characterData') {
+                            el.classList.add('show');
+                        }
+                    });
+                });
+                observer.observe(el, { childList: true, subtree: true, characterData: true });
+            });
+            
+            // Form validation enhancements
+            const inputs = document.querySelectorAll('input[type="number"], input[type="text"]');
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    if (this.checkValidity()) {
+                        this.classList.remove('input-error');
+                        this.classList.add('input-success');
+                    } else {
+                        this.classList.remove('input-success');
+                        this.classList.add('input-error');
+                    }
+                });
+            });
+        });
+        </script>
+</body>
+</html>

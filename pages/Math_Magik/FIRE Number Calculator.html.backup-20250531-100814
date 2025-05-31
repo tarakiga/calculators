@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIRE Number Calculator</title>
+
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+</head>
+<body>
+                <!-- Enhanced Navigation Bar -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="../../index.html">🧮 Docket One</a>
+            </div>
+            <div class="nav-search">
+                <label for="input-1udvh5rii" class="sr-only">Input field</label>
+            <input type="text" i id="input-1udvh5rii" aria-label="Calculator input"d="calc-search" placeholder="Search calculators..." class="search-input">
+                <div id="search-results" class="search-results"></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../BigKidMath/index.html" class="category-main-link">Big Kid Math</a></li>
+                <li><a href="../CipherLab/index.html" class="category-main-link">Cipher Lab</a></li>
+                <li><a href="../GeekGalaxy/index.html" class="category-main-link">Geek Galaxy</a></li>
+                <li><a href="../LifeHacks/index.html" class="category-main-link">Life Hacks</a></li>
+                <li><a href="../Math_Magik/index.html" class="category-main-link">Math Magik</a></li>
+                <li><a href="../Otaku_Ops/index.html" class="category-main-link">Otaku Ops</a></li>
+                <li><a href="../../index.html" class="home-link">Unit Converter</a></li>
+            </ul>
+            <button class="mobile-menu-btn" a aria-label="Perform action"ria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+    
+
+    
+
+
+    <header>
+        <h1>FIRE Number Calculator</h1>
+        <p class="subtitle">Calculate your Financial Independence/Retire Early target</p>
+    </header>
+    
+    <div class="calculator">
+        <div class="input-group">
+            <label for="annual-expenses">Annual Living Expenses ($)</label>
+            <label for="input-xa3ni1090" class="sr-only">Input field</label>
+            <input type="number" i id="input-xa3ni1090" aria-label="Calculator input"d="annual-expenses" min="10000" max="1000000" value="40000">
+        </div>
+        
+        <div class="input-group">
+            <label for="withdrawal-rate">Safe Withdrawal Rate (%)</label>
+            <div class="range-container">
+                <input type="range" id="withdrawal-rate" min="1" max="10" step="0.1" value="4">
+                <span class="range-value" id="withdrawal-rate-value">4%</span>
+            </div>
+            <small>The percentage you'll withdraw annually (4% is standard)</small>
+        </div>
+        
+        <div class="input-group">
+            <label for="current-savings">Current Savings ($)</label>
+            <label for="input-k9ln6180e" class="sr-only">Input field</label>
+            <input type="number" i id="input-k9ln6180e" aria-label="Calculator input"d="current-savings" min="0" max="10000000" value="100000">
+        </div>
+        
+        <button aria-label="Perform action" onclick="calculateFIRE()">Calculate My FIRE Number</button>
+    </div>
+    
+    <div class="results" id="results">
+        <h2>Your FIRE Results</h2>
+        
+        <div class="result-item">
+            <span class="result-label">FIRE Number:</span>
+            <span class="result-value" id="fire-number">$0</span>
+        </div>
+        
+        <div class="result-item">
+            <span class="result-label">Years to FIRE*:</span>
+            <span class="result-value" id="years-to-fire">0 years</span>
+        </div>
+        
+        <div class="result-item">
+            <span class="result-label">Monthly Investment Needed:</span>
+            <span class="result-value" id="monthly-investment">$0</span>
+        </div>
+        
+        <div class="explanation">
+            <h3>How This Works</h3>
+            <p>Your <span class="highlight">FIRE Number</span> is calculated as: <strong>Annual Expenses ÷ Withdrawal Rate</strong>.</p>
+            <p>The <span class="highlight">4% Rule</span> suggests you can safely withdraw 4% annually from investments without depleting your portfolio.</p>
+            <p>*Years to FIRE assumes 7% annual returns and 3% inflation (4% real return).</p>
+        </div>
+    </div>
+
+    <script>
+        // Update range value display
+        document.getElementById('withdrawal-rate').addEventListener('input', function() {
+            document.getElementById('withdrawal-rate-value').textContent = this.value + '%';
+        });
+        
+        function calculateFIRE() {
+            // Get inputs
+            const annualExpenses = parseFloat(document.getElementById('annual-expenses').value);
+            const withdrawalRate = parseFloat(document.getElementById('withdrawal-rate').value) / 100;
+            const currentSavings = parseFloat(document.getElementById('current-savings').value);
+            
+            // Calculate FIRE number
+            const fireNumber = annualExpenses / withdrawalRate;
+            
+            // Calculate years to FIRE (assuming 7% returns, 3% inflation = 4% real return)
+            const realReturn = 0.04;
+            let yearsToFire;
+            let monthlyInvestment;
+            
+            if (currentSavings >= fireNumber) {
+                yearsToFire = 0;
+                monthlyInvestment = 0;
+            } else {
+                yearsToFire = Math.log((fireNumber * realReturn) / (fireNumber * realReturn - currentSavings * realReturn)) / Math.log(1 + realReturn);
+                yearsToFire = Math.ceil(yearsToFire);
+                
+                // Calculate required monthly investment to reach FIRE in this timeframe
+                const futureValue = fireNumber - currentSavings * Math.pow(1 + realReturn, yearsToFire);
+                monthlyInvestment = futureValue * realReturn / (12 * (Math.pow(1 + realReturn, yearsToFire) - 1));
+                monthlyInvestment = Math.round(monthlyInvestment);
+            }
+            
+            // Update UI
+            document.getElementById('fire-number').textContent = formatCurrency(fireNumber);
+            document.getElementById('years-to-fire').textContent = `${yearsToFire} year${yearsToFire !== 1 ? 's' : ''}`;
+            document.getElementById('monthly-investment').textContent = formatCurrency(monthlyInvestment);
+            
+            // Show results
+            document.getElementById('results').style.display = 'block';
+        }
+        
+        function formatCurrency(amount) {
+            return '$' + amount.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+        
+        // Initialize on load
+        window.onload = function() {
+            calculateFIRE();
+        };
+    </script>
+
+    <div class="related-calculators" style="margin-top: 2rem; padding: 1rem; background: rgba(0,0,0,0.1); border-radius: 8px;">
+        <h3 style="margin-top: 0;">Related Math Magik Tools</h3>
+        <a href="./Double Pendulum Chaos.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Double Pendulum Chaos</a><a href="./entropy and feigenbaums constant.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">entropy and feigenbaums constant</a><a href="./Inflation Impact Calculator.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Inflation Impact Calculator</a>
+        <a href="./index.html" style="display: block; padding: 0.5rem; margin-top: 1rem; background: rgba(74,144,226,0.2); border-radius: 4px; text-decoration: none; color: inherit; font-weight: bold;">← Back to Math Magik Hub</a>
+    </div>
+
+        <script>
+        // 🎅 Santa Claude's Interactive Enhancements
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🎅 Santa Claude's enhancements loaded!');
+            
+            // Enhanced button interactions
+            const buttons = document.querySelectorAll('button, .btn');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.classList.add('loading');
+                    setTimeout(() => {
+                        this.classList.remove('loading');
+                    }, 500);
+                });
+            });
+            
+            // Enhanced results display
+            const resultElements = document.querySelectorAll('.result, .results, .output, #result, #output');
+            resultElements.forEach(el => {
+                const observer = new MutationObserver(function(mutations) {
+                    mutations.forEach(function(mutation) {
+                        if (mutation.type === 'childList' || mutation.type === 'characterData') {
+                            el.classList.add('show');
+                        }
+                    });
+                });
+                observer.observe(el, { childList: true, subtree: true, characterData: true });
+            });
+            
+            // Form validation enhancements
+            const inputs = document.querySelectorAll('input[type="number"], input[type="text"]');
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    if (this.checkValidity()) {
+                        this.classList.remove('input-error');
+                        this.classList.add('input-success');
+                    } else {
+                        this.classList.remove('input-success');
+                        this.classList.add('input-error');
+                    }
+                });
+            });
+        });
+        </script>
+</body>
+</html>

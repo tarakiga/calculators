@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Potion Brewer Calculator</title>
+
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+</head>
+<body>
+                <!-- Enhanced Navigation Bar -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="../../index.html">🧮 Docket One</a>
+            </div>
+            <div class="nav-search">
+                <label for="input-iauh2rqmm" class="sr-only">Input field</label>
+            <input type="text" i id="input-iauh2rqmm" aria-label="Calculator input"d="calc-search" placeholder="Search calculators..." class="search-input">
+                <div id="search-results" class="search-results"></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../BigKidMath/index.html" class="category-main-link">Big Kid Math</a></li>
+                <li><a href="../CipherLab/index.html" class="category-main-link">Cipher Lab</a></li>
+                <li><a href="../GeekGalaxy/index.html" class="category-main-link">Geek Galaxy</a></li>
+                <li><a href="../LifeHacks/index.html" class="category-main-link">Life Hacks</a></li>
+                <li><a href="../Math_Magik/index.html" class="category-main-link">Math Magik</a></li>
+                <li><a href="../Otaku_Ops/index.html" class="category-main-link">Otaku Ops</a></li>
+                <li><a href="../../index.html" class="home-link">Unit Converter</a></li>
+            </ul>
+            <button class="mobile-menu-btn" a aria-label="Perform action"ria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+    
+
+    
+
+
+    <h1>✨ Potion Brewer Calculator ✨</h1>
+    <p>Mix ingredients to discover magical effects! (Warning: Bad combos may explode!)</p>
+
+    <div>
+        <h3>Ingredients:</h3>
+        <div class="ingredient">
+            <input type="checkbox" id="moonflower" name="ingredient">
+            <label for="moonflower">Moonflower Petals</label>
+        </div>
+        <div class="ingredient">
+            <input type="checkbox" id="dragon-scale" name="ingredient">
+            <label for="dragon-scale">Dragon Scale</label>
+        </div>
+        <div class="ingredient">
+            <input type="checkbox" id="witch-mushroom" name="ingredient">
+            <label for="witch-mushroom">Witch's Mushroom</label>
+        </div>
+        <div class="ingredient">
+            <input type="checkbox" id="phoenix-feather" name="ingredient">
+            <label for="phoenix-feather">Phoenix Feather</label>
+        </div>
+    </div>
+
+    <button aria-label="Perform action" onclick="brewPotion()">Brew Potion!</button>
+
+    <div class="potion-result">
+        <h3>Potion Effect:</h3>
+        <p id="result">(Select ingredients first)</p>
+        <p id="warning"></p>
+    </div>
+
+    <script>
+        function brewPotion() {
+            const moonflower = document.getElementById('moonflower').checked;
+            const dragonScale = document.getElementById('dragon-scale').checked;
+            const witchMushroom = document.getElementById('witch-mushroom').checked;
+            const phoenixFeather = document.getElementById('phoenix-feather').checked;
+
+            let effect = "";
+            let warning = "";
+
+            // Good combos
+            if (moonflower && phoenixFeather && !dragonScale && !witchMushroom) {
+                effect = "🌟 <strong>Healing Potion</strong>: Restores 50 HP!";
+            } 
+            else if (dragonScale && witchMushroom && !moonflower) {
+                effect = "🔥 <strong>Fire Resistance Potion</strong>: Immune to flames for 1 hour!";
+            }
+            else if (moonflower && witchMushroom && !phoenixFeather) {
+                effect = "👻 <strong>Invisibility Potion</strong>: Vanish for 5 minutes!";
+            }
+            // Bad combos
+            else if (dragonScale && phoenixFeather) {
+                effect = "💥 <strong>Explosive Sludge</strong>: The potion violently explodes!";
+                warning = "⚠️ Warning: Never mix dragon scales with phoenix feathers!";
+            }
+            else if (witchMushroom && phoenixFeather) {
+                effect = "☠️ <strong>Toxic Fumes</strong>: The mixture releases poisonous gas!";
+                warning = "⚠️ Warning: This combo is deadly!";
+            }
+            // Neutral/unknown combos
+            else {
+                effect = "🌀 <strong>Mysterious Liquid</strong>: Unknown effect... (Try a different mix!)";
+            }
+
+            document.getElementById('result').innerHTML = effect;
+            document.getElementById('warning').innerHTML = warning;
+        }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if (mobileMenuBtn && navLinks) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    navLinks.classList.toggle('active');
+                    mobileMenuBtn.classList.toggle('active');
+                });
+                document.addEventListener('click', function(event) {
+                    if (!event.target.closest('.main-nav')) {
+                        navLinks.classList.remove('active');
+                        mobileMenuBtn.classList.remove('active');
+                    }
+                });
+            }
+        });
+    </script>
+
+    <div class="related-calculators" style="margin-top: 2rem; padding: 1rem; background: rgba(0,0,0,0.1); border-radius: 8px;">
+        <h3 style="margin-top: 0;">Related Geek Galaxy Tools</h3>
+        <a href="./AI Doomsday Countdown.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">AI Doomsday Countdown</a><a href="./Alien Communication Probability Calculator.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Alien Communication Probability Calculator</a><a href="./Lightsaber Battery Life Calculator.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Lightsaber Battery Life Calculator</a>
+        <a href="./index.html" style="display: block; padding: 0.5rem; margin-top: 1rem; background: rgba(74,144,226,0.2); border-radius: 4px; text-decoration: none; color: inherit; font-weight: bold;">← Back to Geek Galaxy Hub</a>
+    </div>
+
+        <script>
+        // 🎅 Santa Claude's Interactive Enhancements
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🎅 Santa Claude's enhancements loaded!');
+            
+            // Enhanced button interactions
+            const buttons = document.querySelectorAll('button, .btn');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.classList.add('loading');
+                    setTimeout(() => {
+                        this.classList.remove('loading');
+                    }, 500);
+                });
+            });
+            
+            // Enhanced results display
+            const resultElements = document.querySelectorAll('.result, .results, .output, #result, #output');
+            resultElements.forEach(el => {
+                const observer = new MutationObserver(function(mutations) {
+                    mutations.forEach(function(mutation) {
+                        if (mutation.type === 'childList' || mutation.type === 'characterData') {
+                            el.classList.add('show');
+                        }
+                    });
+                });
+                observer.observe(el, { childList: true, subtree: true, characterData: true });
+            });
+            
+            // Form validation enhancements
+            const inputs = document.querySelectorAll('input[type="number"], input[type="text"]');
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    if (this.checkValidity()) {
+                        this.classList.remove('input-error');
+                        this.classList.add('input-success');
+                    } else {
+                        this.classList.remove('input-success');
+                        this.classList.add('input-error');
+                    }
+                });
+            });
+        });
+        </script>
+</body>
+</html>

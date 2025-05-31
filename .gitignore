@@ -15,6 +15,13 @@ SANTA_CLAUDE_UIUX_AUDIT.json
 # Knowledge base
 knowledgebase/
 
+# Footer directory specific
+footer/**/*.ps1
+footer/**/*.bat
+footer/**/backup/
+footer/**/*.md
+footer/**/test-page.html
+
 # IDE and system files
 .DS_Store
 .idea/

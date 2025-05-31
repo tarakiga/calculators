@@ -1,0 +1,1182 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mandalorian Beskar Armor Durability Calculator | Geek Galaxy</title>
+    <meta name="description" content="Calculate your Beskar armor's durability and survival rate. This is the Way.">
+    
+    <!-- Enhanced Social Media Meta Tags -->
+    <meta property="og:title" content="Mandalorian Beskar Armor Durability Calculator | Geek Galaxy | Docket One">
+    <meta property="og:description" content="Calculate your Beskar armor's durability and survival rate based on purity, battle intensity, and maintenance. This is the Way.">
+    <meta property="og:image" content="https://docket.one/social-preview.jpg">
+    <meta property="og:url" content="https://docket.one/pages/GeekGalaxy/Mandalorian%20Beskar%20Armor%20Calculator.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Docket One Calculators">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Mandalorian Beskar Armor Calculator">
+    <meta name="twitter:description" content="Calculate Beskar armor durability and survival odds - This is the Way">
+    <meta name="twitter:image" content="https://docket.one/social-preview.jpg">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <style>
+        :root {
+            /* Mandalorian Color Palette */
+            --beskar-silver: #c0c5ce;
+            --beskar-dark: #8b949e;
+            --mando-blue: #0969da;
+            --mando-red: #da3633;
+            --mando-gold: #fb8500;
+            --space-black: #0a0a0f;
+            --space-dark: #1a1a2e;
+            --surface: rgba(192, 197, 206, 0.08);
+            --text: #e2e8f0;
+            --text-dim: #94a3b8;
+            --radius: 12px;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--space-black);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+                radial-gradient(2px 2px at 20px 30px, var(--beskar-silver), transparent),
+                radial-gradient(3px 3px at 200px 100px, var(--mando-blue), transparent),
+                radial-gradient(1px 1px at 90px 40px, var(--mando-gold), transparent);
+            background-size: 400px 300px;
+            animation: mandoDrift 35s linear infinite;
+            opacity: 0.1;
+            z-index: -1;
+        }
+        
+        @keyframes mandoDrift {
+            0% { transform: translateY(0) translateX(0); }
+            100% { transform: translateY(-300px) translateX(-150px); }
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, var(--space-black), var(--space-dark));
+            padding: 4rem 2rem;
+            text-align: center;
+            border-bottom: 1px solid rgba(192, 197, 206, 0.2);
+        }
+        
+        .hero h1 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--beskar-silver), var(--mando-blue), var(--mando-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-dim);
+            margin-bottom: 0.5rem;
+        }
+        
+        .hero-tagline {
+            font-size: 1rem;
+            color: var(--mando-gold);
+            font-weight: 600;
+            font-style: italic;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+        
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+        
+        .panel {
+            background: var(--surface);
+            backdrop-filter: blur(15px);
+            border-radius: var(--radius);
+            padding: 2rem;
+            border: 1px solid rgba(192, 197, 206, 0.2);
+        }
+        
+        .panel h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .beskar-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .beskar-option {
+            background: var(--space-dark);
+            border: 2px solid transparent;
+            border-radius: var(--radius);
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .beskar-option:hover,
+        .beskar-option.active {
+            border-color: var(--beskar-color);
+            box-shadow: 0 0 20px rgba(var(--beskar-rgb), 0.3);
+        }
+        
+        .beskar-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .beskar-stats {
+            font-size: 0.875rem;
+            color: var(--text-dim);
+        }
+        
+        .damage-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .damage-type {
+            background: var(--space-dark);
+            border: 2px solid transparent;
+            border-radius: var(--radius);
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .damage-type:hover,
+        .damage-type.active {
+            border-color: var(--damage-color);
+            box-shadow: 0 0 15px rgba(var(--damage-rgb), 0.3);
+        }
+        
+        .slider-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .slider-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        input[type="range"] {
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+            background: var(--space-dark);
+            outline: none;
+            margin: 0.5rem 0;
+        }
+        
+        @media (max-width: 768px) {
+            .calculator-grid { grid-template-columns: 1fr; }
+            .beskar-grid { grid-template-columns: 1fr; }
+        }
+        
+        /* Share Button Styles */
+        .share-button {
+            background: linear-gradient(135deg, var(--beskar-silver), var(--mando-blue));
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            box-shadow: 0 4px 15px rgba(192, 197, 206, 0.3);
+            width: 100%;
+            justify-content: center;
+        }
+
+        .share-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(192, 197, 206, 0.4);
+        }
+
+        .share-dropdown {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .share-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--space-dark);
+            border: 1px solid rgba(192, 197, 206, 0.2);
+            border-radius: var(--radius);
+            padding: 0.5rem;
+            margin-top: 0.5rem;
+            z-index: 1000;
+            display: none;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .share-menu.active {
+            display: block;
+        }
+
+        .share-option {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .share-option:hover {
+            background: rgba(192, 197, 206, 0.1);
+            color: var(--beskar-silver);
+        }
+
+        /* Hidden canvas for image generation */
+        #shareCanvas {
+            display: none;
+        }
+    </style>
+</head>
+
+<body x-data="{ showModal: false }">
+    <!-- Enhanced Navigation Bar -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="../../index.html">🧮 Docket One</a>
+            </div>
+            <div class="nav-search">
+                <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input" aria-label="Search calculators">
+                <div id="search-results" class="search-results"></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../BigKidMath/index.html" class="category-main-link">Big Kid Math</a></li>
+                <li><a href="../CipherLab/index.html" class="category-main-link">Cipher Lab</a></li>
+                <li><a href="../GeekGalaxy/index.html" class="category-main-link active">Geek Galaxy</a></li>
+                <li><a href="../LifeHacks/index.html" class="category-main-link">Life Hacks</a></li>
+                <li><a href="../Math_Magik/index.html" class="category-main-link">Math Magik</a></li>
+                <li><a href="../Otaku_Ops/index.html" class="category-main-link">Otaku Ops</a></li>
+                <li><a href="../../index.html" class="home-link">🏠 Home</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Mandalorian Beskar Armor Calculator</h1>
+        <p>Calculate your armor's durability and survival odds in battle</p>
+        <div class="hero-tagline">This is the Way.</div>
+    </section>
+
+    <main class="container">
+        <div class="calculator-grid" x-data="beskarCalculator()">
+            <!-- Armor Configuration Panel -->
+            <div class="panel">
+                <h2>
+                    <!-- Dynamic SVG Mandalorian Helmet -->
+                    <svg width="32" height="32" viewBox="0 0 992.1 992.1" style="filter: drop-shadow(0 0 8px var(--beskar-glow));" :style="`--beskar-glow: ${beskarTypes[selectedBeskar].color}`">
+                        <path :style="`fill: ${beskarTypes[selectedBeskar].color}`" d="M242.3,536.5c0-24.4,0-48.8,0-73.2c0-3.8,0.5-7.6-4.9-8.4c-2.2-0.3-3-3-3.7-5c-3.8-11.3-1.9-23-2.2-34.5
+                            c-0.1-2.9,2.5-3.4,4.6-3.5c3.9-0.3,4.7-2.5,4.6-6c-0.1-3.8-2.1-4.7-5.3-4.5c-4.2,0.2-5.4-2.2-5.4-5.9c0-11.2,0-22.4-0.1-33.6
+                            c0-1.6,0.2-3,1.3-4.4c1.7-2,2-5.1,0.7-6.6c-6.1-6.9-1.9-14.3-1.2-21.4c0.5-5.3,3.1-10.1,6.1-14.5c3.8-5.6,12.5-7.9,18.5-5.1
+                            c2.2,1.1,1.8,2.9,1.6,4.6c-0.8,5.5,1.5,7,6.9,7.2c65.3,1.9,130.6,0.9,195.8,1c4.8,0,9.4-0.2,13.2,3.5c1.7,1.6,4,1.3,6.2,1.3
+                            c8.7,0,17.3,0,26,0.1c5.5,0.1,10.9,0.4,15.3-4.2c1.8-1.9,4.7-1.6,7.3-1.6c54.7,0.1,109.4-0.1,164,0.3c12.6,0.1,25.2,0.5,37.7,0.7
+                            c4.1,0.1,6.4-0.8,6-5.5c-0.3-2.9-0.7-6.3,3.6-6.8c4.3-0.6,9.1-2.5,12.4,2.2c6.7,9.5,11.9,20.3,11.1,31.7
+                            c-1.2,16.4,2.2,32.5,0.7,48.8c-0.9,9.3-0.3,9.4-9.7,10.2c-2.5,0.2-4.2,0.9-4.2,3.8c0,2.6,1.1,4.3,3.8,4.1c6.9-0.7,7.6,2.6,6.8,8.5"/>
+                        <!-- Additional helmet details in static colors -->
+                        <path style="fill:#4a5568;" d="M356.1,309.3c-28.9,0-57.8-0.2-86.7,0.1c-6,0.1-7.9-1.8-7.6-7.7c2.3-46.3,13.6-89.6,42.8-126.8
+                            c12.1-15.5,27.1-27.7,43.4-38.6c30.2-20.2,64.1-30.1,99.3-36.4c4.9-0.9,6.7,0.7,6.6,5.8c-0.7,57.2-1,114.4-1.8,171.6
+                            c-0.1,8.2-0.8,16.5-0.5,24.7c0.2,5.9-2.2,7.3-7.6,7.3C414.8,309.2,385.4,309.3,356.1,309.3"/>
+                    </svg>
+                    Armor Configuration
+                </h2>
+                
+                <!-- Beskar Purity Selection -->
+                <div class="beskar-grid">
+                    <template x-for="(beskar, key) in beskarTypes" :key="key">
+                        <div class="beskar-option" 
+                             :class="{ active: selectedBeskar === key }"
+                             :style="`--beskar-color: ${beskar.color}; --beskar-rgb: ${beskar.rgb}`"
+                             @click="selectBeskar(key)">
+                            <div class="beskar-name" x-text="beskar.name"></div>
+                            <div class="beskar-stats">
+                                <div>Purity: <span x-text="beskar.purity"></span>%</div>
+                                <div>Durability: <span x-text="beskar.durability"></span>/10</div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+
+                <!-- Combat Damage Type -->
+                <h3 style="margin-bottom: 1rem;">Primary Threat</h3>
+                <div class="damage-grid">
+                    <template x-for="(damage, key) in damageTypes" :key="key">
+                        <div class="damage-type" 
+                             :class="{ active: selectedDamage === key }"
+                             :style="`--damage-color: ${damage.color}; --damage-rgb: ${damage.rgb}`"
+                             @click="selectDamage(key)">
+                            <div style="font-size: 1.5rem; margin-bottom: 0.5rem;" x-text="damage.emoji"></div>
+                            <div style="font-weight: 600;" x-text="damage.name"></div>
+                        </div>
+                    </template>
+                </div>
+
+                <!-- Battle Intensity Slider -->
+                <div class="slider-group">
+                    <label class="slider-label">Battle Intensity</label>
+                    <input type="range" min="1" max="10" x-model="battleIntensity" @input="calculateDurability()">
+                    <div x-text="'Level ' + battleIntensity + '/10 - ' + getIntensityDescription(battleIntensity)"></div>
+                </div>
+
+                <!-- Maintenance Frequency -->
+                <div class="slider-group">
+                    <label class="slider-label">Maintenance Frequency</label>
+                    <input type="range" min="1" max="10" x-model="maintenanceFreq" @input="calculateDurability()">
+                    <div x-text="'Level ' + maintenanceFreq + '/10 - ' + getMaintenanceDescription(maintenanceFreq)"></div>
+                </div>
+
+                <!-- Armor Age -->
+                <div class="slider-group">
+                    <label class="slider-label">Armor Age (Years)</label>
+                    <input type="range" min="0" max="100" x-model="armorAge" @input="calculateDurability()">
+                    <div x-text="armorAge + ' years in service'"></div>
+                </div>
+            </div>
+
+            <!-- Results Panel -->
+            <div class="panel">
+                <h2>⚔️ Combat Analysis</h2>
+                
+                <div style="text-align: center; margin: 2rem 0;">
+                    <div style="font-size: 2.5rem; font-weight: 800; color: var(--beskar-silver); margin-bottom: 0.5rem;" x-text="armorIntegrity + '%'"></div>
+                    <div style="color: var(--text-dim); margin-bottom: 1rem;">Armor Integrity</div>
+                    
+                    <!-- Integrity Bar -->
+                    <div style="background: var(--space-dark); height: 20px; border-radius: 10px; overflow: hidden; margin-bottom: 2rem;">
+                        <div :style="`width: ${armorIntegrity}%; background: linear-gradient(90deg, ${getIntegrityColor(armorIntegrity)}, ${getIntegrityColor(armorIntegrity)}aa); height: 100%; transition: all 0.5s ease;`"></div>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem;">
+                    <div style="background: var(--space-dark); padding: 1rem; border-radius: var(--radius); text-align: center;">
+                        <div style="font-size: 1.25rem; font-weight: 700; color: var(--mando-blue);" x-text="survivalRate + '%'"></div>
+                        <div style="font-size: 0.875rem; color: var(--text-dim);">Survival Rate</div>
+                    </div>
+                    <div style="background: var(--space-dark); padding: 1rem; border-radius: var(--radius); text-align: center;">
+                        <div style="font-size: 1.25rem; font-weight: 700; color: var(--mando-gold);" x-text="repairCost.toLocaleString() + ' credits'"></div>
+                        <div style="font-size: 0.875rem; color: var(--text-dim);">Repair Cost</div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 2rem; padding: 1rem; background: var(--space-dark); border-radius: var(--radius);">
+                    <h3 style="margin-bottom: 1rem;">Mission Recommendations:</h3>
+                    <div x-show="armorIntegrity >= 90" style="color: var(--mando-blue);">✓ Ready for any mission - This is the Way</div>
+                    <div x-show="armorIntegrity >= 70 && armorIntegrity < 90" style="color: var(--mando-gold);">⚠ Suitable for standard operations</div>
+                    <div x-show="armorIntegrity >= 50 && armorIntegrity < 70" style="color: var(--mando-red);">⚠ Recommend repairs before high-risk missions</div>
+                    <div x-show="armorIntegrity < 50" style="color: var(--mando-red);">❌ Critical - Immediate armorer attention required</div>
+                    
+                    <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1);">
+                        <div><strong>Optimal against:</strong> <span x-text="damageTypes[selectedDamage].weakness"></span></div>
+                        <div><strong>Vulnerable to:</strong> <span x-text="damageTypes[selectedDamage].strength"></span></div>
+                        <div><strong>Clan Heritage:</strong> <span x-text="beskarTypes[selectedBeskar].clan"></span></div>
+                    </div>
+                </div>
+
+                <!-- Share Button -->
+                <div class="share-dropdown">
+                    <button class="share-button" @click="toggleShareMenu()">
+                        <span>🛡️</span>
+                        <span>Share Armor Analysis</span>
+                    </button>
+                    <div class="share-menu" :class="{ active: showShareMenu }">
+                        <a class="share-option" @click="shareGeneral()" href="#" @click.prevent>
+                            <span class="share-icon">📱</span>
+                            <span>Share with Image</span>
+                        </a>
+                        <a class="share-option" @click="shareOnTwitter()" href="#" @click.prevent>
+                            <span class="share-icon">🐦</span>
+                            <span>Share on Twitter</span>
+                        </a>
+                        <a class="share-option" @click="shareOnFacebook()" href="#" @click.prevent>
+                            <span class="share-icon">📘</span>
+                            <span>Share on Facebook</span>
+                        </a>
+                        <a class="share-option" @click="shareOnLinkedIn()" href="#" @click.prevent>
+                            <span class="share-icon">💼</span>
+                            <span>Share on LinkedIn</span>
+                        </a>
+                        <a class="share-option" @click="shareOnReddit()" href="#" @click.prevent>
+                            <span class="share-icon">🤖</span>
+                            <span>Share on Reddit</span>
+                        </a>
+                        <a class="share-option" @click="copyShareLink()" href="#" @click.prevent>
+                            <span class="share-icon">🔗</span>
+                            <span>Copy Link</span>
+                        </a>
+                        <a class="share-option" @click="downloadImage()" href="#" @click.prevent>
+                            <span class="share-icon">💾</span>
+                            <span>Download Image</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Hidden canvas for generating share images -->
+    <canvas id="shareCanvas" width="1200" height="630"></canvas>
+    
+    <script>
+        function beskarCalculator() {
+            return {
+                selectedBeskar: 'pure',
+                selectedDamage: 'blaster',
+                battleIntensity: 5,
+                maintenanceFreq: 5,
+                armorAge: 10,
+                armorIntegrity: 0,
+                survivalRate: 0,
+                repairCost: 0,
+                showShareMenu: false,
+                
+                beskarTypes: {
+                    'pure': {
+                        name: 'Pure Beskar',
+                        purity: 99,
+                        durability: 10,
+                        color: '#c0c5ce',
+                        rgb: '192, 197, 206',
+                        clan: 'Traditional Mandalorian'
+                    },
+                    'alloyed': {
+                        name: 'Beskar Alloy',
+                        purity: 85,
+                        durability: 8,
+                        color: '#8b949e',
+                        rgb: '139, 148, 158',
+                        clan: 'Modern Forging'
+                    },
+                    'durasteel': {
+                        name: 'Durasteel Mix',
+                        purity: 60,
+                        durability: 6,
+                        color: '#6b7280',
+                        rgb: '107, 114, 128',
+                        clan: 'Death Watch Remnants'
+                    },
+                    'scrap': {
+                        name: 'Scrap Metal',
+                        purity: 30,
+                        durability: 3,
+                        color: '#4b5563',
+                        rgb: '75, 85, 99',
+                        clan: 'Outer Rim Survivors'
+                    }
+                },
+                
+                damageTypes: {
+                    'blaster': {
+                        name: 'Blaster Fire',
+                        emoji: '🔫',
+                        color: '#dc2626',
+                        rgb: '220, 38, 38',
+                        weakness: 'Energy dispersion, deflection',
+                        strength: 'Sustained heavy fire'
+                    },
+                    'lightsaber': {
+                        name: 'Lightsaber',
+                        emoji: '⚔️',
+                        color: '#8b5cf6',
+                        rgb: '139, 92, 246',
+                        weakness: 'Pure beskar resistance',
+                        strength: 'Precise cutting attacks'
+                    },
+                    'vibroblade': {
+                        name: 'Vibroblade',
+                        emoji: '🗡️',
+                        color: '#0891b2',
+                        rgb: '8, 145, 178',
+                        weakness: 'Armor thickness',
+                        strength: 'Joint vulnerabilities'
+                    },
+                    'explosives': {
+                        name: 'Explosives',
+                        emoji: '💥',
+                        color: '#ea580c',
+                        rgb: '234, 88, 12',
+                        weakness: 'Distributed impact',
+                        strength: 'Concussive force'
+                    }
+                },
+                
+                init() {
+                    this.calculateDurability();
+                },
+                
+                selectBeskar(key) {
+                    this.selectedBeskar = key;
+                    this.calculateDurability();
+                },
+                
+                selectDamage(key) {
+                    this.selectedDamage = key;
+                    this.calculateDurability();
+                },
+                
+                calculateDurability() {
+                    const beskar = this.beskarTypes[this.selectedBeskar];
+                    const damage = this.damageTypes[this.selectedDamage];
+                    
+                    // Base integrity from beskar quality
+                    let integrity = beskar.durability * 10;
+                    
+                    // Battle intensity impact (more intense = more wear)
+                    const intensityFactor = 1 - ((this.battleIntensity - 1) * 0.08);
+                    integrity *= intensityFactor;
+                    
+                    // Maintenance frequency bonus
+                    const maintenanceBonus = 1 + ((this.maintenanceFreq - 5) * 0.04);
+                    integrity *= maintenanceBonus;
+                    
+                    // Age degradation
+                    const ageFactor = 1 - (this.armorAge * 0.008);
+                    integrity *= Math.max(0.2, ageFactor);
+                    
+                    // Damage type modifier
+                    const damageModifiers = {
+                        'blaster': 1.0,
+                        'lightsaber': beskar.purity >= 90 ? 0.9 : 0.6,
+                        'vibroblade': 0.8,
+                        'explosives': 0.7
+                    };
+                    integrity *= damageModifiers[this.selectedDamage] || 1.0;
+                    
+                    this.armorIntegrity = Math.round(Math.max(5, Math.min(100, integrity)));
+                    
+                    // Calculate survival rate
+                    this.survivalRate = Math.round(Math.min(99, this.armorIntegrity * 0.9 + (beskar.durability * 2)));
+                    
+                    // Calculate repair cost
+                    const baseCost = (100 - this.armorIntegrity) * 100;
+                    const purityMultiplier = beskar.purity / 50;
+                    this.repairCost = Math.round(baseCost * purityMultiplier);
+                },
+                
+                getIntensityDescription(intensity) {
+                    const descriptions = {
+                        1: 'Ceremonial duties',
+                        2: 'Peaceful patrols',
+                        3: 'Standard bounties',
+                        4: 'Dangerous targets',
+                        5: 'Combat missions',
+                        6: 'High-risk operations',
+                        7: 'War zone deployment',
+                        8: 'Siege warfare',
+                        9: 'Against Jedi',
+                        10: 'Great Purge survival'
+                    };
+                    return descriptions[intensity] || 'Unknown threat level';
+                },
+                
+                getMaintenanceDescription(freq) {
+                    const descriptions = {
+                        1: 'Never maintained',
+                        2: 'Rarely cleaned',
+                        3: 'Basic upkeep',
+                        4: 'Occasional repairs',
+                        5: 'Standard maintenance',
+                        6: 'Regular servicing',
+                        7: 'Professional care',
+                        8: 'Armorer visits',
+                        9: 'Master craftsman',
+                        10: 'Forge-temple quality'
+                    };
+                    return descriptions[freq] || 'Unknown maintenance';
+                },
+                
+                getIntegrityColor(integrity) {
+                    if (integrity >= 80) return '#10b981'; // Green
+                    if (integrity >= 60) return '#f59e0b'; // Yellow
+                    if (integrity >= 40) return '#ea580c'; // Orange
+                    return '#dc2626'; // Red
+                },
+
+                toggleShareMenu() {
+                    this.showShareMenu = !this.showShareMenu;
+                },
+
+                generateShareText() {
+                    const beskar = this.beskarTypes[this.selectedBeskar];
+                    return `🛡️ Beskar Armor Analysis: ${beskar.name} = ${this.armorIntegrity}% integrity, ${this.survivalRate}% survival rate! This is the Way 🔥 Calculate yours at docket.one`;
+                },
+
+                generateShareImage() {
+                    const canvas = document.getElementById('shareCanvas');
+                    const ctx = canvas.getContext('2d');
+                    
+                    canvas.width = 1200;
+                    canvas.height = 630;
+                    
+                    // Gradient background
+                    const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+                    gradient.addColorStop(0, '#0a0a0f');
+                    gradient.addColorStop(0.3, '#1a1a2e');
+                    gradient.addColorStop(0.7, '#1a1a2e');
+                    gradient.addColorStop(1, '#0a0a0f');
+                    ctx.fillStyle = gradient;
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    
+                    // Stars
+                    ctx.fillStyle = '#ffffff';
+                    for (let i = 0; i < 150; i++) {
+                        const x = Math.random() * canvas.width;
+                        const y = Math.random() * canvas.height;
+                        const size = Math.random() * 2 + 0.5;
+                        ctx.beginPath();
+                        ctx.arc(x, y, size, 0, 2 * Math.PI);
+                        ctx.fill();
+                    }
+                    
+                    // Title
+                    ctx.fillStyle = '#c0c5ce';
+                    ctx.font = 'bold 42px Inter, sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('MANDALORIAN BESKAR ARMOR ANALYSIS', canvas.width / 2, 80);
+                    
+                    // Main result
+                    ctx.fillStyle = '#fb8500';
+                    ctx.font = 'bold 64px Inter, sans-serif';
+                    ctx.fillText(`${this.armorIntegrity}% INTEGRITY`, canvas.width / 2, 180);
+                    
+                    // Beskar type
+                    const beskar = this.beskarTypes[this.selectedBeskar];
+                    ctx.fillStyle = beskar.color;
+                    ctx.font = 'bold 32px Inter, sans-serif';
+                    ctx.fillText(beskar.name, canvas.width / 2, 240);
+                    
+                    // Left Column
+                    const leftX = 200;
+                    ctx.fillStyle = '#e2e8f0';
+                    ctx.font = 'bold 24px Inter, sans-serif';
+                    ctx.textAlign = 'left';
+                    ctx.fillText('🛡️ SURVIVAL RATE', leftX, 320);
+                    ctx.fillText(`${this.survivalRate}%`, leftX, 350);
+                    
+                    ctx.fillText('💰 REPAIR COST', leftX, 410);
+                    ctx.fillText(`${this.repairCost.toLocaleString()} credits`, leftX, 440);
+                    
+                    ctx.fillText('⚔️ BATTLE INTENSITY', leftX, 500);
+                    ctx.fillText(`${this.battleIntensity}/10`, leftX, 530);
+                    
+                    // Right Column
+                    const rightX = 700;
+                    const damage = this.damageTypes[this.selectedDamage];
+                    ctx.fillText('💥 PRIMARY THREAT', rightX, 320);
+                    ctx.fillText(damage.name, rightX, 350);
+                    
+                    ctx.fillText('🔧 MAINTENANCE', rightX, 410);
+                    ctx.fillText(`${this.maintenanceFreq}/10`, rightX, 440);
+                    
+                    ctx.fillText('⏳ ARMOR AGE', rightX, 500);
+                    ctx.fillText(`${this.armorAge} years`, rightX, 530);
+                    
+                    // Footer
+                    ctx.fillStyle = '#fb8500';
+                    ctx.font = '20px Inter, sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('docket.one/pages/GeekGalaxy/Mandalorian%20Beskar%20Armor%20Calculator', canvas.width / 2, 590);
+                    
+                    return canvas.toDataURL('image/png');
+                },
+
+                async shareGeneral() {
+                    const text = this.generateShareText();
+                    const calculatorUrl = 'https://docket.one/pages/GeekGalaxy/Mandalorian%20Beskar%20Armor%20Calculator.html';
+                    
+                    // Check if we're running locally
+                    const isLocal = window.location.protocol === 'file:';
+                    
+                    if (isLocal) {
+                        // For local files, just copy text and download image
+                        try {
+                            if (navigator.clipboard && navigator.clipboard.writeText) {
+                                await navigator.clipboard.writeText(`${text} ${calculatorUrl}`);
+                                alert('✅ Share text copied to clipboard!\n\nImage will download separately.');
+                            } else {
+                                // Fallback for older browsers
+                                const textArea = document.createElement('textarea');
+                                textArea.value = `${text} ${calculatorUrl}`;
+                                document.body.appendChild(textArea);
+                                textArea.select();
+                                document.execCommand('copy');
+                                document.body.removeChild(textArea);
+                                alert('✅ Share text copied to clipboard!\n\nImage will download separately.');
+                            }
+                            this.downloadImage();
+                        } catch (err) {
+                            console.warn('Clipboard failed, downloading image only:', err);
+                            this.downloadImage();
+                            alert('📥 Image downloaded! Share text:\n\n' + text + '\n\n' + calculatorUrl);
+                        }
+                        this.showShareMenu = false;
+                        return;
+                    }
+                    
+                    // Web Share API for mobile (HTTPS only)
+                    if (navigator.share) {
+                        try {
+                            const imageDataUrl = this.generateShareImage();
+                            const response = await fetch(imageDataUrl);
+                            const blob = await response.blob();
+                            const file = new File([blob], `beskar-armor-${Date.now()}.png`, { type: 'image/png' });
+                            
+                            if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                                await navigator.share({
+                                    title: 'Beskar Armor Analysis - Results',
+                                    text: text,
+                                    url: calculatorUrl,
+                                    files: [file]
+                                });
+                            } else {
+                                await navigator.share({
+                                    title: 'Beskar Armor Calculator',
+                                    text: text,
+                                    url: calculatorUrl
+                                });
+                            }
+                            this.showShareMenu = false;
+                            return;
+                        } catch (err) {
+                            if (err.name !== 'AbortError') {
+                                console.log('Web Share API failed:', err);
+                            } else {
+                                this.showShareMenu = false;
+                                return;
+                            }
+                        }
+                    }
+                    
+                    // Fallback for desktop
+                    try {
+                        await navigator.clipboard.writeText(`${text} ${calculatorUrl}`);
+                        alert('✅ Results copied to clipboard!\n\nThe image has been downloaded for you to attach.');
+                        this.downloadImage();
+                    } catch (err) {
+                        console.error('Clipboard failed:', err);
+                        this.downloadImage();
+                        alert('📥 Image downloaded! Share text:\n\n' + text + '\n\n' + calculatorUrl);
+                    }
+                    this.showShareMenu = false;
+                },
+
+                async shareOnTwitter() {
+                    const text = this.generateShareText();
+                    const calculatorUrl = 'https://docket.one/pages/GeekGalaxy/Mandalorian%20Beskar%20Armor%20Calculator.html';
+                    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(calculatorUrl)}`;
+                    window.open(twitterUrl, '_blank');
+                    this.showShareMenu = false;
+                },
+
+                async shareOnFacebook() {
+                    const calculatorUrl = 'https://docket.one/pages/GeekGalaxy/Mandalorian%20Beskar%20Armor%20Calculator.html';
+                    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(calculatorUrl)}`;
+                    window.open(facebookUrl, '_blank');
+                    this.showShareMenu = false;
+                },
+
+                async shareOnLinkedIn() {
+                    const calculatorUrl = 'https://docket.one/pages/GeekGalaxy/Mandalorian%20Beskar%20Armor%20Calculator.html';
+                    const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(calculatorUrl)}`;
+                    window.open(linkedInUrl, '_blank');
+                    this.showShareMenu = false;
+                },
+
+                async shareOnReddit() {
+                    const text = this.generateShareText();
+                    const calculatorUrl = 'https://docket.one/pages/GeekGalaxy/Mandalorian%20Beskar%20Armor%20Calculator.html';
+                    const redditUrl = `https://reddit.com/submit?url=${encodeURIComponent(calculatorUrl)}&title=${encodeURIComponent(text)}`;
+                    window.open(redditUrl, '_blank');
+                    this.showShareMenu = false;
+                },
+
+                async copyShareLink() {
+                    const calculatorUrl = 'https://docket.one/pages/GeekGalaxy/Mandalorian%20Beskar%20Armor%20Calculator.html';
+                    try {
+                        await navigator.clipboard.writeText(calculatorUrl);
+                        const button = document.querySelector('.share-button');
+                        const originalText = button.innerHTML;
+                        button.innerHTML = '<span>✅</span><span>Link Copied!</span>';
+                        setTimeout(() => {
+                            button.innerHTML = originalText;
+                        }, 2000);
+                    } catch (err) {
+                        console.error('Failed to copy link:', err);
+                    }
+                    this.showShareMenu = false;
+                },
+
+                downloadImage() {
+                    const imageDataUrl = this.generateShareImage();
+                    const link = document.createElement('a');
+                    link.download = `beskar-armor-${Date.now()}.png`;
+                    link.href = imageDataUrl;
+                    link.click();
+                    this.showShareMenu = false;
+                }
+            }
+        }
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if (mobileMenuBtn && navLinks) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    navLinks.classList.toggle('active');
+                    mobileMenuBtn.classList.toggle('active');
+                });
+                
+                document.addEventListener('click', function(event) {
+                    if (!event.target.closest('.main-nav')) {
+                        navLinks.classList.remove('active');
+                        mobileMenuBtn.classList.remove('active');
+                    }
+                    
+                    // Close share menu when clicking outside
+                    if (!event.target.closest('.share-dropdown')) {
+                        const shareMenus = document.querySelectorAll('.share-menu');
+                        shareMenus.forEach(menu => menu.classList.remove('active'));
+                    }
+                });
+            }
+        });
+    </script>
+
+    <!-- Newsletter Bar -->
+<!-- Newsletter Bar - Include before footer -->
+<div class="newsletter-bar" x-data="newsletterForm()">
+    <div class="newsletter-container">
+        <div class="newsletter-content">
+            <div class="newsletter-info">
+                <h3>ðŸŽ‰ Join Our Calculator Community!</h3>
+                <p>Get updates on new fun calculators and practical tools</p>
+            </div>
+            <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
+                <input 
+                    type="email" 
+                    class="newsletter-input"
+                    placeholder="Enter your email for calculator updates"
+                    x-model="email"
+                    required
+                >
+                <button 
+                    type="submit" 
+                    class="newsletter-submit"
+                    :disabled="isSubmitting"
+                >
+                    <span x-show="isSubmitting" class="loading-spinner"></span>
+                    <span x-text="isSubmitting ? 'Subscribing...' : 'ðŸš€ Subscribe'"></span>
+                </button>
+            </form>
+            <div x-show="showSuccess" class="newsletter-success" style="display: none;">
+                <p style="color: var(--accent-light); font-weight: 600;">
+                    âœ… Awesome! You'll get updates on the coolest new calculators!
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <!-- Footer -->
+<!-- Main Footer - Include at bottom of every page -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>ðŸŽ¯ About Docket.One</h4>
+                <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the tools for modern life.</p>
+                <p>Practical meets playful. Because adulting is hard enough.</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>ðŸŽª Calculator Categories</h4>
+                <ul class="footer-links">
+                    <li><a href="/pages/BigKidMath/"><span class="calculator-emoji">ðŸ§®</span> BigKidMath - Adult Life Tools</a></li>
+                    <li><a href="/pages/CipherLab/"><span class="calculator-emoji">ðŸ”</span> CipherLab - Secret Codes & Security</a></li>
+                    <li><a href="/pages/GeekGalaxy/"><span class="calculator-emoji">ðŸš€</span> GeekGalaxy - Sci-Fi & Fantasy Fun</a></li>
+                    <li><a href="/pages/LifeHacks/"><span class="calculator-emoji">âš¡</span> LifeHacks - Productivity & Wellness</a></li>
+                    <li><a href="/pages/Math_Magik/"><span class="calculator-emoji">ðŸŽ­</span> Math Magik - Mathematical Wizardry</a></li>
+                    <li><a href="/pages/Otaku_Ops/"><span class="calculator-emoji">ðŸŽŒ</span> Otaku Ops - Anime & Culture</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>ðŸ’¬ Support & Info</h4>
+                <ul class="footer-links">
+                    <li><a href="/help"><span class="calculator-emoji">â“</span> Help & FAQ</a></li>
+                    <li><a href="/privacy"><span class="calculator-emoji">ðŸ”’</span> Privacy Policy</a></li>
+                    <li><a href="/terms"><span class="calculator-emoji">ðŸ“‹</span> Terms of Service</a></li>
+                    <li><a href="/accessibility"><span class="calculator-emoji">â™¿</span> Accessibility</a></li>
+                    <li><a href="/contact"><span class="calculator-emoji">ðŸ“§</span> Contact Us</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <button 
+                    class="request-calculator-btn"
+                    @click="showModal = true"
+                >
+                    ðŸ’¡ Request a Calculator
+                </button>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="footer-logo">ðŸ§® Docket.One</div>
+            <div class="footer-copyright">
+                Â© 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
+            </div>
+            <div class="social-links">
+                <a href="#" class="social-link" aria-label="Twitter">ð•</a>
+                <a href="#" class="social-link" aria-label="LinkedIn">ðŸ’¼</a>
+                <a href="#" class="social-link" aria-label="GitHub">ðŸ™</a>
+                <a href="#" class="social-link" aria-label="Email">ðŸ“§</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- Request Modal -->
+<!-- Calculator Request Modal - Include once per page (usually at end of body) -->
+<div 
+    x-data="calculatorRequestForm()"
+    x-show="showModal"
+    x-cloak
+    class="modal-overlay"
+    @click.self="closeModal()"
+    style="display: none;"
+>
+    <div class="modal-content">
+        <!-- Request Form -->
+        <div x-show="!showConfirmation">
+            <div class="modal-header">
+                <h2 class="modal-title">ðŸ’¡ Request a Fun Calculator</h2>
+                <p class="modal-subtitle">Got an idea for a calculator that would make life easier or more fun? We want to hear it!</p>
+                <button class="modal-close" @click="closeModal()">âœ•</button>
+            </div>
+
+            <div class="modal-body">
+                <form @submit.prevent="submitRequest()">
+                    <div class="form-group">
+                        <label class="form-label" for="userName">Your Name *</label>
+                        <input 
+                            type="text" 
+                            id="userName"
+                            class="form-input"
+                            x-model="formData.name"
+                            required
+                            placeholder="What should we call you?"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="userEmail">Email Address *</label>
+                        <input 
+                            type="email" 
+                            id="userEmail"
+                            class="form-input"
+                            x-model="formData.email"
+                            required
+                            placeholder="your@email.com"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="requestType">What Kind of Request? *</label>
+                        <select 
+                            id="requestType"
+                            class="form-input form-select"
+                            x-model="formData.type"
+                            required
+                        >
+                            <option value="">Choose your request type</option>
+                            <option value="new-calculator">ðŸ†• Brand New Calculator</option>
+                            <option value="enhancement">âš¡ Improve Existing Calculator</option>
+                            <option value="category">ðŸŽª New Category Idea</option>
+                            <option value="feature">âœ¨ Cool New Feature</option>
+                            <option value="other">ðŸ¤” Something Else Entirely</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="calculatorTitle">Calculator Name/Title *</label>
+                        <input 
+                            type="text" 
+                            id="calculatorTitle"
+                            class="form-input"
+                            x-model="formData.title"
+                            required
+                            placeholder="e.g., 'Should I Call In Sick Calculator', 'Pizza vs Ramen Budget Optimizer'"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="description">Tell Us About Your Idea! *</label>
+                        <textarea 
+                            id="description"
+                            class="form-input form-textarea"
+                            x-model="formData.description"
+                            required
+                            placeholder="Describe your calculator idea! What would it calculate? What inputs would users enter? What would be the fun/practical output? Be as creative as you want - the weirder, the better!"
+                        ></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="category">Which Category Fits Best?</label>
+                        <select 
+                            id="category"
+                            class="form-input form-select"
+                            x-model="formData.category"
+                        >
+                            <option value="">Pick a category (or suggest a new one!)</option>
+                            <option value="BigKidMath">ðŸ§® BigKidMath - Adult Life Decisions</option>
+                            <option value="CipherLab">ðŸ” CipherLab - Codes & Security</option>
+                            <option value="GeekGalaxy">ðŸš€ GeekGalaxy - Sci-Fi & Fantasy</option>
+                            <option value="LifeHacks">âš¡ LifeHacks - Productivity & Wellness</option>
+                            <option value="Math_Magik">ðŸŽ­ Math Magik - Mathematical Magic</option>
+                            <option value="Otaku_Ops">ðŸŽŒ Otaku Ops - Anime & Pop Culture</option>
+                            <option value="new-category">ðŸ†• I have a new category idea!</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="priority">How Much Do You Want This?</label>
+                        <select 
+                            id="priority"
+                            class="form-input form-select"
+                            x-model="formData.priority"
+                        >
+                            <option value="low">ðŸ˜Š Would be nice to have</option>
+                            <option value="medium">ðŸ˜ Really want this!</option>
+                            <option value="high">ðŸ¤© NEED this in my life!</option>
+                            <option value="urgent">ðŸš¨ My life depends on it!</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="useCase">Why Would This Be Awesome?</label>
+                        <textarea 
+                            id="useCase"
+                            class="form-input form-textarea"
+                            x-model="formData.useCase"
+                            placeholder="Tell us your story! Are you a student trying to optimize study time? A professional making tough decisions? Someone who just thinks it would be hilarious? We love hearing why calculators matter to you!"
+                        ></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button 
+                            type="button" 
+                            class="btn btn-secondary"
+                            @click="closeModal()"
+                        >
+                            Maybe Later
+                        </button>
+                        <button 
+                            type="submit" 
+                            class="btn btn-primary"
+                            :disabled="isSubmitting"
+                        >
+                            <span x-show="isSubmitting" class="loading-spinner"></span>
+                            <span x-text="isSubmitting ? 'Sending...' : 'ðŸš€ Send My Idea'"></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Confirmation Modal -->
+        <div x-show="showConfirmation" class="confirmation-modal" style="display: none;">
+            <div class="modal-header">
+                <button class="modal-close" @click="closeModal()">âœ•</button>
+            </div>
+            <div class="modal-body">
+                <div class="success-icon">ðŸŽ‰</div>
+                <h3 class="confirmation-title">Awesome! We Got Your Idea!</h3>
+                <p class="confirmation-message">
+                    Thanks for sharing your calculator idea with us! We're excited to check it out and see if we can make it happen. 
+                    <br><br>
+                    <strong>What happens next?</strong><br>
+                    â€¢ You'll get a confirmation email shortly<br>
+                    â€¢ Our team will review your idea<br>
+                    â€¢ If we build it, you'll be the first to know!<br>
+                    â€¢ We might even name you as the inspiration ðŸ˜Š
+                </p>
+                <button 
+                    class="btn btn-primary"
+                    @click="closeModal()"
+                    style="width: 100%;"
+                >
+                    ðŸŽ¯ Close & Keep Calculating!
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

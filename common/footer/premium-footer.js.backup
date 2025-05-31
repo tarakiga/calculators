@@ -1,0 +1,215 @@
+// Premium Footer System JavaScript for Docket.One
+// Handles newsletter signup and calculator request functionality
+
+function newsletterForm() {
+    return {
+        email: '',
+        isSubmitting: false,
+        showSuccess: false,
+
+        async submitNewsletter() {
+            if (!this.email) return;
+            
+            this.isSubmitting = true;
+            
+            try {
+                // Create email content for newsletter subscription
+                const emailData = {
+                    to: 'newsletter@docket.one',
+                    subject: 'Newsletter Subscription - Docket.One',
+                    body: `New Newsletter Subscription
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📧 Email: ${this.email}
+📅 Date: ${new Date().toLocaleString()}
+🌐 Source: Footer Newsletter Bar
+🔗 User Agent: ${navigator.userAgent}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Please add this email to the newsletter list and send a welcome email.`
+                };
+
+                // In production, replace this with your actual email service
+                // For now, we'll use a mailto link as fallback
+                const subject = encodeURIComponent(emailData.subject);
+                const body = encodeURIComponent(emailData.body);
+                
+                // Simulate API delay
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                // Create mailto link (replace with actual API call in production)
+                window.open(`mailto:${emailData.to}?subject=${subject}&body=${body}`, '_blank');
+
+                this.showSuccess = true;
+                this.email = '';
+                
+                // Auto-hide success message after 5 seconds
+                setTimeout(() => {
+                    this.showSuccess = false;
+                }, 5000);
+
+            } catch (error) {
+                console.error('Newsletter subscription failed:', error);
+                alert('Oops! Something went wrong. Please try again or email us directly at newsletter@docket.one');
+            } finally {
+                this.isSubmitting = false;
+            }
+        }
+    }
+}
+
+function calculatorRequestForm() {
+    return {
+        showConfirmation: false,
+        isSubmitting: false,
+        formData: {
+            name: '',
+            email: '',
+            type: '',
+            title: '',
+            description: '',
+            category: '',
+            priority: 'medium',
+            useCase: ''
+        },
+
+        closeModal() {
+            // Close the modal by dispatching event
+            this.$dispatch('close-modal');
+            this.resetForm();
+        },
+
+        resetForm() {
+            this.showConfirmation = false;
+            this.isSubmitting = false;
+            this.formData = {
+                name: '',
+                email: '',
+                type: '',
+                title: '',
+                description: '',
+                category: '',
+                priority: 'medium',
+                useCase: ''
+            };
+        },
+
+        async submitRequest() {
+            if (!this.validateForm()) return;
+            
+            this.isSubmitting = true;
+            
+            try {
+                // Prepare email content
+                const emailContent = this.formatEmailContent();
+                
+                // Create email data
+                const emailData = {
+                    to: 'request@docket.one',
+                    subject: `Calculator Request: ${this.formData.title}`,
+                    body: emailContent
+                };
+                
+                // Simulate API call delay
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                
+                // Create mailto link (replace with actual API call in production)
+                const subject = encodeURIComponent(emailData.subject);
+                const body = encodeURIComponent(emailData.body);
+                window.open(`mailto:${emailData.to}?subject=${subject}&body=${body}`, '_blank');
+                
+                // Show confirmation
+                this.showConfirmation = true;
+                
+                // Send confirmation email to user (simulate)
+                this.sendConfirmationEmail();
+
+            } catch (error) {
+                console.error('Request submission failed:', error);
+                alert('Oops! Something went wrong. Please try again or email us directly at request@docket.one');
+            } finally {
+                this.isSubmitting = false;
+            }
+        },
+
+        validateForm() {
+            const required = ['name', 'email', 'type', 'title', 'description'];
+            const missing = required.filter(field => !this.formData[field].trim());
+            
+            if (missing.length > 0) {
+                alert(`Please fill in: ${missing.join(', ')}`);
+                return false;
+            }
+            
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(this.formData.email)) {
+                alert('Please enter a valid email address');
+                return false;
+            }
+            
+            return true;
+        },
+
+        formatEmailContent() {
+            return `NEW CALCULATOR REQUEST
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+👤 REQUESTOR INFORMATION
+Name: ${this.formData.name}
+Email: ${this.formData.email}
+Timestamp: ${new Date().toLocaleString()}
+
+🎯 REQUEST DETAILS
+Type: ${this.formData.type}
+Title: ${this.formData.title}
+Preferred Category: ${this.formData.category || 'Not specified'}
+Priority: ${this.formData.priority}
+
+📝 DESCRIPTION
+${this.formData.description}
+
+💡 USE CASE / WHY IT'S NEEDED
+${this.formData.useCase || 'Not provided'}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+This request was submitted through the Docket.One website footer form.
+Please respond to the user at: ${this.formData.email}
+
+User Agent: ${navigator.userAgent}
+Referrer: ${document.referrer || 'Direct'}`;
+        },
+
+        async sendConfirmationEmail() {
+            // In production, this would trigger a confirmation email
+            // to the user's email address confirming receipt
+            console.log('Confirmation email would be sent to:', this.formData.email);
+            
+            // You can implement actual email sending here using your preferred service
+            // Examples: EmailJS, Formspree, your own backend API, etc.
+        }
+    }
+}
+
+// Global event handlers
+document.addEventListener('DOMContentLoaded', function() {
+    // Close modal event listener
+    document.addEventListener('close-modal', function() {
+        // Find the Alpine component with showModal and set it to false
+        const body = document.querySelector('body');
+        if (body && body._x_dataStack) {
+            body._x_dataStack[0].showModal = false;
+        }
+    });
+
+    // Close modal on escape key
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            const body = document.querySelector('body');
+            if (body && body._x_dataStack && body._x_dataStack[0].showModal) {
+                body._x_dataStack[0].showModal = false;
+            }
+        }
+    });
+});

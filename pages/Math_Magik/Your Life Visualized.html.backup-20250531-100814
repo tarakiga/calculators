@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Life Visualized</title>
+
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+</head>
+<body>
+                <!-- Enhanced Navigation Bar -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="../../index.html">🧮 Docket One</a>
+            </div>
+            <div class="nav-search">
+                <label for="input-g4nobcuv8" class="sr-only">Input field</label>
+            <input type="text" i id="input-g4nobcuv8" aria-label="Calculator input"d="calc-search" placeholder="Search calculators..." class="search-input">
+                <div id="search-results" class="search-results"></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../BigKidMath/index.html" class="category-main-link">Big Kid Math</a></li>
+                <li><a href="../CipherLab/index.html" class="category-main-link">Cipher Lab</a></li>
+                <li><a href="../GeekGalaxy/index.html" class="category-main-link">Geek Galaxy</a></li>
+                <li><a href="../LifeHacks/index.html" class="category-main-link">Life Hacks</a></li>
+                <li><a href="../Math_Magik/index.html" class="category-main-link">Math Magik</a></li>
+                <li><a href="../Otaku_Ops/index.html" class="category-main-link">Otaku Ops</a></li>
+                <li><a href="../../index.html" class="home-link">Unit Converter</a></li>
+            </ul>
+            <button class="mobile-menu-btn" a aria-label="Perform action"ria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+    
+
+    
+
+
+    <h1>Your Life Visualized</h1>
+    <p class="subtitle">Each block represents a unit of your life. How will you use the remaining ones?</p>
+
+    <div class="controls">
+        <div class="control-group">
+            <label for="birthyear">Birth Year</label>
+            <label for="input-b9nvfsgb6" class="sr-only">Input field</label>
+            <input type="number" i id="input-b9nvfsgb6" aria-label="Calculator input"d="birthyear" min="1900" max="2023" value="1990">
+        </div>
+        <div class="control-group">
+            <label for="lifespan">Expected Lifespan</label>
+            <label for="input-yrd7bply1" class="sr-only">Input field</label>
+            <input type="number" i id="input-yrd7bply1" aria-label="Calculator input"d="lifespan" min="50" max="120" value="80">
+        </div>
+        <div class="control-group">
+            <label for="time-unit">View In</label>
+            <select id="time-unit">
+                <option value="weeks">Weeks</option>
+                <option value="months">Months</option>
+                <option value="years">Years</option>
+            </select>
+        </div>
+        <button aria-label="Perform action" onclick="generateVisualization()">Update Visualization</button>
+    </div>
+
+    <div class="visualization">
+        <div class="grid" id="time-grid"></div>
+        
+        <div class="stats">
+            <div class="stat-box">
+                <div class="stat-value" id="lived-value">0</div>
+                <div class="stat-label">Lived</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value" id="remaining-value">0</div>
+                <div class="stat-label">Remaining</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value" id="percentage-value">0%</div>
+                <div class="stat-label">Completed</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function generateVisualization() {
+            const birthYear = parseInt(document.getElementById('birthyear').value);
+            const lifespan = parseInt(document.getElementById('lifespan').value);
+            const timeUnit = document.getElementById('time-unit').value;
+            const today = new Date();
+            const birthDate = new Date(birthYear, 0, 1);
+            
+            // Calculate time values based on selected unit
+            let totalUnits, livedUnits, unitName, blockSize, gridCols;
+            
+            switch(timeUnit) {
+                case 'weeks':
+                    totalUnits = lifespan * 52;
+                    livedUnits = Math.floor((today - birthDate) / (1000 * 60 * 60 * 24 * 7));
+                    unitName = 'weeks';
+                    blockSize = '15px';
+                    gridCols = 52;
+                    break;
+                case 'months':
+                    totalUnits = lifespan * 12;
+                    livedUnits = (today.getFullYear() - birthYear) * 12 + today.getMonth();
+                    unitName = 'months';
+                    blockSize = '20px';
+                    gridCols = 12;
+                    break;
+                case 'years':
+                    totalUnits = lifespan;
+                    livedUnits = today.getFullYear() - birthYear;
+                    unitName = 'years';
+                    blockSize = '25px';
+                    gridCols = 10;
+                    break;
+            }
+            
+            // Update stats
+            document.getElementById('lived-value').textContent = livedUnits;
+            document.getElementById('remaining-value').textContent = totalUnits - livedUnits;
+            const percentage = Math.round((livedUnits / totalUnits) * 100);
+            document.getElementById('percentage-value').textContent = percentage + '%';
+            if (percentage > 80) {
+                document.getElementById('percentage-value').classList.add('highlight');
+            } else {
+                document.getElementById('percentage-value').classList.remove('highlight');
+            }
+            
+            // Generate grid
+            const grid = document.getElementById('time-grid');
+            grid.innerHTML = '';
+            grid.style.gridTemplateColumns = `repeat(${gridCols}, ${blockSize})`;
+            
+            for (let i = 0; i < totalUnits; i++) {
+                const block = document.createElement('div');
+                block.className = 'time-block' + (i < livedUnits ? ' lived' : '');
+                grid.appendChild(block);
+            }
+        }
+
+        // Initialize and add event listeners
+        window.onload = generateVisualization;
+        document.getElementById('time-unit').addEventListener('change', generateVisualization);
+        document.getElementById('birthyear').addEventListener('change', generateVisualization);
+        document.getElementById('lifespan').addEventListener('change', generateVisualization);
+    </script>
+
+    <div class="related-calculators" style="margin-top: 2rem; padding: 1rem; background: rgba(0,0,0,0.1); border-radius: 8px;">
+        <h3 style="margin-top: 0;">Related Math Magik Tools</h3>
+        <a href="./Double Pendulum Chaos.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Double Pendulum Chaos</a><a href="./entropy and feigenbaums constant.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">entropy and feigenbaums constant</a><a href="./FIRE Number Calculator.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">FIRE Number Calculator</a>
+        <a href="./index.html" style="display: block; padding: 0.5rem; margin-top: 1rem; background: rgba(74,144,226,0.2); border-radius: 4px; text-decoration: none; color: inherit; font-weight: bold;">← Back to Math Magik Hub</a>
+    </div>
+
+        <script>
+        // 🎅 Santa Claude's Interactive Enhancements
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🎅 Santa Claude's enhancements loaded!');
+            
+            // Enhanced button interactions
+            const buttons = document.querySelectorAll('button, .btn');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.classList.add('loading');
+                    setTimeout(() => {
+                        this.classList.remove('loading');
+                    }, 500);
+                });
+            });
+            
+            // Enhanced results display
+            const resultElements = document.querySelectorAll('.result, .results, .output, #result, #output');
+            resultElements.forEach(el => {
+                const observer = new MutationObserver(function(mutations) {
+                    mutations.forEach(function(mutation) {
+                        if (mutation.type === 'childList' || mutation.type === 'characterData') {
+                            el.classList.add('show');
+                        }
+                    });
+                });
+                observer.observe(el, { childList: true, subtree: true, characterData: true });
+            });
+            
+            // Form validation enhancements
+            const inputs = document.querySelectorAll('input[type="number"], input[type="text"]');
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    if (this.checkValidity()) {
+                        this.classList.remove('input-error');
+                        this.classList.add('input-success');
+                    } else {
+                        this.classList.remove('input-success');
+                        this.classList.add('input-error');
+                    }
+                });
+            });
+        });
+        </script>
+</body>
+</html>

@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy | Docket One Calculators</title>
+    <meta name="description" content="Docket One Privacy Policy - Learn how we protect your privacy and handle your data when using our calculator tools.">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Shared Styles -->
+    <link rel="stylesheet" href="../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../common/santa-improvements.css">
+    
+    <style>
+        :root {
+            /* Color System */
+            --primary: #059669;
+            --primary-light: #34d399;
+            --primary-dark: #047857;
+            --secondary: #0891b2;
+            --accent: #7c3aed;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            
+            /* Neutral Colors */
+            --white: #ffffff;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            
+            /* Semantic Colors */
+            --background: var(--white);
+            --background-secondary: var(--gray-50);
+            --text: var(--gray-900);
+            --text-secondary: var(--gray-600);
+            --border: var(--gray-200);
+            
+            /* Spacing Scale */
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+            --space-3xl: 4rem;
+            
+            /* Border Radius */
+            --radius: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            
+            /* Shadows */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--background);
+        }
+        
+        /* Header */
+        .page-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: var(--space-3xl) var(--space-xl);
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 800;
+            margin-bottom: var(--space-md);
+        }
+        
+        .page-header p {
+            font-size: 1.125rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .effective-date {
+            background: rgba(255, 255, 255, 0.2);
+            padding: var(--space-md) var(--space-lg);
+            border-radius: var(--radius);
+            margin-top: var(--space-lg);
+            font-weight: 500;
+        }
+        
+        /* Main Content */
+        .main-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: var(--space-3xl) var(--space-xl);
+        }
+        
+        /* Legal Content Styles */
+        .legal-section {
+            margin-bottom: var(--space-3xl);
+            scroll-margin-top: 100px;
+        }
+        
+        .legal-section h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: var(--space-xl);
+            padding-bottom: var(--space-md);
+            border-bottom: 2px solid var(--border);
+        }
+        
+        .legal-section h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text);
+            margin: var(--space-xl) 0 var(--space-lg);
+        }
+        
+        .legal-section h4 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin: var(--space-lg) 0 var(--space-md);
+        }
+        
+        .legal-section p {
+            margin-bottom: var(--space-lg);
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+        
+        .legal-section strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+        
+        /* Lists */
+        .legal-section ul {
+            margin: var(--space-lg) 0;
+            padding-left: var(--space-xl);
+        }
+        
+        .legal-section li {
+            margin-bottom: var(--space-sm);
+            color: var(--text-secondary);
+        }
+        
+        /* Privacy Highlights */
+        .privacy-highlight {
+            background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+            border: 1px solid var(--primary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            margin: var(--space-xl) 0;
+        }
+        
+        .privacy-highlight h3 {
+            color: var(--primary);
+            margin-top: 0;
+        }
+        
+        .privacy-highlight .highlight-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-lg);
+            margin-top: var(--space-lg);
+        }
+        
+        .highlight-item {
+            background: white;
+            padding: var(--space-lg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .highlight-item h4 {
+            margin: 0 0 var(--space-md);
+            color: var(--primary);
+        }
+        
+        .highlight-item ul {
+            margin: 0;
+            padding-left: var(--space-lg);
+        }
+        
+        /* Rights Section */
+        .rights-section {
+            background: var(--background-secondary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            margin: var(--space-xl) 0;
+        }
+        
+        .rights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-lg);
+            margin-top: var(--space-lg);
+        }
+        
+        .right-item {
+            background: white;
+            padding: var(--space-lg);
+            border-radius: var(--radius);
+            border-left: 4px solid var(--primary);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .right-item h4 {
+            margin: 0 0 var(--space-md);
+            color: var(--primary);
+        }
+        
+        /* Contact Section */
+        .contact-section {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            padding: var(--space-3xl);
+            border-radius: var(--radius-xl);
+            text-align: center;
+            margin-top: var(--space-3xl);
+        }
+        
+        .contact-section h2 {
+            font-size: 1.75rem;
+            margin-bottom: var(--space-lg);
+            border: none;
+            padding: 0;
+        }
+        
+        .contact-section p {
+            font-size: 1.125rem;
+            opacity: 0.9;
+            margin-bottom: var(--space-xl);
+        }
+        
+        .contact-button {
+            display: inline-block;
+            background: white;
+            color: var(--primary);
+            padding: var(--space-lg) var(--space-2xl);
+            border-radius: var(--radius);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin: 0 var(--space-sm);
+        }
+        
+        .contact-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Table of Contents */
+        .toc {
+            background: var(--background-secondary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            margin-bottom: var(--space-3xl);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .toc h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: var(--space-lg);
+            color: var(--primary);
+        }
+        
+        .toc ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-md);
+        }
+        
+        .toc li {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+        }
+        
+        .toc li:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .toc a {
+            display: block;
+            padding: var(--space-lg);
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+        }
+        
+        .toc a:hover {
+            color: var(--primary);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .page-header {
+                padding: var(--space-2xl) var(--space-lg);
+            }
+            
+            .main-content {
+                padding: var(--space-xl) var(--space-lg);
+            }
+            
+            .privacy-highlight .highlight-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .rights-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .toc ul {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
+    <script src="../../common/footer/premium-footer.js"></script>
+    <link rel="stylesheet" href="common/navbar-enhanced.css">
+    <link rel="stylesheet" href="common/santa-improvements.css">
+    <link rel="stylesheet" href="common/global-calculator.css">
+    <link rel="stylesheet" href="common/themes/dark-theme.css">
+    <link rel="stylesheet" href="common/footer/premium-footer.css">
+    <script src="common/footer/premium-footer.js"></script></head>
+<body>
+    <!-- Navigation -->
+    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+<nav class="main-nav">
+    <div class="nav-container">
+        <div class="nav-logo">
+            <a href="index.html">🧮 Docket One</a>
+        </div>
+        <div class="nav-search">
+            <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input" aria-label="Search calculators">
+            <div id="search-results" class="search-results"></div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="pages/BigKidMath/index.html" class="category-link">Big Kid Math</a></li>
+            <li><a href="pages/CipherLab/index.html" class="category-link">Cipher Lab</a></li>
+            <li><a href="pages/GeekGalaxy/index.html" class="category-link">Geek Galaxy</a></li>
+            <li><a href="pages/LifeHacks/index.html" class="category-link">Life Hacks</a></li>
+            <li><a href="pages/Math_Magik/index.html" class="category-link">Math Magik</a></li>
+            <li><a href="pages/Otaku_Ops/index.html" class="category-link">Otaku Ops</a></li>
+            <li><a href="index.html" class="home-link">🏠 Home</a></li>
+        </ul>
+        <button class="mobile-menu-btn" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</nav>
+
+    <!-- Header -->
+    <header class="page-header">
+        <h1>🔒 Privacy Policy</h1>
+        <p>Your privacy matters to us. Learn how we protect your data and respect your rights.</p>
+        <div class="effective-date">
+            <strong>Effective Date:</strong> December 15, 2024 | <strong>Last Updated:</strong> December 15, 2024
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Table of Contents -->
+        <section class="toc">
+            <h2>📋 Quick Navigation</h2>
+            <ul>
+                <li><a href="#introduction">Introduction</a></li>
+                <li><a href="#information-we-collect">Information We Collect</a></li>
+                <li><a href="#how-we-use">How We Use Information</a></li>
+                <li><a href="#information-sharing">Information Sharing</a></li>
+                <li><a href="#data-security">Data Security</a></li>
+                <li><a href="#your-rights">Your Privacy Rights</a></li>
+                <li><a href="#international-transfers">International Transfers</a></li>
+                <li><a href="#retention">Data Retention</a></li>
+                <li><a href="#third-party">Third-Party Services</a></li>
+                <li><a href="#children">Children's Privacy</a></li>
+                <li><a href="#california-rights">California Rights</a></li>
+                <li><a href="#gdpr-rights">GDPR Rights</a></li>
+                <li><a href="#changes">Policy Changes</a></li>
+                <li><a href="#contact">Contact Information</a></li>
+            </ul>
+        </section>
+
+        <!-- Privacy Highlight -->
+        <div class="privacy-highlight">
+            <h3>🛡️ Your Privacy at a Glance</h3>
+            <p>We believe in transparency. Here's what you need to know about your privacy on Docket One:</p>
+            <div class="highlight-grid">
+                <div class="highlight-item">
+                    <h4>✅ What We DON'T Collect</h4>
+                    <ul>
+                        <li>Your calculation inputs or results</li>
+                        <li>Personal identifying information</li>
+                        <li>Email addresses (unless you contact us)</li>
+                        <li>Financial account information</li>
+                        <li>Detailed location data</li>
+                    </ul>
+                </div>
+                <div class="highlight-item">
+                    <h4>📊 What We DO Collect</h4>
+                    <ul>
+                        <li>Anonymous usage analytics</li>
+                        <li>Basic technical information</li>
+                        <li>Performance metrics</li>
+                        <li>General geographic region</li>
+                        <li>Browser and device type</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Introduction -->
+        <section id="introduction" class="legal-section">
+            <h2>Introduction</h2>
+            <p>At Docket One ("we," "our," or "us"), we are committed to protecting your privacy and personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website docket.one and use our calculator services (collectively, the "Service").</p>
+            <p><strong>Please read this Privacy Policy carefully.</strong> By accessing or using our Service, you acknowledge that you have read, understood, and agree to be bound by this Privacy Policy.</p>
+        </section>
+
+        <!-- Information We Collect -->
+        <section id="information-we-collect" class="legal-section">
+            <h2>Information We Collect</h2>
+            
+            <h3>1. Information You Provide Directly</h3>
+            <p><strong>Calculator Inputs:</strong> When you use our calculators, you may input various types of data (financial figures, personal preferences, text for translation, etc.). <strong>Important: All calculation data is processed locally in your browser and is never transmitted to or stored on our servers.</strong></p>
+            <p><strong>Communication:</strong> If you contact us directly (email, feedback forms), we may collect:</p>
+            <ul>
+                <li>Your name and email address</li>
+                <li>The content of your message</li>
+                <li>Any attachments you send</li>
+            </ul>
+
+            <h3>2. Information Collected Automatically</h3>
+            <p><strong>Usage Analytics:</strong> We collect anonymous, aggregated data about how our Service is used:</p>
+            <ul>
+                <li>Which calculators are most popular</li>
+                <li>General geographic region (country/state level only)</li>
+                <li>Device type (mobile, tablet, desktop)</li>
+                <li>Browser type and version</li>
+                <li>Pages visited and time spent</li>
+                <li>Referral sources</li>
+            </ul>
+
+            <p><strong>Technical Information:</strong></p>
+            <ul>
+                <li>IP address (anonymized after processing)</li>
+                <li>Browser user agent</li>
+                <li>Screen resolution and device capabilities</li>
+                <li>Performance metrics (page load times, errors)</li>
+            </ul>
+
+            <h3>3. Information We Do NOT Collect</h3>
+            <p>We explicitly do NOT collect:</p>
+            <ul>
+                <li>Personal identifying information (unless voluntarily provided via contact forms)</li>
+                <li>Detailed location data or GPS coordinates</li>
+                <li>Your calculation inputs or results</li>
+                <li>Financial account information</li>
+                <li>Social security numbers or government IDs</li>
+                <li>Health information</li>
+                <li>Biometric data</li>
+                <li>Information about children under 13</li>
+            </ul>
+        </section>
+
+        <!-- How We Use Information -->
+        <section id="how-we-use" class="legal-section">
+            <h2>How We Use Your Information</h2>
+            
+            <h3>Primary Uses</h3>
+            <ul>
+                <li><strong>Service Provision:</strong> To provide, maintain, and improve our calculator services</li>
+                <li><strong>Analytics:</strong> To understand usage patterns and improve user experience</li>
+                <li><strong>Technical Support:</strong> To respond to inquiries and provide customer service</li>
+                <li><strong>Security:</strong> To detect, prevent, and address technical issues and security threats</li>
+                <li><strong>Legal Compliance:</strong> To comply with applicable laws and regulations</li>
+            </ul>
+
+            <h3>We Do NOT Use Your Information For</h3>
+            <ul>
+                <li>Selling or renting to third parties</li>
+                <li>Targeted advertising or marketing</li>
+                <li>Creating detailed user profiles</li>
+                <li>Cross-device tracking</li>
+                <li>Behavioral analysis for commercial purposes</li>
+            </ul>
+        </section>
+
+        <!-- Information Sharing -->
+        <section id="information-sharing" class="legal-section">
+            <h2>Information Sharing and Disclosure</h2>
+            
+            <h3>We Share Information Only In These Limited Circumstances:</h3>
+            
+            <p><strong>Service Providers:</strong> We may share anonymized, aggregated data with trusted service providers who help us operate our Service:</p>
+            <ul>
+                <li><strong>Google Analytics:</strong> Anonymous usage statistics (data is anonymized before transmission)</li>
+                <li><strong>Content Delivery Networks:</strong> To improve site performance globally</li>
+                <li><strong>Hosting Providers:</strong> To maintain website infrastructure</li>
+            </ul>
+
+            <p><strong>Legal Requirements:</strong> We may disclose information if required by law, regulation, legal process, or governmental request.</p>
+            <p><strong>Business Transfers:</strong> In the event of a merger, acquisition, or sale of assets, user information may be transferred as part of the transaction.</p>
+            <p><strong>Safety and Rights Protection:</strong> To protect the rights, property, or safety of Docket One, our users, or others.</p>
+
+            <h3>We Do NOT Share For:</h3>
+            <ul>
+                <li>Marketing or advertising purposes</li>
+                <li>Commercial data brokerage</li>
+                <li>Social media integration</li>
+                <li>Third-party analytics beyond Google Analytics</li>
+                <li>Any purpose not explicitly stated above</li>
+            </ul>
+        </section>
+
+        <!-- Data Security -->
+        <section id="data-security" class="legal-section">
+            <h2>Data Security</h2>
+            
+            <p>We implement industry-standard security measures to protect your information:</p>
+            
+            <h3>Technical Safeguards</h3>
+            <ul>
+                <li>HTTPS encryption for all data transmission</li>
+                <li>Secure server configurations</li>
+                <li>Regular security updates and patches</li>
+                <li>Access controls and authentication systems</li>
+            </ul>
+
+            <h3>Administrative Safeguards</h3>
+            <ul>
+                <li>Employee training on data protection</li>
+                <li>Limited access to personal information</li>
+                <li>Regular security audits and assessments</li>
+                <li>Incident response procedures</li>
+            </ul>
+        </section>
+
+        <!-- Your Rights -->
+        <section id="your-rights" class="legal-section">
+            <h2>Your Privacy Rights</h2>
+            
+            <div class="rights-section">
+                <h3>🛡️ Your Rights and Controls</h3>
+                <div class="rights-grid">
+                    <div class="right-item">
+                        <h4>Right to Know</h4>
+                        <p>You can request information about what personal data we have collected about you.</p>
+                    </div>
+                    <div class="right-item">
+                        <h4>Right to Delete</h4>
+                        <p>You can request deletion of your personal information (subject to legal retention requirements).</p>
+                    </div>
+                    <div class="right-item">
+                        <h4>Right to Correct</h4>
+                        <p>You can request correction of inaccurate personal information.</p>
+                    </div>
+                    <div class="right-item">
+                        <h4>Right to Opt-Out</h4>
+                        <p>You can opt out of non-essential data collection through browser settings.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>How to Exercise Your Rights</h3>
+            <p>To exercise these rights, contact us at <strong>privacy@docket.one</strong> with:</p>
+            <ul>
+                <li>Your specific request</li>
+                <li>Verification of your identity</li>
+                <li>Details about the information or action requested</li>
+            </ul>
+            <p>We will respond within 30 days of receiving a valid request.</p>
+        </section>
+
+        <!-- Continue with remaining sections... -->
+        <section id="international-transfers" class="legal-section">
+            <h2>International Data Transfers</h2>
+            <p>Our Service is hosted in the United States. If you access our Service from outside the United States, your information may be transferred to, stored, and processed in the United States, where data protection laws may be different from those in your country.</p>
+            <p><strong>For EU/UK Users:</strong> We implement appropriate safeguards for international transfers including Standard Contractual Clauses with service providers and additional security measures for sensitive data.</p>
+        </section>
+
+        <section id="retention" class="legal-section">
+            <h2>Retention of Information</h2>
+            <ul>
+                <li><strong>Calculator Data:</strong> Processed locally and never stored on our servers</li>
+                <li><strong>Analytics Data:</strong> Anonymized usage data retained for 26 months, then automatically deleted</li>
+                <li><strong>Contact Communications:</strong> Retained for 3 years for customer service purposes, then deleted</li>
+                <li><strong>Legal Requirements:</strong> Some data may be retained longer if required by law</li>
+            </ul>
+        </section>
+
+        <section id="third-party" class="legal-section">
+            <h2>Third-Party Services</h2>
+            <h3>Google Analytics</h3>
+            <p>We use Google Analytics to understand how our Service is used. Google Analytics collects anonymous information such as pages visited, time spent on site, geographic region, and device information.</p>
+            <p><strong>Google's Privacy Policy:</strong> <a href="https://policies.google.com/privacy" target="_blank">https://policies.google.com/privacy</a></p>
+            <p><strong>Opt-out:</strong> You can opt out using Google's opt-out tool or browser extensions.</p>
+        </section>
+
+        <section id="children" class="legal-section">
+            <h2>Children's Privacy</h2>
+            <p>Our Service is not directed to children under 13 years of age. We do not knowingly collect personal information from children under 13. If we become aware that we have collected personal information from a child under 13, we will take immediate steps to delete such information.</p>
+            <p><strong>Parents/Guardians:</strong> If you believe your child has provided personal information to us, please contact us immediately at privacy@docket.one.</p>
+        </section>
+
+        <section id="california-rights" class="legal-section">
+            <h2>California Privacy Rights (CCPA)</h2>
+            <p>Under the California Consumer Privacy Act (CCPA), California residents have additional rights:</p>
+            <ul>
+                <li><strong>Right to Know:</strong> Request details about personal information collected, used, disclosed, or sold</li>
+                <li><strong>Right to Delete:</strong> Request deletion of personal information</li>
+                <li><strong>Right to Opt-Out of Sale:</strong> We do not sell personal information, but you can request to opt out</li>
+                <li><strong>Right to Non-Discrimination:</strong> We will not discriminate against you for exercising your CCPA rights</li>
+            </ul>
+            <p>Contact us at <strong>privacy@docket.one</strong> with "CCPA Request" in the subject line to exercise these rights.</p>
+        </section>
+
+        <section id="gdpr-rights" class="legal-section">
+            <h2>European Privacy Rights (GDPR)</h2>
+            <p>For EU/UK users, we process personal information based on:</p>
+            <ul>
+                <li><strong>Legitimate Interest:</strong> Analytics and service improvement</li>
+                <li><strong>Consent:</strong> Contact communications and optional features</li>
+                <li><strong>Legal Obligation:</strong> Compliance with applicable laws</li>
+            </ul>
+            <p>You have rights including access, rectification, erasure, restriction, data portability, objection, and withdrawal of consent. Contact our Data Protection Officer at <strong>dpo@docket.one</strong> for GDPR-related inquiries.</p>
+        </section>
+
+        <section id="changes" class="legal-section">
+            <h2>Changes to This Privacy Policy</h2>
+            <p>We may update this Privacy Policy periodically to reflect changes in our practices, technology, legal requirements, or other factors.</p>
+            <p><strong>Notification of Changes:</strong></p>
+            <ul>
+                <li><strong>Material Changes:</strong> We will provide prominent notice on our website at least 30 days before changes take effect</li>
+                <li><strong>Minor Changes:</strong> Updated policy will be posted with a new "Last Updated" date</li>
+            </ul>
+            <p><strong>Your Continued Use:</strong> Continued use of our Service after changes become effective constitutes acceptance of the updated Privacy Policy.</p>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact-section">
+            <h2>📞 Contact Information</h2>
+            <p>If you have questions, concerns, or requests regarding this Privacy Policy or our privacy practices, please contact us:</p>
+            <div>
+                <a href="mailto:privacy@docket.one" class="contact-button">📧 Privacy Team</a>
+                <a href="mailto:dpo@docket.one" class="contact-button">🛡️ Data Protection Officer</a>
+            </div>
+            <p style="margin-top: var(--space-lg); font-size: 1rem;">Response Time: We respond to privacy inquiries within 5 business days</p>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer style="background: var(--gray-800); color: white; padding: var(--space-2xl); text-align: center; margin-top: var(--space-3xl);">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-xl); margin-bottom: var(--space-xl);">
+                <div>
+                    <h3 style="margin-bottom: var(--space-md);">🧮 Docket One</h3>
+                    <p style="opacity: 0.8;">Where calculators get fun!</p>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: var(--space-md);">Support</h4>
+                    <a href="help.html" style="color: white; text-decoration: none; display: block; margin-bottom: var(--space-xs);">Help & FAQ</a>
+                    <a href="mailto:support@docket.one" style="color: white; text-decoration: none;">Contact Support</a>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: var(--space-md);">Legal</h4>
+                    <a href="privacy.html" style="color: white; text-decoration: none; display: block; margin-bottom: var(--space-xs);">Privacy Policy</a>
+                    <a href="terms.html" style="color: white; text-decoration: none; display: block; margin-bottom: var(--space-xs);">Terms of Service</a>
+                    <a href="accessibility.html" style="color: white; text-decoration: none;">Accessibility</a>
+                </div>
+            </div>
+            <div style="border-top: 1px solid var(--gray-600); padding-top: var(--space-lg); opacity: 0.8;">
+                <p>&copy; 2024 Docket One. Made with 💻 and ☕</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

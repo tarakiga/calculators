@@ -1,0 +1,947 @@
+﻿<!DOCTYPE html>
+<html lang="en" x-data="calculator()">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chaos Theory Explorer</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: var(--card);
+            border-radius: 1rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 4px 6px -2px rgba(0,0,0,0.05);
+        }
+        
+        /* Button Styles */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.625rem 1.25rem;
+            font-weight: 500;
+            font-size: 0.875rem;
+            line-height: 1.25rem;
+            border-radius: 0.5rem;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            user-select: none;
+            box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(to bottom, var(--primary), #1d4ed8);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(to bottom, #f1f5f9, #e2e8f0);
+            color: var(--text);
+            border-color: var(--border);
+        }
+        
+        /* Tab Styles */
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 1.5rem;
+        }
+        
+        .tab-btn {
+            padding: 0.75rem 1.5rem;
+            font-weight: 500;
+            color: var(--text-light);
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .tab-btn.active {
+            color: var(--primary);
+        }
+        
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--primary);
+        }
+        
+        /* Simulator Styles */
+        .simulator-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+            background: linear-gradient(to bottom, #f8fafc, #e2e8f0);
+            border-radius: 0.5rem;
+            border: 1px solid #cbd5e1;
+            overflow: hidden;
+        }
+        
+        .bifurcation-point {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.3s ease;
+            background-color: var(--primary);
+        }
+        
+        .bifurcation-point:hover {
+            width: 6px;
+            height: 6px;
+            opacity: 1 !important;
+        }
+        
+        .simulator-controls {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .simulator-status {
+            margin-top: 1rem;
+            padding: 0.5rem;
+            background: #e2e8f0;
+            border-radius: 0.25rem;
+            font-family: monospace;
+        }
+        
+        /* Entropy Visual */
+        .entropy-visual {
+            height: 10px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--primary) var(--entropy-percent), var(--border) var(--entropy-percent), var(--border) 100%);
+            border-radius: 5px;
+            margin: 1rem 0;
+        }
+    </style>
+    
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
+    <script src="../../common/footer/premium-footer.js"></script>
+</head>
+<body x-data="{ showModal: false }">
+                <!-- Enhanced Navigation Bar -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="../../index.html">🧮 Docket One</a>
+            </div>
+            <div class="nav-search">
+                <label for="input-w1w9sde89" class="sr-only">Input field</label>
+            <input type="text" i id="input-w1w9sde89" aria-label="Calculator input"d="calc-search" placeholder="Search calculators..." class="search-input">
+                <div id="search-results" class="search-results"></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../BigKidMath/index.html" class="category-main-link">Big Kid Math</a></li>
+                <li><a href="../CipherLab/index.html" class="category-main-link">Cipher Lab</a></li>
+                <li><a href="../GeekGalaxy/index.html" class="category-main-link">Geek Galaxy</a></li>
+                <li><a href="../LifeHacks/index.html" class="category-main-link">Life Hacks</a></li>
+                <li><a href="../Math_Magik/index.html" class="category-main-link">Math Magik</a></li>
+                <li><a href="../Otaku_Ops/index.html" class="category-main-link">Otaku Ops</a></li>
+                <li><a href="../../index.html" class="home-link">Unit Converter</a></li>
+            </ul>
+            <button class="mobile-menu-btn" a aria-label="Perform action"ria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+    
+
+    
+
+
+    <div class="container">
+        <h1 class="text-3xl font-bold text-center mb-6">🌌 Chaos Theory Explorer</h1>
+        
+        <div class="tabs">
+            <button aria-label="Perform action" @click="activeTab = 'entropy'" :class="{'active': activeTab === 'entropy'}" class="tab-btn">
+                🧮 Entropy
+            </button>
+            <button aria-label="Perform action" @click="activeTab = 'feigenbaum'" :class="{'active': activeTab === 'feigenbaum'}" class="tab-btn">
+                🔢 Feigenbaum
+            </button>
+            <button aria-label="Perform action" @click="activeTab = 'simulator'" :class="{'active': activeTab === 'simulator'}" class="tab-btn">
+                🌀 Simulator
+            </button>
+        </div>
+        
+        <!-- Entropy Calculator -->
+        <div x-show="activeTab === 'entropy'" x-transition>
+            <h2 class="text-2xl font-semibold mb-4">Binary Entropy Calculator</h2>
+            
+            <label for="probability" class="block mb-2">Probability (0 to 1):</label>
+            <input type="range" id="probability" min="0" max="1" step="0.01" 
+                   x-model="probability" @input="calculateEntropy()"
+                   class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+            
+            <div class="flex justify-between text-sm text-gray-500 mt-1">
+                <span>0 (Certain)</span>
+                <span class="font-medium" x-text="probability"></span>
+                <span>1 (Certain)</span>
+            </div>
+            
+            <div class="entropy-visual" :style="'--entropy-percent: ' + (entropy * 100) + '%'"></div>
+            
+            <button aria-label="Perform action" @click="calculateEntropy()" class="btn btn-primary mt-2">
+                Calculate Entropy
+            </button>
+            
+            <div x-show="entropy !== null" class="mt-4 p-4 bg-blue-50 rounded-lg">
+                <div class="text-xl font-bold" x-text="'H = ' + entropy.toFixed(4) + ' bits'"></div>
+                <div class="text-blue-600 mt-1" x-text="entropyInterpretation"></div>
+            </div>
+        </div>
+        
+        <!-- Feigenbaum Constants -->
+        <div x-show="activeTab === 'feigenbaum'" x-transition>
+            <h2 class="text-2xl font-semibold mb-4">Feigenbaum's Constants</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                    <div class="text-3xl font-mono font-bold text-blue-600" x-text="'δ = ' + delta.toFixed(12)"></div>
+                    <p class="mt-2 text-sm text-blue-800">Bifurcation rate constant</p>
+                </div>
+                <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                    <div class="text-3xl font-mono font-bold text-blue-600" x-text="'α = ' + alpha.toFixed(12)"></div>
+                    <p class="mt-2 text-sm text-blue-800">Scaling constant</p>
+                </div>
+            </div>
+            
+            <button aria-label="Perform action" @click="showDerivation = !showDerivation" class="btn-text mt-4">
+                <span x-text="showDerivation ? '▼ Hide' : '▶ Show'"></span> Mathematical Details
+            </button>
+            
+            <div x-show="showDerivation" x-collapse class="mt-2 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                <p class="text-sm">These constants emerge from period-doubling bifurcations in nonlinear systems.</p>
+            </div>
+        </div>
+        
+        <!-- Chaos Simulator -->
+        <div x-show="activeTab === 'simulator'" x-transition>
+            <h2 class="text-2xl font-semibold mb-4">Chaos Simulator</h2>
+            
+            <div class="simulator-container" id="simulatorCanvas" @click="addBifurcationPoint($event)">
+                <template x-for="(point, index) in bifurcationPoints" :key="index">
+                    <div class="bifurcation-point" 
+                         :style="{
+                             'left': point.x + '%',
+                             'top': point.y + '%',
+                             'background-color': point.color,
+                             'opacity': point.opacity || 1
+                         }"></div>
+                </template>
+            </div>
+            
+            <div class="simulator-controls">
+                <button aria-label="Perform action" @click="resetSimulator()" class="btn btn-secondary">
+                    🔄 Reset
+                </button>
+                <button aria-label="Perform action" @click="toggleAutoGenerate()" class="btn btn-primary" :class="{'bg-green-600': isGenerating}">
+                    <span x-text="isGenerating ? '⏹ Stop' : '▶ Auto Generate'"></span>
+                </button>
+                <button aria-label="Perform action" @click="exportDiagram()" class="btn btn-secondary" :disabled="bifurcationPoints.length === 0">
+                    📷 Export
+                </button>
+            </div>
+            
+            <div class="simulator-status" x-show="bifurcationPoints.length > 0">
+                Points: <span x-text="bifurcationPoints.length"></span> | 
+                Last point: <span x-text="lastPointCoords"></span>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script>
+        function calculator() {
+            return {
+                activeTab: 'entropy',
+                probability: 0.5,
+                entropy: null,
+                entropyInterpretation: '',
+                delta: 4.669201609102990,
+                alpha: 2.502907875095892,
+                showDerivation: false,
+                
+                // Simulator properties
+                bifurcationPoints: [],
+                isGenerating: false,
+                generationInterval: null,
+                lastPointCoords: "None",
+                pointColors: ['#3b82f6', '#ef4444', '#10b981', '#8b5cf6'],
+                
+                init() {
+                    this.calculateEntropy();
+                },
+                
+                calculateEntropy() {
+                    const p = parseFloat(this.probability);
+                    if (p === 0 || p === 1) {
+                        this.entropy = 0;
+                    } else {
+                        this.entropy = -p * Math.log2(p) - (1-p) * Math.log2(1-p);
+                    }
+                    
+                    if (this.entropy === 0) {
+                        this.entropyInterpretation = "Perfect order (no uncertainty)";
+                    } else if (this.entropy === 1) {
+                        this.entropyInterpretation = "Maximum disorder (completely random)";
+                    } else if (this.entropy < 0.5) {
+                        this.entropyInterpretation = "Mostly ordered system";
+                    } else {
+                        this.entropyInterpretation = "Disordered system";
+                    }
+                },
+                
+                // Simulator methods
+                addBifurcationPoint(event) {
+                    const rect = event.currentTarget.getBoundingClientRect();
+                    const x = ((event.clientX - rect.left) / rect.width) * 100;
+                    const y = ((event.clientY - rect.top) / rect.height) * 100;
+                    
+                    this.bifurcationPoints.push({
+                        x: x,
+                        y: y,
+                        color: this.pointColors[Math.floor(Math.random() * this.pointColors.length)],
+                        opacity: 0.8 + Math.random() * 0.2
+                    });
+                    
+                    this.lastPointCoords = `${x.toFixed(1)}%, ${y.toFixed(1)}%`;
+                },
+                
+                toggleAutoGenerate() {
+                    this.isGenerating = !this.isGenerating;
+                    
+                    if (this.isGenerating) {
+                        this.generationInterval = setInterval(() => {
+                            const r = 2.5 + (this.bifurcationPoints.length / 150);
+                            const x = 50 + Math.sin(this.bifurcationPoints.length * 0.1) * 30;
+                            const y = 50 - (r * 5) + Math.random() * 10;
+                            
+                            this.bifurcationPoints.push({
+                                x: x,
+                                y: y,
+                                color: this.pointColors[this.bifurcationPoints.length % 4],
+                                opacity: 0.8 + Math.random() * 0.2
+                            });
+                            
+                            this.lastPointCoords = `${x.toFixed(1)}%, ${y.toFixed(1)}%`;
+                            
+                            if (this.bifurcationPoints.length > 500) {
+                                this.resetSimulator();
+                            }
+                        }, 50);
+                    } else {
+                        clearInterval(this.generationInterval);
+                    }
+                },
+                
+                resetSimulator() {
+                    this.bifurcationPoints = [];
+                    if (this.generationInterval) {
+                        clearInterval(this.generationInterval);
+                        this.isGenerating = false;
+                    }
+                    this.lastPointCoords = "None";
+                },
+                
+                exportDiagram() {
+                    const container = document.getElementById('simulatorCanvas');
+                    html2canvas(container).then(canvas => {
+                        const link = document.createElement('a');
+                        link.download = 'chaos-diagram.png';
+                        link.href = canvas.toDataURL();
+                        link.click();
+                    });
+                }
+            }
+        }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if (mobileMenuBtn && navLinks) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    navLinks.classList.toggle('active');
+                    mobileMenuBtn.classList.toggle('active');
+                });
+                document.addEventListener('click', function(event) {
+                    if (!event.target.closest('.main-nav')) {
+                        navLinks.classList.remove('active');
+                        mobileMenuBtn.classList.remove('active');
+                    }
+                });
+            }
+        });
+    </script>
+
+    <div class="related-calculators" style="margin-top: 2rem; padding: 1rem; background: rgba(0,0,0,0.1); border-radius: 8px;">
+        <h3 style="margin-top: 0;">Related Math Magik Tools</h3>
+        <a href="./Double Pendulum Chaos.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Double Pendulum Chaos</a><a href="./FIRE Number Calculator.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">FIRE Number Calculator</a><a href="./Inflation Impact Calculator.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Inflation Impact Calculator</a>
+        <a href="./index.html" style="display: block; padding: 0.5rem; margin-top: 1rem; background: rgba(74,144,226,0.2); border-radius: 4px; text-decoration: none; color: inherit; font-weight: bold;">← Back to Math Magik Hub</a>
+    </div>
+
+        <script>
+        // 🎅 Santa Claude's Interactive Enhancements
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🎅 Santa Claude's enhancements loaded!');
+            
+            // Enhanced button interactions
+            const buttons = document.querySelectorAll('button, .btn');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.classList.add('loading');
+                    setTimeout(() => {
+                        this.classList.remove('loading');
+                    }, 500);
+                });
+            });
+            
+            // Enhanced results display
+            const resultElements = document.querySelectorAll('.result, .results, .output, #result, #output');
+            resultElements.forEach(el => {
+                const observer = new MutationObserver(function(mutations) {
+                    mutations.forEach(function(mutation) {
+                        if (mutation.type === 'childList' || mutation.type === 'characterData') {
+                            el.classList.add('show');
+                        }
+                    });
+                });
+                observer.observe(el, { childList: true, subtree: true, characterData: true });
+            });
+            
+            // Form validation enhancements
+            const inputs = document.querySelectorAll('input[type="number"], input[type="text"]');
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    if (this.checkValidity()) {
+                        this.classList.remove('input-error');
+                        this.classList.add('input-success');
+                    } else {
+                        this.classList.remove('input-success');
+                        this.classList.add('input-error');
+                    }
+                });
+            });
+        });
+        </script>
+
+    <!-- Newsletter Bar -->
+<!-- Newsletter Bar - Include before footer -->
+<div class="newsletter-bar" x-data="newsletterForm()">
+    <div class="newsletter-container">
+        <div class="newsletter-content">
+            <div class="newsletter-info">
+                <h3>ðŸŽ‰ Join Our Calculator Community!</h3>
+                <p>Get updates on new fun calculators and practical tools</p>
+            </div>
+            <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
+                <input 
+                    type="email" 
+                    class="newsletter-input"
+                    placeholder="Enter your email for calculator updates"
+                    x-model="email"
+                    required
+                >
+                <button 
+                    type="submit" 
+                    class="newsletter-submit"
+                    :disabled="isSubmitting"
+                >
+                    <span x-show="isSubmitting" class="loading-spinner"></span>
+                    <span x-text="isSubmitting ? 'Subscribing...' : 'ðŸš€ Subscribe'"></span>
+                </button>
+            </form>
+            <div x-show="showSuccess" class="newsletter-success" style="display: none;">
+                <p style="color: var(--accent-light); font-weight: 600;">
+                    âœ… Awesome! You'll get updates on the coolest new calculators!
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <!-- Footer -->
+<!-- Main Footer - Include at bottom of every page -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>ðŸŽ¯ About Docket.One</h4>
+                <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the tools for modern life.</p>
+                <p>Practical meets playful. Because adulting is hard enough.</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>ðŸŽª Calculator Categories</h4>
+                <ul class="footer-links">
+                    <li><a href="/pages/BigKidMath/"><span class="calculator-emoji">ðŸ§®</span> BigKidMath - Adult Life Tools</a></li>
+                    <li><a href="/pages/CipherLab/"><span class="calculator-emoji">ðŸ”</span> CipherLab - Secret Codes & Security</a></li>
+                    <li><a href="/pages/GeekGalaxy/"><span class="calculator-emoji">ðŸš€</span> GeekGalaxy - Sci-Fi & Fantasy Fun</a></li>
+                    <li><a href="/pages/LifeHacks/"><span class="calculator-emoji">âš¡</span> LifeHacks - Productivity & Wellness</a></li>
+                    <li><a href="/pages/Math_Magik/"><span class="calculator-emoji">ðŸŽ­</span> Math Magik - Mathematical Wizardry</a></li>
+                    <li><a href="/pages/Otaku_Ops/"><span class="calculator-emoji">ðŸŽŒ</span> Otaku Ops - Anime & Culture</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>ðŸ’¬ Support & Info</h4>
+                <ul class="footer-links">
+                    <li><a href="/help"><span class="calculator-emoji">â“</span> Help & FAQ</a></li>
+                    <li><a href="/privacy"><span class="calculator-emoji">ðŸ”’</span> Privacy Policy</a></li>
+                    <li><a href="/terms"><span class="calculator-emoji">ðŸ“‹</span> Terms of Service</a></li>
+                    <li><a href="/accessibility"><span class="calculator-emoji">â™¿</span> Accessibility</a></li>
+                    <li><a href="/contact"><span class="calculator-emoji">ðŸ“§</span> Contact Us</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <button 
+                    class="request-calculator-btn"
+                    @click="showModal = true"
+                >
+                    ðŸ’¡ Request a Calculator
+                </button>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="footer-logo">ðŸ§® Docket.One</div>
+            <div class="footer-copyright">
+                Â© 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
+            </div>
+            <div class="social-links">
+                <a href="#" class="social-link" aria-label="Twitter">ð•</a>
+                <a href="#" class="social-link" aria-label="LinkedIn">ðŸ’¼</a>
+                <a href="#" class="social-link" aria-label="GitHub">ðŸ™</a>
+                <a href="#" class="social-link" aria-label="Email">ðŸ“§</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- Request Modal -->
+<!-- Calculator Request Modal - Include once per page (usually at end of body) -->
+<div 
+    x-data="calculatorRequestForm()"
+    x-show="showModal"
+    x-cloak
+    class="modal-overlay"
+    @click.self="closeModal()"
+    style="display: none;"
+>
+    <div class="modal-content">
+        <!-- Request Form -->
+        <div x-show="!showConfirmation">
+            <div class="modal-header">
+                <h2 class="modal-title">ðŸ’¡ Request a Fun Calculator</h2>
+                <p class="modal-subtitle">Got an idea for a calculator that would make life easier or more fun? We want to hear it!</p>
+                <button class="modal-close" @click="closeModal()">âœ•</button>
+            </div>
+
+            <div class="modal-body">
+                <form @submit.prevent="submitRequest()">
+                    <div class="form-group">
+                        <label class="form-label" for="userName">Your Name *</label>
+                        <input 
+                            type="text" 
+                            id="userName"
+                            class="form-input"
+                            x-model="formData.name"
+                            required
+                            placeholder="What should we call you?"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="userEmail">Email Address *</label>
+                        <input 
+                            type="email" 
+                            id="userEmail"
+                            class="form-input"
+                            x-model="formData.email"
+                            required
+                            placeholder="your@email.com"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="requestType">What Kind of Request? *</label>
+                        <select 
+                            id="requestType"
+                            class="form-input form-select"
+                            x-model="formData.type"
+                            required
+                        >
+                            <option value="">Choose your request type</option>
+                            <option value="new-calculator">ðŸ†• Brand New Calculator</option>
+                            <option value="enhancement">âš¡ Improve Existing Calculator</option>
+                            <option value="category">ðŸŽª New Category Idea</option>
+                            <option value="feature">âœ¨ Cool New Feature</option>
+                            <option value="other">ðŸ¤” Something Else Entirely</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="calculatorTitle">Calculator Name/Title *</label>
+                        <input 
+                            type="text" 
+                            id="calculatorTitle"
+                            class="form-input"
+                            x-model="formData.title"
+                            required
+                            placeholder="e.g., 'Should I Call In Sick Calculator', 'Pizza vs Ramen Budget Optimizer'"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="description">Tell Us About Your Idea! *</label>
+                        <textarea 
+                            id="description"
+                            class="form-input form-textarea"
+                            x-model="formData.description"
+                            required
+                            placeholder="Describe your calculator idea! What would it calculate? What inputs would users enter? What would be the fun/practical output? Be as creative as you want - the weirder, the better!"
+                        ></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="category">Which Category Fits Best?</label>
+                        <select 
+                            id="category"
+                            class="form-input form-select"
+                            x-model="formData.category"
+                        >
+                            <option value="">Pick a category (or suggest a new one!)</option>
+                            <option value="BigKidMath">ðŸ§® BigKidMath - Adult Life Decisions</option>
+                            <option value="CipherLab">ðŸ” CipherLab - Codes & Security</option>
+                            <option value="GeekGalaxy">ðŸš€ GeekGalaxy - Sci-Fi & Fantasy</option>
+                            <option value="LifeHacks">âš¡ LifeHacks - Productivity & Wellness</option>
+                            <option value="Math_Magik">ðŸŽ­ Math Magik - Mathematical Magic</option>
+                            <option value="Otaku_Ops">ðŸŽŒ Otaku Ops - Anime & Pop Culture</option>
+                            <option value="new-category">ðŸ†• I have a new category idea!</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="priority">How Much Do You Want This?</label>
+                        <select 
+                            id="priority"
+                            class="form-input form-select"
+                            x-model="formData.priority"
+                        >
+                            <option value="low">ðŸ˜Š Would be nice to have</option>
+                            <option value="medium">ðŸ˜ Really want this!</option>
+                            <option value="high">ðŸ¤© NEED this in my life!</option>
+                            <option value="urgent">ðŸš¨ My life depends on it!</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="useCase">Why Would This Be Awesome?</label>
+                        <textarea 
+                            id="useCase"
+                            class="form-input form-textarea"
+                            x-model="formData.useCase"
+                            placeholder="Tell us your story! Are you a student trying to optimize study time? A professional making tough decisions? Someone who just thinks it would be hilarious? We love hearing why calculators matter to you!"
+                        ></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button 
+                            type="button" 
+                            class="btn btn-secondary"
+                            @click="closeModal()"
+                        >
+                            Maybe Later
+                        </button>
+                        <button 
+                            type="submit" 
+                            class="btn btn-primary"
+                            :disabled="isSubmitting"
+                        >
+                            <span x-show="isSubmitting" class="loading-spinner"></span>
+                            <span x-text="isSubmitting ? 'Sending...' : 'ðŸš€ Send My Idea'"></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Confirmation Modal -->
+        <div x-show="showConfirmation" class="confirmation-modal" style="display: none;">
+            <div class="modal-header">
+                <button class="modal-close" @click="closeModal()">âœ•</button>
+            </div>
+            <div class="modal-body">
+                <div class="success-icon">ðŸŽ‰</div>
+                <h3 class="confirmation-title">Awesome! We Got Your Idea!</h3>
+                <p class="confirmation-message">
+                    Thanks for sharing your calculator idea with us! We're excited to check it out and see if we can make it happen. 
+                    <br><br>
+                    <strong>What happens next?</strong><br>
+                    â€¢ You'll get a confirmation email shortly<br>
+                    â€¢ Our team will review your idea<br>
+                    â€¢ If we build it, you'll be the first to know!<br>
+                    â€¢ We might even name you as the inspiration ðŸ˜Š
+                </p>
+                <button 
+                    class="btn btn-primary"
+                    @click="closeModal()"
+                    style="width: 100%;"
+                >
+                    ðŸŽ¯ Close & Keep Calculating!
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Newsletter Bar -->
+<div class="newsletter-bar" x-data="newsletterForm()">
+    <div class="newsletter-container">
+        <div class="newsletter-content">
+            <div class="newsletter-info">
+                <h3>&#127881; Join Our Calculator Community!</h3>
+                <p>Get updates on new fun calculators and practical tools</p>
+            </div>
+            <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
+                <input 
+                    type="email" 
+                    class="newsletter-input"
+                    placeholder="Enter your email for calculator updates"
+                    x-model="email"
+                    required
+                >
+                <button 
+                    type="submit" 
+                    class="newsletter-submit"
+                    :disabled="isSubmitting"
+                >
+                    <span x-show="isSubmitting" class="loading-spinner"></span>
+                    <span x-text="isSubmitting ? 'Subscribing...' : '&#128640; Subscribe'"></span>
+                </button>
+            </form>
+            <div x-show="showSuccess" class="newsletter-success" style="display: none;">
+                <p style="color: var(--accent-light); font-weight: 600;">
+                    &#9989; Awesome! You'll get updates on the coolest new calculators!
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>&#127919; About Docket.One</h4>
+                <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the tools for modern life.</p>
+                <p>Practical meets playful. Because adulting is hard enough.</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>&#127914; Calculator Categories</h4>
+                <ul class="footer-links">
+                    <li><a href="/pages/BigKidMath/"><span class="calculator-emoji">&#129518;</span> BigKidMath - Adult Life Tools</a></li>
+                    <li><a href="/pages/CipherLab/"><span class="calculator-emoji">&#128272;</span> CipherLab - Secret Codes & Security</a></li>
+                    <li><a href="/pages/GeekGalaxy/"><span class="calculator-emoji">&#128640;</span> GeekGalaxy - Sci-Fi & Fantasy Fun</a></li>
+                    <li><a href="/pages/LifeHacks/"><span class="calculator-emoji">&#9889;</span> LifeHacks - Productivity & Wellness</a></li>
+                    <li><a href="/pages/Math_Magik/"><span class="calculator-emoji">&#127917;</span> Math Magik - Mathematical Wizardry</a></li>
+                    <li><a href="/pages/Otaku_Ops/"><span class="calculator-emoji">&#127999;</span> Otaku Ops - Anime & Culture</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>&#128172; Support & Info</h4>
+                <ul class="footer-links">
+                    <li><a href="/help"><span class="calculator-emoji">&#10067;</span> Help & FAQ</a></li>
+                    <li><a href="/privacy"><span class="calculator-emoji">&#128274;</span> Privacy Policy</a></li>
+                    <li><a href="/terms"><span class="calculator-emoji">&#128203;</span> Terms of Service</a></li>
+                    <li><a href="/accessibility"><span class="calculator-emoji">&#9855;</span> Accessibility</a></li>
+                    <li><a href="/contact"><span class="calculator-emoji">&#128231;</span> Contact Us</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <button 
+                    class="request-calculator-btn"
+                    @click="showModal = true"
+                >
+                    &#128161; Request a Calculator
+                </button>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="footer-logo">&#129518; Docket.One</div>
+            <div class="footer-copyright">
+                Â© 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
+            </div>
+            <div class="social-links">
+                <a href="#" class="social-link" aria-label="Twitter">&#120143;</a>
+                <a href="#" class="social-link" aria-label="LinkedIn">&#128188;</a>
+                <a href="#" class="social-link" aria-label="GitHub">&#128025;</a>
+                <a href="#" class="social-link" aria-label="Email">&#128231;</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Request Modal -->
+<div 
+    x-data="calculatorRequestForm()"
+    x-show="showModal"
+    x-cloak
+    class="modal-overlay"
+    @click.self="closeModal()"
+    style="display: none;"
+>
+    <div class="modal-content">
+        <div x-show="!showConfirmation">
+            <div class="modal-header">
+                <h2 class="modal-title">&#128161; Request a Fun Calculator</h2>
+                <p class="modal-subtitle">Got an idea for a calculator that would make life easier or more fun? We want to hear it!</p>
+                <button class="modal-close" @click="closeModal()">&#10005;</button>
+            </div>
+
+            <div class="modal-body">
+                <form @submit.prevent="submitRequest()">
+                    <div class="form-group">
+                        <label class="form-label" for="userName">Your Name *</label>
+                        <input 
+                            type="text" 
+                            id="userName"
+                            class="form-input"
+                            x-model="formData.name"
+                            required
+                            placeholder="What should we call you?"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="userEmail">Email Address *</label>
+                        <input 
+                            type="email" 
+                            id="userEmail"
+                            class="form-input"
+                            x-model="formData.email"
+                            required
+                            placeholder="your@email.com"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="requestType">What Kind of Request? *</label>
+                        <select 
+                            id="requestType"
+                            class="form-input form-select"
+                            x-model="formData.type"
+                            required
+                        >
+                            <option value="">Choose your request type</option>
+                            <option value="new-calculator">&#127358; Brand New Calculator</option>
+                            <option value="enhancement">&#9889; Improve Existing Calculator</option>
+                            <option value="category">&#127914; New Category Idea</option>
+                            <option value="feature">&#10024; Cool New Feature</option>
+                            <option value="other">&#129300; Something Else Entirely</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="calculatorTitle">Calculator Name/Title *</label>
+                        <input 
+                            type="text" 
+                            id="calculatorTitle"
+                            class="form-input"
+                            x-model="formData.title"
+                            required
+                            placeholder="e.g., 'Should I Call In Sick Calculator', 'Pizza vs Ramen Budget Optimizer'"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="description">Tell Us About Your Idea! *</label>
+                        <textarea 
+                            id="description"
+                            class="form-input form-textarea"
+                            x-model="formData.description"
+                            required
+                            placeholder="Describe your calculator idea! What would it calculate? What inputs would users enter? What would be the fun/practical output? Be as creative as you want - the weirder, the better!"
+                        ></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button 
+                            type="button" 
+                            class="btn btn-secondary"
+                            @click="closeModal()"
+                        >
+                            Maybe Later
+                        </button>
+                        <button 
+                            type="submit" 
+                            class="btn btn-primary"
+                            :disabled="isSubmitting"
+                        >
+                            <span x-show="isSubmitting" class="loading-spinner"></span>
+                            <span x-text="isSubmitting ? 'Sending...' : '&#128640; Send My Idea'"></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div x-show="showConfirmation" class="confirmation-modal" style="display: none;">
+            <div class="modal-header">
+                <button class="modal-close" @click="closeModal()">&#10005;</button>
+            </div>
+            <div class="modal-body">
+                <div class="success-icon">&#127881;</div>
+                <h3 class="confirmation-title">Awesome! We Got Your Idea!</h3>
+                <p class="confirmation-message">
+                    Thanks for sharing your calculator idea with us! We're excited to check it out and see if we can make it happen. 
+                    <br><br>
+                    <strong>What happens next?</strong><br>
+                    â€¢ You'll get a confirmation email shortly<br>
+                    â€¢ Our team will review your idea<br>
+                    â€¢ If we build it, you'll be the first to know!<br>
+                    â€¢ We might even name you as the inspiration &#128522;
+                </p>
+                <button 
+                    class="btn btn-primary"
+                    @click="closeModal()"
+                    style="width: 100%;"
+                >
+                    &#127919; Close & Keep Calculating!
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+

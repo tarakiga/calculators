@@ -1,0 +1,988 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geek Galaxy - Sci-Fi & Fantasy Calculators | Docket One</title>
+    <meta name="description"
+        content="Explore the universe with sci-fi and fantasy calculators. From zombie survival to spaceship fuel, enter the Geek Galaxy.">
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+
+    <!-- Premium Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* Senior UX/UI Variables - Sci-Fi Galaxy Theme */
+        :root {
+            /* Brand Colors - Space/Sci-Fi Palette */
+            --primary: #8b5cf6;
+            --primary-light: #a78bfa;
+            --primary-dark: #7c3aed;
+            --secondary: #06d6a0;
+            --secondary-light: #34d399;
+            --accent: #f59e0b;
+            --accent-light: #fbbf24;
+            --neon: #00ffff;
+            --neon-pink: #ff00ff;
+
+            /* Dark Theme Colors */
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+
+            /* Surface Colors - Dark Theme */
+            --bg-primary: #0f0f23;
+            --bg-secondary: #1a1a3a;
+            --bg-tertiary: #252550;
+            --surface-elevated: rgba(139, 92, 246, 0.1);
+            --surface-overlay: rgba(139, 92, 246, 0.15);
+
+            /* Typography */
+            --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+            /* Spacing Scale */
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+            --space-3xl: 4rem;
+            --space-4xl: 6rem;
+
+            /* Border Radius */
+            --radius-sm: 6px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --radius-full: 9999px;
+
+            /* Shadows - Neon Glow Effects */
+            --shadow-sm: 0 1px 2px 0 rgba(139, 92, 246, 0.1);
+            --shadow-md: 0 4px 6px -1px rgba(139, 92, 246, 0.2), 0 2px 4px -1px rgba(139, 92, 246, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(139, 92, 246, 0.2), 0 4px 6px -2px rgba(139, 92, 246, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(139, 92, 246, 0.3), 0 10px 10px -5px rgba(139, 92, 246, 0.1);
+            --shadow-2xl: 0 25px 50px -12px rgba(139, 92, 246, 0.4);
+            --shadow-neon: 0 0 20px rgba(139, 92, 246, 0.5), 0 0 40px rgba(139, 92, 246, 0.3);
+
+            /* Transitions */
+            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-bounce: 500ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        /* Reset & Base Styles - Dark Theme */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background: var(--bg-primary);
+            color: #e2e8f0;
+            line-height: 1.6;
+            font-feature-settings: 'kern' 1, 'liga' 1;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated Space Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(2px 2px at 20px 30px, var(--neon), transparent),
+                radial-gradient(2px 2px at 40px 70px, var(--neon-pink), transparent),
+                radial-gradient(1px 1px at 90px 40px, var(--secondary), transparent),
+                radial-gradient(1px 1px at 130px 80px, var(--primary), transparent),
+                radial-gradient(2px 2px at 160px 30px, var(--neon), transparent);
+            background-repeat: repeat;
+            background-size: 200px 100px;
+            animation: stars 20s linear infinite;
+            opacity: 0.3;
+            z-index: -1;
+        }
+
+        @keyframes stars {
+            0% {
+                transform: translateY(0);
+            }
+
+            100% {
+                transform: translateY(-100px);
+            }
+        }
+
+        /* Premium Hero Section - Space Theme */
+        .hero {
+            position: relative;
+            background: linear-gradient(135deg,
+                    var(--bg-primary) 0%,
+                    var(--bg-secondary) 50%,
+                    var(--bg-tertiary) 100%);
+            color: white;
+            padding: var(--space-4xl) var(--space-xl);
+            text-align: center;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            background: var(--surface-overlay);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-full);
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: var(--space-xl);
+            animation: fadeInUp 0.6s ease-out;
+            box-shadow: var(--shadow-neon);
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            margin: 0 0 var(--space-lg) 0;
+            text-shadow: 0 4px 20px rgba(139, 92, 246, 0.5);
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--neon) 50%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 0.6s ease-out 0.2s both;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.125rem, 2vw, 1.25rem);
+            font-weight: 400;
+            opacity: 0.9;
+            margin: 0 0 var(--space-2xl) 0;
+            animation: fadeInUp 0.6s ease-out 0.4s both;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            background: var(--surface-overlay);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--primary);
+            color: white;
+            padding: var(--space-md) var(--space-xl);
+            text-decoration: none;
+            border-radius: var(--radius-full);
+            font-weight: 600;
+            transition: var(--transition-base);
+            animation: fadeInUp 0.6s ease-out 0.6s both;
+            box-shadow: var(--shadow-neon);
+        }
+
+        .hero-cta:hover {
+            background: rgba(139, 92, 246, 0.3);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-2xl);
+        }
+
+        /* Premium Container & Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-xl);
+        }
+
+        .section {
+            padding: var(--space-4xl) 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--space-3xl);
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            font-weight: 700;
+            color: #e2e8f0;
+            margin: 0 0 var(--space-md) 0;
+        }
+
+        .section-subtitle {
+            font-size: 1.125rem;
+            color: #94a3b8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Premium Calculator Grid */
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: var(--space-xl);
+            margin: var(--space-3xl) 0;
+        }
+
+        .calculator-card {
+            background: var(--surface-elevated);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius-xl);
+            padding: var(--space-2xl);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            transition: var(--transition-base);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .calculator-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transition: var(--transition-base);
+        }
+
+        .calculator-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-neon);
+            border-color: var(--primary);
+        }
+
+        .calculator-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: var(--radius-lg);
+            font-size: 2rem;
+            margin-bottom: var(--space-lg);
+            box-shadow: var(--shadow-neon);
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #e2e8f0;
+            margin: 0 0 var(--space-md) 0;
+        }
+
+        .card-description {
+            color: #94a3b8;
+            margin: 0 0 var(--space-xl) 0;
+            line-height: 1.7;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            padding: var(--space-md) var(--space-lg);
+            text-decoration: none;
+            border-radius: var(--radius-full);
+            font-weight: 600;
+            font-size: 0.875rem;
+            transition: var(--transition-base);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-neon);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero {
+                padding: var(--space-3xl) var(--space-md);
+            }
+
+            .calculator-grid {
+                grid-template-columns: 1fr;
+                gap: var(--space-lg);
+            }
+
+            .container {
+                padding: 0 var(--space-md);
+            }
+        }
+    </style>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+
+<body x-data="{ showModal: false }"> <!-- Enhanced Navigation Bar -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="../../index.html">🧮 Docket One</a>
+            </div>
+            <div class="nav-search">
+                <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input"
+                    aria-label="Search calculators">
+                <div id="search-results" class="search-results"></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../BigKidMath/index.html" class="category-main-link">Big Kid Math</a></li>
+                <li><a href="../CipherLab/index.html" class="category-main-link">Cipher Lab</a></li>
+                <li><a href="../GeekGalaxy/index.html" class="category-main-link">Geek Galaxy</a></li>
+                <li><a href="../LifeHacks/index.html" class="category-main-link">Life Hacks</a></li>
+                <li><a href="../Math_Magik/index.html" class="category-main-link">Math Magik</a></li>
+                <li><a href="../Otaku_Ops/index.html" class="category-main-link">Otaku Ops</a></li>
+                <li><a href="../../index.html" class="home-link">Unit Converter</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Premium Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span>🚀</span>
+                <span>Sci-Fi & Fantasy Universe</span>
+            </div>
+            <h1 class="hero-title">Geek Galaxy</h1>
+            <p class="hero-subtitle">Explore the universe with sci-fi and fantasy calculators. From zombie survival to
+                spaceship fuel, enter the Geek Galaxy.</p>
+            <a href="#calculators" class="hero-cta">
+                <span>Launch Mission</span>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M8 1L15 8L8 15M15 8H1" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <main class="container">
+        <section id="calculators" class="section">
+            <div class="section-header">
+                <h2 class="section-title">Galactic Calculators</h2>
+                <p class="section-subtitle">Advanced tools for sci-fi scenarios and fantasy adventures</p>
+            </div>
+
+            <div class="calculator-grid">
+                <article class="calculator-card">
+                    <div class="card-icon float-animation">🧟</div>
+                    <h3 class="card-title">Zombie Apocalypse Survival Calculator</h3>
+                    <p class="card-description">Calculate your odds of surviving the zombie apocalypse based on
+                        location, supplies, skills, and zombie density. Are you prepared for the undead uprising?</p>
+                    <a href="Zombie%20Apocalypse%20Survival%20Calculator.html" class="btn-primary">
+                        <span>Calculate Survival</span>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </a>
+                </article>
+
+                <article class="calculator-card">
+                    <div class="card-icon float-animation" style="animation-delay: 0.2s;">⚔️</div>
+                    <h3 class="card-title">Lightsaber Battery Life Calculator</h3>
+                    <p class="card-description">Determine how long your lightsaber will last in battle based on usage
+                        patterns, crystal type, and fighting style. May the Force be with your battery.</p>
+                    <a href="Lightsaber%20Battery%20Life%20Calculator.html" class="btn-primary">
+                        <span>Check Battery</span>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </a>
+                </article>
+
+                <article class="calculator-card">
+                    <div class="card-icon float-animation" style="animation-delay: 0.4s;">🚀</div>
+                    <h3 class="card-title">Space Travel Time Calculator</h3>
+                    <p class="card-description">Calculate travel times to distant planets and stars using various
+                        propulsion methods. Plan your interstellar journey with scientific precision.</p>
+                    <a href="Space%20Travel%20Time%20Calculator.html" class="btn-primary">
+                        <span>Plan Journey</span>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </a>
+                </article>
+
+                <article class="calculator-card">
+                    <div class="card-icon float-animation" style="animation-delay: 0.6s;">🤖</div>
+                    <h3 class="card-title">AI Doomsday Countdown</h3>
+                    <p class="card-description">Estimate when artificial intelligence might reach superintelligence
+                        based on current technological progress and development trends.</p>
+                    <a href="AI%20Doomsday%20Countdown.html" class="btn-primary">
+                        <span>Start Countdown</span>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </a>
+                </article>
+
+                <article class="calculator-card">
+                    <div class="card-icon float-animation" style="animation-delay: 0.8s;">👽</div>
+                    <h3 class="card-title">Alien Communication Probability Calculator</h3>
+                    <p class="card-description">Calculate the probability of receiving alien communications based on
+                        Drake's equation, signal strength, and cosmic variables.</p>
+                    <a href="Alien%20Communication%20Probability%20Calculator.html" class="btn-primary">
+                        <span>Contact Aliens</span>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </a>
+                </article>
+
+                <article class="calculator-card">
+                    <div class="card-icon float-animation" style="animation-delay: 1.0s;">🧪</div>
+                    <h3 class="card-title">Potion Brewer Calculator</h3>
+                    <p class="card-description">Mix magical potions with precise ingredient ratios. Calculate brewing
+                        times, potency levels, and side effects for your fantasy adventures.</p>
+                    <a href="Potion%20Brewer%20Calculator.html" class="btn-primary">
+                        <span>Brew Potions</span>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </a>
+                </article>
+
+                <article class="calculator-card">
+                    <div class="card-icon float-animation" style="animation-delay: 1.2s;">⛽</div>
+                    <h3 class="card-title">Spaceship Fuel Calculator</h3>
+                    <p class="card-description">Calculate fuel requirements for interstellar travel. Factor in ship
+                        mass, distance, acceleration, and relativistic effects for realistic space missions.</p>
+                    <a href="Spaceship%20Fuel%20Calculator.html" class="btn-primary">
+                        <span>Calculate Fuel</span>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </a>
+                </article>
+
+                <article class="calculator-card">
+                    <div class="card-icon float-animation" style="animation-delay: 1.4s;">⚡</div>
+                    <h3 class="card-title">Force Sensitivity Test</h3>
+                    <p class="card-description">Discover your midichlorian count and unlock your true potential in the
+                        Force. Calculate your alignment and determine if you're destined to be a Jedi or Sith.</p>
+                    <a href="Force%20Sensitivity%20Test.html" class="btn-primary">
+                        <span>Test Sensitivity</span>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </a>
+                </article>
+
+                <article class="calculator-card">
+                    <div class="card-icon float-animation" style="animation-delay: 1.6s;">🌌</div>
+                    <h3 class="card-title">Star Trek Warp Speed Converter</h3>
+                    <p class="card-description">Convert between warp factors and actual velocities using Star Trek
+                        physics. Calculate travel times across the galaxy at various warp speeds.</p>
+                    <a href="Star%20Trek%20Warp%20Speed%20Converte.html" class="btn-primary">
+                        <span>Engage Warp</span>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </a>
+                </article>
+
+                <article class="calculator-card">
+                    <div class="card-icon float-animation" style="animation-delay: 1.8s;">⏰</div>
+                    <h3 class="card-title">Time Machine Paradox Detector</h3>
+                    <p class="card-description">Analyze potential time travel paradoxes and their consequences.
+                        Calculate probability of timeline alterations and butterfly effects.</p>
+                    <a href="Time%20Machine%20Paradox%20Detector.html" class="btn-primary">
+                        <span>Detect Paradoxes</span>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </a>
+                </article>
+
+                <article class="calculator-card">
+                    <div class="card-icon float-animation" style="animation-delay: 2.0s;">🛡️</div>
+                    <h3 class="card-title">Mandalorian Beskar Armor Calculator</h3>
+                    <p class="card-description">Calculate your Beskar armor's durability and survival rate. This is the
+                        Way.</p>
+                    <a href="Mandalorian%20Beskar%20Armor%20Calculator.html" class="btn-primary">
+                        <span>Calculate Armor</span>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </a>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Enhanced Mobile Menu & Interactions (same as other pages)
+        (function () {
+            'use strict';
+            let isInitialized = false;
+            function initEnhancedMobileMenu() {
+                if (isInitialized) return;
+                const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+                const navLinks = document.querySelector('.nav-links');
+                const navContainer = document.querySelector('.nav-container');
+                if (!mobileMenuBtn || !navLinks) return;
+                mobileMenuBtn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const isActive = navLinks.classList.contains('active');
+                    if (isActive) {
+                        closeMenuWithAnimation();
+                    } else {
+                        openMenuWithAnimation();
+                    }
+                });
+                function openMenuWithAnimation() {
+                    navLinks.classList.add('active');
+                    mobileMenuBtn.classList.add('active');
+                    const menuItems = navLinks.querySelectorAll('a');
+                    menuItems.forEach((item, index) => {
+                        item.style.transform = 'translateX(-20px)';
+                        item.style.opacity = '0';
+                        setTimeout(() => {
+                            item.style.transform = 'translateX(0)';
+                            item.style.opacity = '1';
+                        }, index * 50 + 100);
+                    });
+                }
+                function closeMenuWithAnimation() {
+                    const menuItems = navLinks.querySelectorAll('a');
+                    menuItems.forEach((item, index) => {
+                        setTimeout(() => {
+                            item.style.transform = 'translateX(-10px)';
+                            item.style.opacity = '0.5';
+                        }, index * 20);
+                    });
+                    setTimeout(() => {
+                        navLinks.classList.remove('active');
+                        mobileMenuBtn.classList.remove('active');
+                        menuItems.forEach(item => {
+                            item.style.transform = '';
+                            item.style.opacity = '';
+                        });
+                    }, menuItems.length * 20 + 50);
+                }
+                document.addEventListener('click', function (event) {
+                    if (!navContainer.contains(event.target) && navLinks.classList.contains('active')) {
+                        closeMenuWithAnimation();
+                    }
+                }, true);
+                const navLinkItems = navLinks.querySelectorAll('a');
+                navLinkItems.forEach(link => {
+                    link.addEventListener('click', function () {
+                        if (window.innerWidth <= 768) {
+                            setTimeout(closeMenuWithAnimation, 100);
+                        }
+                    });
+                });
+                window.addEventListener('resize', function () {
+                    if (window.innerWidth > 768) {
+                        navLinks.classList.remove('active');
+                        mobileMenuBtn.classList.remove('active');
+                    }
+                });
+                isInitialized = true;
+            }
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initEnhancedMobileMenu);
+            } else {
+                initEnhancedMobileMenu();
+            }
+        })();
+
+        // Premium Interactive Enhancements
+        document.addEventListener('DOMContentLoaded', function () {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            document.querySelectorAll('.calculator-card').forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+                observer.observe(card);
+            });
+            document.querySelectorAll('.calculator-card').forEach(card => {
+                card.addEventListener('mouseenter', function () {
+                    this.style.transform = 'translateY(-12px)';
+                    this.querySelector('.card-icon').style.transform = 'scale(1.1) rotate(5deg)';
+                });
+                card.addEventListener('mouseleave', function () {
+                    this.style.transform = 'translateY(0)';
+                    this.querySelector('.card-icon').style.transform = 'scale(1) rotate(0deg)';
+                });
+            });
+        });
+    </script>
+
+    <!-- Newsletter Bar -->
+<!-- Newsletter Bar - Include before footer -->
+<div class="newsletter-bar" x-data="newsletterForm()">
+    <div class="newsletter-container">
+        <div class="newsletter-content">
+            <div class="newsletter-info">
+                <h3>ðŸŽ‰ Join Our Calculator Community!</h3>
+                <p>Get updates on new fun calculators and practical tools</p>
+            </div>
+            <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
+                <input 
+                    type="email" 
+                    class="newsletter-input"
+                    placeholder="Enter your email for calculator updates"
+                    x-model="email"
+                    required
+                >
+                <button 
+                    type="submit" 
+                    class="newsletter-submit"
+                    :disabled="isSubmitting"
+                >
+                    <span x-show="isSubmitting" class="loading-spinner"></span>
+                    <span x-text="isSubmitting ? 'Subscribing...' : 'ðŸš€ Subscribe'"></span>
+                </button>
+            </form>
+            <div x-show="showSuccess" class="newsletter-success" style="display: none;">
+                <p style="color: var(--accent-light); font-weight: 600;">
+                    âœ… Awesome! You'll get updates on the coolest new calculators!
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <!-- Footer -->
+<!-- Main Footer - Include at bottom of every page -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>ðŸŽ¯ About Docket.One</h4>
+                <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the tools for modern life.</p>
+                <p>Practical meets playful. Because adulting is hard enough.</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>ðŸŽª Calculator Categories</h4>
+                <ul class="footer-links">
+                    <li><a href="/pages/BigKidMath/"><span class="calculator-emoji">ðŸ§®</span> BigKidMath - Adult Life Tools</a></li>
+                    <li><a href="/pages/CipherLab/"><span class="calculator-emoji">ðŸ”</span> CipherLab - Secret Codes & Security</a></li>
+                    <li><a href="/pages/GeekGalaxy/"><span class="calculator-emoji">ðŸš€</span> GeekGalaxy - Sci-Fi & Fantasy Fun</a></li>
+                    <li><a href="/pages/LifeHacks/"><span class="calculator-emoji">âš¡</span> LifeHacks - Productivity & Wellness</a></li>
+                    <li><a href="/pages/Math_Magik/"><span class="calculator-emoji">ðŸŽ­</span> Math Magik - Mathematical Wizardry</a></li>
+                    <li><a href="/pages/Otaku_Ops/"><span class="calculator-emoji">ðŸŽŒ</span> Otaku Ops - Anime & Culture</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>ðŸ’¬ Support & Info</h4>
+                <ul class="footer-links">
+                    <li><a href="/help"><span class="calculator-emoji">â“</span> Help & FAQ</a></li>
+                    <li><a href="/privacy"><span class="calculator-emoji">ðŸ”’</span> Privacy Policy</a></li>
+                    <li><a href="/terms"><span class="calculator-emoji">ðŸ“‹</span> Terms of Service</a></li>
+                    <li><a href="/accessibility"><span class="calculator-emoji">â™¿</span> Accessibility</a></li>
+                    <li><a href="/contact"><span class="calculator-emoji">ðŸ“§</span> Contact Us</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <button 
+                    class="request-calculator-btn"
+                    @click="showModal = true"
+                >
+                    ðŸ’¡ Request a Calculator
+                </button>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="footer-logo">ðŸ§® Docket.One</div>
+            <div class="footer-copyright">
+                Â© 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
+            </div>
+            <div class="social-links">
+                <a href="#" class="social-link" aria-label="Twitter">ð•</a>
+                <a href="#" class="social-link" aria-label="LinkedIn">ðŸ’¼</a>
+                <a href="#" class="social-link" aria-label="GitHub">ðŸ™</a>
+                <a href="#" class="social-link" aria-label="Email">ðŸ“§</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- Request Modal -->
+<!-- Calculator Request Modal - Include once per page (usually at end of body) -->
+<div 
+    x-data="calculatorRequestForm()"
+    x-show="showModal"
+    x-cloak
+    class="modal-overlay"
+    @click.self="closeModal()"
+    style="display: none;"
+>
+    <div class="modal-content">
+        <!-- Request Form -->
+        <div x-show="!showConfirmation">
+            <div class="modal-header">
+                <h2 class="modal-title">ðŸ’¡ Request a Fun Calculator</h2>
+                <p class="modal-subtitle">Got an idea for a calculator that would make life easier or more fun? We want to hear it!</p>
+                <button class="modal-close" @click="closeModal()">âœ•</button>
+            </div>
+
+            <div class="modal-body">
+                <form @submit.prevent="submitRequest()">
+                    <div class="form-group">
+                        <label class="form-label" for="userName">Your Name *</label>
+                        <input 
+                            type="text" 
+                            id="userName"
+                            class="form-input"
+                            x-model="formData.name"
+                            required
+                            placeholder="What should we call you?"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="userEmail">Email Address *</label>
+                        <input 
+                            type="email" 
+                            id="userEmail"
+                            class="form-input"
+                            x-model="formData.email"
+                            required
+                            placeholder="your@email.com"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="requestType">What Kind of Request? *</label>
+                        <select 
+                            id="requestType"
+                            class="form-input form-select"
+                            x-model="formData.type"
+                            required
+                        >
+                            <option value="">Choose your request type</option>
+                            <option value="new-calculator">ðŸ†• Brand New Calculator</option>
+                            <option value="enhancement">âš¡ Improve Existing Calculator</option>
+                            <option value="category">ðŸŽª New Category Idea</option>
+                            <option value="feature">âœ¨ Cool New Feature</option>
+                            <option value="other">ðŸ¤” Something Else Entirely</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="calculatorTitle">Calculator Name/Title *</label>
+                        <input 
+                            type="text" 
+                            id="calculatorTitle"
+                            class="form-input"
+                            x-model="formData.title"
+                            required
+                            placeholder="e.g., 'Should I Call In Sick Calculator', 'Pizza vs Ramen Budget Optimizer'"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="description">Tell Us About Your Idea! *</label>
+                        <textarea 
+                            id="description"
+                            class="form-input form-textarea"
+                            x-model="formData.description"
+                            required
+                            placeholder="Describe your calculator idea! What would it calculate? What inputs would users enter? What would be the fun/practical output? Be as creative as you want - the weirder, the better!"
+                        ></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="category">Which Category Fits Best?</label>
+                        <select 
+                            id="category"
+                            class="form-input form-select"
+                            x-model="formData.category"
+                        >
+                            <option value="">Pick a category (or suggest a new one!)</option>
+                            <option value="BigKidMath">ðŸ§® BigKidMath - Adult Life Decisions</option>
+                            <option value="CipherLab">ðŸ” CipherLab - Codes & Security</option>
+                            <option value="GeekGalaxy">ðŸš€ GeekGalaxy - Sci-Fi & Fantasy</option>
+                            <option value="LifeHacks">âš¡ LifeHacks - Productivity & Wellness</option>
+                            <option value="Math_Magik">ðŸŽ­ Math Magik - Mathematical Magic</option>
+                            <option value="Otaku_Ops">ðŸŽŒ Otaku Ops - Anime & Pop Culture</option>
+                            <option value="new-category">ðŸ†• I have a new category idea!</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="priority">How Much Do You Want This?</label>
+                        <select 
+                            id="priority"
+                            class="form-input form-select"
+                            x-model="formData.priority"
+                        >
+                            <option value="low">ðŸ˜Š Would be nice to have</option>
+                            <option value="medium">ðŸ˜ Really want this!</option>
+                            <option value="high">ðŸ¤© NEED this in my life!</option>
+                            <option value="urgent">ðŸš¨ My life depends on it!</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="useCase">Why Would This Be Awesome?</label>
+                        <textarea 
+                            id="useCase"
+                            class="form-input form-textarea"
+                            x-model="formData.useCase"
+                            placeholder="Tell us your story! Are you a student trying to optimize study time? A professional making tough decisions? Someone who just thinks it would be hilarious? We love hearing why calculators matter to you!"
+                        ></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button 
+                            type="button" 
+                            class="btn btn-secondary"
+                            @click="closeModal()"
+                        >
+                            Maybe Later
+                        </button>
+                        <button 
+                            type="submit" 
+                            class="btn btn-primary"
+                            :disabled="isSubmitting"
+                        >
+                            <span x-show="isSubmitting" class="loading-spinner"></span>
+                            <span x-text="isSubmitting ? 'Sending...' : 'ðŸš€ Send My Idea'"></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Confirmation Modal -->
+        <div x-show="showConfirmation" class="confirmation-modal" style="display: none;">
+            <div class="modal-header">
+                <button class="modal-close" @click="closeModal()">âœ•</button>
+            </div>
+            <div class="modal-body">
+                <div class="success-icon">ðŸŽ‰</div>
+                <h3 class="confirmation-title">Awesome! We Got Your Idea!</h3>
+                <p class="confirmation-message">
+                    Thanks for sharing your calculator idea with us! We're excited to check it out and see if we can make it happen. 
+                    <br><br>
+                    <strong>What happens next?</strong><br>
+                    â€¢ You'll get a confirmation email shortly<br>
+                    â€¢ Our team will review your idea<br>
+                    â€¢ If we build it, you'll be the first to know!<br>
+                    â€¢ We might even name you as the inspiration ðŸ˜Š
+                </p>
+                <button 
+                    class="btn btn-primary"
+                    @click="closeModal()"
+                    style="width: 100%;"
+                >
+                    ðŸŽ¯ Close & Keep Calculating!
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+
+</html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -504,34 +504,65 @@
             }
         }
     </style>
-</head>
-<body>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
+    <script src="../../common/footer/premium-footer.js"></script>
+
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
+    <script src="../../common/footer/premium-footer.js"></script>
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
+    <script src="../../common/footer/premium-footer.js"></script>
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
+    <script src="../../common/footer/premium-footer.js"></script>
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
+    <script src="../../common/footer/premium-footer.js"></script></head>
+<body x-data="{ showModal: false }">
     <!-- Enhanced Navigation Bar -->
-    <nav class="main-nav">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <a href="../../index.html">🧮 Docket One</a>
-            </div>
-            <div class="nav-search">
-                <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input" aria-label="Search calculators">
-                <div id="search-results" class="search-results"></div>
-            </div>
-            <ul class="nav-links">
-                <li><a href="../BigKidMath/index.html" class="category-main-link">Big Kid Math</a></li>
-                <li><a href="../CipherLab/index.html" class="category-main-link">Cipher Lab</a></li>
-                <li><a href="../GeekGalaxy/index.html" class="category-main-link">Geek Galaxy</a></li>
-                <li><a href="../LifeHacks/index.html" class="category-main-link">Life Hacks</a></li>
-                <li><a href="../Math_Magik/index.html" class="category-main-link">Math Magik</a></li>
-                <li><a href="../Otaku_Ops/index.html" class="category-main-link">Otaku Ops</a></li>
-                <li><a href="../../index.html" class="home-link">Unit Converter</a></li>
-            </ul>
-            <button class="mobile-menu-btn" aria-label="Toggle menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+<nav class="main-nav">
+    <div class="nav-container">
+        <div class="nav-logo">
+            <a href="../../index.html">🧮 Docket One</a>
         </div>
-    </nav>
+        <div class="nav-search">
+            <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input" aria-label="Search calculators">
+            <div id="search-results" class="search-results"></div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="../BigKidMath/index.html" class="category-link">Big Kid Math</a></li>
+            <li><a href="../CipherLab/index.html" class="category-link">Cipher Lab</a></li>
+            <li><a href="../GeekGalaxy/index.html" class="category-link">Geek Galaxy</a></li>
+            <li><a href="../LifeHacks/index.html" class="category-link">Life Hacks</a></li>
+            <li><a href="../Math_Magik/index.html" class="category-link">Math Magik</a></li>
+            <li><a href="../Otaku_Ops/index.html" class="category-link">Otaku Ops</a></li>
+            <li><a href="../../index.html" class="home-link">🏠 Home</a></li>
+        </ul>
+        <button class="mobile-menu-btn" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</nav>
 
     <!-- Premium Hero Section -->
     <section class="hero">
@@ -675,440 +706,176 @@
     </main>
 
     <!-- Enhanced Footer -->
-    <footer style="background: var(--coffee-dark); color: white; padding: var(--space-2xl) var(--space-xl); margin-top: var(--space-3xl);">
-        <div class="container">
-            <div style="text-align: center;">
-                <h3 style="margin-bottom: var(--space-md);">☕ Caffeine Science</h3>
-                <p style="font-size: 0.875rem; opacity: 0.8; max-width: 600px; margin: 0 auto;">
-                    This calculator uses scientifically-based half-life calculations to estimate caffeine levels in your system. 
-                    Individual metabolism varies significantly. Consult healthcare professionals for personalized advice.
+<!-- Newsletter Bar -->
+<div class="newsletter-bar" x-data="newsletterForm()">
+    <div class="newsletter-container">
+        <div class="newsletter-content">
+            <div class="newsletter-info">
+                <h3>&#127881; Join Our Calculator Community!</h3>
+                <p>Get updates on new fun calculators and practical tools</p>
+            </div>
+            <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
+                <input 
+                    type="email" 
+                    class="newsletter-input"
+                    placeholder="Enter your email for calculator updates"
+                    x-model="email"
+                    required
+                >
+                <button 
+                    type="submit" 
+                    class="newsletter-submit"
+                    :disabled="isSubmitting"
+                >
+                    <span x-show="isSubmitting" class="loading-spinner"></span>
+                    <span x-text="isSubmitting ? 'Subscribing...' : '&#128640; Subscribe'"></span>
+                </button>
+            </form>
+            <div x-show="showSuccess" class="newsletter-success" style="display: none;">
+                <p style="color: var(--accent-light); font-weight: 600;">
+                    &#9989; Awesome! You'll get updates on the coolest new calculators!
                 </p>
             </div>
         </div>
-    </footer>
+    </div>
+</div>
 
-    <!-- Enhanced JavaScript -->
-    <script src="../../common/navbar-enhanced.js"></script>
-    <script>
-        // Global variables
-        let caffeineChart = null;
-        let updateInterval = null;
-        let calculationData = null;
-        
-        // Initialize the calculator
-        document.addEventListener('DOMContentLoaded', function() {
-            initializeDrinkPresets();
-            setCurrentTime();
-            updateCurrentTime();
-        });
-        
-        // Initialize drink presets
-        function initializeDrinkPresets() {
-            const presets = document.querySelectorAll('.drink-preset');
-            presets.forEach(preset => {
-                preset.addEventListener('click', function() {
-                    // Remove active class from all presets
-                    presets.forEach(p => p.classList.remove('active'));
-                    
-                    // Add active class to clicked preset
-                    this.classList.add('active');
-                    
-                    // Update caffeine amount
-                    const caffeine = this.dataset.caffeine;
-                    document.getElementById('caffeine-amount').value = caffeine;
-                });
-            });
-        }
-        
-        // Set current time as default
-        function setCurrentTime() {
-            const now = new Date();
-            const localDateTime = new Date(now.getTime() - now.getTimezoneOffset() * 60000)
-                .toISOString()
-                .slice(0, 16);
-            document.getElementById('consumption-time').value = localDateTime;
-        }
-        
-        // Update current time display
-        function updateCurrentTime() {
-            const timeElement = document.getElementById('current-time');
-            if (timeElement) {
-                const now = new Date();
-                timeElement.textContent = `Live Updates - ${now.toLocaleTimeString()}`;
-            }
-        }
-        
-        // Main calculation function
-        function calculateCaffeine() {
-            const caffeineAmount = parseFloat(document.getElementById('caffeine-amount').value);
-            const consumptionTime = document.getElementById('consumption-time').value;
-            const halfLife = parseFloat(document.getElementById('metabolism').value);
-            const sleepGoal = document.getElementById('sleep-goal').value;
-            
-            if (!caffeineAmount || caffeineAmount <= 0) {
-                alert('Please enter a valid caffeine amount');
-                return;
-            }
-            
-            // Use current time if consumption time is not provided
-            const consumptionDate = consumptionTime ? 
-                new Date(consumptionTime) : 
-                new Date();
-            
-            // Store calculation data
-            calculationData = {
-                initialAmount: caffeineAmount,
-                consumptionTime: consumptionDate,
-                halfLife: halfLife,
-                sleepGoal: sleepGoal
-            };
-            
-            // Show results panel
-            const resultsPanel = document.getElementById('results-panel');
-            resultsPanel.classList.add('active');
-            
-            // Generate timeline data
-            generateTimeline();
-            
-            // Create chart
-            createCaffeineChart();
-            
-            // Generate milestones
-            generateMilestones();
-            
-            // Start real-time updates
-            startRealTimeUpdates();
-            
-            // Scroll to results
-            resultsPanel.scrollIntoView({ behavior: 'smooth' });
-        }
-        
-        // Generate timeline data
-        function generateTimeline() {
-            const hours = 24; // 24 hours timeline
-            const timelineData = [];
-            
-            for (let i = 0; i <= hours; i++) {
-                const time = new Date(calculationData.consumptionTime);
-                time.setHours(time.getHours() + i);
-                
-                const caffeineLevel = calculateCaffeineAtTime(time);
-                
-                timelineData.push({
-                    time: time,
-                    hours: i,
-                    caffeine: caffeineLevel,
-                    label: i === 0 ? 'Consumption' : `${i}h`
-                });
-            }
-            
-            calculationData.timeline = timelineData;
-        }
-        
-        // Calculate caffeine level at specific time
-        function calculateCaffeineAtTime(targetTime) {
-            const timeDiff = (targetTime - calculationData.consumptionTime) / (1000 * 60 * 60); // hours
-            
-            if (timeDiff < 0) return 0;
-            
-            // Caffeine half-life formula: C(t) = C0 * (1/2)^(t/t½)
-            const halfLifeHours = calculationData.halfLife;
-            const currentLevel = calculationData.initialAmount * Math.pow(0.5, timeDiff / halfLifeHours);
-            
-            return Math.max(0, currentLevel);
-        }
-        
-        // Create Chart.js visualization
-        function createCaffeineChart() {
-            const ctx = document.getElementById('caffeineChart').getContext('2d');
-            
-            // Destroy existing chart if it exists
-            if (caffeineChart) {
-                caffeineChart.destroy();
-            }
-            
-            const timeline = calculationData.timeline;
-            const currentTime = new Date();
-            
-            caffeineChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: timeline.map(point => point.label),
-                    datasets: [{
-                        label: 'Caffeine Level (mg)',
-                        data: timeline.map(point => point.caffeine),
-                        borderColor: '#8b4513',
-                        backgroundColor: 'rgba(139, 69, 19, 0.1)',
-                        borderWidth: 3,
-                        fill: true,
-                        tension: 0.4,
-                        pointBackgroundColor: '#8b4513',
-                        pointBorderColor: '#ffffff',
-                        pointBorderWidth: 2,
-                        pointRadius: 4,
-                        pointHoverRadius: 6
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: true,
-                            position: 'top',
-                            labels: {
-                                font: {
-                                    family: 'Inter',
-                                    size: 12
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        x: {
-                            title: {
-                                display: true,
-                                text: 'Time (hours from consumption)',
-                                font: {
-                                    family: 'Inter',
-                                    size: 12
-                                }
-                            },
-                            grid: {
-                                color: 'rgba(139, 69, 19, 0.1)'
-                            }
-                        },
-                        y: {
-                            title: {
-                                display: true,
-                                text: 'Caffeine (mg)',
-                                font: {
-                                    family: 'Inter',
-                                    size: 12
-                                }
-                            },
-                            beginAtZero: true,
-                            grid: {
-                                color: 'rgba(139, 69, 19, 0.1)'
-                            }
-                        }
-                    },
-                    elements: {
-                        point: {
-                            hoverRadius: 8
-                        }
-                    }
-                }
-            });
-        }
-        
-        // Generate milestone cards
-        function generateMilestones() {
-            const milestonesContainer = document.getElementById('milestones');
-            const milestones = [
-                {
-                    percentage: 75,
-                    label: '75% Remaining',
-                    description: 'Still feeling the effects'
-                },
-                {
-                    percentage: 50,
-                    label: '50% Remaining',
-                    description: 'Half-life reached'
-                },
-                {
-                    percentage: 25,
-                    label: '25% Remaining',
-                    description: 'Effects diminishing'
-                },
-                {
-                    percentage: 12.5,
-                    label: '12.5% Remaining',
-                    description: 'Minimal effects'
-                },
-                {
-                    percentage: 6.25,
-                    label: '6.25% Remaining',
-                    description: 'Nearly eliminated'
-                }
-            ];
-            
-            let milestonesHTML = '';
-            
-            milestones.forEach(milestone => {
-                const targetAmount = calculationData.initialAmount * (milestone.percentage / 100);
-                const timeToReach = calculateTimeToReachLevel(targetAmount);
-                
-                milestonesHTML += `
-                    <div class="milestone">
-                        <div class="milestone-time">${formatTimeFromNow(timeToReach)}</div>
-                        <div class="milestone-label">${milestone.label}</div>
-                        <div class="milestone-desc">${milestone.description}</div>
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>&#127919; About Docket.One</h4>
+                <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the tools for modern life.</p>
+                <p>Practical meets playful. Because adulting is hard enough.</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>&#127914; Calculator Categories</h4>
+                <ul class="footer-links">
+                    <li><a href="/pages/BigKidMath/"><span class="calculator-emoji">&#129518;</span> BigKidMath - Adult Life Tools</a></li>
+                    <li><a href="/pages/CipherLab/"><span class="calculator-emoji">&#128272;</span> CipherLab - Secret Codes & Security</a></li>
+                    <li><a href="/pages/GeekGalaxy/"><span class="calculator-emoji">&#128640;</span> GeekGalaxy - Sci-Fi & Fantasy Fun</a></li>
+                    <li><a href="/pages/LifeHacks/"><span class="calculator-emoji">&#9889;</span> LifeHacks - Productivity & Wellness</a></li>
+                    <li><a href="/pages/Math_Magik/"><span class="calculator-emoji">&#127917;</span> Math Magik - Mathematical Wizardry</a></li>
+                    <li><a href="/pages/Otaku_Ops/"><span class="calculator-emoji">&#127999;</span> Otaku Ops - Anime & Culture</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>&#128172; Support & Info</h4>
+                <ul class="footer-links">
+                    <li><a href="/help"><span class="calculator-emoji">&#10067;</span> Help & FAQ</a></li>
+                    <li><a href="/privacy"><span class="calculator-emoji">&#128274;</span> Privacy Policy</a></li>
+                    <li><a href="/terms"><span class="calculator-emoji">&#128203;</span> Terms of Service</a></li>
+                    <li><a href="/accessibility"><span class="calculator-emoji">&#9855;</span> Accessibility</a></li>
+                    <li><a href="/contact"><span class="calculator-emoji">&#128231;</span> Contact Us</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <button 
+                    class="request-calculator-btn"
+                    @click="showModal = true"
+                >
+                    &#128161; Request a Calculator
+                </button>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="footer-logo">&#129518; Docket.One</div>
+            <div class="footer-copyright">
+                Â© 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
+            </div>
+            <div class="social-links">
+                <a href="#" class="social-link" aria-label="Twitter">&#120143;</a>
+                <a href="#" class="social-link" aria-label="LinkedIn">&#128188;</a>
+                <a href="#" class="social-link" aria-label="GitHub">&#128025;</a>
+                <a href="#" class="social-link" aria-label="Email">&#128231;</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Request Modal -->
+<div 
+    x-data="calculatorRequestForm()"
+    x-show="showModal"
+    x-cloak
+    class="modal-overlay"
+    @click.self="closeModal()"
+    style="display: none;"
+>
+    <div class="modal-content">
+        <div x-show="!showConfirmation">
+            <div class="modal-header">
+                <h2 class="modal-title">&#128161; Request a Fun Calculator</h2>
+                <p class="modal-subtitle">Got an idea for a calculator that would make life easier or more fun? We want to hear it!</p>
+                <button class="modal-close" @click="closeModal()">&#10005;</button>
+            </div>
+            <div class="modal-body">
+                <form @submit.prevent="submitRequest()">
+                    <div class="form-group">
+                        <label class="form-label" for="userName">Your Name *</label>
+                        <input type="text" id="userName" class="form-input" x-model="formData.name" required placeholder="What should we call you?">
                     </div>
-                `;
-            });
-            
-            milestonesContainer.innerHTML = milestonesHTML;
-        }
-        
-        // Calculate time to reach specific caffeine level
-        function calculateTimeToReachLevel(targetLevel) {
-            if (targetLevel >= calculationData.initialAmount) {
-                return calculationData.consumptionTime;
-            }
-            
-            // Solve for t in: targetLevel = initialAmount * (1/2)^(t/halfLife)
-            const ratio = targetLevel / calculationData.initialAmount;
-            const timeHours = calculationData.halfLife * Math.log(ratio) / Math.log(0.5);
-            
-            const resultTime = new Date(calculationData.consumptionTime);
-            resultTime.setHours(resultTime.getHours() + timeHours);
-            
-            return resultTime;
-        }
-        
-        // Format time from now
-        function formatTimeFromNow(targetTime) {
-            const now = new Date();
-            const timeDiff = targetTime - now;
-            
-            if (timeDiff <= 0) {
-                return 'Now';
-            }
-            
-            const hours = Math.floor(timeDiff / (1000 * 60 * 60));
-            const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-            
-            if (hours === 0) {
-                return `${minutes}m`;
-            } else if (minutes === 0) {
-                return `${hours}h`;
-            } else {
-                return `${hours}h ${minutes}m`;
-            }
-        }
-        
-        
-        // Start real-time updates
-        function startRealTimeUpdates() {
-            // Clear existing interval
-            if (updateInterval) {
-                clearInterval(updateInterval);
-            }
-            
-            // Update every 30 seconds
-            updateInterval = setInterval(() => {
-                updateLiveStatus();
-                updateCurrentTime();
-            }, 30000);
-            
-            // Initial update
-            updateLiveStatus();
-        }
-        
-        // Update live status
-        function updateLiveStatus() {
-            const currentCaffeine = calculateCaffeineAtTime(new Date());
-            const currentCaffeineElement = document.getElementById('current-caffeine');
-            const levelChangeElement = document.getElementById('level-change');
-            const sleepImpactElement = document.getElementById('sleep-impact');
-            
-            // Update current caffeine level
-            currentCaffeineElement.textContent = `${currentCaffeine.toFixed(1)} mg`;
-            
-            // Update trend
-            const oneMinuteAgo = new Date();
-            oneMinuteAgo.setMinutes(oneMinuteAgo.getMinutes() - 1);
-            const previousLevel = calculateCaffeineAtTime(oneMinuteAgo);
-            
-            if (currentCaffeine < previousLevel) {
-                levelChangeElement.innerHTML = '<span>↓</span><span>Decreasing</span>';
-                levelChangeElement.style.color = '#10b981';
-            } else {
-                levelChangeElement.innerHTML = '<span>→</span><span>Stable</span>';
-                levelChangeElement.style.color = '#f59e0b';
-            }
-            
-            // Update sleep impact
-            const sleepGoal = calculationData.sleepGoal;
-            if (sleepGoal) {
-                const sleepTime = new Date();
-                const [hours, minutes] = sleepGoal.split(':');
-                sleepTime.setHours(parseInt(hours), parseInt(minutes), 0, 0);
-                
-                if (sleepTime <= new Date()) {
-                    sleepTime.setDate(sleepTime.getDate() + 1);
-                }
-                
-                const caffeineAtSleep = calculateCaffeineAtTime(sleepTime);
-                
-                if (caffeineAtSleep > 25) {
-                    sleepImpactElement.innerHTML = `⚠️ ${caffeineAtSleep.toFixed(1)}mg at bedtime - may affect sleep`;
-                    sleepImpactElement.className = 'sleep-impact';
-                } else {
-                    sleepImpactElement.innerHTML = `✅ ${caffeineAtSleep.toFixed(1)}mg at bedtime - sleep-friendly`;
-                    sleepImpactElement.className = 'sleep-impact safe';
-                }
-            }
-        }
-        
-        // Cleanup on page unload
-        window.addEventListener('beforeunload', () => {
-            if (updateInterval) {
-                clearInterval(updateInterval);
-            }
-        });
-        
-        // Export functionality (bonus feature)
-        function exportResults() {
-            if (!calculationData) return;
-            
-            const data = {
-                timestamp: new Date().toISOString(),
-                initialCaffeine: calculationData.initialAmount,
-                consumptionTime: calculationData.consumptionTime,
-                halfLife: calculationData.halfLife,
-                timeline: calculationData.timeline.map(point => ({
-                    hours: point.hours,
-                    caffeine: point.caffeine.toFixed(2)
-                }))
-            };
-            
-            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `caffeine-timeline-${new Date().toISOString().split('T')[0]}.json`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-        }
-        
-        // Share functionality (bonus feature)
-        async function shareResults() {
-            if (!calculationData) return;
-            
-            const currentCaffeine = calculateCaffeineAtTime(new Date());
-            const shareText = `☕ My Caffeine Journey:\n\nStarted with ${calculationData.initialAmount}mg\nCurrently have ${currentCaffeine.toFixed(1)}mg in my system\n\nTrack your caffeine with precision!`;
-            
-            if (navigator.share) {
-                try {
-                    await navigator.share({
-                        title: 'My Caffeine Timeline',
-                        text: shareText,
-                        url: window.location.href
-                    });
-                } catch (err) {
-                    console.log('Error sharing:', err);
-                }
-            } else {
-                // Fallback to clipboard
-                navigator.clipboard.writeText(shareText).then(() => {
-                    alert('Results copied to clipboard!');
-                });
-            }
-        }
-    </script>
+                    <div class="form-group">
+                        <label class="form-label" for="userEmail">Email Address *</label>
+                        <input type="email" id="userEmail" class="form-input" x-model="formData.email" required placeholder="your@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="requestType">What Kind of Request? *</label>
+                        <select id="requestType" class="form-input form-select" x-model="formData.type" required>
+                            <option value="">Choose your request type</option>
+                            <option value="new-calculator">&#127358; Brand New Calculator</option>
+                            <option value="enhancement">&#9889; Improve Existing Calculator</option>
+                            <option value="category">&#127914; New Category Idea</option>
+                            <option value="feature">&#10024; Cool New Feature</option>
+                            <option value="other">&#129300; Something Else Entirely</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="calculatorTitle">Calculator Name/Title *</label>
+                        <input type="text" id="calculatorTitle" class="form-input" x-model="formData.title" required placeholder="e.g., 'Should I Call In Sick Calculator'">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="description">Tell Us About Your Idea! *</label>
+                        <textarea id="description" class="form-input form-textarea" x-model="formData.description" required placeholder="Describe your calculator idea!"></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" @click="closeModal()">Maybe Later</button>
+                        <button type="submit" class="btn btn-primary" :disabled="isSubmitting">
+                            <span x-show="isSubmitting" class="loading-spinner"></span>
+                            <span x-text="isSubmitting ? 'Sending...' : '&#128640; Send My Idea'"></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div x-show="showConfirmation" class="confirmation-modal" style="display: none;">
+            <div class="modal-header">
+                <button class="modal-close" @click="closeModal()">&#10005;</button>
+            </div>
+            <div class="modal-body">
+                <div class="success-icon">&#127881;</div>
+                <h3 class="confirmation-title">Awesome! We Got Your Idea!</h3>
+                <p class="confirmation-message">
+                    Thanks for sharing your calculator idea with us! We're excited to check it out and see if we can make it happen. 
+                    <br><br>
+                    <strong>What happens next?</strong><br>
+                    â€¢ You'll get a confirmation email shortly<br>
+                    â€¢ Our team will review your idea<br>
+                    â€¢ If we build it, you'll be the first to know!<br>
+                    â€¢ We might even name you as the inspiration &#128522;
+                </p>
+                <button class="btn btn-primary" @click="closeModal()" style="width: 100%;">
+                    &#127919; Close & Keep Calculating!
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>

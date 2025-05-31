@@ -1,0 +1,1153 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚡ Lightning-Powered Life Calculator | BigKidMath | Docket One</title>
+    
+    <!-- Enhanced Social Media Meta Tags -->
+    <meta property="og:title" content="Lightning-Powered Life Calculator | BigKidMath | Docket One">
+    <meta property="og:description" content="Discover how many lightning strikes it would take to power your entire existence! Interactive energy calculator with stunning visualizations.">
+    <meta property="og:image" content="https://docket.one/social-preview.jpg">
+    <meta property="og:url" content="https://docket.one/pages/BigKidMath/Lightning-Powered-Life-Calculator.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Docket One Calculators">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Lightning-Powered Life Calculator">
+    <meta name="twitter:description" content="How many lightning strikes would power your life? Find out with our epic energy calculator!">
+    <meta name="twitter:image" content="https://docket.one/social-preview.jpg">
+    
+    <!-- Fonts and Dependencies -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    
+    <style>
+        /* Lightning-Themed Design System */
+        :root {
+            /* Lightning Color Palette */
+            --lightning-yellow: #fbbf24;
+            --lightning-blue: #0ea5e9;
+            --lightning-purple: #8b5cf6;
+            --lightning-white: #f8fafc;
+            --lightning-dark: #0f172a;
+            --storm-gray: #334155;
+            --energy-orange: #f97316;
+            
+            /* Spacing Scale */
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+            --space-3xl: 4rem;
+            
+            /* Professional Shadows */
+            --shadow-sm: 0 1px 2px 0 rgba(251, 191, 36, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(251, 191, 36, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(251, 191, 36, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(251, 191, 36, 0.1);
+            
+            /* Border Radius */
+            --radius: 0.75rem;
+            --radius-sm: 0.5rem;
+            --radius-lg: 1rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, var(--lightning-dark) 0%, var(--storm-gray) 50%, var(--lightning-dark) 100%);
+            color: var(--lightning-white);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: var(--space-3xl) var(--space-lg);
+            background: radial-gradient(circle at center, rgba(251, 191, 36, 0.1) 0%, transparent 70%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="1" fill="%23fbbf24" opacity="0.3"/><circle cx="80" cy="40" r="0.5" fill="%23fbbf24" opacity="0.5"/><circle cx="40" cy="80" r="1.5" fill="%23fbbf24" opacity="0.4"/><circle cx="90" cy="10" r="0.8" fill="%23fbbf24" opacity="0.6"/><circle cx="10" cy="90" r="1.2" fill="%23fbbf24" opacity="0.3"/></svg>') repeat;
+            animation: sparkle 8s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes sparkle {
+            0% { transform: translateY(0px) rotate(0deg); }
+            100% { transform: translateY(-100px) rotate(360deg); }
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            background: linear-gradient(135deg, var(--lightning-yellow), var(--energy-orange));
+            color: var(--lightning-dark);
+            padding: var(--space-sm) var(--space-lg);
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: var(--space-lg);
+            box-shadow: var(--shadow-lg);
+        }
+        .hero-title {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--lightning-yellow), var(--lightning-blue));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: var(--space-lg);
+            line-height: 1.1;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: rgba(248, 250, 252, 0.8);
+            max-width: 600px;
+            margin: 0 auto var(--space-2xl);
+            line-height: 1.6;
+        }
+
+        /* Main Content Layout */
+        .calculator-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-lg) var(--space-3xl);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-2xl);
+            align-items: start;
+        }
+
+        /* Input Panel */
+        .input-panel {
+            background: rgba(248, 250, 252, 0.05);
+            border: 1px solid rgba(251, 191, 36, 0.2);
+            border-radius: var(--radius-lg);
+            padding: var(--space-2xl);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-xl);
+            position: sticky;
+            top: 80px;
+        }
+
+        .panel-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--lightning-yellow);
+            margin-bottom: var(--space-xl);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .input-group {
+            margin-bottom: var(--space-xl);
+        }
+
+        .input-label {
+            display: block;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--lightning-white);
+            margin-bottom: var(--space-sm);
+        }
+        .slider-container {
+            position: relative;
+            margin-bottom: var(--space-md);
+        }
+
+        .slider {
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: linear-gradient(90deg, var(--lightning-yellow), var(--lightning-blue));
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+            cursor: pointer;
+        }
+
+        .slider::-webkit-slider-thumb {
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--lightning-white);
+            border: 3px solid var(--lightning-yellow);
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(251, 191, 36, 0.3);
+        }
+
+        .slider::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--lightning-white);
+            border: 3px solid var(--lightning-yellow);
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(251, 191, 36, 0.3);
+        }
+
+        .slider-value {
+            background: linear-gradient(135deg, var(--lightning-yellow), var(--energy-orange));
+            color: var(--lightning-dark);
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius);
+            font-weight: 700;
+            font-size: 1.125rem;
+            display: inline-block;
+            margin-top: var(--space-sm);
+        }
+
+        .lifestyle-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-md);
+            margin-top: var(--space-sm);
+        }
+
+        .lifestyle-option {
+            background: rgba(248, 250, 252, 0.05);
+            border: 2px solid rgba(251, 191, 36, 0.2);
+            border-radius: var(--radius);
+            padding: var(--space-lg);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .lifestyle-option.active {
+            background: linear-gradient(135deg, var(--lightning-yellow), var(--lightning-blue));
+            color: var(--lightning-dark);
+            border-color: var(--lightning-yellow);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .lifestyle-option:hover {
+            border-color: var(--lightning-yellow);
+            transform: translateY(-2px);
+        }
+
+        .lifestyle-emoji {
+            font-size: 1.5rem;
+            margin-bottom: var(--space-sm);
+        }
+
+        .lifestyle-label {
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        /* Results Panel */
+        .results-panel {
+            background: rgba(248, 250, 252, 0.05);
+            border: 1px solid rgba(251, 191, 36, 0.2);
+            border-radius: var(--radius-lg);
+            padding: var(--space-2xl);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .lightning-animation {
+            text-align: center;
+            margin-bottom: var(--space-2xl);
+            position: relative;
+            height: 120px;
+        }
+
+        .lightning-bolt {
+            font-size: 4rem;
+            color: var(--lightning-yellow);
+            animation: lightning-flash 2s ease-in-out infinite;
+            text-shadow: 0 0 20px var(--lightning-yellow);
+        }
+
+        @keyframes lightning-flash {
+            0%, 50%, 100% { opacity: 1; transform: scale(1); }
+            25% { opacity: 0.7; transform: scale(1.1); }
+            75% { opacity: 0.9; transform: scale(0.95); }
+        }
+
+        .main-result {
+            text-align: center;
+            margin-bottom: var(--space-2xl);
+        }
+
+        .result-number {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--lightning-yellow), var(--energy-orange));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: var(--space-sm);
+        }
+        .result-label {
+            font-size: 1.25rem;
+            color: rgba(248, 250, 252, 0.9);
+            font-weight: 600;
+        }
+
+        .energy-breakdown {
+            background: rgba(251, 191, 36, 0.1);
+            border-radius: var(--radius);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+
+        .breakdown-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--lightning-yellow);
+            margin-bottom: var(--space-md);
+        }
+
+        .breakdown-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-sm) 0;
+            border-bottom: 1px solid rgba(251, 191, 36, 0.1);
+        }
+
+        .breakdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .comparisons-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-lg);
+        }
+
+        .comparison-card {
+            background: rgba(14, 165, 233, 0.1);
+            border: 1px solid rgba(14, 165, 233, 0.2);
+            border-radius: var(--radius);
+            padding: var(--space-lg);
+            text-align: center;
+        }
+
+        .comparison-emoji {
+            font-size: 2rem;
+            margin-bottom: var(--space-sm);
+        }
+
+        .comparison-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--lightning-blue);
+            margin-bottom: var(--space-xs);
+        }
+
+        .comparison-label {
+            font-size: 0.875rem;
+            color: rgba(248, 250, 252, 0.7);
+        }
+        /* Share Button */
+        .share-button {
+            background: linear-gradient(135deg, var(--lightning-purple), var(--lightning-blue));
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: var(--space-lg);
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+            width: 100%;
+            justify-content: center;
+        }
+
+        .share-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+        }
+
+        /* Future Projection */
+        .future-projection {
+            margin-top: var(--space-xl);
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: var(--radius);
+            padding: var(--space-lg);
+        }
+
+        .projection-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--lightning-purple);
+            margin-bottom: var(--space-md);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .calculator-container {
+                grid-template-columns: 1fr;
+                gap: var(--space-xl);
+            }
+
+            .input-panel {
+                position: static;
+            }
+
+            .lifestyle-options {
+                grid-template-columns: 1fr;
+            }
+
+            .comparisons-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding: var(--space-2xl) var(--space-lg);
+            }
+        }
+        /* Hidden canvas for sharing */
+        #shareCanvas {
+            display: none;
+        }
+    </style>
+</head>
+<body x-data="lightningCalculator()">
+    <!-- Enhanced Navigation Bar -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="../../index.html">🧮 Docket One</a>
+            </div>
+            <div class="nav-search">
+                <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input" aria-label="Search calculators">
+                <div id="search-results" class="search-results"></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../BigKidMath/index.html" class="category-main-link">Big Kid Math</a></li>
+                <li><a href="../CipherLab/index.html" class="category-main-link">Cipher Lab</a></li>
+                <li><a href="../GeekGalaxy/index.html" class="category-main-link">Geek Galaxy</a></li>
+                <li><a href="../LifeHacks/index.html" class="category-main-link">Life Hacks</a></li>
+                <li><a href="../Math_Magik/index.html" class="category-main-link">Math Magik</a></li>
+                <li><a href="../Otaku_Ops/index.html" class="category-main-link">Otaku Ops</a></li>
+                <li><a href="../../index.html" class="home-link">Unit Converter</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-badge">
+            <span>⚡</span>
+            <span>Energy & Physics</span>
+        </div>
+        <h1 class="hero-title">Lightning-Powered Life Calculator</h1>
+        <p class="hero-subtitle">
+            Discover how many lightning strikes it would take to power your entire existence! 
+            Transform complex energy consumption into epic, shareable insights.
+        </p>
+    </section>
+
+    <!-- Main Calculator -->
+    <div class="calculator-container">
+        <!-- Input Panel -->
+        <div class="input-panel">
+            <h2 class="panel-title">
+                <span>⚡</span>
+                <span>Your Energy Profile</span>
+            </h2>
+
+            <!-- Age Input -->
+            <div class="input-group">
+                <label class="input-label">Your Age</label>
+                <div class="slider-container">
+                    <input 
+                        type="range" 
+                        class="slider" 
+                        min="1" 
+                        max="100" 
+                        x-model="age"
+                        @input="calculate()"
+                    >
+                    <div class="slider-value" x-text="age + ' years old'"></div>
+                </div>
+            </div>
+            <!-- Lifestyle Selection -->
+            <div class="input-group">
+                <label class="input-label">Lifestyle Energy Usage</label>
+                <div class="lifestyle-options">
+                    <div 
+                        class="lifestyle-option"
+                        :class="{ active: lifestyle === 'low' }"
+                        @click="lifestyle = 'low'; calculate()"
+                    >
+                        <div class="lifestyle-emoji">🌱</div>
+                        <div class="lifestyle-label">Eco-Friendly</div>
+                    </div>
+                    <div 
+                        class="lifestyle-option"
+                        :class="{ active: lifestyle === 'average' }"
+                        @click="lifestyle = 'average'; calculate()"
+                    >
+                        <div class="lifestyle-emoji">🏠</div>
+                        <div class="lifestyle-label">Average</div>
+                    </div>
+                    <div 
+                        class="lifestyle-option"
+                        :class="{ active: lifestyle === 'high' }"
+                        @click="lifestyle = 'high'; calculate()"
+                    >
+                        <div class="lifestyle-emoji">🚗</div>
+                        <div class="lifestyle-label">High-Energy</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Panel -->
+        <div class="results-panel" x-show="results.lightningStrikes > 0">
+            <!-- Lightning Animation -->
+            <div class="lightning-animation">
+                <div class="lightning-bolt">⚡</div>
+            </div>
+
+            <!-- Main Result -->
+            <div class="main-result">
+                <div class="result-number" x-text="results.lightningStrikes.toFixed(1)"></div>
+                <div class="result-label">Lightning Strikes to Power Your Life!</div>
+            </div>
+
+            <!-- Energy Breakdown -->
+            <div class="energy-breakdown">
+                <div class="breakdown-title">🔋 Energy Breakdown</div>
+                <div class="breakdown-item">
+                    <span>Total Energy Used:</span>
+                    <span x-text="formatEnergy(results.totalEnergy)"></span>
+                </div>
+                <div class="breakdown-item">
+                    <span>Energy per Year:</span>
+                    <span x-text="formatEnergy(results.energyPerYear)"></span>
+                </div>
+                <div class="breakdown-item">
+                    <span>Lightning Bolt Energy:</span>
+                    <span>1.0 billion joules</span>
+                </div>
+            </div>
+            <!-- Fun Comparisons -->
+            <div class="comparisons-grid">
+                <div class="comparison-card">
+                    <div class="comparison-emoji">🏠</div>
+                    <div class="comparison-value" x-text="results.homesForYear"></div>
+                    <div class="comparison-label">Homes powered for 1 year</div>
+                </div>
+                <div class="comparison-card">
+                    <div class="comparison-emoji">📱</div>
+                    <div class="comparison-value" x-text="results.iPhoneBatteries"></div>
+                    <div class="comparison-label">iPhone batteries charged</div>
+                </div>
+                <div class="comparison-card">
+                    <div class="comparison-emoji">💣</div>
+                    <div class="comparison-value" x-text="results.tntEquivalent"></div>
+                    <div class="comparison-label">Kg of TNT equivalent</div>
+                </div>
+                <div class="comparison-card">
+                    <div class="comparison-emoji">🚗</div>
+                    <div class="comparison-value" x-text="results.carMiles"></div>
+                    <div class="comparison-label">Miles driven in a car</div>
+                </div>
+            </div>
+
+            <!-- Future Projection -->
+            <div class="future-projection">
+                <div class="projection-title">🔮 Future Projection</div>
+                <p>If you live to 80 years old, you'll need <strong x-text="results.futureStrikes"></strong> lightning strikes to power your entire life!</p>
+            </div>
+
+            <!-- Share Button -->
+            <button class="share-button" @click="shareResults()">
+                <span>⚡</span>
+                <span>Share My Lightning Power</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Hidden canvas for generating share images -->
+    <canvas id="shareCanvas" width="1200" height="630"></canvas>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script>
+        function lightningCalculator() {
+            return {
+                age: 25,
+                lifestyle: 'average',
+                results: {
+                    lightningStrikes: 0,
+                    totalEnergy: 0,
+                    energyPerYear: 0,
+                    homesForYear: 0,
+                    iPhoneBatteries: 0,
+                    tntEquivalent: 0,
+                    carMiles: 0,
+                    futureStrikes: 0
+                },
+
+                init() {
+                    this.calculate();
+                },
+
+                calculate() {
+                    const lifestyleMultipliers = {
+                        low: 0.7,      // 56M joules/year
+                        average: 1.0,  // 80M joules/year  
+                        high: 1.5      // 120M joules/year
+                    };
+
+                    const baseEnergyPerYear = 80000000; // 80 million joules
+                    const lightningBoltEnergy = 1000000000; // 1 billion joules
+                    
+                    const energyPerYear = baseEnergyPerYear * lifestyleMultipliers[this.lifestyle];
+                    const totalEnergy = energyPerYear * this.age;
+                    const lightningStrikes = totalEnergy / lightningBoltEnergy;
+
+                    // Fun comparisons
+                    const homesForYear = Math.round(totalEnergy / 11000000000); // ~11B joules per home/year
+                    const iPhoneBatteries = Math.round(totalEnergy / 46800); // iPhone battery ~46.8k joules
+                    const tntEquivalent = Math.round(totalEnergy / 4184000); // TNT ~4.18M joules/kg
+                    const carMiles = Math.round(totalEnergy / 3600000); // Car ~3.6M joules/mile
+
+                    // Future projection (age 80)
+                    const futureEnergy = energyPerYear * 80;
+                    const futureStrikes = (futureEnergy / lightningBoltEnergy).toFixed(1);
+
+                    this.results = {
+                        lightningStrikes,
+                        totalEnergy,
+                        energyPerYear,
+                        homesForYear,
+                        iPhoneBatteries: iPhoneBatteries.toLocaleString(),
+                        tntEquivalent,
+                        carMiles: carMiles.toLocaleString(),
+                        futureStrikes
+                    };
+                },
+
+                formatEnergy(joules) {
+                    if (joules >= 1e9) {
+                        return (joules / 1e9).toFixed(1) + 'B joules';
+                    } else if (joules >= 1e6) {
+                        return (joules / 1e6).toFixed(1) + 'M joules';
+                    } else {
+                        return joules.toLocaleString() + ' joules';
+                    }
+                },
+
+                generateShareImage() {
+                    const canvas = document.getElementById('shareCanvas');
+                    const ctx = canvas.getContext('2d');
+                    
+                    // Set canvas dimensions
+                    canvas.width = 1200;
+                    canvas.height = 630;
+                    
+                    // Create lightning-themed gradient background
+                    const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+                    gradient.addColorStop(0, '#0f172a');
+                    gradient.addColorStop(0.3, '#334155');
+                    gradient.addColorStop(0.7, '#334155');
+                    gradient.addColorStop(1, '#0f172a');
+                    ctx.fillStyle = gradient;
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    
+                    // Add lightning bolts background
+                    ctx.fillStyle = '#fbbf24';
+                    ctx.font = '60px serif';
+                    for (let i = 0; i < 8; i++) {
+                        const x = Math.random() * canvas.width;
+                        const y = Math.random() * canvas.height;
+                        ctx.save();
+                        ctx.globalAlpha = 0.1;
+                        ctx.fillText('⚡', x, y);
+                        ctx.restore();
+                    }
+                    
+                    // Title
+                    ctx.fillStyle = '#fbbf24';
+                    ctx.font = 'bold 42px Inter, sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('⚡ Lightning-Powered Life Calculator', canvas.width / 2, 80);
+                    
+                    // Main result
+                    ctx.fillStyle = '#f8fafc';
+                    ctx.font = 'bold 72px Inter, sans-serif';
+                    ctx.fillText(`${this.results.lightningStrikes.toFixed(1)} Lightning Strikes`, canvas.width / 2, 180);
+                    
+                    // Age and lifestyle
+                    ctx.fillStyle = '#0ea5e9';
+                    ctx.font = '28px Inter, sans-serif';
+                    ctx.fillText(`Age ${this.age} • ${this.lifestyle.charAt(0).toUpperCase() + this.lifestyle.slice(1)} Lifestyle`, canvas.width / 2, 230);
+                    
+                    // Left column comparisons
+                    const leftX = 200;
+                    let yPos = 300;
+                    
+                    ctx.fillStyle = '#fbbf24';
+                    ctx.font = 'bold 24px Inter, sans-serif';
+                    ctx.textAlign = 'left';
+                    ctx.fillText('⚡ Power Comparisons:', leftX, yPos);
+                    
+                    ctx.fillStyle = '#f8fafc';
+                    ctx.font = '20px Inter, sans-serif';
+                    yPos += 40;
+                    ctx.fillText(`🏠 ${this.results.homesForYear} homes for 1 year`, leftX, yPos);
+                    yPos += 35;
+                    ctx.fillText(`📱 ${this.results.iPhoneBatteries} iPhone batteries`, leftX, yPos);
+                    yPos += 35;
+                    ctx.fillText(`💣 ${this.results.tntEquivalent} kg TNT equivalent`, leftX, yPos);
+
+                    // Right column - energy breakdown
+                    const rightX = 700;
+                    yPos = 300;
+                    
+                    ctx.fillStyle = '#8b5cf6';
+                    ctx.font = 'bold 24px Inter, sans-serif';
+                    ctx.fillText('🔋 Energy Breakdown:', rightX, yPos);
+                    
+                    ctx.fillStyle = '#f8fafc';
+                    ctx.font = '20px Inter, sans-serif';
+                    yPos += 40;
+                    ctx.fillText(`Total: ${this.formatEnergy(this.results.totalEnergy)}`, rightX, yPos);
+                    yPos += 35;
+                    ctx.fillText(`Per Year: ${this.formatEnergy(this.results.energyPerYear)}`, rightX, yPos);
+                    yPos += 35;
+                    ctx.fillText(`🚗 ${this.results.carMiles} miles driven`, rightX, yPos);
+                    
+                    // Future projection
+                    ctx.fillStyle = '#f97316';
+                    ctx.font = 'bold 22px Inter, sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.fillText(`🔮 At age 80: ${this.results.futureStrikes} lightning strikes!`, canvas.width / 2, 520);
+                    
+                    // Footer
+                    ctx.fillStyle = '#fbbf24';
+                    ctx.font = '18px Inter, sans-serif';
+                    ctx.fillText('Calculate yours at docket.one/pages/BigKidMath/Lightning-Powered-Life-Calculator', canvas.width / 2, 580);
+                    
+                    return canvas.toDataURL('image/png');
+                },
+
+                generateShareText() {
+                    const lifestyleText = {
+                        low: 'eco-friendly',
+                        average: 'average',
+                        high: 'high-energy'
+                    };
+                    
+                    return `⚡ My life (age ${this.age}, ${lifestyleText[this.lifestyle]} lifestyle) = ${this.results.lightningStrikes.toFixed(1)} lightning strikes! That's enough to power ${this.results.homesForYear} homes for a year! ⚡ Calculate yours at docket.one`;
+                },
+
+                async shareResults() {
+                    const text = this.generateShareText();
+                    const calculatorUrl = 'https://docket.one/pages/BigKidMath/Lightning-Powered-Life-Calculator.html';
+                    
+                    // Try Web Share API first (mobile)
+                    if (navigator.share) {
+                        try {
+                            const imageDataUrl = this.generateShareImage();
+                            const response = await fetch(imageDataUrl);
+                            const blob = await response.blob();
+                            const file = new File([blob], `lightning-power-${Date.now()}.png`, { type: 'image/png' });
+                            
+                            if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                                await navigator.share({
+                                    title: '⚡ Lightning-Powered Life Calculator',
+                                    text: text,
+                                    url: calculatorUrl,
+                                    files: [file]
+                                });
+                            } else {
+                                await navigator.share({
+                                    title: '⚡ Lightning-Powered Life Calculator',
+                                    text: text,
+                                    url: calculatorUrl
+                                });
+                            }
+                            return;
+                        } catch (err) {
+                            if (err.name !== 'AbortError') {
+                                console.log('Web Share API failed:', err);
+                            }
+                        }
+                    }
+                    
+                    // Fallback for desktop
+                    try {
+                        await navigator.clipboard.writeText(`${text} ${calculatorUrl}`);
+                        const button = document.querySelector('.share-button');
+                        const originalHTML = button.innerHTML;
+                        button.innerHTML = '<span>✅</span><span>Copied to Clipboard!</span>';
+                        
+                        // Also download the image
+                        this.downloadImage();
+                        
+                        setTimeout(() => {
+                            button.innerHTML = originalHTML;
+                        }, 3000);
+                    } catch (err) {
+                        console.error('Clipboard failed:', err);
+                        this.downloadImage();
+                    }
+                },
+
+                downloadImage() {
+                    const imageDataUrl = this.generateShareImage();
+                    const link = document.createElement('a');
+                    link.download = `lightning-power-age-${this.age}-${Date.now()}.png`;
+                    link.href = imageDataUrl;
+                    link.click();
+                }
+            }
+        }
+
+        // Enhanced Mobile Menu (using the fixed version from main site)
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if (mobileMenuBtn && navLinks) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    mobileMenuBtn.classList.toggle('active');
+                    navLinks.classList.toggle('active');
+                    document.body.classList.toggle('menu-open');
+                });
+                
+                // Close menu when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!e.target.closest('.nav-container')) {
+                        mobileMenuBtn.classList.remove('active');
+                        navLinks.classList.remove('active');
+                        document.body.classList.remove('menu-open');
+                    }
+                });
+                
+                // Close menu when clicking a link
+                navLinks.addEventListener('click', function() {
+                    mobileMenuBtn.classList.remove('active');
+                    navLinks.classList.remove('active');
+                    document.body.classList.remove('menu-open');
+                });
+            }
+        });
+
+        // Close any dropdowns when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.share-dropdown')) {
+                const shareMenus = document.querySelectorAll('.share-menu');
+                shareMenus.forEach(menu => menu.classList.remove('active'));
+            }
+        });
+    </script>
+
+    <!-- Newsletter Bar -->
+<!-- Newsletter Bar - Include before footer -->
+<div class="newsletter-bar" x-data="newsletterForm()">
+    <div class="newsletter-container">
+        <div class="newsletter-content">
+            <div class="newsletter-info">
+                <h3>ðŸŽ‰ Join Our Calculator Community!</h3>
+                <p>Get updates on new fun calculators and practical tools</p>
+            </div>
+            <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
+                <input 
+                    type="email" 
+                    class="newsletter-input"
+                    placeholder="Enter your email for calculator updates"
+                    x-model="email"
+                    required
+                >
+                <button 
+                    type="submit" 
+                    class="newsletter-submit"
+                    :disabled="isSubmitting"
+                >
+                    <span x-show="isSubmitting" class="loading-spinner"></span>
+                    <span x-text="isSubmitting ? 'Subscribing...' : 'ðŸš€ Subscribe'"></span>
+                </button>
+            </form>
+            <div x-show="showSuccess" class="newsletter-success" style="display: none;">
+                <p style="color: var(--accent-light); font-weight: 600;">
+                    âœ… Awesome! You'll get updates on the coolest new calculators!
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <!-- Footer -->
+<!-- Main Footer - Include at bottom of every page -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>ðŸŽ¯ About Docket.One</h4>
+                <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the tools for modern life.</p>
+                <p>Practical meets playful. Because adulting is hard enough.</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>ðŸŽª Calculator Categories</h4>
+                <ul class="footer-links">
+                    <li><a href="/pages/BigKidMath/"><span class="calculator-emoji">ðŸ§®</span> BigKidMath - Adult Life Tools</a></li>
+                    <li><a href="/pages/CipherLab/"><span class="calculator-emoji">ðŸ”</span> CipherLab - Secret Codes & Security</a></li>
+                    <li><a href="/pages/GeekGalaxy/"><span class="calculator-emoji">ðŸš€</span> GeekGalaxy - Sci-Fi & Fantasy Fun</a></li>
+                    <li><a href="/pages/LifeHacks/"><span class="calculator-emoji">âš¡</span> LifeHacks - Productivity & Wellness</a></li>
+                    <li><a href="/pages/Math_Magik/"><span class="calculator-emoji">ðŸŽ­</span> Math Magik - Mathematical Wizardry</a></li>
+                    <li><a href="/pages/Otaku_Ops/"><span class="calculator-emoji">ðŸŽŒ</span> Otaku Ops - Anime & Culture</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>ðŸ’¬ Support & Info</h4>
+                <ul class="footer-links">
+                    <li><a href="/help"><span class="calculator-emoji">â“</span> Help & FAQ</a></li>
+                    <li><a href="/privacy"><span class="calculator-emoji">ðŸ”’</span> Privacy Policy</a></li>
+                    <li><a href="/terms"><span class="calculator-emoji">ðŸ“‹</span> Terms of Service</a></li>
+                    <li><a href="/accessibility"><span class="calculator-emoji">â™¿</span> Accessibility</a></li>
+                    <li><a href="/contact"><span class="calculator-emoji">ðŸ“§</span> Contact Us</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <button 
+                    class="request-calculator-btn"
+                    @click="showModal = true"
+                >
+                    ðŸ’¡ Request a Calculator
+                </button>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="footer-logo">ðŸ§® Docket.One</div>
+            <div class="footer-copyright">
+                Â© 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
+            </div>
+            <div class="social-links">
+                <a href="#" class="social-link" aria-label="Twitter">ð•</a>
+                <a href="#" class="social-link" aria-label="LinkedIn">ðŸ’¼</a>
+                <a href="#" class="social-link" aria-label="GitHub">ðŸ™</a>
+                <a href="#" class="social-link" aria-label="Email">ðŸ“§</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- Request Modal -->
+<!-- Calculator Request Modal - Include once per page (usually at end of body) -->
+<div 
+    x-data="calculatorRequestForm()"
+    x-show="showModal"
+    x-cloak
+    class="modal-overlay"
+    @click.self="closeModal()"
+    style="display: none;"
+>
+    <div class="modal-content">
+        <!-- Request Form -->
+        <div x-show="!showConfirmation">
+            <div class="modal-header">
+                <h2 class="modal-title">ðŸ’¡ Request a Fun Calculator</h2>
+                <p class="modal-subtitle">Got an idea for a calculator that would make life easier or more fun? We want to hear it!</p>
+                <button class="modal-close" @click="closeModal()">âœ•</button>
+            </div>
+
+            <div class="modal-body">
+                <form @submit.prevent="submitRequest()">
+                    <div class="form-group">
+                        <label class="form-label" for="userName">Your Name *</label>
+                        <input 
+                            type="text" 
+                            id="userName"
+                            class="form-input"
+                            x-model="formData.name"
+                            required
+                            placeholder="What should we call you?"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="userEmail">Email Address *</label>
+                        <input 
+                            type="email" 
+                            id="userEmail"
+                            class="form-input"
+                            x-model="formData.email"
+                            required
+                            placeholder="your@email.com"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="requestType">What Kind of Request? *</label>
+                        <select 
+                            id="requestType"
+                            class="form-input form-select"
+                            x-model="formData.type"
+                            required
+                        >
+                            <option value="">Choose your request type</option>
+                            <option value="new-calculator">ðŸ†• Brand New Calculator</option>
+                            <option value="enhancement">âš¡ Improve Existing Calculator</option>
+                            <option value="category">ðŸŽª New Category Idea</option>
+                            <option value="feature">âœ¨ Cool New Feature</option>
+                            <option value="other">ðŸ¤” Something Else Entirely</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="calculatorTitle">Calculator Name/Title *</label>
+                        <input 
+                            type="text" 
+                            id="calculatorTitle"
+                            class="form-input"
+                            x-model="formData.title"
+                            required
+                            placeholder="e.g., 'Should I Call In Sick Calculator', 'Pizza vs Ramen Budget Optimizer'"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="description">Tell Us About Your Idea! *</label>
+                        <textarea 
+                            id="description"
+                            class="form-input form-textarea"
+                            x-model="formData.description"
+                            required
+                            placeholder="Describe your calculator idea! What would it calculate? What inputs would users enter? What would be the fun/practical output? Be as creative as you want - the weirder, the better!"
+                        ></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="category">Which Category Fits Best?</label>
+                        <select 
+                            id="category"
+                            class="form-input form-select"
+                            x-model="formData.category"
+                        >
+                            <option value="">Pick a category (or suggest a new one!)</option>
+                            <option value="BigKidMath">ðŸ§® BigKidMath - Adult Life Decisions</option>
+                            <option value="CipherLab">ðŸ” CipherLab - Codes & Security</option>
+                            <option value="GeekGalaxy">ðŸš€ GeekGalaxy - Sci-Fi & Fantasy</option>
+                            <option value="LifeHacks">âš¡ LifeHacks - Productivity & Wellness</option>
+                            <option value="Math_Magik">ðŸŽ­ Math Magik - Mathematical Magic</option>
+                            <option value="Otaku_Ops">ðŸŽŒ Otaku Ops - Anime & Pop Culture</option>
+                            <option value="new-category">ðŸ†• I have a new category idea!</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="priority">How Much Do You Want This?</label>
+                        <select 
+                            id="priority"
+                            class="form-input form-select"
+                            x-model="formData.priority"
+                        >
+                            <option value="low">ðŸ˜Š Would be nice to have</option>
+                            <option value="medium">ðŸ˜ Really want this!</option>
+                            <option value="high">ðŸ¤© NEED this in my life!</option>
+                            <option value="urgent">ðŸš¨ My life depends on it!</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="useCase">Why Would This Be Awesome?</label>
+                        <textarea 
+                            id="useCase"
+                            class="form-input form-textarea"
+                            x-model="formData.useCase"
+                            placeholder="Tell us your story! Are you a student trying to optimize study time? A professional making tough decisions? Someone who just thinks it would be hilarious? We love hearing why calculators matter to you!"
+                        ></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button 
+                            type="button" 
+                            class="btn btn-secondary"
+                            @click="closeModal()"
+                        >
+                            Maybe Later
+                        </button>
+                        <button 
+                            type="submit" 
+                            class="btn btn-primary"
+                            :disabled="isSubmitting"
+                        >
+                            <span x-show="isSubmitting" class="loading-spinner"></span>
+                            <span x-text="isSubmitting ? 'Sending...' : 'ðŸš€ Send My Idea'"></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Confirmation Modal -->
+        <div x-show="showConfirmation" class="confirmation-modal" style="display: none;">
+            <div class="modal-header">
+                <button class="modal-close" @click="closeModal()">âœ•</button>
+            </div>
+            <div class="modal-body">
+                <div class="success-icon">ðŸŽ‰</div>
+                <h3 class="confirmation-title">Awesome! We Got Your Idea!</h3>
+                <p class="confirmation-message">
+                    Thanks for sharing your calculator idea with us! We're excited to check it out and see if we can make it happen. 
+                    <br><br>
+                    <strong>What happens next?</strong><br>
+                    â€¢ You'll get a confirmation email shortly<br>
+                    â€¢ Our team will review your idea<br>
+                    â€¢ If we build it, you'll be the first to know!<br>
+                    â€¢ We might even name you as the inspiration ðŸ˜Š
+                </p>
+                <button 
+                    class="btn btn-primary"
+                    @click="closeModal()"
+                    style="width: 100%;"
+                >
+                    ðŸŽ¯ Close & Keep Calculating!
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,1645 @@
+﻿<!DOCTYPE html>
+<html lang="en" x-data="generationCalculator()">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generational Timeline Calculator - Discover Your Generation | Docket One</title>
+    <meta name="description" content="Professional generational timeline calculator to discover your generation with comprehensive insights into characteristics, work styles, and cultural context.">
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <style>
+        /* Premium Generational Theme Design System */
+        :root {
+            --gen-dark: #1e293b;
+            --gen-medium: #475569;
+            --gen-light: #64748b;
+            --gen-silver: #cbd5e1;
+            --gen-white: #f8fafc;
+            --gen-purple: #8b5cf6;
+            --gen-blue: #3b82f6;
+            --gen-teal: #14b8a6;
+            --primary: var(--gen-purple);
+            --primary-light: #a78bfa;
+            --primary-dark: #7c3aed;
+            --secondary: var(--gen-teal);
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --success: var(--gen-teal);
+            --bg-primary: #ffffff;
+            --bg-secondary: var(--gen-white);
+            --surface-elevated: #ffffff;
+            --surface-generational: rgba(139, 92, 246, 0.05);
+            --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            
+            /* Generational Colors */
+            --greatest: #8b5a2b;
+            --silent: #6b7280;
+            --boomer: #dc2626;
+            --genx: #7c3aed;
+            --millennial: #059669;
+            --genz: #ea580c;
+            --alpha: #0ea5e9;
+            
+            /* Spacing Scale */
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+            --space-3xl: 4rem;
+            
+            /* Border Radius */
+            --radius-sm: 6px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --radius-full: 9999px;
+            
+            /* Shadows */
+            --shadow-sm: 0 1px 2px 0 rgba(30, 41, 59, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(30, 41, 59, 0.1), 0 2px 4px -1px rgba(30, 41, 59, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(30, 41, 59, 0.1), 0 4px 6px -2px rgba(30, 41, 59, 0.05);
+            --shadow-generational: 0 8px 32px rgba(139, 92, 246, 0.15);
+            
+            /* Transitions */
+            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-primary);
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+            color: var(--gen-dark);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="1" fill="rgba(139,92,246,0.03)"/><circle cx="80" cy="80" r="2" fill="rgba(139,92,246,0.02)"/><circle cx="50" cy="30" r="1.5" fill="rgba(139,92,246,0.025)"/></svg>');
+            background-size: 200px 200px;
+            animation: generationalFloat 25s ease-in-out infinite;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        @keyframes generationalFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(180deg); }
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, var(--gen-dark) 0%, var(--gen-medium) 50%, var(--primary) 100%);
+            color: white;
+            padding: var(--space-3xl) var(--space-xl);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M10 50h20M30 50h20M50 50h20M70 50h20" stroke="rgba(255,255,255,0.1)" stroke-width="2" fill="none"/></svg>');
+            background-size: 150px 150px;
+            animation: timelineMove 20s linear infinite;
+            pointer-events: none;
+        }
+        
+        @keyframes timelineMove {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-150px); }
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-full);
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: var(--space-xl);
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        .hero-title {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            margin: 0 0 var(--space-lg) 0;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            animation: fadeInUp 0.6s ease-out 0.2s both;
+        }
+        
+        .hero-subtitle {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            opacity: 0.9;
+            margin: 0;
+            animation: fadeInUp 0.6s ease-out 0.4s both;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--space-2xl) var(--space-xl);
+        }
+        
+        .tabs {
+            display: flex;
+            background: var(--surface-generational);
+            border-radius: var(--radius-md);
+            padding: var(--space-xs);
+            margin-bottom: var(--space-xl);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .tab-btn {
+            flex: 1;
+            padding: var(--space-md) var(--space-lg);
+            background: transparent;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            color: var(--gen-medium);
+            cursor: pointer;
+            transition: var(--transition-base);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+        }
+        
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .tab-btn:not(.active):hover {
+            background: rgba(139, 92, 246, 0.1);
+            color: var(--primary);
+        }
+        
+        .calculator-layout {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: var(--space-2xl);
+            margin-top: var(--space-2xl);
+        }
+        
+        @media (max-width: 1200px) {
+            .calculator-layout {
+                grid-template-columns: 1fr;
+                gap: var(--space-xl);
+            }
+        }
+        
+        .calculator-panel {
+            background: var(--surface-elevated);
+            border-radius: var(--radius-xl);
+            padding: var(--space-2xl);
+            box-shadow: var(--shadow-generational);
+            border: 1px solid rgba(139, 92, 246, 0.1);
+            position: relative;
+            overflow: hidden;
+            height: fit-content;
+            position: sticky;
+            top: var(--space-xl);
+        }
+        
+        .calculator-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--primary-light));
+        }
+        
+        .panel-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gen-dark);
+            margin: 0 0 var(--space-lg) 0;
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+        
+        .input-group {
+            margin-bottom: var(--space-lg);
+        }
+        
+        .input-label {
+            display: block;
+            font-weight: 500;
+            color: var(--gen-dark);
+            margin-bottom: var(--space-sm);
+            font-size: 0.875rem;
+        }
+        
+        .input-field {
+            width: 100%;
+            padding: var(--space-lg);
+            border: 2px solid rgba(139, 92, 246, 0.1);
+            border-radius: var(--radius-md);
+            font-size: 1.125rem;
+            font-weight: 500;
+            text-align: center;
+            transition: var(--transition-base);
+            background: var(--bg-primary);
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+        }
+        
+        .input-help {
+            font-size: 0.75rem;
+            color: var(--gen-medium);
+            margin-top: var(--space-xs);
+            text-align: center;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            border: none;
+            padding: var(--space-lg) var(--space-xl);
+            border-radius: var(--radius-full);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition-base);
+            box-shadow: var(--shadow-md);
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .error-message {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            color: var(--danger);
+            padding: var(--space-md);
+            border-radius: var(--radius-md);
+            font-size: 0.875rem;
+            margin-top: var(--space-md);
+            text-align: center;
+        }
+        
+        .timeline-section {
+            background: var(--surface-elevated);
+            border-radius: var(--radius-xl);
+            padding: var(--space-2xl);
+            box-shadow: var(--shadow-generational);
+            border: 1px solid rgba(139, 92, 246, 0.1);
+            margin-bottom: var(--space-xl);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .timeline-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--primary-light));
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gen-dark);
+            margin: 0 0 var(--space-xl) 0;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+        }
+        
+        .timeline-container {
+            position: relative;
+            margin: var(--space-xl) 0;
+        }
+        
+        .timeline-track {
+            display: flex;
+            height: 80px;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .timeline-segment {
+            flex: 1;
+            position: relative;
+            cursor: pointer;
+            transition: var(--transition-base);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 0.875rem;
+            text-align: center;
+            padding: var(--space-sm);
+        }
+        
+        .timeline-segment:hover {
+            transform: scaleY(1.15);
+            z-index: 10;
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .timeline-segment.greatest { background: var(--greatest); }
+        .timeline-segment.silent { background: var(--silent); }
+        .timeline-segment.boomer { background: var(--boomer); }
+        .timeline-segment.genx { background: var(--genx); }
+        .timeline-segment.millennial { background: var(--millennial); }
+        .timeline-segment.genz { background: var(--genz); }
+        .timeline-segment.alpha { background: var(--alpha); }
+        
+        .birth-year-marker {
+            position: absolute;
+            top: -15px;
+            width: 6px;
+            height: 110px;
+            background: var(--gen-dark);
+            border-radius: var(--radius-sm);
+            transform: translateX(-3px);
+            transition: var(--transition-base);
+            box-shadow: var(--shadow-lg);
+            z-index: 20;
+        }
+        
+        .birth-year-marker::before {
+            content: attr(data-year);
+            position: absolute;
+            top: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gen-dark);
+            color: white;
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--radius-md);
+            font-size: 0.75rem;
+            font-weight: 700;
+            white-space: nowrap;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .birth-year-marker::after {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 8px solid var(--gen-dark);
+        }
+        
+        .timeline-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: var(--space-md);
+            font-size: 0.875rem;
+            color: var(--gen-medium);
+            font-weight: 500;
+        }
+        
+        .tooltip {
+            position: relative;
+        }
+        
+        .tooltip-content {
+            position: absolute;
+            bottom: calc(100% + 15px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gen-dark);
+            color: white;
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-md);
+            font-size: 0.75rem;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition-fast);
+            z-index: 1000;
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .tooltip-content::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 6px solid transparent;
+            border-top-color: var(--gen-dark);
+        }
+        
+        .tooltip:hover .tooltip-content {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .results-panel {
+            display: none;
+        }
+        
+        .results-panel.active {
+            display: block;
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        .result-card {
+            background: var(--surface-elevated);
+            border-radius: var(--radius-xl);
+            padding: var(--space-2xl);
+            box-shadow: var(--shadow-generational);
+            border: 1px solid rgba(139, 92, 246, 0.1);
+            margin-bottom: var(--space-xl);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .result-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--primary-light));
+        }
+        
+        .generation-header {
+            text-align: center;
+            margin-bottom: var(--space-2xl);
+            padding-bottom: var(--space-lg);
+            border-bottom: 2px solid var(--surface-generational);
+        }
+        
+        .generation-name {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            margin-bottom: var(--space-sm);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .generation-range {
+            font-size: 1.25rem;
+            color: var(--gen-medium);
+            margin-bottom: var(--space-sm);
+            font-weight: 500;
+        }
+        
+        .generation-age {
+            font-size: 1rem;
+            color: var(--gen-light);
+            font-weight: 500;
+        }
+        
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-xl);
+            margin-bottom: var(--space-2xl);
+        }
+        
+        .insight-card {
+            background: var(--surface-generational);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            border-left: 4px solid var(--primary);
+            transition: var(--transition-base);
+        }
+        
+        .insight-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .insight-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--gen-dark);
+            margin-bottom: var(--space-md);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+        
+        .insight-content {
+            color: var(--gen-medium);
+            line-height: 1.7;
+        }
+        
+        .cultural-section {
+            background: var(--surface-generational);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            margin-top: var(--space-xl);
+        }
+        
+        .cultural-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gen-dark);
+            margin-bottom: var(--space-xl);
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+        }
+        
+        .cultural-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-lg);
+        }
+        
+        .cultural-item {
+            background: var(--surface-elevated);
+            border-radius: var(--radius-md);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition-base);
+        }
+        
+        .cultural-item:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .cultural-item-title {
+            font-weight: 600;
+            color: var(--gen-dark);
+            margin-bottom: var(--space-sm);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            font-size: 1rem;
+        }
+        
+        .cultural-item-content {
+            color: var(--gen-medium);
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero {
+                padding: var(--space-2xl) var(--space-md);
+            }
+            
+            .container {
+                padding: var(--space-xl) var(--space-md);
+            }
+            
+            .calculator-panel,
+            .result-card,
+            .timeline-section {
+                padding: var(--space-lg);
+            }
+            
+            /* Mobile Horizontal Scrollable Timeline */
+            .timeline-container {
+                overflow-x: auto;
+                overflow-y: hidden;
+                padding-bottom: var(--space-md);
+                margin-bottom: var(--space-lg);
+            }
+            
+            .timeline-track {
+                min-width: 800px; /* Ensure timeline is wide enough to scroll */
+                height: 100px; /* Slightly taller for better touch targets */
+                flex-direction: row; /* Keep horizontal */
+            }
+            
+            .timeline-segment {
+                height: 100%;
+                min-width: 100px; /* Minimum width for readability */
+                flex: 1;
+                font-size: 0.75rem;
+                padding: var(--space-sm);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                white-space: nowrap;
+            }
+            
+            .timeline-segment:hover {
+                transform: scaleY(1.1);
+                z-index: 10;
+            }
+            
+            .birth-year-marker {
+                width: 6px;
+                height: 130px; /* Taller to accommodate larger timeline */
+                top: -15px;
+                left: auto;
+                right: auto;
+                transform: translateX(-3px);
+            }
+            
+            .birth-year-marker::before {
+                top: -35px;
+                left: 50%;
+                right: auto;
+                transform: translateX(-50%);
+                white-space: nowrap;
+            }
+            
+            .birth-year-marker::after {
+                top: -15px;
+                left: 50%;
+                right: auto;
+                transform: translateX(-50%);
+                border-left: 6px solid transparent;
+                border-right: 6px solid transparent;
+                border-top: 8px solid var(--gen-dark);
+                border-bottom: none;
+            }
+            
+            .timeline-labels {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                gap: auto;
+                margin-top: var(--space-md);
+                min-width: 800px; /* Match timeline width */
+            }
+            
+            .tooltip-content {
+                bottom: calc(100% + 15px);
+                left: 50%;
+                right: auto;
+                transform: translateX(-50%);
+                white-space: nowrap;
+            }
+            
+            .tooltip-content::after {
+                top: 100%;
+                left: 50%;
+                right: auto;
+                bottom: auto;
+                transform: translateX(-50%);
+                border-left: 6px solid transparent;
+                border-right: 6px solid transparent;
+                border-top: 6px solid var(--gen-dark);
+                border-bottom: none;
+            }
+            
+            /* Add scrollbar styling for better UX */
+            .timeline-container::-webkit-scrollbar {
+                height: 8px;
+            }
+            
+            .timeline-container::-webkit-scrollbar-track {
+                background: var(--surface-generational);
+                border-radius: var(--radius-sm);
+            }
+            
+            .timeline-container::-webkit-scrollbar-thumb {
+                background: var(--primary);
+                border-radius: var(--radius-sm);
+            }
+            
+            .timeline-container::-webkit-scrollbar-thumb:hover {
+                background: var(--primary-dark);
+            }
+            
+            /* Add scroll hint */
+            .timeline-section {
+                position: relative;
+            }
+            
+            .timeline-section::after {
+                content: '← Scroll to explore timeline →';
+                position: absolute;
+                bottom: var(--space-md);
+                left: 50%;
+                transform: translateX(-50%);
+                font-size: 0.75rem;
+                color: var(--gen-medium);
+                opacity: 0.7;
+                pointer-events: none;
+            }
+            
+            .insights-grid,
+            .cultural-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .tabs {
+                margin-left: var(--space-md);
+                margin-right: var(--space-md);
+            }
+        }
+        
+        /* Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+        
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+        
+        *:focus {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+        }
+        
+        .timeline-segment:focus {
+            outline: 3px solid var(--primary);
+            outline-offset: 3px;
+            z-index: 15;
+        }
+    </style>
+</head>
+<body x-data="{ showModal: false }">
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="../../index.html">🧮 Docket One</a>
+            </div>
+            <div class="nav-search">
+                <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input" aria-label="Search calculators">
+                <div id="search-results" class="search-results"></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../BigKidMath/index.html" class="category-main-link">Big Kid Math</a></li>
+                <li><a href="../CipherLab/index.html" class="category-main-link">Cipher Lab</a></li>
+                <li><a href="../GeekGalaxy/index.html" class="category-main-link">Geek Galaxy</a></li>
+                <li><a href="../LifeHacks/index.html" class="category-main-link">Life Hacks</a></li>
+                <li><a href="../Math_Magik/index.html" class="category-main-link">Math Magik</a></li>
+                <li><a href="../Otaku_Ops/index.html" class="category-main-link">Otaku Ops</a></li>
+                <li><a href="../../index.html" class="home-link">Unit Converter</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span>🕰️</span>
+                <span>Generational Discovery Tool</span>
+            </div>
+            <h1 class="hero-title">Generational Timeline Calculator</h1>
+            <p class="hero-subtitle">Discover your generation and explore the unique characteristics, work styles, and cultural context that shaped your cohort</p>
+        </div>
+    </section>
+
+    <main class="container">
+        <div class="tabs">
+            <button @click="activeTab = 'calculator'" :class="{'active': activeTab === 'calculator'}" class="tab-btn">
+                <span>🧮</span>
+                <span>Calculator</span>
+            </button>
+            <button @click="activeTab = 'timeline'" :class="{'active': activeTab === 'timeline'}" class="tab-btn">
+                <span>📊</span>
+                <span>Timeline</span>
+            </button>
+            <button @click="activeTab = 'results'" :class="{'active': activeTab === 'results'}" class="tab-btn" :disabled="!result">
+                <span>📈</span>
+                <span>Results</span>
+            </button>
+        </div>
+        
+        <div x-show="activeTab === 'calculator'" class="calculator-layout">
+            <div class="calculator-panel">
+                <h2 class="panel-title">
+                    <span>🎯</span>
+                    Calculate Your Generation
+                </h2>
+                
+                <div class="input-group">
+                    <label for="birthYear" class="input-label">Enter Your Birth Year</label>
+                    <input
+                        type="number"
+                        id="birthYear"
+                        x-model="birthYear"
+                        class="input-field"
+                        placeholder="e.g., 1985"
+                        min="1900"
+                        :max="new Date().getFullYear()"
+                        @input="calculateGeneration()"
+                        @keydown.enter="calculateGeneration()"
+                    >
+                    <div class="input-help">Enter any year from 1900 to present</div>
+                </div>
+                
+                <button
+                    type="button"
+                    class="btn-primary"
+                    @click="calculateGeneration(); if(calculated) { activeTab = 'results'; }"
+                    :disabled="!birthYear"
+                >
+                    <span>🚀</span>
+                    <span>Discover My Generation</span>
+                </button>
+                
+                <div x-show="error" x-text="error" class="error-message"></div>
+            </div>
+            
+            <div class="timeline-section">
+                <h2 class="section-title">
+                    <span>🕰️</span>
+                    Interactive Generational Timeline
+                </h2>
+                <p style="text-align: center; color: var(--gen-medium); margin-bottom: var(--space-xl);">
+                    Hover over each generation segment to see details
+                </p>
+                <div class="timeline-container">
+                    <div class="timeline-track">
+                        <template x-for="generation in generations" :key="generation.name">
+                            <div
+                                :class="`timeline-segment tooltip ${generation.class}`"
+                                tabindex="0"
+                                role="button"
+                                :aria-label="`${generation.name} generation, born ${generation.range}`"
+                            >
+                                <span x-text="generation.shortName || generation.name.split(' ')[0]"></span>
+                                <div class="tooltip-content">
+                                    <strong x-text="generation.name"></strong><br>
+                                    <span x-text="generation.range"></span>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                    
+                    <!-- Birth Year Marker -->
+                    <div
+                        x-show="result"
+                        class="birth-year-marker"
+                        :style="window.innerWidth <= 768 ? `left: ${result?.mobilePixelPosition}px` : `left: ${result?.percentage}%`"
+                        :data-year="birthYear"
+                    ></div>
+                    
+                    <div class="timeline-labels">
+                        <span>Greatest (1901)</span>
+                        <span x-text="'Alpha (' + new Date().getFullYear() + ')'"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div x-show="activeTab === 'timeline'" class="timeline-section" style="margin-top: var(--space-2xl);">
+            <h2 class="section-title">
+                <span>📊</span>
+                Complete Generational Timeline
+            </h2>
+            <p style="text-align: center; color: var(--gen-medium); margin-bottom: var(--space-2xl);">
+                Explore all generations and their defining characteristics
+            </p>
+            <div class="timeline-container">
+                <div class="timeline-track">
+                    <template x-for="generation in generations" :key="generation.name">
+                        <div
+                            :class="`timeline-segment tooltip ${generation.class}`"
+                            tabindex="0"
+                            role="button"
+                            :aria-label="`${generation.name} generation, born ${generation.range}`"
+                        >
+                            <span x-text="generation.shortName || generation.name.split(' ')[0]"></span>
+                            <div class="tooltip-content">
+                                <strong x-text="generation.name"></strong><br>
+                                <span x-text="generation.range"></span>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+                
+                <!-- Birth Year Marker -->
+                <div
+                    x-show="result"
+                    class="birth-year-marker"
+                    :style="window.innerWidth <= 768 ? `left: ${result?.mobilePixelPosition}px` : `left: ${result?.percentage}%`"
+                    :data-year="birthYear"
+                ></div>
+                
+                <div class="timeline-labels">
+                    <span>Greatest (1901)</span>
+                    <span x-text="'Alpha (' + new Date().getFullYear() + ')'"></span>
+                </div>
+            </div>
+
+            <!-- Generation Overview Cards -->
+            <div class="insights-grid" style="margin-top: var(--space-2xl);">
+                <template x-for="generation in generations" :key="generation.name">
+                    <div class="insight-card">
+                        <h3 class="insight-title">
+                            <span x-text="getGenerationIcon(generation.class)"></span>
+                            <span x-text="generation.name"></span>
+                        </h3>
+                        <p class="insight-content">
+                            <strong x-text="generation.range"></strong><br>
+                            <span x-text="generation.characteristics"></span>
+                        </p>
+                    </div>
+                </template>
+            </div>
+        </div>
+        
+        <div x-show="activeTab === 'results'" class="results-panel" :class="{'active': result}">
+            <div x-show="!result" style="text-align: center; padding: var(--space-3xl); color: var(--gen-medium);">
+                <h3 style="font-size: 1.5rem; margin-bottom: var(--space-md);">No Results Yet</h3>
+                <p>Enter your birth year in the calculator to see your generational analysis.</p>
+            </div>
+            
+            <div x-show="result">
+                <article class="result-card">
+                    <header class="generation-header">
+                        <h2 class="generation-name" x-text="result?.generation"></h2>
+                        <p class="generation-range" x-text="result?.range"></p>
+                        <p class="generation-age" x-text="result?.ageInfo"></p>
+                    </header>
+                    
+                    <div class="insights-grid">
+                        <div class="insight-card">
+                            <h3 class="insight-title">
+                                <span>🎯</span>
+                                Core Characteristics
+                            </h3>
+                            <p class="insight-content" x-text="result?.characteristics"></p>
+                        </div>
+                        
+                        <div class="insight-card">
+                            <h3 class="insight-title">
+                                <span>💼</span>
+                                Work Style Preferences
+                            </h3>
+                            <p class="insight-content" x-text="result?.workStyle"></p>
+                        </div>
+                        
+                        <div class="insight-card">
+                            <h3 class="insight-title">
+                                <span>💻</span>
+                                Technology Adoption
+                            </h3>
+                            <p class="insight-content" x-text="result?.technology"></p>
+                        </div>
+                        
+                        <div class="insight-card">
+                            <h3 class="insight-title">
+                                <span>💰</span>
+                                Financial Outlook
+                            </h3>
+                            <p class="insight-content" x-text="result?.financial"></p>
+                        </div>
+                    </div>
+                    
+                    <div class="cultural-section">
+                        <h3 class="cultural-title">
+                            <span>🌟</span>
+                            Cultural Context & Era Defining Elements
+                        </h3>
+                        <div class="cultural-grid">
+                            <div class="cultural-item">
+                                <h4 class="cultural-item-title">
+                                    <span>🎵</span>
+                                    Music & Sound
+                                </h4>
+                                <p class="cultural-item-content" x-text="result?.cultural?.music"></p>
+                            </div>
+                            <div class="cultural-item">
+                                <h4 class="cultural-item-title">
+                                    <span>🎬</span>
+                                    Entertainment
+                                </h4>
+                                <p class="cultural-item-content" x-text="result?.cultural?.entertainment"></p>
+                            </div>
+                            <div class="cultural-item">
+                                <h4 class="cultural-item-title">
+                                    <span>⚡</span>
+                                    Technology
+                                </h4>
+                                <p class="cultural-item-content" x-text="result?.cultural?.tech"></p>
+                            </div>
+                            <div class="cultural-item">
+                                <h4 class="cultural-item-title">
+                                    <span>🌍</span>
+                                    Major Events
+                                </h4>
+                                <p class="cultural-item-content" x-text="result?.cultural?.events"></p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <script src="../../common/navbar-enhanced.js"></script>
+    <script>
+        function generationCalculator() {
+            return {
+                activeTab: 'calculator',
+                birthYear: '',
+                result: null,
+                error: '',
+                calculated: false,
+                
+                generations: [
+                    {
+                        name: "Greatest Generation",
+                        shortName: "Greatest",
+                        range: "1901-1927",
+                        start: 1901,
+                        end: 1927,
+                        characteristics: "Hardworking, thrifty, and civic-minded. Shaped by the Great Depression and WWII, they value sacrifice, duty, and collective action over individual interests.",
+                        workStyle: "Hierarchical and structured approach. Prefer clear chains of command and formal communication. Strong work ethic with emphasis on loyalty and job security.",
+                        technology: "Adapted to technology out of necessity. Prefer simple, reliable tools and personal assistance for complex digital tasks.",
+                        financial: "Conservative investors focused on preservation. Emphasis on savings, government bonds, and traditional investment vehicles.",
+                        cultural: {
+                            music: "Big Band, Swing, Jazz, Classical",
+                            entertainment: "Radio shows, Early Hollywood, Live theater",
+                            tech: "Telephone, Radio, Early television",
+                            events: "Great Depression, WWII, New Deal"
+                        },
+                        color: "var(--greatest)",
+                        class: "greatest"
+                    },
+                    {
+                        name: "Silent Generation",
+                        shortName: "Silent",
+                        range: "1928-1945",
+                        start: 1928,
+                        end: 1945,
+                        characteristics: "Conformist, disciplined, and cautious. Raised during economic uncertainty and war, they value stability, hard work, and following established rules.",
+                        workStyle: "Process-oriented and methodical. Prefer traditional management structures and gradual career progression. Value stability over innovation.",
+                        technology: "Late adopters who approach new technology cautiously. Prefer proven solutions and often need training for digital transitions.",
+                        financial: "Risk-averse with focus on steady growth. Traditional investment approaches with emphasis on blue-chip stocks and certificates of deposit.",
+                        cultural: {
+                            music: "Early Rock & Roll, Country, Folk",
+                            entertainment: "Television emergence, Suburban culture",
+                            tech: "Television, Suburban appliances, Automobiles",
+                            events: "Korean War, Cold War, Civil Rights"
+                        },
+                        color: "var(--silent)",
+                        class: "silent"
+                    },
+                    {
+                        name: "Baby Boomers",
+                        shortName: "Boomers",
+                        range: "1946-1964",
+                        start: 1946,
+                        end: 1964,
+                        characteristics: "Optimistic, driven, and idealistic. Experienced unprecedented prosperity and social change. Value personal growth and breaking barriers.",
+                        workStyle: "Workaholics who built careers around long hours. Prefer face-to-face meetings and phone communication for important matters.",
+                        technology: "Learned technology as adults. Comfortable with email and basic internet but prefer traditional methods for complex tasks.",
+                        financial: "Mix of conservative and growth strategies. Experienced market volatility and focus on retirement planning.",
+                        cultural: {
+                            music: "Rock & Roll, Folk, Motown, Psychedelic",
+                            entertainment: "Woodstock, Moon landing, Color TV",
+                            tech: "Color television, Personal computers",
+                            events: "Vietnam War, Civil Rights, Watergate"
+                        },
+                        color: "var(--boomer)",
+                        class: "boomer"
+                    },
+                    {
+                        name: "Generation X",
+                        shortName: "Gen X",
+                        range: "1965-1980",
+                        start: 1965,
+                        end: 1980,
+                        characteristics: "Independent, skeptical, and self-reliant. The 'latchkey generation' values work-life balance, authenticity, and practical solutions.",
+                        workStyle: "Prefer autonomy and flexibility. Comfortable with digital tools but value efficiency over process. Excel at independent work.",
+                        technology: "Bridge between analog and digital. Adapted throughout careers and comfortable with most tools while maintaining healthy skepticism.",
+                        financial: "Pragmatic investors who experienced downturns. Cautious but strategic approach focused on financial independence.",
+                        cultural: {
+                            music: "MTV, Grunge, Hip-Hop, Alternative Rock",
+                            entertainment: "Cable TV, Video games, Blockbuster",
+                            tech: "PCs, Internet, Mobile phones",
+                            events: "Cold War end, AIDS crisis, Recessions"
+                        },
+                        color: "var(--genx)",
+                        class: "genx"
+                    },
+                    {
+                        name: "Millennials", 
+                        shortName: "Millennials",
+                        range: "1981-1996",
+                        start: 1981,
+                        end: 1996,
+                        characteristics: "Collaborative, tech-savvy, and purpose-driven. Value flexibility, feedback, and meaningful work. Highly educated and diverse.",
+                        workStyle: "Prefer collaborative environments with frequent feedback. Comfortable with remote work and digital communication platforms.",
+                        technology: "Digital natives who grew up with evolving tech. Seamlessly integrate platforms and early adopters of social media.",
+                        financial: "Delayed milestones due to economic challenges. Interested in alternative investments and socially responsible options.",
+                        cultural: {
+                            music: "Digital music, Streaming, Indie, Electronic",
+                            entertainment: "Social media, Netflix, YouTube",
+                            tech: "Smartphones, Social networks, Cloud computing",
+                            events: "9/11, Iraq War, 2008 Crisis, Climate change"
+                        },
+                        color: "var(--millennial)",
+                        class: "millennial"
+                    },
+                    {
+                        name: "Generation Z",
+                        shortName: "Gen Z",
+                        range: "1997-2012",
+                        start: 1997,
+                        end: 2012,
+                        characteristics: "Pragmatic, entrepreneurial, and socially conscious. True digital natives who value authenticity, individuality, and social justice.",
+                        workStyle: "Prefer visual communication and instant feedback. Comfortable with gig economy and non-traditional career paths.",
+                        technology: "Instinctively understand new platforms. Seamlessly multitask across devices and prefer video over text communication.",
+                        financial: "Cautious about debt but interested in early investing. Drawn to cryptocurrencies and alternative financial services.",
+                        cultural: {
+                            music: "Streaming, TikTok sounds, Genre-blending",
+                            entertainment: "TikTok, Instagram, Gaming, Short-form content",
+                            tech: "Smartphones from birth, Apps, AI integration",
+                            events: "COVID-19, Climate activism, Social justice"
+                        },
+                        color: "var(--genz)",
+                        class: "genz"
+                    },
+                    {
+                        name: "Generation Alpha",
+                        shortName: "Gen Alpha",
+                        range: "2013-Present",
+                        start: 2013,
+                        end: new Date().getFullYear(),
+                        characteristics: "Tech-integrated, globally connected, and environmentally conscious. Growing up with AI and immersive technology as standard.",
+                        workStyle: "Too young to determine, but likely to value flexibility, tech integration, and purpose-driven work with global perspectives.",
+                        technology: "Born into smartphones and smart homes. Growing up with AI assistants, voice interfaces, and immersive technologies.",
+                        financial: "Too early to establish patterns, but growing up with digital payments and cryptocurrency awareness from early age.",
+                        cultural: {
+                            music: "AI-generated, Global fusion, Interactive content",
+                            entertainment: "Interactive media, AR/VR, Personalized algorithms",
+                            tech: "AI assistants, Voice interfaces, Smart homes",
+                            events: "Climate response, AI revolution, Space exploration"
+                        },
+                        color: "var(--alpha)",
+                        class: "alpha"
+                    }
+                ],
+                
+                calculateGeneration() {
+                    console.log('Calculate called with birth year:', this.birthYear);
+                    this.error = '';
+                    const year = parseInt(this.birthYear);
+                    const currentYear = new Date().getFullYear();
+                    
+                    if (!this.birthYear || this.birthYear.toString().trim() === '') {
+                        this.error = 'Please enter your birth year';
+                        this.result = null;
+                        this.calculated = false;
+                        console.log('Error: Empty birth year');
+                        return;
+                    }
+                    
+                    if (isNaN(year) || year < 1900 || year > currentYear) {
+                        this.error = `Please enter a valid year between 1900 and ${currentYear}`;
+                        this.result = null;
+                        this.calculated = false;
+                        console.log('Error: Invalid year range');
+                        return;
+                    }
+                    
+                    const generation = this.generations.find(gen => 
+                        year >= gen.start && year <= gen.end
+                    );
+                    
+                    console.log('Found generation:', generation?.name);
+                    
+                    if (generation) {
+                        // Calculate position based on proportional segments
+                        const genIndex = this.generations.findIndex(g => g.name === generation.name);
+                        const totalGenerations = this.generations.length;
+                        
+                        // Each generation gets equal width in the timeline (100% / 7 generations)
+                        const segmentWidth = 100 / totalGenerations;
+                        
+                        // Position within the generation (0-1)
+                        const positionInGen = (year - generation.start) / (generation.end - generation.start);
+                        
+                        // Final percentage: segment start + position within segment
+                        const percentage = (genIndex * segmentWidth) + (positionInGen * segmentWidth);
+                        
+                        const currentAge = currentYear - year;
+                        
+                        this.result = {
+                            generation: generation.name,
+                            range: `Birth years: ${generation.range}`,
+                            percentage: Math.max(0, Math.min(100, percentage)).toFixed(2),
+                            ageInfo: `Currently ${currentAge} years old`,
+                            characteristics: generation.characteristics,
+                            workStyle: generation.workStyle,
+                            technology: generation.technology,
+                            financial: generation.financial,
+                            cultural: generation.cultural,
+                            color: generation.color,
+                            class: generation.class,
+                            // Add mobile positioning
+                            mobilePixelPosition: this.calculateMobilePixelPosition(genIndex, positionInGen)
+                        };
+                        
+                        this.calculated = true;
+                        this.error = '';
+                        console.log('Result set:', this.result);
+                        console.log('Calculated flag:', this.calculated);
+                    } else {
+                        this.error = "Could not determine generation for this year";
+                        this.result = null;
+                        this.calculated = false;
+                        console.log('Error: No generation found');
+                    }
+                },
+                
+                calculateMobilePixelPosition(genIndex, positionInGen) {
+                    // Mobile timeline is 800px wide with 7 equal segments
+                    const mobileTimelineWidth = 800;
+                    const segmentWidth = mobileTimelineWidth / 7; // ~114px per segment
+                    
+                    // Calculate pixel position: segment start + position within segment
+                    const pixelPosition = (genIndex * segmentWidth) + (positionInGen * segmentWidth);
+                    
+                    return pixelPosition;
+                },
+                
+                getGenerationIcon(generationClass) {
+                    const icons = {
+                        'greatest': '🏛️',
+                        'silent': '🤫',
+                        'boomer': '🌻',
+                        'genx': '📼',
+                        'millennial': '📱',
+                        'genz': '🎮',
+                        'alpha': '🤖'
+                    };
+                    return icons[generationClass] || '👥';
+                }
+            }
+        }
+    </script>
+
+    <!-- Newsletter Bar -->
+<!-- Newsletter Bar - Include before footer -->
+<div class="newsletter-bar" x-data="newsletterForm()">
+    <div class="newsletter-container">
+        <div class="newsletter-content">
+            <div class="newsletter-info">
+                <h3>ðŸŽ‰ Join Our Calculator Community!</h3>
+                <p>Get updates on new fun calculators and practical tools</p>
+            </div>
+            <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
+                <input 
+                    type="email" 
+                    class="newsletter-input"
+                    placeholder="Enter your email for calculator updates"
+                    x-model="email"
+                    required
+                >
+                <button 
+                    type="submit" 
+                    class="newsletter-submit"
+                    :disabled="isSubmitting"
+                >
+                    <span x-show="isSubmitting" class="loading-spinner"></span>
+                    <span x-text="isSubmitting ? 'Subscribing...' : 'ðŸš€ Subscribe'"></span>
+                </button>
+            </form>
+            <div x-show="showSuccess" class="newsletter-success" style="display: none;">
+                <p style="color: var(--accent-light); font-weight: 600;">
+                    âœ… Awesome! You'll get updates on the coolest new calculators!
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <!-- Footer -->
+<!-- Main Footer - Include at bottom of every page -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>ðŸŽ¯ About Docket.One</h4>
+                <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the tools for modern life.</p>
+                <p>Practical meets playful. Because adulting is hard enough.</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>ðŸŽª Calculator Categories</h4>
+                <ul class="footer-links">
+                    <li><a href="/pages/BigKidMath/"><span class="calculator-emoji">ðŸ§®</span> BigKidMath - Adult Life Tools</a></li>
+                    <li><a href="/pages/CipherLab/"><span class="calculator-emoji">ðŸ”</span> CipherLab - Secret Codes & Security</a></li>
+                    <li><a href="/pages/GeekGalaxy/"><span class="calculator-emoji">ðŸš€</span> GeekGalaxy - Sci-Fi & Fantasy Fun</a></li>
+                    <li><a href="/pages/LifeHacks/"><span class="calculator-emoji">âš¡</span> LifeHacks - Productivity & Wellness</a></li>
+                    <li><a href="/pages/Math_Magik/"><span class="calculator-emoji">ðŸŽ­</span> Math Magik - Mathematical Wizardry</a></li>
+                    <li><a href="/pages/Otaku_Ops/"><span class="calculator-emoji">ðŸŽŒ</span> Otaku Ops - Anime & Culture</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>ðŸ’¬ Support & Info</h4>
+                <ul class="footer-links">
+                    <li><a href="/help"><span class="calculator-emoji">â“</span> Help & FAQ</a></li>
+                    <li><a href="/privacy"><span class="calculator-emoji">ðŸ”’</span> Privacy Policy</a></li>
+                    <li><a href="/terms"><span class="calculator-emoji">ðŸ“‹</span> Terms of Service</a></li>
+                    <li><a href="/accessibility"><span class="calculator-emoji">â™¿</span> Accessibility</a></li>
+                    <li><a href="/contact"><span class="calculator-emoji">ðŸ“§</span> Contact Us</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <button 
+                    class="request-calculator-btn"
+                    @click="showModal = true"
+                >
+                    ðŸ’¡ Request a Calculator
+                </button>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="footer-logo">ðŸ§® Docket.One</div>
+            <div class="footer-copyright">
+                Â© 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
+            </div>
+            <div class="social-links">
+                <a href="#" class="social-link" aria-label="Twitter">ð•</a>
+                <a href="#" class="social-link" aria-label="LinkedIn">ðŸ’¼</a>
+                <a href="#" class="social-link" aria-label="GitHub">ðŸ™</a>
+                <a href="#" class="social-link" aria-label="Email">ðŸ“§</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- Request Modal -->
+<!-- Calculator Request Modal - Include once per page (usually at end of body) -->
+<div 
+    x-data="calculatorRequestForm()"
+    x-show="showModal"
+    x-cloak
+    class="modal-overlay"
+    @click.self="closeModal()"
+    style="display: none;"
+>
+    <div class="modal-content">
+        <!-- Request Form -->
+        <div x-show="!showConfirmation">
+            <div class="modal-header">
+                <h2 class="modal-title">ðŸ’¡ Request a Fun Calculator</h2>
+                <p class="modal-subtitle">Got an idea for a calculator that would make life easier or more fun? We want to hear it!</p>
+                <button class="modal-close" @click="closeModal()">âœ•</button>
+            </div>
+
+            <div class="modal-body">
+                <form @submit.prevent="submitRequest()">
+                    <div class="form-group">
+                        <label class="form-label" for="userName">Your Name *</label>
+                        <input 
+                            type="text" 
+                            id="userName"
+                            class="form-input"
+                            x-model="formData.name"
+                            required
+                            placeholder="What should we call you?"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="userEmail">Email Address *</label>
+                        <input 
+                            type="email" 
+                            id="userEmail"
+                            class="form-input"
+                            x-model="formData.email"
+                            required
+                            placeholder="your@email.com"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="requestType">What Kind of Request? *</label>
+                        <select 
+                            id="requestType"
+                            class="form-input form-select"
+                            x-model="formData.type"
+                            required
+                        >
+                            <option value="">Choose your request type</option>
+                            <option value="new-calculator">ðŸ†• Brand New Calculator</option>
+                            <option value="enhancement">âš¡ Improve Existing Calculator</option>
+                            <option value="category">ðŸŽª New Category Idea</option>
+                            <option value="feature">âœ¨ Cool New Feature</option>
+                            <option value="other">ðŸ¤” Something Else Entirely</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="calculatorTitle">Calculator Name/Title *</label>
+                        <input 
+                            type="text" 
+                            id="calculatorTitle"
+                            class="form-input"
+                            x-model="formData.title"
+                            required
+                            placeholder="e.g., 'Should I Call In Sick Calculator', 'Pizza vs Ramen Budget Optimizer'"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="description">Tell Us About Your Idea! *</label>
+                        <textarea 
+                            id="description"
+                            class="form-input form-textarea"
+                            x-model="formData.description"
+                            required
+                            placeholder="Describe your calculator idea! What would it calculate? What inputs would users enter? What would be the fun/practical output? Be as creative as you want - the weirder, the better!"
+                        ></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="category">Which Category Fits Best?</label>
+                        <select 
+                            id="category"
+                            class="form-input form-select"
+                            x-model="formData.category"
+                        >
+                            <option value="">Pick a category (or suggest a new one!)</option>
+                            <option value="BigKidMath">ðŸ§® BigKidMath - Adult Life Decisions</option>
+                            <option value="CipherLab">ðŸ” CipherLab - Codes & Security</option>
+                            <option value="GeekGalaxy">ðŸš€ GeekGalaxy - Sci-Fi & Fantasy</option>
+                            <option value="LifeHacks">âš¡ LifeHacks - Productivity & Wellness</option>
+                            <option value="Math_Magik">ðŸŽ­ Math Magik - Mathematical Magic</option>
+                            <option value="Otaku_Ops">ðŸŽŒ Otaku Ops - Anime & Pop Culture</option>
+                            <option value="new-category">ðŸ†• I have a new category idea!</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="priority">How Much Do You Want This?</label>
+                        <select 
+                            id="priority"
+                            class="form-input form-select"
+                            x-model="formData.priority"
+                        >
+                            <option value="low">ðŸ˜Š Would be nice to have</option>
+                            <option value="medium">ðŸ˜ Really want this!</option>
+                            <option value="high">ðŸ¤© NEED this in my life!</option>
+                            <option value="urgent">ðŸš¨ My life depends on it!</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="useCase">Why Would This Be Awesome?</label>
+                        <textarea 
+                            id="useCase"
+                            class="form-input form-textarea"
+                            x-model="formData.useCase"
+                            placeholder="Tell us your story! Are you a student trying to optimize study time? A professional making tough decisions? Someone who just thinks it would be hilarious? We love hearing why calculators matter to you!"
+                        ></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button 
+                            type="button" 
+                            class="btn btn-secondary"
+                            @click="closeModal()"
+                        >
+                            Maybe Later
+                        </button>
+                        <button 
+                            type="submit" 
+                            class="btn btn-primary"
+                            :disabled="isSubmitting"
+                        >
+                            <span x-show="isSubmitting" class="loading-spinner"></span>
+                            <span x-text="isSubmitting ? 'Sending...' : 'ðŸš€ Send My Idea'"></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Confirmation Modal -->
+        <div x-show="showConfirmation" class="confirmation-modal" style="display: none;">
+            <div class="modal-header">
+                <button class="modal-close" @click="closeModal()">âœ•</button>
+            </div>
+            <div class="modal-body">
+                <div class="success-icon">ðŸŽ‰</div>
+                <h3 class="confirmation-title">Awesome! We Got Your Idea!</h3>
+                <p class="confirmation-message">
+                    Thanks for sharing your calculator idea with us! We're excited to check it out and see if we can make it happen. 
+                    <br><br>
+                    <strong>What happens next?</strong><br>
+                    â€¢ You'll get a confirmation email shortly<br>
+                    â€¢ Our team will review your idea<br>
+                    â€¢ If we build it, you'll be the first to know!<br>
+                    â€¢ We might even name you as the inspiration ðŸ˜Š
+                </p>
+                <button 
+                    class="btn btn-primary"
+                    @click="closeModal()"
+                    style="width: 100%;"
+                >
+                    ðŸŽ¯ Close & Keep Calculating!
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

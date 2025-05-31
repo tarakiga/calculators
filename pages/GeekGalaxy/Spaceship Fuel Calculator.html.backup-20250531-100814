@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spaceship Fuel Calculator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+</head>
+<body class="bg-gray-900 text-white min-h-screen">
+    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="../../index.html">🧮 Docket One</a>
+            </div>
+            <div class="nav-search">
+                <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input" aria-label="Search calculators">
+                <div id="search-results" class="search-results"></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../BigKidMath/index.html" class="category-link">Big Kid Math</a></li>
+                <li><a href="../CipherLab/index.html" class="category-link">Cipher Lab</a></li>
+                <li><a href="../GeekGalaxy/index.html" class="category-link active">Geek Galaxy</a></li>
+                <li><a href="../LifeHacks/index.html" class="category-link ">Life Hacks</a></li>
+                <li><a href="../Math_Magik/index.html" class="category-link">Math Magik</a></li>
+                <li><a href="../Otaku_Ops/index.html" class="category-link">Otaku Ops</a></li>
+                <li><a href="../../index.html" class="home-link">🏠 Home</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+
+    <div class="container mx-auto px-4 py-12" x-data="fuelCalculator()">
+        <div class="max-w-3xl mx-auto bg-gray-800 rounded-xl shadow-2xl overflow-hidden">
+            <!-- Header with space theme -->
+            <div class="relative h-48 bg-gradient-to-b from-purple-900 to-gray-900 flex items-center justify-center">
+                <div class="absolute inset-0 overflow-hidden">
+                    <div class="absolute top-10 left-20 w-2 h-2 bg-white rounded-full animate-twinkle"></div>
+                    <div class="absolute top-32 right-24 w-3 h-3 bg-yellow-200 rounded-full animate-twinkle" style="animation-delay: 0.5s;"></div>
+                    <div class="absolute top-16 right-40 w-1 h-1 bg-blue-300 rounded-full animate-twinkle" style="animation-delay: 1s;"></div>
+                    <div class="absolute bottom-20 left-40 w-2 h-2 bg-red-300 rounded-full animate-twinkle" style="animation-delay: 1.5s;"></div>
+                </div>
+                <h1 class="text-4xl md:text-5xl font-bold text-center z-10">
+                    <span class="text-yellow-400">Spaceship</span> Fuel Calculator
+                </h1>
+            </div>
+            
+            <!-- Calculator Form -->
+            <div class="p-8">
+                <div class="mb-8">
+                    <label for="fuelAmount" class="block text-lg font-medium mb-2">Earth Fuel Amount</label>
+                    <div class="relative">
+                        <label for="input-oymzxorea" class="sr-only">Input field</label>
+            <input 
+                            x-model="fuelAmount" 
+                            id="fuelAmount" 
+                            type="number" id="input-oymzxorea" aria-label="Calculator input" 
+                            min="0" 
+                            step="any" 
+                            class="w-full bg-gray-700 rounded-lg py-3 px-4 text-white focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
+                            placeholder="Enter amount">
+                        <div class="absolute right-3 top-3 text-gray-400">
+                            <select x-model="fuelUnit" class="bg-gray-700 rounded-lg px-2 py-1">
+                                <option value="liters">liters</option>
+                                <option value="gallons">gallons</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mb-8">
+                    <label for="fuelType" class="block text-lg font-medium mb-2">Earth Fuel Type</label>
+                    <select 
+                        x-model="fuelType" 
+                        id="fuelType" 
+                        class="w-full bg-gray-700 rounded-lg py-3 px-4 text-white focus:ring-2 focus:ring-yellow-400 focus:border-transparent">
+                        <option value="gasoline">Gasoline</option>
+                        <option value="diesel">Diesel</option>
+                        <option value="kerosene">Kerosene</option>
+                        <option value="hydrogen">Hydrogen</option>
+                    </select>
+                </div>
+                
+                <button aria-label="Perform action" 
+                    @click="calculate" 
+                    class="w-full bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-3 px-4 rounded-lg transition duration-200 transform hover:scale-105 mb-8">
+                    <i class="fas fa-rocket mr-2"></i> Calculate Space Fuel Equivalents
+                </button>
+                
+                <!-- Results -->
+                <div x-show="results" class="space-y-6" x-transition>
+                    <div class="bg-gray-700 rounded-xl p-6 border-l-4 border-yellow-400">
+                        <h3 class="text-xl font-bold mb-3 text-yellow-400">Warp Core Plasma</h3>
+                        <div class="text-3xl font-mono">
+                            <span x-text="warpCoreResult.toFixed(6)"></span> <span class="text-lg">dilithium crystals</span>
+                        </div>
+                        <p class="text-gray-400 mt-2">Enough for approximately <span x-text="warpCoreDistance"></span> light years</p>
+                    </div>
+                    
+                    <div class="bg-gray-700 rounded-xl p-6 border-l-4 border-blue-400">
+                        <h3 class="text-xl font-bold mb-3 text-blue-400">Hyperdrive Fuel</h3>
+                        <div class="text-3xl font-mono">
+                            <span x-text="hyperdriveResult.toFixed(6)"></span> <span class="text-lg">coaxium units</span>
+                        </div>
+                        <p class="text-gray-400 mt-2">Enough for approximately <span x-text="hyperdriveJumps"></span> hyperspace jumps</p>
+                    </div>
+                    
+                    <div class="bg-gray-700 rounded-xl p-6 border-l-4 border-red-400 mt-8 relative overflow-hidden">
+                        <div class="absolute -right-10 -top-10 text-8xl opacity-20">
+                            <i class="fas fa-space-shuttle"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 text-red-400">Millennium Falcon Comparison</h3>
+                        <p class="text-lg">
+                            Your <span x-text="fuelAmount + ' ' + fuelUnit + ' of ' + fuelType"></span> = 
+                            <span class="font-bold text-yellow-400" x-text="millenniumFalconPercent"></span>% of the Falcon's fuel needs for the Kessel Run!
+                        </p>
+                        <p class="text-sm text-gray-400 mt-2">(12 parsecs in less than 1.3x10⁻¹⁰ standard galactic time units)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-8 text-center text-gray-500 text-sm">
+            <p>Disclaimer: Calculations are based on completely fictional science and should not be used for actual space travel.</p>
+            <p class="mt-1">Made with <i class="fas fa-heart text-red-400"></i> for space enthusiasts</p>
+        </div>
+    </div>
+    
+    <style>
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+        .animate-twinkle {
+            animation: twinkle 3s infinite;
+        }
+    </style>
+    
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('fuelCalculator', () => ({
+                fuelAmount: 50,
+                fuelUnit: 'liters',
+                fuelType: 'gasoline',
+                results: false,
+                warpCoreResult: 0,
+                hyperdriveResult: 0,
+                warpCoreDistance: '0',
+                hyperdriveJumps: '0',
+                millenniumFalconPercent: '0.0001',
+                
+                calculate() {
+                    // Conversion factors (completely fictional)
+                    const conversionRates = {
+                        gasoline: { warp: 0.00042, hyper: 0.00038 },
+                        diesel: { warp: 0.00048, hyper: 0.00042 },
+                        kerosene: { warp: 0.00052, hyper: 0.00045 },
+                        hydrogen: { warp: 0.00065, hyper: 0.00055 }
+                    };
+                    
+                    // Convert to liters if gallons was selected
+                    let amountInLiters = this.fuelUnit === 'gallons' 
+                        ? this.fuelAmount * 3.78541 
+                        : this.fuelAmount;
+                    
+                    // Get conversion rates for selected fuel type
+                    const rates = conversionRates[this.fuelType];
+                    
+                    // Calculate results
+                    this.warpCoreResult = amountInLiters * rates.warp;
+                    this.hyperdriveResult = amountInLiters * rates.hyper;
+                    
+                    // Calculate distance/jumps (randomized for fun)
+                    this.warpCoreDistance = (this.warpCoreResult * 250).toFixed(2);
+                    this.hyperdriveJumps = Math.floor(this.hyperdriveResult * 8);
+                    
+                    // Millennium Falcon comparison (very scientific)
+                    this.millenniumFalconPercent = (amountInLiters * 0.00000001).toFixed(10);
+                    
+                    // Show results
+                    this.results = true;
+                }
+            }));
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if (mobileMenuBtn && navLinks) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    navLinks.classList.toggle('active');
+                    mobileMenuBtn.classList.toggle('active');
+                });
+                document.addEventListener('click', function(event) {
+                    if (!event.target.closest('.main-nav')) {
+                        navLinks.classList.remove('active');
+                        mobileMenuBtn.classList.remove('active');
+                    }
+                });
+            }
+        });
+    </script>
+
+    <div class="related-calculators" style="margin-top: 2rem; padding: 1rem; background: rgba(0,0,0,0.1); border-radius: 8px;">
+        <h3 style="margin-top: 0;">Related Geek Galaxy Tools</h3>
+        <a href="./AI Doomsday Countdown.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">AI Doomsday Countdown</a><a href="./Alien Communication Probability Calculator.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Alien Communication Probability Calculator</a><a href="./Lightsaber Battery Life Calculator.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Lightsaber Battery Life Calculator</a>
+        <a href="./index.html" style="display: block; padding: 0.5rem; margin-top: 1rem; background: rgba(74,144,226,0.2); border-radius: 4px; text-decoration: none; color: inherit; font-weight: bold;">← Back to Geek Galaxy Hub</a>
+    </div>
+
+        <script>
+        // 🎅 Santa Claude's Interactive Enhancements
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🎅 Santa Claude's enhancements loaded!');
+            
+            // Enhanced button interactions
+            const buttons = document.querySelectorAll('button, .btn');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.classList.add('loading');
+                    setTimeout(() => {
+                        this.classList.remove('loading');
+                    }, 500);
+                });
+            });
+            
+            // Enhanced results display
+            const resultElements = document.querySelectorAll('.result, .results, .output, #result, #output');
+            resultElements.forEach(el => {
+                const observer = new MutationObserver(function(mutations) {
+                    mutations.forEach(function(mutation) {
+                        if (mutation.type === 'childList' || mutation.type === 'characterData') {
+                            el.classList.add('show');
+                        }
+                    });
+                });
+                observer.observe(el, { childList: true, subtree: true, characterData: true });
+            });
+            
+            // Form validation enhancements
+            const inputs = document.querySelectorAll('input[type="number"], input[type="text"]');
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    if (this.checkValidity()) {
+                        this.classList.remove('input-error');
+                        this.classList.add('input-success');
+                    } else {
+                        this.classList.remove('input-success');
+                        this.classList.add('input-error');
+                    }
+                });
+            });
+        });
+        </script>
+</body>
+</html>

@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caffeine Half-Life Calculator - Track Your Caffeine Journey | Docket One</title>
+    <meta name="description" content="Premium caffeine metabolism calculator with real-time tracking, personalized sleep recommendations, and scientific accuracy.">
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        /* Premium Coffee Theme Design System */
+        :root {
+            /* Coffee-Inspired Palette */
+            --coffee-dark: #3c2415;
+            --coffee-medium: #8b4513;
+            --coffee-light: #d2691e;
+            --cream: #f5deb3;
+            --foam: #fff8dc;
+            --espresso: #1a0f0a;
+            
+            /* Semantic Colors */
+            --primary: var(--coffee-medium);
+            --primary-light: var(--coffee-light);
+            --secondary: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --success: #10b981;
+            
+            /* Surface Colors */
+            --bg-primary: #fefcfb;
+            --bg-secondary: var(--foam);
+            --surface-elevated: #ffffff;
+            --surface-coffee: rgba(139, 69, 19, 0.05);
+            
+            /* Typography */
+            --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            
+            /* Spacing */
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+            --space-3xl: 4rem;
+            
+            /* Radius */
+            --radius-sm: 6px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --radius-full: 9999px;
+            
+            /* Shadows */
+            --shadow-sm: 0 1px 2px 0 rgba(60, 36, 21, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(60, 36, 21, 0.1), 0 2px 4px -1px rgba(60, 36, 21, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(60, 36, 21, 0.1), 0 4px 6px -2px rgba(60, 36, 21, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(60, 36, 21, 0.1), 0 10px 10px -5px rgba(60, 36, 21, 0.04);
+            --shadow-coffee: 0 8px 32px rgba(139, 69, 19, 0.15);
+            
+            /* Transitions */
+            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-primary);
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+            color: var(--coffee-dark);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        /* Coffee Bean Animated Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="1" fill="rgba(139,69,19,0.1)"/><circle cx="80" cy="60" r="1.5" fill="rgba(139,69,19,0.08)"/><circle cx="60" cy="90" r="1" fill="rgba(139,69,19,0.1)"/></svg>');
+            background-size: 200px 200px;
+            animation: float 20s ease-in-out infinite;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+        
+        /* Premium Header */
+        .hero {
+            background: linear-gradient(135deg, var(--coffee-dark) 0%, var(--coffee-medium) 50%, var(--coffee-light) 100%);
+            color: white;
+            padding: var(--space-3xl) var(--space-xl);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60"><g fill="rgba(255,255,255,0.1)"><circle cx="30" cy="30" r="1.5"/></g></svg>');
+            background-size: 60px 60px;
+            animation: steam 15s linear infinite;
+            pointer-events: none;
+        }
+        
+        @keyframes steam {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-60px); opacity: 0; }
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-full);
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: var(--space-xl);
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        .hero-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 800;
+            margin: 0 0 var(--space-lg) 0;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            animation: fadeInUp 0.6s ease-out 0.2s both;
+        }
+        
+        .hero-subtitle {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            opacity: 0.9;
+            margin: 0;
+            animation: fadeInUp 0.6s ease-out 0.4s both;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--space-2xl) var(--space-xl);
+        }
+        
+        /* Premium Calculator Layout */
+        .calculator-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-2xl);
+            margin-top: var(--space-2xl);
+        }
+        
+        @media (max-width: 768px) {
+            .calculator-layout {
+                grid-template-columns: 1fr;
+                gap: var(--space-xl);
+            }
+        }
+        
+        .calculator-panel {
+            background: var(--surface-elevated);
+            border-radius: var(--radius-xl);
+            padding: var(--space-2xl);
+            box-shadow: var(--shadow-coffee);
+            border: 1px solid rgba(139, 69, 19, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .calculator-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--primary-light));
+        }
+        
+        .panel-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--coffee-dark);
+            margin: 0 0 var(--space-lg) 0;
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+        
+        /* Premium Form Controls */
+        .form-section {
+            margin-bottom: var(--space-xl);
+        }
+        
+        .section-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--coffee-medium);
+            margin: 0 0 var(--space-md) 0;
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+        
+        .preset-drinks {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: var(--space-sm);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .drink-preset {
+            background: var(--surface-coffee);
+            border: 2px solid transparent;
+            border-radius: var(--radius-md);
+            padding: var(--space-md);
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition-base);
+            position: relative;
+        }
+        
+        .drink-preset:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .drink-preset.active {
+            border-color: var(--primary);
+            background: rgba(139, 69, 19, 0.1);
+        }
+        
+        .drink-icon {
+            font-size: 1.5rem;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .drink-name {
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: var(--coffee-dark);
+            margin-bottom: var(--space-xs);
+        }
+        
+        .drink-caffeine {
+            font-size: 0.75rem;
+            color: var(--coffee-medium);
+        }
+        
+        .input-group {
+            margin-bottom: var(--space-lg);
+        }
+        
+        .input-label {
+            display: block;
+            font-weight: 500;
+            color: var(--coffee-dark);
+            margin-bottom: var(--space-sm);
+            font-size: 0.875rem;
+        }
+        
+        .input-field {
+            width: 100%;
+            padding: var(--space-md);
+            border: 2px solid rgba(139, 69, 19, 0.1);
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            transition: var(--transition-base);
+            background: var(--bg-primary);
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.1);
+        }
+        
+        .input-help {
+            font-size: 0.75rem;
+            color: var(--coffee-medium);
+            margin-top: var(--space-xs);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            border: none;
+            padding: var(--space-md) var(--space-xl);
+            border-radius: var(--radius-full);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition-base);
+            box-shadow: var(--shadow-md);
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+        
+        /* Premium Results Display */
+        .results-panel {
+            display: none;
+        }
+        
+        .results-panel.active {
+            display: block;
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        .live-status {
+            background: linear-gradient(135deg, var(--surface-coffee), rgba(16, 185, 129, 0.1));
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-xl);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+        
+        .status-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--space-md);
+        }
+        
+        .current-level {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+        
+        .level-change {
+            font-size: 0.875rem;
+            color: var(--success);
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+        
+        .timeline-container {
+            background: var(--surface-elevated);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-xl);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-lg);
+        }
+        
+        .timeline-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--coffee-dark);
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin: var(--space-lg) 0;
+        }
+        
+        .milestones {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-md);
+            margin-top: var(--space-xl);
+        }
+        
+        .milestone {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-md);
+            padding: var(--space-lg);
+            text-align: center;
+            border: 1px solid rgba(139, 69, 19, 0.1);
+        }
+        
+        .milestone-time {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: var(--space-xs);
+        }
+        
+        .milestone-label {
+            font-size: 0.875rem;
+            color: var(--coffee-medium);
+            margin-bottom: var(--space-sm);
+        }
+        
+        .milestone-desc {
+            font-size: 0.75rem;
+            color: var(--coffee-dark);
+            opacity: 0.8;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+        
+        .pulse {
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        /* Real-time Updates */
+        .live-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            background: var(--success);
+            color: white;
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        
+        .live-dot {
+            width: 6px;
+            height: 6px;
+            background: white;
+            border-radius: 50%;
+            animation: pulse 1s ease-in-out infinite;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero {
+                padding: var(--space-2xl) var(--space-md);
+            }
+            
+            .container {
+                padding: var(--space-xl) var(--space-md);
+            }
+            
+            .preset-drinks {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .milestones {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Enhanced Navigation Bar -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="../../index.html">🧮 Docket One</a>
+            </div>
+            <div class="nav-search">
+                <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input" aria-label="Search calculators">
+                <div id="search-results" class="search-results"></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../BigKidMath/index.html" class="category-main-link">Big Kid Math</a></li>
+                <li><a href="../CipherLab/index.html" class="category-main-link">Cipher Lab</a></li>
+                <li><a href="../GeekGalaxy/index.html" class="category-main-link">Geek Galaxy</a></li>
+                <li><a href="../LifeHacks/index.html" class="category-main-link">Life Hacks</a></li>
+                <li><a href="../Math_Magik/index.html" class="category-main-link">Math Magik</a></li>
+                <li><a href="../Otaku_Ops/index.html" class="category-main-link">Otaku Ops</a></li>
+                <li><a href="../../index.html" class="home-link">Unit Converter</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Premium Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span>☕</span>
+                <span>Premium Caffeine Tracking</span>
+            </div>
+            <h1 class="hero-title">Caffeine Half-Life Calculator</h1>
+            <p class="hero-subtitle">Track your caffeine journey with scientific precision and get personalized sleep recommendations</p>
+        </div>
+    </section>
+
+    <main class="container">
+        <div class="calculator-layout">
+            <!-- Input Panel -->
+            <div class="calculator-panel">
+                <h2 class="panel-title">
+                    <span>📊</span>
+                    Caffeine Input
+                </h2>
+                
+                <!-- Drink Presets -->
+                <div class="form-section">
+                    <h3 class="section-title">
+                        <span>☕</span>
+                        Choose Your Drink
+                    </h3>
+                    <div class="preset-drinks">
+                        <div class="drink-preset active" data-caffeine="95" data-name="Coffee">
+                            <div class="drink-icon">☕</div>
+                            <div class="drink-name">Coffee</div>
+                            <div class="drink-caffeine">95mg</div>
+                        </div>
+                        <div class="drink-preset" data-caffeine="150" data-name="Espresso">
+                            <div class="drink-icon">🍵</div>
+                            <div class="drink-name">Espresso</div>
+                            <div class="drink-caffeine">150mg</div>
+                        </div>
+                        <div class="drink-preset" data-caffeine="200" data-name="Energy Drink">
+                            <div class="drink-icon">🥤</div>
+                            <div class="drink-name">Energy Drink</div>
+                            <div class="drink-caffeine">200mg</div>
+                        </div>
+                        <div class="drink-preset" data-caffeine="50" data-name="Tea">
+                            <div class="drink-icon">🫖</div>
+                            <div class="drink-name">Tea</div>
+                            <div class="drink-caffeine">50mg</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Custom Amount -->
+                <div class="form-section">
+                    <div class="input-group">
+                        <label for="caffeine-amount" class="input-label">Caffeine Amount (mg)</label>
+                        <input type="number" id="caffeine-amount" class="input-field" min="0" max="1000" value="95" step="5">
+                        <div class="input-help">Standard coffee: 80-200mg, Energy drinks: 150-300mg</div>
+                    </div>
+                </div>
+                
+                <!-- Consumption Time -->
+                <div class="form-section">
+                    <div class="input-group">
+                        <label for="consumption-time" class="input-label">When did you drink it?</label>
+                        <input type="datetime-local" id="consumption-time" class="input-field">
+                        <div class="input-help">Leave blank to use current time</div>
+                    </div>
+                </div>
+                
+                <!-- Metabolism Speed -->
+                <div class="form-section">
+                    <div class="input-group">
+                        <label for="metabolism" class="input-label">Your Metabolism</label>
+                        <select id="metabolism" class="input-field">
+                            <option value="3">Fast Metabolism (3hr half-life)</option>
+                            <option value="5" selected>Average Metabolism (5hr half-life)</option>
+                            <option value="7">Slow Metabolism (7hr half-life)</options>
+                            <option value="9">Very Slow Metabolism (9hr half-life)</option>
+                        </select>
+                        <div class="input-help">Age, genetics, and medications affect caffeine metabolism</div>
+                    </div>
+                </div>
+                
+                <!-- Sleep Goal -->
+                <div class="form-section">
+                    <div class="input-group">
+                        <label for="sleep-goal" class="input-label">Desired Bedtime (Optional)</label>
+                        <input type="time" id="sleep-goal" class="input-field" value="22:00">
+                        <div class="input-help">We'll tell you if caffeine will affect your sleep</div>
+                    </div>
+                </div>
+                
+                <button class="btn-primary" onclick="calculateCaffeine()">
+                    <span>⚡</span>
+                    Calculate My Caffeine Levels
+                </button>
+            </div>
+            
+            <!-- Results Panel -->
+            <div class="calculator-panel results-panel" id="results-panel">
+                <h2 class="panel-title">
+                    <span>📈</span>
+                    Your Caffeine Journey
+                    <span class="live-indicator">
+                        <span class="live-dot"></span>
+                        LIVE
+                    </span>
+                </h2>
+                
+                <!-- Live Status -->
+                <div class="live-status">
+                    <div class="status-header">
+                        <div>
+                            <div class="current-level" id="current-caffeine">0 mg</div>
+                            <div style="font-size: 0.875rem; color: var(--coffee-medium);">Currently in your system</div>
+                        </div>
+                        <div class="level-change" id="level-change">
+                            <span>↓</span>
+                            <span>Decreasing</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Chart -->
+                <div class="timeline-container">
+                    <div class="timeline-header">
+                        <h3 class="timeline-title">Caffeine Decay Timeline</h3>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="caffeineChart"></canvas>
+                    </div>
+                </div>
+                
+                <!-- Key Milestones -->
+                <div class="milestones" id="milestones">
+                    <!-- Populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Enhanced Footer -->
+    <footer style="background: var(--coffee-dark); color: white; padding: var(--space-2xl) var(--space-xl); margin-top: var(--space-3xl);">
+        <div class="container">
+            <div style="text-align: center;">
+                <h3 style="margin-bottom: var(--space-md);">☕ Caffeine Science</h3>
+                <p style="font-size: 0.875rem; opacity: 0.8; max-width: 600px; margin: 0 auto;">
+                    This calculator uses scientifically-based half-life calculations to estimate caffeine levels in your system. 
+                    Individual metabolism varies significantly. Consult healthcare professionals for personalized advice.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Enhanced JavaScript -->
+    <script src="../../common/navbar-enhanced.js"></script>
+    <script>
+        // Global variables
+        let caffeineChart = null;
+        let updateInterval = null;
+        let calculationData = null;
+        
+        // Initialize the calculator
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeDrinkPresets();
+            setCurrentTime();
+            updateCurrentTime();
+        });
+        
+        // Initialize drink presets
+        function initializeDrinkPresets() {
+            const presets = document.querySelectorAll('.drink-preset');
+            presets.forEach(preset => {
+                preset.addEventListener('click', function() {
+                    // Remove active class from all presets
+                    presets.forEach(p => p.classList.remove('active'));
+                    
+                    // Add active class to clicked preset
+                    this.classList.add('active');
+                    
+                    // Update caffeine amount
+                    const caffeine = this.dataset.caffeine;
+                    document.getElementById('caffeine-amount').value = caffeine;
+                });
+            });
+        }
+        
+        // Set current time as default
+        function setCurrentTime() {
+            const now = new Date();
+            const localDateTime = new Date(now.getTime() - now.getTimezoneOffset() * 60000)
+                .toISOString()
+                .slice(0, 16);
+            document.getElementById('consumption-time').value = localDateTime;
+        }
+        
+        // Update current time display
+        function updateCurrentTime() {
+            const timeElement = document.getElementById('current-time');
+            if (timeElement) {
+                const now = new Date();
+                timeElement.textContent = `Live Updates - ${now.toLocaleTimeString()}`;
+            }
+        }
+        
+        // Main calculation function
+        function calculateCaffeine() {
+            const caffeineAmount = parseFloat(document.getElementById('caffeine-amount').value);
+            const consumptionTime = document.getElementById('consumption-time').value;
+            const halfLife = parseFloat(document.getElementById('metabolism').value);
+            const sleepGoal = document.getElementById('sleep-goal').value;
+            
+            if (!caffeineAmount || caffeineAmount <= 0) {
+                alert('Please enter a valid caffeine amount');
+                return;
+            }
+            
+            // Use current time if consumption time is not provided
+            const consumptionDate = consumptionTime ? 
+                new Date(consumptionTime) : 
+                new Date();
+            
+            // Store calculation data
+            calculationData = {
+                initialAmount: caffeineAmount,
+                consumptionTime: consumptionDate,
+                halfLife: halfLife,
+                sleepGoal: sleepGoal
+            };
+            
+            // Show results panel
+            const resultsPanel = document.getElementById('results-panel');
+            resultsPanel.classList.add('active');
+            
+            // Generate timeline data
+            generateTimeline();
+            
+            // Create chart
+            createCaffeineChart();
+            
+            // Generate milestones
+            generateMilestones();
+            
+            // Start real-time updates
+            startRealTimeUpdates();
+            
+            // Scroll to results
+            resultsPanel.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Generate timeline data
+        function generateTimeline() {
+            const hours = 24; // 24 hours timeline
+            const timelineData = [];
+            
+            for (let i = 0; i <= hours; i++) {
+                const time = new Date(calculationData.consumptionTime);
+                time.setHours(time.getHours() + i);
+                
+                const caffeineLevel = calculateCaffeineAtTime(time);
+                
+                timelineData.push({
+                    time: time,
+                    hours: i,
+                    caffeine: caffeineLevel,
+                    label: i === 0 ? 'Consumption' : `${i}h`
+                });
+            }
+            
+            calculationData.timeline = timelineData;
+        }
+        
+        // Calculate caffeine level at specific time
+        function calculateCaffeineAtTime(targetTime) {
+            const timeDiff = (targetTime - calculationData.consumptionTime) / (1000 * 60 * 60); // hours
+            
+            if (timeDiff < 0) return 0;
+            
+            // Caffeine half-life formula: C(t) = C0 * (1/2)^(t/t½)
+            const halfLifeHours = calculationData.halfLife;
+            const currentLevel = calculationData.initialAmount * Math.pow(0.5, timeDiff / halfLifeHours);
+            
+            return Math.max(0, currentLevel);
+        }
+        
+        // Create Chart.js visualization
+        function createCaffeineChart() {
+            const ctx = document.getElementById('caffeineChart').getContext('2d');
+            
+            // Destroy existing chart if it exists
+            if (caffeineChart) {
+                caffeineChart.destroy();
+            }
+            
+            const timeline = calculationData.timeline;
+            const currentTime = new Date();
+            
+            caffeineChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: timeline.map(point => point.label),
+                    datasets: [{
+                        label: 'Caffeine Level (mg)',
+                        data: timeline.map(point => point.caffeine),
+                        borderColor: '#8b4513',
+                        backgroundColor: 'rgba(139, 69, 19, 0.1)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4,
+                        pointBackgroundColor: '#8b4513',
+                        pointBorderColor: '#ffffff',
+                        pointBorderWidth: 2,
+                        pointRadius: 4,
+                        pointHoverRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top',
+                            labels: {
+                                font: {
+                                    family: 'Inter',
+                                    size: 12
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Time (hours from consumption)',
+                                font: {
+                                    family: 'Inter',
+                                    size: 12
+                                }
+                            },
+                            grid: {
+                                color: 'rgba(139, 69, 19, 0.1)'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Caffeine (mg)',
+                                font: {
+                                    family: 'Inter',
+                                    size: 12
+                                }
+                            },
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(139, 69, 19, 0.1)'
+                            }
+                        }
+                    },
+                    elements: {
+                        point: {
+                            hoverRadius: 8
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Generate milestone cards
+        function generateMilestones() {
+            const milestonesContainer = document.getElementById('milestones');
+            const milestones = [
+                {
+                    percentage: 75,
+                    label: '75% Remaining',
+                    description: 'Still feeling the effects'
+                },
+                {
+                    percentage: 50,
+                    label: '50% Remaining',
+                    description: 'Half-life reached'
+                },
+                {
+                    percentage: 25,
+                    label: '25% Remaining',
+                    description: 'Effects diminishing'
+                },
+                {
+                    percentage: 12.5,
+                    label: '12.5% Remaining',
+                    description: 'Minimal effects'
+                },
+                {
+                    percentage: 6.25,
+                    label: '6.25% Remaining',
+                    description: 'Nearly eliminated'
+                }
+            ];
+            
+            let milestonesHTML = '';
+            
+            milestones.forEach(milestone => {
+                const targetAmount = calculationData.initialAmount * (milestone.percentage / 100);
+                const timeToReach = calculateTimeToReachLevel(targetAmount);
+                
+                milestonesHTML += `
+                    <div class="milestone">
+                        <div class="milestone-time">${formatTimeFromNow(timeToReach)}</div>
+                        <div class="milestone-label">${milestone.label}</div>
+                        <div class="milestone-desc">${milestone.description}</div>
+                    </div>
+                `;
+            });
+            
+            milestonesContainer.innerHTML = milestonesHTML;
+        }
+        
+        // Calculate time to reach specific caffeine level
+        function calculateTimeToReachLevel(targetLevel) {
+            if (targetLevel >= calculationData.initialAmount) {
+                return calculationData.consumptionTime;
+            }
+            
+            // Solve for t in: targetLevel = initialAmount * (1/2)^(t/halfLife)
+            const ratio = targetLevel / calculationData.initialAmount;
+            const timeHours = calculationData.halfLife * Math.log(ratio) / Math.log(0.5);
+            
+            const resultTime = new Date(calculationData.consumptionTime);
+            resultTime.setHours(resultTime.getHours() + timeHours);
+            
+            return resultTime;
+        }
+        
+        // Format time from now
+        function formatTimeFromNow(targetTime) {
+            const now = new Date();
+            const timeDiff = targetTime - now;
+            
+            if (timeDiff <= 0) {
+                return 'Now';
+            }
+            
+            const hours = Math.floor(timeDiff / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+            
+            if (hours === 0) {
+                return `${minutes}m`;
+            } else if (minutes === 0) {
+                return `${hours}h`;
+            } else {
+                return `${hours}h ${minutes}m`;
+            }
+        }
+        
+        
+        // Start real-time updates
+        function startRealTimeUpdates() {
+            // Clear existing interval
+            if (updateInterval) {
+                clearInterval(updateInterval);
+            }
+            
+            // Update every 30 seconds
+            updateInterval = setInterval(() => {
+                updateLiveStatus();
+                updateCurrentTime();
+            }, 30000);
+            
+            // Initial update
+            updateLiveStatus();
+        }
+        
+        // Update live status
+        function updateLiveStatus() {
+            const currentCaffeine = calculateCaffeineAtTime(new Date());
+            const currentCaffeineElement = document.getElementById('current-caffeine');
+            const levelChangeElement = document.getElementById('level-change');
+            const sleepImpactElement = document.getElementById('sleep-impact');
+            
+            // Update current caffeine level
+            currentCaffeineElement.textContent = `${currentCaffeine.toFixed(1)} mg`;
+            
+            // Update trend
+            const oneMinuteAgo = new Date();
+            oneMinuteAgo.setMinutes(oneMinuteAgo.getMinutes() - 1);
+            const previousLevel = calculateCaffeineAtTime(oneMinuteAgo);
+            
+            if (currentCaffeine < previousLevel) {
+                levelChangeElement.innerHTML = '<span>↓</span><span>Decreasing</span>';
+                levelChangeElement.style.color = '#10b981';
+            } else {
+                levelChangeElement.innerHTML = '<span>→</span><span>Stable</span>';
+                levelChangeElement.style.color = '#f59e0b';
+            }
+            
+            // Update sleep impact
+            const sleepGoal = calculationData.sleepGoal;
+            if (sleepGoal) {
+                const sleepTime = new Date();
+                const [hours, minutes] = sleepGoal.split(':');
+                sleepTime.setHours(parseInt(hours), parseInt(minutes), 0, 0);
+                
+                if (sleepTime <= new Date()) {
+                    sleepTime.setDate(sleepTime.getDate() + 1);
+                }
+                
+                const caffeineAtSleep = calculateCaffeineAtTime(sleepTime);
+                
+                if (caffeineAtSleep > 25) {
+                    sleepImpactElement.innerHTML = `⚠️ ${caffeineAtSleep.toFixed(1)}mg at bedtime - may affect sleep`;
+                    sleepImpactElement.className = 'sleep-impact';
+                } else {
+                    sleepImpactElement.innerHTML = `✅ ${caffeineAtSleep.toFixed(1)}mg at bedtime - sleep-friendly`;
+                    sleepImpactElement.className = 'sleep-impact safe';
+                }
+            }
+        }
+        
+        // Cleanup on page unload
+        window.addEventListener('beforeunload', () => {
+            if (updateInterval) {
+                clearInterval(updateInterval);
+            }
+        });
+        
+        // Export functionality (bonus feature)
+        function exportResults() {
+            if (!calculationData) return;
+            
+            const data = {
+                timestamp: new Date().toISOString(),
+                initialCaffeine: calculationData.initialAmount,
+                consumptionTime: calculationData.consumptionTime,
+                halfLife: calculationData.halfLife,
+                timeline: calculationData.timeline.map(point => ({
+                    hours: point.hours,
+                    caffeine: point.caffeine.toFixed(2)
+                }))
+            };
+            
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `caffeine-timeline-${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+        
+        // Share functionality (bonus feature)
+        async function shareResults() {
+            if (!calculationData) return;
+            
+            const currentCaffeine = calculateCaffeineAtTime(new Date());
+            const shareText = `☕ My Caffeine Journey:\n\nStarted with ${calculationData.initialAmount}mg\nCurrently have ${currentCaffeine.toFixed(1)}mg in my system\n\nTrack your caffeine with precision!`;
+            
+            if (navigator.share) {
+                try {
+                    await navigator.share({
+                        title: 'My Caffeine Timeline',
+                        text: shareText,
+                        url: window.location.href
+                    });
+                } catch (err) {
+                    console.log('Error sharing:', err);
+                }
+            } else {
+                // Fallback to clipboard
+                navigator.clipboard.writeText(shareText).then(() => {
+                    alert('Results copied to clipboard!');
+                });
+            }
+        }
+    </script>
+</body>
+</html>

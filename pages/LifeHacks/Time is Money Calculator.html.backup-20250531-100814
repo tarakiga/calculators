@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time is Money Calculator | Docket One</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2C5282;
+            --primary-light: #4299E1;
+            --primary-dark: #1A365D;
+            --accent: #F6AD55;
+            --background: #F7FAFC;
+            --text: #2D3748;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes typing {
+            from {
+                width: 0
+            }
+
+            to {
+                width: 100%
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        .typing {
+            overflow: hidden;
+            white-space: nowrap;
+            animation: typing 3s steps(40, end);
+        }
+
+        .slide-up {
+            animation: slideUp 0.5s ease forwards;
+        }
+
+        .custom-slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 4px;
+            background: var(--primary-light);
+            border-radius: 2px;
+            outline: none;
+        }
+
+        .custom-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: var(--primary);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .custom-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        .achievement-badge {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transform: translateX(120%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .achievement-badge.show {
+            transform: translateX(0);
+        }
+
+        .clock-icon {
+            position: relative;
+            display: inline-block;
+        }
+
+        .clock-icon::after {
+            content: '⏰';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.5rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .money-wave {
+            background: linear-gradient(135deg, #2C5282 0%, #4299E1 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .money-wave::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255, 255, 255, 0.1) 25%, transparent 25%),
+                linear-gradient(-45deg, rgba(255, 255, 255, 0.1) 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, rgba(255, 255, 255, 0.1) 75%),
+                linear-gradient(-45deg, transparent 75%, rgba(255, 255, 255, 0.1) 75%);
+            background-size: 20px 20px;
+            animation: wave 20s linear infinite;
+        }
+
+        @keyframes wave {
+            0% {
+                background-position: 0 0;
+            }
+
+            100% {
+                background-position: 40px 40px;
+            }
+        }
+    </style>
+
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+</head>
+
+<body class="bg-[#F7FAFC] min-h-screen" x-data="timeMoneyCalculator()">
+    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="../../index.html">🧮 Docket One</a>
+            </div>
+            <div class="nav-search">
+                <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input"
+                    aria-label="Search calculators">
+                <div id="search-results" class="search-results"></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../BigKidMath/index.html" class="category-link">Big Kid Math</a></li>
+                <li><a href="../CipherLab/index.html" class="category-link">Cipher Lab</a></li>
+                <li><a href="../GeekGalaxy/index.html" class="category-link">Geek Galaxy</a></li>
+                <li><a href="../LifeHacks/index.html" class="category-link active">Life Hacks</a></li>
+                <li><a href="../Math_Magik/index.html" class="category-link">Math Magik</a></li>
+                <li><a href="../Otaku_Ops/index.html" class="category-link">Otaku Ops</a></li>
+                <li><a href="../../index.html" class="home-link">🏠 Home</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="container mx-auto px-4 py-12">
+        <div class="max-w-4xl mx-auto">
+            <!-- Hero Section -->
+            <div class="relative money-wave rounded-2xl overflow-hidden mb-8">
+                <div class="relative z-10 px-8 py-12 text-center">
+                    <div class="inline-flex items-center px-4 py-2 bg-white/10 rounded-full mb-4">
+                        <span class="text-2xl mr-2 pulse">⏰</span>
+                        <span class="text-white font-medium">Time Management</span>
+                    </div>
+                    <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">
+                        <span class="clock-icon">
+                            <i class="fas fa-clock mr-2 floating"></i>
+                        </span>
+                        Time is Money Calculator
+                    </h1>
+                    <p class="text-white/90 text-lg max-w-2xl mx-auto typing">
+                        Convert any activity into its hourly wage equivalent
+                    </p>
+                </div>
+            </div>
+
+            <!-- Calculator Content -->
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+                <div class="p-6 md:p-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                        <!-- Salary Input -->
+                        <div class="bg-[#F7FAFC] p-6 rounded-xl border-l-4 border-[#2C5282]">
+                            <h2 class="text-xl font-bold mb-4 text-[#1A365D]">
+                                <i class="fas fa-dollar-sign mr-2"></i> Annual Salary
+                            </h2>
+                            <div class="input-group">
+                                <label class="block text-sm font-medium mb-1 text-[#1A365D]">Amount ($)</label>
+                                <div class="flex items-center">
+                                    <input type="number" x-model="salary" min="10000" max="1000000"
+                                        class="w-full p-2 border border-[#4299E1] rounded-lg focus:ring-2 focus:ring-[#2C5282] focus:border-transparent"
+                                        @input="calculate">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Activity Input -->
+                        <div class="bg-[#F7FAFC] p-6 rounded-xl border-l-4 border-[#2C5282]">
+                            <h2 class="text-xl font-bold mb-4 text-[#1A365D]">
+                                <i class="fas fa-tasks mr-2"></i> Activity
+                            </h2>
+                            <div class="input-group">
+                                <label class="block text-sm font-medium mb-1 text-[#1A365D]">What are you doing?</label>
+                                <div class="flex items-center">
+                                    <input type="text" x-model="activity"
+                                        class="w-full p-2 border border-[#4299E1] rounded-lg focus:ring-2 focus:ring-[#2C5282] focus:border-transparent"
+                                        placeholder="e.g. 'Watching Netflix'" @input="calculate">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Time Inputs -->
+                        <div class="bg-[#F7FAFC] p-6 rounded-xl border-l-4 border-[#2C5282]">
+                            <h2 class="text-xl font-bold mb-4 text-[#1A365D]">
+                                <i class="fas fa-clock mr-2"></i> Time Spent
+                            </h2>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium mb-1 text-[#1A365D]">Hours</label>
+                                    <input type="number" x-model="hours" min="0" max="24"
+                                        class="w-full p-2 border border-[#4299E1] rounded-lg focus:ring-2 focus:ring-[#2C5282] focus:border-transparent"
+                                        @input="calculate">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-1 text-[#1A365D]">Minutes</label>
+                                    <input type="number" x-model="minutes" min="0" max="59"
+                                        class="w-full p-2 border border-[#4299E1] rounded-lg focus:ring-2 focus:ring-[#2C5282] focus:border-transparent"
+                                        @input="calculate">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Frequency Input -->
+                        <div class="bg-[#F7FAFC] p-6 rounded-xl border-l-4 border-[#2C5282]">
+                            <h2 class="text-xl font-bold mb-4 text-[#1A365D]">
+                                <i class="fas fa-sync mr-2"></i> Frequency
+                            </h2>
+                            <div class="input-group">
+                                <label class="block text-sm font-medium mb-1 text-[#1A365D]">How often?</label>
+                                <select x-model="frequency" @change="calculate"
+                                    class="w-full p-2 border border-[#4299E1] rounded-lg focus:ring-2 focus:ring-[#2C5282] focus:border-transparent">
+                                    <option value="once">One-time</option>
+                                    <option value="daily">Daily</option>
+                                    <option value="weekly">Weekly</option>
+                                    <option value="monthly">Monthly</option>
+                                    <option value="yearly">Yearly</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Calculate Button -->
+                    <button @click="calculate"
+                        class="w-full bg-gradient-to-r from-[#2C5282] to-[#1A365D] text-white font-bold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5">
+                        <i class="fas fa-calculator mr-2"></i> Calculate Opportunity Cost
+                    </button>
+
+                    <!-- Results -->
+                    <div x-show="results" x-transition class="space-y-6 mt-8">
+                        <div class="bg-[#F7FAFC] p-6 rounded-xl">
+                            <h3 class="text-lg font-bold mb-4 text-[#1A365D]">Time Value Analysis</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="bg-white p-4 rounded-lg shadow-sm">
+                                    <div class="text-sm text-[#718096]">Your hourly rate</div>
+                                    <div class="text-2xl font-bold text-[#2C5282]" x-text="formatCurrency(hourlyRate)">
+                                    </div>
+                                </div>
+                                <div class="bg-white p-4 rounded-lg shadow-sm">
+                                    <div class="text-sm text-[#718096]">Time spent</div>
+                                    <div class="text-2xl font-bold text-[#2C5282]"
+                                        x-text="totalHours.toFixed(2) + ' hours'"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Activity Cost -->
+                        <div class="bg-[#F7FAFC] p-6 rounded-xl">
+                            <h3 class="text-lg font-bold mb-4 text-[#1A365D]">Opportunity Cost</h3>
+                            <div class="bg-white p-6 rounded-lg border-2 border-[#4299E1]">
+                                <div class="text-lg font-bold text-center mb-2" x-text="activity + ' cost you:'"></div>
+                                <div class="text-4xl font-bold text-center text-[#2C5282] mb-2"
+                                    x-text="formatCurrency(activityCost)"></div>
+                                <div class="text-sm text-center text-[#718096]" x-text="frequencyText"></div>
+                            </div>
+                        </div>
+
+                        <!-- Alternative Purchases -->
+                        <div class="bg-[#F7FAFC] p-6 rounded-xl">
+                            <h3 class="text-lg font-bold mb-4 text-[#1A365D]">What you could have bought instead:</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <template x-for="(item, index) in alternativePurchases" :key="index">
+                                    <div class="bg-white p-4 rounded-lg shadow-sm"
+                                        x-show="activityCost >= item.minCost">
+                                        <div class="flex items-center">
+                                            <span class="text-2xl mr-3" x-text="item.icon"></span>
+                                            <div>
+                                                <div class="font-medium" x-text="item.name"></div>
+                                                <div class="text-sm text-[#718096]"
+                                                    x-text="Math.floor(activityCost / item.cost) + ' × ' + item.unit">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Achievement Badge -->
+    <div class="achievement-badge" x-show="showAchievement" x-transition>
+        <div class="flex items-center">
+            <span class="text-2xl mr-2" x-text="achievementIcon"></span>
+            <div>
+                <h4 class="font-bold" x-text="achievementTitle"></h4>
+                <p class="text-sm" x-text="achievementDescription"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Related Calculators -->
+    <div class="related-calculators max-w-4xl mx-auto mt-8 p-6 bg-white/50 backdrop-blur-sm rounded-xl">
+        <h3 class="text-lg font-bold mb-4 text-[#1A365D]">Related Life Hacks Tools</h3>
+        <div class="space-y-2">
+            <a href="./Coffee to Code Efficiency Ratio Calculator.html"
+                class="block p-3 bg-white/80 hover:bg-white rounded-lg transition-colors text-[#1A365D] hover:text-[#2C5282]">
+                Coffee to Code Efficiency Ratio Calculator
+            </a>
+            <a href="./Inflation Impact Calculator.html"
+                class="block p-3 bg-white/80 hover:bg-white rounded-lg transition-colors text-[#1A365D] hover:text-[#2C5282]">
+                Inflation Impact Calculator
+            </a>
+            <a href="./Sleep Cycle Optimizer.html"
+                class="block p-3 bg-white/80 hover:bg-white rounded-lg transition-colors text-[#1A365D] hover:text-[#2C5282]">
+                Sleep Cycle Optimizer
+            </a>
+            <a href="./index.html"
+                class="block p-3 mt-4 bg-[#2C5282] hover:bg-[#1A365D] rounded-lg transition-colors text-white font-medium">
+                ← Back to Life Hacks Hub
+            </a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('timeMoneyCalculator', () => ({
+                salary: 75000,
+                activity: 'Watching Netflix',
+                hours: 2,
+                minutes: 30,
+                frequency: 'once',
+                results: false,
+                showAchievement: false,
+                achievementIcon: '',
+                achievementTitle: '',
+                achievementDescription: '',
+                hourlyRate: 0,
+                totalHours: 0,
+                activityCost: 0,
+                frequencyText: '',
+                alternativePurchases: [
+                    { name: 'Big Macs', icon: '🍔', cost: 5.15, unit: 'burgers', minCost: 0.01 },
+                    { name: 'Starbucks Lattes', icon: '☕', cost: 4.45, unit: 'lattes', minCost: 0.01 },
+                    { name: 'Movie Tickets', icon: '🎬', cost: 12, unit: 'tickets', minCost: 10 },
+                    { name: 'Designer Jeans', icon: '👖', cost: 120, unit: 'pairs', minCost: 100 },
+                    { name: 'Roundtrip Flights', icon: '✈️', cost: 350, unit: 'flights', minCost: 1000 },
+                    { name: 'iPhone 15 Pro', icon: '📱', cost: 999, unit: 'phones', minCost: 1000 },
+                    { name: 'Tesla Model 3', icon: '🚗', cost: 40000, unit: 'cars', minCost: 40000 },
+                    { name: 'Luxury Vacation', icon: '🏖️', cost: 5000, unit: 'trips', minCost: 5000 }
+                ],
+
+                calculate() {
+                    // Calculate hourly rate (assuming 2080 work hours/year)
+                    this.hourlyRate = this.salary / 2080;
+
+                    // Calculate total hours spent
+                    this.totalHours = parseFloat(this.hours) + (parseFloat(this.minutes) / 60);
+
+                    // Calculate activity cost
+                    this.activityCost = this.totalHours * this.hourlyRate;
+
+                    // Adjust for frequency
+                    let multiplier = 1;
+                    let frequencyText = '';
+
+                    switch (this.frequency) {
+                        case 'daily':
+                            multiplier = 365;
+                            frequencyText = 'Every day for a year';
+                            break;
+                        case 'weekly':
+                            multiplier = 52;
+                            frequencyText = 'Every week for a year';
+                            break;
+                        case 'monthly':
+                            multiplier = 12;
+                            frequencyText = 'Every month for a year';
+                            break;
+                        case 'yearly':
+                            multiplier = 1;
+                            frequencyText = 'Every year';
+                            break;
+                        default: // once
+                            multiplier = 1;
+                            frequencyText = 'One time activity';
+                    }
+
+                    this.activityCost *= multiplier;
+                    this.frequencyText = frequencyText;
+
+                    // Check for achievements
+                    this.showAchievement = false;
+                    if (this.activityCost > 10000) {
+                        this.showAchievement = true;
+                        this.achievementIcon = '💰';
+                        this.achievementTitle = 'Time Millionaire';
+                        this.achievementDescription = 'Your time is worth over $10,000!';
+                    } else if (this.frequency === 'daily' && this.totalHours >= 4) {
+                        this.showAchievement = true;
+                        this.achievementIcon = '⏰';
+                        this.achievementTitle = 'Time Investment Expert';
+                        this.achievementDescription = 'You spend 4+ hours daily on this activity!';
+                    } else if (this.hourlyRate > 100) {
+                        this.showAchievement = true;
+                        this.achievementIcon = '💎';
+                        this.achievementTitle = 'High-Value Time';
+                        this.achievementDescription = 'Your time is worth over $100/hour!';
+                    }
+
+                    this.results = true;
+                },
+
+                formatCurrency(amount) {
+                    return '$' + amount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                }
+            }));
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+
+            if (mobileMenuBtn && navLinks) {
+                mobileMenuBtn.addEventListener('click', function () {
+                    navLinks.classList.toggle('active');
+                    mobileMenuBtn.classList.toggle('active');
+                });
+                document.addEventListener('click', function (event) {
+                    if (!event.target.closest('.main-nav')) {
+                        navLinks.classList.remove('active');
+                        mobileMenuBtn.classList.remove('active');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
