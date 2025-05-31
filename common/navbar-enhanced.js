@@ -1,4 +1,4 @@
-// Enhanced Navbar with Dynamic Path Resolution and Search
+// Enhanced Navbar Search Functionality
 class EnhancedNavbar {
     constructor() {
         this.calculators = {
@@ -59,8 +59,7 @@ class EnhancedNavbar {
                     { name: 'Pizza Pi Calculator', file: 'Pizza Pi Calculator.html' },
                     { name: 'Your Life Visualized', file: 'Your Life Visualized.html' }
                 ]
-            }
-        };
+            },
             'Otaku_Ops': {
                 title: 'Otaku Ops',
                 description: 'Gaming and pop culture calculators',
@@ -71,7 +70,7 @@ class EnhancedNavbar {
                 ]
             }
         };
-        
+
         this.currentPath = this.detectCurrentPath();
         this.init();
     }
@@ -79,41 +78,55 @@ class EnhancedNavbar {
     detectCurrentPath() {
         const path = window.location.pathname;
         const segments = path.split('/').filter(segment => segment !== '');
-        
+
         // Determine the relative path to root
         if (segments.includes('pages')) {
             const pagesIndex = segments.indexOf('pages');
             const depth = segments.length - pagesIndex - 1; // How deep we are from pages/
             return '../'.repeat(depth);
         }
-        
+
         return './'; // We're at root
     }
 
-    generateNavbarHTML() {
-        const logoPath = this.currentPath === './' ? 'index.html' : `${this.currentPath}index.html`;
-        
-        // Create main navigation links for categories (no dropdowns)
-        const categoryLinks = Object.keys(this.calculators).map(key => {
-            const category = this.calculators[key];
-            const categoryPath = `${this.currentPath}pages/${key}/index.html`;
-            
-            return `<li><a href="${categoryPath}" class="category-main-link">${category.title}</a></li>`;
-        }).join('');
+    init() {
+        console.log('Enhanced Navbar Search initializing...');
+        console.log('Current path detected:', this.currentPath);
 
-        return `
-            <nav class="main-nav">
+        // Ensure navbar structure exists
+        this.ensureNavbarStructure();
+
+        // Initialize functionality
+        this.initSearch();
+        this.addBreadcrumbs();
+
+        console.log('Enhanced Navbar Search initialization complete');
+    }
+
+    ensureNavbarStructure() {
+        // Check if navbar exists
+        let navbar = document.querySelector('.main-nav');
+        if (!navbar) {
+            console.error('Navbar not found, creating one...');
+            navbar = document.createElement('nav');
+            navbar.className = 'main-nav';
+            navbar.innerHTML = `
                 <div class="nav-container">
                     <div class="nav-logo">
-                        <a href="${logoPath}">🧮 Docket One</a>
+                        <a href="${this.currentPath}index.html">🧮 Docket One</a>
                     </div>
                     <div class="nav-search">
-                        <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input">
+                        <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input" aria-label="Search calculators">
                         <div id="search-results" class="search-results"></div>
                     </div>
                     <ul class="nav-links">
-                        ${categoryLinks}
-                        <li><a href="${logoPath}" class="home-link">Unit Converter</a></li>
+                        <li><a href="${this.currentPath}pages/BigKidMath/index.html" class="category-link">Big Kid Math</a></li>
+                        <li><a href="${this.currentPath}pages/CipherLab/index.html" class="category-link">Cipher Lab</a></li>
+                        <li><a href="${this.currentPath}pages/GeekGalaxy/index.html" class="category-link">Geek Galaxy</a></li>
+                        <li><a href="${this.currentPath}pages/LifeHacks/index.html" class="category-link">Life Hacks</a></li>
+                        <li><a href="${this.currentPath}pages/Math_Magik/index.html" class="category-link">Math Magik</a></li>
+                        <li><a href="${this.currentPath}pages/Otaku_Ops/index.html" class="category-link">Otaku Ops</a></li>
+                        <li><a href="${this.currentPath}index.html" class="home-link">🏠 Home</a></li>
                     </ul>
                     <button class="mobile-menu-btn" aria-label="Toggle menu">
                         <span></span>
@@ -121,54 +134,35 @@ class EnhancedNavbar {
                         <span></span>
                     </button>
                 </div>
-            </nav>
-        `;
-    }
-
-    init() {
-        console.log('Enhanced Navbar initializing...');
-        console.log('Current path detected:', this.currentPath);
-        
-        // Inject navbar HTML
-        const navbar = document.createElement('div');
-        navbar.innerHTML = this.generateNavbarHTML();
-        
-        console.log('Navbar HTML generated:', navbar.innerHTML);
-        
-        document.body.insertBefore(navbar.firstElementChild, document.body.firstChild);
-        
-        console.log('Navbar injected into DOM');
-
-        // Initialize functionality
-        this.initMobileMenu();
-        this.initSearch();
-        this.addBreadcrumbs();
-        
-        console.log('Enhanced Navbar initialization complete');
-    }
-
-    initMobileMenu() {
-        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-        const navLinks = document.querySelector('.nav-links');
-        
-        mobileMenuBtn.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            mobileMenuBtn.classList.toggle('active');
-        });
-
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', (event) => {
-            if (!event.target.closest('.main-nav')) {
-                navLinks.classList.remove('active');
-                mobileMenuBtn.classList.remove('active');
+            `;
+            document.body.insertBefore(navbar, document.body.firstChild);
+        } else {
+            // Ensure search elements exist
+            const searchContainer = navbar.querySelector('.nav-search');
+            if (!searchContainer) {
+                const navContainer = navbar.querySelector('.nav-container');
+                if (navContainer) {
+                    const searchDiv = document.createElement('div');
+                    searchDiv.className = 'nav-search';
+                    searchDiv.innerHTML = `
+                        <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input" aria-label="Search calculators">
+                        <div id="search-results" class="search-results"></div>
+                    `;
+                    navContainer.insertBefore(searchDiv, navContainer.querySelector('.nav-links'));
+                }
             }
-        });
+        }
     }
 
     initSearch() {
         const searchInput = document.getElementById('calc-search');
         const searchResults = document.getElementById('search-results');
-        
+
+        if (!searchInput || !searchResults) {
+            console.error('Search elements not found');
+            return;
+        }
+
         // Create flat list of all calculators for search
         const allCalculators = [];
         Object.keys(this.calculators).forEach(categoryKey => {
@@ -184,29 +178,60 @@ class EnhancedNavbar {
             });
         });
 
+        // Add main categories to search
+        Object.keys(this.calculators).forEach(categoryKey => {
+            const category = this.calculators[categoryKey];
+            allCalculators.push({
+                name: category.title,
+                category: 'Category',
+                categoryKey: categoryKey,
+                description: category.description,
+                path: `${this.currentPath}pages/${categoryKey}/index.html`
+            });
+        });
+
         let searchTimeout;
         searchInput.addEventListener('input', (e) => {
             clearTimeout(searchTimeout);
             const query = e.target.value.trim().toLowerCase();
-            
+
             if (query.length < 2) {
                 searchResults.style.display = 'none';
                 return;
             }
 
             searchTimeout = setTimeout(() => {
-                const matches = allCalculators.filter(calc => 
+                const matches = allCalculators.filter(calc =>
                     calc.name.toLowerCase().includes(query) ||
+                    (calc.description && calc.description.toLowerCase().includes(query)) ||
                     calc.category.toLowerCase().includes(query)
                 ).slice(0, 8); // Limit results
 
                 if (matches.length > 0) {
-                    searchResults.innerHTML = matches.map(match => `
-                        <a href="${match.path}" class="search-result-item">
-                            <strong>${match.name}</strong>
-                            <span class="category-tag">${match.category}</span>
-                        </a>
-                    `).join('');
+                    const resultsList = document.createElement('ul');
+                    resultsList.className = 'search-results-list';
+
+                    matches.forEach(match => {
+                        const listItem = document.createElement('li');
+                        const link = document.createElement('a');
+                        link.href = match.path;
+
+                        const title = document.createElement('div');
+                        title.className = 'result-title';
+                        title.textContent = match.name;
+
+                        const description = document.createElement('div');
+                        description.className = 'result-description';
+                        description.textContent = match.description || match.category;
+
+                        link.appendChild(title);
+                        link.appendChild(description);
+                        listItem.appendChild(link);
+                        resultsList.appendChild(listItem);
+                    });
+
+                    searchResults.innerHTML = '';
+                    searchResults.appendChild(resultsList);
                     searchResults.style.display = 'block';
                 } else {
                     searchResults.innerHTML = '<div class="no-results">No calculators found</div>';
@@ -226,21 +251,21 @@ class EnhancedNavbar {
     addBreadcrumbs() {
         const path = window.location.pathname;
         const segments = path.split('/').filter(segment => segment !== '');
-        
+
         if (segments.includes('pages')) {
             const breadcrumbContainer = document.createElement('div');
             breadcrumbContainer.className = 'breadcrumbs';
-            
+
             let breadcrumbHTML = `<a href="${this.currentPath}index.html">Home</a>`;
-            
+
             const pagesIndex = segments.indexOf('pages');
             if (pagesIndex >= 0 && segments[pagesIndex + 1]) {
                 const categoryKey = segments[pagesIndex + 1];
                 const category = this.calculators[categoryKey];
-                
+
                 if (category) {
                     breadcrumbHTML += ` <span class="separator">›</span> <a href="${this.currentPath}pages/${categoryKey}/index.html">${category.title}</a>`;
-                    
+
                     // If we're on a specific calculator page
                     if (segments[pagesIndex + 2]) {
                         const fileName = decodeURIComponent(segments[pagesIndex + 2]);
@@ -251,23 +276,25 @@ class EnhancedNavbar {
                     }
                 }
             }
-            
+
             breadcrumbContainer.innerHTML = breadcrumbHTML;
-            
+
             // Insert breadcrumbs after navbar
             const navbar = document.querySelector('.main-nav');
-            navbar.parentNode.insertBefore(breadcrumbContainer, navbar.nextSibling);
+            if (navbar) {
+                navbar.parentNode.insertBefore(breadcrumbContainer, navbar.nextSibling);
+            }
         }
     }
 }
 
 // Auto-initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOM loaded, initializing Enhanced Navbar...');
+    console.log('DOM loaded, initializing Enhanced Navbar Search...');
     try {
         new EnhancedNavbar();
-        console.log('Enhanced Navbar created successfully');
+        console.log('Enhanced Navbar Search created successfully');
     } catch (error) {
-        console.error('Error initializing Enhanced Navbar:', error);
+        console.error('Error initializing Enhanced Navbar Search:', error);
     }
 });

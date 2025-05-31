@@ -1,15 +1,18 @@
 ﻿<!DOCTYPE html>
 <html lang="en" x-data="generationCalculator()">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generational Timeline Calculator - Discover Your Generation | Docket One</title>
-    <meta name="description" content="Professional generational timeline calculator to discover your generation with comprehensive insights into characteristics, work styles, and cultural context.">
+    <meta name="description"
+        content="Professional generational timeline calculator to discover your generation with comprehensive insights into characteristics, work styles, and cultural context.">
     <link rel="stylesheet" href="../../common/navbar-enhanced.css">
     <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    
+
     <style>
         /* Premium Generational Theme Design System */
         :root {
@@ -33,7 +36,7 @@
             --surface-elevated: #ffffff;
             --surface-generational: rgba(139, 92, 246, 0.05);
             --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            
+
             /* Generational Colors */
             --greatest: #8b5a2b;
             --silent: #6b7280;
@@ -42,7 +45,7 @@
             --millennial: #059669;
             --genz: #ea580c;
             --alpha: #0ea5e9;
-            
+
             /* Spacing Scale */
             --space-xs: 0.25rem;
             --space-sm: 0.5rem;
@@ -51,32 +54,32 @@
             --space-xl: 2rem;
             --space-2xl: 3rem;
             --space-3xl: 4rem;
-            
+
             /* Border Radius */
             --radius-sm: 6px;
             --radius-md: 12px;
             --radius-lg: 16px;
             --radius-xl: 24px;
             --radius-full: 9999px;
-            
+
             /* Shadows */
             --shadow-sm: 0 1px 2px 0 rgba(30, 41, 59, 0.05);
             --shadow-md: 0 4px 6px -1px rgba(30, 41, 59, 0.1), 0 2px 4px -1px rgba(30, 41, 59, 0.06);
             --shadow-lg: 0 10px 15px -3px rgba(30, 41, 59, 0.1), 0 4px 6px -2px rgba(30, 41, 59, 0.05);
             --shadow-generational: 0 8px 32px rgba(139, 92, 246, 0.15);
-            
+
             /* Transitions */
             --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
             --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
             --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: var(--font-primary);
             background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
@@ -84,7 +87,7 @@
             line-height: 1.6;
             min-height: 100vh;
         }
-        
+
         body::before {
             content: '';
             position: fixed;
@@ -98,12 +101,19 @@
             pointer-events: none;
             z-index: -1;
         }
-        
+
         @keyframes generationalFloat {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-15px) rotate(180deg); }
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-15px) rotate(180deg);
+            }
         }
-        
+
         .hero {
             background: linear-gradient(135deg, var(--gen-dark) 0%, var(--gen-medium) 50%, var(--primary) 100%);
             color: white;
@@ -112,7 +122,7 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .hero::after {
             content: '';
             position: absolute;
@@ -125,19 +135,24 @@
             animation: timelineMove 20s linear infinite;
             pointer-events: none;
         }
-        
+
         @keyframes timelineMove {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-150px); }
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-150px);
+            }
         }
-        
+
         .hero-content {
             position: relative;
             z-index: 2;
             max-width: 900px;
             margin: 0 auto;
         }
-        
+
         .hero-badge {
             display: inline-flex;
             align-items: center;
@@ -152,28 +167,28 @@
             margin-bottom: var(--space-xl);
             animation: fadeInUp 0.6s ease-out;
         }
-        
+
         .hero-title {
             font-size: clamp(2rem, 5vw, 3.5rem);
             font-weight: 800;
             margin: 0 0 var(--space-lg) 0;
-            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
             animation: fadeInUp 0.6s ease-out 0.2s both;
         }
-        
+
         .hero-subtitle {
             font-size: clamp(1rem, 2vw, 1.25rem);
             opacity: 0.9;
             margin: 0;
             animation: fadeInUp 0.6s ease-out 0.4s both;
         }
-        
+
         .container {
             max-width: 1400px;
             margin: 0 auto;
             padding: var(--space-2xl) var(--space-xl);
         }
-        
+
         .tabs {
             display: flex;
             background: var(--surface-generational);
@@ -184,7 +199,7 @@
             margin-left: auto;
             margin-right: auto;
         }
-        
+
         .tab-btn {
             flex: 1;
             padding: var(--space-md) var(--space-lg);
@@ -200,32 +215,32 @@
             justify-content: center;
             gap: var(--space-sm);
         }
-        
+
         .tab-btn.active {
             background: var(--primary);
             color: white;
             box-shadow: var(--shadow-md);
         }
-        
+
         .tab-btn:not(.active):hover {
             background: rgba(139, 92, 246, 0.1);
             color: var(--primary);
         }
-        
+
         .calculator-layout {
-            display: grid;
-            grid-template-columns: 400px 1fr;
-            gap: var(--space-2xl);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
             margin-top: var(--space-2xl);
         }
-        
+
         @media (max-width: 1200px) {
             .calculator-layout {
-                grid-template-columns: 1fr;
-                gap: var(--space-xl);
+                display: flex;
+                justify-content: center;
             }
         }
-        
+
         .calculator-panel {
             background: var(--surface-elevated);
             border-radius: var(--radius-xl);
@@ -238,7 +253,7 @@
             position: sticky;
             top: var(--space-xl);
         }
-        
+
         .calculator-panel::before {
             content: '';
             position: absolute;
@@ -248,7 +263,7 @@
             height: 4px;
             background: linear-gradient(90deg, var(--primary), var(--primary-light));
         }
-        
+
         .panel-title {
             font-size: 1.5rem;
             font-weight: 700;
@@ -258,11 +273,11 @@
             align-items: center;
             gap: var(--space-sm);
         }
-        
+
         .input-group {
             margin-bottom: var(--space-lg);
         }
-        
+
         .input-label {
             display: block;
             font-weight: 500;
@@ -270,7 +285,7 @@
             margin-bottom: var(--space-sm);
             font-size: 0.875rem;
         }
-        
+
         .input-field {
             width: 100%;
             padding: var(--space-lg);
@@ -282,20 +297,20 @@
             transition: var(--transition-base);
             background: var(--bg-primary);
         }
-        
+
         .input-field:focus {
             outline: none;
             border-color: var(--primary);
             box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
         }
-        
+
         .input-help {
             font-size: 0.75rem;
             color: var(--gen-medium);
             margin-top: var(--space-xs);
             text-align: center;
         }
-        
+
         .btn-primary {
             background: linear-gradient(135deg, var(--primary), var(--primary-light));
             color: white;
@@ -313,18 +328,18 @@
             justify-content: center;
             gap: var(--space-sm);
         }
-        
+
         .btn-primary:hover {
             transform: translateY(-2px);
             box-shadow: var(--shadow-lg);
         }
-        
+
         .btn-primary:disabled {
             opacity: 0.6;
             cursor: not-allowed;
             transform: none;
         }
-        
+
         .error-message {
             background: rgba(239, 68, 68, 0.1);
             border: 1px solid rgba(239, 68, 68, 0.2);
@@ -335,7 +350,7 @@
             margin-top: var(--space-md);
             text-align: center;
         }
-        
+
         .timeline-section {
             background: var(--surface-elevated);
             border-radius: var(--radius-xl);
@@ -346,7 +361,7 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .timeline-section::before {
             content: '';
             position: absolute;
@@ -356,7 +371,7 @@
             height: 4px;
             background: linear-gradient(90deg, var(--primary), var(--primary-light));
         }
-        
+
         .section-title {
             font-size: 1.5rem;
             font-weight: 700;
@@ -368,12 +383,12 @@
             justify-content: center;
             gap: var(--space-sm);
         }
-        
+
         .timeline-container {
             position: relative;
             margin: var(--space-xl) 0;
         }
-        
+
         .timeline-track {
             display: flex;
             height: 80px;
@@ -382,7 +397,7 @@
             box-shadow: var(--shadow-md);
             margin-bottom: var(--space-lg);
         }
-        
+
         .timeline-segment {
             flex: 1;
             position: relative;
@@ -397,21 +412,41 @@
             text-align: center;
             padding: var(--space-sm);
         }
-        
+
         .timeline-segment:hover {
             transform: scaleY(1.15);
             z-index: 10;
             box-shadow: var(--shadow-lg);
         }
-        
-        .timeline-segment.greatest { background: var(--greatest); }
-        .timeline-segment.silent { background: var(--silent); }
-        .timeline-segment.boomer { background: var(--boomer); }
-        .timeline-segment.genx { background: var(--genx); }
-        .timeline-segment.millennial { background: var(--millennial); }
-        .timeline-segment.genz { background: var(--genz); }
-        .timeline-segment.alpha { background: var(--alpha); }
-        
+
+        .timeline-segment.greatest {
+            background: var(--greatest);
+        }
+
+        .timeline-segment.silent {
+            background: var(--silent);
+        }
+
+        .timeline-segment.boomer {
+            background: var(--boomer);
+        }
+
+        .timeline-segment.genx {
+            background: var(--genx);
+        }
+
+        .timeline-segment.millennial {
+            background: var(--millennial);
+        }
+
+        .timeline-segment.genz {
+            background: var(--genz);
+        }
+
+        .timeline-segment.alpha {
+            background: var(--alpha);
+        }
+
         .birth-year-marker {
             position: absolute;
             top: -15px;
@@ -424,7 +459,7 @@
             box-shadow: var(--shadow-lg);
             z-index: 20;
         }
-        
+
         .birth-year-marker::before {
             content: attr(data-year);
             position: absolute;
@@ -440,7 +475,7 @@
             white-space: nowrap;
             box-shadow: var(--shadow-md);
         }
-        
+
         .birth-year-marker::after {
             content: '';
             position: absolute;
@@ -453,7 +488,7 @@
             border-right: 6px solid transparent;
             border-top: 8px solid var(--gen-dark);
         }
-        
+
         .timeline-labels {
             display: flex;
             justify-content: space-between;
@@ -462,11 +497,11 @@
             color: var(--gen-medium);
             font-weight: 500;
         }
-        
+
         .tooltip {
             position: relative;
         }
-        
+
         .tooltip-content {
             position: absolute;
             bottom: calc(100% + 15px);
@@ -484,7 +519,7 @@
             z-index: 1000;
             box-shadow: var(--shadow-lg);
         }
-        
+
         .tooltip-content::after {
             content: '';
             position: absolute;
@@ -494,21 +529,21 @@
             border: 6px solid transparent;
             border-top-color: var(--gen-dark);
         }
-        
+
         .tooltip:hover .tooltip-content {
             opacity: 1;
             visibility: visible;
         }
-        
+
         .results-panel {
             display: none;
         }
-        
+
         .results-panel.active {
             display: block;
             animation: fadeInUp 0.6s ease-out;
         }
-        
+
         .result-card {
             background: var(--surface-elevated);
             border-radius: var(--radius-xl);
@@ -519,7 +554,7 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .result-card::before {
             content: '';
             position: absolute;
@@ -529,14 +564,14 @@
             height: 4px;
             background: linear-gradient(90deg, var(--primary), var(--primary-light));
         }
-        
+
         .generation-header {
             text-align: center;
             margin-bottom: var(--space-2xl);
             padding-bottom: var(--space-lg);
             border-bottom: 2px solid var(--surface-generational);
         }
-        
+
         .generation-name {
             font-size: clamp(2rem, 4vw, 3rem);
             font-weight: 800;
@@ -546,27 +581,27 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        
+
         .generation-range {
             font-size: 1.25rem;
             color: var(--gen-medium);
             margin-bottom: var(--space-sm);
             font-weight: 500;
         }
-        
+
         .generation-age {
             font-size: 1rem;
             color: var(--gen-light);
             font-weight: 500;
         }
-        
+
         .insights-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: var(--space-xl);
             margin-bottom: var(--space-2xl);
         }
-        
+
         .insight-card {
             background: var(--surface-generational);
             border-radius: var(--radius-lg);
@@ -574,12 +609,12 @@
             border-left: 4px solid var(--primary);
             transition: var(--transition-base);
         }
-        
+
         .insight-card:hover {
             transform: translateY(-2px);
             box-shadow: var(--shadow-md);
         }
-        
+
         .insight-title {
             font-size: 1.125rem;
             font-weight: 600;
@@ -589,19 +624,19 @@
             align-items: center;
             gap: var(--space-sm);
         }
-        
+
         .insight-content {
             color: var(--gen-medium);
             line-height: 1.7;
         }
-        
+
         .cultural-section {
             background: var(--surface-generational);
             border-radius: var(--radius-lg);
             padding: var(--space-xl);
             margin-top: var(--space-xl);
         }
-        
+
         .cultural-title {
             font-size: 1.5rem;
             font-weight: 700;
@@ -613,13 +648,13 @@
             justify-content: center;
             gap: var(--space-sm);
         }
-        
+
         .cultural-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: var(--space-lg);
         }
-        
+
         .cultural-item {
             background: var(--surface-elevated);
             border-radius: var(--radius-md);
@@ -627,12 +662,12 @@
             box-shadow: var(--shadow-sm);
             transition: var(--transition-base);
         }
-        
+
         .cultural-item:hover {
             transform: translateY(-2px);
             box-shadow: var(--shadow-md);
         }
-        
+
         .cultural-item-title {
             font-weight: 600;
             color: var(--gen-dark);
@@ -642,39 +677,40 @@
             gap: var(--space-sm);
             font-size: 1rem;
         }
-        
+
         .cultural-item-content {
             color: var(--gen-medium);
             font-size: 0.875rem;
             line-height: 1.6;
         }
-        
+
         @keyframes fadeInUp {
             from {
                 opacity: 0;
                 transform: translateY(30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-        
+
         @media (max-width: 768px) {
             .hero {
                 padding: var(--space-2xl) var(--space-md);
             }
-            
+
             .container {
                 padding: var(--space-xl) var(--space-md);
             }
-            
+
             .calculator-panel,
             .result-card,
             .timeline-section {
                 padding: var(--space-lg);
             }
-            
+
             /* Mobile Horizontal Scrollable Timeline */
             .timeline-container {
                 overflow-x: auto;
@@ -682,16 +718,20 @@
                 padding-bottom: var(--space-md);
                 margin-bottom: var(--space-lg);
             }
-            
+
             .timeline-track {
-                min-width: 800px; /* Ensure timeline is wide enough to scroll */
-                height: 100px; /* Slightly taller for better touch targets */
-                flex-direction: row; /* Keep horizontal */
+                min-width: 800px;
+                /* Ensure timeline is wide enough to scroll */
+                height: 100px;
+                /* Slightly taller for better touch targets */
+                flex-direction: row;
+                /* Keep horizontal */
             }
-            
+
             .timeline-segment {
                 height: 100%;
-                min-width: 100px; /* Minimum width for readability */
+                min-width: 100px;
+                /* Minimum width for readability */
                 flex: 1;
                 font-size: 0.75rem;
                 padding: var(--space-sm);
@@ -701,21 +741,22 @@
                 text-align: center;
                 white-space: nowrap;
             }
-            
+
             .timeline-segment:hover {
                 transform: scaleY(1.1);
                 z-index: 10;
             }
-            
+
             .birth-year-marker {
                 width: 6px;
-                height: 130px; /* Taller to accommodate larger timeline */
+                height: 130px;
+                /* Taller to accommodate larger timeline */
                 top: -15px;
                 left: auto;
                 right: auto;
                 transform: translateX(-3px);
             }
-            
+
             .birth-year-marker::before {
                 top: -35px;
                 left: 50%;
@@ -723,7 +764,7 @@
                 transform: translateX(-50%);
                 white-space: nowrap;
             }
-            
+
             .birth-year-marker::after {
                 top: -15px;
                 left: 50%;
@@ -734,16 +775,17 @@
                 border-top: 8px solid var(--gen-dark);
                 border-bottom: none;
             }
-            
+
             .timeline-labels {
                 flex-direction: row;
                 justify-content: space-between;
                 align-items: center;
                 gap: auto;
                 margin-top: var(--space-md);
-                min-width: 800px; /* Match timeline width */
+                min-width: 800px;
+                /* Match timeline width */
             }
-            
+
             .tooltip-content {
                 bottom: calc(100% + 15px);
                 left: 50%;
@@ -751,7 +793,7 @@
                 transform: translateX(-50%);
                 white-space: nowrap;
             }
-            
+
             .tooltip-content::after {
                 top: 100%;
                 left: 50%;
@@ -763,31 +805,31 @@
                 border-top: 6px solid var(--gen-dark);
                 border-bottom: none;
             }
-            
+
             /* Add scrollbar styling for better UX */
             .timeline-container::-webkit-scrollbar {
                 height: 8px;
             }
-            
+
             .timeline-container::-webkit-scrollbar-track {
                 background: var(--surface-generational);
                 border-radius: var(--radius-sm);
             }
-            
+
             .timeline-container::-webkit-scrollbar-thumb {
                 background: var(--primary);
                 border-radius: var(--radius-sm);
             }
-            
+
             .timeline-container::-webkit-scrollbar-thumb:hover {
                 background: var(--primary-dark);
             }
-            
+
             /* Add scroll hint */
             .timeline-section {
                 position: relative;
             }
-            
+
             .timeline-section::after {
                 content: '← Scroll to explore timeline →';
                 position: absolute;
@@ -799,18 +841,18 @@
                 opacity: 0.7;
                 pointer-events: none;
             }
-            
+
             .insights-grid,
             .cultural-grid {
                 grid-template-columns: 1fr;
             }
-            
+
             .tabs {
                 margin-left: var(--space-md);
                 margin-right: var(--space-md);
             }
         }
-        
+
         /* Accessibility */
         @media (prefers-reduced-motion: reduce) {
             * {
@@ -819,7 +861,7 @@
                 transition-duration: 0.01ms !important;
             }
         }
-        
+
         .sr-only {
             position: absolute;
             width: 1px;
@@ -831,12 +873,12 @@
             white-space: nowrap;
             border: 0;
         }
-        
+
         *:focus {
             outline: 2px solid var(--primary);
             outline-offset: 2px;
         }
-        
+
         .timeline-segment:focus {
             outline: 3px solid var(--primary);
             outline-offset: 3px;
@@ -864,42 +906,39 @@
     <link rel="stylesheet" href="../../common/themes/dark-theme.css">
     <link rel="stylesheet" href="../../common/footer/premium-footer.css">
     <script src="../../common/footer/premium-footer.js"></script>
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
-    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script></head>
+</head>
+
 <body x-data="{ showModal: false }">
     <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-<nav class="main-nav">
-    <div class="nav-container">
-        <div class="nav-logo">
-            <a href="../../index.html">🧮 Docket One</a>
+    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="../../index.html">🧮 Docket One</a>
+            </div>
+            <div class="nav-search">
+                <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input"
+                    aria-label="Search calculators">
+                <div id="search-results" class="search-results"></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../BigKidMath/index.html" class="category-link">Big Kid Math</a></li>
+                <li><a href="../CipherLab/index.html" class="category-link">Cipher Lab</a></li>
+                <li><a href="../GeekGalaxy/index.html" class="category-link">Geek Galaxy</a></li>
+                <li><a href="../LifeHacks/index.html" class="category-link">Life Hacks</a></li>
+                <li><a href="../Math_Magik/index.html" class="category-link">Math Magik</a></li>
+                <li><a href="../Otaku_Ops/index.html" class="category-link">Otaku Ops</a></li>
+                <li><a href="../../index.html" class="home-link">🏠 Home</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
-        <div class="nav-search">
-            <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input" aria-label="Search calculators">
-            <div id="search-results" class="search-results"></div>
-        </div>
-        <ul class="nav-links">
-            <li><a href="../BigKidMath/index.html" class="category-link">Big Kid Math</a></li>
-            <li><a href="../CipherLab/index.html" class="category-link">Cipher Lab</a></li>
-            <li><a href="../GeekGalaxy/index.html" class="category-link">Geek Galaxy</a></li>
-            <li><a href="../LifeHacks/index.html" class="category-link">Life Hacks</a></li>
-            <li><a href="../Math_Magik/index.html" class="category-link">Math Magik</a></li>
-            <li><a href="../Otaku_Ops/index.html" class="category-link">Otaku Ops</a></li>
-            <li><a href="../../index.html" class="home-link">🏠 Home</a></li>
-        </ul>
-        <button class="mobile-menu-btn" aria-label="Toggle menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-    </div>
-</nav>
+    </nav>
 
     <section class="hero">
         <div class="hero-content">
@@ -908,7 +947,8 @@
                 <span>Generational Discovery Tool</span>
             </div>
             <h1 class="hero-title">Generational Timeline Calculator</h1>
-            <p class="hero-subtitle">Discover your generation and explore the unique characteristics, work styles, and cultural context that shaped your cohort</p>
+            <p class="hero-subtitle">Discover your generation and explore the unique characteristics, work styles, and
+                cultural context that shaped your cohort</p>
         </div>
     </section>
 
@@ -922,90 +962,38 @@
                 <span>📊</span>
                 <span>Timeline</span>
             </button>
-            <button @click="activeTab = 'results'" :class="{'active': activeTab === 'results'}" class="tab-btn" :disabled="!result">
+            <button @click="activeTab = 'results'" :class="{'active': activeTab === 'results'}" class="tab-btn"
+                :disabled="!result">
                 <span>📈</span>
                 <span>Results</span>
             </button>
         </div>
-        
+
         <div x-show="activeTab === 'calculator'" class="calculator-layout">
-            <div class="calculator-panel">
+            <div class="calculator-panel" style="width: 400px;">
                 <h2 class="panel-title">
                     <span>🎯</span>
                     Calculate Your Generation
                 </h2>
-                
+
                 <div class="input-group">
                     <label for="birthYear" class="input-label">Enter Your Birth Year</label>
-                    <input
-                        type="number"
-                        id="birthYear"
-                        x-model="birthYear"
-                        class="input-field"
-                        placeholder="e.g., 1985"
-                        min="1900"
-                        :max="new Date().getFullYear()"
-                        @input="calculateGeneration()"
-                        @keydown.enter="calculateGeneration()"
-                    >
+                    <input type="number" id="birthYear" x-model="birthYear" class="input-field" placeholder="e.g., 1985"
+                        min="1900" :max="new Date().getFullYear()" @input="calculateGeneration()"
+                        @keydown.enter="calculateGeneration()">
                     <div class="input-help">Enter any year from 1900 to present</div>
                 </div>
-                
-                <button
-                    type="button"
-                    class="btn-primary"
-                    @click="calculateGeneration(); if(calculated) { activeTab = 'results'; }"
-                    :disabled="!birthYear"
-                >
+
+                <button type="button" class="btn-primary"
+                    @click="calculateGeneration(); if(calculated) { activeTab = 'results'; }" :disabled="!birthYear">
                     <span>🚀</span>
                     <span>Discover My Generation</span>
                 </button>
-                
+
                 <div x-show="error" x-text="error" class="error-message"></div>
             </div>
-            
-            <div class="timeline-section">
-                <h2 class="section-title">
-                    <span>🕰️</span>
-                    Interactive Generational Timeline
-                </h2>
-                <p style="text-align: center; color: var(--gen-medium); margin-bottom: var(--space-xl);">
-                    Hover over each generation segment to see details
-                </p>
-                <div class="timeline-container">
-                    <div class="timeline-track">
-                        <template x-for="generation in generations" :key="generation.name">
-                            <div
-                                :class="`timeline-segment tooltip ${generation.class}`"
-                                tabindex="0"
-                                role="button"
-                                :aria-label="`${generation.name} generation, born ${generation.range}`"
-                            >
-                                <span x-text="generation.shortName || generation.name.split(' ')[0]"></span>
-                                <div class="tooltip-content">
-                                    <strong x-text="generation.name"></strong><br>
-                                    <span x-text="generation.range"></span>
-                                </div>
-                            </div>
-                        </template>
-                    </div>
-                    
-                    <!-- Birth Year Marker -->
-                    <div
-                        x-show="result"
-                        class="birth-year-marker"
-                        :style="window.innerWidth <= 768 ? `left: ${result?.mobilePixelPosition}px` : `left: ${result?.percentage}%`"
-                        :data-year="birthYear"
-                    ></div>
-                    
-                    <div class="timeline-labels">
-                        <span>Greatest (1901)</span>
-                        <span x-text="'Alpha (' + new Date().getFullYear() + ')'"></span>
-                    </div>
-                </div>
-            </div>
         </div>
-        
+
         <div x-show="activeTab === 'timeline'" class="timeline-section" style="margin-top: var(--space-2xl);">
             <h2 class="section-title">
                 <span>📊</span>
@@ -1017,12 +1005,8 @@
             <div class="timeline-container">
                 <div class="timeline-track">
                     <template x-for="generation in generations" :key="generation.name">
-                        <div
-                            :class="`timeline-segment tooltip ${generation.class}`"
-                            tabindex="0"
-                            role="button"
-                            :aria-label="`${generation.name} generation, born ${generation.range}`"
-                        >
+                        <div :class="`timeline-segment tooltip ${generation.class}`" tabindex="0" role="button"
+                            :aria-label="`${generation.name} generation, born ${generation.range}`">
                             <span x-text="generation.shortName || generation.name.split(' ')[0]"></span>
                             <div class="tooltip-content">
                                 <strong x-text="generation.name"></strong><br>
@@ -1031,15 +1015,12 @@
                         </div>
                     </template>
                 </div>
-                
+
                 <!-- Birth Year Marker -->
-                <div
-                    x-show="result"
-                    class="birth-year-marker"
+                <div x-show="result" class="birth-year-marker"
                     :style="window.innerWidth <= 768 ? `left: ${result?.mobilePixelPosition}px` : `left: ${result?.percentage}%`"
-                    :data-year="birthYear"
-                ></div>
-                
+                    :data-year="birthYear"></div>
+
                 <div class="timeline-labels">
                     <span>Greatest (1901)</span>
                     <span x-text="'Alpha (' + new Date().getFullYear() + ')'"></span>
@@ -1062,13 +1043,13 @@
                 </template>
             </div>
         </div>
-        
+
         <div x-show="activeTab === 'results'" class="results-panel" :class="{'active': result}">
             <div x-show="!result" style="text-align: center; padding: var(--space-3xl); color: var(--gen-medium);">
                 <h3 style="font-size: 1.5rem; margin-bottom: var(--space-md);">No Results Yet</h3>
                 <p>Enter your birth year in the calculator to see your generational analysis.</p>
             </div>
-            
+
             <div x-show="result">
                 <article class="result-card">
                     <header class="generation-header">
@@ -1076,7 +1057,7 @@
                         <p class="generation-range" x-text="result?.range"></p>
                         <p class="generation-age" x-text="result?.ageInfo"></p>
                     </header>
-                    
+
                     <div class="insights-grid">
                         <div class="insight-card">
                             <h3 class="insight-title">
@@ -1085,7 +1066,7 @@
                             </h3>
                             <p class="insight-content" x-text="result?.characteristics"></p>
                         </div>
-                        
+
                         <div class="insight-card">
                             <h3 class="insight-title">
                                 <span>💼</span>
@@ -1093,7 +1074,7 @@
                             </h3>
                             <p class="insight-content" x-text="result?.workStyle"></p>
                         </div>
-                        
+
                         <div class="insight-card">
                             <h3 class="insight-title">
                                 <span>💻</span>
@@ -1101,7 +1082,7 @@
                             </h3>
                             <p class="insight-content" x-text="result?.technology"></p>
                         </div>
-                        
+
                         <div class="insight-card">
                             <h3 class="insight-title">
                                 <span>💰</span>
@@ -1110,7 +1091,7 @@
                             <p class="insight-content" x-text="result?.financial"></p>
                         </div>
                     </div>
-                    
+
                     <div class="cultural-section">
                         <h3 class="cultural-title">
                             <span>🌟</span>
@@ -1161,7 +1142,7 @@
                 result: null,
                 error: '',
                 calculated: false,
-                
+
                 generations: [
                     {
                         name: "Greatest Generation",
@@ -1240,7 +1221,7 @@
                         class: "genx"
                     },
                     {
-                        name: "Millennials", 
+                        name: "Millennials",
                         shortName: "Millennials",
                         range: "1981-1996",
                         start: 1981,
@@ -1297,13 +1278,13 @@
                         class: "alpha"
                     }
                 ],
-                
+
                 calculateGeneration() {
                     console.log('Calculate called with birth year:', this.birthYear);
                     this.error = '';
                     const year = parseInt(this.birthYear);
                     const currentYear = new Date().getFullYear();
-                    
+
                     if (!this.birthYear || this.birthYear.toString().trim() === '') {
                         this.error = 'Please enter your birth year';
                         this.result = null;
@@ -1311,7 +1292,7 @@
                         console.log('Error: Empty birth year');
                         return;
                     }
-                    
+
                     if (isNaN(year) || year < 1900 || year > currentYear) {
                         this.error = `Please enter a valid year between 1900 and ${currentYear}`;
                         this.result = null;
@@ -1319,29 +1300,29 @@
                         console.log('Error: Invalid year range');
                         return;
                     }
-                    
-                    const generation = this.generations.find(gen => 
+
+                    const generation = this.generations.find(gen =>
                         year >= gen.start && year <= gen.end
                     );
-                    
+
                     console.log('Found generation:', generation?.name);
-                    
+
                     if (generation) {
                         // Calculate position based on proportional segments
                         const genIndex = this.generations.findIndex(g => g.name === generation.name);
                         const totalGenerations = this.generations.length;
-                        
+
                         // Each generation gets equal width in the timeline (100% / 7 generations)
                         const segmentWidth = 100 / totalGenerations;
-                        
+
                         // Position within the generation (0-1)
                         const positionInGen = (year - generation.start) / (generation.end - generation.start);
-                        
+
                         // Final percentage: segment start + position within segment
                         const percentage = (genIndex * segmentWidth) + (positionInGen * segmentWidth);
-                        
+
                         const currentAge = currentYear - year;
-                        
+
                         this.result = {
                             generation: generation.name,
                             range: `Birth years: ${generation.range}`,
@@ -1357,7 +1338,7 @@
                             // Add mobile positioning
                             mobilePixelPosition: this.calculateMobilePixelPosition(genIndex, positionInGen)
                         };
-                        
+
                         this.calculated = true;
                         this.error = '';
                         console.log('Result set:', this.result);
@@ -1369,18 +1350,18 @@
                         console.log('Error: No generation found');
                     }
                 },
-                
+
                 calculateMobilePixelPosition(genIndex, positionInGen) {
                     // Mobile timeline is 800px wide with 7 equal segments
                     const mobileTimelineWidth = 800;
                     const segmentWidth = mobileTimelineWidth / 7; // ~114px per segment
-                    
+
                     // Calculate pixel position: segment start + position within segment
                     const pixelPosition = (genIndex * segmentWidth) + (positionInGen * segmentWidth);
-                    
+
                     return pixelPosition;
                 },
-                
+
                 getGenerationIcon(generationClass) {
                     const icons = {
                         'greatest': '🏛️',
@@ -1396,176 +1377,174 @@
             }
         }
     </script>
-<!-- Newsletter Bar -->
-<div class="newsletter-bar" x-data="newsletterForm()">
-    <div class="newsletter-container">
-        <div class="newsletter-content">
-            <div class="newsletter-info">
-                <h3>&#127881; Join Our Calculator Community!</h3>
-                <p>Get updates on new fun calculators and practical tools</p>
-            </div>
-            <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
-                <input 
-                    type="email" 
-                    class="newsletter-input"
-                    placeholder="Enter your email for calculator updates"
-                    x-model="email"
-                    required
-                >
-                <button 
-                    type="submit" 
-                    class="newsletter-submit"
-                    :disabled="isSubmitting"
-                >
-                    <span x-show="isSubmitting" class="loading-spinner"></span>
-                    <span x-text="isSubmitting ? 'Subscribing...' : '&#128640; Subscribe'"></span>
-                </button>
-            </form>
-            <div x-show="showSuccess" class="newsletter-success" style="display: none;">
-                <p style="color: var(--accent-light); font-weight: 600;">
-                    &#9989; Awesome! You'll get updates on the coolest new calculators!
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Footer -->
-<footer class="footer">
-    <div class="footer-container">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h4>&#127919; About Docket.One</h4>
-                <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the tools for modern life.</p>
-                <p>Practical meets playful. Because adulting is hard enough.</p>
-            </div>
-
-            <div class="footer-section">
-                <h4>&#127914; Calculator Categories</h4>
-                <ul class="footer-links">
-                    <li><a href="/pages/BigKidMath/"><span class="calculator-emoji">&#129518;</span> BigKidMath - Adult Life Tools</a></li>
-                    <li><a href="/pages/CipherLab/"><span class="calculator-emoji">&#128272;</span> CipherLab - Secret Codes & Security</a></li>
-                    <li><a href="/pages/GeekGalaxy/"><span class="calculator-emoji">&#128640;</span> GeekGalaxy - Sci-Fi & Fantasy Fun</a></li>
-                    <li><a href="/pages/LifeHacks/"><span class="calculator-emoji">&#9889;</span> LifeHacks - Productivity & Wellness</a></li>
-                    <li><a href="/pages/Math_Magik/"><span class="calculator-emoji">&#127917;</span> Math Magik - Mathematical Wizardry</a></li>
-                    <li><a href="/pages/Otaku_Ops/"><span class="calculator-emoji">&#127999;</span> Otaku Ops - Anime & Culture</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-                <h4>&#128172; Support & Info</h4>
-                <ul class="footer-links">
-                    <li><a href="/help"><span class="calculator-emoji">&#10067;</span> Help & FAQ</a></li>
-                    <li><a href="/privacy"><span class="calculator-emoji">&#128274;</span> Privacy Policy</a></li>
-                    <li><a href="/terms"><span class="calculator-emoji">&#128203;</span> Terms of Service</a></li>
-                    <li><a href="/accessibility"><span class="calculator-emoji">&#9855;</span> Accessibility</a></li>
-                    <li><a href="/contact"><span class="calculator-emoji">&#128231;</span> Contact Us</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-                <button 
-                    class="request-calculator-btn"
-                    @click="showModal = true"
-                >
-                    &#128161; Request a Calculator
-                </button>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <div class="footer-logo">&#129518; Docket.One</div>
-            <div class="footer-copyright">
-                Â© 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
-            </div>
-            <div class="social-links">
-                <a href="#" class="social-link" aria-label="Twitter">&#120143;</a>
-                <a href="#" class="social-link" aria-label="LinkedIn">&#128188;</a>
-                <a href="#" class="social-link" aria-label="GitHub">&#128025;</a>
-                <a href="#" class="social-link" aria-label="Email">&#128231;</a>
-            </div>
-        </div>
-    </div>
-</footer>
-
-<!-- Request Modal -->
-<div 
-    x-data="calculatorRequestForm()"
-    x-show="showModal"
-    x-cloak
-    class="modal-overlay"
-    @click.self="closeModal()"
-    style="display: none;"
->
-    <div class="modal-content">
-        <div x-show="!showConfirmation">
-            <div class="modal-header">
-                <h2 class="modal-title">&#128161; Request a Fun Calculator</h2>
-                <p class="modal-subtitle">Got an idea for a calculator that would make life easier or more fun? We want to hear it!</p>
-                <button class="modal-close" @click="closeModal()">&#10005;</button>
-            </div>
-            <div class="modal-body">
-                <form @submit.prevent="submitRequest()">
-                    <div class="form-group">
-                        <label class="form-label" for="userName">Your Name *</label>
-                        <input type="text" id="userName" class="form-input" x-model="formData.name" required placeholder="What should we call you?">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="userEmail">Email Address *</label>
-                        <input type="email" id="userEmail" class="form-input" x-model="formData.email" required placeholder="your@email.com">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="requestType">What Kind of Request? *</label>
-                        <select id="requestType" class="form-input form-select" x-model="formData.type" required>
-                            <option value="">Choose your request type</option>
-                            <option value="new-calculator">&#127358; Brand New Calculator</option>
-                            <option value="enhancement">&#9889; Improve Existing Calculator</option>
-                            <option value="category">&#127914; New Category Idea</option>
-                            <option value="feature">&#10024; Cool New Feature</option>
-                            <option value="other">&#129300; Something Else Entirely</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="calculatorTitle">Calculator Name/Title *</label>
-                        <input type="text" id="calculatorTitle" class="form-input" x-model="formData.title" required placeholder="e.g., 'Should I Call In Sick Calculator'">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="description">Tell Us About Your Idea! *</label>
-                        <textarea id="description" class="form-input form-textarea" x-model="formData.description" required placeholder="Describe your calculator idea!"></textarea>
-                    </div>
-                    <div class="form-actions">
-                        <button type="button" class="btn btn-secondary" @click="closeModal()">Maybe Later</button>
-                        <button type="submit" class="btn btn-primary" :disabled="isSubmitting">
-                            <span x-show="isSubmitting" class="loading-spinner"></span>
-                            <span x-text="isSubmitting ? 'Sending...' : '&#128640; Send My Idea'"></span>
-                        </button>
-                    </div>
+    <!-- Newsletter Bar -->
+    <div class="newsletter-bar" x-data="newsletterForm()">
+        <div class="newsletter-container">
+            <div class="newsletter-content">
+                <div class="newsletter-info">
+                    <h3>&#127881; Join Our Calculator Community!</h3>
+                    <p>Get updates on new fun calculators and practical tools</p>
+                </div>
+                <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
+                    <input type="email" class="newsletter-input" placeholder="Enter your email for calculator updates"
+                        x-model="email" required>
+                    <button type="submit" class="newsletter-submit" :disabled="isSubmitting">
+                        <span x-show="isSubmitting" class="loading-spinner"></span>
+                        <span x-text="isSubmitting ? 'Subscribing...' : '&#128640; Subscribe'"></span>
+                    </button>
                 </form>
-            </div>
-        </div>
-        <div x-show="showConfirmation" class="confirmation-modal" style="display: none;">
-            <div class="modal-header">
-                <button class="modal-close" @click="closeModal()">&#10005;</button>
-            </div>
-            <div class="modal-body">
-                <div class="success-icon">&#127881;</div>
-                <h3 class="confirmation-title">Awesome! We Got Your Idea!</h3>
-                <p class="confirmation-message">
-                    Thanks for sharing your calculator idea with us! We're excited to check it out and see if we can make it happen. 
-                    <br><br>
-                    <strong>What happens next?</strong><br>
-                    â€¢ You'll get a confirmation email shortly<br>
-                    â€¢ Our team will review your idea<br>
-                    â€¢ If we build it, you'll be the first to know!<br>
-                    â€¢ We might even name you as the inspiration &#128522;
-                </p>
-                <button class="btn btn-primary" @click="closeModal()" style="width: 100%;">
-                    &#127919; Close & Keep Calculating!
-                </button>
+                <div x-show="showSuccess" class="newsletter-success" style="display: none;">
+                    <p style="color: var(--accent-light); font-weight: 600;">
+                        &#9989; Awesome! You'll get updates on the coolest new calculators!
+                    </p>
+                </div>
             </div>
         </div>
     </div>
-</div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>&#127919; About Docket.One</h4>
+                    <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you
+                        should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the
+                        tools for modern life.</p>
+                    <p>Practical meets playful. Because adulting is hard enough.</p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>&#127914; Calculator Categories</h4>
+                    <ul class="footer-links">
+                        <li><a href="/pages/BigKidMath/"><span class="calculator-emoji">&#129518;</span> BigKidMath -
+                                Adult Life Tools</a></li>
+                        <li><a href="/pages/CipherLab/"><span class="calculator-emoji">&#128272;</span> CipherLab -
+                                Secret Codes & Security</a></li>
+                        <li><a href="/pages/GeekGalaxy/"><span class="calculator-emoji">&#128640;</span> GeekGalaxy -
+                                Sci-Fi & Fantasy Fun</a></li>
+                        <li><a href="/pages/LifeHacks/"><span class="calculator-emoji">&#9889;</span> LifeHacks -
+                                Productivity & Wellness</a></li>
+                        <li><a href="/pages/Math_Magik/"><span class="calculator-emoji">&#127917;</span> Math Magik -
+                                Mathematical Wizardry</a></li>
+                        <li><a href="/pages/Otaku_Ops/"><span class="calculator-emoji">&#127999;</span> Otaku Ops -
+                                Anime & Culture</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>&#128172; Support & Info</h4>
+                    <ul class="footer-links">
+                        <li><a href="/help"><span class="calculator-emoji">&#10067;</span> Help & FAQ</a></li>
+                        <li><a href="/privacy"><span class="calculator-emoji">&#128274;</span> Privacy Policy</a></li>
+                        <li><a href="/terms"><span class="calculator-emoji">&#128203;</span> Terms of Service</a></li>
+                        <li><a href="/accessibility"><span class="calculator-emoji">&#9855;</span> Accessibility</a>
+                        </li>
+                        <li><a href="/contact"><span class="calculator-emoji">&#128231;</span> Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <button class="request-calculator-btn" @click="showModal = true">
+                        &#128161; Request a Calculator
+                    </button>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-logo">&#129518; Docket.One</div>
+                <div class="footer-copyright">
+                    Â© 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
+                </div>
+                <div class="social-links">
+                    <a href="#" class="social-link" aria-label="Twitter">&#120143;</a>
+                    <a href="#" class="social-link" aria-label="LinkedIn">&#128188;</a>
+                    <a href="#" class="social-link" aria-label="GitHub">&#128025;</a>
+                    <a href="#" class="social-link" aria-label="Email">&#128231;</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Request Modal -->
+    <div x-data="calculatorRequestForm()" x-show="showModal" x-cloak class="modal-overlay" @click.self="closeModal()"
+        style="display: none;">
+        <div class="modal-content">
+            <div x-show="!showConfirmation">
+                <div class="modal-header">
+                    <h2 class="modal-title">&#128161; Request a Fun Calculator</h2>
+                    <p class="modal-subtitle">Got an idea for a calculator that would make life easier or more fun? We
+                        want to hear it!</p>
+                    <button class="modal-close" @click="closeModal()">&#10005;</button>
+                </div>
+                <div class="modal-body">
+                    <form @submit.prevent="submitRequest()">
+                        <div class="form-group">
+                            <label class="form-label" for="userName">Your Name *</label>
+                            <input type="text" id="userName" class="form-input" x-model="formData.name" required
+                                placeholder="What should we call you?">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="userEmail">Email Address *</label>
+                            <input type="email" id="userEmail" class="form-input" x-model="formData.email" required
+                                placeholder="your@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="requestType">What Kind of Request? *</label>
+                            <select id="requestType" class="form-input form-select" x-model="formData.type" required>
+                                <option value="">Choose your request type</option>
+                                <option value="new-calculator">&#127358; Brand New Calculator</option>
+                                <option value="enhancement">&#9889; Improve Existing Calculator</option>
+                                <option value="category">&#127914; New Category Idea</option>
+                                <option value="feature">&#10024; Cool New Feature</option>
+                                <option value="other">&#129300; Something Else Entirely</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="calculatorTitle">Calculator Name/Title *</label>
+                            <input type="text" id="calculatorTitle" class="form-input" x-model="formData.title" required
+                                placeholder="e.g., 'Should I Call In Sick Calculator'">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="description">Tell Us About Your Idea! *</label>
+                            <textarea id="description" class="form-input form-textarea" x-model="formData.description"
+                                required placeholder="Describe your calculator idea!"></textarea>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" @click="closeModal()">Maybe Later</button>
+                            <button type="submit" class="btn btn-primary" :disabled="isSubmitting">
+                                <span x-show="isSubmitting" class="loading-spinner"></span>
+                                <span x-text="isSubmitting ? 'Sending...' : '&#128640; Send My Idea'"></span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div x-show="showConfirmation" class="confirmation-modal" style="display: none;">
+                <div class="modal-header">
+                    <button class="modal-close" @click="closeModal()">&#10005;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="success-icon">&#127881;</div>
+                    <h3 class="confirmation-title">Awesome! We Got Your Idea!</h3>
+                    <p class="confirmation-message">
+                        Thanks for sharing your calculator idea with us! We're excited to check it out and see if we can
+                        make it happen.
+                        <br><br>
+                        <strong>What happens next?</strong><br>
+                        â€¢ You'll get a confirmation email shortly<br>
+                        â€¢ Our team will review your idea<br>
+                        â€¢ If we build it, you'll be the first to know!<br>
+                        â€¢ We might even name you as the inspiration &#128522;
+                    </p>
+                    <button class="btn btn-primary" @click="closeModal()" style="width: 100%;">
+                        &#127919; Close & Keep Calculating!
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </body>
+
 </html>

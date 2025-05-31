@@ -35,7 +35,8 @@
     <link rel="stylesheet" href="common/navbar-enhanced.css">
     <link rel="stylesheet" href="common/santa-improvements.css">
     <link rel="stylesheet" href="common/footer/premium-footer.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="common/footer/premium-footer.js"></script>
     <script src="https://analytics.ahrefs.com/analytics.js" data-key="LJUZ/Iuc9YVDc6biyso88A" async></script>
@@ -83,38 +84,39 @@
                 grid-template-columns: 1fr;
                 gap: 1rem;
             }
-            
+
             .category-card {
                 padding: 1.5rem !important;
             }
-            
+
             .converter-select {
                 margin: 1rem 0;
             }
-            
+
             .converter-dropdown {
                 width: 100%;
                 padding: 0.75rem;
                 font-size: 16px;
             }
-            
+
             header h1 {
                 font-size: 2rem;
             }
-            
+
             header p {
                 font-size: 1rem;
             }
         }
-        
+
         /* Enhanced category card interactions */
         .category-btn:hover {
-            background: rgba(255,255,255,0.3) !important;
+            background: rgba(255, 255, 255, 0.3) !important;
             transform: scale(1.05);
         }
     </style>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
 
     <link rel="stylesheet" href="../../common/navbar-enhanced.css">
     <link rel="stylesheet" href="../../common/santa-improvements.css">
@@ -127,42 +129,44 @@
     <link rel="stylesheet" href="common/global-calculator.css">
     <link rel="stylesheet" href="common/themes/dark-theme.css">
     <link rel="stylesheet" href="common/footer/premium-footer.css">
-    <script src="common/footer/premium-footer.js"></script></head>
+    <script src="common/footer/premium-footer.js"></script>
+</head>
 
 <body x-data="{ showModal: false }">
-            <!-- Enhanced Navigation Bar -->
+    <!-- Enhanced Navigation Bar -->
     <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-<nav class="main-nav">
-    <div class="nav-container">
-        <div class="nav-logo">
-            <a href="index.html">🧮 Docket One</a>
+    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">🧮 Docket One</a>
+            </div>
+            <div class="nav-search">
+                <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input"
+                    aria-label="Search calculators">
+                <div id="search-results" class="search-results"></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="pages/BigKidMath/index.html" class="category-link">Big Kid Math</a></li>
+                <li><a href="pages/CipherLab/index.html" class="category-link">Cipher Lab</a></li>
+                <li><a href="pages/GeekGalaxy/index.html" class="category-link">Geek Galaxy</a></li>
+                <li><a href="pages/LifeHacks/index.html" class="category-link">Life Hacks</a></li>
+                <li><a href="pages/Math_Magik/index.html" class="category-link">Math Magik</a></li>
+                <li><a href="pages/Otaku_Ops/index.html" class="category-link">Otaku Ops</a></li>
+                <li><a href="index.html" class="home-link">🏠 Home</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
-        <div class="nav-search">
-            <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input" aria-label="Search calculators">
-            <div id="search-results" class="search-results"></div>
-        </div>
-        <ul class="nav-links">
-            <li><a href="pages/BigKidMath/index.html" class="category-link">Big Kid Math</a></li>
-            <li><a href="pages/CipherLab/index.html" class="category-link">Cipher Lab</a></li>
-            <li><a href="pages/GeekGalaxy/index.html" class="category-link">Geek Galaxy</a></li>
-            <li><a href="pages/LifeHacks/index.html" class="category-link">Life Hacks</a></li>
-            <li><a href="pages/Math_Magik/index.html" class="category-link">Math Magik</a></li>
-            <li><a href="pages/Otaku_Ops/index.html" class="category-link">Otaku Ops</a></li>
-            <li><a href="index.html" class="home-link">🏠 Home</a></li>
-        </ul>
-        <button class="mobile-menu-btn" aria-label="Toggle menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-    </div>
-</nav>
-    
+    </nav>
 
-    
 
-    
+
+
+
     <main class="container" role="main">
         <header>
             <h1>Universal Unit Converter</h1>
@@ -201,42 +205,50 @@
                     <div class="input-wrapper">
                         <label class="input-label">Millimeters (mm)</label>
                         <label for="input-vgqvyqqek" class="sr-only">Input field</label>
-            <input type="number" id="input-vgqvyqqek" aria-label="Calculator input" data-unit="mm" placeholder="Enter value">
+                        <input type="number" id="input-vgqvyqqek" aria-label="Calculator input" data-unit="mm"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Centimeters (cm)</label>
                         <label for="input-sst745afy" class="sr-only">Input field</label>
-            <input type="number" id="input-sst745afy" aria-label="Calculator input" data-unit="cm" placeholder="Enter value">
+                        <input type="number" id="input-sst745afy" aria-label="Calculator input" data-unit="cm"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Meters (m)</label>
                         <label for="input-scmn1wphy" class="sr-only">Input field</label>
-            <input type="number" id="input-scmn1wphy" aria-label="Calculator input" data-unit="meters" placeholder="Enter value">
+                        <input type="number" id="input-scmn1wphy" aria-label="Calculator input" data-unit="meters"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Kilometers (km)</label>
                         <label for="input-bsntt39pg" class="sr-only">Input field</label>
-            <input type="number" id="input-bsntt39pg" aria-label="Calculator input" data-unit="km" placeholder="Enter value">
+                        <input type="number" id="input-bsntt39pg" aria-label="Calculator input" data-unit="km"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Inches (in)</label>
                         <label for="input-ktk5nwyv6" class="sr-only">Input field</label>
-            <input type="number" id="input-ktk5nwyv6" aria-label="Calculator input" data-unit="inches" placeholder="Enter value">
+                        <input type="number" id="input-ktk5nwyv6" aria-label="Calculator input" data-unit="inches"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Feet (ft)</label>
                         <label for="input-ssmlodh5z" class="sr-only">Input field</label>
-            <input type="number" id="input-ssmlodh5z" aria-label="Calculator input" data-unit="feet" placeholder="Enter value">
+                        <input type="number" id="input-ssmlodh5z" aria-label="Calculator input" data-unit="feet"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Yards (yd)</label>
                         <label for="input-tqu46imj5" class="sr-only">Input field</label>
-            <input type="number" id="input-tqu46imj5" aria-label="Calculator input" data-unit="yards" placeholder="Enter value">
+                        <input type="number" id="input-tqu46imj5" aria-label="Calculator input" data-unit="yards"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Miles (mi)</label>
                         <label for="input-i4ao063nw" class="sr-only">Input field</label>
-            <input type="number" id="input-i4ao063nw" aria-label="Calculator input" data-unit="miles" placeholder="Enter value">
+                        <input type="number" id="input-i4ao063nw" aria-label="Calculator input" data-unit="miles"
+                            placeholder="Enter value">
                     </div>
                 </div>
             </div>
@@ -249,37 +261,44 @@
                     <div class="input-wrapper">
                         <label class="input-label">Milligrams (mg)</label>
                         <label for="input-3l26ic7zw" class="sr-only">Input field</label>
-            <input type="number" id="input-3l26ic7zw" aria-label="Calculator input" data-unit="mg" placeholder="Enter value">
+                        <input type="number" id="input-3l26ic7zw" aria-label="Calculator input" data-unit="mg"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Grams (g)</label>
                         <label for="input-ko6ut95rv" class="sr-only">Input field</label>
-            <input type="number" id="input-ko6ut95rv" aria-label="Calculator input" data-unit="g" placeholder="Enter value">
+                        <input type="number" id="input-ko6ut95rv" aria-label="Calculator input" data-unit="g"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Kilograms (kg)</label>
                         <label for="input-b9ji5up2y" class="sr-only">Input field</label>
-            <input type="number" id="input-b9ji5up2y" aria-label="Calculator input" data-unit="kg" placeholder="Enter value">
+                        <input type="number" id="input-b9ji5up2y" aria-label="Calculator input" data-unit="kg"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Tonnes (t)</label>
                         <label for="input-564nuo4ga" class="sr-only">Input field</label>
-            <input type="number" id="input-564nuo4ga" aria-label="Calculator input" data-unit="tonnes" placeholder="Enter value">
+                        <input type="number" id="input-564nuo4ga" aria-label="Calculator input" data-unit="tonnes"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Ounces (oz)</label>
                         <label for="input-yjaov32i0" class="sr-only">Input field</label>
-            <input type="number" id="input-yjaov32i0" aria-label="Calculator input" data-unit="ounces" placeholder="Enter value">
+                        <input type="number" id="input-yjaov32i0" aria-label="Calculator input" data-unit="ounces"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Pounds (lb)</label>
                         <label for="input-3pkespejj" class="sr-only">Input field</label>
-            <input type="number" id="input-3pkespejj" aria-label="Calculator input" data-unit="pounds" placeholder="Enter value">
+                        <input type="number" id="input-3pkespejj" aria-label="Calculator input" data-unit="pounds"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Stone (st)</label>
                         <label for="input-1uhys3w0x" class="sr-only">Input field</label>
-            <input type="number" id="input-1uhys3w0x" aria-label="Calculator input" data-unit="stone" placeholder="Enter value">
+                        <input type="number" id="input-1uhys3w0x" aria-label="Calculator input" data-unit="stone"
+                            placeholder="Enter value">
                     </div>
                 </div>
             </div>
@@ -292,47 +311,56 @@
                     <div class="input-wrapper">
                         <label class="input-label">Square Millimeters (mm²)</label>
                         <label for="input-871baqqbr" class="sr-only">Input field</label>
-            <input type="number" id="input-871baqqbr" aria-label="Calculator input" data-unit="sqmm" placeholder="Enter value">
+                        <input type="number" id="input-871baqqbr" aria-label="Calculator input" data-unit="sqmm"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Square Centimeters (cm²)</label>
                         <label for="input-unqi5bujz" class="sr-only">Input field</label>
-            <input type="number" id="input-unqi5bujz" aria-label="Calculator input" data-unit="sqcm" placeholder="Enter value">
+                        <input type="number" id="input-unqi5bujz" aria-label="Calculator input" data-unit="sqcm"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Square Meters (m²)</label>
                         <label for="input-4blmg0uwn" class="sr-only">Input field</label>
-            <input type="number" id="input-4blmg0uwn" aria-label="Calculator input" data-unit="sqm" placeholder="Enter value">
+                        <input type="number" id="input-4blmg0uwn" aria-label="Calculator input" data-unit="sqm"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Square Kilometers (km²)</label>
                         <label for="input-wjq467bah" class="sr-only">Input field</label>
-            <input type="number" id="input-wjq467bah" aria-label="Calculator input" data-unit="sqkm" placeholder="Enter value">
+                        <input type="number" id="input-wjq467bah" aria-label="Calculator input" data-unit="sqkm"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Square Inches (in²)</label>
                         <label for="input-sjqd3sdg4" class="sr-only">Input field</label>
-            <input type="number" id="input-sjqd3sdg4" aria-label="Calculator input" data-unit="sqin" placeholder="Enter value">
+                        <input type="number" id="input-sjqd3sdg4" aria-label="Calculator input" data-unit="sqin"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Square Feet (ft²)</label>
                         <label for="input-w6c4bw941" class="sr-only">Input field</label>
-            <input type="number" id="input-w6c4bw941" aria-label="Calculator input" data-unit="sqft" placeholder="Enter value">
+                        <input type="number" id="input-w6c4bw941" aria-label="Calculator input" data-unit="sqft"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Square Yards (yd²)</label>
                         <label for="input-f0oszss7j" class="sr-only">Input field</label>
-            <input type="number" id="input-f0oszss7j" aria-label="Calculator input" data-unit="sqyd" placeholder="Enter value">
+                        <input type="number" id="input-f0oszss7j" aria-label="Calculator input" data-unit="sqyd"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Acres</label>
                         <label for="input-586hsvups" class="sr-only">Input field</label>
-            <input type="number" id="input-586hsvups" aria-label="Calculator input" data-unit="acres" placeholder="Enter value">
+                        <input type="number" id="input-586hsvups" aria-label="Calculator input" data-unit="acres"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Hectares</label>
                         <label for="input-bywsp1ynn" class="sr-only">Input field</label>
-            <input type="number" id="input-bywsp1ynn" aria-label="Calculator input" data-unit="hectares" placeholder="Enter value">
+                        <input type="number" id="input-bywsp1ynn" aria-label="Calculator input" data-unit="hectares"
+                            placeholder="Enter value">
                     </div>
                 </div>
             </div>
@@ -345,47 +373,56 @@
                     <div class="input-wrapper">
                         <label class="input-label">Milliliters (ml)</label>
                         <label for="input-mvgi1byt7" class="sr-only">Input field</label>
-            <input type="number" id="input-mvgi1byt7" aria-label="Calculator input" data-unit="ml" placeholder="Enter value">
+                        <input type="number" id="input-mvgi1byt7" aria-label="Calculator input" data-unit="ml"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Liters (L)</label>
                         <label for="input-7lrbpnl7l" class="sr-only">Input field</label>
-            <input type="number" id="input-7lrbpnl7l" aria-label="Calculator input" data-unit="l" placeholder="Enter value">
+                        <input type="number" id="input-7lrbpnl7l" aria-label="Calculator input" data-unit="l"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Cubic Meters (m³)</label>
                         <label for="input-a1cicv7df" class="sr-only">Input field</label>
-            <input type="number" id="input-a1cicv7df" aria-label="Calculator input" data-unit="cubicm" placeholder="Enter value">
+                        <input type="number" id="input-a1cicv7df" aria-label="Calculator input" data-unit="cubicm"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Cubic Inches (in³)</label>
                         <label for="input-xdblj1bcd" class="sr-only">Input field</label>
-            <input type="number" id="input-xdblj1bcd" aria-label="Calculator input" data-unit="cubicin" placeholder="Enter value">
+                        <input type="number" id="input-xdblj1bcd" aria-label="Calculator input" data-unit="cubicin"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Cubic Feet (ft³)</label>
                         <label for="input-eoivb6hkx" class="sr-only">Input field</label>
-            <input type="number" id="input-eoivb6hkx" aria-label="Calculator input" data-unit="cubicft" placeholder="Enter value">
+                        <input type="number" id="input-eoivb6hkx" aria-label="Calculator input" data-unit="cubicft"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">US Gallons</label>
                         <label for="input-mf6fhvgxj" class="sr-only">Input field</label>
-            <input type="number" id="input-mf6fhvgxj" aria-label="Calculator input" data-unit="usgal" placeholder="Enter value">
+                        <input type="number" id="input-mf6fhvgxj" aria-label="Calculator input" data-unit="usgal"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Imperial Gallons</label>
                         <label for="input-5y9mrux7m" class="sr-only">Input field</label>
-            <input type="number" id="input-5y9mrux7m" aria-label="Calculator input" data-unit="impgal" placeholder="Enter value">
+                        <input type="number" id="input-5y9mrux7m" aria-label="Calculator input" data-unit="impgal"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Quarts</label>
                         <label for="input-mrcqw0tbr" class="sr-only">Input field</label>
-            <input type="number" id="input-mrcqw0tbr" aria-label="Calculator input" data-unit="quarts" placeholder="Enter value">
+                        <input type="number" id="input-mrcqw0tbr" aria-label="Calculator input" data-unit="quarts"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Pints</label>
                         <label for="input-htk4z6de5" class="sr-only">Input field</label>
-            <input type="number" id="input-htk4z6de5" aria-label="Calculator input" data-unit="pints" placeholder="Enter value">
+                        <input type="number" id="input-htk4z6de5" aria-label="Calculator input" data-unit="pints"
+                            placeholder="Enter value">
                     </div>
                 </div>
             </div>
@@ -398,22 +435,26 @@
                     <div class="input-wrapper">
                         <label class="input-label">Celsius (°C)</label>
                         <label for="input-ymvx8pkut" class="sr-only">Input field</label>
-            <input type="number" id="input-ymvx8pkut" aria-label="Calculator input" data-unit="celsius" placeholder="Enter value">
+                        <input type="number" id="input-ymvx8pkut" aria-label="Calculator input" data-unit="celsius"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Fahrenheit (°F)</label>
                         <label for="input-c0ije4pqe" class="sr-only">Input field</label>
-            <input type="number" id="input-c0ije4pqe" aria-label="Calculator input" data-unit="fahrenheit" placeholder="Enter value">
+                        <input type="number" id="input-c0ije4pqe" aria-label="Calculator input" data-unit="fahrenheit"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Kelvin (K)</label>
                         <label for="input-vu0h7lv04" class="sr-only">Input field</label>
-            <input type="number" id="input-vu0h7lv04" aria-label="Calculator input" data-unit="kelvin" placeholder="Enter value">
+                        <input type="number" id="input-vu0h7lv04" aria-label="Calculator input" data-unit="kelvin"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Rankine (°R)</label>
                         <label for="input-ajn7qhsma" class="sr-only">Input field</label>
-            <input type="number" id="input-ajn7qhsma" aria-label="Calculator input" data-unit="rankine" placeholder="Enter value">
+                        <input type="number" id="input-ajn7qhsma" aria-label="Calculator input" data-unit="rankine"
+                            placeholder="Enter value">
                     </div>
                 </div>
             </div>
@@ -426,37 +467,44 @@
                     <div class="input-wrapper">
                         <label class="input-label">Seconds</label>
                         <label for="input-uifq3quns" class="sr-only">Input field</label>
-            <input type="number" id="input-uifq3quns" aria-label="Calculator input" data-unit="seconds" placeholder="Enter value">
+                        <input type="number" id="input-uifq3quns" aria-label="Calculator input" data-unit="seconds"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Minutes</label>
                         <label for="input-gm9oa8wr8" class="sr-only">Input field</label>
-            <input type="number" id="input-gm9oa8wr8" aria-label="Calculator input" data-unit="minutes" placeholder="Enter value">
+                        <input type="number" id="input-gm9oa8wr8" aria-label="Calculator input" data-unit="minutes"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Hours</label>
                         <label for="input-dvhmh7aas" class="sr-only">Input field</label>
-            <input type="number" id="input-dvhmh7aas" aria-label="Calculator input" data-unit="hours" placeholder="Enter value">
+                        <input type="number" id="input-dvhmh7aas" aria-label="Calculator input" data-unit="hours"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Days</label>
                         <label for="input-ad21s3tvs" class="sr-only">Input field</label>
-            <input type="number" id="input-ad21s3tvs" aria-label="Calculator input" data-unit="days" placeholder="Enter value">
+                        <input type="number" id="input-ad21s3tvs" aria-label="Calculator input" data-unit="days"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Weeks</label>
                         <label for="input-7420i5gi1" class="sr-only">Input field</label>
-            <input type="number" id="input-7420i5gi1" aria-label="Calculator input" data-unit="weeks" placeholder="Enter value">
+                        <input type="number" id="input-7420i5gi1" aria-label="Calculator input" data-unit="weeks"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Months</label>
                         <label for="input-hmtlxy1ut" class="sr-only">Input field</label>
-            <input type="number" id="input-hmtlxy1ut" aria-label="Calculator input" data-unit="months" placeholder="Enter value">
+                        <input type="number" id="input-hmtlxy1ut" aria-label="Calculator input" data-unit="months"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Years</label>
                         <label for="input-5z0crjv4d" class="sr-only">Input field</label>
-            <input type="number" id="input-5z0crjv4d" aria-label="Calculator input" data-unit="years" placeholder="Enter value">
+                        <input type="number" id="input-5z0crjv4d" aria-label="Calculator input" data-unit="years"
+                            placeholder="Enter value">
                     </div>
                 </div>
             </div>
@@ -469,27 +517,32 @@
                     <div class="input-wrapper">
                         <label class="input-label">Meters per Second</label>
                         <label for="input-230qq9zsa" class="sr-only">Input field</label>
-            <input type="number" id="input-230qq9zsa" aria-label="Calculator input" data-unit="mps" placeholder="Enter value">
+                        <input type="number" id="input-230qq9zsa" aria-label="Calculator input" data-unit="mps"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Kilometers per Hour</label>
                         <label for="input-m111jbmay" class="sr-only">Input field</label>
-            <input type="number" id="input-m111jbmay" aria-label="Calculator input" data-unit="kph" placeholder="Enter value">
+                        <input type="number" id="input-m111jbmay" aria-label="Calculator input" data-unit="kph"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Miles per Hour</label>
                         <label for="input-jhbnkbdxu" class="sr-only">Input field</label>
-            <input type="number" id="input-jhbnkbdxu" aria-label="Calculator input" data-unit="mph" placeholder="Enter value">
+                        <input type="number" id="input-jhbnkbdxu" aria-label="Calculator input" data-unit="mph"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Knots</label>
                         <label for="input-rl5t3goj0" class="sr-only">Input field</label>
-            <input type="number" id="input-rl5t3goj0" aria-label="Calculator input" data-unit="knots" placeholder="Enter value">
+                        <input type="number" id="input-rl5t3goj0" aria-label="Calculator input" data-unit="knots"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Feet per Second</label>
                         <label for="input-1fwf49df6" class="sr-only">Input field</label>
-            <input type="number" id="input-1fwf49df6" aria-label="Calculator input" data-unit="fps" placeholder="Enter value">
+                        <input type="number" id="input-1fwf49df6" aria-label="Calculator input" data-unit="fps"
+                            placeholder="Enter value">
                     </div>
                 </div>
             </div>
@@ -502,32 +555,38 @@
                     <div class="input-wrapper">
                         <label class="input-label">Bits</label>
                         <label for="input-3kf0h8q1m" class="sr-only">Input field</label>
-            <input type="number" id="input-3kf0h8q1m" aria-label="Calculator input" data-unit="bits" placeholder="Enter value">
+                        <input type="number" id="input-3kf0h8q1m" aria-label="Calculator input" data-unit="bits"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Bytes</label>
                         <label for="input-6w38gss1n" class="sr-only">Input field</label>
-            <input type="number" id="input-6w38gss1n" aria-label="Calculator input" data-unit="bytes" placeholder="Enter value">
+                        <input type="number" id="input-6w38gss1n" aria-label="Calculator input" data-unit="bytes"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Kilobytes</label>
                         <label for="input-b1dpjj8gc" class="sr-only">Input field</label>
-            <input type="number" id="input-b1dpjj8gc" aria-label="Calculator input" data-unit="kb" placeholder="Enter value">
+                        <input type="number" id="input-b1dpjj8gc" aria-label="Calculator input" data-unit="kb"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Megabytes</label>
                         <label for="input-yfb11dt2o" class="sr-only">Input field</label>
-            <input type="number" id="input-yfb11dt2o" aria-label="Calculator input" data-unit="mb" placeholder="Enter value">
+                        <input type="number" id="input-yfb11dt2o" aria-label="Calculator input" data-unit="mb"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Gigabytes</label>
                         <label for="input-g43ob38vs" class="sr-only">Input field</label>
-            <input type="number" id="input-g43ob38vs" aria-label="Calculator input" data-unit="gb" placeholder="Enter value">
+                        <input type="number" id="input-g43ob38vs" aria-label="Calculator input" data-unit="gb"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Terabytes</label>
                         <label for="input-nd80v4oto" class="sr-only">Input field</label>
-            <input type="number" id="input-nd80v4oto" aria-label="Calculator input" data-unit="tb" placeholder="Enter value">
+                        <input type="number" id="input-nd80v4oto" aria-label="Calculator input" data-unit="tb"
+                            placeholder="Enter value">
                     </div>
                 </div>
             </div>
@@ -540,32 +599,38 @@
                     <div class="input-wrapper">
                         <label class="input-label">Joules</label>
                         <label for="input-jodabfodt" class="sr-only">Input field</label>
-            <input type="number" id="input-jodabfodt" aria-label="Calculator input" data-unit="joules" placeholder="Enter value">
+                        <input type="number" id="input-jodabfodt" aria-label="Calculator input" data-unit="joules"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Kilojoules</label>
                         <label for="input-hoq9zldoa" class="sr-only">Input field</label>
-            <input type="number" id="input-hoq9zldoa" aria-label="Calculator input" data-unit="kilojoules" placeholder="Enter value">
+                        <input type="number" id="input-hoq9zldoa" aria-label="Calculator input" data-unit="kilojoules"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Calories</label>
                         <label for="input-munydnw0z" class="sr-only">Input field</label>
-            <input type="number" id="input-munydnw0z" aria-label="Calculator input" data-unit="calories" placeholder="Enter value">
+                        <input type="number" id="input-munydnw0z" aria-label="Calculator input" data-unit="calories"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Kilocalories</label>
                         <label for="input-qbryo56cj" class="sr-only">Input field</label>
-            <input type="number" id="input-qbryo56cj" aria-label="Calculator input" data-unit="kilocalories" placeholder="Enter value">
+                        <input type="number" id="input-qbryo56cj" aria-label="Calculator input" data-unit="kilocalories"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Kilowatt Hours</label>
                         <label for="input-zlfqhp6b5" class="sr-only">Input field</label>
-            <input type="number" id="input-zlfqhp6b5" aria-label="Calculator input" data-unit="kwh" placeholder="Enter value">
+                        <input type="number" id="input-zlfqhp6b5" aria-label="Calculator input" data-unit="kwh"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">BTU</label>
                         <label for="input-bbty5npl6" class="sr-only">Input field</label>
-            <input type="number" id="input-bbty5npl6" aria-label="Calculator input" data-unit="btu" placeholder="Enter value">
+                        <input type="number" id="input-bbty5npl6" aria-label="Calculator input" data-unit="btu"
+                            placeholder="Enter value">
                     </div>
                 </div>
             </div>
@@ -578,17 +643,20 @@
                     <div class="input-wrapper">
                         <label class="input-label">Watts</label>
                         <label for="input-u660rzxbb" class="sr-only">Input field</label>
-            <input type="number" id="input-u660rzxbb" aria-label="Calculator input" data-unit="watts" placeholder="Enter value">
+                        <input type="number" id="input-u660rzxbb" aria-label="Calculator input" data-unit="watts"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Kilowatts</label>
                         <label for="input-9p27dv0n1" class="sr-only">Input field</label>
-            <input type="number" id="input-9p27dv0n1" aria-label="Calculator input" data-unit="kilowatts" placeholder="Enter value">
+                        <input type="number" id="input-9p27dv0n1" aria-label="Calculator input" data-unit="kilowatts"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Horsepower</label>
                         <label for="input-h6jf9vx55" class="sr-only">Input field</label>
-            <input type="number" id="input-h6jf9vx55" aria-label="Calculator input" data-unit="horsepower" placeholder="Enter value">
+                        <input type="number" id="input-h6jf9vx55" aria-label="Calculator input" data-unit="horsepower"
+                            placeholder="Enter value">
                     </div>
                 </div>
             </div>
@@ -601,27 +669,32 @@
                     <div class="input-wrapper">
                         <label class="input-label">Pascals</label>
                         <label for="input-1qm57bhv7" class="sr-only">Input field</label>
-            <input type="number" id="input-1qm57bhv7" aria-label="Calculator input" data-unit="pascals" placeholder="Enter value">
+                        <input type="number" id="input-1qm57bhv7" aria-label="Calculator input" data-unit="pascals"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Kilopascals</label>
                         <label for="input-qj5jqfr5n" class="sr-only">Input field</label>
-            <input type="number" id="input-qj5jqfr5n" aria-label="Calculator input" data-unit="kilopascals" placeholder="Enter value">
+                        <input type="number" id="input-qj5jqfr5n" aria-label="Calculator input" data-unit="kilopascals"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Bar</label>
                         <label for="input-40estonmt" class="sr-only">Input field</label>
-            <input type="number" id="input-40estonmt" aria-label="Calculator input" data-unit="bar" placeholder="Enter value">
+                        <input type="number" id="input-40estonmt" aria-label="Calculator input" data-unit="bar"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">PSI</label>
                         <label for="input-kca7fr1uc" class="sr-only">Input field</label>
-            <input type="number" id="input-kca7fr1uc" aria-label="Calculator input" data-unit="psi" placeholder="Enter value">
+                        <input type="number" id="input-kca7fr1uc" aria-label="Calculator input" data-unit="psi"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Atmospheres</label>
                         <label for="input-exnwwcyek" class="sr-only">Input field</label>
-            <input type="number" id="input-exnwwcyek" aria-label="Calculator input" data-unit="atmosphere" placeholder="Enter value">
+                        <input type="number" id="input-exnwwcyek" aria-label="Calculator input" data-unit="atmosphere"
+                            placeholder="Enter value">
                     </div>
                 </div>
             </div>
@@ -634,17 +707,20 @@
                     <div class="input-wrapper">
                         <label class="input-label">Degrees</label>
                         <label for="input-qu4buwxyp" class="sr-only">Input field</label>
-            <input type="number" id="input-qu4buwxyp" aria-label="Calculator input" data-unit="degrees" placeholder="Enter value">
+                        <input type="number" id="input-qu4buwxyp" aria-label="Calculator input" data-unit="degrees"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Radians</label>
                         <label for="input-jruoej4zx" class="sr-only">Input field</label>
-            <input type="number" id="input-jruoej4zx" aria-label="Calculator input" data-unit="radians" placeholder="Enter value">
+                        <input type="number" id="input-jruoej4zx" aria-label="Calculator input" data-unit="radians"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Gradians</label>
                         <label for="input-e6ebbw5x2" class="sr-only">Input field</label>
-            <input type="number" id="input-e6ebbw5x2" aria-label="Calculator input" data-unit="gradians" placeholder="Enter value">
+                        <input type="number" id="input-e6ebbw5x2" aria-label="Calculator input" data-unit="gradians"
+                            placeholder="Enter value">
                     </div>
                 </div>
             </div>
@@ -657,17 +733,20 @@
                     <div class="input-wrapper">
                         <label class="input-label">kg/m³</label>
                         <label for="input-dra09p4pa" class="sr-only">Input field</label>
-            <input type="number" id="input-dra09p4pa" aria-label="Calculator input" data-unit="kgm3" placeholder="Enter value">
+                        <input type="number" id="input-dra09p4pa" aria-label="Calculator input" data-unit="kgm3"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">g/cm³</label>
                         <label for="input-xrn6xlg7y" class="sr-only">Input field</label>
-            <input type="number" id="input-xrn6xlg7y" aria-label="Calculator input" data-unit="gcm3" placeholder="Enter value">
+                        <input type="number" id="input-xrn6xlg7y" aria-label="Calculator input" data-unit="gcm3"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">lb/ft³</label>
                         <label for="input-qpzu0heg7" class="sr-only">Input field</label>
-            <input type="number" id="input-qpzu0heg7" aria-label="Calculator input" data-unit="lbft3" placeholder="Enter value">
+                        <input type="number" id="input-qpzu0heg7" aria-label="Calculator input" data-unit="lbft3"
+                            placeholder="Enter value">
                     </div>
                 </div>
             </div>
@@ -680,17 +759,20 @@
                     <div class="input-wrapper">
                         <label class="input-label">Miles per Gallon</label>
                         <label for="input-3b50tib5p" class="sr-only">Input field</label>
-            <input type="number" id="input-3b50tib5p" aria-label="Calculator input" data-unit="mpg" placeholder="Enter value">
+                        <input type="number" id="input-3b50tib5p" aria-label="Calculator input" data-unit="mpg"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Kilometers per Liter</label>
                         <label for="input-hog4vork0" class="sr-only">Input field</label>
-            <input type="number" id="input-hog4vork0" aria-label="Calculator input" data-unit="kml" placeholder="Enter value">
+                        <input type="number" id="input-hog4vork0" aria-label="Calculator input" data-unit="kml"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Liters per 100 km</label>
                         <label for="input-dhieq78tf" class="sr-only">Input field</label>
-            <input type="number" id="input-dhieq78tf" aria-label="Calculator input" data-unit="l100km" placeholder="Enter value">
+                        <input type="number" id="input-dhieq78tf" aria-label="Calculator input" data-unit="l100km"
+                            placeholder="Enter value">
                     </div>
                 </div>
             </div>
@@ -703,32 +785,38 @@
                     <div class="input-wrapper">
                         <label class="input-label">Cups</label>
                         <label for="input-k1mxdeabl" class="sr-only">Input field</label>
-            <input type="number" id="input-k1mxdeabl" aria-label="Calculator input" data-unit="cups" placeholder="Enter value">
+                        <input type="number" id="input-k1mxdeabl" aria-label="Calculator input" data-unit="cups"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Tablespoons</label>
                         <label for="input-i9n7reemk" class="sr-only">Input field</label>
-            <input type="number" id="input-i9n7reemk" aria-label="Calculator input" data-unit="tablespoons" placeholder="Enter value">
+                        <input type="number" id="input-i9n7reemk" aria-label="Calculator input" data-unit="tablespoons"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Teaspoons</label>
                         <label for="input-84rszve3a" class="sr-only">Input field</label>
-            <input type="number" id="input-84rszve3a" aria-label="Calculator input" data-unit="teaspoons" placeholder="Enter value">
+                        <input type="number" id="input-84rszve3a" aria-label="Calculator input" data-unit="teaspoons"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Fluid Ounces</label>
                         <label for="input-0ixs11t0s" class="sr-only">Input field</label>
-            <input type="number" id="input-0ixs11t0s" aria-label="Calculator input" data-unit="fluidounces" placeholder="Enter value">
+                        <input type="number" id="input-0ixs11t0s" aria-label="Calculator input" data-unit="fluidounces"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Milliliters</label>
                         <label for="input-j7pnfofus" class="sr-only">Input field</label>
-            <input type="number" id="input-j7pnfofus" aria-label="Calculator input" data-unit="milliliters" placeholder="Enter value">
+                        <input type="number" id="input-j7pnfofus" aria-label="Calculator input" data-unit="milliliters"
+                            placeholder="Enter value">
                     </div>
                     <div class="input-wrapper">
                         <label class="input-label">Grams</label>
                         <label for="input-zjlz4wzj7" class="sr-only">Input field</label>
-            <input type="number" id="input-zjlz4wzj7" aria-label="Calculator input" data-unit="grams" placeholder="Enter value">
+                        <input type="number" id="input-zjlz4wzj7" aria-label="Calculator input" data-unit="grams"
+                            placeholder="Enter value">
                     </div>
                 </div>
             </div>
@@ -761,177 +849,187 @@
             </div>
         </section>
     </main>
-    
-<!-- Newsletter Bar -->
-<div class="newsletter-bar" x-data="newsletterForm()">
-    <div class="newsletter-container">
-        <div class="newsletter-content">
-            <div class="newsletter-info">
-                <h3>&#127881; Join Our Calculator Community!</h3>
-                <p>Get updates on new fun calculators and practical tools</p>
-            </div>
-            <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
-                <input 
-                    type="email" 
-                    class="newsletter-input"
-                    placeholder="Enter your email for calculator updates"
-                    x-model="email"
-                    required
-                >
-                <button 
-                    type="submit" 
-                    class="newsletter-submit"
-                    :disabled="isSubmitting"
-                >
-                    <span x-show="isSubmitting" class="loading-spinner"></span>
-                    <span x-text="isSubmitting ? 'Subscribing...' : '&#128640; Subscribe'"></span>
-                </button>
-            </form>
-            <div x-show="showSuccess" class="newsletter-success" style="display: none;">
-                <p style="color: var(--accent-light); font-weight: 600;">
-                    &#9989; Awesome! You'll get updates on the coolest new calculators!
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
 
-<!-- Footer -->
-<footer class="footer">
-    <div class="footer-container">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h4>&#127919; About Docket.One</h4>
-                <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the tools for modern life.</p>
-                <p>Practical meets playful. Because adulting is hard enough.</p>
-            </div>
-
-            <div class="footer-section">
-                <h4>&#127914; Calculator Categories</h4>
-                <ul class="footer-links">
-                    <li><a href="/pages/BigKidMath/"><span class="calculator-emoji">&#129518;</span> BigKidMath - Adult Life Tools</a></li>
-                    <li><a href="/pages/CipherLab/"><span class="calculator-emoji">&#128272;</span> CipherLab - Secret Codes & Security</a></li>
-                    <li><a href="/pages/GeekGalaxy/"><span class="calculator-emoji">&#128640;</span> GeekGalaxy - Sci-Fi & Fantasy Fun</a></li>
-                    <li><a href="/pages/LifeHacks/"><span class="calculator-emoji">&#9889;</span> LifeHacks - Productivity & Wellness</a></li>
-                    <li><a href="/pages/Math_Magik/"><span class="calculator-emoji">&#127917;</span> Math Magik - Mathematical Wizardry</a></li>
-                    <li><a href="/pages/Otaku_Ops/"><span class="calculator-emoji">&#127999;</span> Otaku Ops - Anime & Culture</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-                <h4>&#128172; Support & Info</h4>
-                <ul class="footer-links">
-                    <li><a href="/help"><span class="calculator-emoji">&#10067;</span> Help & FAQ</a></li>
-                    <li><a href="/privacy"><span class="calculator-emoji">&#128274;</span> Privacy Policy</a></li>
-                    <li><a href="/terms"><span class="calculator-emoji">&#128203;</span> Terms of Service</a></li>
-                    <li><a href="/accessibility"><span class="calculator-emoji">&#9855;</span> Accessibility</a></li>
-                    <li><a href="/contact"><span class="calculator-emoji">&#128231;</span> Contact Us</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-                <button 
-                    class="request-calculator-btn"
-                    @click="showModal = true"
-                >
-                    &#128161; Request a Calculator
-                </button>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <div class="footer-logo">&#129518; Docket.One</div>
-            <div class="footer-copyright">
-                Â© 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
-            </div>
-            <div class="social-links">
-                <a href="#" class="social-link" aria-label="Twitter">&#120143;</a>
-                <a href="#" class="social-link" aria-label="LinkedIn">&#128188;</a>
-                <a href="#" class="social-link" aria-label="GitHub">&#128025;</a>
-                <a href="#" class="social-link" aria-label="Email">&#128231;</a>
-            </div>
-        </div>
-    </div>
-</footer>
-
-<!-- Request Modal -->
-<div 
-    x-data="calculatorRequestForm()"
-    x-show="showModal"
-    x-cloak
-    class="modal-overlay"
-    @click.self="closeModal()"
-    style="display: none;"
->
-    <div class="modal-content">
-        <div x-show="!showConfirmation">
-            <div class="modal-header">
-                <h2 class="modal-title">&#128161; Request a Fun Calculator</h2>
-                <p class="modal-subtitle">Got an idea for a calculator that would make life easier or more fun? We want to hear it!</p>
-                <button class="modal-close" @click="closeModal()">&#10005;</button>
-            </div>
-            <div class="modal-body">
-                <form @submit.prevent="submitRequest()">
-                    <div class="form-group">
-                        <label class="form-label" for="userName">Your Name *</label>
-                        <input type="text" id="userName" class="form-input" x-model="formData.name" required placeholder="What should we call you?">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="userEmail">Email Address *</label>
-                        <input type="email" id="userEmail" class="form-input" x-model="formData.email" required placeholder="your@email.com">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="requestType">What Kind of Request? *</label>
-                        <select id="requestType" class="form-input form-select" x-model="formData.type" required>
-                            <option value="">Choose your request type</option>
-                            <option value="new-calculator">&#127358; Brand New Calculator</option>
-                            <option value="enhancement">&#9889; Improve Existing Calculator</option>
-                            <option value="category">&#127914; New Category Idea</option>
-                            <option value="feature">&#10024; Cool New Feature</option>
-                            <option value="other">&#129300; Something Else Entirely</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="calculatorTitle">Calculator Name/Title *</label>
-                        <input type="text" id="calculatorTitle" class="form-input" x-model="formData.title" required placeholder="e.g., 'Should I Call In Sick Calculator'">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="description">Tell Us About Your Idea! *</label>
-                        <textarea id="description" class="form-input form-textarea" x-model="formData.description" required placeholder="Describe your calculator idea!"></textarea>
-                    </div>
-                    <div class="form-actions">
-                        <button type="button" class="btn btn-secondary" @click="closeModal()">Maybe Later</button>
-                        <button type="submit" class="btn btn-primary" :disabled="isSubmitting">
-                            <span x-show="isSubmitting" class="loading-spinner"></span>
-                            <span x-text="isSubmitting ? 'Sending...' : '&#128640; Send My Idea'"></span>
-                        </button>
-                    </div>
+    <!-- Newsletter Bar -->
+    <div class="newsletter-bar" x-data="newsletterForm()">
+        <div class="newsletter-container">
+            <div class="newsletter-content">
+                <div class="newsletter-info">
+                    <h3>&#127881; Join Our Calculator Community!</h3>
+                    <p>Get updates on new fun calculators and practical tools</p>
+                </div>
+                <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
+                    <input type="email" class="newsletter-input" placeholder="Enter your email for calculator updates"
+                        x-model="email" required>
+                    <button type="submit" class="newsletter-submit" :disabled="isSubmitting">
+                        <span x-show="isSubmitting" class="loading-spinner"></span>
+                        <span x-text="isSubmitting ? 'Subscribing...' : '&#128640; Subscribe'"></span>
+                    </button>
                 </form>
-            </div>
-        </div>
-        <div x-show="showConfirmation" class="confirmation-modal" style="display: none;">
-            <div class="modal-header">
-                <button class="modal-close" @click="closeModal()">&#10005;</button>
-            </div>
-            <div class="modal-body">
-                <div class="success-icon">&#127881;</div>
-                <h3 class="confirmation-title">Awesome! We Got Your Idea!</h3>
-                <p class="confirmation-message">
-                    Thanks for sharing your calculator idea with us! We're excited to check it out and see if we can make it happen. 
-                    <br><br>
-                    <strong>What happens next?</strong><br>
-                    â€¢ You'll get a confirmation email shortly<br>
-                    â€¢ Our team will review your idea<br>
-                    â€¢ If we build it, you'll be the first to know!<br>
-                    â€¢ We might even name you as the inspiration &#128522;
-                </p>
-                <button class="btn btn-primary" @click="closeModal()" style="width: 100%;">
-                    &#127919; Close & Keep Calculating!
-                </button>
+                <div x-show="showSuccess" class="newsletter-success" style="display: none;">
+                    <p style="color: var(--accent-light); font-weight: 600;">
+                        &#9989; Awesome! You'll get updates on the coolest new calculators!
+                    </p>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>&#127919; About Docket.One</h4>
+                    <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you
+                        should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the
+                        tools for modern life.</p>
+                    <p>Practical meets playful. Because adulting is hard enough.</p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>&#127914; Calculator Categories</h4>
+                    <ul class="footer-links">
+                        <li><a href="https://docket.one/pages/BigKidMath/"><span
+                                    class="calculator-emoji">&#129518;</span> BigKidMath - Adult Life Tools</a></li>
+                        <li><a href="https://docket.one/pages/CipherLab/"><span
+                                    class="calculator-emoji">&#128272;</span> CipherLab - Secret Codes & Security</a>
+                        </li>
+                        <li><a href="https://docket.one/pages/GeekGalaxy/"><span
+                                    class="calculator-emoji">&#128640;</span> GeekGalaxy - Sci-Fi & Fantasy Fun</a></li>
+                        <li><a href="https://docket.one/pages/LifeHacks/"><span class="calculator-emoji">&#9889;</span>
+                                LifeHacks - Productivity & Wellness</a></li>
+                        <li><a href="https://docket.one/pages/Math_Magik/"><span
+                                    class="calculator-emoji">&#127917;</span> Math Magik - Mathematical Wizardry</a>
+                        </li>
+                        <li><a href="https://docket.one/pages/Otaku_Ops/"><span
+                                    class="calculator-emoji">&#127999;</span> Otaku Ops - Anime & Culture</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>&#128172; Support & Info</h4>
+                    <ul class="footer-links">
+                        <li><a href="https://docket.one/help"><span class="calculator-emoji">&#10067;</span> Help &
+                                FAQ</a></li>
+                        <li><a href="https://docket.one/privacy"><span class="calculator-emoji">&#128274;</span> Privacy
+                                Policy</a></li>
+                        <li><a href="https://docket.one/terms"><span class="calculator-emoji">&#128203;</span> Terms of
+                                Service</a></li>
+                        <li><a href="https://docket.one/accessibility"><span class="calculator-emoji">&#9855;</span>
+                                Accessibility</a></li>
+                        <li><a href="https://docket.one/contact"><span class="calculator-emoji">&#128231;</span> Contact
+                                Us</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <button class="request-calculator-btn" @click="showModal = true">
+                        &#128161; Request a Calculator
+                    </button>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-logo">&#129518; Docket.One</div>
+                <div class="footer-copyright">
+                    Â© 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
+                </div>
+                <div class="social-links">
+                    <a href="#" class="social-link" aria-label="Twitter">&#120143;</a>
+                    <a href="#" class="social-link" aria-label="LinkedIn">&#128188;</a>
+                    <a href="#" class="social-link" aria-label="GitHub">&#128025;</a>
+                    <a href="#" class="social-link" aria-label="Email">&#128231;</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Request Modal -->
+    <div x-data="calculatorRequestForm()" x-show="showModal" x-cloak class="modal-overlay" @click.self="closeModal()"
+        style="display: none;">
+        <div class="modal-content">
+            <div x-show="!showConfirmation">
+                <div class="modal-header">
+                    <h2 class="modal-title">&#128161; Request a Fun Calculator</h2>
+                    <p class="modal-subtitle">Got an idea for a calculator that would make life easier or more fun? We
+                        want to hear it!</p>
+                    <button class="modal-close" @click="closeModal()">&#10005;</button>
+                </div>
+                <div class="modal-body">
+                    <form @submit.prevent="submitRequest()">
+                        <div class="form-group">
+                            <label class="form-label" for="userName">Your Name *</label>
+                            <input type="text" id="userName" class="form-input" x-model="formData.name" required
+                                placeholder="What should we call you?">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="userEmail">Email Address *</label>
+                            <input type="email" id="userEmail" class="form-input" x-model="formData.email" required
+                                placeholder="your@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="requestType">What Kind of Request? *</label>
+                            <select id="requestType" class="form-input form-select" x-model="formData.type" required>
+                                <option value="">Choose your request type</option>
+                                <option value="new-calculator">&#127358; Brand New Calculator</option>
+                                <option value="enhancement">&#9889; Improve Existing Calculator</option>
+                                <option value="category">&#127914; New Category Idea</option>
+                                <option value="feature">&#10024; Cool New Feature</option>
+                                <option value="other">&#129300; Something Else Entirely</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="calculatorTitle">Calculator Name/Title *</label>
+                            <input type="text" id="calculatorTitle" class="form-input" x-model="formData.title" required
+                                placeholder="e.g., 'Should I Call In Sick Calculator'">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="description">Tell Us About Your Idea! *</label>
+                            <textarea id="description" class="form-input form-textarea" x-model="formData.description"
+                                required placeholder="Describe your calculator idea!"></textarea>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" @click="closeModal()">Maybe Later</button>
+                            <button type="submit" class="btn btn-primary" :disabled="isSubmitting">
+                                <span x-show="isSubmitting" class="loading-spinner"></span>
+                                <span x-text="isSubmitting ? 'Sending...' : '&#128640; Send My Idea'"></span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div x-show="showConfirmation" class="confirmation-modal" style="display: none;">
+                <div class="modal-header">
+                    <button class="modal-close" @click="closeModal()">&#10005;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="success-icon">&#127881;</div>
+                    <h3 class="confirmation-title">Awesome! We Got Your Idea!</h3>
+                    <p class="confirmation-message">
+                        Thanks for sharing your calculator idea with us! We're excited to check it out and see if we can
+                        make it happen.
+                        <br><br>
+                        <strong>What happens next?</strong><br>
+                        â€¢ You'll get a confirmation email shortly<br>
+                        â€¢ Our team will review your idea<br>
+                        â€¢ If we build it, you'll be the first to know!<br>
+                        â€¢ We might even name you as the inspiration &#128522;
+                    </p>
+                    <button class="btn btn-primary" @click="closeModal()" style="width: 100%;">
+                        &#127919; Close & Keep Calculating!
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="common/navbar-enhanced.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            new EnhancedNavbar();
+        });
+    </script>
 </body>
+
 </html>
