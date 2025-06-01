@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+Disallow: /backup/
+Disallow: /temp/
+Disallow: /*.backup*
+Disallow: /*.simple-backup*
+
+# Sitemap location
+Sitemap: https://docket.one/sitemap.xml
+
+# Crawl-delay for all bots
+Crawl-delay: 10 

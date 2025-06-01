@@ -12,6 +12,65 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="canonical" href="https://docket.one/pages/BigKidMath/Caffeine Half-Life Calculator.html" />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Caffeine Half-Life Calculator",
+        "description": "Track your caffeine metabolism with scientific accuracy. Calculate remaining caffeine levels, get personalized sleep recommendations, and understand your body's caffeine processing.",
+        "url": "https://docket.one/pages/BigKidMath/Caffeine Half-Life Calculator.html",
+        "applicationCategory": "CalculatorApplication",
+        "operatingSystem": "Any",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "featureList": [
+            "Real-time caffeine level tracking",
+            "Personalized sleep recommendations",
+            "Scientific accuracy based on research",
+            "Multiple beverage support",
+            "Interactive visualization"
+        ],
+        "author": {
+            "@type": "Organization",
+            "name": "Docket One",
+            "url": "https://docket.one"
+        },
+        "breadcrumb": {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                {
+                    "@type": "ListItem",
+                    "position": 1,
+                    "name": "Home",
+                    "item": "https://docket.one/"
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 2,
+                    "name": "Big Kid Math",
+                    "item": "https://docket.one/pages/BigKidMath/"
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 3,
+                    "name": "Caffeine Half-Life Calculator",
+                    "item": "https://docket.one/pages/BigKidMath/Caffeine Half-Life Calculator.html"
+                }
+            ]
+        }
+    }
+    </script>
+
+    <!-- Include our SEO components -->
+    <script src="../../common/structured-data.js"></script>
+    <script src="../../common/breadcrumb.js"></script>
+    <script src="../../common/related-calculators.js"></script>
 
     <style>
         /* Premium Coffee Theme Design System */
@@ -547,14 +606,12 @@
     <link rel="stylesheet" href="../../common/themes/dark-theme.css">
     <link rel="stylesheet" href="../../common/footer/premium-footer.css">
     <script src="../../common/footer/premium-footer.js"></script>
-</head>
+
+    <script src="../../common/add-breadcrumbs.js"></script>
+    <script src="../../common/add-keyboard-accessibility.js"></script></head>
 
 <body x-data="{ showModal: false }">
     <!-- Enhanced Navigation Bar -->
-    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
     <nav class="main-nav">
         <div class="nav-container">
             <div class="nav-logo">
@@ -581,6 +638,16 @@
             </button>
         </div>
     </nav>
+
+    <!-- Breadcrumb Navigation -->
+    <script>
+        const breadcrumbs = [
+            { name: "Home", url: "/" },
+            { name: "Big Kid Math", url: "/pages/BigKidMath/" },
+            { name: "Caffeine Half-Life Calculator", url: "/pages/BigKidMath/Caffeine Half-Life Calculator.html" }
+        ];
+        document.body.insertBefore(createBreadcrumb(breadcrumbs), document.querySelector('.hero'));
+    </script>
 
     <!-- Premium Hero Section -->
     <section class="hero">
@@ -785,12 +852,14 @@
                 <div class="footer-section">
                     <h4>&#128172; Support & Info</h4>
                     <ul class="footer-links">
-                        <li><a href="/pages/support/help.html"><span class="calculator-emoji">&#10067;</span> Help & FAQ</a></li>
+                        <li><a href="/pages/support/help.html"><span class="calculator-emoji">&#10067;</span> Help &
+                                FAQ</a></li>
                         <li><a href="/privacy"><span class="calculator-emoji">&#128274;</span> Privacy Policy</a></li>
                         <li><a href="/terms"><span class="calculator-emoji">&#128203;</span> Terms of Service</a></li>
                         <li><a href="/accessibility"><span class="calculator-emoji">&#9855;</span> Accessibility</a>
                         </li>
-                        <li><a href="/pages/support/contact.html"><span class="calculator-emoji">&#128231;</span> Contact Us</a></li>
+                        <li><a href="/pages/support/contact.html"><span class="calculator-emoji">&#128231;</span>
+                                Contact Us</a></li>
                     </ul>
                 </div>
 
@@ -900,6 +969,28 @@
         document.addEventListener('DOMContentLoaded', () => {
             new EnhancedNavbar();
         });
+    </script>
+
+    <!-- Add related calculators before the footer -->
+    <script>
+        const relatedCalculators = [
+            {
+                name: "Coffee to Code Efficiency Tracker",
+                description: "Calculate your optimal coffee intake for maximum coding productivity",
+                url: "/pages/BigKidMath/Coffee to Code Efficiency Tracker.html"
+            },
+            {
+                name: "Stress to Ice Cream Ratio Calculator",
+                description: "Find your perfect stress-to-ice-cream balance for optimal relaxation",
+                url: "/pages/BigKidMath/Stress to Ice Cream Ratio Calculator.html"
+            },
+            {
+                name: "Lightning-Powered Life Calculator",
+                description: "Calculate your life's energy consumption and efficiency",
+                url: "/pages/BigKidMath/Lightning-Powered Life Calculator.html"
+            }
+        ];
+        document.body.appendChild(createRelatedCalculators(relatedCalculators));
     </script>
 </body>
 

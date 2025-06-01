@@ -1,16 +1,20 @@
 ﻿<!DOCTYPE html>
 <html lang="en" x-data="calculator()">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Car vs. Uber Calculator - Smart Transportation Cost Analysis | Docket One</title>
-    <meta name="description" content="Premium car ownership vs ride-share cost calculator with ROI analysis, environmental impact, and scenario planning tools.">
+    <meta name="description"
+        content="Premium car ownership vs ride-share cost calculator with ROI analysis, environmental impact, and scenario planning tools.">
     <link rel="stylesheet" href="../../common/navbar-enhanced.css">
     <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
+    <script src="../../common/add-breadcrumbs.js"></script>
+
     <style>
         /* Premium Automotive Theme Design System */
         :root {
@@ -53,13 +57,13 @@
             --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
             --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: var(--font-primary);
             background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
@@ -67,7 +71,7 @@
             line-height: 1.6;
             min-height: 100vh;
         }
-        
+
         body::before {
             content: '';
             position: fixed;
@@ -81,12 +85,17 @@
             pointer-events: none;
             z-index: -1;
         }
-        
+
         @keyframes roadLines {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-300px); }
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-300px);
+            }
         }
-        
+
         .hero {
             background: linear-gradient(135deg, var(--auto-dark) 0%, var(--auto-medium) 50%, var(--primary) 100%);
             color: white;
@@ -95,7 +104,7 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .hero::after {
             content: '';
             position: absolute;
@@ -108,19 +117,26 @@
             animation: float 20s ease-in-out infinite;
             pointer-events: none;
         }
-        
+
         @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-10px) rotate(180deg); }
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-10px) rotate(180deg);
+            }
         }
-        
+
         .hero-content {
             position: relative;
             z-index: 2;
             max-width: 800px;
             margin: 0 auto;
         }
-        
+
         .hero-badge {
             display: inline-flex;
             align-items: center;
@@ -135,28 +151,28 @@
             margin-bottom: var(--space-xl);
             animation: fadeInUp 0.6s ease-out;
         }
-        
+
         .hero-title {
             font-size: clamp(2rem, 5vw, 3rem);
             font-weight: 800;
             margin: 0 0 var(--space-lg) 0;
-            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
             animation: fadeInUp 0.6s ease-out 0.2s both;
         }
-        
+
         .hero-subtitle {
             font-size: clamp(1rem, 2vw, 1.25rem);
             opacity: 0.9;
             margin: 0;
             animation: fadeInUp 0.6s ease-out 0.4s both;
         }
-        
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: var(--space-2xl) var(--space-xl);
         }
-        
+
         .tabs {
             display: flex;
             background: var(--surface-automotive);
@@ -164,7 +180,7 @@
             padding: var(--space-xs);
             margin-bottom: var(--space-xl);
         }
-        
+
         .tab-btn {
             flex: 1;
             padding: var(--space-md) var(--space-lg);
@@ -180,32 +196,32 @@
             justify-content: center;
             gap: var(--space-sm);
         }
-        
+
         .tab-btn.active {
             background: var(--primary);
             color: white;
             box-shadow: var(--shadow-md);
         }
-        
+
         .tab-btn:not(.active):hover {
             background: rgba(14, 165, 233, 0.1);
             color: var(--primary);
         }
-        
+
         .calculator-layout {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: var(--space-2xl);
             margin-top: var(--space-2xl);
         }
-        
+
         @media (max-width: 1024px) {
             .calculator-layout {
                 grid-template-columns: 1fr;
                 gap: var(--space-xl);
             }
         }
-        
+
         .calculator-panel {
             background: var(--surface-elevated);
             border-radius: var(--radius-xl);
@@ -215,7 +231,7 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .calculator-panel::before {
             content: '';
             position: absolute;
@@ -225,7 +241,7 @@
             height: 4px;
             background: linear-gradient(90deg, var(--primary), var(--primary-light));
         }
-        
+
         .panel-title {
             font-size: 1.5rem;
             font-weight: 700;
@@ -235,11 +251,11 @@
             align-items: center;
             gap: var(--space-sm);
         }
-        
+
         .form-section {
             margin-bottom: var(--space-2xl);
         }
-        
+
         .section-title {
             font-size: 1.125rem;
             font-weight: 600;
@@ -251,17 +267,17 @@
             padding-bottom: var(--space-sm);
             border-bottom: 2px solid var(--surface-automotive);
         }
-        
+
         .input-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: var(--space-lg);
         }
-        
+
         .input-group {
             margin-bottom: var(--space-lg);
         }
-        
+
         .input-label {
             display: block;
             font-weight: 500;
@@ -269,7 +285,7 @@
             margin-bottom: var(--space-sm);
             font-size: 0.875rem;
         }
-        
+
         .input-field {
             width: 100%;
             padding: var(--space-md);
@@ -279,19 +295,19 @@
             transition: var(--transition-base);
             background: var(--bg-primary);
         }
-        
+
         .input-field:focus {
             outline: none;
             border-color: var(--primary);
             box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
         }
-        
+
         .input-help {
             font-size: 0.75rem;
             color: var(--auto-medium);
             margin-top: var(--space-xs);
         }
-        
+
         .btn-primary {
             background: linear-gradient(135deg, var(--primary), var(--primary-light));
             color: white;
@@ -309,28 +325,28 @@
             justify-content: center;
             gap: var(--space-sm);
         }
-        
+
         .btn-primary:hover {
             transform: translateY(-2px);
             box-shadow: var(--shadow-lg);
         }
-        
+
         .results-panel {
             display: none;
         }
-        
+
         .results-panel.active {
             display: block;
             animation: fadeInUp 0.6s ease-out;
         }
-        
+
         .comparison-summary {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: var(--space-lg);
             margin-bottom: var(--space-xl);
         }
-        
+
         .cost-card {
             background: var(--surface-automotive);
             border-radius: var(--radius-lg);
@@ -339,36 +355,36 @@
             border: 2px solid transparent;
             transition: var(--transition-base);
         }
-        
+
         .cost-card.winner {
             border-color: var(--success);
             background: rgba(16, 185, 129, 0.1);
         }
-        
+
         .cost-icon {
             font-size: 2rem;
             margin-bottom: var(--space-sm);
         }
-        
+
         .cost-title {
             font-size: 1.125rem;
             font-weight: 600;
             color: var(--auto-dark);
             margin-bottom: var(--space-sm);
         }
-        
+
         .cost-amount {
             font-size: 2rem;
             font-weight: 800;
             color: var(--primary);
             margin-bottom: var(--space-xs);
         }
-        
+
         .cost-period {
             font-size: 0.875rem;
             color: var(--auto-medium);
         }
-        
+
         .savings-highlight {
             background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(14, 165, 233, 0.05));
             border-radius: var(--radius-lg);
@@ -377,25 +393,25 @@
             text-align: center;
             border: 1px solid rgba(16, 185, 129, 0.2);
         }
-        
+
         .savings-amount {
             font-size: 2.5rem;
             font-weight: 800;
             color: var(--success);
             margin-bottom: var(--space-sm);
         }
-        
+
         .savings-label {
             font-size: 1.125rem;
             color: var(--auto-dark);
             margin-bottom: var(--space-sm);
         }
-        
+
         .savings-period {
             font-size: 0.875rem;
             color: var(--auto-medium);
         }
-        
+
         .chart-container {
             background: var(--surface-elevated);
             border-radius: var(--radius-lg);
@@ -403,7 +419,7 @@
             margin: var(--space-xl) 0;
             box-shadow: var(--shadow-sm);
         }
-        
+
         .chart-title {
             font-size: 1.125rem;
             font-weight: 600;
@@ -411,36 +427,37 @@
             margin-bottom: var(--space-lg);
             text-align: center;
         }
-        
+
         .chart-canvas {
             position: relative;
             height: 300px;
         }
-        
+
         @keyframes fadeInUp {
             from {
                 opacity: 0;
                 transform: translateY(30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-        
+
         @media (max-width: 768px) {
             .hero {
                 padding: var(--space-2xl) var(--space-md);
             }
-            
+
             .container {
                 padding: var(--space-xl) var(--space-md);
             }
-            
+
             .comparison-summary {
                 grid-template-columns: 1fr;
             }
-            
+
             .input-grid {
                 grid-template-columns: 1fr;
             }
@@ -467,42 +484,40 @@
     <link rel="stylesheet" href="../../common/themes/dark-theme.css">
     <link rel="stylesheet" href="../../common/footer/premium-footer.css">
     <script src="../../common/footer/premium-footer.js"></script>
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
-    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script></head>
+
+    <script src="../../common/add-keyboard-accessibility.js"></script></head>
+
 <body x-data="{ showModal: false }">
     <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-<nav class="main-nav">
-    <div class="nav-container">
-        <div class="nav-logo">
-            <a href="../../index.html">🧮 Docket One</a>
+    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="../../index.html">🧮 Docket One</a>
+            </div>
+            <div class="nav-search">
+                <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input"
+                    aria-label="Search calculators">
+                <div id="search-results" class="search-results"></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../BigKidMath/index.html" class="category-link">Big Kid Math</a></li>
+                <li><a href="../CipherLab/index.html" class="category-link">Cipher Lab</a></li>
+                <li><a href="../GeekGalaxy/index.html" class="category-link">Geek Galaxy</a></li>
+                <li><a href="../LifeHacks/index.html" class="category-link">Life Hacks</a></li>
+                <li><a href="../Math_Magik/index.html" class="category-link">Math Magik</a></li>
+                <li><a href="../Otaku_Ops/index.html" class="category-link">Otaku Ops</a></li>
+                <li><a href="../../index.html" class="home-link">🏠 Home</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
-        <div class="nav-search">
-            <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input" aria-label="Search calculators">
-            <div id="search-results" class="search-results"></div>
-        </div>
-        <ul class="nav-links">
-            <li><a href="../BigKidMath/index.html" class="category-link">Big Kid Math</a></li>
-            <li><a href="../CipherLab/index.html" class="category-link">Cipher Lab</a></li>
-            <li><a href="../GeekGalaxy/index.html" class="category-link">Geek Galaxy</a></li>
-            <li><a href="../LifeHacks/index.html" class="category-link">Life Hacks</a></li>
-            <li><a href="../Math_Magik/index.html" class="category-link">Math Magik</a></li>
-            <li><a href="../Otaku_Ops/index.html" class="category-link">Otaku Ops</a></li>
-            <li><a href="../../index.html" class="home-link">🏠 Home</a></li>
-        </ul>
-        <button class="mobile-menu-btn" aria-label="Toggle menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-    </div>
-</nav>
+    </nav>
 
     <section class="hero">
         <div class="hero-content">
@@ -511,7 +526,8 @@
                 <span>Smart Transportation Analysis</span>
             </div>
             <h1 class="hero-title">Car vs. Uber Calculator</h1>
-            <p class="hero-subtitle">Make informed transportation decisions with comprehensive cost analysis and insights</p>
+            <p class="hero-subtitle">Make informed transportation decisions with comprehensive cost analysis and
+                insights</p>
         </div>
     </section>
 
@@ -521,19 +537,20 @@
                 <span>📊</span>
                 <span>Calculator</span>
             </button>
-            <button @click="activeTab = 'results'" :class="{'active': activeTab === 'results'}" class="tab-btn" :disabled="!calculated">
+            <button @click="activeTab = 'results'" :class="{'active': activeTab === 'results'}" class="tab-btn"
+                :disabled="!calculated">
                 <span>📈</span>
                 <span>Results</span>
             </button>
         </div>
-        
+
         <div x-show="activeTab === 'calculator'" class="calculator-layout">
             <div class="calculator-panel">
                 <h2 class="panel-title">
                     <span>🚗</span>
                     Car Ownership Costs
                 </h2>
-                
+
                 <div class="form-section">
                     <h3 class="section-title">
                         <span>💰</span>
@@ -552,12 +569,13 @@
                         </div>
                         <div class="input-group">
                             <label for="interestRate" class="input-label">Interest Rate (%)</label>
-                            <input type="number" id="interestRate" x-model="interestRate" min="0" max="20" step="0.1" class="input-field">
+                            <input type="number" id="interestRate" x-model="interestRate" min="0" max="20" step="0.1"
+                                class="input-field">
                             <div class="input-help">Annual percentage rate</div>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="form-section">
                     <h3 class="section-title">
                         <span>⚙️</span>
@@ -576,7 +594,8 @@
                         </div>
                         <div class="input-group">
                             <label for="fuelCost" class="input-label">Fuel Cost per Mile ($)</label>
-                            <input type="number" id="fuelCost" x-model="fuelCost" min="0" step="0.01" class="input-field">
+                            <input type="number" id="fuelCost" x-model="fuelCost" min="0" step="0.01"
+                                class="input-field">
                             <div class="input-help">Based on MPG and gas prices</div>
                         </div>
                         <div class="input-group">
@@ -587,13 +606,13 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="calculator-panel">
                 <h2 class="panel-title">
                     <span>🚕</span>
                     Rideshare Costs
                 </h2>
-                
+
                 <div class="form-section">
                     <h3 class="section-title">
                         <span>🗺️</span>
@@ -602,7 +621,8 @@
                     <div class="input-grid">
                         <div class="input-group">
                             <label for="uberCostPerRide" class="input-label">Average Cost per Ride ($)</label>
-                            <input type="number" id="uberCostPerRide" x-model="uberCostPerRide" min="0" step="0.50" class="input-field">
+                            <input type="number" id="uberCostPerRide" x-model="uberCostPerRide" min="0" step="0.50"
+                                class="input-field">
                             <div class="input-help">Including tips and surge pricing</div>
                         </div>
                         <div class="input-group">
@@ -612,14 +632,14 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <button @click="calculate()" class="btn-primary">
                     <span>⚡</span>
                     <span>Calculate Transportation Costs</span>
                 </button>
             </div>
         </div>
-        
+
         <div x-show="activeTab === 'results'" class="results-panel" :class="{'active': calculated}">
             <div class="comparison-summary">
                 <div class="cost-card" :class="{'winner': carWins}">
@@ -635,13 +655,15 @@
                     <div class="cost-period">per year</div>
                 </div>
             </div>
-            
+
             <div class="savings-highlight" x-show="calculated">
                 <div class="savings-amount" x-text="'$' + Math.abs(Math.round(annualSavings)).toLocaleString()"></div>
-                <div class="savings-label" x-text="(carWins ? 'Annual Savings with Car' : 'Annual Savings with Rideshare')"></div>
-                <div class="savings-period" x-text="'Over 5 years: $' + Math.abs(Math.round(totalSavings)).toLocaleString()"></div>
+                <div class="savings-label"
+                    x-text="(carWins ? 'Annual Savings with Car' : 'Annual Savings with Rideshare')"></div>
+                <div class="savings-period"
+                    x-text="'Over 5 years: $' + Math.abs(Math.round(totalSavings)).toLocaleString()"></div>
             </div>
-            
+
             <div class="chart-container">
                 <div class="chart-title">Cost Comparison Analysis</div>
                 <div class="chart-canvas">
@@ -657,7 +679,7 @@
             return {
                 activeTab: 'calculator',
                 calculated: false,
-                
+
                 carPrice: 28000,
                 loanTerm: 5,
                 interestRate: 5.5,
@@ -665,69 +687,69 @@
                 maintenance: 1000,
                 fuelCost: 0.12,
                 milesDriven: 12000,
-                
+
                 uberCostPerRide: 15,
                 ridesPerWeek: 8,
-                
+
                 totalAnnualCarCost: 0,
                 totalAnnualUberCost: 0,
                 annualSavings: 0,
                 totalSavings: 0,
                 carWins: false,
-                
+
                 costChart: null,
-                
+
                 calculate() {
                     this.calculateCarCosts();
                     this.calculateUberCosts();
                     this.calculateComparison();
-                    
+
                     this.calculated = true;
                     this.activeTab = 'results';
-                    
+
                     setTimeout(() => {
                         this.createChart();
                     }, 100);
                 },
-                
+
                 calculateCarCosts() {
                     const monthlyInterestRate = this.interestRate / 100 / 12;
                     const numberOfPayments = this.loanTerm * 12;
-                    
+
                     let monthlyPayment = 0;
                     if (this.carPrice > 0 && monthlyInterestRate > 0) {
-                        monthlyPayment = this.carPrice * 
-                            (monthlyInterestRate * Math.pow(1 + monthlyInterestRate, numberOfPayments)) / 
+                        monthlyPayment = this.carPrice *
+                            (monthlyInterestRate * Math.pow(1 + monthlyInterestRate, numberOfPayments)) /
                             (Math.pow(1 + monthlyInterestRate, numberOfPayments) - 1);
                     }
-                    
+
                     const annualLoanCost = monthlyPayment * 12;
                     const annualFuelCost = this.fuelCost * this.milesDriven;
-                    
-                    this.totalAnnualCarCost = annualLoanCost + 
-                                           parseFloat(this.insurance) + 
-                                           parseFloat(this.maintenance) + 
-                                           annualFuelCost;
+
+                    this.totalAnnualCarCost = annualLoanCost +
+                        parseFloat(this.insurance) +
+                        parseFloat(this.maintenance) +
+                        annualFuelCost;
                 },
-                
+
                 calculateUberCosts() {
                     this.totalAnnualUberCost = this.uberCostPerRide * this.ridesPerWeek * 52;
                 },
-                
+
                 calculateComparison() {
                     this.annualSavings = this.totalAnnualUberCost - this.totalAnnualCarCost;
                     this.totalSavings = this.annualSavings * 5;
                     this.carWins = this.totalAnnualCarCost < this.totalAnnualUberCost;
                 },
-                
+
                 createChart() {
                     const ctx = document.getElementById('costChart');
                     if (!ctx) return;
-                    
+
                     if (this.costChart) {
                         this.costChart.destroy();
                     }
-                    
+
                     this.costChart = new Chart(ctx, {
                         type: 'doughnut',
                         data: {
@@ -757,176 +779,176 @@
             }
         }
     </script>
-<!-- Newsletter Bar -->
-<div class="newsletter-bar" x-data="newsletterForm()">
-    <div class="newsletter-container">
-        <div class="newsletter-content">
-            <div class="newsletter-info">
-                <h3>&#127881; Join Our Calculator Community!</h3>
-                <p>Get updates on new fun calculators and practical tools</p>
-            </div>
-            <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
-                <input 
-                    type="email" 
-                    class="newsletter-input"
-                    placeholder="Enter your email for calculator updates"
-                    x-model="email"
-                    required
-                >
-                <button 
-                    type="submit" 
-                    class="newsletter-submit"
-                    :disabled="isSubmitting"
-                >
-                    <span x-show="isSubmitting" class="loading-spinner"></span>
-                    <span x-text="isSubmitting ? 'Subscribing...' : '&#128640; Subscribe'"></span>
-                </button>
-            </form>
-            <div x-show="showSuccess" class="newsletter-success" style="display: none;">
-                <p style="color: var(--accent-light); font-weight: 600;">
-                    &#9989; Awesome! You'll get updates on the coolest new calculators!
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Footer -->
-<footer class="footer">
-    <div class="footer-container">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h4>&#127919; About Docket.One</h4>
-                <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the tools for modern life.</p>
-                <p>Practical meets playful. Because adulting is hard enough.</p>
-            </div>
-
-            <div class="footer-section">
-                <h4>&#127914; Calculator Categories</h4>
-                <ul class="footer-links">
-                    <li><a href="/pages/BigKidMath/"><span class="calculator-emoji">&#129518;</span> BigKidMath - Adult Life Tools</a></li>
-                    <li><a href="/pages/CipherLab/"><span class="calculator-emoji">&#128272;</span> CipherLab - Secret Codes & Security</a></li>
-                    <li><a href="/pages/GeekGalaxy/"><span class="calculator-emoji">&#128640;</span> GeekGalaxy - Sci-Fi & Fantasy Fun</a></li>
-                    <li><a href="/pages/LifeHacks/"><span class="calculator-emoji">&#9889;</span> LifeHacks - Productivity & Wellness</a></li>
-                    <li><a href="/pages/Math_Magik/"><span class="calculator-emoji">&#127917;</span> Math Magik - Mathematical Wizardry</a></li>
-                    <li><a href="/pages/Otaku_Ops/"><span class="calculator-emoji">&#127999;</span> Otaku Ops - Anime & Culture</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-                <h4>&#128172; Support & Info</h4>
-                <ul class="footer-links">
-                    <li><a href="/pages/support/help.html"><span class="calculator-emoji">&#10067;</span> Help & FAQ</a></li>
-                    <li><a href="/privacy"><span class="calculator-emoji">&#128274;</span> Privacy Policy</a></li>
-                    <li><a href="/terms"><span class="calculator-emoji">&#128203;</span> Terms of Service</a></li>
-                    <li><a href="/accessibility"><span class="calculator-emoji">&#9855;</span> Accessibility</a></li>
-                    <li><a href="/pages/support/contact.html"><span class="calculator-emoji">&#128231;</span> Contact Us</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-                <button 
-                    class="request-calculator-btn"
-                    @click="showModal = true"
-                >
-                    &#128161; Request a Calculator
-                </button>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <div class="footer-logo">&#129518; Docket.One</div>
-            <div class="footer-copyright">
-                Â© 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
-            </div>
-            <div class="social-links">
-                <a href="#" class="social-link" aria-label="Twitter">&#120143;</a>
-                <a href="#" class="social-link" aria-label="LinkedIn">&#128188;</a>
-                <a href="#" class="social-link" aria-label="GitHub">&#128025;</a>
-                <a href="#" class="social-link" aria-label="Email">&#128231;</a>
-            </div>
-        </div>
-    </div>
-</footer>
-
-<!-- Request Modal -->
-<div 
-    x-data="calculatorRequestForm()"
-    x-show="showModal"
-    x-cloak
-    class="modal-overlay"
-    @click.self="closeModal()"
-    style="display: none;"
->
-    <div class="modal-content">
-        <div x-show="!showConfirmation">
-            <div class="modal-header">
-                <h2 class="modal-title">&#128161; Request a Fun Calculator</h2>
-                <p class="modal-subtitle">Got an idea for a calculator that would make life easier or more fun? We want to hear it!</p>
-                <button class="modal-close" @click="closeModal()">&#10005;</button>
-            </div>
-            <div class="modal-body">
-                <form @submit.prevent="submitRequest()">
-                    <div class="form-group">
-                        <label class="form-label" for="userName">Your Name *</label>
-                        <input type="text" id="userName" class="form-input" x-model="formData.name" required placeholder="What should we call you?">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="userEmail">Email Address *</label>
-                        <input type="email" id="userEmail" class="form-input" x-model="formData.email" required placeholder="your@email.com">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="requestType">What Kind of Request? *</label>
-                        <select id="requestType" class="form-input form-select" x-model="formData.type" required>
-                            <option value="">Choose your request type</option>
-                            <option value="new-calculator">&#127358; Brand New Calculator</option>
-                            <option value="enhancement">&#9889; Improve Existing Calculator</option>
-                            <option value="category">&#127914; New Category Idea</option>
-                            <option value="feature">&#10024; Cool New Feature</option>
-                            <option value="other">&#129300; Something Else Entirely</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="calculatorTitle">Calculator Name/Title *</label>
-                        <input type="text" id="calculatorTitle" class="form-input" x-model="formData.title" required placeholder="e.g., 'Should I Call In Sick Calculator'">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="description">Tell Us About Your Idea! *</label>
-                        <textarea id="description" class="form-input form-textarea" x-model="formData.description" required placeholder="Describe your calculator idea!"></textarea>
-                    </div>
-                    <div class="form-actions">
-                        <button type="button" class="btn btn-secondary" @click="closeModal()">Maybe Later</button>
-                        <button type="submit" class="btn btn-primary" :disabled="isSubmitting">
-                            <span x-show="isSubmitting" class="loading-spinner"></span>
-                            <span x-text="isSubmitting ? 'Sending...' : '&#128640; Send My Idea'"></span>
-                        </button>
-                    </div>
+    <!-- Newsletter Bar -->
+    <div class="newsletter-bar" x-data="newsletterForm()">
+        <div class="newsletter-container">
+            <div class="newsletter-content">
+                <div class="newsletter-info">
+                    <h3>&#127881; Join Our Calculator Community!</h3>
+                    <p>Get updates on new fun calculators and practical tools</p>
+                </div>
+                <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
+                    <input type="email" class="newsletter-input" placeholder="Enter your email for calculator updates"
+                        x-model="email" required>
+                    <button type="submit" class="newsletter-submit" :disabled="isSubmitting">
+                        <span x-show="isSubmitting" class="loading-spinner"></span>
+                        <span x-text="isSubmitting ? 'Subscribing...' : '&#128640; Subscribe'"></span>
+                    </button>
                 </form>
-            </div>
-        </div>
-        <div x-show="showConfirmation" class="confirmation-modal" style="display: none;">
-            <div class="modal-header">
-                <button class="modal-close" @click="closeModal()">&#10005;</button>
-            </div>
-            <div class="modal-body">
-                <div class="success-icon">&#127881;</div>
-                <h3 class="confirmation-title">Awesome! We Got Your Idea!</h3>
-                <p class="confirmation-message">
-                    Thanks for sharing your calculator idea with us! We're excited to check it out and see if we can make it happen. 
-                    <br><br>
-                    <strong>What happens next?</strong><br>
-                    â€¢ You'll get a confirmation email shortly<br>
-                    â€¢ Our team will review your idea<br>
-                    â€¢ If we build it, you'll be the first to know!<br>
-                    â€¢ We might even name you as the inspiration &#128522;
-                </p>
-                <button class="btn btn-primary" @click="closeModal()" style="width: 100%;">
-                    &#127919; Close & Keep Calculating!
-                </button>
+                <div x-show="showSuccess" class="newsletter-success" style="display: none;">
+                    <p style="color: var(--accent-light); font-weight: 600;">
+                        &#9989; Awesome! You'll get updates on the coolest new calculators!
+                    </p>
+                </div>
             </div>
         </div>
     </div>
-</div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>&#127919; About Docket.One</h4>
+                    <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you
+                        should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the
+                        tools for modern life.</p>
+                    <p>Practical meets playful. Because adulting is hard enough.</p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>&#127914; Calculator Categories</h4>
+                    <ul class="footer-links">
+                        <li><a href="/pages/BigKidMath/"><span class="calculator-emoji">&#129518;</span> BigKidMath -
+                                Adult Life Tools</a></li>
+                        <li><a href="/pages/CipherLab/"><span class="calculator-emoji">&#128272;</span> CipherLab -
+                                Secret Codes & Security</a></li>
+                        <li><a href="/pages/GeekGalaxy/"><span class="calculator-emoji">&#128640;</span> GeekGalaxy -
+                                Sci-Fi & Fantasy Fun</a></li>
+                        <li><a href="/pages/LifeHacks/"><span class="calculator-emoji">&#9889;</span> LifeHacks -
+                                Productivity & Wellness</a></li>
+                        <li><a href="/pages/Math_Magik/"><span class="calculator-emoji">&#127917;</span> Math Magik -
+                                Mathematical Wizardry</a></li>
+                        <li><a href="/pages/Otaku_Ops/"><span class="calculator-emoji">&#127999;</span> Otaku Ops -
+                                Anime & Culture</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>&#128172; Support & Info</h4>
+                    <ul class="footer-links">
+                        <li><a href="/pages/support/help.html"><span class="calculator-emoji">&#10067;</span> Help &
+                                FAQ</a></li>
+                        <li><a href="/privacy"><span class="calculator-emoji">&#128274;</span> Privacy Policy</a></li>
+                        <li><a href="/terms"><span class="calculator-emoji">&#128203;</span> Terms of Service</a></li>
+                        <li><a href="/accessibility"><span class="calculator-emoji">&#9855;</span> Accessibility</a>
+                        </li>
+                        <li><a href="/pages/support/contact.html"><span class="calculator-emoji">&#128231;</span>
+                                Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <button class="request-calculator-btn" @click="showModal = true">
+                        &#128161; Request a Calculator
+                    </button>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-logo">&#129518; Docket.One</div>
+                <div class="footer-copyright">
+                    Â© 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
+                </div>
+                <div class="social-links">
+                    <a href="#" class="social-link" aria-label="Twitter">&#120143;</a>
+                    <a href="#" class="social-link" aria-label="LinkedIn">&#128188;</a>
+                    <a href="#" class="social-link" aria-label="GitHub">&#128025;</a>
+                    <a href="#" class="social-link" aria-label="Email">&#128231;</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Request Modal -->
+    <div x-data="calculatorRequestForm()" x-show="showModal" x-cloak class="modal-overlay" @click.self="closeModal()"
+        style="display: none;">
+        <div class="modal-content">
+            <div x-show="!showConfirmation">
+                <div class="modal-header">
+                    <h2 class="modal-title">&#128161; Request a Fun Calculator</h2>
+                    <p class="modal-subtitle">Got an idea for a calculator that would make life easier or more fun? We
+                        want to hear it!</p>
+                    <button class="modal-close" @click="closeModal()">&#10005;</button>
+                </div>
+                <div class="modal-body">
+                    <form @submit.prevent="submitRequest()">
+                        <div class="form-group">
+                            <label class="form-label" for="userName">Your Name *</label>
+                            <input type="text" id="userName" class="form-input" x-model="formData.name" required
+                                placeholder="What should we call you?">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="userEmail">Email Address *</label>
+                            <input type="email" id="userEmail" class="form-input" x-model="formData.email" required
+                                placeholder="your@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="requestType">What Kind of Request? *</label>
+                            <select id="requestType" class="form-input form-select" x-model="formData.type" required>
+                                <option value="">Choose your request type</option>
+                                <option value="new-calculator">&#127358; Brand New Calculator</option>
+                                <option value="enhancement">&#9889; Improve Existing Calculator</option>
+                                <option value="category">&#127914; New Category Idea</option>
+                                <option value="feature">&#10024; Cool New Feature</option>
+                                <option value="other">&#129300; Something Else Entirely</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="calculatorTitle">Calculator Name/Title *</label>
+                            <input type="text" id="calculatorTitle" class="form-input" x-model="formData.title" required
+                                placeholder="e.g., 'Should I Call In Sick Calculator'">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="description">Tell Us About Your Idea! *</label>
+                            <textarea id="description" class="form-input form-textarea" x-model="formData.description"
+                                required placeholder="Describe your calculator idea!"></textarea>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" @click="closeModal()">Maybe Later</button>
+                            <button type="submit" class="btn btn-primary" :disabled="isSubmitting">
+                                <span x-show="isSubmitting" class="loading-spinner"></span>
+                                <span x-text="isSubmitting ? 'Sending...' : '&#128640; Send My Idea'"></span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div x-show="showConfirmation" class="confirmation-modal" style="display: none;">
+                <div class="modal-header">
+                    <button class="modal-close" @click="closeModal()">&#10005;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="success-icon">&#127881;</div>
+                    <h3 class="confirmation-title">Awesome! We Got Your Idea!</h3>
+                    <p class="confirmation-message">
+                        Thanks for sharing your calculator idea with us! We're excited to check it out and see if we can
+                        make it happen.
+                        <br><br>
+                        <strong>What happens next?</strong><br>
+                        â€¢ You'll get a confirmation email shortly<br>
+                        â€¢ Our team will review your idea<br>
+                        â€¢ If we build it, you'll be the first to know!<br>
+                        â€¢ We might even name you as the inspiration &#128522;
+                    </p>
+                    <button class="btn btn-primary" @click="closeModal()" style="width: 100%;">
+                        &#127919; Close & Keep Calculating!
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </body>
+
 </html>
