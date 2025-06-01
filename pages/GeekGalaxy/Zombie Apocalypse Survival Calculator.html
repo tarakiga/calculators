@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,89 +8,420 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
+    <script src="../../common/footer/premium-footer.js"></script>
     <style>
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+        :root {
+            /* Zombie Apocalypse Theme Colors */
+            --primary: #4a7729;
+            --primary-light: #6b9e3d;
+            --primary-dark: #2c4a1a;
+            --secondary: #8b0000;
+            --accent: #ffd700;
+            --background: #1a1a1a;
+            --surface: #2d2d2d;
+            --text: #ffffff;
+            --text-muted: #a0a0a0;
+            --danger: #dc2626;
+            --warning: #f59e0b;
+            --success: #10b981;
+
+            /* Spacing Scale */
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+
+            /* Border Radius */
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+
+            /* Shadows */
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
         }
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-            20%, 40%, 60%, 80% { transform: translateX(5px); }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
-        .animate-pulse { animation: pulse 2s infinite; }
-        .animate-shake { animation: shake 0.5s; }
-        .zombie-bg {
-            background: linear-gradient(135deg, #4a7729 0%, #2c4a1a 100%);
+
+        body {
+            background:
+                radial-gradient(circle at 20% 80%, rgba(74, 119, 41, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(139, 0, 0, 0.1) 0%, transparent 50%),
+                linear-gradient(135deg, var(--background) 0%, var(--surface) 100%);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
+
+        /* Container Styles */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--space-xl);
+            width: 100%;
+        }
+
+        /* Calculator Card */
+        .calculator-card {
+            background: rgba(45, 45, 45, 0.95);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            border-top: 4px solid var(--primary);
+            backdrop-filter: blur(10px);
+        }
+
+        /* Header Section */
+        .calculator-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            padding: var(--space-xl);
+            text-align: center;
+            position: relative;
+        }
+
+        .calculator-header h1 {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-weight: 800;
+            color: var(--text);
+            margin: 0;
+            line-height: 1.2;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .calculator-header p {
+            color: var(--text-muted);
+            margin-top: var(--space-sm);
+            font-size: clamp(0.875rem, 2vw, 1rem);
+        }
+
+        /* Content Section */
+        .calculator-content {
+            padding: var(--space-xl);
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: var(--space-xl);
+        }
+
+        .form-label {
+            display: block;
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: var(--space-md);
+        }
+
+        /* Button Groups */
+        .button-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-md);
+            margin-bottom: var(--space-lg);
+        }
+
+        .button-option {
+            padding: var(--space-md);
+            border-radius: var(--radius-md);
+            border: none;
+            background: var(--surface);
+            color: var(--text-muted);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+        }
+
+        .button-option:hover {
+            background: var(--primary);
+            color: var(--text);
+        }
+
+        .button-option.active {
+            background: var(--primary);
+            color: var(--text);
+            box-shadow: 0 0 0 2px var(--primary-light);
+        }
+
+        /* Checkbox Groups */
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-md);
+        }
+
+        .checkbox-option {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-sm);
+            border-radius: var(--radius-sm);
+            background: var(--surface);
+            transition: all 0.3s ease;
+        }
+
+        .checkbox-option:hover {
+            background: rgba(74, 119, 41, 0.1);
+        }
+
+        .checkbox-option input[type="checkbox"] {
+            width: 1.25rem;
+            height: 1.25rem;
+            border-radius: var(--radius-sm);
+            border: 2px solid var(--primary);
+            appearance: none;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .checkbox-option input[type="checkbox"]:checked {
+            background: var(--primary);
+        }
+
+        .checkbox-option input[type="checkbox"]:checked::after {
+            content: '✓';
+            position: absolute;
+            color: var(--text);
+            font-size: 0.875rem;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Select Elements */
+        .select-wrapper {
+            position: relative;
+        }
+
+        .select-wrapper select {
+            width: 100%;
+            padding: var(--space-md);
+            background: var(--surface);
+            border: 2px solid var(--primary);
+            border-radius: var(--radius-md);
+            color: var(--text);
+            font-size: 1rem;
+            cursor: pointer;
+            appearance: none;
+            transition: all 0.3s ease;
+        }
+
+        .select-wrapper::after {
+            content: '▼';
+            position: absolute;
+            right: var(--space-md);
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+            pointer-events: none;
+            font-size: 0.75rem;
+        }
+
+        /* Calculate Button */
+        .calculate-button {
+            width: 100%;
+            padding: var(--space-lg);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: var(--text);
+            font-weight: 700;
+            border: none;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            margin: var(--space-xl) 0;
+        }
+
+        .calculate-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(74, 119, 41, 0.3);
+        }
+
+        /* Results Section */
+        .results-section {
+            margin-top: var(--space-xl);
+        }
+
+        .result-card {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            margin-bottom: var(--space-lg);
+            border-left: 4px solid var(--primary);
+        }
+
+        .result-header {
+            text-align: center;
+            margin-bottom: var(--space-lg);
+        }
+
+        .result-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: var(--space-sm);
+        }
+
+        .result-percentage {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin: var(--space-md) 0;
+        }
+
         .progress-bar {
-            transition: width 0.5s ease-in-out;
+            height: 1rem;
+            background: var(--background);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            margin: var(--space-md) 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);
+            border-radius: var(--radius-sm);
+            transition: width 1s ease-out;
+        }
+
+        /* Mobile Optimizations */
+        @media (max-width: 768px) {
+            .container {
+                padding: var(--space-md);
+            }
+
+            .calculator-content {
+                padding: var(--space-lg);
+            }
+
+            .button-group {
+                grid-template-columns: 1fr;
+            }
+
+            .checkbox-group {
+                grid-template-columns: 1fr;
+            }
+
+            .result-percentage {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Touch Device Optimizations */
+        @media (hover: none) {
+            .button-option:hover {
+                background: var(--surface);
+                color: var(--text-muted);
+            }
+
+            .button-option.active {
+                background: var(--primary);
+                color: var(--text);
+            }
+
+            .calculate-button:hover {
+                transform: none;
+                box-shadow: none;
+            }
+        }
+
+        /* Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+
+        /* Override Tailwind classes */
+        .bg-gray-800 {
+            background: var(--surface) !important;
+        }
+
+        .bg-gray-700 {
+            background: var(--surface) !important;
+        }
+
+        .text-white {
+            color: var(--text) !important;
+        }
+
+        .text-gray-300 {
+            color: var(--text-muted) !important;
+        }
+
+        .border-green-600 {
+            border-color: var(--primary) !important;
+        }
+
+        .from-green-600 {
+            --tw-gradient-from: var(--primary) !important;
+        }
+
+        .to-green-800 {
+            --tw-gradient-to: var(--primary-dark) !important;
         }
     </style>
-    
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
-    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script>
+</head>
 
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
-    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script>
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
-    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script>
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
-    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script>
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
-    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script></head>
 <body x-data="{ showModal: false }" class="bg-gray-900 min-h-screen">
     <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
     <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-<nav class="main-nav">
-    <div class="nav-container">
-        <div class="nav-logo">
-            <a href="../../index.html">🧮 Docket One</a>
+    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="../../index.html">🧮 Docket One</a>
+            </div>
+            <div class="nav-search">
+                <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input"
+                    aria-label="Search calculators">
+                <div id="search-results" class="search-results"></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../BigKidMath/index.html" class="category-link">Big Kid Math</a></li>
+                <li><a href="../CipherLab/index.html" class="category-link">Cipher Lab</a></li>
+                <li><a href="../GeekGalaxy/index.html" class="category-link">Geek Galaxy</a></li>
+                <li><a href="../LifeHacks/index.html" class="category-link">Life Hacks</a></li>
+                <li><a href="../Math_Magik/index.html" class="category-link">Math Magik</a></li>
+                <li><a href="../Otaku_Ops/index.html" class="category-link">Otaku Ops</a></li>
+                <li><a href="../../index.html" class="home-link">🏠 Home</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
-        <div class="nav-search">
-            <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input" aria-label="Search calculators">
-            <div id="search-results" class="search-results"></div>
-        </div>
-        <ul class="nav-links">
-            <li><a href="../BigKidMath/index.html" class="category-link">Big Kid Math</a></li>
-            <li><a href="../CipherLab/index.html" class="category-link">Cipher Lab</a></li>
-            <li><a href="../GeekGalaxy/index.html" class="category-link">Geek Galaxy</a></li>
-            <li><a href="../LifeHacks/index.html" class="category-link">Life Hacks</a></li>
-            <li><a href="../Math_Magik/index.html" class="category-link">Math Magik</a></li>
-            <li><a href="../Otaku_Ops/index.html" class="category-link">Otaku Ops</a></li>
-            <li><a href="../../index.html" class="home-link">🏠 Home</a></li>
-        </ul>
-        <button class="mobile-menu-btn" aria-label="Toggle menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-    </div>
-</nav>
+    </nav>
 
 
     <div class="container mx-auto px-4 py-12" x-data="zombieCalculator()">
@@ -102,113 +434,116 @@
                 </h1>
                 <p class="mt-2 text-green-200">Will you survive the undead horde?</p>
             </div>
-            
+
             <!-- Calculator Content -->
             <div class="p-6 md:p-8">
                 <!-- Fitness Level -->
                 <div class="mb-8">
                     <label class="block text-lg font-medium mb-2 text-white">Your Fitness Level</label>
                     <div class="flex space-x-4 mb-2">
-                        <button aria-label="Perform action" 
-                            @click="fitnessLevel = 1" 
-                            :class="fitnessLevel === 1 ? 'bg-red-600 text-white' : 'bg-gray-700 text-gray-300'" 
+                        <button aria-label="Perform action" @click="fitnessLevel = 1"
+                            :class="fitnessLevel === 1 ? 'bg-red-600 text-white' : 'bg-gray-700 text-gray-300'"
                             class="px-4 py-2 rounded-lg flex-1">
                             <i class="fas fa-couch mr-2"></i> Couch Potato
                         </button>
-                        <button aria-label="Perform action" 
-                            @click="fitnessLevel = 2" 
-                            :class="fitnessLevel === 2 ? 'bg-yellow-600 text-white' : 'bg-gray-700 text-gray-300'" 
+                        <button aria-label="Perform action" @click="fitnessLevel = 2"
+                            :class="fitnessLevel === 2 ? 'bg-yellow-600 text-white' : 'bg-gray-700 text-gray-300'"
                             class="px-4 py-2 rounded-lg flex-1">
                             <i class="fas fa-walking mr-2"></i> Average Joe
                         </button>
-                        <button aria-label="Perform action" 
-                            @click="fitnessLevel = 3" 
-                            :class="fitnessLevel === 3 ? 'bg-green-600 text-white' : 'bg-gray-700 text-gray-300'" 
+                        <button aria-label="Perform action" @click="fitnessLevel = 3"
+                            :class="fitnessLevel === 3 ? 'bg-green-600 text-white' : 'bg-gray-700 text-gray-300'"
                             class="px-4 py-2 rounded-lg flex-1">
                             <i class="fas fa-running mr-2"></i> Athlete
                         </button>
                     </div>
                 </div>
-                
+
                 <!-- Skills -->
                 <div class="mb-8">
                     <label class="block text-lg font-medium mb-2 text-white">Survival Skills</label>
                     <div class="grid grid-cols-2 gap-4">
                         <div>
                             <label class="flex items-center">
-                                <input type="checkbox" x-model="skills.melee" class="mr-2 h-5 w-5 text-green-600 rounded">
+                                <input type="checkbox" x-model="skills.melee"
+                                    class="mr-2 h-5 w-5 text-green-600 rounded">
                                 <span class="text-gray-300">Melee Combat</span>
                             </label>
                         </div>
                         <div>
                             <label class="flex items-center">
-                                <input type="checkbox" x-model="skills.ranged" class="mr-2 h-5 w-5 text-green-600 rounded">
+                                <input type="checkbox" x-model="skills.ranged"
+                                    class="mr-2 h-5 w-5 text-green-600 rounded">
                                 <span class="text-gray-300">Ranged Weapons</span>
                             </label>
                         </div>
                         <div>
                             <label class="flex items-center">
-                                <input type="checkbox" x-model="skills.firstAid" class="mr-2 h-5 w-5 text-green-600 rounded">
+                                <input type="checkbox" x-model="skills.firstAid"
+                                    class="mr-2 h-5 w-5 text-green-600 rounded">
                                 <span class="text-gray-300">First Aid</span>
                             </label>
                         </div>
                         <div>
                             <label class="flex items-center">
-                                <input type="checkbox" x-model="skills.foraging" class="mr-2 h-5 w-5 text-green-600 rounded">
+                                <input type="checkbox" x-model="skills.foraging"
+                                    class="mr-2 h-5 w-5 text-green-600 rounded">
                                 <span class="text-gray-300">Foraging</span>
                             </label>
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Zombie Type -->
                 <div class="mb-8">
                     <label class="block text-lg font-medium mb-2 text-white">Zombie Type</label>
-                    <select x-model="zombieType" class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-green-500">
+                    <select x-model="zombieType"
+                        class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-green-500">
                         <option value="slow">Slow Shamblers (Walking Dead)</option>
                         <option value="fast">Fast Runners (28 Days Later)</option>
                         <option value="smart">Smart Zombies (World War Z)</option>
                         <option value="mutated">Mutated Abominations (Resident Evil)</option>
                     </select>
                 </div>
-                
+
                 <!-- Location -->
                 <div class="mb-8">
                     <label class="block text-lg font-medium mb-2 text-white">Location</label>
-                    <select x-model="location" class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-green-500">
+                    <select x-model="location"
+                        class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-green-500">
                         <option value="city">Dense City</option>
                         <option value="suburb">Suburban Area</option>
                         <option value="rural">Rural Countryside</option>
                         <option value="bunker">Underground Bunker</option>
                     </select>
                 </div>
-                
+
                 <!-- Calculate Button -->
-                <button aria-label="Perform action" 
-                    @click="calculateSurvival" 
+                <button aria-label="Perform action" @click="calculateSurvival"
                     class="w-full bg-gradient-to-r from-green-600 to-green-800 text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transition duration-200 mb-8">
                     <i class="fas fa-skull-crossbones mr-2"></i> Calculate Survival Odds
                 </button>
-                
+
                 <!-- Results -->
                 <div x-show="results" x-transition class="space-y-6">
                     <div class="bg-gray-700 p-6 rounded-lg border-l-4" :class="survivalClass">
                         <h3 class="text-xl font-bold mb-2 text-center" x-text="survivalTitle"></h3>
                         <div class="text-4xl font-bold text-center mb-4" x-text="survivalPercentage + '%'"></div>
-                        
+
                         <div class="mb-4">
                             <div class="flex justify-between mb-1">
                                 <span class="text-sm" x-text="'Survival Chance (' + daysSurvived + ' days)'"></span>
                                 <span class="text-xs" x-text="survivalPercentage + '%'"></span>
                             </div>
                             <div class="w-full bg-gray-800 h-4 rounded-full overflow-hidden">
-                                <div class="h-full rounded-full" :class="survivalBarClass" :style="'width: ' + survivalPercentage + '%'"></div>
+                                <div class="h-full rounded-full" :class="survivalBarClass"
+                                    :style="'width: ' + survivalPercentage + '%'"></div>
                             </div>
                         </div>
-                        
+
                         <div class="text-center text-sm" x-text="survivalDescription"></div>
                     </div>
-                    
+
                     <div class="bg-gray-700 p-6 rounded-lg">
                         <h3 class="text-lg font-bold mb-3 text-white">Survival Strategy</h3>
                         <ul class="list-disc pl-5 space-y-2 text-gray-300">
@@ -217,7 +552,7 @@
                             </template>
                         </ul>
                     </div>
-                    
+
                     <div class="bg-gray-700 p-6 rounded-lg border border-green-600">
                         <h3 class="text-lg font-bold mb-3 text-white">Weaknesses</h3>
                         <ul class="list-disc pl-5 space-y-2 text-gray-300">
@@ -252,63 +587,63 @@
                 weaknesses: [],
                 survivalClass: '',
                 survivalBarClass: '',
-                
+
                 calculateSurvival() {
                     // Base survival based on fitness level
                     let baseScore = 0;
-                    switch(this.fitnessLevel) {
+                    switch (this.fitnessLevel) {
                         case 1: baseScore = 20; break;
                         case 2: baseScore = 50; break;
                         case 3: baseScore = 80; break;
                     }
-                    
+
                     // Adjust for skills
                     let skillBonus = 0;
-                    if(this.skills.melee) skillBonus += 10;
-                    if(this.skills.ranged) skillBonus += 15;
-                    if(this.skills.firstAid) skillBonus += 12;
-                    if(this.skills.foraging) skillBonus += 8;
-                    
+                    if (this.skills.melee) skillBonus += 10;
+                    if (this.skills.ranged) skillBonus += 15;
+                    if (this.skills.firstAid) skillBonus += 12;
+                    if (this.skills.foraging) skillBonus += 8;
+
                     // Adjust for zombie type
                     let zombieModifier = 0;
-                    switch(this.zombieType) {
+                    switch (this.zombieType) {
                         case 'slow': zombieModifier = 20; break;
                         case 'fast': zombieModifier = -15; break;
                         case 'smart': zombieModifier = -25; break;
                         case 'mutated': zombieModifier = -40; break;
                     }
-                    
+
                     // Adjust for location
                     let locationModifier = 0;
-                    switch(this.location) {
+                    switch (this.location) {
                         case 'city': locationModifier = -30; break;
                         case 'suburb': locationModifier = 10; break;
                         case 'rural': locationModifier = 25; break;
                         case 'bunker': locationModifier = 50; break;
                     }
-                    
+
                     // Calculate final percentage (0-100)
-                    this.survivalPercentage = Math.max(0, Math.min(100, 
+                    this.survivalPercentage = Math.max(0, Math.min(100,
                         baseScore + skillBonus + zombieModifier + locationModifier
                     ));
-                    
+
                     // Calculate days survived (1-365)
                     this.daysSurvived = Math.round((this.survivalPercentage / 100) * 365);
-                    
+
                     // Determine survival category
-                    if(this.survivalPercentage >= 75) {
+                    if (this.survivalPercentage >= 75) {
                         this.survivalTitle = "ZOMBIE PROOF";
                         this.survivalClass = "border-green-500";
                         this.survivalBarClass = "bg-green-500";
                         this.survivalDescription = "You're basically Rick Grimes. The apocalypse is your playground.";
-                    } 
-                    else if(this.survivalPercentage >= 50) {
+                    }
+                    else if (this.survivalPercentage >= 50) {
                         this.survivalTitle = "LIKELY SURVIVOR";
                         this.survivalClass = "border-yellow-500";
                         this.survivalBarClass = "bg-yellow-500";
                         this.survivalDescription = "You'll probably make it, but it won't be pretty.";
                     }
-                    else if(this.survivalPercentage >= 25) {
+                    else if (this.survivalPercentage >= 25) {
                         this.survivalTitle = "ZOMBIE BAIT";
                         this.survivalClass = "border-orange-500";
                         this.survivalBarClass = "bg-orange-500";
@@ -320,56 +655,56 @@
                         this.survivalBarClass = "bg-red-500";
                         this.survivalDescription = "RIP. At least you won't suffer long before joining the horde.";
                     }
-                    
+
                     // Generate survival tips
                     this.survivalTips = [];
-                    if(this.fitnessLevel === 1) {
+                    if (this.fitnessLevel === 1) {
                         this.survivalTips.push("Start cardio training immediately - zombies never get tired");
                     }
-                    if(!this.skills.melee && !this.skills.ranged) {
+                    if (!this.skills.melee && !this.skills.ranged) {
                         this.survivalTips.push("Learn basic weapon skills - a baseball bat is better than nothing");
                     }
-                    if(this.zombieType === 'fast') {
+                    if (this.zombieType === 'fast') {
                         this.survivalTips.push("Find secure shelter - you can't outrun them forever");
                     }
-                    if(this.location === 'city') {
+                    if (this.location === 'city') {
                         this.survivalTips.push("Plan an escape route to less populated areas");
                     }
-                    if(this.survivalPercentage > 60) {
+                    if (this.survivalPercentage > 60) {
                         this.survivalTips.push("Consider leading a survivor group - people will need your skills");
                     }
-                    
+
                     // Generate weaknesses
                     this.weaknesses = [];
-                    if(this.fitnessLevel < 2) {
+                    if (this.fitnessLevel < 2) {
                         this.weaknesses.push("Poor physical condition will make escape difficult");
                     }
-                    if(!this.skills.firstAid) {
+                    if (!this.skills.firstAid) {
                         this.weaknesses.push("Lack of medical knowledge increases infection risk");
                     }
-                    if(this.zombieType === 'mutated') {
+                    if (this.zombieType === 'mutated') {
                         this.weaknesses.push("Special zombie abilities may overcome your defenses");
                     }
-                    if(this.location === 'city' && this.zombieType !== 'slow') {
+                    if (this.location === 'city' && this.zombieType !== 'slow') {
                         this.weaknesses.push("Dense population means more zombies and less escape routes");
                     }
-                    
+
                     this.results = true;
                 }
             }));
         });
     </script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
             const navLinks = document.querySelector('.nav-links');
-            
+
             if (mobileMenuBtn && navLinks) {
-                mobileMenuBtn.addEventListener('click', function() {
+                mobileMenuBtn.addEventListener('click', function () {
                     navLinks.classList.toggle('active');
                     mobileMenuBtn.classList.toggle('active');
                 });
-                document.addEventListener('click', function(event) {
+                document.addEventListener('click', function (event) {
                     if (!event.target.closest('.main-nav')) {
                         navLinks.classList.remove('active');
                         mobileMenuBtn.classList.remove('active');
@@ -379,33 +714,42 @@
         });
     </script>
 
-    <div class="related-calculators" style="margin-top: 2rem; padding: 1rem; background: rgba(0,0,0,0.1); border-radius: 8px;">
+    <div class="related-calculators"
+        style="margin-top: 2rem; padding: 1rem; background: rgba(0,0,0,0.1); border-radius: 8px;">
         <h3 style="margin-top: 0;">Related Geek Galaxy Tools</h3>
-        <a href="./AI Doomsday Countdown.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">AI Doomsday Countdown</a><a href="./Alien Communication Probability Calculator.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Alien Communication Probability Calculator</a><a href="./Lightsaber Battery Life Calculator.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Lightsaber Battery Life Calculator</a>
-        <a href="./index.html" style="display: block; padding: 0.5rem; margin-top: 1rem; background: rgba(74,144,226,0.2); border-radius: 4px; text-decoration: none; color: inherit; font-weight: bold;">← Back to Geek Galaxy Hub</a>
+        <a href="./AI Doomsday Countdown.html"
+            style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">AI
+            Doomsday Countdown</a><a href="./Alien Communication Probability Calculator.html"
+            style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Alien
+            Communication Probability Calculator</a><a href="./Lightsaber Battery Life Calculator.html"
+            style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Lightsaber
+            Battery Life Calculator</a>
+        <a href="./index.html"
+            style="display: block; padding: 0.5rem; margin-top: 1rem; background: rgba(74,144,226,0.2); border-radius: 4px; text-decoration: none; color: inherit; font-weight: bold;">←
+            Back to Geek Galaxy Hub</a>
     </div>
 
-        <script>
+    <script>
         // 🎅 Santa Claude's Interactive Enhancements
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             console.log('🎅 Santa Claude's enhancements loaded!');
-            
+
             // Enhanced button interactions
             const buttons = document.querySelectorAll('button, .btn');
             buttons.forEach(btn => {
-                btn.addEventListener('click', function() {
+                btn.addEventListener('click', function () {
                     this.classList.add('loading');
                     setTimeout(() => {
                         this.classList.remove('loading');
                     }, 500);
                 });
             });
-            
+
             // Enhanced results display
             const resultElements = document.querySelectorAll('.result, .results, .output, #result, #output');
             resultElements.forEach(el => {
-                const observer = new MutationObserver(function(mutations) {
-                    mutations.forEach(function(mutation) {
+                const observer = new MutationObserver(function (mutations) {
+                    mutations.forEach(function (mutation) {
                         if (mutation.type === 'childList' || mutation.type === 'characterData') {
                             el.classList.add('show');
                         }
@@ -413,11 +757,11 @@
                 });
                 observer.observe(el, { childList: true, subtree: true, characterData: true });
             });
-            
+
             // Form validation enhancements
             const inputs = document.querySelectorAll('input[type="number"], input[type="text"]');
             inputs.forEach(input => {
-                input.addEventListener('input', function() {
+                input.addEventListener('input', function () {
                     if (this.checkValidity()) {
                         this.classList.remove('input-error');
                         this.classList.add('input-success');
@@ -428,177 +772,175 @@
                 });
             });
         });
-        </script>
-<!-- Newsletter Bar -->
-<div class="newsletter-bar" x-data="newsletterForm()">
-    <div class="newsletter-container">
-        <div class="newsletter-content">
-            <div class="newsletter-info">
-                <h3>&#127881; Join Our Calculator Community!</h3>
-                <p>Get updates on new fun calculators and practical tools</p>
-            </div>
-            <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
-                <input 
-                    type="email" 
-                    class="newsletter-input"
-                    placeholder="Enter your email for calculator updates"
-                    x-model="email"
-                    required
-                >
-                <button 
-                    type="submit" 
-                    class="newsletter-submit"
-                    :disabled="isSubmitting"
-                >
-                    <span x-show="isSubmitting" class="loading-spinner"></span>
-                    <span x-text="isSubmitting ? 'Subscribing...' : '&#128640; Subscribe'"></span>
-                </button>
-            </form>
-            <div x-show="showSuccess" class="newsletter-success" style="display: none;">
-                <p style="color: var(--accent-light); font-weight: 600;">
-                    &#9989; Awesome! You'll get updates on the coolest new calculators!
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Footer -->
-<footer class="footer">
-    <div class="footer-container">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h4>&#127919; About Docket.One</h4>
-                <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the tools for modern life.</p>
-                <p>Practical meets playful. Because adulting is hard enough.</p>
-            </div>
-
-            <div class="footer-section">
-                <h4>&#127914; Calculator Categories</h4>
-                <ul class="footer-links">
-                    <li><a href="/pages/BigKidMath/"><span class="calculator-emoji">&#129518;</span> BigKidMath - Adult Life Tools</a></li>
-                    <li><a href="/pages/CipherLab/"><span class="calculator-emoji">&#128272;</span> CipherLab - Secret Codes & Security</a></li>
-                    <li><a href="/pages/GeekGalaxy/"><span class="calculator-emoji">&#128640;</span> GeekGalaxy - Sci-Fi & Fantasy Fun</a></li>
-                    <li><a href="/pages/LifeHacks/"><span class="calculator-emoji">&#9889;</span> LifeHacks - Productivity & Wellness</a></li>
-                    <li><a href="/pages/Math_Magik/"><span class="calculator-emoji">&#127917;</span> Math Magik - Mathematical Wizardry</a></li>
-                    <li><a href="/pages/Otaku_Ops/"><span class="calculator-emoji">&#127999;</span> Otaku Ops - Anime & Culture</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-                <h4>&#128172; Support & Info</h4>
-                <ul class="footer-links">
-                    <li><a href="/help"><span class="calculator-emoji">&#10067;</span> Help & FAQ</a></li>
-                    <li><a href="/privacy"><span class="calculator-emoji">&#128274;</span> Privacy Policy</a></li>
-                    <li><a href="/terms"><span class="calculator-emoji">&#128203;</span> Terms of Service</a></li>
-                    <li><a href="/accessibility"><span class="calculator-emoji">&#9855;</span> Accessibility</a></li>
-                    <li><a href="/contact"><span class="calculator-emoji">&#128231;</span> Contact Us</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-                <button 
-                    class="request-calculator-btn"
-                    @click="showModal = true"
-                >
-                    &#128161; Request a Calculator
-                </button>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <div class="footer-logo">&#129518; Docket.One</div>
-            <div class="footer-copyright">
-                Â© 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
-            </div>
-            <div class="social-links">
-                <a href="#" class="social-link" aria-label="Twitter">&#120143;</a>
-                <a href="#" class="social-link" aria-label="LinkedIn">&#128188;</a>
-                <a href="#" class="social-link" aria-label="GitHub">&#128025;</a>
-                <a href="#" class="social-link" aria-label="Email">&#128231;</a>
-            </div>
-        </div>
-    </div>
-</footer>
-
-<!-- Request Modal -->
-<div 
-    x-data="calculatorRequestForm()"
-    x-show="showModal"
-    x-cloak
-    class="modal-overlay"
-    @click.self="closeModal()"
-    style="display: none;"
->
-    <div class="modal-content">
-        <div x-show="!showConfirmation">
-            <div class="modal-header">
-                <h2 class="modal-title">&#128161; Request a Fun Calculator</h2>
-                <p class="modal-subtitle">Got an idea for a calculator that would make life easier or more fun? We want to hear it!</p>
-                <button class="modal-close" @click="closeModal()">&#10005;</button>
-            </div>
-            <div class="modal-body">
-                <form @submit.prevent="submitRequest()">
-                    <div class="form-group">
-                        <label class="form-label" for="userName">Your Name *</label>
-                        <input type="text" id="userName" class="form-input" x-model="formData.name" required placeholder="What should we call you?">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="userEmail">Email Address *</label>
-                        <input type="email" id="userEmail" class="form-input" x-model="formData.email" required placeholder="your@email.com">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="requestType">What Kind of Request? *</label>
-                        <select id="requestType" class="form-input form-select" x-model="formData.type" required>
-                            <option value="">Choose your request type</option>
-                            <option value="new-calculator">&#127358; Brand New Calculator</option>
-                            <option value="enhancement">&#9889; Improve Existing Calculator</option>
-                            <option value="category">&#127914; New Category Idea</option>
-                            <option value="feature">&#10024; Cool New Feature</option>
-                            <option value="other">&#129300; Something Else Entirely</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="calculatorTitle">Calculator Name/Title *</label>
-                        <input type="text" id="calculatorTitle" class="form-input" x-model="formData.title" required placeholder="e.g., 'Should I Call In Sick Calculator'">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="description">Tell Us About Your Idea! *</label>
-                        <textarea id="description" class="form-input form-textarea" x-model="formData.description" required placeholder="Describe your calculator idea!"></textarea>
-                    </div>
-                    <div class="form-actions">
-                        <button type="button" class="btn btn-secondary" @click="closeModal()">Maybe Later</button>
-                        <button type="submit" class="btn btn-primary" :disabled="isSubmitting">
-                            <span x-show="isSubmitting" class="loading-spinner"></span>
-                            <span x-text="isSubmitting ? 'Sending...' : '&#128640; Send My Idea'"></span>
-                        </button>
-                    </div>
+    </script>
+    <!-- Newsletter Bar -->
+    <div class="newsletter-bar" x-data="newsletterForm()">
+        <div class="newsletter-container">
+            <div class="newsletter-content">
+                <div class="newsletter-info">
+                    <h3>&#127881; Join Our Calculator Community!</h3>
+                    <p>Get updates on new fun calculators and practical tools</p>
+                </div>
+                <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
+                    <input type="email" class="newsletter-input" placeholder="Enter your email for calculator updates"
+                        x-model="email" required>
+                    <button type="submit" class="newsletter-submit" :disabled="isSubmitting">
+                        <span x-show="isSubmitting" class="loading-spinner"></span>
+                        <span x-text="isSubmitting ? 'Subscribing...' : '&#128640; Subscribe'"></span>
+                    </button>
                 </form>
-            </div>
-        </div>
-        <div x-show="showConfirmation" class="confirmation-modal" style="display: none;">
-            <div class="modal-header">
-                <button class="modal-close" @click="closeModal()">&#10005;</button>
-            </div>
-            <div class="modal-body">
-                <div class="success-icon">&#127881;</div>
-                <h3 class="confirmation-title">Awesome! We Got Your Idea!</h3>
-                <p class="confirmation-message">
-                    Thanks for sharing your calculator idea with us! We're excited to check it out and see if we can make it happen. 
-                    <br><br>
-                    <strong>What happens next?</strong><br>
-                    â€¢ You'll get a confirmation email shortly<br>
-                    â€¢ Our team will review your idea<br>
-                    â€¢ If we build it, you'll be the first to know!<br>
-                    â€¢ We might even name you as the inspiration &#128522;
-                </p>
-                <button class="btn btn-primary" @click="closeModal()" style="width: 100%;">
-                    &#127919; Close & Keep Calculating!
-                </button>
+                <div x-show="showSuccess" class="newsletter-success" style="display: none;">
+                    <p style="color: var(--accent-light); font-weight: 600;">
+                        &#9989; Awesome! You'll get updates on the coolest new calculators!
+                    </p>
+                </div>
             </div>
         </div>
     </div>
-</div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>&#127919; About Docket.One</h4>
+                    <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you
+                        should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the
+                        tools for modern life.</p>
+                    <p>Practical meets playful. Because adulting is hard enough.</p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>&#127914; Calculator Categories</h4>
+                    <ul class="footer-links">
+                        <li><a href="/pages/BigKidMath/"><span class="calculator-emoji">&#129518;</span> BigKidMath -
+                                Adult Life Tools</a></li>
+                        <li><a href="/pages/CipherLab/"><span class="calculator-emoji">&#128272;</span> CipherLab -
+                                Secret Codes & Security</a></li>
+                        <li><a href="/pages/GeekGalaxy/"><span class="calculator-emoji">&#128640;</span> GeekGalaxy -
+                                Sci-Fi & Fantasy Fun</a></li>
+                        <li><a href="/pages/LifeHacks/"><span class="calculator-emoji">&#9889;</span> LifeHacks -
+                                Productivity & Wellness</a></li>
+                        <li><a href="/pages/Math_Magik/"><span class="calculator-emoji">&#127917;</span> Math Magik -
+                                Mathematical Wizardry</a></li>
+                        <li><a href="/pages/Otaku_Ops/"><span class="calculator-emoji">&#127999;</span> Otaku Ops -
+                                Anime & Culture</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>&#128172; Support & Info</h4>
+                    <ul class="footer-links">
+                        <li><a href="/help"><span class="calculator-emoji">&#10067;</span> Help & FAQ</a></li>
+                        <li><a href="/privacy"><span class="calculator-emoji">&#128274;</span> Privacy Policy</a></li>
+                        <li><a href="/terms"><span class="calculator-emoji">&#128203;</span> Terms of Service</a></li>
+                        <li><a href="/accessibility"><span class="calculator-emoji">&#9855;</span> Accessibility</a>
+                        </li>
+                        <li><a href="/contact"><span class="calculator-emoji">&#128231;</span> Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <button class="request-calculator-btn" @click="showModal = true">
+                        &#128161; Request a Calculator
+                    </button>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-logo">&#129518; Docket.One</div>
+                <div class="footer-copyright">
+                    Â© 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
+                </div>
+                <div class="social-links">
+                    <a href="#" class="social-link" aria-label="Twitter">&#120143;</a>
+                    <a href="#" class="social-link" aria-label="LinkedIn">&#128188;</a>
+                    <a href="#" class="social-link" aria-label="GitHub">&#128025;</a>
+                    <a href="#" class="social-link" aria-label="Email">&#128231;</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Request Modal -->
+    <div x-data="calculatorRequestForm()" x-show="showModal" x-cloak class="modal-overlay" @click.self="closeModal()"
+        style="display: none;">
+        <div class="modal-content">
+            <div x-show="!showConfirmation">
+                <div class="modal-header">
+                    <h2 class="modal-title">&#128161; Request a Fun Calculator</h2>
+                    <p class="modal-subtitle">Got an idea for a calculator that would make life easier or more fun? We
+                        want to hear it!</p>
+                    <button class="modal-close" @click="closeModal()">&#10005;</button>
+                </div>
+                <div class="modal-body">
+                    <form @submit.prevent="submitRequest()">
+                        <div class="form-group">
+                            <label class="form-label" for="userName">Your Name *</label>
+                            <input type="text" id="userName" class="form-input" x-model="formData.name" required
+                                placeholder="What should we call you?">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="userEmail">Email Address *</label>
+                            <input type="email" id="userEmail" class="form-input" x-model="formData.email" required
+                                placeholder="your@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="requestType">What Kind of Request? *</label>
+                            <select id="requestType" class="form-input form-select" x-model="formData.type" required>
+                                <option value="">Choose your request type</option>
+                                <option value="new-calculator">&#127358; Brand New Calculator</option>
+                                <option value="enhancement">&#9889; Improve Existing Calculator</option>
+                                <option value="category">&#127914; New Category Idea</option>
+                                <option value="feature">&#10024; Cool New Feature</option>
+                                <option value="other">&#129300; Something Else Entirely</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="calculatorTitle">Calculator Name/Title *</label>
+                            <input type="text" id="calculatorTitle" class="form-input" x-model="formData.title" required
+                                placeholder="e.g., 'Should I Call In Sick Calculator'">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="description">Tell Us About Your Idea! *</label>
+                            <textarea id="description" class="form-input form-textarea" x-model="formData.description"
+                                required placeholder="Describe your calculator idea!"></textarea>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" @click="closeModal()">Maybe Later</button>
+                            <button type="submit" class="btn btn-primary" :disabled="isSubmitting">
+                                <span x-show="isSubmitting" class="loading-spinner"></span>
+                                <span x-text="isSubmitting ? 'Sending...' : '&#128640; Send My Idea'"></span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div x-show="showConfirmation" class="confirmation-modal" style="display: none;">
+                <div class="modal-header">
+                    <button class="modal-close" @click="closeModal()">&#10005;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="success-icon">&#127881;</div>
+                    <h3 class="confirmation-title">Awesome! We Got Your Idea!</h3>
+                    <p class="confirmation-message">
+                        Thanks for sharing your calculator idea with us! We're excited to check it out and see if we can
+                        make it happen.
+                        <br><br>
+                        <strong>What happens next?</strong><br>
+                        â€¢ You'll get a confirmation email shortly<br>
+                        â€¢ Our team will review your idea<br>
+                        â€¢ If we build it, you'll be the first to know!<br>
+                        â€¢ We might even name you as the inspiration &#128522;
+                    </p>
+                    <button class="btn btn-primary" @click="closeModal()" style="width: 100%;">
+                        &#127919; Close & Keep Calculating!
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </body>
+
 </html>

@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="en" x-data="portalPlanner()">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,233 +9,443 @@
     <link rel="stylesheet" href="../../common/navbar-enhanced.css">
     <link rel="stylesheet" href="../../common/santa-improvements.css">
     <link rel="stylesheet" href="../../common/global-calculator.css">
+    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
     <script src="../../common/footer/premium-footer.js"></script>
 
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
-    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script>
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
-    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script>
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
-    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script>
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
-    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script></head>
+    <style>
+        :root {
+            --primary: #4a90e2;
+            --primary-dark: #357abd;
+            --success: #34c759;
+            --warning: #ff9500;
+            --danger: #ff3b30;
+            --surface: #ffffff;
+            --surface-elevated: #f8f9fa;
+            --text-primary: #1a1a1a;
+            --text-secondary: #666666;
+            --border: #e1e4e8;
+            --obsidian: #1a1a1a;
+            --portal: #6a0dad;
+        }
+
+        .header-section {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: var(--surface-elevated);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .header-section h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .header-section p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .calculator {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: var(--surface);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .input-control {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+        }
+
+        .input-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+            outline: none;
+        }
+
+        .calculate-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .calculate-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(74, 144, 226, 0.2);
+        }
+
+        .calculate-btn:active {
+            transform: translateY(0);
+        }
+
+        .results {
+            margin-top: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+
+        .results.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .result-item {
+            background: var(--surface-elevated);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .result-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .portal-visual {
+            margin: 2rem 0;
+            display: flex;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            border-radius: 12px;
+        }
+
+        .portal-row {
+            display: flex;
+            gap: 2px;
+        }
+
+        .portal-block {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+            position: relative;
+            box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2);
+        }
+
+        .portal-block.obsidian {
+            background: #1a1a1a;
+            color: #666;
+            text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
+            box-shadow:
+                inset 0 0 0 1px rgba(255, 255, 255, 0.1),
+                inset 0 0 0 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .portal-block.air {
+            background: linear-gradient(135deg, #6a0dad, #4b0082);
+            color: rgba(255, 255, 255, 0.8);
+            animation: portal-glow 2s infinite;
+            box-shadow:
+                inset 0 0 0 1px rgba(255, 255, 255, 0.2),
+                0 0 10px rgba(106, 13, 173, 0.5);
+        }
+
+        @keyframes portal-glow {
+            0% {
+                opacity: 0.8;
+                box-shadow:
+                    inset 0 0 0 1px rgba(255, 255, 255, 0.2),
+                    0 0 10px rgba(106, 13, 173, 0.5);
+            }
+
+            50% {
+                opacity: 1;
+                box-shadow:
+                    inset 0 0 0 1px rgba(255, 255, 255, 0.3),
+                    0 0 20px rgba(106, 13, 173, 0.7);
+            }
+
+            100% {
+                opacity: 0.8;
+                box-shadow:
+                    inset 0 0 0 1px rgba(255, 255, 255, 0.2),
+                    0 0 10px rgba(106, 13, 173, 0.5);
+            }
+        }
+
+        .building-tips {
+            background: var(--surface-elevated);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .building-tips ol {
+            margin: 0;
+            padding-left: 1.5rem;
+        }
+
+        .building-tips li {
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 768px) {
+            .header-section {
+                padding: 1.5rem;
+                margin: 1rem;
+            }
+
+            .header-section h1 {
+                font-size: 2rem;
+            }
+
+            .calculator {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+
+            .portal-block {
+                width: 30px;
+                height: 30px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+
 <body x-data="{ showModal: false }">
-                <!-- Enhanced Navigation Bar -->
-    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-<nav class="main-nav">
-    <div class="nav-container">
-        <div class="nav-logo">
-            <a href="../../index.html">🧮 Docket One</a>
+    <!-- Navigation Bar -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="../../index.html">🧮 Docket One</a>
+            </div>
+            <div class="nav-search">
+                <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input"
+                    aria-label="Search calculators">
+                <div id="search-results" class="search-results"></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../BigKidMath/index.html" class="category-link">Big Kid Math</a></li>
+                <li><a href="../CipherLab/index.html" class="category-link">Cipher Lab</a></li>
+                <li><a href="../GeekGalaxy/index.html" class="category-link">Geek Galaxy</a></li>
+                <li><a href="../LifeHacks/index.html" class="category-link">Life Hacks</a></li>
+                <li><a href="../Math_Magik/index.html" class="category-link">Math Magik</a></li>
+                <li><a href="../Otaku_Ops/index.html" class="category-link">Otaku Ops</a></li>
+                <li><a href="../../index.html" class="home-link">🏠 Home</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
-        <div class="nav-search">
-            <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input" aria-label="Search calculators">
-            <div id="search-results" class="search-results"></div>
-        </div>
-        <ul class="nav-links">
-            <li><a href="../BigKidMath/index.html" class="category-link">Big Kid Math</a></li>
-            <li><a href="../CipherLab/index.html" class="category-link">Cipher Lab</a></li>
-            <li><a href="../GeekGalaxy/index.html" class="category-link">Geek Galaxy</a></li>
-            <li><a href="../LifeHacks/index.html" class="category-link">Life Hacks</a></li>
-            <li><a href="../Math_Magik/index.html" class="category-link">Math Magik</a></li>
-            <li><a href="../Otaku_Ops/index.html" class="category-link">Otaku Ops</a></li>
-            <li><a href="../../index.html" class="home-link">🏠 Home</a></li>
-        </ul>
-        <button class="mobile-menu-btn" aria-label="Toggle menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
+    </nav>
+
+    <!-- Header Section -->
+    <div class="header-section">
+        <h1>⛏️ Minecraft Portal Planner</h1>
+        <p>Build perfect Nether portals every time! This tool helps you plan your portal dimensions and calculate the
+            exact number of obsidian blocks needed.</p>
     </div>
-</nav>
-    
 
-    
-
-
-    <header>
-        <h1>MINECRAFT PORTAL PLANNER</h1>
-        <p>Build perfect Nether portals every time!</p>
-    </header>
-    
+    <!-- Calculator -->
     <div class="calculator">
         <div class="input-group">
             <label for="portal-type">Portal Size:</label>
-            <select id="portal-type">
+            <select id="portal-type" class="input-control" x-model="portalType">
                 <option value="small">Small (Minimum: 4×5)</option>
                 <option value="medium">Medium (6×7)</option>
                 <option value="large">Large (8×9)</option>
                 <option value="custom">Custom Size</option>
             </select>
         </div>
-        
-        <div id="custom-portal-inputs" style="display:none;">
-            <div class="input-group">
-                <label for="portal-width">Width (blocks, 4-20):</label>
-                <label for="input-144lug9l8" class="sr-only">Input field</label>
-            <input type="number" i id="input-144lug9l8" aria-label="Calculator input"d="portal-width" min="4" max="20" value="4">
-            </div>
-            <div class="input-group">
-                <label for="portal-height">Height (blocks, 5-20):</label>
-                <label for="input-sy37i8k1e" class="sr-only">Input field</label>
-            <input type="number" i id="input-sy37i8k1e" aria-label="Calculator input"d="portal-height" min="5" max="20" value="5">
-            </div>
+
+        <div x-show="portalType === 'custom'" class="input-group">
+            <label for="portal-width">Width (blocks, 4-20):</label>
+            <input type="number" id="portal-width" class="input-control" x-model="customWidth" min="4" max="20"
+                value="4">
         </div>
-        
-        <button aria-label="Perform action" onclick="calculatePortal()">PLAN PORTAL</button>
-        
-        <div class="results" id="portal-results">
+
+        <div x-show="portalType === 'custom'" class="input-group">
+            <label for="portal-height">Height (blocks, 5-20):</label>
+            <input type="number" id="portal-height" class="input-control" x-model="customHeight" min="5" max="20"
+                value="5">
+        </div>
+
+        <button class="calculate-btn" @click="calculatePortal" :class="{ 'loading': isCalculating }">
+            <span x-show="!isCalculating">Plan Portal</span>
+            <span x-show="isCalculating">Calculating...</span>
+        </button>
+
+        <div class="results" :class="{ 'show': showResults }">
             <div class="result-item">
-                <div class="result-title">PORTAL REQUIREMENTS</div>
-                <p>Obsidian needed: <span id="obsidian-count">0</span></p>
-                <p>Portal blocks: <span id="portal-blocks">0</span></p>
-                <p>Dimensions: <span id="portal-dimensions">0×0</span> (frame size)</p>
+                <div class="result-title">Portal Requirements</div>
+                <p>Obsidian needed: <strong x-text="obsidianCount"></strong> blocks</p>
+                <p>Portal blocks: <strong x-text="portalBlocks"></strong> blocks</p>
+                <p>Dimensions: <strong x-text="dimensions"></strong> (frame size)</p>
             </div>
-            
+
             <div class="portal-visual" id="portal-visual">
-                <!-- Portal visualization will be inserted here -->
+                <template x-for="(row, y) in portalGrid" :key="y">
+                    <div class="portal-row">
+                        <template x-for="(block, x) in row" :key="x">
+                            <div class="portal-block" :class="block.type" x-text="block.symbol"></div>
+                        </template>
+                    </div>
+                </template>
             </div>
-            
-            <div class="result-item">
-                <div class="result-title">BUILDING TIPS</div>
-                <p>1. Build the frame first with obsidian</p>
-                <p>2. Light any portal block with flint and steel</p>
-                <p>3. Minimum inside dimensions: 2×3 blocks</p>
+
+            <div class="building-tips">
+                <div class="result-title">Building Tips</div>
+                <ol>
+                    <li>Build the frame first with obsidian blocks</li>
+                    <li>Light any portal block with flint and steel</li>
+                    <li>Minimum inside dimensions: 2×3 blocks</li>
+                    <li>Make sure you have enough obsidian before starting</li>
+                    <li>Portal blocks must be air blocks (not water or lava)</li>
+                </ol>
             </div>
         </div>
     </div>
 
     <script>
-        // Show/hide custom size inputs
-        document.getElementById('portal-type').addEventListener('change', function() {
-            document.getElementById('custom-portal-inputs').style.display = 
-                this.value === 'custom' ? 'block' : 'none';
-        });
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('portalPlanner', () => ({
+                portalType: 'small',
+                customWidth: 4,
+                customHeight: 5,
+                obsidianCount: 0,
+                portalBlocks: 0,
+                dimensions: '',
+                portalGrid: [],
+                isCalculating: false,
+                showResults: false,
 
-        function calculatePortal() {
-            const portalType = document.getElementById('portal-type').value;
-            let width, height;
-            
-            // Set dimensions based on portal type
-            switch(portalType) {
-                case 'small':
-                    width = 4;
-                    height = 5;
-                    break;
-                case 'medium':
-                    width = 6;
-                    height = 7;
-                    break;
-                case 'large':
-                    width = 8;
-                    height = 9;
-                    break;
-                case 'custom':
-                    width = parseInt(document.getElementById('portal-width').value);
-                    height = parseInt(document.getElementById('portal-height').value);
-                    
-                    // Validate dimensions
-                    if (width < 4) width = 4;
-                    if (width > 20) width = 20;
-                    if (height < 5) height = 5;
-                    if (height > 20) height = 20;
-                    break;
-            }
-            
-            // Calculate requirements
-            const obsidian = (width * 2) + (height * 2) - 4; // Subtract 4 for overlapping corners
-            const portalBlocks = (width - 2) * (height - 2);
-            
-            // Update results
-            document.getElementById('obsidian-count').textContent = obsidian;
-            document.getElementById('portal-blocks').textContent = portalBlocks;
-            document.getElementById('portal-dimensions').textContent = `${width}×${height}`;
-            
-            // Generate portal visualization
-            const portalVisual = document.getElementById('portal-visual');
-            portalVisual.innerHTML = '';
-            
-            for (let y = 0; y < height; y++) {
-                const row = document.createElement('div');
-                row.className = 'portal-row';
-                
-                for (let x = 0; x < width; x++) {
-                    const block = document.createElement('div');
-                    block.className = 'portal-block';
-                    
-                    // Frame blocks (outer edges)
-                    if (x === 0 || x === width - 1 || y === 0 || y === height - 1) {
-                        block.classList.add('obsidian');
-                        block.textContent = 'O'; // Obsidian
-                    } else {
-                        block.classList.add('air');
-                        block.textContent = 'P'; // Portal block
+                init() {
+                    this.calculatePortal();
+                },
+
+                calculatePortal() {
+                    this.isCalculating = true;
+                    this.showResults = false;
+
+                    let width, height;
+
+                    switch (this.portalType) {
+                        case 'small':
+                            width = 4;
+                            height = 5;
+                            break;
+                        case 'medium':
+                            width = 6;
+                            height = 7;
+                            break;
+                        case 'large':
+                            width = 8;
+                            height = 9;
+                            break;
+                        case 'custom':
+                            width = Math.max(4, Math.min(20, this.customWidth));
+                            height = Math.max(5, Math.min(20, this.customHeight));
+                            break;
                     }
-                    
-                    row.appendChild(block);
+
+                    // Calculate requirements
+                    this.obsidianCount = (width * 2) + (height * 2) - 4;
+                    this.portalBlocks = (width - 2) * (height - 2);
+                    this.dimensions = `${width}×${height}`;
+
+                    // Generate portal grid
+                    this.portalGrid = [];
+                    for (let y = 0; y < height; y++) {
+                        const row = [];
+                        for (let x = 0; x < width; x++) {
+                            row.push({
+                                type: (x === 0 || x === width - 1 || y === 0 || y === height - 1) ? 'obsidian' : 'air',
+                                symbol: (x === 0 || x === width - 1 || y === 0 || y === height - 1) ? 'O' : 'P'
+                            });
+                        }
+                        this.portalGrid.push(row);
+                    }
+
+                    setTimeout(() => {
+                        this.isCalculating = false;
+                        this.showResults = true;
+                    }, 500);
                 }
-                
-                portalVisual.appendChild(row);
-            }
-            
-            // Show results
-            document.getElementById('portal-results').style.display = 'block';
-        }
-        
-        // Initialize with default portal
-        window.onload = function() {
-            calculatePortal();
-        };
+            }));
+        });
     </script>
 
-    <div class="related-calculators" style="margin-top: 2rem; padding: 1rem; background: rgba(0,0,0,0.1); border-radius: 8px;">
+    <div class="related-calculators"
+        style="margin-top: 2rem; padding: 1rem; background: rgba(0,0,0,0.1); border-radius: 8px;">
         <h3 style="margin-top: 0;">Related Otaku Ops Tools</h3>
-        <a href="./Anime Training Montage Planner.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Anime Training Montage Planner</a><a href="./Conspiracy Theory Plausibility Index.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Conspiracy Theory Plausibility Index</a>
-        <a href="./index.html" style="display: block; padding: 0.5rem; margin-top: 1rem; background: rgba(74,144,226,0.2); border-radius: 4px; text-decoration: none; color: inherit; font-weight: bold;">← Back to Otaku Ops Hub</a>
+        <a href="./Anime Training Montage Planner.html"
+            style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Anime
+            Training Montage Planner</a><a href="./Conspiracy Theory Plausibility Index.html"
+            style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Conspiracy
+            Theory Plausibility Index</a>
+        <a href="./index.html"
+            style="display: block; padding: 0.5rem; margin-top: 1rem; background: rgba(74,144,226,0.2); border-radius: 4px; text-decoration: none; color: inherit; font-weight: bold;">←
+            Back to Otaku Ops Hub</a>
     </div>
 
-        <script>
+    <script>
         // 🎅 Santa Claude's Interactive Enhancements
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             console.log('🎅 Santa Claude's enhancements loaded!');
-            
+
             // Enhanced button interactions
             const buttons = document.querySelectorAll('button, .btn');
             buttons.forEach(btn => {
-                btn.addEventListener('click', function() {
+                btn.addEventListener('click', function () {
                     this.classList.add('loading');
                     setTimeout(() => {
                         this.classList.remove('loading');
                     }, 500);
                 });
             });
-            
+
             // Enhanced results display
             const resultElements = document.querySelectorAll('.result, .results, .output, #result, #output');
             resultElements.forEach(el => {
-                const observer = new MutationObserver(function(mutations) {
-                    mutations.forEach(function(mutation) {
+                const observer = new MutationObserver(function (mutations) {
+                    mutations.forEach(function (mutation) {
                         if (mutation.type === 'childList' || mutation.type === 'characterData') {
                             el.classList.add('show');
                         }
@@ -242,11 +453,11 @@
                 });
                 observer.observe(el, { childList: true, subtree: true, characterData: true });
             });
-            
+
             // Form validation enhancements
             const inputs = document.querySelectorAll('input[type="number"], input[type="text"]');
             inputs.forEach(input => {
-                input.addEventListener('input', function() {
+                input.addEventListener('input', function () {
                     if (this.checkValidity()) {
                         this.classList.remove('input-error');
                         this.classList.add('input-success');
@@ -257,177 +468,175 @@
                 });
             });
         });
-        </script>
-<!-- Newsletter Bar -->
-<div class="newsletter-bar" x-data="newsletterForm()">
-    <div class="newsletter-container">
-        <div class="newsletter-content">
-            <div class="newsletter-info">
-                <h3>&#127881; Join Our Calculator Community!</h3>
-                <p>Get updates on new fun calculators and practical tools</p>
-            </div>
-            <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
-                <input 
-                    type="email" 
-                    class="newsletter-input"
-                    placeholder="Enter your email for calculator updates"
-                    x-model="email"
-                    required
-                >
-                <button 
-                    type="submit" 
-                    class="newsletter-submit"
-                    :disabled="isSubmitting"
-                >
-                    <span x-show="isSubmitting" class="loading-spinner"></span>
-                    <span x-text="isSubmitting ? 'Subscribing...' : '&#128640; Subscribe'"></span>
-                </button>
-            </form>
-            <div x-show="showSuccess" class="newsletter-success" style="display: none;">
-                <p style="color: var(--accent-light); font-weight: 600;">
-                    &#9989; Awesome! You'll get updates on the coolest new calculators!
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
+    </script>
 
-<!-- Footer -->
-<footer class="footer">
-    <div class="footer-container">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h4>&#127919; About Docket.One</h4>
-                <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the tools for modern life.</p>
-                <p>Practical meets playful. Because adulting is hard enough.</p>
-            </div>
-
-            <div class="footer-section">
-                <h4>&#127914; Calculator Categories</h4>
-                <ul class="footer-links">
-                    <li><a href="/pages/BigKidMath/"><span class="calculator-emoji">&#129518;</span> BigKidMath - Adult Life Tools</a></li>
-                    <li><a href="/pages/CipherLab/"><span class="calculator-emoji">&#128272;</span> CipherLab - Secret Codes & Security</a></li>
-                    <li><a href="/pages/GeekGalaxy/"><span class="calculator-emoji">&#128640;</span> GeekGalaxy - Sci-Fi & Fantasy Fun</a></li>
-                    <li><a href="/pages/LifeHacks/"><span class="calculator-emoji">&#9889;</span> LifeHacks - Productivity & Wellness</a></li>
-                    <li><a href="/pages/Math_Magik/"><span class="calculator-emoji">&#127917;</span> Math Magik - Mathematical Wizardry</a></li>
-                    <li><a href="/pages/Otaku_Ops/"><span class="calculator-emoji">&#127999;</span> Otaku Ops - Anime & Culture</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-                <h4>&#128172; Support & Info</h4>
-                <ul class="footer-links">
-                    <li><a href="/help"><span class="calculator-emoji">&#10067;</span> Help & FAQ</a></li>
-                    <li><a href="/privacy"><span class="calculator-emoji">&#128274;</span> Privacy Policy</a></li>
-                    <li><a href="/terms"><span class="calculator-emoji">&#128203;</span> Terms of Service</a></li>
-                    <li><a href="/accessibility"><span class="calculator-emoji">&#9855;</span> Accessibility</a></li>
-                    <li><a href="/contact"><span class="calculator-emoji">&#128231;</span> Contact Us</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-                <button 
-                    class="request-calculator-btn"
-                    @click="showModal = true"
-                >
-                    &#128161; Request a Calculator
-                </button>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <div class="footer-logo">&#129518; Docket.One</div>
-            <div class="footer-copyright">
-                Â© 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
-            </div>
-            <div class="social-links">
-                <a href="#" class="social-link" aria-label="Twitter">&#120143;</a>
-                <a href="#" class="social-link" aria-label="LinkedIn">&#128188;</a>
-                <a href="#" class="social-link" aria-label="GitHub">&#128025;</a>
-                <a href="#" class="social-link" aria-label="Email">&#128231;</a>
-            </div>
-        </div>
-    </div>
-</footer>
-
-<!-- Request Modal -->
-<div 
-    x-data="calculatorRequestForm()"
-    x-show="showModal"
-    x-cloak
-    class="modal-overlay"
-    @click.self="closeModal()"
-    style="display: none;"
->
-    <div class="modal-content">
-        <div x-show="!showConfirmation">
-            <div class="modal-header">
-                <h2 class="modal-title">&#128161; Request a Fun Calculator</h2>
-                <p class="modal-subtitle">Got an idea for a calculator that would make life easier or more fun? We want to hear it!</p>
-                <button class="modal-close" @click="closeModal()">&#10005;</button>
-            </div>
-            <div class="modal-body">
-                <form @submit.prevent="submitRequest()">
-                    <div class="form-group">
-                        <label class="form-label" for="userName">Your Name *</label>
-                        <input type="text" id="userName" class="form-input" x-model="formData.name" required placeholder="What should we call you?">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="userEmail">Email Address *</label>
-                        <input type="email" id="userEmail" class="form-input" x-model="formData.email" required placeholder="your@email.com">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="requestType">What Kind of Request? *</label>
-                        <select id="requestType" class="form-input form-select" x-model="formData.type" required>
-                            <option value="">Choose your request type</option>
-                            <option value="new-calculator">&#127358; Brand New Calculator</option>
-                            <option value="enhancement">&#9889; Improve Existing Calculator</option>
-                            <option value="category">&#127914; New Category Idea</option>
-                            <option value="feature">&#10024; Cool New Feature</option>
-                            <option value="other">&#129300; Something Else Entirely</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="calculatorTitle">Calculator Name/Title *</label>
-                        <input type="text" id="calculatorTitle" class="form-input" x-model="formData.title" required placeholder="e.g., 'Should I Call In Sick Calculator'">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="description">Tell Us About Your Idea! *</label>
-                        <textarea id="description" class="form-input form-textarea" x-model="formData.description" required placeholder="Describe your calculator idea!"></textarea>
-                    </div>
-                    <div class="form-actions">
-                        <button type="button" class="btn btn-secondary" @click="closeModal()">Maybe Later</button>
-                        <button type="submit" class="btn btn-primary" :disabled="isSubmitting">
-                            <span x-show="isSubmitting" class="loading-spinner"></span>
-                            <span x-text="isSubmitting ? 'Sending...' : '&#128640; Send My Idea'"></span>
-                        </button>
-                    </div>
+    <!-- Newsletter Bar -->
+    <div class="newsletter-bar" x-data="newsletterForm()">
+        <div class="newsletter-container">
+            <div class="newsletter-content">
+                <div class="newsletter-info">
+                    <h3>&#127881; Join Our Calculator Community!</h3>
+                    <p>Get updates on new fun calculators and practical tools</p>
+                </div>
+                <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
+                    <input type="email" class="newsletter-input" placeholder="Enter your email for calculator updates"
+                        x-model="email" required>
+                    <button type="submit" class="newsletter-submit" :disabled="isSubmitting">
+                        <span x-show="isSubmitting" class="loading-spinner"></span>
+                        <span x-text="isSubmitting ? 'Subscribing...' : '&#128640; Subscribe'"></span>
+                    </button>
                 </form>
-            </div>
-        </div>
-        <div x-show="showConfirmation" class="confirmation-modal" style="display: none;">
-            <div class="modal-header">
-                <button class="modal-close" @click="closeModal()">&#10005;</button>
-            </div>
-            <div class="modal-body">
-                <div class="success-icon">&#127881;</div>
-                <h3 class="confirmation-title">Awesome! We Got Your Idea!</h3>
-                <p class="confirmation-message">
-                    Thanks for sharing your calculator idea with us! We're excited to check it out and see if we can make it happen. 
-                    <br><br>
-                    <strong>What happens next?</strong><br>
-                    â€¢ You'll get a confirmation email shortly<br>
-                    â€¢ Our team will review your idea<br>
-                    â€¢ If we build it, you'll be the first to know!<br>
-                    â€¢ We might even name you as the inspiration &#128522;
-                </p>
-                <button class="btn btn-primary" @click="closeModal()" style="width: 100%;">
-                    &#127919; Close & Keep Calculating!
-                </button>
+                <div x-show="showSuccess" class="newsletter-success" style="display: none;">
+                    <p style="color: var(--accent-light); font-weight: 600;">
+                        &#9989; Awesome! You'll get updates on the coolest new calculators!
+                    </p>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>&#127919; About Docket.One</h4>
+                    <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you
+                        should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the
+                        tools for modern life.</p>
+                    <p>Practical meets playful. Because adulting is hard enough.</p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>&#127914; Calculator Categories</h4>
+                    <ul class="footer-links">
+                        <li><a href="/pages/BigKidMath/"><span class="calculator-emoji">&#129518;</span> BigKidMath -
+                                Adult Life Tools</a></li>
+                        <li><a href="/pages/CipherLab/"><span class="calculator-emoji">&#128272;</span> CipherLab -
+                                Secret Codes & Security</a></li>
+                        <li><a href="/pages/GeekGalaxy/"><span class="calculator-emoji">&#128640;</span> GeekGalaxy -
+                                Sci-Fi & Fantasy Fun</a></li>
+                        <li><a href="/pages/LifeHacks/"><span class="calculator-emoji">&#9889;</span> LifeHacks -
+                                Productivity & Wellness</a></li>
+                        <li><a href="/pages/Math_Magik/"><span class="calculator-emoji">&#127917;</span> Math Magik -
+                                Mathematical Wizardry</a></li>
+                        <li><a href="/pages/Otaku_Ops/"><span class="calculator-emoji">&#127999;</span> Otaku Ops -
+                                Anime & Culture</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>&#128172; Support & Info</h4>
+                    <ul class="footer-links">
+                        <li><a href="/help"><span class="calculator-emoji">&#10067;</span> Help & FAQ</a></li>
+                        <li><a href="/privacy"><span class="calculator-emoji">&#128274;</span> Privacy Policy</a></li>
+                        <li><a href="/terms"><span class="calculator-emoji">&#128203;</span> Terms of Service</a></li>
+                        <li><a href="/accessibility"><span class="calculator-emoji">&#9855;</span> Accessibility</a>
+                        </li>
+                        <li><a href="/contact"><span class="calculator-emoji">&#128231;</span> Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <button class="request-calculator-btn" @click="showModal = true">
+                        &#128161; Request a Calculator
+                    </button>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-logo">&#129518; Docket.One</div>
+                <div class="footer-copyright">
+                    © 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
+                </div>
+                <div class="social-links">
+                    <a href="#" class="social-link" aria-label="Twitter">&#120143;</a>
+                    <a href="#" class="social-link" aria-label="LinkedIn">&#128188;</a>
+                    <a href="#" class="social-link" aria-label="GitHub">&#128025;</a>
+                    <a href="#" class="social-link" aria-label="Email">&#128231;</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Request Modal -->
+    <div x-data="calculatorRequestForm()" x-show="showModal" x-cloak class="modal-overlay" @click.self="closeModal()"
+        style="display: none;">
+        <div class="modal-content">
+            <div x-show="!showConfirmation">
+                <div class="modal-header">
+                    <h2 class="modal-title">&#128161; Request a Fun Calculator</h2>
+                    <p class="modal-subtitle">Got an idea for a calculator that would make life easier or more fun? We
+                        want to hear it!</p>
+                    <button class="modal-close" @click="closeModal()">&#10005;</button>
+                </div>
+                <div class="modal-body">
+                    <form @submit.prevent="submitRequest()">
+                        <div class="form-group">
+                            <label class="form-label" for="userName">Your Name *</label>
+                            <input type="text" id="userName" class="form-input" x-model="formData.name" required
+                                placeholder="What should we call you?">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="userEmail">Email Address *</label>
+                            <input type="email" id="userEmail" class="form-input" x-model="formData.email" required
+                                placeholder="your@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="requestType">What Kind of Request? *</label>
+                            <select id="requestType" class="form-input form-select" x-model="formData.type" required>
+                                <option value="">Choose your request type</option>
+                                <option value="new-calculator">&#127358; Brand New Calculator</option>
+                                <option value="enhancement">&#9889; Improve Existing Calculator</option>
+                                <option value="category">&#127914; New Category Idea</option>
+                                <option value="feature">&#10024; Cool New Feature</option>
+                                <option value="other">&#129300; Something Else Entirely</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="calculatorTitle">Calculator Name/Title *</label>
+                            <input type="text" id="calculatorTitle" class="form-input" x-model="formData.title" required
+                                placeholder="e.g., 'Should I Call In Sick Calculator'">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="description">Tell Us About Your Idea! *</label>
+                            <textarea id="description" class="form-input form-textarea" x-model="formData.description"
+                                required placeholder="Describe your calculator idea!"></textarea>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" @click="closeModal()">Maybe Later</button>
+                            <button type="submit" class="btn btn-primary" :disabled="isSubmitting">
+                                <span x-show="isSubmitting" class="loading-spinner"></span>
+                                <span x-text="isSubmitting ? 'Sending...' : '&#128640; Send My Idea'"></span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div x-show="showConfirmation" class="confirmation-modal" style="display: none;">
+                <div class="modal-header">
+                    <button class="modal-close" @click="closeModal()">&#10005;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="success-icon">&#127881;</div>
+                    <h3 class="confirmation-title">Awesome! We Got Your Idea!</h3>
+                    <p class="confirmation-message">
+                        Thanks for sharing your calculator idea with us! We're excited to check it out and see if we can
+                        make it happen.
+                        <br><br>
+                        <strong>What happens next?</strong><br>
+                        • You'll get a confirmation email shortly<br>
+                        • Our team will review your idea<br>
+                        • If we build it, you'll be the first to know!<br>
+                        • We might even name you as the inspiration &#128522;
+                    </p>
+                    <button class="btn btn-primary" @click="closeModal()" style="width: 100%;">
+                        &#127919; Close & Keep Calculating!
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
+
 </html>
