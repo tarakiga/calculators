@@ -209,7 +209,7 @@ html, body {
 
 .footer-content {
     display: grid !important;
-    grid-template-columns: 1fr 1fr 1fr auto !important;
+    grid-template-columns: repeat(4, 1fr) !important;
     gap: var(--space-3xl) !important;
     margin-bottom: var(--space-3xl) !important;
 }
@@ -587,7 +587,14 @@ html, body {
     transform: scale(1.2) rotate(5deg);
 }
 
-/* Responsive Design */
+/* Responsive Styles */
+@media (max-width: 1024px) {
+    .footer-content {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: var(--space-2xl) !important;
+    }
+}
+
 @media (max-width: 768px) {
     .newsletter-content {
         flex-direction: column;
@@ -596,36 +603,71 @@ html, body {
     }
 
     .newsletter-form {
-        min-width: auto;
+        flex-direction: column;
+        width: 100%;
+        min-width: unset;
+        gap: var(--space-md);
+    }
+
+    .newsletter-input {
+        width: 100%;
+    }
+
+    .newsletter-submit {
         width: 100%;
     }
 
     .footer-content {
-        grid-template-columns: 1fr;
-        gap: var(--space-xl);
+        grid-template-columns: 1fr !important;
+        gap: var(--space-xl) !important;
+    }
+
+    .footer-section {
         text-align: center;
+    }
+
+    .footer-links {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     .footer-bottom {
         flex-direction: column;
+        gap: var(--space-lg);
         text-align: center;
     }
 
-    .modal-content {
-        margin: var(--space-lg);
-        max-width: none;
-    }
-
-    .form-actions {
-        flex-direction: column-reverse;
-    }
-
-    .btn {
-        width: 100%;
+    .social-links {
+        justify-content: center;
     }
 }
 
 @media (max-width: 480px) {
+    .newsletter-bar {
+        padding: var(--space-lg) 0 !important;
+    }
+
+    .newsletter-info h3 {
+        font-size: 1.25rem;
+    }
+
+    .newsletter-info p {
+        font-size: 0.875rem;
+    }
+
+    .footer {
+        padding: var(--space-2xl) 0 var(--space-xl) !important;
+    }
+
+    .footer-section h4 {
+        font-size: 1.125rem;
+    }
+
+    .footer-section p {
+        font-size: 0.875rem;
+    }
+
     .modal-content {
         margin: var(--space-md);
     }

@@ -6,73 +6,75 @@ class EnhancedNavbar {
                 title: 'Big Kid Math',
                 description: 'Practical calculators for adult life decisions',
                 items: [
-                    { name: 'Caffeine Half-Life Calculator', file: 'Caffeine Half-Life Calculator.html' },
-                    { name: 'Car Ownership vs. Uber Cost Calculator', file: 'Car Ownership vs. Uber Cost Calculator.html' },
-                    { name: 'Generational Timeline Calculator', file: 'Generational Timeline Calculator.html' }
+                    { name: 'Caffeine Half-Life Calculator', file: 'caffeine-half-life-calculator.html' },
+                    { name: 'Car Ownership vs. Uber Cost Calculator', file: 'car-ownership-vs-uber-cost-calculator.html' },
+                    { name: 'Generational Timeline Calculator', file: 'generational-timeline-calculator.html' }
                 ]
             },
             'CipherLab': {
                 title: 'Cipher Lab',
                 description: 'Cryptography and encoding tools',
                 items: [
-                    { name: 'Morse Code Translator', file: 'Morse Code Translator_Encoder_Decoder.html' },
-                    { name: 'Ogham Translator', file: 'Ogham Translator Encoder_Decoder.html' },
-                    { name: 'Password Strength Calculator', file: 'Password Strength → Anger Scale Calculator.html' }
+                    { name: 'Morse Code Translator', file: 'morse-code-translator.html' },
+                    { name: 'Ogham Translator', file: 'ogham-translator.html' },
+                    { name: 'Password Strength Calculator', file: 'password-strength-calculator.html' }
                 ]
             },
             'GeekGalaxy': {
                 title: 'Geek Galaxy',
                 description: 'Sci-fi and fantasy calculators',
                 items: [
-                    { name: 'AI Doomsday Countdown', file: 'AI Doomsday Countdown.html' },
-                    { name: 'Alien Communication Probability', file: 'Alien Communication Probability Calculator.html' },
-                    { name: 'Lightsaber Battery Life', file: 'Lightsaber Battery Life Calculator.html' },
-                    { name: 'Potion Brewer Calculator', file: 'Potion Brewer Calculator.html' },
-                    { name: 'Space Travel Time Calculator', file: 'Space Travel Time Calculator.html' },
-                    { name: 'Spaceship Fuel Calculator', file: 'Spaceship Fuel Calculator.html' },
-                    { name: 'Star Trek Warp Speed Converter', file: 'Star Trek Warp Speed Converte.html' },
-                    { name: 'Time Machine Paradox Detector', file: 'Time Machine Paradox Detector.html' },
-                    { name: 'Zombie Apocalypse Survival', file: 'Zombie Apocalypse Survival Calculator.html' }
+                    { name: 'AI Doomsday Countdown', file: 'ai-doomsday-countdown.html' },
+                    { name: 'Alien Communication Probability', file: 'alien-communication-probability.html' },
+                    { name: 'Lightsaber Battery Life', file: 'lightsaber-battery-life.html' },
+                    { name: 'Potion Brewer Calculator', file: 'potion-brewer-calculator.html' },
+                    { name: 'Space Travel Time Calculator', file: 'space-travel-time-calculator.html' },
+                    { name: 'Spaceship Fuel Calculator', file: 'spaceship-fuel-calculator.html' },
+                    { name: 'Star Trek Warp Speed Converter', file: 'star-trek-warp-speed-converter.html' },
+                    { name: 'Time Machine Paradox Detector', file: 'time-machine-paradox-detector.html' },
+                    { name: 'Zombie Apocalypse Survival', file: 'zombie-apocalypse-survival.html' }
                 ]
             },
             'LifeHacks': {
                 title: 'Life Hacks',
                 description: 'Optimize your daily life',
                 items: [
-                    { name: 'Coffee to Code Efficiency', file: 'Coffee to Code Efficiency Ratio Calculator.html' },
-                    { name: 'Inflation Impact Calculator', file: 'Inflation Impact Calculator.html' },
-                    { name: 'Procrastination ROI Calculator', file: 'Procrastination ROI Calculator.html' },
-                    { name: 'Sleep Cycle Optimizer', file: 'Sleep Cycle Optimizer.html' },
-                    { name: 'Social Media Addiction', file: 'Social Media Addiction Calculator.html' },
-                    { name: 'Stress-to-Ice-Cream Ratio', file: 'Stress-to-Ice-Cream Ratio Calculator.html' },
-                    { name: 'Time is Money Calculator', file: 'Time is Money Calculator.html' }
+                    { name: 'Coffee to Code Efficiency', file: 'coffee-to-code-efficiency.html' },
+                    { name: 'Inflation Impact Calculator', file: 'inflation-impact-calculator.html' },
+                    { name: 'Procrastination ROI Calculator', file: 'procrastination-roi-calculator.html' },
+                    { name: 'Sleep Cycle Optimizer', file: 'sleep-cycle-optimizer.html' },
+                    { name: 'Social Media Addiction', file: 'social-media-addiction.html' },
+                    { name: 'Stress-to-Ice-Cream Ratio', file: 'stress-to-ice-cream-ratio.html' },
+                    { name: 'Time is Money Calculator', file: 'time-is-money-calculator.html' }
                 ]
             },
             'Math_Magik': {
                 title: 'Math Magik',
                 description: 'Advanced mathematical tools and visualizations',
                 items: [
-                    { name: 'Double Pendulum Chaos', file: 'Double Pendulum Chaos.html' },
-                    { name: 'Entropy and Feigenbaum\'s Constant', file: 'entropy and feigenbaums constant.html' },
-                    { name: 'FIRE Number Calculator', file: 'FIRE Number Calculator.html' },
-                    { name: 'Inflation Impact Calculator', file: 'Inflation Impact Calculator.html' },
-                    { name: 'Pizza Pi Calculator', file: 'Pizza Pi Calculator.html' },
-                    { name: 'Your Life Visualized', file: 'Your Life Visualized.html' }
+                    { name: 'Double Pendulum Chaos', file: 'double-pendulum-chaos.html' },
+                    { name: 'Entropy and Feigenbaum\'s Constant', file: 'entropy-and-feigenbaums-constant.html' },
+                    { name: 'FIRE Number Calculator', file: 'fire-number-calculator.html' },
+                    { name: 'Pizza Pi Calculator', file: 'pizza-pi-calculator.html' },
+                    { name: 'Your Life Visualized', file: 'your-life-visualized.html' }
                 ]
             },
             'Otaku_Ops': {
                 title: 'Otaku Ops',
                 description: 'Gaming and pop culture calculators',
                 items: [
-                    { name: 'Anime Training Montage Planner', file: 'Anime Training Montage Planner.html' },
-                    { name: 'Conspiracy Theory Plausibility', file: 'Conspiracy Theory Plausibility Index.html' },
-                    { name: 'Minecraft Portal Planner', file: 'MINECRAFT PORTAL PLANNER.html' }
+                    { name: 'Anime Training Montage Planner', file: 'anime-training-montage-planner.html' },
+                    { name: 'Conspiracy Theory Plausibility', file: 'conspiracy-theory-plausibility.html' },
+                    { name: 'Minecraft Portal Planner', file: 'minecraft-portal-planner.html' }
                 ]
             }
         };
 
         this.currentPath = this.detectCurrentPath();
         this.init();
+        this.ensureNavbarStructure();
+        this.initSearch();
+        this.initMobileMenu();
     }
 
     detectCurrentPath() {
@@ -98,7 +100,7 @@ class EnhancedNavbar {
 
         // Initialize functionality
         this.initSearch();
-        this.addBreadcrumbs();
+        this.initMobileMenu();
 
         console.log('Enhanced Navbar Search initialization complete');
     }
@@ -110,47 +112,84 @@ class EnhancedNavbar {
             console.error('Navbar not found, creating one...');
             navbar = document.createElement('nav');
             navbar.className = 'main-nav';
+            navbar.setAttribute('role', 'navigation');
+            navbar.setAttribute('aria-label', 'Main navigation');
             navbar.innerHTML = `
                 <div class="nav-container">
                     <div class="nav-logo">
-                        <a href="${this.currentPath}index.html">🧮 Docket One</a>
+                        <a href="${this.currentPath}index.html" aria-label="Home">🧮 Docket One</a>
                     </div>
-                    <div class="nav-search">
-                        <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input" aria-label="Search calculators">
-                        <div id="search-results" class="search-results"></div>
+                    <div class="nav-search" role="search">
+                        <input type="text" 
+                               id="calc-search" 
+                               placeholder="Search calculators..." 
+                               class="search-input" 
+                               aria-label="Search calculators"
+                               aria-expanded="false"
+                               aria-controls="search-results">
+                        <div id="search-results" 
+                             class="search-results" 
+                             role="listbox" 
+                             aria-label="Search results"
+                             aria-hidden="true">
+                        </div>
                     </div>
-                    <ul class="nav-links">
-                        <li><a href="${this.currentPath}pages/BigKidMath/index.html" class="category-link">Big Kid Math</a></li>
-                        <li><a href="${this.currentPath}pages/CipherLab/index.html" class="category-link">Cipher Lab</a></li>
-                        <li><a href="${this.currentPath}pages/GeekGalaxy/index.html" class="category-link">Geek Galaxy</a></li>
-                        <li><a href="${this.currentPath}pages/LifeHacks/index.html" class="category-link">Life Hacks</a></li>
-                        <li><a href="${this.currentPath}pages/Math_Magik/index.html" class="category-link">Math Magik</a></li>
-                        <li><a href="${this.currentPath}pages/Otaku_Ops/index.html" class="category-link">Otaku Ops</a></li>
-                        <li><a href="${this.currentPath}index.html" class="home-link">🏠 Home</a></li>
-                    </ul>
-                    <button class="mobile-menu-btn" aria-label="Toggle menu">
-                        <span></span>
-                        <span></span>
-                        <span></span>
+                    <button class="mobile-menu-btn" 
+                            aria-label="Toggle menu" 
+                            aria-expanded="false"
+                            aria-controls="nav-links">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
                     </button>
+                    <ul class="nav-links" role="menu" aria-label="Main menu">
+                        <li role="none"><a href="${this.currentPath}pages/BigKidMath/index.html" class="category-link" role="menuitem">Big Kid Math</a></li>
+                        <li role="none"><a href="${this.currentPath}pages/CipherLab/index.html" class="category-link" role="menuitem">Cipher Lab</a></li>
+                        <li role="none"><a href="${this.currentPath}pages/GeekGalaxy/index.html" class="category-link" role="menuitem">Geek Galaxy</a></li>
+                        <li role="none"><a href="${this.currentPath}pages/LifeHacks/index.html" class="category-link" role="menuitem">Life Hacks</a></li>
+                        <li role="none"><a href="${this.currentPath}pages/Math_Magik/index.html" class="category-link" role="menuitem">Math Magik</a></li>
+                        <li role="none"><a href="${this.currentPath}pages/Otaku_Ops/index.html" class="category-link" role="menuitem">Otaku Ops</a></li>
+                        <li role="none"><a href="${this.currentPath}index.html" class="home-link" role="menuitem">🏠 Home</a></li>
+                    </ul>
                 </div>
             `;
             document.body.insertBefore(navbar, document.body.firstChild);
-        } else {
-            // Ensure search elements exist
-            const searchContainer = navbar.querySelector('.nav-search');
-            if (!searchContainer) {
-                const navContainer = navbar.querySelector('.nav-container');
-                if (navContainer) {
-                    const searchDiv = document.createElement('div');
-                    searchDiv.className = 'nav-search';
-                    searchDiv.innerHTML = `
-                        <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input" aria-label="Search calculators">
-                        <div id="search-results" class="search-results"></div>
-                    `;
-                    navContainer.insertBefore(searchDiv, navContainer.querySelector('.nav-links'));
+        }
+
+        // Initialize mobile menu button
+        const menuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+
+        if (menuBtn && navLinks) {
+            menuBtn.addEventListener('click', () => {
+                const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
+                menuBtn.classList.toggle('active');
+                navLinks.classList.toggle('active');
+                menuBtn.setAttribute('aria-expanded', !isExpanded);
+                document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (navLinks.classList.contains('active') &&
+                    !e.target.closest('.nav-links') &&
+                    !e.target.closest('.mobile-menu-btn')) {
+                    menuBtn.classList.remove('active');
+                    navLinks.classList.remove('active');
+                    menuBtn.setAttribute('aria-expanded', 'false');
+                    document.body.style.overflow = '';
                 }
-            }
+            });
+
+            // Close menu when window is resized above mobile breakpoint
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 768) {
+                    menuBtn.classList.remove('active');
+                    navLinks.classList.remove('active');
+                    menuBtn.setAttribute('aria-expanded', 'false');
+                    document.body.style.overflow = '';
+                }
+            });
         }
     }
 
@@ -248,42 +287,61 @@ class EnhancedNavbar {
         });
     }
 
-    addBreadcrumbs() {
-        const path = window.location.pathname;
-        const segments = path.split('/').filter(segment => segment !== '');
+    initMobileMenu() {
+        const menuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
 
-        if (segments.includes('pages')) {
-            const breadcrumbContainer = document.createElement('div');
-            breadcrumbContainer.className = 'breadcrumbs';
+        if (menuBtn && navLinks) {
+            // Add loading state
+            navLinks.classList.add('loading');
 
-            let breadcrumbHTML = `<a href="${this.currentPath}index.html">Home</a>`;
+            try {
+                // Toggle menu on button click
+                menuBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
 
-            const pagesIndex = segments.indexOf('pages');
-            if (pagesIndex >= 0 && segments[pagesIndex + 1]) {
-                const categoryKey = segments[pagesIndex + 1];
-                const category = this.calculators[categoryKey];
+                    const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
+                    menuBtn.classList.toggle('active');
+                    navLinks.classList.toggle('active');
+                    menuBtn.setAttribute('aria-expanded', !isExpanded);
 
-                if (category) {
-                    breadcrumbHTML += ` <span class="separator">›</span> <a href="${this.currentPath}pages/${categoryKey}/index.html">${category.title}</a>`;
+                    // Prevent body scroll when menu is open
+                    document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+                });
 
-                    // If we're on a specific calculator page
-                    if (segments[pagesIndex + 2]) {
-                        const fileName = decodeURIComponent(segments[pagesIndex + 2]);
-                        const calculator = category.items.find(item => item.file === fileName);
-                        if (calculator) {
-                            breadcrumbHTML += ` <span class="separator">›</span> <span class="current">${calculator.name}</span>`;
-                        }
+                // Close menu when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (navLinks.classList.contains('active') &&
+                        !e.target.closest('.nav-links') &&
+                        !e.target.closest('.mobile-menu-btn')) {
+                        menuBtn.classList.remove('active');
+                        navLinks.classList.remove('active');
+                        menuBtn.setAttribute('aria-expanded', 'false');
+                        document.body.style.overflow = '';
                     }
-                }
-            }
+                });
 
-            breadcrumbContainer.innerHTML = breadcrumbHTML;
+                // Close menu when window is resized above mobile breakpoint
+                window.addEventListener('resize', () => {
+                    if (window.innerWidth > 768) {
+                        menuBtn.classList.remove('active');
+                        navLinks.classList.remove('active');
+                        menuBtn.setAttribute('aria-expanded', 'false');
+                        document.body.style.overflow = '';
+                    }
+                });
 
-            // Insert breadcrumbs after navbar
-            const navbar = document.querySelector('.main-nav');
-            if (navbar) {
-                navbar.parentNode.insertBefore(breadcrumbContainer, navbar.nextSibling);
+                // Remove loading state after initialization
+                navLinks.classList.remove('loading');
+            } catch (error) {
+                console.error('Error initializing mobile menu:', error);
+                // Fallback behavior
+                menuBtn.style.display = 'none';
+                navLinks.style.display = 'flex';
             }
+        } else {
+            console.error('Mobile menu elements not found:', { menuBtn, navLinks });
         }
     }
 }
