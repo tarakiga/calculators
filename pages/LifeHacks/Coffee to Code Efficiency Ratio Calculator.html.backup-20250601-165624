@@ -1,0 +1,956 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffee to Code Efficiency Ratio Calculator | Docket One</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6F4E37;
+            --primary-light: #A67B5B;
+            --primary-dark: #4A3524;
+            --accent: #FFD700;
+            --background: #FFF8F0;
+            --text: #2C1810;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            10%,
+            30%,
+            50%,
+            70%,
+            90% {
+                transform: translateX(-5px);
+            }
+
+            20%,
+            40%,
+            60%,
+            80% {
+                transform: translateX(5px);
+            }
+        }
+
+        .animate-pulse {
+            animation: pulse 2s infinite;
+        }
+
+        .animate-shake {
+            animation: shake 0.5s;
+        }
+
+        .progress-bar {
+            transition: width 0.5s ease-in-out;
+        }
+
+        .code-bg {
+            background-color: #1e1e1e;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .terminal {
+            font-family: 'Courier New', monospace;
+        }
+
+        .coffee-stain {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle at center, rgba(166, 123, 91, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(20px);
+            z-index: 0;
+        }
+
+        .coffee-stain-1 {
+            top: -50px;
+            right: -50px;
+            transform: rotate(15deg);
+        }
+
+        .coffee-stain-2 {
+            bottom: -30px;
+            left: -30px;
+            transform: rotate(-15deg);
+            opacity: 0.3;
+        }
+
+        .input-group {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .input-group:focus-within {
+            transform: translateY(-2px);
+        }
+
+        .custom-slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 4px;
+            background: var(--primary-light);
+            border-radius: 2px;
+            outline: none;
+        }
+
+        .custom-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: var(--primary);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .custom-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        .efficiency-meter {
+            position: relative;
+            overflow: hidden;
+            border-radius: 9999px;
+            background: #E5E7EB;
+        }
+
+        .efficiency-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-light) 0%, var(--primary) 100%);
+            transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide-up {
+            animation: slideUp 0.5s ease forwards;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes typing {
+            from {
+                width: 0
+            }
+
+            to {
+                width: 100%
+            }
+        }
+
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .spinning {
+            animation: spin 2s linear infinite;
+        }
+
+        .typing {
+            overflow: hidden;
+            white-space: nowrap;
+            animation: typing 3s steps(40, end);
+        }
+
+        .coffee-cup {
+            position: relative;
+            display: inline-block;
+        }
+
+        .coffee-steam {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+            animation: steam 2s ease-in-out infinite;
+        }
+
+        @keyframes steam {
+
+            0%,
+            100% {
+                transform: translateX(-50%) scaleY(1);
+                opacity: 0.3;
+            }
+
+            50% {
+                transform: translateX(-50%) scaleY(1.5);
+                opacity: 0.1;
+            }
+        }
+
+        .achievement-badge {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transform: translateX(120%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .achievement-badge.show {
+            transform: translateX(0);
+        }
+
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            opacity: 0;
+            z-index: 999;
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
+    <script src="../../common/footer/premium-footer.js"></script>
+
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
+    <script src="../../common/footer/premium-footer.js"></script>
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
+    <script src="../../common/footer/premium-footer.js"></script>
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
+    <script src="../../common/footer/premium-footer.js"></script>
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
+    <script src="../../common/footer/premium-footer.js"></script></head>
+
+<body x-data="{ showModal: false }" class="bg-[#FFF8F0] min-h-screen">
+    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+<nav class="main-nav">
+    <div class="nav-container">
+        <div class="nav-logo">
+            <a href="../../index.html">🧮 Docket One</a>
+        </div>
+        <div class="nav-search">
+            <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input" aria-label="Search calculators">
+            <div id="search-results" class="search-results"></div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="../BigKidMath/index.html" class="category-link">Big Kid Math</a></li>
+            <li><a href="../CipherLab/index.html" class="category-link">Cipher Lab</a></li>
+            <li><a href="../GeekGalaxy/index.html" class="category-link">Geek Galaxy</a></li>
+            <li><a href="../LifeHacks/index.html" class="category-link">Life Hacks</a></li>
+            <li><a href="../Math_Magik/index.html" class="category-link">Math Magik</a></li>
+            <li><a href="../Otaku_Ops/index.html" class="category-link">Otaku Ops</a></li>
+            <li><a href="../../index.html" class="home-link">🏠 Home</a></li>
+        </ul>
+        <button class="mobile-menu-btn" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</nav>
+
+
+    <div class="container mx-auto px-4 py-12" x-data="coffeeCodeCalculator()">
+        <div class="max-w-4xl mx-auto">
+            <!-- Hero Section -->
+            <div class="relative bg-gradient-to-r from-[#6F4E37] to-[#4A3524] rounded-2xl overflow-hidden mb-8">
+                <div class="coffee-stain coffee-stain-1"></div>
+                <div class="coffee-stain coffee-stain-2"></div>
+                <div class="relative z-10 px-8 py-12 text-center">
+                    <div class="inline-flex items-center px-4 py-2 bg-white/10 rounded-full mb-4">
+                        <span class="text-2xl mr-2 spinning">⚡</span>
+                        <span class="text-white font-medium">Developer Productivity</span>
+                    </div>
+                    <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">
+                        <span class="coffee-cup">
+                            <i class="fas fa-mug-hot mr-2 floating"></i>
+                            <span class="coffee-steam"></span>
+                        </span>
+                        Coffee to Code Efficiency Ratio
+                    </h1>
+                    <p class="text-white/90 text-lg max-w-2xl mx-auto typing">
+                        Calculate your optimal caffeine-to-productivity ratio and discover your developer superpower
+                        level
+                    </p>
+                </div>
+            </div>
+
+            <!-- Calculator Content -->
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+                <div class="p-6 md:p-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                        <!-- Coffee Input -->
+                        <div class="bg-[#FFF8F0] p-6 rounded-xl border-l-4 border-[#6F4E37]">
+                            <h2 class="text-xl font-bold mb-4 text-[#4A3524]">
+                                <i class="fas fa-coffee mr-2"></i> Caffeine Intake
+                            </h2>
+
+                            <div class="input-group mb-4">
+                                <label class="block text-sm font-medium mb-1 text-[#4A3524]">Cups of Coffee</label>
+                                <div class="flex items-center">
+                                    <button @click="cups > 0 ? cups-- : null"
+                                        class="px-3 py-1 bg-[#A67B5B] text-white rounded-l-lg hover:bg-[#6F4E37] transition-colors">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <input type="number" x-model="cups" min="0"
+                                        class="w-full py-1 px-3 bg-white text-center border-t border-b border-[#A67B5B]">
+                                    <button @click="cups++"
+                                        class="px-3 py-1 bg-[#A67B5B] text-white rounded-r-lg hover:bg-[#6F4E37] transition-colors">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="input-group mb-4">
+                                <label class="block text-sm font-medium mb-1 text-[#4A3524]">Other Caffeine
+                                    Sources</label>
+                                <select x-model="otherSources"
+                                    class="w-full p-2 border border-[#A67B5B] rounded-lg focus:ring-2 focus:ring-[#6F4E37] focus:border-transparent">
+                                    <option value="0">None</option>
+                                    <option value="1">Energy drink (1x)</option>
+                                    <option value="2">Energy drink (2x+)</option>
+                                    <option value="3">Caffeine pills</option>
+                                </select>
+                            </div>
+
+                            <div class="text-center mt-4">
+                                <div class="text-3xl font-bold text-[#4A3524]" x-text="totalCaffeine + ' mg'"></div>
+                                <div class="text-sm text-[#A67B5B]" x-text="caffeineDescription"></div>
+                            </div>
+                        </div>
+
+                        <!-- Coding Input -->
+                        <div class="bg-[#FFF8F0] p-6 rounded-xl border-l-4 border-[#6F4E37]">
+                            <h2 class="text-xl font-bold mb-4 text-[#4A3524]">
+                                <i class="fas fa-code mr-2"></i> Coding Output
+                            </h2>
+
+                            <div class="input-group mb-4">
+                                <label class="block text-sm font-medium mb-1 text-[#4A3524]">Productive Hours</label>
+                                <input type="range" x-model="productiveHours" min="0" max="12" step="0.5"
+                                    class="custom-slider">
+                                <div class="flex justify-between text-xs text-[#A67B5B] mt-1">
+                                    <span>0h</span>
+                                    <span>12h</span>
+                                </div>
+                            </div>
+
+                            <div class="input-group mb-4">
+                                <label class="block text-sm font-medium mb-1 text-[#4A3524]">Code Quality</label>
+                                <select x-model="codeQuality"
+                                    class="w-full p-2 border border-[#A67B5B] rounded-lg focus:ring-2 focus:ring-[#6F4E37] focus:border-transparent">
+                                    <option value="3">Production-ready</option>
+                                    <option value="2">Mostly works</option>
+                                    <option value="1">Hacky solution</option>
+                                    <option value="0">"It compiles"</option>
+                                </select>
+                            </div>
+
+                            <div class="text-center mt-4">
+                                <div class="text-3xl font-bold text-[#4A3524]" x-text="productiveHours + 'h'"></div>
+                                <div class="text-sm text-[#A67B5B]" x-text="qualityDescription"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Calculate Button -->
+                    <button @click="calculateRatio"
+                        class="w-full bg-gradient-to-r from-[#6F4E37] to-[#4A3524] text-white font-bold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5">
+                        <i class="fas fa-calculator mr-2"></i> Calculate Efficiency Ratio
+                    </button>
+
+                    <!-- Results -->
+                    <div x-show="results" x-transition class="space-y-6 mt-8">
+                        <div class="code-bg text-white p-6 rounded-xl terminal">
+                            <div class="mb-4">
+                                <span class="text-green-400">$</span> ./coffee2code --analyze
+                            </div>
+                            <div class="mb-2">
+                                <span class="text-blue-400">>></span> Caffeine Input: <span
+                                    x-text="totalCaffeine + 'mg'"></span>
+                            </div>
+                            <div class="mb-2">
+                                <span class="text-blue-400">>></span> Code Output: <span
+                                    x-text="productiveHours + 'h'"></span> (<span x-text="qualityDescription"></span>)
+                            </div>
+                            <div class="mb-2">
+                                <span class="text-blue-400">>></span> Efficiency Ratio:
+                                <span class="font-bold" :class="ratioClass"
+                                    x-text="efficiencyRatio.toFixed(2) + ':1'"></span>
+                            </div>
+                            <div class="mb-2">
+                                <span class="text-blue-400">>></span> Developer Status:
+                                <span class="font-bold" :class="statusClass" x-text="developerStatus"></span>
+                            </div>
+                            <div x-show="showWarning" class="mt-4 p-3 bg-yellow-900 rounded animate-shake">
+                                <span class="text-yellow-400">WARNING:</span>
+                                <span x-text="warningMessage"></span>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                            <h3 class="text-lg font-bold mb-3 text-[#4A3524]">Efficiency Analysis</h3>
+                            <div class="space-y-3">
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-sm font-medium text-[#4A3524]">Optimal Zone</span>
+                                        <span class="text-xs text-[#A67B5B]" x-text="efficiencyScore + '/100'"></span>
+                                    </div>
+                                    <div class="efficiency-meter h-2.5">
+                                        <div class="efficiency-fill"
+                                            :style="{ width: Math.min(100, efficiencyScore) + '%' }"></div>
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-3 gap-4 text-center mt-4">
+                                    <div>
+                                        <div class="text-2xl font-bold"
+                                            :class="cups >= 5 ? 'text-red-500' : 'text-[#A67B5B]'" x-text="cups"></div>
+                                        <div class="text-xs text-[#4A3524]">CUPS</div>
+                                    </div>
+                                    <div>
+                                        <div class="text-2xl font-bold" :class="ratioClass"
+                                            x-text="efficiencyRatio.toFixed(2)"></div>
+                                        <div class="text-xs text-[#4A3524]">RATIO</div>
+                                    </div>
+                                    <div>
+                                        <div class="text-2xl font-bold"
+                                            :class="productiveHours >= 8 ? 'text-green-600' : 'text-[#A67B5B]'"
+                                            x-text="productiveHours"></div>
+                                        <div class="text-xs text-[#4A3524]">HOURS</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="related-calculators max-w-4xl mx-auto mt-8 p-6 bg-white/50 backdrop-blur-sm rounded-xl">
+        <h3 class="text-lg font-bold mb-4 text-[#4A3524]">Related Life Hacks Tools</h3>
+        <div class="space-y-2">
+            <a href="./Inflation Impact Calculator.html"
+                class="block p-3 bg-white/80 hover:bg-white rounded-lg transition-colors text-[#4A3524] hover:text-[#6F4E37]">
+                Inflation Impact Calculator
+            </a>
+            <a href="./Procrastination ROI Calculator.html"
+                class="block p-3 bg-white/80 hover:bg-white rounded-lg transition-colors text-[#4A3524] hover:text-[#6F4E37]">
+                Procrastination ROI Calculator
+            </a>
+            <a href="./Sleep Cycle Optimizer.html"
+                class="block p-3 bg-white/80 hover:bg-white rounded-lg transition-colors text-[#4A3524] hover:text-[#6F4E37]">
+                Sleep Cycle Optimizer
+            </a>
+            <a href="./index.html"
+                class="block p-3 mt-4 bg-[#6F4E37] hover:bg-[#4A3524] rounded-lg transition-colors text-white font-medium">
+                ← Back to Life Hacks Hub
+            </a>
+        </div>
+    </div>
+
+    <div class="achievement-badge" x-show="showAchievement" x-transition>
+        <div class="flex items-center">
+            <span class="text-2xl mr-2" x-text="achievementIcon"></span>
+            <div>
+                <h4 class="font-bold" x-text="achievementTitle"></h4>
+                <p class="text-sm" x-text="achievementDescription"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('coffeeCodeCalculator', () => ({
+                cups: 2,
+                otherSources: 0,
+                productiveHours: 4,
+                codeQuality: 2,
+                results: false,
+                showWarning: false,
+                warningMessage: '',
+                showAchievement: false,
+                achievementIcon: '',
+                achievementTitle: '',
+                achievementDescription: '',
+
+                get totalCaffeine() {
+                    // Approximate caffeine amounts
+                    const coffeeMg = this.cups * 95; // 95mg per cup average
+                    let otherMg = 0;
+
+                    if (this.otherSources == 1) otherMg = 80; // energy drink
+                    if (this.otherSources == 2) otherMg = 160; // 2+ energy drinks
+                    if (this.otherSources == 3) otherMg = 200; // caffeine pills
+
+                    return coffeeMg + otherMg;
+                },
+
+                get caffeineDescription() {
+                    if (this.totalCaffeine == 0) return "Are you even awake?";
+                    if (this.totalCaffeine < 100) return "Lightweight";
+                    if (this.totalCaffeine < 200) return "Standard issue";
+                    if (this.totalCaffeine < 400) return "Overclocked";
+                    return "DANGER ZONE";
+                },
+
+                get qualityDescription() {
+                    const descriptions = [
+                        "It compiles (good enough)",
+                        "Hacky solution (works for now)",
+                        "Mostly works (needs tests)",
+                        "Production-ready (PR approved)"
+                    ];
+                    return descriptions[this.codeQuality];
+                },
+
+                get efficiencyRatio() {
+                    if (this.productiveHours == 0) return 0;
+
+                    // Base ratio is caffeine mg per productive hour
+                    let ratio = this.totalCaffeine / this.productiveHours;
+
+                    // Adjust for code quality (better quality = better efficiency)
+                    ratio = ratio / (this.codeQuality + 1);
+
+                    return ratio;
+                },
+
+                get efficiencyScore() {
+                    // Score based on optimal ratio range (30-70 mg/hour)
+                    const optimalMin = 30;
+                    const optimalMax = 70;
+
+                    if (this.efficiencyRatio <= optimalMin) {
+                        return Math.round((this.efficiencyRatio / optimalMin) * 50);
+                    } else if (this.efficiencyRatio <= optimalMax) {
+                        return 50 + Math.round(((this.efficiencyRatio - optimalMin) / (optimalMax - optimalMin)) * 50);
+                    } else {
+                        return 100 - Math.round(Math.min(50, (this.efficiencyRatio - optimalMax) / 2));
+                    }
+                },
+
+                get ratioClass() {
+                    if (this.efficiencyRatio < 30) return "text-blue-500"; // Under-caffeinated
+                    if (this.efficiencyRatio < 70) return "text-green-500"; // Optimal
+                    if (this.efficiencyRatio < 100) return "text-yellow-500"; // Over-caffeinated
+                    return "text-red-500"; // Danger zone
+                },
+
+                get efficiencyBarClass() {
+                    if (this.efficiencyScore < 30) return "bg-red-500";
+                    if (this.efficiencyScore < 70) return "bg-yellow-500";
+                    return "bg-green-500";
+                },
+
+                get developerStatus() {
+                    if (this.totalCaffeine == 0 && this.productiveHours > 0) {
+                        return "🧘 Zen Master (coding without caffeine?)";
+                    }
+
+                    if (this.efficiencyRatio < 10) {
+                        return "😴 Sleepy Intern";
+                    } else if (this.efficiencyRatio < 30) {
+                        return "💼 Productive Professional";
+                    } else if (this.efficiencyRatio < 70) {
+                        return "⚡ In the Zone";
+                    } else if (this.efficiencyRatio < 100) {
+                        return "🤓 Jittery Genius";
+                    } else if (this.efficiencyRatio < 150) {
+                        return "🚀 Overclocked Hacker";
+                    } else {
+                        return "⚠️ DANGER: Imminent Burnout";
+                    }
+                },
+
+                get statusClass() {
+                    if (this.efficiencyRatio < 30) return "text-blue-500";
+                    if (this.efficiencyRatio < 70) return "text-green-500";
+                    if (this.efficiencyRatio < 100) return "text-yellow-500";
+                    return "text-red-500";
+                },
+
+                calculateRatio() {
+                    this.results = true;
+                    this.showWarning = false;
+                    this.showAchievement = false;
+
+                    // Check for achievements
+                    if (this.totalCaffeine == 0 && this.productiveHours > 4) {
+                        this.showAchievement = true;
+                        this.achievementIcon = '🧘';
+                        this.achievementTitle = 'Zen Master';
+                        this.achievementDescription = 'Coding without caffeine? You\'re a legend!';
+                        this.createConfetti();
+                    } else if (this.efficiencyRatio >= 70 && this.efficiencyRatio < 100) {
+                        this.showAchievement = true;
+                        this.achievementIcon = '⚡';
+                        this.achievementTitle = 'In the Zone';
+                        this.achievementDescription = 'Perfect balance of caffeine and productivity!';
+                        this.createConfetti();
+                    } else if (this.totalCaffeine > 400) {
+                        this.showAchievement = true;
+                        this.achievementIcon = '🚀';
+                        this.achievementTitle = 'Overclocked';
+                        this.achievementDescription = 'Your CPU might be jealous of your performance!';
+                    }
+
+                    // Existing warning checks
+                    if (this.codeQuality <= 1 && this.productiveHours > 6) {
+                        this.showWarning = true;
+                        this.warningMessage = "You've reached Stack Overflow copy-paste threshold";
+                    } else if (this.totalCaffeine > 400 && this.productiveHours < 2) {
+                        this.showWarning = true;
+                        this.warningMessage = "Excessive caffeine with minimal output - consider taking a walk";
+                    } else if (this.totalCaffeine == 0 && this.productiveHours > 4) {
+                        this.showWarning = true;
+                        this.warningMessage = "Unverified data: no developer works this long without caffeine";
+                    }
+                },
+
+                createConfetti() {
+                    const colors = ['#FFD700', '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4'];
+                    for (let i = 0; i < 50; i++) {
+                        const confetti = document.createElement('div');
+                        confetti.className = 'confetti';
+                        confetti.style.left = Math.random() * 100 + 'vw';
+                        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                        confetti.style.animation = `confetti-fall ${Math.random() * 3 + 2}s linear forwards`;
+                        document.body.appendChild(confetti);
+                        setTimeout(() => confetti.remove(), 5000);
+                    }
+                }
+            }));
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+
+            if (mobileMenuBtn && navLinks) {
+                mobileMenuBtn.addEventListener('click', function () {
+                    navLinks.classList.toggle('active');
+                    mobileMenuBtn.classList.toggle('active');
+                });
+                document.addEventListener('click', function (event) {
+                    if (!event.target.closest('.main-nav')) {
+                        navLinks.classList.remove('active');
+                        mobileMenuBtn.classList.remove('active');
+                    }
+                });
+            }
+        });
+    </script>
+
+    <script>
+        // 🎅 Santa Claude's Interactive Enhancements
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log('🎅 Santa Claude's enhancements loaded!');
+
+            // Enhanced button interactions
+            const buttons = document.querySelectorAll('button, .btn');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', function () {
+                    this.classList.add('loading');
+                    setTimeout(() => {
+                        this.classList.remove('loading');
+                    }, 500);
+                });
+            });
+
+            // Enhanced results display
+            const resultElements = document.querySelectorAll('.result, .results, .output, #result, #output');
+            resultElements.forEach(el => {
+                const observer = new MutationObserver(function (mutations) {
+                    mutations.forEach(function (mutation) {
+                        if (mutation.type === 'childList' || mutation.type === 'characterData') {
+                            el.classList.add('show');
+                        }
+                    });
+                });
+                observer.observe(el, { childList: true, subtree: true, characterData: true });
+            });
+
+            // Form validation enhancements
+            const inputs = document.querySelectorAll('input[type="number"], input[type="text"]');
+            inputs.forEach(input => {
+                input.addEventListener('input', function () {
+                    if (this.checkValidity()) {
+                        this.classList.remove('input-error');
+                        this.classList.add('input-success');
+                    } else {
+                        this.classList.remove('input-success');
+                        this.classList.add('input-error');
+                    }
+                });
+            });
+        });
+    </script>
+<!-- Newsletter Bar -->
+<div class="newsletter-bar" x-data="newsletterForm()">
+    <div class="newsletter-container">
+        <div class="newsletter-content">
+            <div class="newsletter-info">
+                <h3>&#127881; Join Our Calculator Community!</h3>
+                <p>Get updates on new fun calculators and practical tools</p>
+            </div>
+            <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
+                <input 
+                    type="email" 
+                    class="newsletter-input"
+                    placeholder="Enter your email for calculator updates"
+                    x-model="email"
+                    required
+                >
+                <button 
+                    type="submit" 
+                    class="newsletter-submit"
+                    :disabled="isSubmitting"
+                >
+                    <span x-show="isSubmitting" class="loading-spinner"></span>
+                    <span x-text="isSubmitting ? 'Subscribing...' : '&#128640; Subscribe'"></span>
+                </button>
+            </form>
+            <div x-show="showSuccess" class="newsletter-success" style="display: none;">
+                <p style="color: var(--accent-light); font-weight: 600;">
+                    &#9989; Awesome! You'll get updates on the coolest new calculators!
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>&#127919; About Docket.One</h4>
+                <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the tools for modern life.</p>
+                <p>Practical meets playful. Because adulting is hard enough.</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>&#127914; Calculator Categories</h4>
+                <ul class="footer-links">
+                    <li><a href="/pages/BigKidMath/"><span class="calculator-emoji">&#129518;</span> BigKidMath - Adult Life Tools</a></li>
+                    <li><a href="/pages/CipherLab/"><span class="calculator-emoji">&#128272;</span> CipherLab - Secret Codes & Security</a></li>
+                    <li><a href="/pages/GeekGalaxy/"><span class="calculator-emoji">&#128640;</span> GeekGalaxy - Sci-Fi & Fantasy Fun</a></li>
+                    <li><a href="/pages/LifeHacks/"><span class="calculator-emoji">&#9889;</span> LifeHacks - Productivity & Wellness</a></li>
+                    <li><a href="/pages/Math_Magik/"><span class="calculator-emoji">&#127917;</span> Math Magik - Mathematical Wizardry</a></li>
+                    <li><a href="/pages/Otaku_Ops/"><span class="calculator-emoji">&#127999;</span> Otaku Ops - Anime & Culture</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>&#128172; Support & Info</h4>
+                <ul class="footer-links">
+                    <li><a href="/help"><span class="calculator-emoji">&#10067;</span> Help & FAQ</a></li>
+                    <li><a href="/privacy"><span class="calculator-emoji">&#128274;</span> Privacy Policy</a></li>
+                    <li><a href="/terms"><span class="calculator-emoji">&#128203;</span> Terms of Service</a></li>
+                    <li><a href="/accessibility"><span class="calculator-emoji">&#9855;</span> Accessibility</a></li>
+                    <li><a href="/contact"><span class="calculator-emoji">&#128231;</span> Contact Us</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <button 
+                    class="request-calculator-btn"
+                    @click="showModal = true"
+                >
+                    &#128161; Request a Calculator
+                </button>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="footer-logo">&#129518; Docket.One</div>
+            <div class="footer-copyright">
+                Â© 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
+            </div>
+            <div class="social-links">
+                <a href="#" class="social-link" aria-label="Twitter">&#120143;</a>
+                <a href="#" class="social-link" aria-label="LinkedIn">&#128188;</a>
+                <a href="#" class="social-link" aria-label="GitHub">&#128025;</a>
+                <a href="#" class="social-link" aria-label="Email">&#128231;</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Request Modal -->
+<div 
+    x-data="calculatorRequestForm()"
+    x-show="showModal"
+    x-cloak
+    class="modal-overlay"
+    @click.self="closeModal()"
+    style="display: none;"
+>
+    <div class="modal-content">
+        <div x-show="!showConfirmation">
+            <div class="modal-header">
+                <h2 class="modal-title">&#128161; Request a Fun Calculator</h2>
+                <p class="modal-subtitle">Got an idea for a calculator that would make life easier or more fun? We want to hear it!</p>
+                <button class="modal-close" @click="closeModal()">&#10005;</button>
+            </div>
+            <div class="modal-body">
+                <form @submit.prevent="submitRequest()">
+                    <div class="form-group">
+                        <label class="form-label" for="userName">Your Name *</label>
+                        <input type="text" id="userName" class="form-input" x-model="formData.name" required placeholder="What should we call you?">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="userEmail">Email Address *</label>
+                        <input type="email" id="userEmail" class="form-input" x-model="formData.email" required placeholder="your@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="requestType">What Kind of Request? *</label>
+                        <select id="requestType" class="form-input form-select" x-model="formData.type" required>
+                            <option value="">Choose your request type</option>
+                            <option value="new-calculator">&#127358; Brand New Calculator</option>
+                            <option value="enhancement">&#9889; Improve Existing Calculator</option>
+                            <option value="category">&#127914; New Category Idea</option>
+                            <option value="feature">&#10024; Cool New Feature</option>
+                            <option value="other">&#129300; Something Else Entirely</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="calculatorTitle">Calculator Name/Title *</label>
+                        <input type="text" id="calculatorTitle" class="form-input" x-model="formData.title" required placeholder="e.g., 'Should I Call In Sick Calculator'">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="description">Tell Us About Your Idea! *</label>
+                        <textarea id="description" class="form-input form-textarea" x-model="formData.description" required placeholder="Describe your calculator idea!"></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" @click="closeModal()">Maybe Later</button>
+                        <button type="submit" class="btn btn-primary" :disabled="isSubmitting">
+                            <span x-show="isSubmitting" class="loading-spinner"></span>
+                            <span x-text="isSubmitting ? 'Sending...' : '&#128640; Send My Idea'"></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div x-show="showConfirmation" class="confirmation-modal" style="display: none;">
+            <div class="modal-header">
+                <button class="modal-close" @click="closeModal()">&#10005;</button>
+            </div>
+            <div class="modal-body">
+                <div class="success-icon">&#127881;</div>
+                <h3 class="confirmation-title">Awesome! We Got Your Idea!</h3>
+                <p class="confirmation-message">
+                    Thanks for sharing your calculator idea with us! We're excited to check it out and see if we can make it happen. 
+                    <br><br>
+                    <strong>What happens next?</strong><br>
+                    â€¢ You'll get a confirmation email shortly<br>
+                    â€¢ Our team will review your idea<br>
+                    â€¢ If we build it, you'll be the first to know!<br>
+                    â€¢ We might even name you as the inspiration &#128522;
+                </p>
+                <button class="btn btn-primary" @click="closeModal()" style="width: 100%;">
+                    &#127919; Close & Keep Calculating!
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

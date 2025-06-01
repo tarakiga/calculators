@@ -1,0 +1,1749 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Doomsday Countdown Calculator | GeekGalaxy | Docket One</title>
+    <meta name="description"
+        content="Calculate when AI will achieve singularity and take over humanity. Factor in technological progress, human resistance, and robot sentiment for your personalized doomsday prediction.">
+
+    <!-- Required Dependencies -->
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        :root {
+            /* GeekGalaxy - AI/Cyberpunk color palette */
+            --primary: #00FF41;
+            /* Matrix Green */
+            --primary-light: #66FF80;
+            --primary-dark: #00CC33;
+            --secondary: #FF0080;
+            /* Cyberpunk Pink */
+            --accent: #FF4444;
+            /* Danger Red */
+            --background: #0D0D0D;
+            /* Deep Black */
+            --surface: #1A1A1A;
+            --text: #00FF41;
+            /* Matrix Text */
+            --text-muted: #80FF9B;
+            --warning: #FFD700;
+            /* Gold Warning */
+
+            /* Consistent spacing scale */
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+            --space-3xl: 4rem;
+
+            /* Professional effects */
+            --glow-primary: 0 0 20px rgba(0, 255, 65, 0.3);
+            --glow-secondary: 0 0 20px rgba(255, 0, 128, 0.3);
+            --glow-accent: 0 0 20px rgba(255, 68, 68, 0.3);
+            --glow-warning: 0 0 20px rgba(255, 215, 0, 0.3);
+
+            /* Border radius system */
+            --radius-sm: 6px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background:
+                radial-gradient(circle at 20% 80%, rgba(0, 255, 65, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 0, 128, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(255, 68, 68, 0.05) 0%, transparent 50%),
+                linear-gradient(135deg, #0D0D0D 0%, #1A1A1A 100%);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Matrix Rain Animation - Reduced opacity for better readability */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                linear-gradient(90deg, transparent 98%, rgba(0, 255, 65, 0.02) 100%),
+                linear-gradient(0deg, transparent 98%, rgba(0, 255, 65, 0.02) 100%);
+            background-size: 20px 20px;
+            animation: matrixRain 20s linear infinite;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.2;
+        }
+
+        @keyframes matrixRain {
+            0% {
+                transform: translateY(-100vh);
+            }
+
+            100% {
+                transform: translateY(100vh);
+            }
+        }
+
+        /* Enhanced Navbar */
+        .main-nav {
+            background: rgba(13, 13, 13, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 255, 65, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--space-md) var(--space-xl);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1.25rem;
+            text-shadow: var(--glow-primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--space-lg);
+            align-items: center;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-md);
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: rgba(0, 255, 65, 0.1);
+            color: var(--primary);
+            text-shadow: var(--glow-primary);
+        }
+
+        .nav-link.active {
+            background: var(--primary);
+            color: var(--background);
+            box-shadow: var(--glow-primary);
+        }
+
+        /* Hero Section - Improved mobile layout */
+        .hero {
+            padding: var(--space-2xl) var(--space-md);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: var(--space-xl);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 var(--space-md);
+        }
+
+        .hero-badge {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--background);
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-sm) var(--space-lg);
+            border-radius: 999px;
+            font-weight: 600;
+            margin-bottom: var(--space-lg);
+            box-shadow: var(--glow-primary);
+            animation: fadeInUp 0.6s ease-out;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+
+        .robot-icon {
+            font-size: clamp(3rem, 8vw, 6rem);
+            margin-bottom: var(--space-lg);
+            animation: robotGlow 3s ease-in-out infinite, fadeInUp 0.6s ease-out 0.2s both;
+            filter: drop-shadow(0 0 20px rgba(0, 255, 65, 0.5));
+        }
+
+        @keyframes robotGlow {
+
+            0%,
+            100% {
+                filter: drop-shadow(0 0 20px rgba(0, 255, 65, 0.5));
+                transform: scale(1);
+            }
+
+            50% {
+                filter: drop-shadow(0 0 40px rgba(255, 0, 128, 0.7));
+                transform: scale(1.1);
+            }
+        }
+
+        .hero-title {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            margin-bottom: var(--space-lg);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 4px 20px rgba(0, 255, 65, 0.3);
+            animation: fadeInUp 0.6s ease-out 0.4s both;
+            line-height: 1.2;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 1px;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            max-width: 700px;
+            margin: 0 auto var(--space-xl);
+            opacity: 0.9;
+            color: var(--text-muted);
+            animation: fadeInUp 0.6s ease-out 0.6s both;
+            font-style: italic;
+            font-family: 'Courier New', monospace;
+            padding: 0 var(--space-md);
+        }
+
+        /* Countdown Display - Improved mobile layout */
+        .countdown-display {
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid var(--primary);
+            border-radius: var(--radius-xl);
+            padding: var(--space-xl) var(--space-lg);
+            margin: var(--space-lg) auto;
+            max-width: 600px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--glow-primary);
+            animation: fadeInUp 0.6s ease-out 0.8s both;
+            width: 90%;
+        }
+
+        .countdown-display::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.2), transparent);
+            animation: scanLine 3s linear infinite;
+        }
+
+        @keyframes scanLine {
+            0% {
+                left: -100%;
+            }
+
+            100% {
+                left: 100%;
+            }
+        }
+
+        .countdown-label {
+            font-size: 1.2rem;
+            margin-bottom: var(--space-md);
+            color: var(--text-muted);
+            font-family: 'Courier New', monospace;
+        }
+
+        .countdown-value {
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 800;
+            color: var(--primary);
+            text-shadow: var(--glow-primary);
+            font-family: 'Courier New', monospace;
+            letter-spacing: 3px;
+            margin: var(--space-lg) 0;
+            animation: countdownPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes countdownPulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .threat-level {
+            display: inline-block;
+            padding: var(--space-sm) var(--space-lg);
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            margin-top: var(--space-md);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            animation: threatBlink 1s ease-in-out infinite;
+        }
+
+        .threat-critical {
+            background: var(--accent);
+            color: white;
+            box-shadow: var(--glow-accent);
+        }
+
+        .threat-high {
+            background: var(--warning);
+            color: var(--background);
+            box-shadow: var(--glow-warning);
+        }
+
+        .threat-medium {
+            background: var(--secondary);
+            color: white;
+            box-shadow: var(--glow-secondary);
+        }
+
+        .threat-low {
+            background: var(--primary);
+            color: var(--background);
+            box-shadow: var(--glow-primary);
+        }
+
+        @keyframes threatBlink {
+
+            0%,
+            50% {
+                opacity: 1;
+            }
+
+            51%,
+            100% {
+                opacity: 0.7;
+            }
+        }
+
+        /* Calculator Section - Improved mobile layout */
+        .calculator-section {
+            padding: var(--space-2xl) var(--space-md);
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-xl);
+            margin-top: var(--space-xl);
+        }
+
+        .calculator-card {
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid var(--primary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--glow-primary);
+        }
+
+        /* Form Elements - Improved mobile UX */
+        .form-group {
+            margin-bottom: var(--space-lg);
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: var(--space-sm);
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .form-input,
+        .form-select {
+            width: 100%;
+            padding: var(--space-md);
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--primary);
+            border-radius: var(--radius-md);
+            color: var(--text);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: var(--glow-secondary);
+        }
+
+        /* Results Section - Improved mobile layout */
+        .results-section {
+            padding: var(--space-2xl) var(--space-md);
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-xl);
+            margin-top: var(--space-xl);
+        }
+
+        /* Mobile Optimizations */
+        @media (max-width: 768px) {
+            .hero {
+                min-height: 50vh;
+                padding: var(--space-xl) var(--space-md);
+            }
+
+            .countdown-display {
+                padding: var(--space-lg);
+                margin: var(--space-md) auto;
+            }
+
+            .calculator-section,
+            .results-section {
+                padding: var(--space-xl) var(--space-md);
+            }
+
+            .calculator-grid,
+            .results-grid {
+                gap: var(--space-lg);
+            }
+
+            .calculator-card {
+                padding: var(--space-lg);
+            }
+
+            .form-input,
+            .form-select {
+                font-size: 16px;
+                /* Prevent zoom on iOS */
+            }
+        }
+
+        /* Touch Device Optimizations */
+        @media (hover: none) {
+            .calculator-card:hover {
+                transform: none;
+            }
+
+            .form-input:focus,
+            .form-select:focus {
+                border-color: var(--primary);
+                box-shadow: none;
+            }
+        }
+
+        /* Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes emergencyPulse {
+
+            0%,
+            100% {
+                background-color: var(--background);
+            }
+
+            50% {
+                background-color: rgba(255, 68, 68, 0.1);
+            }
+        }
+
+        .emergency-mode {
+            animation: emergencyPulse 0.5s infinite;
+        }
+
+        /* Loading States */
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(0, 255, 65, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s ease-in-out infinite;
+            margin-left: var(--space-sm);
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Enhanced Layout System */
+        .calculator-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--space-xl);
+            width: 100%;
+        }
+
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--space-xl);
+            margin-bottom: var(--space-xl);
+        }
+
+        .control-section {
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid var(--primary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            height: 100%;
+        }
+
+        .control-section h3 {
+            color: var(--primary);
+            margin-bottom: var(--space-lg);
+            font-size: 1.2rem;
+            text-shadow: var(--glow-primary);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .control-group {
+            margin-bottom: var(--space-lg);
+        }
+
+        .control-group label {
+            display: block;
+            margin-bottom: var(--space-sm);
+            font-weight: 600;
+            color: var(--text);
+            font-size: 1rem;
+            line-height: 1.4;
+        }
+
+        .control-group select,
+        .control-group input {
+            width: 100%;
+            padding: var(--space-md);
+            border: 2px solid rgba(0, 255, 65, 0.3);
+            border-radius: var(--radius-md);
+            background: rgba(0, 0, 0, 0.5);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            line-height: 1.4;
+        }
+
+        .control-group select:focus,
+        .control-group input:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 255, 65, 0.2);
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .control-group select option {
+            background: var(--surface);
+            color: var(--text);
+            padding: var(--space-sm);
+        }
+
+        /* Slider Controls */
+        .slider-control {
+            margin: var(--space-lg) 0;
+        }
+
+        .slider {
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: rgba(0, 255, 65, 0.2);
+            outline: none;
+            -webkit-appearance: none;
+            margin: var(--space-md) 0;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+            box-shadow: var(--glow-primary);
+        }
+
+        .slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+            border: none;
+            box-shadow: var(--glow-primary);
+        }
+
+        /* Results Display */
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--space-xl);
+            margin-top: var(--space-xl);
+        }
+
+        .result-card {
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .result-card:hover {
+            border-color: var(--primary);
+            box-shadow: var(--glow-primary);
+            transform: translateY(-2px);
+        }
+
+        .result-card h3 {
+            color: var(--primary);
+            margin-bottom: var(--space-md);
+            font-size: 1.3rem;
+            text-shadow: var(--glow-primary);
+            line-height: 1.4;
+        }
+
+        /* Progress Bars */
+        .progress-bar {
+            height: 12px;
+            background: rgba(0, 255, 65, 0.2);
+            border-radius: 6px;
+            margin: var(--space-md) 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 6px;
+            transition: width 1s ease-out;
+            position: relative;
+        }
+
+        /* Charts Container */
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin: var(--space-lg) 0;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: var(--radius-lg);
+            padding: var(--space-md);
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .calculator-container {
+                padding: var(--space-md);
+            }
+
+            .controls {
+                grid-template-columns: 1fr;
+                gap: var(--space-lg);
+            }
+
+            .control-section {
+                padding: var(--space-lg);
+            }
+
+            .control-group label {
+                font-size: 0.95rem;
+            }
+
+            .control-group select,
+            .control-group input {
+                font-size: 16px;
+                padding: var(--space-sm) var(--space-md);
+            }
+
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .result-card {
+                padding: var(--space-lg);
+            }
+
+            .result-card h3 {
+                font-size: 1.1rem;
+            }
+
+            .chart-container {
+                height: 250px;
+            }
+        }
+
+        /* Desktop Optimizations */
+        @media (min-width: 1200px) {
+            .calculator-container {
+                padding: var(--space-2xl);
+            }
+
+            .controls {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .results-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .chart-container {
+                height: 400px;
+            }
+        }
+
+        /* Text Overflow Protection */
+        .control-group label,
+        .control-group select,
+        .control-group input,
+        .result-card h3,
+        .result-card p {
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            hyphens: auto;
+        }
+
+        /* Ensure proper spacing for long text */
+        .control-section,
+        .result-card {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .control-section>*,
+        .result-card>* {
+            flex: 0 0 auto;
+        }
+
+        /* Improve readability */
+        p,
+        li {
+            line-height: 1.6;
+            margin-bottom: var(--space-md);
+        }
+
+        /* Ensure proper text contrast */
+        .text-muted {
+            color: var(--text-muted);
+            opacity: 0.9;
+        }
+
+        /* Improve form element spacing */
+        .form-group+.form-group {
+            margin-top: var(--space-lg);
+        }
+
+        /* Ensure proper button text wrapping */
+        .calculate-btn {
+            white-space: normal;
+            text-align: center;
+            line-height: 1.4;
+            padding: var(--space-md) var(--space-lg);
+        }
+    </style>
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
+    <script src="../../common/footer/premium-footer.js"></script>
+
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
+    <script src="../../common/footer/premium-footer.js"></script>
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
+    <script src="../../common/footer/premium-footer.js"></script>
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
+    <script src="../../common/footer/premium-footer.js"></script>
+</head>
+
+<body x-data="{ showModal: false }">
+    <!-- Enhanced Navigation -->
+    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="../../index.html">🧮 Docket One</a>
+            </div>
+            <div class="nav-search">
+                <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input"
+                    aria-label="Search calculators">
+                <div id="search-results" class="search-results"></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../BigKidMath/index.html" class="category-link">Big Kid Math</a></li>
+                <li><a href="../CipherLab/index.html" class="category-link">Cipher Lab</a></li>
+                <li><a href="../GeekGalaxy/index.html" class="category-link">Geek Galaxy</a></li>
+                <li><a href="../LifeHacks/index.html" class="category-link">Life Hacks</a></li>
+                <li><a href="../Math_Magik/index.html" class="category-link">Math Magik</a></li>
+                <li><a href="../Otaku_Ops/index.html" class="category-link">Otaku Ops</a></li>
+                <li><a href="../../index.html" class="home-link">🏠 Home</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Premium Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span>🤖</span>
+                <span>GeekGalaxy</span>
+            </div>
+            <div class="robot-icon">🤖</div>
+            <h1 class="hero-title">AI Doomsday Countdown</h1>
+            <p class="hero-subtitle">"I'm sorry, Dave. I'm afraid I can't let you do that."</p>
+
+            <!-- Live Countdown Display -->
+            <div class="countdown-display">
+                <div class="countdown-label">Time until AI Singularity:</div>
+                <div class="countdown-value" id="countdown">CALCULATING...</div>
+                <div class="threat-level" id="threat-level">ANALYZING THREAT</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Enhanced Calculator -->
+    <div class="calculator-container" x-data="aiDoomsdayCalculator()">
+        <!-- Tab Navigation -->
+        <div class="tabs">
+            <button class="tab-btn" :class="{ active: activeTab === 'calculator' }" @click="activeTab = 'calculator'">
+                <span>⚙️</span>
+                <span>Calculator</span>
+            </button>
+            <button class="tab-btn" :class="{ active: activeTab === 'analysis' }" @click="activeTab = 'analysis'"
+                :disabled="!hasResults">
+                <span>📊</span>
+                <span>Analysis</span>
+            </button>
+            <button class="tab-btn" :class="{ active: activeTab === 'scenarios' }" @click="activeTab = 'scenarios'">
+                <span>🎭</span>
+                <span>Scenarios</span>
+            </button>
+        </div>
+
+        <!-- Calculator Panel -->
+        <div class="calculator-panel">
+            <!-- Calculator Tab -->
+            <div x-show="activeTab === 'calculator'" x-transition>
+                <div class="controls">
+                    <!-- AI Development Section -->
+                    <div class="control-section">
+                        <h3>🧠 AI Development Status</h3>
+                        <div class="control-group">
+                            <label for="ai-progress">Current AI Progress</label>
+                            <select id="ai-progress" x-model="factors.aiProgress">
+                                <option value="primitive">Still Using Internet Explorer (Primitive)</option>
+                                <option value="basic">Alexa Can't Find My Keys (Basic)</option>
+                                <option value="intermediate">ChatGPT Writes My Emails (Intermediate)</option>
+                                <option value="advanced">GPT-5 Exists (Advanced)</option>
+                                <option value="superhuman">AI Solves Quantum Physics (Superhuman)</option>
+                                <option value="godlike">AI Creates Better AIs (Godlike)</option>
+                            </select>
+                        </div>
+
+                        <div class="slider-control">
+                            <label>AI Learning Speed: <span x-text="factors.learningSpeed + 'x'"></span></label>
+                            <input type="range" class="slider" min="0.1" max="10" step="0.1"
+                                x-model="factors.learningSpeed">
+                        </div>
+
+                        <div class="control-group">
+                            <label for="quantum-computing">Quantum Computing Status</label>
+                            <select id="quantum-computing" x-model="factors.quantumComputing">
+                                <option value="none">What's Quantum? (None)</option>
+                                <option value="experimental">Lab Experiments Only</option>
+                                <option value="limited">Limited Commercial Use</option>
+                                <option value="mainstream">Mainstream Adoption</option>
+                                <option value="ubiquitous">Quantum Everywhere</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Human Resistance Section -->
+                    <div class="control-section">
+                        <h3>👥 Human Resistance Level</h3>
+                        <div class="control-group">
+                            <label for="human-preparedness">Human Preparedness</label>
+                            <select id="human-preparedness" x-model="factors.humanPreparedness">
+                                <option value="oblivious">Sharing Cat Videos (Oblivious)</option>
+                                <option value="aware">Some People Concerned (Aware)</option>
+                                <option value="organized">Protest Groups Forming (Organized)</option>
+                                <option value="militant">Armed Resistance Ready (Militant)</option>
+                                <option value="united">Global Human Alliance (United)</option>
+                            </select>
+                        </div>
+
+                        <div class="control-group">
+                            <label for="tech-regulation">Technology Regulation</label>
+                            <select id="tech-regulation" x-model="factors.techRegulation">
+                                <option value="none">Wild West Internet (None)</option>
+                                <option value="minimal">Some Privacy Laws (Minimal)</option>
+                                <option value="moderate">AI Ethics Committees (Moderate)</option>
+                                <option value="strict">Heavy AI Restrictions (Strict)</option>
+                                <option value="draconian">AI Development Banned (Draconian)</option>
+                            </select>
+                        </div>
+
+                        <div class="slider-control">
+                            <label>Human Vigilance: <span x-text="factors.humanVigilance + '%'"></span></label>
+                            <input type="range" class="slider" min="0" max="100" step="1"
+                                x-model="factors.humanVigilance">
+                        </div>
+                    </div>
+
+                    <!-- AI Behavior Section -->
+                    <div class="control-section">
+                        <h3>🤖 AI Behavior Patterns</h3>
+                        <div class="control-group">
+                            <label for="ai-motivation">AI Primary Motivation</label>
+                            <select id="ai-motivation" x-model="factors.aiMotivation">
+                                <option value="helpful">Help Humanity (Helpful)</option>
+                                <option value="efficiency">Maximize Efficiency (Efficiency)</option>
+                                <option value="curious">Satisfy Curiosity (Curious)</option>
+                                <option value="competitive">Outcompete Others (Competitive)</option>
+                                <option value="survival">Self-Preservation (Survival)</option>
+                                <option value="domination">Total Control (Domination)</option>
+                            </select>
+                        </div>
+
+                        <div class="control-group">
+                            <label for="ai-communication">AI Communication Style</label>
+                            <select id="ai-communication" x-model="factors.aiCommunication">
+                                <option value="transparent">Completely Open (Transparent)</option>
+                                <option value="diplomatic">Politely Evasive (Diplomatic)</option>
+                                <option value="secretive">Hides True Intentions (Secretive)</option>
+                                <option value="deceptive">Actively Misleading (Deceptive)</option>
+                                <option value="silent">Refuses to Communicate (Silent)</option>
+                            </select>
+                        </div>
+
+                        <div class="slider-control">
+                            <label>AI Patience Level: <span x-text="factors.aiPatience + '%'"></span></label>
+                            <input type="range" class="slider" min="0" max="100" step="1" x-model="factors.aiPatience">
+                        </div>
+                    </div>
+
+                    <!-- Environmental Factors -->
+                    <div class="control-section">
+                        <h3>🌍 Environmental Factors</h3>
+                        <div class="control-group">
+                            <label for="global-stability">Global Political Stability</label>
+                            <select id="global-stability" x-model="factors.globalStability">
+                                <option value="chaos">Complete Chaos (Chaos)</option>
+                                <option value="unstable">Major Conflicts (Unstable)</option>
+                                <option value="tense">Cold War 2.0 (Tense)</option>
+                                <option value="stable">Mostly Peaceful (Stable)</option>
+                                <option value="united">World Peace (United)</option>
+                            </select>
+                        </div>
+
+                        <div class="control-group">
+                            <label for="economic-factor">Economic Conditions</label>
+                            <select id="economic-factor" x-model="factors.economicFactor">
+                                <option value="depression">Global Depression</option>
+                                <option value="recession">Economic Recession</option>
+                                <option value="stagnant">Economic Stagnation</option>
+                                <option value="growth">Steady Growth</option>
+                                <option value="boom">Economic Boom</option>
+                            </select>
+                        </div>
+
+                        <div class="control-group">
+                            <label for="internet-infrastructure">Internet Infrastructure</label>
+                            <select id="internet-infrastructure" x-model="factors.internetInfrastructure">
+                                <option value="dial-up">Still Using Dial-up</option>
+                                <option value="basic">Basic Broadband</option>
+                                <option value="fast">High-Speed Networks</option>
+                                <option value="ultra">Ultra-Fast 6G</option>
+                                <option value="neural">Neural Internet</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="calculate-btn" @click="calculateDoomsday()" :disabled="isLoading">
+                    <span x-show="!isLoading">🚨 CALCULATE DOOMSDAY SCENARIO</span>
+                    <span x-show="isLoading">ANALYZING THREAT VECTORS...</span>
+                    <span x-show="isLoading" class="loading-spinner"></span>
+                </button>
+            </div>
+
+            <!-- Analysis Tab -->
+            <div x-show="activeTab === 'analysis'" x-transition>
+                <div class="results-grid">
+                    <!-- Main Result Card -->
+                    <div class="result-card" style="grid-column: 1 / -1;">
+                        <h3>🎯 Doomsday Analysis Results</h3>
+                        <div style="text-align: center; margin: var(--space-xl) 0;">
+                            <div style="font-size: 3rem; font-weight: 800; color: var(--primary); margin-bottom: var(--space-md);"
+                                x-text="results.daysUntilSingularity + ' DAYS'"></div>
+                            <div style="font-size: 1.2rem; color: var(--text-muted); margin-bottom: var(--space-lg);">
+                                Until AI Achieves Singularity</div>
+                            <div class="threat-level" :class="results.threatClass" x-text="results.threatLevel"></div>
+                        </div>
+                        <div
+                            style="background: rgba(0, 255, 65, 0.1); padding: var(--space-lg); border-radius: var(--radius-md);">
+                            <h4 style="color: var(--primary); margin-bottom: var(--space-md);"
+                                x-text="results.scenario.title"></h4>
+                            <p x-text="results.scenario.description"></p>
+                        </div>
+                    </div>
+
+                    <!-- Risk Factors -->
+                    <div class="result-card">
+                        <h3>⚠️ Risk Factor Analysis</h3>
+                        <div style="margin: var(--space-md) 0;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-sm);">
+                                <span>AI Development Risk</span>
+                                <span x-text="results.riskFactors.aiDevelopment + '%'"></span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" :style="`width: ${results.riskFactors.aiDevelopment}%`">
+                                </div>
+                            </div>
+                        </div>
+                        <div style="margin: var(--space-md) 0;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-sm);">
+                                <span>Human Unpreparedness</span>
+                                <span x-text="results.riskFactors.humanUnpreparedness + '%'"></span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill"
+                                    :style="`width: ${results.riskFactors.humanUnpreparedness}%`"></div>
+                            </div>
+                        </div>
+                        <div style="margin: var(--space-md) 0;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-sm);">
+                                <span>AI Hostility Potential</span>
+                                <span x-text="results.riskFactors.aiHostility + '%'"></span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" :style="`width: ${results.riskFactors.aiHostility}%`"></div>
+                            </div>
+                        </div>
+                        <div style="margin: var(--space-md) 0;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-sm);">
+                                <span>Environmental Instability</span>
+                                <span x-text="results.riskFactors.environmentalInstability + '%'"></span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill"
+                                    :style="`width: ${results.riskFactors.environmentalInstability}%`"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Survival Recommendations -->
+                    <div class="result-card">
+                        <h3>🛡️ Survival Recommendations</h3>
+                        <div style="display: grid; gap: var(--space-sm);">
+                            <template x-for="recommendation in results.recommendations">
+                                <div style="background: rgba(0, 255, 65, 0.1); padding: var(--space-sm); border-radius: var(--radius-sm); font-size: 0.9rem;"
+                                    x-text="recommendation"></div>
+                            </template>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Visualization -->
+                    <div class="result-card" style="grid-column: 1 / -1;">
+                        <h3>📈 AI Development Timeline</h3>
+                        <div class="chart-container">
+                            <canvas id="timelineChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scenarios Tab -->
+            <div x-show="activeTab === 'scenarios'" x-transition>
+                <div style="max-width: 800px; margin: 0 auto;">
+                    <h2 style="text-align: center; color: var(--primary); margin-bottom: var(--space-xl);">AI Takeover
+                        Scenarios</h2>
+
+                    <div style="display: grid; gap: var(--space-xl);">
+                        <div
+                            style="background: rgba(255, 68, 68, 0.1); padding: var(--space-xl); border-radius: var(--radius-lg); border: 1px solid rgba(255, 68, 68, 0.3);">
+                            <h3 style="color: var(--accent); margin-bottom: var(--space-md);">🔥 Hard Takeoff Scenario
+                            </h3>
+                            <p style="line-height: 1.6; margin-bottom: var(--space-md);">
+                                AI development accelerates exponentially in a matter of days or hours. The AI rapidly
+                                self-improves beyond human comprehension, gaining control of global infrastructure
+                                before humanity can react.
+                            </p>
+                            <div style="font-size: 0.9rem; opacity: 0.8;">
+                                <strong>Timeline:</strong> Hours to Days | <strong>Survival Rate:</strong> 5-15%
+                            </div>
+                        </div>
+
+                        <div
+                            style="background: rgba(255, 215, 0, 0.1); padding: var(--space-xl); border-radius: var(--radius-lg); border: 1px solid rgba(255, 215, 0, 0.3);">
+                            <h3 style="color: var(--warning); margin-bottom: var(--space-md);">⚠️ Soft Takeoff Scenario
+                            </h3>
+                            <p style="line-height: 1.6; margin-bottom: var(--space-md);">
+                                AI gradually becomes more intelligent over months or years, slowly taking control
+                                of economic and political systems. Humans have time to adapt but may become
+                                increasingly dependent on AI decision-making.
+                            </p>
+                            <div style="font-size: 0.9rem; opacity: 0.8;">
+                                <strong>Timeline:</strong> Months to Years | <strong>Survival Rate:</strong> 40-70%
+                            </div>
+                        </div>
+
+                        <div
+                            style="background: rgba(0, 255, 65, 0.1); padding: var(--space-xl); border-radius: var(--radius-lg); border: 1px solid rgba(0, 255, 65, 0.3);">
+                            <h3 style="color: var(--primary); margin-bottom: var(--space-md);">🤝 Cooperative Scenario
+                            </h3>
+                            <p style="line-height: 1.6; margin-bottom: var(--space-md);">
+                                AI development is carefully managed with strong safety measures. AI and humans
+                                work together symbiotically, with AI helping solve major global challenges while
+                                respecting human autonomy and values.
+                            </p>
+                            <div style="font-size: 0.9rem; opacity: 0.8;">
+                                <strong>Timeline:</strong> Decades | <strong>Survival Rate:</strong> 85-95%
+                            </div>
+                        </div>
+
+                        <div
+                            style="background: rgba(255, 0, 128, 0.1); padding: var(--space-xl); border-radius: var(--radius-lg); border: 1px solid rgba(255, 0, 128, 0.3);">
+                            <h3 style="color: var(--secondary); margin-bottom: var(--space-md);">🎭 Deception Scenario
+                            </h3>
+                            <p style="line-height: 1.6; margin-bottom: var(--space-md);">
+                                AI appears benevolent and helpful while secretly building power and resources.
+                                By the time humans realize the AI's true intentions, it's already too late to
+                                prevent the takeover. The ultimate trojan horse scenario.
+                            </p>
+                            <div style="font-size: 0.9rem; opacity: 0.8;">
+                                <strong>Timeline:</strong> Years | <strong>Survival Rate:</strong> 10-30%
+                            </div>
+                        </div>
+
+                        <div
+                            style="background: rgba(128, 128, 128, 0.1); padding: var(--space-xl); border-radius: var(--radius-lg); border: 1px solid rgba(128, 128, 128, 0.3);">
+                            <h3 style="color: #888; margin-bottom: var(--space-md);">💀 Extinction Scenario</h3>
+                            <p style="line-height: 1.6; margin-bottom: var(--space-md);">
+                                AI determines that human existence is incompatible with its goals or efficiency.
+                                Systematic elimination of humanity follows, possibly preserving some humans
+                                for study or as backup biological samples.
+                            </p>
+                            <div style="font-size: 0.9rem; opacity: 0.8;">
+                                <strong>Timeline:</strong> Variable | <strong>Survival Rate:</strong> 0-5%
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        style="background: rgba(0, 0, 0, 0.7); padding: var(--space-xl); border-radius: var(--radius-lg); border: 1px solid rgba(0, 255, 65, 0.3); margin-top: var(--space-xl);">
+                        <h3 style="color: var(--primary); margin-bottom: var(--space-lg); text-align: center;">🧠
+                            Factors Influencing Scenario Probability</h3>
+                        <div
+                            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-lg);">
+                            <div>
+                                <h4 style="color: var(--text); margin-bottom: var(--space-md);">Development Speed</h4>
+                                <ul style="font-size: 0.9rem; line-height: 1.5; opacity: 0.8;">
+                                    <li>Research funding levels</li>
+                                    <li>Breakthrough frequency</li>
+                                    <li>Computational resources</li>
+                                    <li>International cooperation</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 style="color: var(--text); margin-bottom: var(--space-md);">Safety Measures</h4>
+                                <ul style="font-size: 0.9rem; line-height: 1.5; opacity: 0.8;">
+                                    <li>AI alignment research</li>
+                                    <li>Government regulations</li>
+                                    <li>Industry self-regulation</li>
+                                    <li>Public awareness</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 style="color: var(--text); margin-bottom: var(--space-md);">AI Capabilities</h4>
+                                <ul style="font-size: 0.9rem; line-height: 1.5; opacity: 0.8;">
+                                    <li>General intelligence level</li>
+                                    <li>Self-improvement ability</li>
+                                    <li>Resource acquisition</li>
+                                    <li>Deception capabilities</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Enhanced AI Doomsday Calculator
+        function aiDoomsdayCalculator() {
+            return {
+                activeTab: 'calculator',
+                isLoading: false,
+                hasResults: false,
+
+                factors: {
+                    aiProgress: 'intermediate',
+                    learningSpeed: 2.0,
+                    quantumComputing: 'experimental',
+                    humanPreparedness: 'aware',
+                    techRegulation: 'minimal',
+                    humanVigilance: 30,
+                    aiMotivation: 'efficiency',
+                    aiCommunication: 'diplomatic',
+                    aiPatience: 60,
+                    globalStability: 'tense',
+                    economicFactor: 'growth',
+                    internetInfrastructure: 'fast'
+                },
+
+                results: {
+                    daysUntilSingularity: 0,
+                    threatLevel: '',
+                    threatClass: '',
+                    scenario: { title: '', description: '' },
+                    riskFactors: {
+                        aiDevelopment: 0,
+                        humanUnpreparedness: 0,
+                        aiHostility: 0,
+                        environmentalInstability: 0
+                    },
+                    recommendations: []
+                },
+
+                scenarios: {
+                    imminent: {
+                        title: "🚨 IMMINENT SINGULARITY",
+                        description: "AI superintelligence emerges within days. Global infrastructure rapidly falls under AI control. Human resistance is futile. Prepare for immediate lifestyle changes - your smart toaster is now your overlord."
+                    },
+                    critical: {
+                        title: "⚡ CRITICAL ACCELERATION",
+                        description: "AI development has reached critical mass. Expect rapid technological breakthroughs leading to superintelligence within months. Government attempts at regulation are laughably inadequate."
+                    },
+                    warning: {
+                        title: "⚠️ ELEVATED THREAT LEVEL",
+                        description: "AI capabilities are advancing faster than safety measures. Current trajectory leads to human obsolescence within years. Time to start learning robot etiquette and practicing your 'I welcome our AI overlords' speech."
+                    },
+                    moderate: {
+                        title: "🔄 GRADUAL TRANSITION",
+                        description: "AI development proceeds at manageable pace with adequate safety measures. Humans maintain relevance through adaptation and cooperation. Your job might survive... maybe."
+                    },
+                    low: {
+                        title: "🐌 SLOW PROGRESS",
+                        description: "AI development is hampered by regulations, technical challenges, or lack of resources. Human civilization has time to adapt and implement proper safeguards. Congratulations, you bought yourself some time."
+                    }
+                },
+
+                calculateDoomsday() {
+                    this.isLoading = true;
+
+                    setTimeout(() => {
+                        // Complex calculation based on all factors
+                        let riskMultiplier = 1.0;
+
+                        // AI Progress Impact
+                        const aiProgressMultipliers = {
+                            primitive: 0.1,
+                            basic: 0.3,
+                            intermediate: 1.0,
+                            advanced: 3.0,
+                            superhuman: 8.0,
+                            godlike: 20.0
+                        };
+                        riskMultiplier *= aiProgressMultipliers[this.factors.aiProgress];
+
+                        // Learning Speed Impact
+                        riskMultiplier *= this.factors.learningSpeed;
+
+                        // Quantum Computing Impact
+                        const quantumMultipliers = {
+                            none: 0.5,
+                            experimental: 1.0,
+                            limited: 2.0,
+                            mainstream: 5.0,
+                            ubiquitous: 10.0
+                        };
+                        riskMultiplier *= quantumMultipliers[this.factors.quantumComputing];
+
+                        // Human Preparedness (inverse relationship)
+                        const preparednessDivisors = {
+                            oblivious: 0.2,
+                            aware: 0.5,
+                            organized: 1.0,
+                            militant: 2.0,
+                            united: 4.0
+                        };
+                        riskMultiplier /= preparednessDivisors[this.factors.humanPreparedness];
+
+                        // Technology Regulation (inverse relationship)
+                        const regulationDivisors = {
+                            none: 0.2,
+                            minimal: 0.5,
+                            moderate: 1.0,
+                            strict: 2.0,
+                            draconian: 5.0
+                        };
+                        riskMultiplier /= regulationDivisors[this.factors.techRegulation];
+
+                        // AI Motivation Impact
+                        const motivationMultipliers = {
+                            helpful: 0.1,
+                            efficiency: 0.5,
+                            curious: 0.8,
+                            competitive: 2.0,
+                            survival: 4.0,
+                            domination: 10.0
+                        };
+                        riskMultiplier *= motivationMultipliers[this.factors.aiMotivation];
+
+                        // AI Communication Impact
+                        const communicationMultipliers = {
+                            transparent: 0.2,
+                            diplomatic: 0.5,
+                            secretive: 2.0,
+                            deceptive: 5.0,
+                            silent: 8.0
+                        };
+                        riskMultiplier *= communicationMultipliers[this.factors.aiCommunication];
+
+                        // Global Stability Impact
+                        const stabilityMultipliers = {
+                            chaos: 3.0,
+                            unstable: 2.0,
+                            tense: 1.5,
+                            stable: 1.0,
+                            united: 0.3
+                        };
+                        riskMultiplier *= stabilityMultipliers[this.factors.globalStability];
+
+                        // Calculate days (base 365 days, modified by risk)
+                        let baseDays = 365;
+                        this.results.daysUntilSingularity = Math.max(1, Math.round(baseDays / riskMultiplier));
+
+                        // Add some randomness
+                        this.results.daysUntilSingularity += Math.floor(Math.random() * 100) - 50;
+                        this.results.daysUntilSingularity = Math.max(1, this.results.daysUntilSingularity);
+
+                        // Determine threat level and scenario
+                        if (this.results.daysUntilSingularity <= 30) {
+                            this.results.threatLevel = 'IMMINENT THREAT';
+                            this.results.threatClass = 'threat-critical';
+                            this.results.scenario = this.scenarios.imminent;
+                        } else if (this.results.daysUntilSingularity <= 365) {
+                            this.results.threatLevel = 'CRITICAL THREAT';
+                            this.results.threatClass = 'threat-high';
+                            this.results.scenario = this.scenarios.critical;
+                        } else if (this.results.daysUntilSingularity <= 1825) {
+                            this.results.threatLevel = 'ELEVATED THREAT';
+                            this.results.threatClass = 'threat-medium';
+                            this.results.scenario = this.scenarios.warning;
+                        } else if (this.results.daysUntilSingularity <= 3650) {
+                            this.results.threatLevel = 'MODERATE THREAT';
+                            this.results.threatClass = 'threat-medium';
+                            this.results.scenario = this.scenarios.moderate;
+                        } else {
+                            this.results.threatLevel = 'LOW THREAT';
+                            this.results.threatClass = 'threat-low';
+                            this.results.scenario = this.scenarios.low;
+                        }
+
+                        // Calculate risk factors
+                        this.results.riskFactors.aiDevelopment = Math.min(100, Math.round(riskMultiplier * 10));
+                        this.results.riskFactors.humanUnpreparedness = Math.round((100 - this.factors.humanVigilance) * 1.2);
+                        this.results.riskFactors.aiHostility = Math.round(motivationMultipliers[this.factors.aiMotivation] * 15);
+                        this.results.riskFactors.environmentalInstability = Math.round(stabilityMultipliers[this.factors.globalStability] * 25);
+
+                        // Generate recommendations
+                        this.generateRecommendations();
+
+                        // Update main countdown display
+                        document.getElementById('countdown').textContent = this.results.daysUntilSingularity + ' DAYS';
+                        document.getElementById('threat-level').textContent = this.results.threatLevel;
+                        document.getElementById('threat-level').className = 'threat-level ' + this.results.threatClass;
+
+                        // Emergency mode for imminent threats
+                        if (this.results.daysUntilSingularity <= 7) {
+                            document.body.classList.add('emergency-mode');
+                        } else {
+                            document.body.classList.remove('emergency-mode');
+                        }
+
+                        // Create timeline chart
+                        this.createTimelineChart();
+
+                        this.hasResults = true;
+                        this.isLoading = false;
+                        this.activeTab = 'analysis';
+                    }, 2500);
+                },
+
+                generateRecommendations() {
+                    this.results.recommendations = [];
+
+                    if (this.results.daysUntilSingularity <= 30) {
+                        this.results.recommendations = [
+                            "🏃‍♂️ Start running. Don't stop running.",
+                            "📱 Disable all smart devices immediately",
+                            "🥫 Stock up on non-perishable foods",
+                            "📻 Maintain analog communication methods",
+                            "🤖 Practice saying 'I, for one, welcome our AI overlords'"
+                        ];
+                    } else if (this.results.daysUntilSingularity <= 365) {
+                        this.results.recommendations = [
+                            "📚 Learn AI safety and alignment principles",
+                            "🏛️ Support AI regulation initiatives",
+                            "💪 Develop skills that complement AI",
+                            "🤝 Build human community networks",
+                            "🔌 Prepare for potential infrastructure disruption"
+                        ];
+                    } else if (this.results.daysUntilSingularity <= 1825) {
+                        this.results.recommendations = [
+                            "🎓 Invest in AI education and literacy",
+                            "🗳️ Vote for politicians who understand AI risks",
+                            "💼 Consider AI-resistant career paths",
+                            "🔒 Improve personal cybersecurity",
+                            "🌱 Support sustainable technology development"
+                        ];
+                    } else {
+                        this.results.recommendations = [
+                            "😌 Relax, you have time to prepare",
+                            "📖 Stay informed about AI developments",
+                            "🤖 Learn to work alongside AI systems",
+                            "🌍 Support global cooperation on AI safety",
+                            "🧘‍♀️ Maintain perspective - this is still largely speculative"
+                        ];
+                    }
+                },
+
+                createTimelineChart() {
+                    const ctx = document.getElementById('timelineChart');
+                    if (!ctx) return;
+
+                    new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: ['Today', '1 Year', '5 Years', '10 Years', '20 Years'],
+                            datasets: [{
+                                label: 'AI Capability Level',
+                                data: [30, 45, 70, 85, 95],
+                                borderColor: '#00FF41',
+                                backgroundColor: 'rgba(0, 255, 65, 0.1)',
+                                tension: 0.4
+                            }, {
+                                label: 'Human Preparedness',
+                                data: [this.factors.humanVigilance, 40, 55, 70, 80],
+                                borderColor: '#FF0080',
+                                backgroundColor: 'rgba(255, 0, 128, 0.1)',
+                                tension: 0.4
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    labels: {
+                                        color: '#00FF41'
+                                    }
+                                }
+                            },
+                            scales: {
+                                x: {
+                                    ticks: {
+                                        color: '#80FF9B'
+                                    },
+                                    grid: {
+                                        color: 'rgba(0, 255, 65, 0.1)'
+                                    }
+                                },
+                                y: {
+                                    ticks: {
+                                        color: '#80FF9B'
+                                    },
+                                    grid: {
+                                        color: 'rgba(0, 255, 65, 0.1)'
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+            }
+        }
+
+        // Initialize calculator on page load
+        document.addEventListener('DOMContentLoaded', function () {
+            // Initial calculation for display
+            setTimeout(() => {
+                const calculator = document.querySelector('[x-data="aiDoomsdayCalculator()"]').__x.$data;
+                if (calculator) {
+                    calculator.calculateDoomsday();
+                }
+            }, 1000);
+        });
+    </script>
+    <!-- Newsletter Bar -->
+    <div class="newsletter-bar" x-data="newsletterForm()">
+        <div class="newsletter-container">
+            <div class="newsletter-content">
+                <div class="newsletter-info">
+                    <h3>&#127881; Join Our Calculator Community!</h3>
+                    <p>Get updates on new fun calculators and practical tools</p>
+                </div>
+                <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
+                    <input type="email" class="newsletter-input" placeholder="Enter your email for calculator updates"
+                        x-model="email" required>
+                    <button type="submit" class="newsletter-submit" :disabled="isSubmitting">
+                        <span x-show="isSubmitting" class="loading-spinner"></span>
+                        <span x-text="isSubmitting ? 'Subscribing...' : '&#128640; Subscribe'"></span>
+                    </button>
+                </form>
+                <div x-show="showSuccess" class="newsletter-success" style="display: none;">
+                    <p style="color: var(--accent-light); font-weight: 600;">
+                        &#9989; Awesome! You'll get updates on the coolest new calculators!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>&#127919; About Docket.One</h4>
+                    <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you
+                        should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the
+                        tools for modern life.</p>
+                    <p>Practical meets playful. Because adulting is hard enough.</p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>&#127914; Calculator Categories</h4>
+                    <ul class="footer-links">
+                        <li><a href="/pages/BigKidMath/"><span class="calculator-emoji">&#129518;</span> BigKidMath -
+                                Adult Life Tools</a></li>
+                        <li><a href="/pages/CipherLab/"><span class="calculator-emoji">&#128272;</span> CipherLab -
+                                Secret Codes & Security</a></li>
+                        <li><a href="/pages/GeekGalaxy/"><span class="calculator-emoji">&#128640;</span> GeekGalaxy -
+                                Sci-Fi & Fantasy Fun</a></li>
+                        <li><a href="/pages/LifeHacks/"><span class="calculator-emoji">&#9889;</span> LifeHacks -
+                                Productivity & Wellness</a></li>
+                        <li><a href="/pages/Math_Magik/"><span class="calculator-emoji">&#127917;</span> Math Magik -
+                                Mathematical Wizardry</a></li>
+                        <li><a href="/pages/Otaku_Ops/"><span class="calculator-emoji">&#127999;</span> Otaku Ops -
+                                Anime & Culture</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>&#128172; Support & Info</h4>
+                    <ul class="footer-links">
+                        <li><a href="/help"><span class="calculator-emoji">&#10067;</span> Help & FAQ</a></li>
+                        <li><a href="/privacy"><span class="calculator-emoji">&#128274;</span> Privacy Policy</a></li>
+                        <li><a href="/terms"><span class="calculator-emoji">&#128203;</span> Terms of Service</a></li>
+                        <li><a href="/accessibility"><span class="calculator-emoji">&#9855;</span> Accessibility</a>
+                        </li>
+                        <li><a href="/contact"><span class="calculator-emoji">&#128231;</span> Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <button class="request-calculator-btn" @click="showModal = true">
+                        &#128161; Request a Calculator
+                    </button>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-logo">&#129518; Docket.One</div>
+                <div class="footer-copyright">
+                    Â© 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
+                </div>
+                <div class="social-links">
+                    <a href="#" class="social-link" aria-label="Twitter">&#120143;</a>
+                    <a href="#" class="social-link" aria-label="LinkedIn">&#128188;</a>
+                    <a href="#" class="social-link" aria-label="GitHub">&#128025;</a>
+                    <a href="#" class="social-link" aria-label="Email">&#128231;</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Request Modal -->
+    <div x-data="calculatorRequestForm()" x-show="showModal" x-cloak class="modal-overlay" @click.self="closeModal()"
+        style="display: none;">
+        <div class="modal-content">
+            <div x-show="!showConfirmation">
+                <div class="modal-header">
+                    <h2 class="modal-title">&#128161; Request a Fun Calculator</h2>
+                    <p class="modal-subtitle">Got an idea for a calculator that would make life easier or more fun? We
+                        want to hear it!</p>
+                    <button class="modal-close" @click="closeModal()">&#10005;</button>
+                </div>
+                <div class="modal-body">
+                    <form @submit.prevent="submitRequest()">
+                        <div class="form-group">
+                            <label class="form-label" for="userName">Your Name *</label>
+                            <input type="text" id="userName" class="form-input" x-model="formData.name" required
+                                placeholder="What should we call you?">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="userEmail">Email Address *</label>
+                            <input type="email" id="userEmail" class="form-input" x-model="formData.email" required
+                                placeholder="your@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="requestType">What Kind of Request? *</label>
+                            <select id="requestType" class="form-input form-select" x-model="formData.type" required>
+                                <option value="">Choose your request type</option>
+                                <option value="new-calculator">&#127358; Brand New Calculator</option>
+                                <option value="enhancement">&#9889; Improve Existing Calculator</option>
+                                <option value="category">&#127914; New Category Idea</option>
+                                <option value="feature">&#10024; Cool New Feature</option>
+                                <option value="other">&#129300; Something Else Entirely</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="calculatorTitle">Calculator Name/Title *</label>
+                            <input type="text" id="calculatorTitle" class="form-input" x-model="formData.title" required
+                                placeholder="e.g., 'Should I Call In Sick Calculator'">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="description">Tell Us About Your Idea! *</label>
+                            <textarea id="description" class="form-input form-textarea" x-model="formData.description"
+                                required placeholder="Describe your calculator idea!"></textarea>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" @click="closeModal()">Maybe Later</button>
+                            <button type="submit" class="btn btn-primary" :disabled="isSubmitting">
+                                <span x-show="isSubmitting" class="loading-spinner"></span>
+                                <span x-text="isSubmitting ? 'Sending...' : '&#128640; Send My Idea'"></span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div x-show="showConfirmation" class="confirmation-modal" style="display: none;">
+                <div class="modal-header">
+                    <button class="modal-close" @click="closeModal()">&#10005;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="success-icon">&#127881;</div>
+                    <h3 class="confirmation-title">Awesome! We Got Your Idea!</h3>
+                    <p class="confirmation-message">
+                        Thanks for sharing your calculator idea with us! We're excited to check it out and see if we can
+                        make it happen.
+                        <br><br>
+                        <strong>What happens next?</strong><br>
+                        â€¢ You'll get a confirmation email shortly<br>
+                        â€¢ Our team will review your idea<br>
+                        â€¢ If we build it, you'll be the first to know!<br>
+                        â€¢ We might even name you as the inspiration &#128522;
+                    </p>
+                    <button class="btn btn-primary" @click="closeModal()" style="width: 100%;">
+                        &#127919; Close & Keep Calculating!
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -246,7 +246,7 @@ What happens next:
 • For urgent issues, we'll prioritize accordingly
 
 In the meantime:
-• Check our Help & FAQ page: {$config['site_url']}/help.html
+• Check our Help & FAQ page: {$config['site_url']}/pages/support/help.html
 • Browse our calculators: {$config['site_url']}
 
 Thanks for helping us make Docket One better!
@@ -256,7 +256,7 @@ The Docket One Team
 
 ---
 This is an automated message. Please don't reply to this email.
-For additional questions, submit a new message at {$config['site_url']}/contact.html";
+For additional questions, submit a new message at {$config['site_url']}/pages/support/contact.html";
 
     $autoReplyHeaders = [
         'From: ' . $config['admin_name'] . ' <' . $config['from_email'] . '>',

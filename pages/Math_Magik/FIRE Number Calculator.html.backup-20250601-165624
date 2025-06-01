@@ -1,0 +1,577 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIRE Number Calculator</title>
+
+    <!-- Single instance of each import -->
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <script src="../../common/footer/premium-footer.js"></script>
+    <style>
+        .calculator {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: var(--surface-elevated);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .input-group input[type="number"] {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input[type="number"]:focus {
+            border-color: var(--proc-primary);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+            outline: none;
+        }
+
+        .range-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .range-container input[type="range"] {
+            flex: 1;
+            height: 8px;
+            -webkit-appearance: none;
+            background: linear-gradient(to right, var(--deadline-red), var(--proc-warning), var(--productivity-green));
+            border-radius: 4px;
+            outline: none;
+        }
+
+        .range-container input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 24px;
+            height: 24px;
+            background: var(--proc-primary);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .range-value {
+            min-width: 60px;
+            font-weight: 600;
+            color: var(--proc-primary);
+        }
+
+        button {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--proc-primary), var(--lazy-purple));
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.2);
+        }
+
+        .results {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: var(--surface-elevated);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: none;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            background: rgba(139, 92, 246, 0.1);
+            border-radius: 8px;
+        }
+
+        .result-label {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .result-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--proc-primary);
+        }
+
+        .explanation {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(139, 92, 246, 0.05);
+            border-radius: 8px;
+        }
+
+        .explanation h3 {
+            margin-bottom: 1rem;
+            color: var(--proc-primary);
+        }
+
+        .highlight {
+            color: var(--proc-primary);
+            font-weight: 600;
+        }
+
+        .loading {
+            position: relative;
+            pointer-events: none;
+        }
+
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            margin: -10px 0 0 -10px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body x-data="{ showModal: false }">
+    <!-- Enhanced Navigation Bar -->
+    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="../../index.html">🧮 Docket One</a>
+            </div>
+            <div class="nav-search">
+                <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input"
+                    aria-label="Search calculators">
+                <div id="search-results" class="search-results"></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../BigKidMath/index.html" class="category-link">Big Kid Math</a></li>
+                <li><a href="../CipherLab/index.html" class="category-link">Cipher Lab</a></li>
+                <li><a href="../GeekGalaxy/index.html" class="category-link">Geek Galaxy</a></li>
+                <li><a href="../LifeHacks/index.html" class="category-link">Life Hacks</a></li>
+                <li><a href="../Math_Magik/index.html" class="category-link">Math Magik</a></li>
+                <li><a href="../Otaku_Ops/index.html" class="category-link">Otaku Ops</a></li>
+                <li><a href="../../index.html" class="home-link">🏠 Home</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+
+
+
+
+    <header>
+        <h1>FIRE Number Calculator</h1>
+        <p class="subtitle">Calculate your Financial Independence/Retire Early target</p>
+    </header>
+
+    <div class="calculator">
+        <div class="input-group">
+            <label for="annual-expenses">Annual Living Expenses ($)</label>
+            <input type="number" id="annual-expenses" min="10000" max="1000000" value="40000">
+        </div>
+
+        <div class="input-group">
+            <label for="withdrawal-rate">Safe Withdrawal Rate (%)</label>
+            <div class="range-container">
+                <input type="range" id="withdrawal-rate" min="1" max="10" step="0.1" value="4">
+                <span class="range-value" id="withdrawal-rate-value">4%</span>
+            </div>
+            <small>The percentage you'll withdraw annually (4% is standard)</small>
+        </div>
+
+        <div class="input-group">
+            <label for="current-savings">Current Savings ($)</label>
+            <input type="number" id="current-savings" min="0" max="10000000" value="100000">
+        </div>
+
+        <button onclick="calculateFIRE()">Calculate My FIRE Number</button>
+    </div>
+
+    <div class="results" id="results">
+        <h2>Your FIRE Results</h2>
+
+        <div class="result-item">
+            <span class="result-label">FIRE Number:</span>
+            <span class="result-value" id="fire-number">$0</span>
+        </div>
+
+        <div class="result-item">
+            <span class="result-label">Years to FIRE*:</span>
+            <span class="result-value" id="years-to-fire">0 years</span>
+        </div>
+
+        <div class="result-item">
+            <span class="result-label">Monthly Investment Needed:</span>
+            <span class="result-value" id="monthly-investment">$0</span>
+        </div>
+
+        <div class="explanation">
+            <h3>How This Works</h3>
+            <p>Your <span class="highlight">FIRE Number</span> is calculated as: <strong>Annual Expenses ÷ Withdrawal
+                    Rate</strong>.</p>
+            <p>The <span class="highlight">4% Rule</span> suggests you can safely withdraw 4% annually from investments
+                without depleting your portfolio.</p>
+            <p>*Years to FIRE assumes 7% annual returns and 3% inflation (4% real return).</p>
+        </div>
+    </div>
+
+    <script>
+        // Update range value display
+        document.getElementById('withdrawal-rate').addEventListener('input', function () {
+            document.getElementById('withdrawal-rate-value').textContent = this.value + '%';
+        });
+
+        function calculateFIRE() {
+            // Add loading state
+            const button = document.querySelector('button');
+            button.classList.add('loading');
+
+            // Get inputs
+            const annualExpenses = parseFloat(document.getElementById('annual-expenses').value) || 0;
+            const withdrawalRate = parseFloat(document.getElementById('withdrawal-rate').value) / 100 || 0.04;
+            const currentSavings = parseFloat(document.getElementById('current-savings').value) || 0;
+
+            // Calculate FIRE number
+            const fireNumber = annualExpenses / withdrawalRate;
+
+            // Calculate years to FIRE (assuming 7% returns, 3% inflation = 4% real return)
+            const realReturn = 0.04;
+            let yearsToFire;
+            let monthlyInvestment;
+
+            if (currentSavings >= fireNumber) {
+                yearsToFire = 0;
+                monthlyInvestment = 0;
+            } else {
+                yearsToFire = Math.log((fireNumber * realReturn) / (fireNumber * realReturn - currentSavings * realReturn)) / Math.log(1 + realReturn);
+                yearsToFire = Math.ceil(yearsToFire);
+
+                // Calculate required monthly investment to reach FIRE in this timeframe
+                const futureValue = fireNumber - currentSavings * Math.pow(1 + realReturn, yearsToFire);
+                monthlyInvestment = futureValue * realReturn / (12 * (Math.pow(1 + realReturn, yearsToFire) - 1));
+                monthlyInvestment = Math.round(monthlyInvestment);
+            }
+
+            // Update UI with animation
+            setTimeout(() => {
+                document.getElementById('fire-number').textContent = formatCurrency(fireNumber);
+                document.getElementById('years-to-fire').textContent = `${yearsToFire} year${yearsToFire !== 1 ? 's' : ''}`;
+                document.getElementById('monthly-investment').textContent = formatCurrency(monthlyInvestment);
+
+                // Show results
+                const results = document.getElementById('results');
+                results.style.display = 'block';
+                results.classList.add('show');
+
+                // Remove loading state
+                button.classList.remove('loading');
+            }, 500);
+        }
+
+        function formatCurrency(amount) {
+            return '$' + amount.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', function () {
+            calculateFIRE();
+        });
+    </script>
+
+    <div class="related-calculators"
+        style="margin-top: 2rem; padding: 1rem; background: rgba(0,0,0,0.1); border-radius: 8px;">
+        <h3 style="margin-top: 0;">Related Math Magik Tools</h3>
+        <a href="./Double Pendulum Chaos.html"
+            style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Double
+            Pendulum Chaos</a><a href="./entropy and feigenbaums constant.html"
+            style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">entropy
+            and feigenbaums constant</a><a href="./Inflation Impact Calculator.html"
+            style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Inflation
+            Impact Calculator</a>
+        <a href="./index.html"
+            style="display: block; padding: 0.5rem; margin-top: 1rem; background: rgba(74,144,226,0.2); border-radius: 4px; text-decoration: none; color: inherit; font-weight: bold;">←
+            Back to Math Magik Hub</a>
+    </div>
+
+    <script>
+        // 🎅 Santa Claude's Interactive Enhancements
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log('🎅 Santa Claude's enhancements loaded!');
+
+            // Enhanced button interactions
+            const buttons = document.querySelectorAll('button, .btn');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', function () {
+                    this.classList.add('loading');
+                    setTimeout(() => {
+                        this.classList.remove('loading');
+                    }, 500);
+                });
+            });
+
+            // Enhanced results display
+            const resultElements = document.querySelectorAll('.result, .results, .output, #result, #output');
+            resultElements.forEach(el => {
+                const observer = new MutationObserver(function (mutations) {
+                    mutations.forEach(function (mutation) {
+                        if (mutation.type === 'childList' || mutation.type === 'characterData') {
+                            el.classList.add('show');
+                        }
+                    });
+                });
+                observer.observe(el, { childList: true, subtree: true, characterData: true });
+            });
+
+            // Form validation enhancements
+            const inputs = document.querySelectorAll('input[type="number"], input[type="text"]');
+            inputs.forEach(input => {
+                input.addEventListener('input', function () {
+                    if (this.checkValidity()) {
+                        this.classList.remove('input-error');
+                        this.classList.add('input-success');
+                    } else {
+                        this.classList.remove('input-success');
+                        this.classList.add('input-error');
+                    }
+                });
+            });
+        });
+    </script>
+    <!-- Newsletter Bar -->
+    <div class="newsletter-bar" x-data="newsletterForm()">
+        <div class="newsletter-container">
+            <div class="newsletter-content">
+                <div class="newsletter-info">
+                    <h3>&#127881; Join Our Calculator Community!</h3>
+                    <p>Get updates on new fun calculators and practical tools</p>
+                </div>
+                <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
+                    <input type="email" class="newsletter-input" placeholder="Enter your email for calculator updates"
+                        x-model="email" required>
+                    <button type="submit" class="newsletter-submit" :disabled="isSubmitting">
+                        <span x-show="isSubmitting" class="loading-spinner"></span>
+                        <span x-text="isSubmitting ? 'Subscribing...' : '&#128640; Subscribe'"></span>
+                    </button>
+                </form>
+                <div x-show="showSuccess" class="newsletter-success" style="display: none;">
+                    <p style="color: var(--accent-light); font-weight: 600;">
+                        &#9989; Awesome! You'll get updates on the coolest new calculators!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>&#127919; About Docket.One</h4>
+                    <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you
+                        should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the
+                        tools for modern life.</p>
+                    <p>Practical meets playful. Because adulting is hard enough.</p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>&#127914; Calculator Categories</h4>
+                    <ul class="footer-links">
+                        <li><a href="/pages/BigKidMath/"><span class="calculator-emoji">&#129518;</span> BigKidMath -
+                                Adult Life Tools</a></li>
+                        <li><a href="/pages/CipherLab/"><span class="calculator-emoji">&#128272;</span> CipherLab -
+                                Secret Codes & Security</a></li>
+                        <li><a href="/pages/GeekGalaxy/"><span class="calculator-emoji">&#128640;</span> GeekGalaxy -
+                                Sci-Fi & Fantasy Fun</a></li>
+                        <li><a href="/pages/LifeHacks/"><span class="calculator-emoji">&#9889;</span> LifeHacks -
+                                Productivity & Wellness</a></li>
+                        <li><a href="/pages/Math_Magik/"><span class="calculator-emoji">&#127917;</span> Math Magik -
+                                Mathematical Wizardry</a></li>
+                        <li><a href="/pages/Otaku_Ops/"><span class="calculator-emoji">&#127999;</span> Otaku Ops -
+                                Anime & Culture</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>&#128172; Support & Info</h4>
+                    <ul class="footer-links">
+                        <li><a href="/help"><span class="calculator-emoji">&#10067;</span> Help & FAQ</a></li>
+                        <li><a href="/privacy"><span class="calculator-emoji">&#128274;</span> Privacy Policy</a></li>
+                        <li><a href="/terms"><span class="calculator-emoji">&#128203;</span> Terms of Service</a></li>
+                        <li><a href="/accessibility"><span class="calculator-emoji">&#9855;</span> Accessibility</a>
+                        </li>
+                        <li><a href="/contact"><span class="calculator-emoji">&#128231;</span> Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <button class="request-calculator-btn" @click="showModal = true">
+                        &#128161; Request a Calculator
+                    </button>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-logo">&#129518; Docket.One</div>
+                <div class="footer-copyright">
+                    Â© 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
+                </div>
+                <div class="social-links">
+                    <a href="#" class="social-link" aria-label="Twitter">&#120143;</a>
+                    <a href="#" class="social-link" aria-label="LinkedIn">&#128188;</a>
+                    <a href="#" class="social-link" aria-label="GitHub">&#128025;</a>
+                    <a href="#" class="social-link" aria-label="Email">&#128231;</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Request Modal -->
+    <div x-data="calculatorRequestForm()" x-show="showModal" x-cloak class="modal-overlay" @click.self="closeModal()"
+        style="display: none;">
+        <div class="modal-content">
+            <div x-show="!showConfirmation">
+                <div class="modal-header">
+                    <h2 class="modal-title">&#128161; Request a Fun Calculator</h2>
+                    <p class="modal-subtitle">Got an idea for a calculator that would make life easier or more fun? We
+                        want to hear it!</p>
+                    <button class="modal-close" @click="closeModal()">&#10005;</button>
+                </div>
+                <div class="modal-body">
+                    <form @submit.prevent="submitRequest()">
+                        <div class="form-group">
+                            <label class="form-label" for="userName">Your Name *</label>
+                            <input type="text" id="userName" class="form-input" x-model="formData.name" required
+                                placeholder="What should we call you?">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="userEmail">Email Address *</label>
+                            <input type="email" id="userEmail" class="form-input" x-model="formData.email" required
+                                placeholder="your@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="requestType">What Kind of Request? *</label>
+                            <select id="requestType" class="form-input form-select" x-model="formData.type" required>
+                                <option value="">Choose your request type</option>
+                                <option value="new-calculator">&#127358; Brand New Calculator</option>
+                                <option value="enhancement">&#9889; Improve Existing Calculator</option>
+                                <option value="category">&#127914; New Category Idea</option>
+                                <option value="feature">&#10024; Cool New Feature</option>
+                                <option value="other">&#129300; Something Else Entirely</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="calculatorTitle">Calculator Name/Title *</label>
+                            <input type="text" id="calculatorTitle" class="form-input" x-model="formData.title" required
+                                placeholder="e.g., 'Should I Call In Sick Calculator'">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="description">Tell Us About Your Idea! *</label>
+                            <textarea id="description" class="form-input form-textarea" x-model="formData.description"
+                                required placeholder="Describe your calculator idea!"></textarea>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" @click="closeModal()">Maybe Later</button>
+                            <button type="submit" class="btn btn-primary" :disabled="isSubmitting">
+                                <span x-show="isSubmitting" class="loading-spinner"></span>
+                                <span x-text="isSubmitting ? 'Sending...' : '&#128640; Send My Idea'"></span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div x-show="showConfirmation" class="confirmation-modal" style="display: none;">
+                <div class="modal-header">
+                    <button class="modal-close" @click="closeModal()">&#10005;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="success-icon">&#127881;</div>
+                    <h3 class="confirmation-title">Awesome! We Got Your Idea!</h3>
+                    <p class="confirmation-message">
+                        Thanks for sharing your calculator idea with us! We're excited to check it out and see if we can
+                        make it happen.
+                        <br><br>
+                        <strong>What happens next?</strong><br>
+                        â€¢ You'll get a confirmation email shortly<br>
+                        â€¢ Our team will review your idea<br>
+                        â€¢ If we build it, you'll be the first to know!<br>
+                        â€¢ We might even name you as the inspiration &#128522;
+                    </p>
+                    <button class="btn btn-primary" @click="closeModal()" style="width: 100%;">
+                        &#127919; Close & Keep Calculating!
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

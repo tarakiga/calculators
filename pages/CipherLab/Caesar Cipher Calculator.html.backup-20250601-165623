@@ -1,0 +1,1150 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caesar Cipher Encoder/Decoder | CipherLab - Docket One</title>
+    <meta name="description" content="Learn and use the famous Caesar Cipher! Encrypt and decrypt messages like Julius Caesar did 2000 years ago. Perfect for beginners to cryptography.">
+    
+    <!-- Enhanced Social Media Meta Tags -->
+    <meta property="og:title" content="Caesar Cipher Encoder/Decoder | CipherLab | Docket One">
+    <meta property="og:description" content="Encrypt and decrypt messages using Julius Caesar's ancient cipher! Learn cryptography with this fun, interactive tool.">
+    <meta property="og:image" content="https://docket.one/social-preview.jpg">
+    <meta property="og:url" content="https://docket.one/pages/CipherLab/Caesar-Cipher-Calculator.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Docket One Calculators">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Caesar Cipher Calculator">
+    <meta name="twitter:description" content="Encrypt messages like Julius Caesar! Fun cryptography tool for beginners.">
+    <meta name="twitter:image" content="https://docket.one/social-preview.jpg">
+    
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <style>
+        /* CipherLab Design System */
+        :root {
+            /* Cipher Colors */
+            --cipher-purple: #7c3aed;
+            --cipher-purple-light: #8b5cf6;
+            --cipher-purple-dark: #6d28d9;
+            --cipher-teal: #06b6d4;
+            --cipher-teal-light: #0891b2;
+            --cipher-gold: #f59e0b;
+            --cipher-gold-light: #fbbf24;
+            
+            /* Caesar Theme Colors */
+            --caesar-red: #dc2626;
+            --caesar-gold: #d97706;
+            --caesar-cream: #fef3c7;
+            --caesar-dark: #1f2937;
+            
+            /* Surface Colors */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --surface-elevated: #ffffff;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --border-color: rgba(124, 58, 237, 0.2);
+            
+            /* Spacing Scale */
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+            --space-3xl: 4rem;
+        }
+            /* Shadows */
+            --shadow-sm: 0 1px 2px 0 rgba(124, 58, 237, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(124, 58, 237, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(124, 58, 237, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(124, 58, 237, 0.1);
+            
+            /* Border Radius */
+            --radius: 0.75rem;
+            --radius-sm: 0.5rem;
+            --radius-lg: 1rem;
+            --radius-xl: 1.5rem;
+            
+            /* Transitions */
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--caesar-cream) 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--caesar-red) 0%, var(--caesar-gold) 50%, var(--cipher-purple) 100%);
+            color: white;
+            padding: var(--space-3xl) var(--space-lg);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text x="10" y="20" font-size="8" fill="%23ffffff" opacity="0.1">CAESAR</text><text x="60" y="40" font-size="6" fill="%23ffffff" opacity="0.1">CIPHER</text><text x="20" y="60" font-size="7" fill="%23ffffff" opacity="0.1">ROME</text><text x="70" y="80" font-size="5" fill="%23ffffff" opacity="0.1">DECRYPT</text></svg>') repeat;
+            animation: float-text 20s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes float-text {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(-100px) translateY(-100px); }
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: var(--space-sm) var(--space-lg);
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: var(--space-lg);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .hero-title {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 800;
+            margin-bottom: var(--space-lg);
+            line-height: 1.1;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            opacity: 0.95;
+            max-width: 700px;
+            margin: 0 auto var(--space-xl);
+            line-height: 1.6;
+        }
+
+        .difficulty-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            background: var(--cipher-gold);
+            color: var(--caesar-dark);
+            padding: var(--space-sm) var(--space-lg);
+            border-radius: var(--radius);
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-lg);
+        }
+
+        /* Educational Section */
+        .educational-section {
+            background: var(--surface-elevated);
+            margin: calc(-1 * var(--space-xl)) var(--space-lg) var(--space-2xl);
+            border-radius: var(--radius-xl);
+            padding: var(--space-2xl);
+            box-shadow: var(--shadow-xl);
+            border: 1px solid var(--border-color);
+            position: relative;
+            z-index: 10;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--cipher-purple);
+            margin-bottom: var(--space-lg);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+        .info-card {
+            background: linear-gradient(135deg, var(--cipher-purple) 0%, var(--cipher-teal) 100%);
+            color: white;
+            padding: var(--space-lg);
+            border-radius: var(--radius-lg);
+            text-align: center;
+            transform: translateY(0);
+            transition: var(--transition);
+        }
+
+        .info-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .info-card-icon {
+            font-size: 2rem;
+            margin-bottom: var(--space-sm);
+        }
+
+        .info-card-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+        }
+
+        .info-card-text {
+            font-size: 0.875rem;
+            opacity: 0.9;
+        }
+
+        /* Calculator Layout */
+        .calculator-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-2xl);
+            margin-bottom: var(--space-3xl);
+        }
+
+        .calculator-panel {
+            background: var(--surface-elevated);
+            border-radius: var(--radius-xl);
+            padding: var(--space-2xl);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-color);
+        }
+
+        .panel-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--cipher-purple);
+            margin-bottom: var(--space-xl);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        /* Mode Selector */
+        .mode-selector {
+            display: flex;
+            background: var(--bg-secondary);
+            border-radius: var(--radius);
+            padding: 4px;
+            margin-bottom: var(--space-xl);
+            border: 1px solid var(--border-color);
+        }
+        .mode-button {
+            flex: 1;
+            padding: var(--space-md);
+            border: none;
+            border-radius: calc(var(--radius) - 4px);
+            background: transparent;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .mode-button.active {
+            background: var(--cipher-purple);
+            color: white;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .mode-button:hover:not(.active) {
+            background: rgba(124, 58, 237, 0.1);
+            color: var(--cipher-purple);
+        }
+
+        /* Input Controls */
+        .input-group {
+            margin-bottom: var(--space-xl);
+        }
+
+        .input-label {
+            display: block;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-sm);
+        }
+
+        .input-field {
+            width: 100%;
+            padding: var(--space-lg);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius);
+            font-size: 1rem;
+            min-height: 120px;
+            resize: vertical;
+            transition: var(--transition);
+            font-family: inherit;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--cipher-purple);
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+        }
+
+        .shift-control {
+            margin-bottom: var(--space-lg);
+        }
+
+        .shift-slider {
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: linear-gradient(90deg, var(--cipher-purple), var(--cipher-teal));
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+            cursor: pointer;
+        }
+        .shift-slider::-webkit-slider-thumb {
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--surface-elevated);
+            border: 3px solid var(--cipher-purple);
+            cursor: pointer;
+            box-shadow: var(--shadow-md);
+        }
+
+        .shift-slider::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--surface-elevated);
+            border: 3px solid var(--cipher-purple);
+            cursor: pointer;
+            box-shadow: var(--shadow-md);
+        }
+
+        .shift-display {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: var(--space-sm);
+        }
+
+        .shift-value {
+            background: linear-gradient(135deg, var(--cipher-purple), var(--cipher-teal));
+            color: white;
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius);
+            font-weight: 700;
+            font-size: 1.125rem;
+        }
+
+        .alphabet-preview {
+            font-family: monospace;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            background: var(--bg-secondary);
+            padding: var(--space-sm);
+            border-radius: var(--radius-sm);
+            margin-top: var(--space-sm);
+        }
+
+        /* Results Panel */
+        .output-field {
+            background: var(--bg-secondary);
+            border: 2px solid var(--cipher-teal);
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--cipher-purple);
+            min-height: 120px;
+        }
+
+        .output-field:focus {
+            border-color: var(--cipher-teal);
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: var(--space-md);
+            margin-top: var(--space-lg);
+        }
+        .btn {
+            padding: var(--space-md) var(--space-lg);
+            border: none;
+            border-radius: var(--radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            font-size: 0.875rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--cipher-purple), var(--cipher-purple-light));
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(124, 58, 237, 0.1);
+            border-color: var(--cipher-purple);
+        }
+
+        /* Examples Section */
+        .examples-section {
+            background: var(--surface-elevated);
+            border-radius: var(--radius-xl);
+            padding: var(--space-2xl);
+            margin-bottom: var(--space-2xl);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-color);
+        }
+
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-lg);
+        }
+
+        .example-card {
+            background: linear-gradient(135deg, var(--caesar-cream), #ffffff);
+            border: 2px solid var(--caesar-gold);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .example-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--caesar-red);
+        }
+        .example-title {
+            font-weight: 700;
+            color: var(--caesar-red);
+            margin-bottom: var(--space-sm);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .example-content {
+            font-family: monospace;
+            background: rgba(220, 38, 38, 0.1);
+            padding: var(--space-sm);
+            border-radius: var(--radius-sm);
+            margin: var(--space-sm) 0;
+        }
+
+        .example-note {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .calculator-layout {
+                grid-template-columns: 1fr;
+                gap: var(--space-xl);
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .examples-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding: var(--space-2xl) var(--space-lg);
+            }
+
+            .educational-section {
+                margin-left: 0;
+                margin-right: 0;
+                border-radius: 0;
+            }
+
+            .action-buttons {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animation Classes */
+        .fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
+    <script src="../../common/footer/premium-footer.js"></script>
+
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
+    <script src="../../common/footer/premium-footer.js"></script>
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
+    <script src="../../common/footer/premium-footer.js"></script>
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
+    <script src="../../common/footer/premium-footer.js"></script>
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
+    <script src="../../common/footer/premium-footer.js"></script></head>
+<body x-data="caesarCipher()">
+    <!-- Enhanced Navigation Bar -->
+    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+<nav class="main-nav">
+    <div class="nav-container">
+        <div class="nav-logo">
+            <a href="../../index.html">🧮 Docket One</a>
+        </div>
+        <div class="nav-search">
+            <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input" aria-label="Search calculators">
+            <div id="search-results" class="search-results"></div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="../BigKidMath/index.html" class="category-link">Big Kid Math</a></li>
+            <li><a href="../CipherLab/index.html" class="category-link">Cipher Lab</a></li>
+            <li><a href="../GeekGalaxy/index.html" class="category-link">Geek Galaxy</a></li>
+            <li><a href="../LifeHacks/index.html" class="category-link">Life Hacks</a></li>
+            <li><a href="../Math_Magik/index.html" class="category-link">Math Magik</a></li>
+            <li><a href="../Otaku_Ops/index.html" class="category-link">Otaku Ops</a></li>
+            <li><a href="../../index.html" class="home-link">🏠 Home</a></li>
+        </ul>
+        <button class="mobile-menu-btn" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-badge">
+            <span>🏛️</span>
+            <span>Classical Cryptography</span>
+        </div>
+        <h1 class="hero-title">Caesar Cipher Calculator</h1>
+        <p class="hero-subtitle">
+            Encrypt and decrypt messages using the legendary cipher of Julius Caesar! 
+            Learn the basics of cryptography with this 2000-year-old secret code.
+        </p>
+        <div class="difficulty-badge">
+            <span>⭐</span>
+            <span>Beginner Friendly</span>
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- Educational Section -->
+        <section class="educational-section">
+            <h2 class="section-title">
+                <span>📚</span>
+                <span>What is a Caesar Cipher?</span>
+            </h2>
+            
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-card-icon">👑</div>
+                    <div class="info-card-title">Named After Julius Caesar</div>
+                    <div class="info-card-text">Used by the Roman Emperor to protect military communications around 50 BC</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-card-icon">🔄</div>
+                    <div class="info-card-title">Simple Shift Cipher</div>
+                    <div class="info-card-text">Each letter is shifted by a fixed number of positions in the alphabet</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-card-icon">🎓</div>
+                    <div class="info-card-title">Perfect for Learning</div>
+                    <div class="info-card-text">The foundation of cryptography - easy to understand, fun to use!</div>
+                </div>
+            </div>
+            
+            <p style="font-size: 1.125rem; line-height: 1.7; color: var(--text-secondary); text-align: center; max-width: 800px; margin: 0 auto;">
+                The Caesar cipher shifts each letter by a set number of positions. For example, with a shift of 3: 
+                <strong style="color: var(--cipher-purple);">A becomes D, B becomes E, C becomes F</strong>, and so on. 
+                It's like having a secret decoder ring! 🕵️‍♂️
+            </p>
+        </section>
+
+        <!-- Calculator Layout -->
+        <div class="calculator-layout">
+            <!-- Input Panel -->
+            <div class="calculator-panel">
+                <h2 class="panel-title">
+                    <span>🔐</span>
+                    <span>Encode / Decode</span>
+                </h2>
+
+                <!-- Mode Selector -->
+                <div class="mode-selector">
+                    <button 
+                        class="mode-button"
+                        :class="{ active: mode === 'encode' }"
+                        @click="mode = 'encode'; processText()"
+                    >
+                        🔒 Encrypt
+                    </button>
+                    <button 
+                        class="mode-button"
+                        :class="{ active: mode === 'decode' }"
+                        @click="mode = 'decode'; processText()"
+                    >
+                        🔓 Decrypt
+                    </button>
+                </div>
+
+                <!-- Shift Control -->
+                <div class="input-group shift-control">
+                    <label class="input-label">Shift Amount</label>
+                    <input 
+                        type="range" 
+                        class="shift-slider"
+                        min="1" 
+                        max="25" 
+                        x-model="shift"
+                        @input="processText()"
+                    >
+                    <div class="shift-display">
+                        <div class="shift-value" x-text="`Shift: ${shift}`"></div>
+                        <div style="font-size: 0.875rem; color: var(--text-secondary);">
+                            <span x-text="mode === 'encode' ? 'Encrypting' : 'Decrypting'"></span> with shift <span x-text="shift"></span>
+                        </div>
+                    </div>
+                    <div class="alphabet-preview" x-text="getAlphabetPreview()"></div>
+                </div>
+
+                <!-- Input Text -->
+                <div class="input-group">
+                    <label class="input-label" x-text="mode === 'encode' ? 'Message to Encrypt' : 'Message to Decrypt'"></label>
+                    <textarea 
+                        x-model="inputText"
+                        class="input-field"
+                        @input="processText()"
+                        :placeholder="mode === 'encode' ? 'Enter your secret message...' : 'Enter encrypted message...'"
+                    ></textarea>
+                </div>
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button @click="copyResult()" :disabled="!outputText" class="btn btn-primary">
+                        📋 Copy Result
+                    </button>
+                    <button @click="clearAll()" class="btn btn-secondary">
+                        🗑️ Clear All
+                    </button>
+                    <button @click="randomExample()" class="btn btn-secondary">
+                        🎲 Try Example
+                    </button>
+                    <button @click="shareResult()" :disabled="!outputText" class="btn btn-secondary">
+                        📤 Share
+                    </button>
+                </div>
+            </div>
+
+            <!-- Results Panel -->
+            <div class="calculator-panel">
+                <h2 class="panel-title">
+                    <span>✨</span>
+                    <span x-text="mode === 'encode' ? 'Encrypted Message' : 'Decrypted Message'"></span>
+                </h2>
+
+                <div class="input-group">
+                    <label class="input-label" x-text="mode === 'encode' ? 'Cipher Text (Share This!)' : 'Plain Text'"></label>
+                    <textarea 
+                        x-model="outputText"
+                        class="input-field output-field"
+                        readonly
+                        :placeholder="mode === 'encode' ? 'Your encrypted message will appear here...' : 'Your decrypted message will appear here...'"
+                    ></textarea>
+                </div>
+
+                <!-- Live Analysis -->
+                <div x-show="outputText" class="fade-in" style="margin-top: var(--space-lg);">
+                    <div style="background: var(--bg-secondary); border-radius: var(--radius); padding: var(--space-lg); border: 1px solid var(--border-color);">
+                        <h3 style="font-size: 1rem; font-weight: 600; color: var(--cipher-purple); margin-bottom: var(--space-sm);">
+                            📊 Analysis
+                        </h3>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-md); font-size: 0.875rem;">
+                            <div>
+                                <strong>Characters:</strong> <span x-text="outputText.length"></span>
+                            </div>
+                            <div>
+                                <strong>Words:</strong> <span x-text="outputText.split(' ').filter(w => w.length > 0).length"></span>
+                            </div>
+                            <div>
+                                <strong>Letters:</strong> <span x-text="outputText.replace(/[^a-zA-Z]/g, '').length"></span>
+                            </div>
+                            <div>
+                                <strong>Security:</strong> <span style="color: var(--caesar-red);">Very Low</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Famous Examples Section -->
+        <section class="examples-section">
+            <h2 class="section-title">
+                <span>⚔️</span>
+                <span>Famous Caesar Cipher Examples</span>
+            </h2>
+            
+            <div class="examples-grid">
+                <div class="example-card" @click="loadExample('veni_vidi_vici')">
+                    <div class="example-title">
+                        <span>👑</span>
+                        <span>Caesar's Victory Message</span>
+                    </div>
+                    <div class="example-content">"YHQL YLGL YLFL"</div>
+                    <div class="example-note">Shift 3 • Try clicking to decode this famous quote!</div>
+                </div>
+                
+                <div class="example-card" @click="loadExample('brutus')">
+                    <div class="example-title">
+                        <span>🗡️</span>
+                        <span>Et Tu, Brute?</span>
+                    </div>
+                    <div class="example-content">"HW WX EUXWH"</div>
+                    <div class="example-note">Shift 3 • Caesar's last words in cipher</div>
+                </div>
+                
+                <div class="example-card" @click="loadExample('modern')">
+                    <div class="example-title">
+                        <span>🎮</span>
+                        <span>Modern Secret</span>
+                    </div>
+                    <div class="example-content">"FUBC FRPH OHHWV WRGDB"</div>
+                    <div class="example-note">Shift 3 • A message from today</div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        function caesarCipher() {
+            return {
+                mode: 'encode',
+                shift: 3,
+                inputText: '',
+                outputText: '',
+
+                init() {
+                    // Initialize with a welcome message
+                    this.inputText = 'Welcome to Caesar Cipher!';
+                    this.processText();
+                },
+
+                processText() {
+                    if (!this.inputText) {
+                        this.outputText = '';
+                        return;
+                    }
+
+                    if (this.mode === 'encode') {
+                        this.outputText = this.encrypt(this.inputText, this.shift);
+                    } else {
+                        this.outputText = this.decrypt(this.inputText, this.shift);
+                    }
+                },
+
+                encrypt(text, shift) {
+                    return text.split('').map(char => {
+                        if (char.match(/[a-z]/i)) {
+                            const code = char.charCodeAt(0);
+                            const base = code >= 65 && code <= 90 ? 65 : 97; // A=65, a=97
+                            return String.fromCharCode(((code - base + shift) % 26) + base);
+                        }
+                        return char; // Keep non-alphabetic characters unchanged
+                    }).join('');
+                },
+
+                decrypt(text, shift) {
+                    return this.encrypt(text, 26 - shift); // Decryption is encryption with reverse shift
+                },
+
+                getAlphabetPreview() {
+                    const normal = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                    const shifted = this.encrypt(normal, this.shift);
+                    return `${normal}\n${shifted}`;
+                },
+
+                async copyResult() {
+                    if (!this.outputText) return;
+                    
+                    try {
+                        await navigator.clipboard.writeText(this.outputText);
+                        
+                        // Visual feedback
+                        const button = event.target;
+                        const originalText = button.innerHTML;
+                        button.innerHTML = '✅ Copied!';
+                        button.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+                        
+                        setTimeout(() => {
+                            button.innerHTML = originalText;
+                            button.style.background = '';
+                        }, 2000);
+                    } catch (err) {
+                        console.error('Failed to copy:', err);
+                        alert('Could not copy to clipboard. Please select and copy manually.');
+                    }
+                },
+
+                clearAll() {
+                    this.inputText = '';
+                    this.outputText = '';
+                },
+
+                randomExample() {
+                    const examples = [
+                        { text: 'HELLO WORLD', shift: 3 },
+                        { text: 'MEET ME AT DAWN', shift: 7 },
+                        { text: 'THE TREASURE IS BURIED HERE', shift: 13 },
+                        { text: 'ATTACK AT MIDNIGHT', shift: 5 },
+                        { text: 'SECRET AGENT MISSION', shift: 12 },
+                        { text: 'JULIUS CAESAR WAS HERE', shift: 3 }
+                    ];
+                    
+                    const example = examples[Math.floor(Math.random() * examples.length)];
+                    this.shift = example.shift;
+                    this.inputText = example.text;
+                    this.mode = 'encode';
+                    this.processText();
+                },
+
+                loadExample(type) {
+                    this.mode = 'decode';
+                    this.shift = 3;
+                    
+                    switch(type) {
+                        case 'veni_vidi_vici':
+                            this.inputText = 'YHQL YLGL YLFL';
+                            break;
+                        case 'brutus':
+                            this.inputText = 'HW WX EUXWH';
+                            break;
+                        case 'modern':
+                            this.inputText = 'FUBC FRPH OHHWV WRGDB';
+                            break;
+                    }
+                    
+                    this.processText();
+                },
+
+                async shareResult() {
+                    if (!this.outputText) return;
+                    
+                    const shareText = this.mode === 'encode' 
+                        ? `🔐 Can you decode this Caesar Cipher? "${this.outputText}" (Hint: shift ${this.shift}) Try it yourself at docket.one!`
+                        : `🔓 I decoded: "${this.outputText}" using Caesar Cipher! Try it yourself at docket.one!`;
+                    
+                    const calculatorUrl = 'https://docket.one/pages/CipherLab/Caesar-Cipher-Calculator.html';
+                    
+                    // Try Web Share API first (mobile)
+                    if (navigator.share) {
+                        try {
+                            await navigator.share({
+                                title: '🏛️ Caesar Cipher Challenge',
+                                text: shareText,
+                                url: calculatorUrl
+                            });
+                            return;
+                        } catch (err) {
+                            if (err.name !== 'AbortError') {
+                                console.log('Web Share API failed:', err);
+                            }
+                        }
+                    }
+
+                    // Fallback for desktop
+                    try {
+                        await navigator.clipboard.writeText(`${shareText} ${calculatorUrl}`);
+                        
+                        // Visual feedback
+                        const button = event.target;
+                        const originalText = button.innerHTML;
+                        button.innerHTML = '✅ Copied Link!';
+                        button.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+                        
+                        setTimeout(() => {
+                            button.innerHTML = originalText;
+                            button.style.background = '';
+                        }, 2000);
+                    } catch (err) {
+                        console.error('Share failed:', err);
+                        alert('Could not share. Please copy the result manually.');
+                    }
+                }
+            }
+        }
+
+        // Enhanced Mobile Menu
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if (mobileMenuBtn && navLinks) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    mobileMenuBtn.classList.toggle('active');
+                    navLinks.classList.toggle('active');
+                    document.body.classList.toggle('menu-open');
+                });
+                
+                // Close menu when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!e.target.closest('.nav-container')) {
+                        mobileMenuBtn.classList.remove('active');
+                        navLinks.classList.remove('active');
+                        document.body.classList.remove('menu-open');
+                    }
+                });
+                
+                // Close menu when clicking a link
+                navLinks.addEventListener('click', function() {
+                    mobileMenuBtn.classList.remove('active');
+                    navLinks.classList.remove('active');
+                    document.body.classList.remove('menu-open');
+                });
+            }
+        });
+    </script>
+<!-- Newsletter Bar -->
+<div class="newsletter-bar" x-data="newsletterForm()">
+    <div class="newsletter-container">
+        <div class="newsletter-content">
+            <div class="newsletter-info">
+                <h3>&#127881; Join Our Calculator Community!</h3>
+                <p>Get updates on new fun calculators and practical tools</p>
+            </div>
+            <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
+                <input 
+                    type="email" 
+                    class="newsletter-input"
+                    placeholder="Enter your email for calculator updates"
+                    x-model="email"
+                    required
+                >
+                <button 
+                    type="submit" 
+                    class="newsletter-submit"
+                    :disabled="isSubmitting"
+                >
+                    <span x-show="isSubmitting" class="loading-spinner"></span>
+                    <span x-text="isSubmitting ? 'Subscribing...' : '&#128640; Subscribe'"></span>
+                </button>
+            </form>
+            <div x-show="showSuccess" class="newsletter-success" style="display: none;">
+                <p style="color: var(--accent-light); font-weight: 600;">
+                    &#9989; Awesome! You'll get updates on the coolest new calculators!
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>&#127919; About Docket.One</h4>
+                <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the tools for modern life.</p>
+                <p>Practical meets playful. Because adulting is hard enough.</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>&#127914; Calculator Categories</h4>
+                <ul class="footer-links">
+                    <li><a href="/pages/BigKidMath/"><span class="calculator-emoji">&#129518;</span> BigKidMath - Adult Life Tools</a></li>
+                    <li><a href="/pages/CipherLab/"><span class="calculator-emoji">&#128272;</span> CipherLab - Secret Codes & Security</a></li>
+                    <li><a href="/pages/GeekGalaxy/"><span class="calculator-emoji">&#128640;</span> GeekGalaxy - Sci-Fi & Fantasy Fun</a></li>
+                    <li><a href="/pages/LifeHacks/"><span class="calculator-emoji">&#9889;</span> LifeHacks - Productivity & Wellness</a></li>
+                    <li><a href="/pages/Math_Magik/"><span class="calculator-emoji">&#127917;</span> Math Magik - Mathematical Wizardry</a></li>
+                    <li><a href="/pages/Otaku_Ops/"><span class="calculator-emoji">&#127999;</span> Otaku Ops - Anime & Culture</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>&#128172; Support & Info</h4>
+                <ul class="footer-links">
+                    <li><a href="/help"><span class="calculator-emoji">&#10067;</span> Help & FAQ</a></li>
+                    <li><a href="/privacy"><span class="calculator-emoji">&#128274;</span> Privacy Policy</a></li>
+                    <li><a href="/terms"><span class="calculator-emoji">&#128203;</span> Terms of Service</a></li>
+                    <li><a href="/accessibility"><span class="calculator-emoji">&#9855;</span> Accessibility</a></li>
+                    <li><a href="/contact"><span class="calculator-emoji">&#128231;</span> Contact Us</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <button 
+                    class="request-calculator-btn"
+                    @click="showModal = true"
+                >
+                    &#128161; Request a Calculator
+                </button>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="footer-logo">&#129518; Docket.One</div>
+            <div class="footer-copyright">
+                Â© 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
+            </div>
+            <div class="social-links">
+                <a href="#" class="social-link" aria-label="Twitter">&#120143;</a>
+                <a href="#" class="social-link" aria-label="LinkedIn">&#128188;</a>
+                <a href="#" class="social-link" aria-label="GitHub">&#128025;</a>
+                <a href="#" class="social-link" aria-label="Email">&#128231;</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Request Modal -->
+<div 
+    x-data="calculatorRequestForm()"
+    x-show="showModal"
+    x-cloak
+    class="modal-overlay"
+    @click.self="closeModal()"
+    style="display: none;"
+>
+    <div class="modal-content">
+        <div x-show="!showConfirmation">
+            <div class="modal-header">
+                <h2 class="modal-title">&#128161; Request a Fun Calculator</h2>
+                <p class="modal-subtitle">Got an idea for a calculator that would make life easier or more fun? We want to hear it!</p>
+                <button class="modal-close" @click="closeModal()">&#10005;</button>
+            </div>
+            <div class="modal-body">
+                <form @submit.prevent="submitRequest()">
+                    <div class="form-group">
+                        <label class="form-label" for="userName">Your Name *</label>
+                        <input type="text" id="userName" class="form-input" x-model="formData.name" required placeholder="What should we call you?">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="userEmail">Email Address *</label>
+                        <input type="email" id="userEmail" class="form-input" x-model="formData.email" required placeholder="your@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="requestType">What Kind of Request? *</label>
+                        <select id="requestType" class="form-input form-select" x-model="formData.type" required>
+                            <option value="">Choose your request type</option>
+                            <option value="new-calculator">&#127358; Brand New Calculator</option>
+                            <option value="enhancement">&#9889; Improve Existing Calculator</option>
+                            <option value="category">&#127914; New Category Idea</option>
+                            <option value="feature">&#10024; Cool New Feature</option>
+                            <option value="other">&#129300; Something Else Entirely</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="calculatorTitle">Calculator Name/Title *</label>
+                        <input type="text" id="calculatorTitle" class="form-input" x-model="formData.title" required placeholder="e.g., 'Should I Call In Sick Calculator'">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="description">Tell Us About Your Idea! *</label>
+                        <textarea id="description" class="form-input form-textarea" x-model="formData.description" required placeholder="Describe your calculator idea!"></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" @click="closeModal()">Maybe Later</button>
+                        <button type="submit" class="btn btn-primary" :disabled="isSubmitting">
+                            <span x-show="isSubmitting" class="loading-spinner"></span>
+                            <span x-text="isSubmitting ? 'Sending...' : '&#128640; Send My Idea'"></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div x-show="showConfirmation" class="confirmation-modal" style="display: none;">
+            <div class="modal-header">
+                <button class="modal-close" @click="closeModal()">&#10005;</button>
+            </div>
+            <div class="modal-body">
+                <div class="success-icon">&#127881;</div>
+                <h3 class="confirmation-title">Awesome! We Got Your Idea!</h3>
+                <p class="confirmation-message">
+                    Thanks for sharing your calculator idea with us! We're excited to check it out and see if we can make it happen. 
+                    <br><br>
+                    <strong>What happens next?</strong><br>
+                    â€¢ You'll get a confirmation email shortly<br>
+                    â€¢ Our team will review your idea<br>
+                    â€¢ If we build it, you'll be the first to know!<br>
+                    â€¢ We might even name you as the inspiration &#128522;
+                </p>
+                <button class="btn btn-primary" @click="closeModal()" style="width: 100%;">
+                    &#127919; Close & Keep Calculating!
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Docket One Calculators</title>
+    <meta name="description" content="Get in touch with Docket One. Send feedback, report issues, request features, or ask questions about our calculator tools.">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Shared Styles -->
+    <link rel="stylesheet" href="common/navbar-enhanced.css">
+    <link rel="stylesheet" href="common/santa-improvements.css">
+    
+    <style>
+        :root {
+            /* Color System */
+            --primary: #6366f1;
+            --primary-light: #818cf8;
+            --primary-dark: #4f46e5;
+            --secondary: #06b6d4;
+            --accent: #f59e0b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            
+            /* Neutral Colors */
+            --white: #ffffff;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            
+            /* Semantic Colors */
+            --background: var(--white);
+            --background-secondary: var(--gray-50);
+            --text: var(--gray-900);
+            --text-secondary: var(--gray-600);
+            --border: var(--gray-200);
+            
+            /* Spacing Scale */
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+            --space-3xl: 4rem;
+            
+            /* Border Radius */
+            --radius: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            
+            /* Shadows */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--background);
+        }
+        
+        /* Header */
+        .page-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: var(--space-3xl) var(--space-xl);
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 800;
+            margin-bottom: var(--space-md);
+        }
+        
+        .page-header p {
+            font-size: 1.125rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Main Content */
+        .main-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: var(--space-3xl) var(--space-xl);
+        }
+        
+        /* Contact Options Grid */
+        .contact-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-xl);
+            margin-bottom: var(--space-3xl);
+        }
+        
+        .contact-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .contact-card .icon {
+            font-size: 3rem;
+            margin-bottom: var(--space-lg);
+        }
+        
+        .contact-card h3 {
+            color: var(--primary);
+            margin-bottom: var(--space-md);
+        }
+        
+        .contact-card p {
+            color: var(--text-secondary);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .contact-card .btn {
+            background: var(--primary);
+            color: white;
+            padding: var(--space-md) var(--space-xl);
+            border: none;
+            border-radius: var(--radius);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .contact-card .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+        
+        /* Form Styles */
+        .form-container {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-3xl);
+            box-shadow: var(--shadow-sm);
+            margin-bottom: var(--space-3xl);
+        }
+        
+        .form-header {
+            text-align: center;
+            margin-bottom: var(--space-3xl);
+        }
+        
+        .form-header h2 {
+            color: var(--primary);
+            font-size: 1.75rem;
+            margin-bottom: var(--space-md);
+        }
+        
+        .form-header p {
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+        }
+		
+		.form-group {
+            margin-bottom: var(--space-xl);
+        }
+        
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: var(--space-sm);
+        }
+        
+        .form-label .required {
+            color: var(--error);
+        }
+        
+        .form-input,
+        .form-textarea {
+            width: 100%;
+            padding: var(--space-lg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            background: var(--background);
+        }
+        
+        .form-input:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+        
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-lg);
+        }
+        
+        .form-submit {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: var(--space-lg) var(--space-3xl);
+            border: none;
+            border-radius: var(--radius);
+            font-size: 1.125rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .form-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+        }
+        
+        .form-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        /* Status Messages */
+        .status-message {
+            padding: var(--space-lg);
+            border-radius: var(--radius);
+            margin-bottom: var(--space-lg);
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        .status-success {
+            background: #ecfdf5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+        }
+        
+        .status-error {
+            background: #fef2f2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+        
+        .status-loading {
+            background: #eff6ff;
+            color: #1e40af;
+            border: 1px solid #bfdbfe;
+        }
+        
+        /* Hidden class */
+        .hidden {
+            display: none;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-content {
+                padding: var(--space-xl) var(--space-lg);
+            }
+            
+            .contact-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-container {
+                padding: var(--space-xl);
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Newsletter Section */
+        .newsletter-section {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            padding: var(--space-3xl);
+            border-radius: var(--radius-xl);
+            text-align: center;
+            margin-top: var(--space-3xl);
+        }
+        
+        .newsletter-section h2 {
+            font-size: 1.75rem;
+            margin-bottom: var(--space-lg);
+        }
+        
+        .newsletter-section p {
+            font-size: 1.125rem;
+            opacity: 0.9;
+            margin-bottom: var(--space-xl);
+        }
+        
+        .newsletter-form {
+            max-width: 400px;
+            margin: 0 auto;
+            display: flex;
+            gap: var(--space-md);
+        }
+        
+        .newsletter-input {
+            flex: 1;
+            padding: var(--space-lg);
+            border: none;
+            border-radius: var(--radius);
+            font-size: 1rem;
+        }
+        
+        .newsletter-submit {
+            background: white;
+            color: var(--primary);
+            padding: var(--space-lg) var(--space-xl);
+            border: none;
+            border-radius: var(--radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .newsletter-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
+    <script src="../../common/footer/premium-footer.js"></script>
+    <link rel="stylesheet" href="common/navbar-enhanced.css">
+    <link rel="stylesheet" href="common/santa-improvements.css">
+    <link rel="stylesheet" href="common/global-calculator.css">
+    <link rel="stylesheet" href="common/themes/dark-theme.css">
+    <link rel="stylesheet" href="common/footer/premium-footer.css">
+    <script src="common/footer/premium-footer.js"></script></head>
+<body>
+    <!-- Navigation -->
+    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+<nav class="main-nav">
+    <div class="nav-container">
+        <div class="nav-logo">
+            <a href="index.html">🧮 Docket One</a>
+        </div>
+        <div class="nav-search">
+            <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input" aria-label="Search calculators">
+            <div id="search-results" class="search-results"></div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="pages/BigKidMath/index.html" class="category-link">Big Kid Math</a></li>
+            <li><a href="pages/CipherLab/index.html" class="category-link">Cipher Lab</a></li>
+            <li><a href="pages/GeekGalaxy/index.html" class="category-link">Geek Galaxy</a></li>
+            <li><a href="pages/LifeHacks/index.html" class="category-link">Life Hacks</a></li>
+            <li><a href="pages/Math_Magik/index.html" class="category-link">Math Magik</a></li>
+            <li><a href="pages/Otaku_Ops/index.html" class="category-link">Otaku Ops</a></li>
+            <li><a href="index.html" class="home-link">🏠 Home</a></li>
+        </ul>
+        <button class="mobile-menu-btn" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</nav>
+
+    <!-- Header -->
+    <header class="page-header">
+        <h1>💬 Get In Touch</h1>
+        <p>Have questions, feedback, or need help? We'd love to hear from you!</p>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Contact Options -->
+        <section class="contact-options">
+            <div class="contact-card">
+                <div class="icon">🐛</div>
+                <h3>Report a Bug</h3>
+                <p>Found something broken? Help us fix it by reporting the issue.</p>
+                <button class="btn" onclick="showForm('bug')">Report Bug</button>
+            </div>
+            
+            <div class="contact-card">
+                <div class="icon">💡</div>
+                <h3>Feature Request</h3>
+                <p>Have an idea for a new calculator or feature? We'd love to hear it!</p>
+                <button class="btn" onclick="showForm('feature')">Request Feature</button>
+            </div>
+            
+            <div class="contact-card">
+                <div class="icon">❓</div>
+                <h3>General Support</h3>
+                <p>Need help using our calculators or have general questions?</p>
+                <button class="btn" onclick="showForm('support')">Get Support</button>
+            </div>
+            
+            <div class="contact-card">
+                <div class="icon">💼</div>
+                <h3>Business Inquiry</h3>
+                <p>Interested in partnerships, licensing, or business opportunities?</p>
+                <button class="btn" onclick="showForm('business')">Contact Business</button>
+            </div>
+        </section>
+
+        <!-- Contact Form -->
+        <section class="form-container" id="contactForm" style="display: none;">
+            <div class="form-header">
+                <h2 id="formTitle">Contact Us</h2>
+                <p id="formDescription">Fill out the form below and we'll get back to you soon.</p>
+            </div>
+            
+            <div id="statusMessage" class="status-message hidden"></div>
+            
+            <form id="contactFormElement" onsubmit="submitForm(event)">
+                <input type="hidden" id="formType" name="type" value="">
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="firstName" class="form-label">First Name <span class="required">*</span></label>
+                        <input type="text" id="firstName" name="firstName" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="lastName" class="form-label">Last Name</label>
+                        <input type="text" id="lastName" name="lastName" class="form-input">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email" class="form-label">Email Address <span class="required">*</span></label>
+                    <input type="email" id="email" name="email" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="subject" class="form-label">Subject <span class="required">*</span></label>
+                    <input type="text" id="subject" name="subject" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message" class="form-label">Message <span class="required">*</span></label>
+                    <textarea id="message" name="message" class="form-textarea" required placeholder="Please provide as much detail as possible..."></textarea>
+                </div>
+                
+                <button type="submit" class="form-submit" id="submitButton">
+                    Send Message
+                </button>
+            </form>
+        </section>
+
+        <!-- Newsletter Signup -->
+        <section class="newsletter-section">
+            <h2>📧 Stay Updated</h2>
+            <p>Get notified when we add new calculators and features!</p>
+            <form class="newsletter-form" onsubmit="submitNewsletter(event)">
+                <input type="email" class="newsletter-input" placeholder="Enter your email" required>
+                <button type="submit" class="newsletter-submit">Subscribe</button>
+            </form>
+            <div id="newsletterStatus" class="status-message hidden" style="margin-top: 1rem;"></div>
+        </section>
+    </main>
+    <!-- Footer -->
+    <footer style="background: var(--gray-800); color: white; padding: var(--space-2xl); text-align: center; margin-top: var(--space-3xl);">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-xl); margin-bottom: var(--space-xl);">
+                <div>
+                    <h3 style="margin-bottom: var(--space-md);">🧮 Docket One</h3>
+                    <p style="opacity: 0.8;">Where calculators get fun!</p>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: var(--space-md);">Support</h4>
+                    <a href="help.html" style="color: white; text-decoration: none; display: block; margin-bottom: var(--space-xs);">Help & FAQ</a>
+                    <a href="contact.html" style="color: white; text-decoration: none;">Contact Support</a>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: var(--space-md);">Legal</h4>
+                    <a href="privacy.html" style="color: white; text-decoration: none; display: block; margin-bottom: var(--space-xs);">Privacy Policy</a>
+                    <a href="terms.html" style="color: white; text-decoration: none; display: block; margin-bottom: var(--space-xs);">Terms of Service</a>
+                    <a href="accessibility.html" style="color: white; text-decoration: none;">Accessibility</a>
+                </div>
+            </div>
+            <div style="border-top: 1px solid var(--gray-600); padding-top: var(--space-lg); opacity: 0.8;">
+                <p>&copy; 2024 Docket One. Made with 💻 and ☕</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Form configurations for different types
+        const formConfigs = {
+            bug: {
+                title: "🐛 Report a Bug",
+                description: "Help us fix issues by providing detailed information about the problem.",
+                placeholder: "Please describe the bug in detail:\n• What were you trying to do?\n• What happened instead?\n• What browser are you using?\n• Can you reproduce the issue?"
+            },
+            feature: {
+                title: "💡 Feature Request",
+                description: "Share your ideas for new calculators or improvements to existing ones.",
+                placeholder: "Please describe your feature idea:\n• What calculator or feature would you like?\n• How would you use it?\n• What problem would it solve?"
+            },
+            support: {
+                title: "❓ General Support",
+                description: "Get help with using our calculators or ask general questions.",
+                placeholder: "Please describe how we can help:\n• What do you need assistance with?\n• Have you checked our Help & FAQ page?"
+            },
+            business: {
+                title: "💼 Business Inquiry",
+                description: "Discuss partnerships, licensing, custom development, or other business opportunities.",
+                placeholder: "Please describe your business inquiry:\n• What type of partnership or opportunity?\n• Your company and role\n• Timeline and budget considerations"
+            }
+        };
+
+        function showForm(type) {
+            const config = formConfigs[type];
+            const form = document.getElementById('contactForm');
+            const title = document.getElementById('formTitle');
+            const description = document.getElementById('formDescription');
+            const formType = document.getElementById('formType');
+            const message = document.getElementById('message');
+
+            // Update form content
+            title.textContent = config.title;
+            description.textContent = config.description;
+            formType.value = type;
+            message.placeholder = config.placeholder;
+
+            // Show form and scroll to it
+            form.style.display = 'block';
+            form.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function showStatus(message, type) {
+            const statusDiv = document.getElementById('statusMessage');
+            statusDiv.textContent = message;
+            statusDiv.className = `status-message status-${type}`;
+            statusDiv.classList.remove('hidden');
+            statusDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function showNewsletterStatus(message, type) {
+            const statusDiv = document.getElementById('newsletterStatus');
+            statusDiv.textContent = message;
+            statusDiv.className = `status-message status-${type}`;
+            statusDiv.classList.remove('hidden');
+        }
+
+        async function submitForm(event) {
+            event.preventDefault();
+            
+            const submitButton = document.getElementById('submitButton');
+            const originalText = submitButton.textContent;
+            
+            // Show loading state
+            submitButton.disabled = true;
+            submitButton.textContent = 'Sending...';
+            showStatus('Sending your message...', 'loading');
+
+            try {
+                const formData = new FormData(event.target);
+                const data = Object.fromEntries(formData.entries());
+                
+                // Add timestamp and user agent for debugging
+                data.timestamp = new Date().toISOString();
+                data.userAgent = navigator.userAgent;
+                data.url = window.location.href;
+
+                // Use PHP backend endpoint
+                const response = await fetch('../../contact-handler.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+
+                if (response.ok && result.success) {
+                    showStatus('✅ ' + result.message, 'success');
+                    event.target.reset();
+                    
+                    // Hide form after successful submission
+                    setTimeout(() => {
+                        document.getElementById('contactForm').style.display = 'none';
+                    }, 3000);
+                } else {
+                    throw new Error(result.error || 'Failed to send message');
+                }
+            } catch (error) {
+                console.error('Form submission error:', error);
+                showStatus('❌ ' + error.message + ' Please try again or contact us directly at support@docket.one', 'error');
+            } finally {
+                submitButton.disabled = false;
+                submitButton.textContent = originalText;
+            }
+        }
+
+        async function submitNewsletter(event) {
+            event.preventDefault();
+            
+            const form = event.target;
+            const email = form.querySelector('input[type="email"]').value;
+            const button = form.querySelector('button');
+            const originalText = button.textContent;
+
+            button.disabled = true;
+            button.textContent = 'Subscribing...';
+            showNewsletterStatus('Subscribing...', 'loading');
+
+            try {
+                // Use PHP newsletter handler - correct path from subdirectory
+                const response = await fetch('../../newsletter-handler.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ 
+                        email: email,
+                        timestamp: new Date().toISOString(),
+                        source: 'contact_page'
+                    })
+                });
+
+                const result = await response.json();
+
+                if (response.ok && result.success) {
+                    showNewsletterStatus('✅ ' + result.message, 'success');
+                    form.reset();
+                } else {
+                    throw new Error(result.error || 'Failed to subscribe');
+                }
+            } catch (error) {
+                console.error('Newsletter submission error:', error);
+                showNewsletterStatus('❌ ' + error.message, 'error');
+            } finally {
+                button.disabled = false;
+                button.textContent = originalText;
+            }
+        }
+
+        // Show form based on URL hash
+        if (window.location.hash) {
+            const formType = window.location.hash.substring(1);
+            if (formConfigs[formType]) {
+                showForm(formType);
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1003 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lightsaber Battery Life Calculator | Geek Galaxy</title>
+    <meta name="description" content="Calculate your lightsaber's battery life and power efficiency. May the Force be with your power management in the Star Wars universe.">
+    
+    <!-- Enhanced Social Media Meta Tags -->
+    <meta property="og:title" content="Lightsaber Battery Life Calculator | Geek Galaxy | Docket One">
+    <meta property="og:description" content="Calculate your lightsaber's battery life based on crystal type, combat intensity, and Force mastery. May the Force be with your power management!">
+    <meta property="og:image" content="https://docket.one/social-preview.jpg">
+    <meta property="og:url" content="https://docket.one/pages/GeekGalaxy/Lightsaber%20Battery%20Life%20Calculator.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Docket One Calculators">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Lightsaber Battery Life Calculator">
+    <meta name="twitter:description" content="Calculate lightsaber battery life and power efficiency in the Star Wars universe">
+    <meta name="twitter:image" content="https://docket.one/social-preview.jpg">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <style>
+        :root {
+            --jedi-blue: #00d4ff;
+            --sith-red: #ff0040;
+            --mace-purple: #8b5cf6;
+            --luke-green: #00ff88;
+            --space-black: #0a0a0f;
+            --space-dark: #1a1a2e;
+            --surface: rgba(0, 212, 255, 0.08);
+            --text: #e2e8f0;
+            --text-dim: #94a3b8;
+            --radius: 12px;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--space-black);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, var(--space-black), var(--space-dark));
+            padding: 4rem 2rem;
+            text-align: center;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+        }
+        
+        .hero h1 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--jedi-blue), var(--mace-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-dim);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+        
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+        
+        .panel {
+            background: var(--surface);
+            backdrop-filter: blur(15px);
+            border-radius: var(--radius);
+            padding: 2rem;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+        
+        .panel h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .crystal-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .crystal-card {
+            background: var(--space-dark);
+            border: 2px solid transparent;
+            border-radius: var(--radius);
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .crystal-card:hover,
+        .crystal-card.active {
+            border-color: var(--crystal-color);
+            box-shadow: 0 0 20px rgba(var(--crystal-rgb), 0.3);
+        }
+        
+        .crystal-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .crystal-stats {
+            font-size: 0.875rem;
+            color: var(--text-dim);
+        }
+        
+        .slider-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .slider-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        input[type="range"] {
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+            background: var(--space-dark);
+            outline: none;
+            margin: 0.5rem 0;
+        }
+        
+        /* Share Button Styles */
+        .share-button {
+            background: linear-gradient(135deg, var(--jedi-blue), var(--mace-purple));
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+            width: 100%;
+            justify-content: center;
+        }
+
+        .share-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 212, 255, 0.4);
+        }
+
+        .share-dropdown {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .share-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--space-dark);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: var(--radius);
+            padding: 0.5rem;
+            margin-top: 0.5rem;
+            z-index: 1000;
+            display: none;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .share-menu.active {
+            display: block;
+        }
+
+        .share-option {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .share-option:hover {
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--jedi-blue);
+        }
+
+        /* Hidden canvas for image generation */
+        #shareCanvas {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .calculator-grid { grid-template-columns: 1fr; }
+            .crystal-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
+    <script src="../../common/footer/premium-footer.js"></script>
+
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
+    <script src="../../common/footer/premium-footer.js"></script>
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
+    <script src="../../common/footer/premium-footer.js"></script>
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
+    <script src="../../common/footer/premium-footer.js"></script>
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
+    <script src="../../common/footer/premium-footer.js"></script></head>
+<body x-data="{ showModal: false }">
+    <!-- Enhanced Navigation Bar -->
+    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+<nav class="main-nav">
+    <div class="nav-container">
+        <div class="nav-logo">
+            <a href="../../index.html">🧮 Docket One</a>
+        </div>
+        <div class="nav-search">
+            <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input" aria-label="Search calculators">
+            <div id="search-results" class="search-results"></div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="../BigKidMath/index.html" class="category-link">Big Kid Math</a></li>
+            <li><a href="../CipherLab/index.html" class="category-link">Cipher Lab</a></li>
+            <li><a href="../GeekGalaxy/index.html" class="category-link">Geek Galaxy</a></li>
+            <li><a href="../LifeHacks/index.html" class="category-link">Life Hacks</a></li>
+            <li><a href="../Math_Magik/index.html" class="category-link">Math Magik</a></li>
+            <li><a href="../Otaku_Ops/index.html" class="category-link">Otaku Ops</a></li>
+            <li><a href="../../index.html" class="home-link">🏠 Home</a></li>
+        </ul>
+        <button class="mobile-menu-btn" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Lightsaber Battery Calculator</h1>
+        <p>May the Force be with your power management</p>
+    </section>
+
+    <main class="container">
+        <div class="calculator-grid" x-data="lightsaberCalculator()">
+            <!-- Controls Panel -->
+            <div class="panel">
+                <h2>⚔️ Lightsaber Configuration</h2>
+                
+                <!-- Crystal Selection -->
+                <div class="crystal-grid">
+                    <template x-for="(crystal, key) in crystals" :key="key">
+                        <div class="crystal-card" 
+                             :class="{ active: selectedCrystal === key }"
+                             :style="`--crystal-color: ${crystal.color}; --crystal-rgb: ${crystal.rgb}`"
+                             @click="selectCrystal(key)">
+                            <div class="crystal-name" x-text="crystal.name"></div>
+                            <div class="crystal-stats">
+                                <div>Efficiency: <span x-text="Math.round(crystal.efficiency * 100)"></span>%</div>
+                                <div>Base Life: <span x-text="crystal.baseLife"></span>h</div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+                
+                <!-- Combat Intensity Slider -->
+                <div class="slider-group">
+                    <label class="slider-label">Combat Intensity</label>
+                    <input type="range" min="1" max="10" x-model="combatIntensity" @input="calculateBattery()">
+                    <div x-text="'Level ' + combatIntensity + '/10 - ' + getIntensityDescription(combatIntensity)"></div>
+                </div>
+
+                <!-- Force Mastery Slider -->
+                <div class="slider-group">
+                    <label class="slider-label">Force Mastery</label>
+                    <input type="range" min="1" max="10" x-model="forceMastery" @input="calculateBattery()">
+                    <div x-text="'Level ' + forceMastery + '/10 - ' + getMasteryDescription(forceMastery)"></div>
+                </div>
+
+                <!-- Lightsaber Age -->
+                <div class="slider-group">
+                    <label class="slider-label">Lightsaber Age (Years)</label>
+                    <input type="range" min="0" max="100" x-model="saberAge" @input="calculateBattery()">
+                    <div x-text="saberAge + ' years old'"></div>
+                </div>
+            </div>
+
+            <!-- Results Panel -->
+            <div class="panel">
+                <h2>⚡ Power Analysis</h2>
+                
+                <div style="text-align: center; margin: 2rem 0;">
+                    <div style="font-size: 4rem; margin-bottom: 1rem;">
+                        <!-- Dynamic SVG Lightsaber -->
+                        <svg width="80" height="80" viewBox="0 0 512 512" style="filter: drop-shadow(0 0 10px var(--crystal-glow));" :style="`--crystal-glow: ${crystals[selectedCrystal].color}`">
+                            <!-- Lightsaber blade (top part) - this will change color -->
+                            <path :style="`fill: ${crystals[selectedCrystal].color}`" d="M273.9,200.445v-92.049c0-8.679-7.038-15.716-15.716-15.716h-4.368
+                                c-8.679,0-15.716,7.036-15.716,15.716v226.017c1.514-0.486,3.126-0.753,4.802-0.753h26.194c1.676,0,3.289,0.268,4.803,0.753V226.853
+                                "/>
+                            <!-- Hilt parts - static colors -->
+                            <path style="fill:#427C99;" d="M269.096,333.659h-26.193c-8.679,0-15.716,7.035-15.716,15.716v20.082v71.595v20.081
+                                c0,8.679,7.036,15.716,15.716,15.716h26.194c8.68,0,15.716-7.036,15.716-15.716v-20.081v-71.595v-20.082
+                                C284.812,340.694,277.777,333.659,269.096,333.659z"/>
+                            <path style="fill:#578CAD;" d="M269.096,333.659h-26.193c-8.679,0-15.716,7.035-15.716,15.716v19.209h57.625v-19.209
+                                C284.812,340.694,277.777,333.659,269.096,333.659z"/>
+                            <!-- Detailed outlines and components -->
+                            <g>
+                                <path style="fill:#231F20;" d="M281.984,329.382v-102.53c0-4.465-3.618-8.084-8.084-8.084s-8.084,3.62-8.084,8.084v98.723h-19.631
+                                    V108.396c0-4.208,3.423-7.631,7.632-7.631h4.368c4.208,0,7.632,3.423,7.632,7.631v92.049c0,4.465,3.618,8.084,8.084,8.084
+                                    s8.084-3.62,8.084-8.084v-92.049c0-13.123-10.677-23.8-23.8-23.8h-4.368c-13.123,0-23.8,10.677-23.8,23.8v220.986
+                                    c-6.56,4.243-10.914,11.616-10.914,19.994v19.209v92.55c0,13.123,10.677,23.8,23.8,23.8h26.194c13.123,0,23.8-10.677,23.8-23.8
+                                    v-92.55v-19.209C292.896,340.998,288.544,333.625,281.984,329.382z M269.096,341.743c0.358,0,0.714,0.033,1.068,0.084
+                                    c0.069,0.01,0.138,0.02,0.207,0.031c0.354,0.06,0.705,0.14,1.051,0.25c3.074,0.986,5.306,3.87,5.306,7.266V360.5h-41.457v-11.125
+                                    c0-3.396,2.231-6.279,5.304-7.265c0.347-0.111,0.7-0.191,1.055-0.251c0.068-0.012,0.136-0.022,0.205-0.031
+                                    c0.355-0.051,0.71-0.084,1.068-0.084H269.096z M269.096,468.766h-26.193c-4.208,0-7.632-3.423-7.632-7.631v-84.466h41.457v84.466
+                                    C276.728,465.341,273.306,468.766,269.096,468.766z"/>
+                                <path style="fill:#231F20;" d="M273.9,495.832H238.1c-4.465,0-8.084,3.62-8.084,8.084S233.636,512,238.1,512H273.9
+                                    c4.466,0,8.084-3.62,8.084-8.084S278.365,495.832,273.9,495.832z"/>
+                            </g>
+                        </svg>
+                    </div>
+                    <div style="font-size: 2rem; font-weight: 800; color: var(--jedi-blue); margin-bottom: 0.5rem;" x-text="batteryLife.toFixed(1) + ' hours'"></div>
+                    <div style="color: var(--text-dim);">Estimated Battery Life</div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem;">
+                    <div style="background: var(--space-dark); padding: 1rem; border-radius: var(--radius); text-align: center;">
+                        <div style="font-size: 1.25rem; font-weight: 700; color: var(--mace-purple);" x-text="rechargeTime.toFixed(1) + 'h'"></div>
+                        <div style="font-size: 0.875rem; color: var(--text-dim);">Recharge Time</div>
+                    </div>
+                    <div style="background: var(--space-dark); padding: 1rem; border-radius: var(--radius); text-align: center;">
+                        <div style="font-size: 1.25rem; font-weight: 700; color: var(--luke-green);" x-text="efficiencyRating + '%'"></div>
+                        <div style="font-size: 0.875rem; color: var(--text-dim);">Efficiency</div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 2rem; padding: 1rem; background: var(--space-dark); border-radius: var(--radius);">
+                    <h3 style="margin-bottom: 1rem;">Battle Scenarios:</h3>
+                    <div x-show="batteryLife >= 1">🧘 Meditation: <span x-text="(batteryLife * 4).toFixed(1)"></span> hours</div>
+                    <div x-show="batteryLife >= 2">⚔️ Sparring: <span x-text="batteryLife.toFixed(1)"></span> hours</div>
+                    <div x-show="batteryLife >= 3">🌟 Combat: <span x-text="(batteryLife * 0.8).toFixed(1)"></span> hours</div>
+                    <div x-show="batteryLife >= 4">💀 Sith Duel: <span x-text="(batteryLife * 0.5).toFixed(1)"></span> hours</div>
+                </div>
+
+                <!-- Share Button -->
+                <div class="share-dropdown">
+                    <button class="share-button" @click="toggleShareMenu()">
+                        <span>⚔️</span>
+                        <span>Share Lightsaber Analysis</span>
+                    </button>
+                    <div class="share-menu" :class="{ active: showShareMenu }">
+                        <a class="share-option" @click="shareGeneral()" href="#" @click.prevent>
+                            <span class="share-icon">📱</span>
+                            <span>Share with Image</span>
+                        </a>
+                        <a class="share-option" @click="shareOnTwitter()" href="#" @click.prevent>
+                            <span class="share-icon">🐦</span>
+                            <span>Share on Twitter</span>
+                        </a>
+                        <a class="share-option" @click="shareOnFacebook()" href="#" @click.prevent>
+                            <span class="share-icon">📘</span>
+                            <span>Share on Facebook</span>
+                        </a>
+                        <a class="share-option" @click="shareOnLinkedIn()" href="#" @click.prevent>
+                            <span class="share-icon">💼</span>
+                            <span>Share on LinkedIn</span>
+                        </a>
+                        <a class="share-option" @click="shareOnReddit()" href="#" @click.prevent>
+                            <span class="share-icon">🤖</span>
+                            <span>Share on Reddit</span>
+                        </a>
+                        <a class="share-option" @click="copyShareLink()" href="#" @click.prevent>
+                            <span class="share-icon">🔗</span>
+                            <span>Copy Link</span>
+                        </a>
+                        <a class="share-option" @click="downloadImage()" href="#" @click.prevent>
+                            <span class="share-icon">💾</span>
+                            <span>Download Image</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Hidden canvas for generating share images -->
+    <canvas id="shareCanvas" width="1200" height="630"></canvas>
+    
+    <script>
+        function lightsaberCalculator() {
+            return {
+                selectedCrystal: 'jedi-blue',
+                combatIntensity: 5,
+                forceMastery: 5,
+                saberAge: 10,
+                batteryLife: 0,
+                rechargeTime: 0,
+                efficiencyRating: 0,
+                showShareMenu: false,
+                
+                crystals: {
+                    'jedi-blue': {
+                        name: 'Jedi Blue Crystal',
+                        efficiency: 0.85,
+                        baseLife: 8,
+                        recharge: 2,
+                        color: '#00d4ff',
+                        rgb: '0, 212, 255'
+                    },
+                    'sith-red': {
+                        name: 'Sith Red Crystal',
+                        efficiency: 0.65,
+                        baseLife: 6,
+                        recharge: 3.5,
+                        color: '#ff0040',
+                        rgb: '255, 0, 64'
+                    },
+                    'mace-purple': {
+                        name: 'Mace Windu Purple',
+                        efficiency: 0.95,
+                        baseLife: 12,
+                        recharge: 1.5,
+                        color: '#8b5cf6',
+                        rgb: '139, 92, 246'
+                    },
+                    'luke-green': {
+                        name: 'Luke\'s Green Crystal',
+                        efficiency: 0.88,
+                        baseLife: 9,
+                        recharge: 2.2,
+                        color: '#00ff88',
+                        rgb: '0, 255, 136'
+                    }
+                },
+                
+                init() {
+                    this.calculateBattery();
+                },
+                
+                selectCrystal(crystalKey) {
+                    this.selectedCrystal = crystalKey;
+                    this.calculateBattery();
+                },
+                
+                calculateBattery() {
+                    const crystal = this.crystals[this.selectedCrystal];
+                    
+                    let batteryLife = crystal.baseLife * crystal.efficiency;
+                    
+                    // Combat intensity factor
+                    const intensityFactor = 1 - ((this.combatIntensity - 1) * 0.08);
+                    batteryLife *= intensityFactor;
+                    
+                    // Force mastery bonus
+                    const masteryBonus = 1 + ((this.forceMastery - 5) * 0.05);
+                    batteryLife *= masteryBonus;
+                    
+                    // Age degradation
+                    const ageFactor = 1 - (this.saberAge * 0.005);
+                    batteryLife *= Math.max(0.3, ageFactor);
+                    
+                    this.batteryLife = Math.max(0.25, batteryLife);
+                    this.rechargeTime = crystal.recharge * (1 + (this.saberAge * 0.01));
+                    this.efficiencyRating = Math.round((this.batteryLife / crystal.baseLife) * 100);
+                },
+                
+                getIntensityDescription(intensity) {
+                    const descriptions = {
+                        1: 'Peaceful meditation',
+                        2: 'Form practice',
+                        3: 'Training droids',
+                        4: 'Light sparring',
+                        5: 'Intense training',
+                        6: 'Combat ready',
+                        7: 'Battle conditions',
+                        8: 'War intensity',
+                        9: 'Mustafar level',
+                        10: 'Order 66 survival'
+                    };
+                    return descriptions[intensity] || 'Unknown';
+                },
+                
+                getMasteryDescription(mastery) {
+                    const descriptions = {
+                        1: 'Youngling level',
+                        2: 'Padawan initiate',
+                        3: 'Padawan advanced',
+                        4: 'Knight apprentice',
+                        5: 'Jedi Knight',
+                        6: 'Skilled Knight',
+                        7: 'Master candidate',
+                        8: 'Jedi Master',
+                        9: 'Council member',
+                        10: 'Grand Master'
+                    };
+                    return descriptions[mastery] || 'Unknown';
+                },
+
+                toggleShareMenu() {
+                    this.showShareMenu = !this.showShareMenu;
+                },
+
+                generateShareText() {
+                    const crystal = this.crystals[this.selectedCrystal];
+                    return `⚔️ Lightsaber Battery Analysis: ${crystal.name} = ${this.batteryLife.toFixed(1)} hours! Force Mastery ${this.forceMastery}/10 🌟 Calculate yours at docket.one`;
+                },
+
+                generateShareImage() {
+                    const canvas = document.getElementById('shareCanvas');
+                    const ctx = canvas.getContext('2d');
+                    
+                    // Set canvas dimensions
+                    canvas.width = 1200;
+                    canvas.height = 630;
+                    
+                    // Create gradient background
+                    const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+                    gradient.addColorStop(0, '#0a0a0f');
+                    gradient.addColorStop(0.3, '#1a1a2e');
+                    gradient.addColorStop(0.7, '#1a1a2e');
+                    gradient.addColorStop(1, '#0a0a0f');
+                    ctx.fillStyle = gradient;
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    
+                    // Add stars background
+                    ctx.fillStyle = '#ffffff';
+                    for (let i = 0; i < 150; i++) {
+                        const x = Math.random() * canvas.width;
+                        const y = Math.random() * canvas.height;
+                        const size = Math.random() * 2 + 0.5;
+                        ctx.beginPath();
+                        ctx.arc(x, y, size, 0, 2 * Math.PI);
+                        ctx.fill();
+                    }
+                    
+                    // Title
+                    ctx.fillStyle = '#00d4ff';
+                    ctx.font = 'bold 42px Inter, sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('LIGHTSABER BATTERY ANALYSIS', canvas.width / 2, 80);
+                    
+                    // Main result
+                    ctx.fillStyle = '#fbbf24';
+                    ctx.font = 'bold 64px Inter, sans-serif';
+                    ctx.fillText(`${this.batteryLife.toFixed(1)} HOURS`, canvas.width / 2, 180);
+                    
+                    // Crystal info
+                    const crystal = this.crystals[this.selectedCrystal];
+                    ctx.fillStyle = crystal.color;
+                    ctx.font = 'bold 32px Inter, sans-serif';
+                    ctx.fillText(crystal.name, canvas.width / 2, 240);
+                    
+                    // Left Column - Combat Stats
+                    const leftX = 200;
+                    ctx.fillStyle = '#e2e8f0';
+                    ctx.font = 'bold 24px Inter, sans-serif';
+                    ctx.textAlign = 'left';
+                    ctx.fillText('⚔️ COMBAT INTENSITY', leftX, 320);
+                    ctx.fillText(`${this.combatIntensity}/10`, leftX, 350);
+                    
+                    ctx.fillText('🌟 FORCE MASTERY', leftX, 410);
+                    ctx.fillText(`${this.forceMastery}/10`, leftX, 440);
+                    
+                    ctx.fillText('⚡ EFFICIENCY', leftX, 500);
+                    ctx.fillText(`${this.efficiencyRating}%`, leftX, 530);
+                    
+                    // Right Column - Battle Scenarios
+                    const rightX = 700;
+                    ctx.fillText('🧘 MEDITATION', rightX, 320);
+                    ctx.fillText(`${(this.batteryLife * 4).toFixed(1)}h`, rightX, 350);
+                    
+                    ctx.fillText('⚔️ SPARRING', rightX, 410);
+                    ctx.fillText(`${this.batteryLife.toFixed(1)}h`, rightX, 440);
+                    
+                    ctx.fillText('💀 SITH DUEL', rightX, 500);
+                    ctx.fillText(`${(this.batteryLife * 0.5).toFixed(1)}h`, rightX, 530);
+                    
+                    // Footer
+                    ctx.fillStyle = '#fbbf24';
+                    ctx.font = '20px Inter, sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('docket.one/pages/GeekGalaxy/Lightsaber%20Battery%20Life%20Calculator', canvas.width / 2, 590);
+                    
+                    return canvas.toDataURL('image/png');
+                },
+
+                async shareGeneral() {
+                    const text = this.generateShareText();
+                    const calculatorUrl = 'https://docket.one/pages/GeekGalaxy/Lightsaber%20Battery%20Life%20Calculator.html';
+                    
+                    // Check if we're running locally
+                    const isLocal = window.location.protocol === 'file:';
+                    
+                    if (isLocal) {
+                        // For local files, just copy text and download image
+                        try {
+                            if (navigator.clipboard && navigator.clipboard.writeText) {
+                                await navigator.clipboard.writeText(`${text} ${calculatorUrl}`);
+                                alert('✅ Share text copied to clipboard!\n\nImage will download separately.');
+                            } else {
+                                // Fallback for older browsers
+                                const textArea = document.createElement('textarea');
+                                textArea.value = `${text} ${calculatorUrl}`;
+                                document.body.appendChild(textArea);
+                                textArea.select();
+                                document.execCommand('copy');
+                                document.body.removeChild(textArea);
+                                alert('✅ Share text copied to clipboard!\n\nImage will download separately.');
+                            }
+                            this.downloadImage();
+                        } catch (err) {
+                            console.warn('Clipboard failed, downloading image only:', err);
+                            this.downloadImage();
+                            alert('📥 Image downloaded! Share text:\n\n' + text + '\n\n' + calculatorUrl);
+                        }
+                        this.showShareMenu = false;
+                        return;
+                    }
+                    
+                    // Web Share API for mobile (HTTPS only)
+                    if (navigator.share) {
+                        try {
+                            const imageDataUrl = this.generateShareImage();
+                            const response = await fetch(imageDataUrl);
+                            const blob = await response.blob();
+                            const file = new File([blob], `lightsaber-analysis-${Date.now()}.png`, { type: 'image/png' });
+                            
+                            if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                                await navigator.share({
+                                    title: 'Lightsaber Battery Analysis - Results',
+                                    text: text,
+                                    url: calculatorUrl,
+                                    files: [file]
+                                });
+                            } else {
+                                await navigator.share({
+                                    title: 'Lightsaber Battery Calculator',
+                                    text: text,
+                                    url: calculatorUrl
+                                });
+                            }
+                            this.showShareMenu = false;
+                            return;
+                        } catch (err) {
+                            if (err.name !== 'AbortError') {
+                                console.log('Web Share API failed:', err);
+                            } else {
+                                this.showShareMenu = false;
+                                return;
+                            }
+                        }
+                    }
+                    
+                    // Fallback for desktop
+                    try {
+                        await navigator.clipboard.writeText(`${text} ${calculatorUrl}`);
+                        alert('✅ Results copied to clipboard!\n\nThe image has been downloaded for you to attach.');
+                        this.downloadImage();
+                    } catch (err) {
+                        console.error('Clipboard failed:', err);
+                        this.downloadImage();
+                        alert('📥 Image downloaded! Share text:\n\n' + text + '\n\n' + calculatorUrl);
+                    }
+                    this.showShareMenu = false;
+                },
+
+                async shareOnTwitter() {
+                    const text = this.generateShareText();
+                    const calculatorUrl = 'https://docket.one/pages/GeekGalaxy/Lightsaber%20Battery%20Life%20Calculator.html';
+                    
+                    // Try Web Share API first
+                    if (navigator.share && navigator.canShare) {
+                        try {
+                            const imageDataUrl = this.generateShareImage();
+                            const response = await fetch(imageDataUrl);
+                            const blob = await response.blob();
+                            const file = new File([blob], `lightsaber-analysis.png`, { type: 'image/png' });
+                            
+                            if (navigator.canShare({ files: [file] })) {
+                                await navigator.share({
+                                    title: 'Lightsaber Battery Calculator',
+                                    text: text,
+                                    url: calculatorUrl,
+                                    files: [file]
+                                });
+                                this.showShareMenu = false;
+                                return;
+                            }
+                        } catch (err) {
+                            console.log('Native sharing failed, falling back to Twitter web');
+                        }
+                    }
+                    
+                    // Fallback to Twitter web
+                    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(calculatorUrl)}`;
+                    window.open(twitterUrl, '_blank');
+                    this.showShareMenu = false;
+                },
+
+                async shareOnFacebook() {
+                    const calculatorUrl = 'https://docket.one/pages/GeekGalaxy/Lightsaber%20Battery%20Life%20Calculator.html';
+                    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(calculatorUrl)}`;
+                    window.open(facebookUrl, '_blank');
+                    this.showShareMenu = false;
+                },
+
+                async shareOnLinkedIn() {
+                    const text = this.generateShareText();
+                    const calculatorUrl = 'https://docket.one/pages/GeekGalaxy/Lightsaber%20Battery%20Life%20Calculator.html';
+                    const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(calculatorUrl)}`;
+                    window.open(linkedInUrl, '_blank');
+                    this.showShareMenu = false;
+                },
+
+                async shareOnReddit() {
+                    const text = this.generateShareText();
+                    const calculatorUrl = 'https://docket.one/pages/GeekGalaxy/Lightsaber%20Battery%20Life%20Calculator.html';
+                    const redditUrl = `https://reddit.com/submit?url=${encodeURIComponent(calculatorUrl)}&title=${encodeURIComponent(text)}`;
+                    window.open(redditUrl, '_blank');
+                    this.showShareMenu = false;
+                },
+
+                async copyShareLink() {
+                    const calculatorUrl = 'https://docket.one/pages/GeekGalaxy/Lightsaber%20Battery%20Life%20Calculator.html';
+                    try {
+                        await navigator.clipboard.writeText(calculatorUrl);
+                        const button = document.querySelector('.share-button');
+                        const originalText = button.innerHTML;
+                        button.innerHTML = '<span>✅</span><span>Link Copied!</span>';
+                        setTimeout(() => {
+                            button.innerHTML = originalText;
+                        }, 2000);
+                    } catch (err) {
+                        console.error('Failed to copy link:', err);
+                    }
+                    this.showShareMenu = false;
+                },
+
+                downloadImage() {
+                    const imageDataUrl = this.generateShareImage();
+                    const link = document.createElement('a');
+                    link.download = `lightsaber-analysis-${Date.now()}.png`;
+                    link.href = imageDataUrl;
+                    link.click();
+                    this.showShareMenu = false;
+                }
+            }
+        }
+    </script>
+
+    <!-- Mobile Menu Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if (mobileMenuBtn && navLinks) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    navLinks.classList.toggle('active');
+                    mobileMenuBtn.classList.toggle('active');
+                });
+                
+                document.addEventListener('click', function(event) {
+                    if (!event.target.closest('.main-nav')) {
+                        navLinks.classList.remove('active');
+                        mobileMenuBtn.classList.remove('active');
+                    }
+                    
+                    // Close share menu when clicking outside
+                    if (!event.target.closest('.share-dropdown')) {
+                        const shareMenus = document.querySelectorAll('.share-menu');
+                        shareMenus.forEach(menu => menu.classList.remove('active'));
+                    }
+                });
+            }
+        });
+    </script>
+<!-- Newsletter Bar -->
+<div class="newsletter-bar" x-data="newsletterForm()">
+    <div class="newsletter-container">
+        <div class="newsletter-content">
+            <div class="newsletter-info">
+                <h3>&#127881; Join Our Calculator Community!</h3>
+                <p>Get updates on new fun calculators and practical tools</p>
+            </div>
+            <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
+                <input 
+                    type="email" 
+                    class="newsletter-input"
+                    placeholder="Enter your email for calculator updates"
+                    x-model="email"
+                    required
+                >
+                <button 
+                    type="submit" 
+                    class="newsletter-submit"
+                    :disabled="isSubmitting"
+                >
+                    <span x-show="isSubmitting" class="loading-spinner"></span>
+                    <span x-text="isSubmitting ? 'Subscribing...' : '&#128640; Subscribe'"></span>
+                </button>
+            </form>
+            <div x-show="showSuccess" class="newsletter-success" style="display: none;">
+                <p style="color: var(--accent-light); font-weight: 600;">
+                    &#9989; Awesome! You'll get updates on the coolest new calculators!
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>&#127919; About Docket.One</h4>
+                <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the tools for modern life.</p>
+                <p>Practical meets playful. Because adulting is hard enough.</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>&#127914; Calculator Categories</h4>
+                <ul class="footer-links">
+                    <li><a href="/pages/BigKidMath/"><span class="calculator-emoji">&#129518;</span> BigKidMath - Adult Life Tools</a></li>
+                    <li><a href="/pages/CipherLab/"><span class="calculator-emoji">&#128272;</span> CipherLab - Secret Codes & Security</a></li>
+                    <li><a href="/pages/GeekGalaxy/"><span class="calculator-emoji">&#128640;</span> GeekGalaxy - Sci-Fi & Fantasy Fun</a></li>
+                    <li><a href="/pages/LifeHacks/"><span class="calculator-emoji">&#9889;</span> LifeHacks - Productivity & Wellness</a></li>
+                    <li><a href="/pages/Math_Magik/"><span class="calculator-emoji">&#127917;</span> Math Magik - Mathematical Wizardry</a></li>
+                    <li><a href="/pages/Otaku_Ops/"><span class="calculator-emoji">&#127999;</span> Otaku Ops - Anime & Culture</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>&#128172; Support & Info</h4>
+                <ul class="footer-links">
+                    <li><a href="/help"><span class="calculator-emoji">&#10067;</span> Help & FAQ</a></li>
+                    <li><a href="/privacy"><span class="calculator-emoji">&#128274;</span> Privacy Policy</a></li>
+                    <li><a href="/terms"><span class="calculator-emoji">&#128203;</span> Terms of Service</a></li>
+                    <li><a href="/accessibility"><span class="calculator-emoji">&#9855;</span> Accessibility</a></li>
+                    <li><a href="/contact"><span class="calculator-emoji">&#128231;</span> Contact Us</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <button 
+                    class="request-calculator-btn"
+                    @click="showModal = true"
+                >
+                    &#128161; Request a Calculator
+                </button>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="footer-logo">&#129518; Docket.One</div>
+            <div class="footer-copyright">
+                Â© 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
+            </div>
+            <div class="social-links">
+                <a href="#" class="social-link" aria-label="Twitter">&#120143;</a>
+                <a href="#" class="social-link" aria-label="LinkedIn">&#128188;</a>
+                <a href="#" class="social-link" aria-label="GitHub">&#128025;</a>
+                <a href="#" class="social-link" aria-label="Email">&#128231;</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Request Modal -->
+<div 
+    x-data="calculatorRequestForm()"
+    x-show="showModal"
+    x-cloak
+    class="modal-overlay"
+    @click.self="closeModal()"
+    style="display: none;"
+>
+    <div class="modal-content">
+        <div x-show="!showConfirmation">
+            <div class="modal-header">
+                <h2 class="modal-title">&#128161; Request a Fun Calculator</h2>
+                <p class="modal-subtitle">Got an idea for a calculator that would make life easier or more fun? We want to hear it!</p>
+                <button class="modal-close" @click="closeModal()">&#10005;</button>
+            </div>
+            <div class="modal-body">
+                <form @submit.prevent="submitRequest()">
+                    <div class="form-group">
+                        <label class="form-label" for="userName">Your Name *</label>
+                        <input type="text" id="userName" class="form-input" x-model="formData.name" required placeholder="What should we call you?">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="userEmail">Email Address *</label>
+                        <input type="email" id="userEmail" class="form-input" x-model="formData.email" required placeholder="your@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="requestType">What Kind of Request? *</label>
+                        <select id="requestType" class="form-input form-select" x-model="formData.type" required>
+                            <option value="">Choose your request type</option>
+                            <option value="new-calculator">&#127358; Brand New Calculator</option>
+                            <option value="enhancement">&#9889; Improve Existing Calculator</option>
+                            <option value="category">&#127914; New Category Idea</option>
+                            <option value="feature">&#10024; Cool New Feature</option>
+                            <option value="other">&#129300; Something Else Entirely</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="calculatorTitle">Calculator Name/Title *</label>
+                        <input type="text" id="calculatorTitle" class="form-input" x-model="formData.title" required placeholder="e.g., 'Should I Call In Sick Calculator'">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="description">Tell Us About Your Idea! *</label>
+                        <textarea id="description" class="form-input form-textarea" x-model="formData.description" required placeholder="Describe your calculator idea!"></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" @click="closeModal()">Maybe Later</button>
+                        <button type="submit" class="btn btn-primary" :disabled="isSubmitting">
+                            <span x-show="isSubmitting" class="loading-spinner"></span>
+                            <span x-text="isSubmitting ? 'Sending...' : '&#128640; Send My Idea'"></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div x-show="showConfirmation" class="confirmation-modal" style="display: none;">
+            <div class="modal-header">
+                <button class="modal-close" @click="closeModal()">&#10005;</button>
+            </div>
+            <div class="modal-body">
+                <div class="success-icon">&#127881;</div>
+                <h3 class="confirmation-title">Awesome! We Got Your Idea!</h3>
+                <p class="confirmation-message">
+                    Thanks for sharing your calculator idea with us! We're excited to check it out and see if we can make it happen. 
+                    <br><br>
+                    <strong>What happens next?</strong><br>
+                    â€¢ You'll get a confirmation email shortly<br>
+                    â€¢ Our team will review your idea<br>
+                    â€¢ If we build it, you'll be the first to know!<br>
+                    â€¢ We might even name you as the inspiration &#128522;
+                </p>
+                <button class="btn btn-primary" @click="closeModal()" style="width: 100%;">
+                    &#127919; Close & Keep Calculating!
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

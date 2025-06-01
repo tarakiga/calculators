@@ -1,0 +1,698 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Machine Paradox Detector</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        @keyframes timeWarp {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .animate-pulse { animation: pulse 2s infinite; }
+        .animate-timewarp { animation: timeWarp 3s infinite; }
+        .paradox-path {
+            transition: all 0.3s ease;
+        }
+        .paradox-path:hover {
+            stroke-width: 3px;
+        }
+        .bg-time {
+            background: linear-gradient(135deg, #000428 0%, #004e92 100%);
+        }
+    </style>
+    
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
+    <script src="../../common/footer/premium-footer.js"></script>
+
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
+    <script src="../../common/footer/premium-footer.js"></script>
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
+    <script src="../../common/footer/premium-footer.js"></script>
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
+    <script src="../../common/footer/premium-footer.js"></script>
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
+    <script src="../../common/footer/premium-footer.js"></script></head>
+<body x-data="{ showModal: false }" class="bg-gray-900 text-white min-h-screen">
+    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+<nav class="main-nav">
+    <div class="nav-container">
+        <div class="nav-logo">
+            <a href="../../index.html">🧮 Docket One</a>
+        </div>
+        <div class="nav-search">
+            <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input" aria-label="Search calculators">
+            <div id="search-results" class="search-results"></div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="../BigKidMath/index.html" class="category-link">Big Kid Math</a></li>
+            <li><a href="../CipherLab/index.html" class="category-link">Cipher Lab</a></li>
+            <li><a href="../GeekGalaxy/index.html" class="category-link">Geek Galaxy</a></li>
+            <li><a href="../LifeHacks/index.html" class="category-link">Life Hacks</a></li>
+            <li><a href="../Math_Magik/index.html" class="category-link">Math Magik</a></li>
+            <li><a href="../Otaku_Ops/index.html" class="category-link">Otaku Ops</a></li>
+            <li><a href="../../index.html" class="home-link">🏠 Home</a></li>
+        </ul>
+        <button class="mobile-menu-btn" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</nav>
+
+
+    <div class="container mx-auto px-4 py-12" x-data="paradoxDetector()">
+        <div class="max-w-4xl mx-auto bg-gray-800 rounded-xl shadow-2xl overflow-hidden border-t-4 border-blue-400">
+            <!-- Header -->
+            <div class="relative h-28 bg-time flex items-center justify-center">
+                <div class="absolute inset-0 flex items-center justify-center opacity-20">
+                    <div class="w-32 h-32 bg-blue-500 rounded-full blur-xl"></div>
+                </div>
+                <h1 class="text-3xl md:text-4xl font-bold text-center z-10">
+                    <i class="fas fa-clock mr-2"></i> Time Machine <span class="text-yellow-400">Paradox Detector</span>
+                </h1>
+                <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-blue-400 to-transparent"></div>
+            </div>
+            
+            <!-- Calculator Content -->
+            <div class="p-6 md:p-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                    <!-- Mission Parameters -->
+                    <div class="bg-gray-700 p-6 rounded-lg border-l-4 border-blue-500">
+                        <h2 class="text-xl font-bold mb-4 text-blue-300">
+                            <i class="fas fa-cogs mr-2"></i> Mission Parameters
+                        </h2>
+                        
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium mb-1">Target Year</label>
+                            <input type="range" x-model="targetYear" min="-10000" max="3000" step="10" 
+                                   class="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer">
+                            <div class="flex justify-between text-xs mt-1">
+                                <span x-text="formatYear(-10000)"></span>
+                                <span class="font-bold" x-text="formatYear(targetYear)"></span>
+                                <span x-text="formatYear(3000)"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium mb-1">Mission Type</label>
+                            <select x-model="missionType" class="w-full p-2 bg-gray-800 border border-gray-600 rounded-lg">
+                                <option value="observation">Observation Only</option>
+                                <option value="information">Information Gathering</option>
+                                <option value="interaction">Limited Interaction</option>
+                                <option value="alteration">Historical Alteration</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium mb-1">Target Individual</label>
+                            <label for="input-vjbmq7x3s" class="sr-only">Input field</label>
+            <input x-model="targetIndividual" type="text" id="input-vjbmq7x3s" aria-label="Calculator input" 
+                                   class="w-full p-2 bg-gray-800 border border-gray-600 rounded-lg" 
+                                   placeholder="e.g. 'Young Hitler'">
+                        </div>
+                        
+                        <div x-show="missionType === 'alteration'" class="mb-4">
+                            <label class="block text-sm font-medium mb-1">Planned Action</label>
+                            <select x-model="plannedAction" class="w-full p-2 bg-gray-800 border border-gray-600 rounded-lg">
+                                <option value="none">Select Action</option>
+                                <option value="warn">Warn Them</option>
+                                <option value="influence">Influence Decisions</option>
+                                <option value="disable">Disable Permanently</option>
+                                <option value="eliminate">Eliminate</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Paradox Analysis -->
+                    <div class="bg-gray-700 p-6 rounded-lg border-l-4 border-purple-500">
+                        <h2 class="text-xl font-bold mb-4 text-purple-300">
+                            <i class="fas fa-exclamation-triangle mr-2"></i> Paradox Analysis
+                        </h2>
+                        
+                        <div class="mb-4">
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium">Paradox Risk</span>
+                                <span class="text-xs" x-text="paradoxRisk + '%'"></span>
+                            </div>
+                            <div class="w-full bg-gray-800 h-3 rounded-full overflow-hidden">
+                                <div class="h-full rounded-full" 
+                                     :class="riskClass" 
+                                     :style="'width: ' + paradoxRisk + '%'"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium">Butterfly Effect</span>
+                                <span class="text-xs" x-text="butterflyEffect + '%'"></span>
+                            </div>
+                            <div class="w-full bg-gray-800 h-3 rounded-full overflow-hidden">
+                                <div class="h-full rounded-full bg-gradient-to-r from-green-400 to-yellow-500" 
+                                     :style="'width: ' + butterflyEffect + '%'"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-4 text-center mt-6">
+                            <div class="bg-gray-800 p-3 rounded-lg">
+                                <div class="text-2xl font-bold" x-text="temporalStability"></div>
+                                <div class="text-xs text-gray-400">STABILITY INDEX</div>
+                            </div>
+                            <div class="bg-gray-800 p-3 rounded-lg">
+                                <div class="text-2xl font-bold" x-text="recommendation"></div>
+                                <div class="text-xs text-gray-400">RECOMMENDATION</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Flowchart -->
+                <div class="bg-gray-900 p-6 rounded-lg mb-8 relative overflow-hidden">
+                    <div class="absolute inset-0 opacity-10 flex items-center justify-center text-9xl">
+                        <i class="fas fa-infinity"></i>
+                    </div>
+                    <h2 class="text-xl font-bold mb-4 text-center text-blue-300 relative z-10">
+                        PARADOX DECISION TREE
+                    </h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 relative z-10">
+                        <!-- Row 1 -->
+                        <div class="bg-gray-800 p-4 rounded-lg text-center border-2" 
+                             :class="missionType === 'observation' ? 'border-green-500' : 'border-gray-700'">
+                            <div class="font-bold mb-2">OBSERVE</div>
+                            <div class="text-xs text-gray-400">0-5% risk</div>
+                        </div>
+                        
+                        <div class="md:col-span-2 flex items-center justify-center">
+                            <div class="h-1 w-full bg-gray-600 paradox-path" 
+                                 :class="missionType === 'observation' ? 'bg-green-500' : ''"></div>
+                        </div>
+                        
+                        <!-- Row 2 -->
+                        <div class="bg-gray-800 p-4 rounded-lg text-center border-2" 
+                             :class="missionType === 'information' ? 'border-blue-500' : 'border-gray-700'">
+                            <div class="font-bold mb-2">GATHER INFO</div>
+                            <div class="text-xs text-gray-400">5-20% risk</div>
+                        </div>
+                        
+                        <div class="flex items-center justify-center">
+                            <div class="h-1 w-full bg-gray-600 paradox-path" 
+                                 :class="missionType === 'information' ? 'bg-blue-500' : ''"></div>
+                        </div>
+                        
+                        <div class="bg-gray-800 p-4 rounded-lg text-center border-2" 
+                             :class="missionType === 'interaction' ? 'border-yellow-500' : 'border-gray-700'">
+                            <div class="font-bold mb-2">INTERACT</div>
+                            <div class="text-xs text-gray-400">20-50% risk</div>
+                        </div>
+                        
+                        <!-- Row 3 -->
+                        <div class="bg-gray-800 p-4 rounded-lg text-center border-2" 
+                             :class="missionType === 'alteration' ? 'border-red-500' : 'border-gray-700'">
+                            <div class="font-bold mb-2">ALTER HISTORY</div>
+                            <div class="text-xs text-gray-400">50-100% risk</div>
+                        </div>
+                        
+                        <div class="md:col-span-2 flex items-center justify-center">
+                            <div class="h-1 w-full bg-gray-600 paradox-path" 
+                                 :class="missionType === 'alteration' ? 'bg-red-500' : ''"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Warnings -->
+                <div x-show="showWarning" class="p-4 bg-red-900 rounded-lg border border-red-700 mb-8 animate-pulse">
+                    <div class="flex items-start">
+                        <div class="text-2xl mr-3 text-red-400">
+                            <i class="fas fa-radiation"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-red-300 mb-1" x-text="warningTitle"></h3>
+                            <p class="text-sm" x-text="warningMessage"></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Historical Analysis -->
+                <div class="bg-gray-700 p-6 rounded-lg">
+                    <h2 class="text-xl font-bold mb-4 text-yellow-300">
+                        <i class="fas fa-landmark mr-2"></i> Historical Impact Simulation
+                    </h2>
+                    
+                    <div class="mb-4">
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm font-medium">Original Timeline Integrity</span>
+                            <span class="text-xs" x-text="originalTimeline + '%'"></span>
+                        </div>
+                        <div class="w-full bg-gray-800 h-3 rounded-full overflow-hidden">
+                            <div class="h-full rounded-full bg-gradient-to-r from-green-500 to-blue-500" 
+                                 :style="'width: ' + originalTimeline + '%'"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm font-medium">Alternate Timeline Quality</span>
+                            <span class="text-xs" x-text="alternateTimeline + '%'"></span>
+                        </div>
+                        <div class="w-full bg-gray-800 h-3 rounded-full overflow-hidden">
+                            <div class="h-full rounded-full bg-gradient-to-r from-yellow-500 to-red-500" 
+                                 :style="'width: ' + alternateTimeline + '%'"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 text-center">
+                        <button aria-label="Perform action" @click="runSimulation" 
+                                class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg transition duration-200">
+                            <i class="fas fa-play mr-2"></i> RUN TEMPORAL SIMULATION
+                        </button>
+                    </div>
+                    
+                    <div x-show="simulationComplete" class="mt-6 p-4 bg-gray-800 rounded-lg border border-yellow-500">
+                        <h3 class="font-bold text-yellow-400 mb-2">SIMULATION RESULTS:</h3>
+                        <p class="mb-2" x-text="simulationResult"></p>
+                        <p class="text-sm text-gray-400" x-text="simulationDetails"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-8 text-center text-gray-500 text-sm">
+            <p>Disclaimer: This is a fictional tool. Actual time travel may cause unexpected paradoxes.</p>
+            <p class="mt-1">Remember: Killing baby Hitler has an 83% chance of worse outcomes</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('paradoxDetector', () => ({
+                targetYear: 2023,
+                missionType: 'observation',
+                targetIndividual: '',
+                plannedAction: 'none',
+                showWarning: false,
+                warningTitle: '',
+                warningMessage: '',
+                simulationComplete: false,
+                simulationResult: '',
+                simulationDetails: '',
+                
+                // Computed properties
+                get formatYear() {
+                    return (year) => {
+                        if (year < 0) return Math.abs(year) + ' BCE';
+                        if (year > new Date().getFullYear() + 10) return year + ' (Future)';
+                        return year;
+                    };
+                },
+                
+                get paradoxRisk() {
+                    let risk = 0;
+                    
+                    // Base risk from mission type
+                    const missionRisks = {
+                        'observation': 5,
+                        'information': 20,
+                        'interaction': 50,
+                        'alteration': 80
+                    };
+                    risk = missionRisks[this.missionType];
+                    
+                    // Adjust for temporal distance (more change possible in recent past)
+                    const currentYear = new Date().getFullYear();
+                    const yearsDiff = Math.abs(currentYear - this.targetYear);
+                    
+                    if (yearsDiff < 100) risk += 15;
+                    else if (yearsDiff < 500) risk += 5;
+                    
+                    // Increase risk for targeting specific individuals
+                    if (this.targetIndividual.toLowerCase().includes('hitler')) {
+                        risk += 10;
+                        this.showWarning = true;
+                        this.warningTitle = "HIGH RISK TARGET DETECTED";
+                        this.warningMessage = "Historical analysis shows 83% chance of worse outcomes when altering Hitler's timeline";
+                    } else if (this.targetIndividual) {
+                        risk += 5;
+                    }
+                    
+                    // Additional risk for violent actions
+                    if (this.plannedAction === 'disable') risk += 10;
+                    if (this.plannedAction === 'eliminate') risk += 20;
+                    
+                    return Math.min(100, risk);
+                },
+                
+                get butterflyEffect() {
+                    // Butterfly effect increases with more recent events
+                    const currentYear = new Date().getFullYear();
+                    const yearsDiff = Math.abs(currentYear - this.targetYear);
+                    
+                    let effect = 100 - Math.min(100, yearsDiff / 10);
+                    
+                    // Amplify if altering important figures
+                    if (this.targetIndividual && this.missionType === 'alteration') {
+                        effect = Math.min(100, effect * 1.5);
+                    }
+                    
+                    return Math.round(effect);
+                },
+                
+                get riskClass() {
+                    if (this.paradoxRisk < 30) return 'bg-green-500';
+                    if (this.paradoxRisk < 60) return 'bg-yellow-500';
+                    return 'bg-red-500';
+                },
+                
+                get temporalStability() {
+                    const stability = 100 - this.paradoxRisk;
+                    if (stability > 80) return 'A+';
+                    if (stability > 60) return 'B';
+                    if (stability > 40) return 'C';
+                    if (stability > 20) return 'D';
+                    return 'F';
+                },
+                
+                get recommendation() {
+                    if (this.paradoxRisk < 20) return 'PROCEED';
+                    if (this.paradoxRisk < 50) return 'CAUTION';
+                    if (this.paradoxRisk < 80) return 'RECONSIDER';
+                    return 'ABORT';
+                },
+                
+                get originalTimeline() {
+                    return 100 - Math.floor(this.paradoxRisk / 2);
+                },
+                
+                get alternateTimeline() {
+                    // Quality of alternate timeline degrades with higher risk
+                    let quality = 100 - this.paradoxRisk;
+                    
+                    // Some actions might actually improve things (small chance)
+                    if (this.targetIndividual.toLowerCase().includes('hitler') && this.plannedAction === 'eliminate') {
+                        quality = Math.min(17, quality); // 17% chance of better outcomes
+                    }
+                    
+                    return Math.max(0, quality);
+                },
+                
+                runSimulation() {
+                    this.simulationComplete = true;
+                    
+                    if (this.paradoxRisk < 30) {
+                        this.simulationResult = "TIMELINE STABLE: Minimal changes detected";
+                        this.simulationDetails = "Your actions had negligible impact on the timeline";
+                    } 
+                    else if (this.paradoxRisk < 60) {
+                        this.simulationResult = "TIMELINE FLUCTUATIONS: Noticeable changes detected";
+                        this.simulationDetails = "Several historical events have been altered but key outcomes remain";
+                    }
+                    else {
+                        this.simulationResult = "CATASTROPHIC TIMELINE COLLAPSE: Paradox detected";
+                        
+                        if (this.targetIndividual.toLowerCase().includes('hitler')) {
+                            this.simulationDetails = "Eliminating Hitler resulted in a more competent fascist leader taking power earlier";
+                        }
+                        else {
+                            this.simulationDetails = "Your actions created a causal loop that erased your own existence";
+                        }
+                    }
+                }
+            }));
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if (mobileMenuBtn && navLinks) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    navLinks.classList.toggle('active');
+                    mobileMenuBtn.classList.toggle('active');
+                });
+                document.addEventListener('click', function(event) {
+                    if (!event.target.closest('.main-nav')) {
+                        navLinks.classList.remove('active');
+                        mobileMenuBtn.classList.remove('active');
+                    }
+                });
+            }
+        });
+    </script>
+
+    <div class="related-calculators" style="margin-top: 2rem; padding: 1rem; background: rgba(0,0,0,0.1); border-radius: 8px;">
+        <h3 style="margin-top: 0;">Related Geek Galaxy Tools</h3>
+        <a href="./AI Doomsday Countdown.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">AI Doomsday Countdown</a><a href="./Alien Communication Probability Calculator.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Alien Communication Probability Calculator</a><a href="./Lightsaber Battery Life Calculator.html" style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Lightsaber Battery Life Calculator</a>
+        <a href="./index.html" style="display: block; padding: 0.5rem; margin-top: 1rem; background: rgba(74,144,226,0.2); border-radius: 4px; text-decoration: none; color: inherit; font-weight: bold;">← Back to Geek Galaxy Hub</a>
+    </div>
+
+        <script>
+        // 🎅 Santa Claude's Interactive Enhancements
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🎅 Santa Claude's enhancements loaded!');
+            
+            // Enhanced button interactions
+            const buttons = document.querySelectorAll('button, .btn');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.classList.add('loading');
+                    setTimeout(() => {
+                        this.classList.remove('loading');
+                    }, 500);
+                });
+            });
+            
+            // Enhanced results display
+            const resultElements = document.querySelectorAll('.result, .results, .output, #result, #output');
+            resultElements.forEach(el => {
+                const observer = new MutationObserver(function(mutations) {
+                    mutations.forEach(function(mutation) {
+                        if (mutation.type === 'childList' || mutation.type === 'characterData') {
+                            el.classList.add('show');
+                        }
+                    });
+                });
+                observer.observe(el, { childList: true, subtree: true, characterData: true });
+            });
+            
+            // Form validation enhancements
+            const inputs = document.querySelectorAll('input[type="number"], input[type="text"]');
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    if (this.checkValidity()) {
+                        this.classList.remove('input-error');
+                        this.classList.add('input-success');
+                    } else {
+                        this.classList.remove('input-success');
+                        this.classList.add('input-error');
+                    }
+                });
+            });
+        });
+        </script>
+<!-- Newsletter Bar -->
+<div class="newsletter-bar" x-data="newsletterForm()">
+    <div class="newsletter-container">
+        <div class="newsletter-content">
+            <div class="newsletter-info">
+                <h3>&#127881; Join Our Calculator Community!</h3>
+                <p>Get updates on new fun calculators and practical tools</p>
+            </div>
+            <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
+                <input 
+                    type="email" 
+                    class="newsletter-input"
+                    placeholder="Enter your email for calculator updates"
+                    x-model="email"
+                    required
+                >
+                <button 
+                    type="submit" 
+                    class="newsletter-submit"
+                    :disabled="isSubmitting"
+                >
+                    <span x-show="isSubmitting" class="loading-spinner"></span>
+                    <span x-text="isSubmitting ? 'Subscribing...' : '&#128640; Subscribe'"></span>
+                </button>
+            </form>
+            <div x-show="showSuccess" class="newsletter-success" style="display: none;">
+                <p style="color: var(--accent-light); font-weight: 600;">
+                    &#9989; Awesome! You'll get updates on the coolest new calculators!
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>&#127919; About Docket.One</h4>
+                <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the tools for modern life.</p>
+                <p>Practical meets playful. Because adulting is hard enough.</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>&#127914; Calculator Categories</h4>
+                <ul class="footer-links">
+                    <li><a href="/pages/BigKidMath/"><span class="calculator-emoji">&#129518;</span> BigKidMath - Adult Life Tools</a></li>
+                    <li><a href="/pages/CipherLab/"><span class="calculator-emoji">&#128272;</span> CipherLab - Secret Codes & Security</a></li>
+                    <li><a href="/pages/GeekGalaxy/"><span class="calculator-emoji">&#128640;</span> GeekGalaxy - Sci-Fi & Fantasy Fun</a></li>
+                    <li><a href="/pages/LifeHacks/"><span class="calculator-emoji">&#9889;</span> LifeHacks - Productivity & Wellness</a></li>
+                    <li><a href="/pages/Math_Magik/"><span class="calculator-emoji">&#127917;</span> Math Magik - Mathematical Wizardry</a></li>
+                    <li><a href="/pages/Otaku_Ops/"><span class="calculator-emoji">&#127999;</span> Otaku Ops - Anime & Culture</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>&#128172; Support & Info</h4>
+                <ul class="footer-links">
+                    <li><a href="/help"><span class="calculator-emoji">&#10067;</span> Help & FAQ</a></li>
+                    <li><a href="/privacy"><span class="calculator-emoji">&#128274;</span> Privacy Policy</a></li>
+                    <li><a href="/terms"><span class="calculator-emoji">&#128203;</span> Terms of Service</a></li>
+                    <li><a href="/accessibility"><span class="calculator-emoji">&#9855;</span> Accessibility</a></li>
+                    <li><a href="/contact"><span class="calculator-emoji">&#128231;</span> Contact Us</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <button 
+                    class="request-calculator-btn"
+                    @click="showModal = true"
+                >
+                    &#128161; Request a Calculator
+                </button>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="footer-logo">&#129518; Docket.One</div>
+            <div class="footer-copyright">
+                Â© 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
+            </div>
+            <div class="social-links">
+                <a href="#" class="social-link" aria-label="Twitter">&#120143;</a>
+                <a href="#" class="social-link" aria-label="LinkedIn">&#128188;</a>
+                <a href="#" class="social-link" aria-label="GitHub">&#128025;</a>
+                <a href="#" class="social-link" aria-label="Email">&#128231;</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Request Modal -->
+<div 
+    x-data="calculatorRequestForm()"
+    x-show="showModal"
+    x-cloak
+    class="modal-overlay"
+    @click.self="closeModal()"
+    style="display: none;"
+>
+    <div class="modal-content">
+        <div x-show="!showConfirmation">
+            <div class="modal-header">
+                <h2 class="modal-title">&#128161; Request a Fun Calculator</h2>
+                <p class="modal-subtitle">Got an idea for a calculator that would make life easier or more fun? We want to hear it!</p>
+                <button class="modal-close" @click="closeModal()">&#10005;</button>
+            </div>
+            <div class="modal-body">
+                <form @submit.prevent="submitRequest()">
+                    <div class="form-group">
+                        <label class="form-label" for="userName">Your Name *</label>
+                        <input type="text" id="userName" class="form-input" x-model="formData.name" required placeholder="What should we call you?">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="userEmail">Email Address *</label>
+                        <input type="email" id="userEmail" class="form-input" x-model="formData.email" required placeholder="your@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="requestType">What Kind of Request? *</label>
+                        <select id="requestType" class="form-input form-select" x-model="formData.type" required>
+                            <option value="">Choose your request type</option>
+                            <option value="new-calculator">&#127358; Brand New Calculator</option>
+                            <option value="enhancement">&#9889; Improve Existing Calculator</option>
+                            <option value="category">&#127914; New Category Idea</option>
+                            <option value="feature">&#10024; Cool New Feature</option>
+                            <option value="other">&#129300; Something Else Entirely</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="calculatorTitle">Calculator Name/Title *</label>
+                        <input type="text" id="calculatorTitle" class="form-input" x-model="formData.title" required placeholder="e.g., 'Should I Call In Sick Calculator'">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="description">Tell Us About Your Idea! *</label>
+                        <textarea id="description" class="form-input form-textarea" x-model="formData.description" required placeholder="Describe your calculator idea!"></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" @click="closeModal()">Maybe Later</button>
+                        <button type="submit" class="btn btn-primary" :disabled="isSubmitting">
+                            <span x-show="isSubmitting" class="loading-spinner"></span>
+                            <span x-text="isSubmitting ? 'Sending...' : '&#128640; Send My Idea'"></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div x-show="showConfirmation" class="confirmation-modal" style="display: none;">
+            <div class="modal-header">
+                <button class="modal-close" @click="closeModal()">&#10005;</button>
+            </div>
+            <div class="modal-body">
+                <div class="success-icon">&#127881;</div>
+                <h3 class="confirmation-title">Awesome! We Got Your Idea!</h3>
+                <p class="confirmation-message">
+                    Thanks for sharing your calculator idea with us! We're excited to check it out and see if we can make it happen. 
+                    <br><br>
+                    <strong>What happens next?</strong><br>
+                    â€¢ You'll get a confirmation email shortly<br>
+                    â€¢ Our team will review your idea<br>
+                    â€¢ If we build it, you'll be the first to know!<br>
+                    â€¢ We might even name you as the inspiration &#128522;
+                </p>
+                <button class="btn btn-primary" @click="closeModal()" style="width: 100%;">
+                    &#127919; Close & Keep Calculating!
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

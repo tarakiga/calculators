@@ -1,0 +1,851 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ogham Translator | CipherLab - Docket One</title>
+    <meta name="description" content="Ancient Irish Ogham script translator with cultural context and export features.">
+    
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
+    <style>
+        :root {
+            --primary: #d4af37;
+            --secondary: #228b22;
+            --accent: #cd7f32;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-600: #4b5563;
+            --gray-800: #1f2937;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--gray-50);
+            color: var(--gray-800);
+            line-height: 1.6;
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 50%, var(--secondary) 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.125rem;
+            opacity: 0.9;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+        
+        .translator-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+        
+        .translator-panel, .info-panel {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--gray-200);
+        }
+        
+        .mode-selector {
+            display: flex;
+            background: var(--gray-100);
+            border-radius: 8px;
+            padding: 4px;
+            margin-bottom: 2rem;
+        }
+        
+        .mode-button {
+            flex: 1;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 6px;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .mode-button.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .input-field, .output-field {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--gray-200);
+            border-radius: 12px;
+            font-size: 1rem;
+            min-height: 120px;
+            margin-bottom: 1rem;
+            resize: vertical;
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .output-field {
+            background: var(--gray-50);
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--accent);
+        }
+        
+        .ogham-display {
+            background: linear-gradient(145deg, #f5f5f0, #e8e8e0);
+            border: 3px solid var(--accent);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 1rem 0;
+            min-height: 120px;
+            position: relative;
+            text-align: center;
+        }
+        
+        .ogham-text {
+            font-size: 2rem;
+            line-height: 1.8;
+            color: var(--accent);
+            font-weight: 600;
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .controls {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: var(--gray-200);
+            color: var(--gray-800);
+        }
+        
+        .btn-export {
+            background: var(--secondary);
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .character-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .character-item {
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+            padding: 0.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .character-item:hover {
+            background: white;
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        .character-ogham {
+            font-size: 1.5rem;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+        
+        .character-latin {
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .cultural-info {
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            color: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .cultural-info h3 {
+            margin-bottom: 1rem;
+        }
+        
+        .cultural-info p {
+            margin-bottom: 0.75rem;
+            opacity: 0.95;
+        }
+        
+        .export-section {
+            background: var(--gray-50);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .export-section h3 {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .export-options {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+        
+        @media (max-width: 768px) {
+            .translator-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero {
+                padding: 2rem 1rem;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 2rem 1rem;
+            }
+            
+            .controls {
+                flex-direction: column;
+            }
+            
+            .export-options {
+                flex-direction: column;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
+    <script src="../../common/footer/premium-footer.js"></script>
+
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
+    <script src="../../common/footer/premium-footer.js"></script>
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
+    <script src="../../common/footer/premium-footer.js"></script>
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
+    <script src="../../common/footer/premium-footer.js"></script>
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
+    <script src="../../common/footer/premium-footer.js"></script></head>
+<body x-data="{ showModal: false }">
+    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+<nav class="main-nav">
+    <div class="nav-container">
+        <div class="nav-logo">
+            <a href="../../index.html">🧮 Docket One</a>
+        </div>
+        <div class="nav-search">
+            <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input" aria-label="Search calculators">
+            <div id="search-results" class="search-results"></div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="../BigKidMath/index.html" class="category-link">Big Kid Math</a></li>
+            <li><a href="../CipherLab/index.html" class="category-link">Cipher Lab</a></li>
+            <li><a href="../GeekGalaxy/index.html" class="category-link">Geek Galaxy</a></li>
+            <li><a href="../LifeHacks/index.html" class="category-link">Life Hacks</a></li>
+            <li><a href="../Math_Magik/index.html" class="category-link">Math Magik</a></li>
+            <li><a href="../Otaku_Ops/index.html" class="category-link">Otaku Ops</a></li>
+            <li><a href="../../index.html" class="home-link">🏠 Home</a></li>
+        </ul>
+        <button class="mobile-menu-btn" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</nav>
+
+    <section class="hero">
+        <h1 class="hero-title">🗿 Ogham Translator</h1>
+        <p class="hero-subtitle">Discover the ancient Irish alphabet used from the 4th to 6th centuries</p>
+    </section>
+
+    <main class="container">
+        <div class="translator-grid" x-data="oghamTranslator()">
+            <div class="translator-panel">
+                <div class="mode-selector">
+                    <button @click="mode = 'encode'" :class="{ active: mode === 'encode' }" class="mode-button">
+                        Latin → Ogham
+                    </button>
+                    <button @click="mode = 'decode'" :class="{ active: mode === 'decode' }" class="mode-button">
+                        Ogham → Latin
+                    </button>
+                </div>
+
+                <label x-text="mode === 'encode' ? 'Enter Latin text:' : 'Enter Ogham text:'"></label>
+                <textarea 
+                    x-model="inputText" 
+                    @input="translate"
+                    class="input-field" 
+                    :placeholder="mode === 'encode' ? 'Type your message...' : 'Enter Ogham characters...'"></textarea>
+
+                <div x-show="outputText && mode === 'encode'" class="ogham-display" id="ogham-export-area">
+                    <div class="ogham-text" x-text="outputText"></div>
+                    <div style="margin-top: 1rem; font-size: 0.875rem; color: var(--gray-600);">
+                        <strong>Original:</strong> <span x-text="inputText"></span>
+                    </div>
+                </div>
+
+                <div class="controls">
+                    <button @click="copyResult" :disabled="!outputText" class="btn btn-primary">
+                        📋 Copy Result
+                    </button>
+                    <button @click="clearAll" class="btn btn-secondary">
+                        🗑️ Clear All
+                    </button>
+                </div>
+
+                <div x-show="outputText" class="export-section">
+                    <h3>📤 Export Translation</h3>
+                    <div class="export-options">
+                        <button @click="exportToPDF" :disabled="!outputText" class="btn btn-export">
+                            📄 Export PDF
+                        </button>
+                        <button @click="exportToImage" :disabled="!outputText" class="btn btn-export">
+                            🖼️ Export Image
+                        </button>
+                    </div>
+                </div>
+
+                <label x-text="mode === 'encode' ? 'Ogham result:' : 'Latin result:'"></label>
+                <textarea 
+                    x-model="outputText" 
+                    class="output-field" 
+                    readonly
+                    :placeholder="mode === 'encode' ? 'Your Ogham translation...' : 'Your Latin translation...'"></textarea>
+            </div>
+
+            <div class="info-panel">
+                <h3>📚 Ogham Alphabet</h3>
+                <div class="character-grid">
+                    <template x-for="char in oghamChars" :key="char.latin">
+                        <div class="character-item" @click="insertChar(char)" :title="char.name">
+                            <span class="character-ogham" x-text="char.ogham"></span>
+                            <span class="character-latin" x-text="char.latin"></span>
+                        </div>
+                    </template>
+                </div>
+
+                <div class="cultural-info">
+                    <h3>🏛️ Historical Context</h3>
+                    <p>Ogham is an ancient Irish alphabet used primarily from the 4th to 6th centuries CE.</p>
+                    <p>The script was carved along the edges of stone monuments, typically reading from bottom to top.</p>
+                    <p>Most Ogham stones served as territorial markers or memorials for ancient Irish nobility.</p>
+                </div>
+
+                <div style="margin-top: 2rem; padding: 1rem; background: var(--gray-50); border-radius: 8px; font-size: 0.875rem;">
+                    <h4 style="margin-bottom: 0.5rem;">💡 Usage Tips</h4>
+                    <p><strong>Encoding:</strong> Type Latin letters (A-Z) to see Ogham equivalent.</p>
+                    <p><strong>Tree Names:</strong> Each Ogham letter represents a tree in Irish tradition.</p>
+                    <p><strong>Export:</strong> Save your translations as PDF or image files.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('oghamTranslator', () => ({
+                mode: 'encode',
+                inputText: '',
+                outputText: '',
+                
+                oghamChars: [
+                    { latin: 'A', ogham: 'ᚐ', name: 'Ailm (Elm)' },
+                    { latin: 'B', ogham: 'ᚁ', name: 'Beith (Birch)' },
+                    { latin: 'C', ogham: 'ᚂ', name: 'Coll (Hazel)' },
+                    { latin: 'D', ogham: 'ᚃ', name: 'Duir (Oak)' },
+                    { latin: 'E', ogham: 'ᚄ', name: 'Eadha (Aspen)' },
+                    { latin: 'F', ogham: 'ᚅ', name: 'Fearn (Alder)' },
+                    { latin: 'G', ogham: 'ᚆ', name: 'Gort (Ivy)' },
+                    { latin: 'H', ogham: 'ᚇ', name: 'Huathe (Hawthorn)' },
+                    { latin: 'I', ogham: 'ᚈ', name: 'Ioho (Yew)' },
+                    { latin: 'L', ogham: 'ᚊ', name: 'Luis (Rowan)' },
+                    { latin: 'M', ogham: 'ᚋ', name: 'Muin (Vine)' },
+                    { latin: 'N', ogham: 'ᚌ', name: 'Nion (Ash)' },
+                    { latin: 'O', ogham: 'ᚍ', name: 'Onn (Furze)' },
+                    { latin: 'P', ogham: 'ᚎ', name: 'Peith (Downy Birch)' },
+                    { latin: 'Q', ogham: 'ᚏ', name: 'Queirt (Apple)' },
+                    { latin: 'R', ogham: 'ᚐ', name: 'Ruis (Elder)' },
+                    { latin: 'S', ogham: 'ᚑ', name: 'Saille (Willow)' },
+                    { latin: 'T', ogham: 'ᚒ', name: 'Tinne (Holly)' },
+                    { latin: 'U', ogham: 'ᚓ', name: 'Ur (Heather)' },
+                    { latin: 'Z', ogham: 'ᚗ', name: 'Straif (Blackthorn)' }
+                ],
+                
+                oghamToLatin: {},
+                
+                init() {
+                    this.oghamChars.forEach(char => {
+                        this.oghamToLatin[char.ogham] = char.latin;
+                    });
+                    this.inputText = 'HELLO IRELAND';
+                    this.translate();
+                },
+                
+                translate() {
+                    if (!this.inputText.trim()) {
+                        this.outputText = '';
+                        return;
+                    }
+                    
+                    if (this.mode === 'encode') {
+                        this.encodeToOgham();
+                    } else {
+                        this.decodeFromOgham();
+                    }
+                },
+                
+                encodeToOgham() {
+                    let result = '';
+                    const text = this.inputText.toUpperCase();
+                    
+                    for (const char of text) {
+                        if (char === ' ') {
+                            result += ' ';
+                        } else {
+                            const oghamChar = this.oghamChars.find(c => c.latin === char);
+                            result += oghamChar ? oghamChar.ogham : char;
+                        }
+                    }
+                    
+                    this.outputText = result;
+                },
+                
+                decodeFromOgham() {
+                    let result = '';
+                    
+                    for (const char of this.inputText) {
+                        if (char === ' ') {
+                            result += ' ';
+                        } else {
+                            result += this.oghamToLatin[char] || char;
+                        }
+                    }
+                    
+                    this.outputText = result;
+                },
+                
+                insertChar(char) {
+                    if (this.mode === 'encode') {
+                        this.inputText += char.latin;
+                    } else {
+                        this.inputText += char.ogham;
+                    }
+                    this.translate();
+                },
+                
+                copyResult() {
+                    navigator.clipboard.writeText(this.outputText).then(() => {
+                        const button = event.currentTarget;
+                        const originalText = button.innerHTML;
+                        button.innerHTML = '✅ Copied!';
+                        button.style.background = 'var(--secondary)';
+                        
+                        setTimeout(() => {
+                            button.innerHTML = originalText;
+                            button.style.background = 'var(--primary)';
+                        }, 2000);
+                    }).catch(() => {
+                        alert('Failed to copy to clipboard');
+                    });
+                },
+                
+                clearAll() {
+                    this.inputText = '';
+                    this.outputText = '';
+                },
+                
+                async exportToPDF() {
+                    if (!this.outputText) return;
+                    
+                    try {
+                        const { jsPDF } = window.jspdf;
+                        const pdf = new jsPDF();
+                        
+                        pdf.setFontSize(20);
+                        pdf.setFont('helvetica', 'bold');
+                        pdf.text('Ogham Translation', 20, 30);
+                        
+                        pdf.setFontSize(12);
+                        pdf.setFont('helvetica', 'normal');
+                        pdf.text('Ancient Irish Script Translation', 20, 40);
+                        
+                        pdf.setFontSize(14);
+                        pdf.setFont('helvetica', 'bold');
+                        pdf.text('Original Text:', 20, 60);
+                        pdf.setFont('helvetica', 'normal');
+                        pdf.text(this.inputText, 20, 70);
+                        
+                        pdf.setFont('helvetica', 'bold');
+                        pdf.text('Ogham Translation:', 20, 90);
+                        pdf.setFontSize(18);
+                        pdf.setFont('helvetica', 'normal');
+                        pdf.text(this.outputText, 20, 105);
+                        
+                        pdf.setFontSize(10);
+                        pdf.setFont('helvetica', 'italic');
+                        pdf.text('Ogham is an ancient Irish alphabet used from the 4th to 6th centuries CE.', 20, 130);
+                        pdf.text('The script was carved along stone edges, typically reading bottom to top.', 20, 140);
+                        
+                        pdf.setFont('helvetica', 'normal');
+                        pdf.text('Generated by CipherLab - Docket One', 20, 280);
+                        pdf.text(new Date().toLocaleDateString(), 20, 290);
+                        
+                        pdf.save('ogham-translation.pdf');
+                        
+                        const button = event.currentTarget;
+                        const originalText = button.innerHTML;
+                        button.innerHTML = '✅ PDF Saved!';
+                        setTimeout(() => {
+                            button.innerHTML = originalText;
+                        }, 2000);
+                        
+                    } catch (error) {
+                        console.error('PDF export failed:', error);
+                        alert('Failed to export PDF. Please try again.');
+                    }
+                },
+                
+                async exportToImage() {
+                    if (!this.outputText) return;
+                    
+                    try {
+                        const canvas = document.createElement('canvas');
+                        const ctx = canvas.getContext('2d');
+                        
+                        canvas.width = 800;
+                        canvas.height = 500;
+                        
+                        const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+                        gradient.addColorStop(0, '#f5f5f0');
+                        gradient.addColorStop(1, '#e8e8e0');
+                        ctx.fillStyle = gradient;
+                        ctx.fillRect(0, 0, canvas.width, canvas.height);
+                        
+                        ctx.strokeStyle = '#cd7f32';
+                        ctx.lineWidth = 6;
+                        ctx.strokeRect(20, 20, canvas.width - 40, canvas.height - 40);
+                        
+                        ctx.fillStyle = '#cd7f32';
+                        ctx.font = 'bold 28px serif';
+                        ctx.textAlign = 'center';
+                        ctx.fillText('Ogham Translation', canvas.width / 2, 70);
+                        
+                        ctx.font = '16px serif';
+                        ctx.fillStyle = '#666';
+                        ctx.fillText('Ancient Irish Script (4th-6th Century CE)', canvas.width / 2, 95);
+                        
+                        ctx.fillStyle = '#333';
+                        ctx.font = 'bold 18px serif';
+                        ctx.textAlign = 'left';
+                        ctx.fillText('Original:', 50, 150);
+                        ctx.font = '16px serif';
+                        ctx.fillText(this.inputText, 50, 175);
+                        
+                        ctx.fillStyle = '#cd7f32';
+                        ctx.font = 'bold 32px serif';
+                        ctx.textAlign = 'center';
+                        ctx.fillText(this.outputText, canvas.width / 2, 250);
+                        
+                        ctx.fillStyle = '#333';
+                        ctx.font = 'bold 18px serif';
+                        ctx.textAlign = 'left';
+                        ctx.fillText('Translation:', 50, 300);
+                        ctx.font = '16px serif';
+                        ctx.fillText(this.mode === 'encode' ? 'Latin to Ogham' : 'Ogham to Latin', 50, 325);
+                        
+                        ctx.fillStyle = '#666';
+                        ctx.font = 'italic 12px serif';
+                        ctx.textAlign = 'center';
+                        ctx.fillText('Ogham stones were territorial markers and memorials in ancient Ireland', canvas.width / 2, 380);
+                        
+                        ctx.fillStyle = '#999';
+                        ctx.font = '12px serif';
+                        ctx.fillText('Generated by CipherLab - Docket One', canvas.width / 2, 420);
+                        ctx.fillText(new Date().toLocaleDateString(), canvas.width / 2, 440);
+                        
+                        const link = document.createElement('a');
+                        link.download = 'ogham-translation.png';
+                        link.href = canvas.toDataURL('image/png');
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                        
+                        const button = event.currentTarget;
+                        const originalText = button.innerHTML;
+                        button.innerHTML = '✅ Image Saved!';
+                        setTimeout(() => {
+                            button.innerHTML = originalText;
+                        }, 2000);
+                        
+                    } catch (error) {
+                        console.error('Image export failed:', error);
+                        alert('Failed to export image. Please try again.');
+                    }
+                }
+            }));
+        });
+    </script>
+<!-- Newsletter Bar -->
+<div class="newsletter-bar" x-data="newsletterForm()">
+    <div class="newsletter-container">
+        <div class="newsletter-content">
+            <div class="newsletter-info">
+                <h3>&#127881; Join Our Calculator Community!</h3>
+                <p>Get updates on new fun calculators and practical tools</p>
+            </div>
+            <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
+                <input 
+                    type="email" 
+                    class="newsletter-input"
+                    placeholder="Enter your email for calculator updates"
+                    x-model="email"
+                    required
+                >
+                <button 
+                    type="submit" 
+                    class="newsletter-submit"
+                    :disabled="isSubmitting"
+                >
+                    <span x-show="isSubmitting" class="loading-spinner"></span>
+                    <span x-text="isSubmitting ? 'Subscribing...' : '&#128640; Subscribe'"></span>
+                </button>
+            </form>
+            <div x-show="showSuccess" class="newsletter-success" style="display: none;">
+                <p style="color: var(--accent-light); font-weight: 600;">
+                    &#9989; Awesome! You'll get updates on the coolest new calculators!
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>&#127919; About Docket.One</h4>
+                <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the tools for modern life.</p>
+                <p>Practical meets playful. Because adulting is hard enough.</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>&#127914; Calculator Categories</h4>
+                <ul class="footer-links">
+                    <li><a href="/pages/BigKidMath/"><span class="calculator-emoji">&#129518;</span> BigKidMath - Adult Life Tools</a></li>
+                    <li><a href="/pages/CipherLab/"><span class="calculator-emoji">&#128272;</span> CipherLab - Secret Codes & Security</a></li>
+                    <li><a href="/pages/GeekGalaxy/"><span class="calculator-emoji">&#128640;</span> GeekGalaxy - Sci-Fi & Fantasy Fun</a></li>
+                    <li><a href="/pages/LifeHacks/"><span class="calculator-emoji">&#9889;</span> LifeHacks - Productivity & Wellness</a></li>
+                    <li><a href="/pages/Math_Magik/"><span class="calculator-emoji">&#127917;</span> Math Magik - Mathematical Wizardry</a></li>
+                    <li><a href="/pages/Otaku_Ops/"><span class="calculator-emoji">&#127999;</span> Otaku Ops - Anime & Culture</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>&#128172; Support & Info</h4>
+                <ul class="footer-links">
+                    <li><a href="/help"><span class="calculator-emoji">&#10067;</span> Help & FAQ</a></li>
+                    <li><a href="/privacy"><span class="calculator-emoji">&#128274;</span> Privacy Policy</a></li>
+                    <li><a href="/terms"><span class="calculator-emoji">&#128203;</span> Terms of Service</a></li>
+                    <li><a href="/accessibility"><span class="calculator-emoji">&#9855;</span> Accessibility</a></li>
+                    <li><a href="/contact"><span class="calculator-emoji">&#128231;</span> Contact Us</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <button 
+                    class="request-calculator-btn"
+                    @click="showModal = true"
+                >
+                    &#128161; Request a Calculator
+                </button>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="footer-logo">&#129518; Docket.One</div>
+            <div class="footer-copyright">
+                Â© 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
+            </div>
+            <div class="social-links">
+                <a href="#" class="social-link" aria-label="Twitter">&#120143;</a>
+                <a href="#" class="social-link" aria-label="LinkedIn">&#128188;</a>
+                <a href="#" class="social-link" aria-label="GitHub">&#128025;</a>
+                <a href="#" class="social-link" aria-label="Email">&#128231;</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Request Modal -->
+<div 
+    x-data="calculatorRequestForm()"
+    x-show="showModal"
+    x-cloak
+    class="modal-overlay"
+    @click.self="closeModal()"
+    style="display: none;"
+>
+    <div class="modal-content">
+        <div x-show="!showConfirmation">
+            <div class="modal-header">
+                <h2 class="modal-title">&#128161; Request a Fun Calculator</h2>
+                <p class="modal-subtitle">Got an idea for a calculator that would make life easier or more fun? We want to hear it!</p>
+                <button class="modal-close" @click="closeModal()">&#10005;</button>
+            </div>
+            <div class="modal-body">
+                <form @submit.prevent="submitRequest()">
+                    <div class="form-group">
+                        <label class="form-label" for="userName">Your Name *</label>
+                        <input type="text" id="userName" class="form-input" x-model="formData.name" required placeholder="What should we call you?">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="userEmail">Email Address *</label>
+                        <input type="email" id="userEmail" class="form-input" x-model="formData.email" required placeholder="your@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="requestType">What Kind of Request? *</label>
+                        <select id="requestType" class="form-input form-select" x-model="formData.type" required>
+                            <option value="">Choose your request type</option>
+                            <option value="new-calculator">&#127358; Brand New Calculator</option>
+                            <option value="enhancement">&#9889; Improve Existing Calculator</option>
+                            <option value="category">&#127914; New Category Idea</option>
+                            <option value="feature">&#10024; Cool New Feature</option>
+                            <option value="other">&#129300; Something Else Entirely</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="calculatorTitle">Calculator Name/Title *</label>
+                        <input type="text" id="calculatorTitle" class="form-input" x-model="formData.title" required placeholder="e.g., 'Should I Call In Sick Calculator'">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="description">Tell Us About Your Idea! *</label>
+                        <textarea id="description" class="form-input form-textarea" x-model="formData.description" required placeholder="Describe your calculator idea!"></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" @click="closeModal()">Maybe Later</button>
+                        <button type="submit" class="btn btn-primary" :disabled="isSubmitting">
+                            <span x-show="isSubmitting" class="loading-spinner"></span>
+                            <span x-text="isSubmitting ? 'Sending...' : '&#128640; Send My Idea'"></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div x-show="showConfirmation" class="confirmation-modal" style="display: none;">
+            <div class="modal-header">
+                <button class="modal-close" @click="closeModal()">&#10005;</button>
+            </div>
+            <div class="modal-body">
+                <div class="success-icon">&#127881;</div>
+                <h3 class="confirmation-title">Awesome! We Got Your Idea!</h3>
+                <p class="confirmation-message">
+                    Thanks for sharing your calculator idea with us! We're excited to check it out and see if we can make it happen. 
+                    <br><br>
+                    <strong>What happens next?</strong><br>
+                    â€¢ You'll get a confirmation email shortly<br>
+                    â€¢ Our team will review your idea<br>
+                    â€¢ If we build it, you'll be the first to know!<br>
+                    â€¢ We might even name you as the inspiration &#128522;
+                </p>
+                <button class="btn btn-primary" @click="closeModal()" style="width: 100%;">
+                    &#127919; Close & Keep Calculating!
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

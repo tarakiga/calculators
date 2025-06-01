@@ -1,0 +1,1125 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizza Pi Calculator | Docket One</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #E53E3E;
+            --primary-light: #FC8181;
+            --primary-dark: #C53030;
+            --accent: #F6AD55;
+            --background: #FFF5F5;
+            --text: #2D3748;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-5px);
+            }
+
+            75% {
+                transform: translateX(5px);
+            }
+        }
+
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        .rotate {
+            animation: rotate 20s linear infinite;
+        }
+
+        .slide-up {
+            animation: slideUp 0.5s ease forwards;
+        }
+
+        .pizza-wave {
+            background: linear-gradient(135deg, #E53E3E 0%, #FC8181 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pizza-wave::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255, 255, 255, 0.1) 25%, transparent 25%),
+                linear-gradient(-45deg, rgba(255, 255, 255, 0.1) 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, rgba(255, 255, 255, 0.1) 75%),
+                linear-gradient(-45deg, transparent 75%, rgba(255, 255, 255, 0.1) 75%);
+            background-size: 20px 20px;
+            animation: wave 20s linear infinite;
+        }
+
+        @keyframes wave {
+            0% {
+                background-position: 0 0;
+            }
+
+            100% {
+                background-position: 40px 40px;
+            }
+        }
+
+        .pizza-card {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pizza-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .pizza-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .pizza-card:hover::before {
+            opacity: 1;
+        }
+
+        .pizza-card.best-value::after {
+            content: '🏆';
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            font-size: 2rem;
+            animation: bounce 1s ease infinite;
+        }
+
+        .best-value {
+            border: 2px solid var(--primary);
+            box-shadow: 0 0 15px rgba(229, 62, 62, 0.2);
+        }
+
+        .achievement-badge {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transform: translateX(120%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .achievement-badge.show {
+            transform: translateX(0);
+        }
+
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .input-focus {
+            transform: scale(1.02);
+            box-shadow: 0 0 15px rgba(229, 62, 62, 0.3);
+        }
+
+        .calculate-btn {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .calculate-btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg,
+                    transparent,
+                    rgba(255, 255, 255, 0.3),
+                    transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% {
+                transform: translateX(-100%) rotate(45deg);
+            }
+
+            100% {
+                transform: translateX(100%) rotate(45deg);
+            }
+        }
+
+        .pizza-size-visualizer {
+            width: 100%;
+            height: 200px;
+            position: relative;
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .pizza-circle {
+            border-radius: 50%;
+            background: linear-gradient(135deg, #E53E3E 0%, #FC8181 100%);
+            position: relative;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .pizza-circle::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: 80%;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .pizza-slice {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            clip-path: polygon(0 0, 100% 0, 0 100%);
+            transform-origin: bottom right;
+        }
+
+        .comparison-chart {
+            width: 100%;
+            height: 200px;
+            margin: 20px 0;
+            display: flex;
+            align-items: flex-end;
+            gap: 10px;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .chart-bar {
+            flex: 1;
+            background: linear-gradient(to top, #E53E3E, #FC8181);
+            border-radius: 4px 4px 0 0;
+            transition: height 0.5s ease;
+            position: relative;
+            min-width: 40px;
+        }
+
+        .chart-bar::after {
+            content: attr(data-value);
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            color: #C53030;
+        }
+
+        .pizza-tips {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .tip-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 8px;
+            background: #FFF5F5;
+            transition: transform 0.2s ease;
+        }
+
+        .tip-item:hover {
+            transform: translateX(10px);
+        }
+
+        .tip-icon {
+            font-size: 24px;
+            color: #E53E3E;
+        }
+
+        .pizza-presets {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .preset-btn {
+            padding: 10px;
+            border: 2px solid #E53E3E;
+            border-radius: 8px;
+            background: white;
+            color: #E53E3E;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .preset-btn:hover {
+            background: #E53E3E;
+            color: white;
+        }
+
+        .pizza-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #E53E3E;
+            margin: 10px 0;
+        }
+
+        .stat-label {
+            color: #718096;
+            font-size: 14px;
+        }
+    </style>
+
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
+    <script src="../../common/footer/premium-footer.js"></script>
+
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
+    <script src="../../common/footer/premium-footer.js"></script>
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
+    <script src="../../common/footer/premium-footer.js"></script>
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
+    <script src="../../common/footer/premium-footer.js"></script>
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../common/global-calculator.css">
+    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
+    <script src="../../common/footer/premium-footer.js"></script></head>
+
+<body class="bg-[#FFF5F5] min-h-screen" x-data="pizzaCalculator()">
+    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+<nav class="main-nav">
+    <div class="nav-container">
+        <div class="nav-logo">
+            <a href="../../index.html">🧮 Docket One</a>
+        </div>
+        <div class="nav-search">
+            <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input" aria-label="Search calculators">
+            <div id="search-results" class="search-results"></div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="../BigKidMath/index.html" class="category-link">Big Kid Math</a></li>
+            <li><a href="../CipherLab/index.html" class="category-link">Cipher Lab</a></li>
+            <li><a href="../GeekGalaxy/index.html" class="category-link">Geek Galaxy</a></li>
+            <li><a href="../LifeHacks/index.html" class="category-link">Life Hacks</a></li>
+            <li><a href="../Math_Magik/index.html" class="category-link">Math Magik</a></li>
+            <li><a href="../Otaku_Ops/index.html" class="category-link">Otaku Ops</a></li>
+            <li><a href="../../index.html" class="home-link">🏠 Home</a></li>
+        </ul>
+        <button class="mobile-menu-btn" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</nav>
+
+    <div class="container mx-auto px-4 py-12">
+        <div class="max-w-4xl mx-auto">
+            <!-- Hero Section -->
+            <div class="relative pizza-wave rounded-2xl overflow-hidden mb-8">
+                <div class="relative z-10 px-8 py-12 text-center">
+                    <div class="inline-flex items-center px-4 py-2 bg-white/10 rounded-full mb-4">
+                        <span class="text-2xl mr-2 pulse">🍕</span>
+                        <span class="text-white font-medium">Pizza Math</span>
+                    </div>
+                    <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">
+                        <span class="rotate inline-block">
+                            <i class="fas fa-pizza-slice mr-2"></i>
+                        </span>
+                        Pizza Pi Calculator
+                    </h1>
+                    <p class="text-white/90 text-lg max-w-2xl mx-auto">
+                        Because size <em>does</em> matter when it comes to pizza value!
+                    </p>
+                </div>
+            </div>
+
+            <!-- Calculator Content -->
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+                <div class="p-6 md:p-8">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                        <!-- Pizza 1 -->
+                        <div class="bg-[#FFF5F5] p-6 rounded-xl border-l-4 border-[#E53E3E]">
+                            <h2 class="text-xl font-bold mb-4 text-[#C53030]">
+                                <i class="fas fa-pizza-slice mr-2"></i> Pizza #1
+                            </h2>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium mb-1 text-[#C53030]">Diameter
+                                        (inches)</label>
+                                    <input type="number" x-model="pizzas[0].size" min="5" max="30" step="0.1"
+                                        class="w-full p-2 border border-[#FC8181] rounded-lg focus:ring-2 focus:ring-[#E53E3E] focus:border-transparent"
+                                        @input="calculate">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-1 text-[#C53030]">Price ($)</label>
+                                    <input type="number" x-model="pizzas[0].price" min="1" max="100" step="0.01"
+                                        class="w-full p-2 border border-[#FC8181] rounded-lg focus:ring-2 focus:ring-[#E53E3E] focus:border-transparent"
+                                        @input="calculate">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pizza 2 -->
+                        <div class="bg-[#FFF5F5] p-6 rounded-xl border-l-4 border-[#E53E3E]">
+                            <h2 class="text-xl font-bold mb-4 text-[#C53030]">
+                                <i class="fas fa-pizza-slice mr-2"></i> Pizza #2
+                            </h2>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium mb-1 text-[#C53030]">Diameter
+                                        (inches)</label>
+                                    <input type="number" x-model="pizzas[1].size" min="5" max="30" step="0.1"
+                                        class="w-full p-2 border border-[#FC8181] rounded-lg focus:ring-2 focus:ring-[#E53E3E] focus:border-transparent"
+                                        @input="calculate">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-1 text-[#C53030]">Price ($)</label>
+                                    <input type="number" x-model="pizzas[1].price" min="1" max="100" step="0.01"
+                                        class="w-full p-2 border border-[#FC8181] rounded-lg focus:ring-2 focus:ring-[#E53E3E] focus:border-transparent"
+                                        @input="calculate">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pizza 3 -->
+                        <div class="bg-[#FFF5F5] p-6 rounded-xl border-l-4 border-[#E53E3E]">
+                            <h2 class="text-xl font-bold mb-4 text-[#C53030]">
+                                <i class="fas fa-pizza-slice mr-2"></i> Pizza #3 (Optional)
+                            </h2>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium mb-1 text-[#C53030]">Diameter
+                                        (inches)</label>
+                                    <input type="number" x-model="pizzas[2].size" min="5" max="30" step="0.1"
+                                        class="w-full p-2 border border-[#FC8181] rounded-lg focus:ring-2 focus:ring-[#E53E3E] focus:border-transparent"
+                                        @input="calculate">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-1 text-[#C53030]">Price ($)</label>
+                                    <input type="number" x-model="pizzas[2].price" min="1" max="100" step="0.01"
+                                        class="w-full p-2 border border-[#FC8181] rounded-lg focus:ring-2 focus:ring-[#E53E3E] focus:border-transparent"
+                                        @input="calculate">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Add after the pizza input cards -->
+                    <div class="pizza-presets">
+                        <button class="preset-btn" @click="applyPreset('personal')">Personal (10")</button>
+                        <button class="preset-btn" @click="applyPreset('medium')">Medium (12")</button>
+                        <button class="preset-btn" @click="applyPreset('large')">Large (14")</button>
+                        <button class="preset-btn" @click="applyPreset('xlarge')">X-Large (16")</button>
+                        <button class="preset-btn" @click="applyPreset('party')">Party (18")</button>
+                    </div>
+
+                    <!-- Calculate Button -->
+                    <button @click="calculate"
+                        class="w-full bg-gradient-to-r from-[#E53E3E] to-[#C53030] text-white font-bold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5">
+                        <i class="fas fa-calculator mr-2"></i> Calculate Pizza Value
+                    </button>
+
+                    <!-- Results -->
+                    <div x-show="results" x-transition class="space-y-6 mt-8">
+                        <!-- Pizza Comparison -->
+                        <div class="bg-[#FFF5F5] p-6 rounded-xl">
+                            <h3 class="text-lg font-bold mb-4 text-[#C53030]">Pizza Value Analysis</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <template x-for="(pizza, index) in activePizzas" :key="index">
+                                    <div class="bg-white p-6 rounded-lg shadow-sm pizza-card"
+                                        :class="{ 'best-value': pizza.isBestValue }">
+                                        <div class="text-center">
+                                            <h4 class="text-lg font-bold mb-2" x-text="'Pizza #' + (index + 1)"></h4>
+                                            <div class="text-3xl font-bold text-[#E53E3E] mb-2" x-text="pizza.size + '\"'"></div>
+                                            <div class="text-xl mb-2" x-text="' $' + pizza.price.toFixed(2)"></div>
+                                            <div class="text-sm text-[#718096] mb-1"
+                                                x-text="pizza.area.toFixed(1) + ' in² total'"></div>
+                                            <div class="text-sm text-[#718096] mb-1"
+                                                x-text="pizza.crust.toFixed(1) + '\" crust'"></div>
+                                            <div class="text-lg font-bold text-[#C53030]"
+                                                x-text="pizza.value.toFixed(2) + ' in²/$'"></div>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+
+                        <!-- Fun Facts -->
+                        <div class="bg-[#FFF5F5] p-6 rounded-xl">
+                            <h3 class="text-lg font-bold mb-4 text-[#C53030]">Pizza Math Fun Facts</h3>
+                            <div class="bg-white p-6 rounded-lg">
+                                <div class="prose max-w-none" x-html="funFact"></div>
+                            </div>
+                        </div>
+
+                        <!-- Math Formulas -->
+                        <div class="bg-[#FFF5F5] p-6 rounded-xl">
+                            <h3 class="text-lg font-bold mb-4 text-[#C53030]">Pizza Math Formulas</h3>
+                            <div class="bg-white p-6 rounded-lg space-y-2">
+                                <p class="flex items-center">
+                                    <span class="text-[#E53E3E] mr-2">•</span>
+                                    <strong>Area</strong> = π × (radius)² (radius = diameter ÷ 2)
+                                </p>
+                                <p class="flex items-center">
+                                    <span class="text-[#E53E3E] mr-2">•</span>
+                                    <strong>Value Score</strong> = Area ÷ Price (higher is better)
+                                </p>
+                                <p class="flex items-center">
+                                    <span class="text-[#E53E3E] mr-2">•</span>
+                                    <strong>Crust Length</strong> = π × diameter (total inches of delicious crust)
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Add before the results section -->
+                    <div class="pizza-size-visualizer" x-show="activePizzas.length > 0">
+                        <template x-for="(pizza, index) in activePizzas" :key="index">
+                            <div class="pizza-circle" :style="{
+                                width: (pizza.size * 10) + 'px',
+                                height: (pizza.size * 10) + 'px',
+                                transform: pizza.isBestValue ? 'scale(1.1)' : 'scale(1)'
+                            }">
+                                <div class="pizza-slice" style="transform: rotate(45deg)"></div>
+                                <div class="pizza-slice" style="transform: rotate(135deg)"></div>
+                                <div class="pizza-slice" style="transform: rotate(225deg)"></div>
+                                <div class="pizza-slice" style="transform: rotate(315deg)"></div>
+                            </div>
+                        </template>
+                    </div>
+
+                    <!-- Add after the pizza comparison section -->
+                    <div class="comparison-chart" x-show="results">
+                        <template x-for="(pizza, index) in activePizzas" :key="index">
+                            <div class="chart-bar" :style="{
+                                height: (pizza.value / maxValue * 100) + '%'
+                            }" :data-value="pizza.value.toFixed(2) + ' in²/$'"></div>
+                        </template>
+                    </div>
+
+                    <div class="pizza-stats" x-show="results">
+                        <div class="stat-card">
+                            <div class="stat-label">Total Pizza Area</div>
+                            <div class="stat-value" x-text="totalArea.toFixed(1) + ' in²'"></div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">Total Crust Length</div>
+                            <div class="stat-value" x-text="totalCrust.toFixed(1) + '"'"></div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">Average Value Score</div>
+                            <div class="stat-value" x-text="averageValue.toFixed(2) + ' in²/$'"></div>
+                        </div>
+                    </div>
+
+                    <div class="pizza-tips" x-show="results">
+                        <h3 class="text-lg font-bold mb-4 text-[#C53030]">Pizza Tips</h3>
+                        <div class="tip-item">
+                            <span class="tip-icon">💡</span>
+                            <div>
+                                <strong>Best Value:</strong> Pizza #<span x-text="bestValueIndex + 1"></span> offers the
+                                best value at
+                                <span x-text="bestValue.toFixed(2)"></span> in² per dollar!
+                            </div>
+                        </div>
+                        <div class="tip-item" x-show="totalArea > 200">
+                            <span class="tip-icon">🎉</span>
+                            <div>
+                                <strong>Party Ready:</strong> You have enough pizza to feed a small party!
+                            </div>
+                        </div>
+                        <div class="tip-item" x-show="averageValue > 15">
+                            <span class="tip-icon">💰</span>
+                            <div>
+                                <strong>Great Deal:</strong> Your average value score is excellent!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Achievement Badge -->
+    <div class="achievement-badge" x-show="showAchievement" x-transition>
+        <div class="flex items-center">
+            <span class="text-2xl mr-2" x-text="achievementIcon"></span>
+            <div>
+                <h4 class="font-bold" x-text="achievementTitle"></h4>
+                <p class="text-sm" x-text="achievementDescription"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Related Calculators -->
+    <div class="related-calculators max-w-4xl mx-auto mt-8 p-6 bg-white/50 backdrop-blur-sm rounded-xl">
+        <h3 class="text-lg font-bold mb-4 text-[#C53030]">Related Math Magik Tools</h3>
+        <div class="space-y-2">
+            <a href="./Double Pendulum Chaos.html"
+                class="block p-3 bg-white/80 hover:bg-white rounded-lg transition-colors text-[#C53030] hover:text-[#E53E3E]">
+                Double Pendulum Chaos
+            </a>
+            <a href="./entropy and feigenbaums constant.html"
+                class="block p-3 bg-white/80 hover:bg-white rounded-lg transition-colors text-[#C53030] hover:text-[#E53E3E]">
+                Entropy and Feigenbaum's Constant
+            </a>
+            <a href="./FIRE Number Calculator.html"
+                class="block p-3 bg-white/80 hover:bg-white rounded-lg transition-colors text-[#C53030] hover:text-[#E53E3E]">
+                FIRE Number Calculator
+            </a>
+            <a href="./index.html"
+                class="block p-3 mt-4 bg-[#E53E3E] hover:bg-[#C53030] rounded-lg transition-colors text-white font-medium">
+                ← Back to Math Magik Hub
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function pizzaCalculator() {
+            return {
+                pizzas: [
+                    { size: 12, price: 15.99, area: 0, value: 0, crust: 0, isBestValue: false },
+                    { size: 14, price: 19.99, area: 0, value: 0, crust: 0, isBestValue: false },
+                    { size: 0, price: 0, area: 0, value: 0, crust: 0, isBestValue: false }
+                ],
+                results: false,
+                showAchievement: false,
+                achievementIcon: '',
+                achievementTitle: '',
+                achievementDescription: '',
+                funFact: '',
+                sounds: {},
+
+                init() {
+                    // Add sound effects
+                    this.sounds = {
+                        calculate: new Audio('https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3'),
+                        achievement: new Audio('https://assets.mixkit.co/active_storage/sfx/270/270-preview.mp3'),
+                        hover: new Audio('https://assets.mixkit.co/active_storage/sfx/270/270-preview.mp3')
+                    };
+
+                    // Add input focus effects
+                    document.querySelectorAll('input').forEach(input => {
+                        input.addEventListener('focus', () => {
+                            input.classList.add('input-focus');
+                            this.sounds.hover.play();
+                        });
+                        input.addEventListener('blur', () => {
+                            input.classList.remove('input-focus');
+                        });
+                    });
+                },
+
+                get activePizzas() {
+                    return this.pizzas.filter(p => p.size > 0 && p.price > 0);
+                },
+
+                get maxValue() {
+                    return Math.max(...this.activePizzas.map(p => p.value));
+                },
+
+                get totalArea() {
+                    return this.activePizzas.reduce((sum, p) => sum + p.area, 0);
+                },
+
+                get totalCrust() {
+                    return this.activePizzas.reduce((sum, p) => sum + p.crust, 0);
+                },
+
+                get averageValue() {
+                    return this.activePizzas.reduce((sum, p) => sum + p.value, 0) / this.activePizzas.length;
+                },
+
+                get bestValueIndex() {
+                    return this.activePizzas.findIndex(p => p.isBestValue);
+                },
+
+                get bestValue() {
+                    return this.activePizzas.find(p => p.isBestValue)?.value || 0;
+                },
+
+                calculate() {
+                    // Play calculation sound
+                    this.sounds.calculate.play();
+
+                    // Calculate values for each pizza
+                    this.activePizzas.forEach(pizza => {
+                        const radius = pizza.size / 2;
+                        pizza.area = Math.PI * Math.pow(radius, 2);
+                        pizza.value = pizza.area / pizza.price;
+                        pizza.crust = Math.PI * pizza.size;
+                    });
+
+                    // Find best value
+                    if (this.activePizzas.length > 0) {
+                        const bestValue = Math.max(...this.activePizzas.map(p => p.value));
+                        this.activePizzas.forEach(pizza => {
+                            pizza.isBestValue = pizza.value === bestValue;
+                        });
+                    }
+
+                    // Generate fun fact
+                    this.generateFunFact();
+
+                    // Check for achievements
+                    this.checkAchievements();
+
+                    this.results = true;
+
+                    // Add confetti effect
+                    this.createConfetti();
+                },
+
+                generateFunFact() {
+                    if (this.activePizzas.length >= 2) {
+                        const p1 = this.activePizzas[0];
+                        const p2 = this.activePizzas[1];
+                        const p3 = this.activePizzas[2];
+
+                        if (this.activePizzas.length === 2) {
+                            const areaDiff = ((p1.area + p2.area - p2.area) / p2.area * 100).toFixed(0);
+                            const crustDiff = ((p1.crust + p2.crust - p2.crust) / p2.crust * 100).toFixed(0);
+
+                            this.funFact = `
+                                <p>🍕 <strong>Fun Fact:</strong> 2 ${p1.size.toFixed(0)}" pizzas give you 
+                                ${areaDiff}% more pizza than 1 ${p2.size.toFixed(0)}" pizza!</p>
+                                <p>And ${crustDiff}% more crust for dipping! 🧀</p>
+                            `;
+                        } else if (this.activePizzas.length === 3) {
+                            const areaRatio = (p1.area + p2.area) / p3.area;
+                            const diff = Math.abs(areaRatio * 100 - 100).toFixed(0);
+
+                            this.funFact = `
+                                <p>🍕 <strong>Fun Fact:</strong> Combining Pizza #1 and #2 gives you 
+                                ${areaRatio > 1 ? 'more' : 'less'} pizza than Pizza #3 
+                                (${diff}% ${areaRatio > 1 ? 'more' : 'less'})</p>
+                            `;
+                        }
+                    } else {
+                        this.funFact = `
+                            <p>🍕 <strong>Tip:</strong> Add more pizza options to compare value!</p>
+                        `;
+                    }
+                },
+
+                checkAchievements() {
+                    this.showAchievement = false;
+
+                    if (this.activePizzas.length >= 2) {
+                        const bestValue = Math.max(...this.activePizzas.map(p => p.value));
+                        const bestPizza = this.activePizzas.find(p => p.value === bestValue);
+
+                        if (bestValue > 20) {
+                            this.showAchievement = true;
+                            this.achievementIcon = '🏆';
+                            this.achievementTitle = 'Pizza Value Champion';
+                            this.achievementDescription = 'You found an amazing pizza deal!';
+                            this.sounds.achievement.play();
+                            this.createConfetti();
+                        } else if (bestPizza.size >= 20) {
+                            this.showAchievement = true;
+                            this.achievementIcon = '🍕';
+                            this.achievementTitle = 'Pizza Size Master';
+                            this.achievementDescription = 'That's one big pizza!';
+                            this.sounds.achievement.play();
+                            this.createConfetti();
+                        }
+                    }
+                },
+
+                createConfetti() {
+                    const colors = ['#E53E3E', '#FC8181', '#F6AD55', '#C53030'];
+                    for (let i = 0; i < 50; i++) {
+                        const confetti = document.createElement('div');
+                        confetti.className = 'confetti';
+                        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                        confetti.style.left = Math.random() * 100 + 'vw';
+                        confetti.style.top = -10 + 'px';
+                        confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+                        document.body.appendChild(confetti);
+
+                        const animation = confetti.animate([
+                            { transform: `translate(0, 0) rotate(0deg)`, opacity: 1 },
+                            { transform: `translate(${Math.random() * 100 - 50}px, ${window.innerHeight}px) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+                        ], {
+                            duration: 2000 + Math.random() * 1000,
+                            easing: 'cubic-bezier(0.1, 0.8, 0.2, 1)'
+                        });
+
+                        animation.onfinish = () => confetti.remove();
+                    }
+                },
+
+                applyPreset(type) {
+                    const presets = {
+                        personal: { size: 10, price: 12.99 },
+                        medium: { size: 12, price: 15.99 },
+                        large: { size: 14, price: 19.99 },
+                        xlarge: { size: 16, price: 24.99 },
+                        party: { size: 18, price: 29.99 }
+                    };
+
+                    const preset = presets[type];
+                    if (preset) {
+                        // Find the first empty pizza slot
+                        const emptyIndex = this.pizzas.findIndex(p => p.size === 0);
+                        if (emptyIndex !== -1) {
+                            this.pizzas[emptyIndex] = {
+                                ...preset,
+                                area: 0,
+                                value: 0,
+                                crust: 0,
+                                isBestValue: false
+                            };
+                            this.calculate();
+                        }
+                    }
+                }
+            };
+        }
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+
+            if (mobileMenuBtn && navLinks) {
+                mobileMenuBtn.addEventListener('click', function () {
+                    navLinks.classList.toggle('active');
+                    mobileMenuBtn.classList.toggle('active');
+                });
+                document.addEventListener('click', function (event) {
+                    if (!event.target.closest('.main-nav')) {
+                        navLinks.classList.remove('active');
+                        mobileMenuBtn.classList.remove('active');
+                    }
+                });
+            }
+        });
+    </script>
+<!-- Newsletter Bar -->
+<div class="newsletter-bar" x-data="newsletterForm()">
+    <div class="newsletter-container">
+        <div class="newsletter-content">
+            <div class="newsletter-info">
+                <h3>&#127881; Join Our Calculator Community!</h3>
+                <p>Get updates on new fun calculators and practical tools</p>
+            </div>
+            <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
+                <input 
+                    type="email" 
+                    class="newsletter-input"
+                    placeholder="Enter your email for calculator updates"
+                    x-model="email"
+                    required
+                >
+                <button 
+                    type="submit" 
+                    class="newsletter-submit"
+                    :disabled="isSubmitting"
+                >
+                    <span x-show="isSubmitting" class="loading-spinner"></span>
+                    <span x-text="isSubmitting ? 'Subscribing...' : '&#128640; Subscribe'"></span>
+                </button>
+            </form>
+            <div x-show="showSuccess" class="newsletter-success" style="display: none;">
+                <p style="color: var(--accent-light); font-weight: 600;">
+                    &#9989; Awesome! You'll get updates on the coolest new calculators!
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>&#127919; About Docket.One</h4>
+                <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the tools for modern life.</p>
+                <p>Practical meets playful. Because adulting is hard enough.</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>&#127914; Calculator Categories</h4>
+                <ul class="footer-links">
+                    <li><a href="/pages/BigKidMath/"><span class="calculator-emoji">&#129518;</span> BigKidMath - Adult Life Tools</a></li>
+                    <li><a href="/pages/CipherLab/"><span class="calculator-emoji">&#128272;</span> CipherLab - Secret Codes & Security</a></li>
+                    <li><a href="/pages/GeekGalaxy/"><span class="calculator-emoji">&#128640;</span> GeekGalaxy - Sci-Fi & Fantasy Fun</a></li>
+                    <li><a href="/pages/LifeHacks/"><span class="calculator-emoji">&#9889;</span> LifeHacks - Productivity & Wellness</a></li>
+                    <li><a href="/pages/Math_Magik/"><span class="calculator-emoji">&#127917;</span> Math Magik - Mathematical Wizardry</a></li>
+                    <li><a href="/pages/Otaku_Ops/"><span class="calculator-emoji">&#127999;</span> Otaku Ops - Anime & Culture</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>&#128172; Support & Info</h4>
+                <ul class="footer-links">
+                    <li><a href="/help"><span class="calculator-emoji">&#10067;</span> Help & FAQ</a></li>
+                    <li><a href="/privacy"><span class="calculator-emoji">&#128274;</span> Privacy Policy</a></li>
+                    <li><a href="/terms"><span class="calculator-emoji">&#128203;</span> Terms of Service</a></li>
+                    <li><a href="/accessibility"><span class="calculator-emoji">&#9855;</span> Accessibility</a></li>
+                    <li><a href="/contact"><span class="calculator-emoji">&#128231;</span> Contact Us</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <button 
+                    class="request-calculator-btn"
+                    @click="showModal = true"
+                >
+                    &#128161; Request a Calculator
+                </button>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="footer-logo">&#129518; Docket.One</div>
+            <div class="footer-copyright">
+                Â© 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
+            </div>
+            <div class="social-links">
+                <a href="#" class="social-link" aria-label="Twitter">&#120143;</a>
+                <a href="#" class="social-link" aria-label="LinkedIn">&#128188;</a>
+                <a href="#" class="social-link" aria-label="GitHub">&#128025;</a>
+                <a href="#" class="social-link" aria-label="Email">&#128231;</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Request Modal -->
+<div 
+    x-data="calculatorRequestForm()"
+    x-show="showModal"
+    x-cloak
+    class="modal-overlay"
+    @click.self="closeModal()"
+    style="display: none;"
+>
+    <div class="modal-content">
+        <div x-show="!showConfirmation">
+            <div class="modal-header">
+                <h2 class="modal-title">&#128161; Request a Fun Calculator</h2>
+                <p class="modal-subtitle">Got an idea for a calculator that would make life easier or more fun? We want to hear it!</p>
+                <button class="modal-close" @click="closeModal()">&#10005;</button>
+            </div>
+            <div class="modal-body">
+                <form @submit.prevent="submitRequest()">
+                    <div class="form-group">
+                        <label class="form-label" for="userName">Your Name *</label>
+                        <input type="text" id="userName" class="form-input" x-model="formData.name" required placeholder="What should we call you?">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="userEmail">Email Address *</label>
+                        <input type="email" id="userEmail" class="form-input" x-model="formData.email" required placeholder="your@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="requestType">What Kind of Request? *</label>
+                        <select id="requestType" class="form-input form-select" x-model="formData.type" required>
+                            <option value="">Choose your request type</option>
+                            <option value="new-calculator">&#127358; Brand New Calculator</option>
+                            <option value="enhancement">&#9889; Improve Existing Calculator</option>
+                            <option value="category">&#127914; New Category Idea</option>
+                            <option value="feature">&#10024; Cool New Feature</option>
+                            <option value="other">&#129300; Something Else Entirely</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="calculatorTitle">Calculator Name/Title *</label>
+                        <input type="text" id="calculatorTitle" class="form-input" x-model="formData.title" required placeholder="e.g., 'Should I Call In Sick Calculator'">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="description">Tell Us About Your Idea! *</label>
+                        <textarea id="description" class="form-input form-textarea" x-model="formData.description" required placeholder="Describe your calculator idea!"></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" @click="closeModal()">Maybe Later</button>
+                        <button type="submit" class="btn btn-primary" :disabled="isSubmitting">
+                            <span x-show="isSubmitting" class="loading-spinner"></span>
+                            <span x-text="isSubmitting ? 'Sending...' : '&#128640; Send My Idea'"></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div x-show="showConfirmation" class="confirmation-modal" style="display: none;">
+            <div class="modal-header">
+                <button class="modal-close" @click="closeModal()">&#10005;</button>
+            </div>
+            <div class="modal-body">
+                <div class="success-icon">&#127881;</div>
+                <h3 class="confirmation-title">Awesome! We Got Your Idea!</h3>
+                <p class="confirmation-message">
+                    Thanks for sharing your calculator idea with us! We're excited to check it out and see if we can make it happen. 
+                    <br><br>
+                    <strong>What happens next?</strong><br>
+                    â€¢ You'll get a confirmation email shortly<br>
+                    â€¢ Our team will review your idea<br>
+                    â€¢ If we build it, you'll be the first to know!<br>
+                    â€¢ We might even name you as the inspiration &#128522;
+                </p>
+                <button class="btn btn-primary" @click="closeModal()" style="width: 100%;">
+                    &#127919; Close & Keep Calculating!
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

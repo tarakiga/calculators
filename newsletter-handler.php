@@ -250,7 +250,7 @@ Popular calculators to try:
 • Space Travel Time Calculator - Plan your interplanetary trips 🚀
 
 Questions? Just reply to this email or visit our help page:
-{$config['site_url']}/help.html
+{$config['site_url']}/pages/support/help.html
 
 Welcome aboard!
 The Docket One Team
