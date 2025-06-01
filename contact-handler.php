@@ -2,9 +2,11 @@
 // contact-handler.php - Docket One Contact Form Handler
 // Place this file in your root directory alongside index.html
 
-// Enable error reporting for debugging (remove in production)
+// Enable error reporting for debugging
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+ini_set('log_errors', 1);
+ini_set('error_log', 'contact_php_errors.log');
 
 // Set headers
 header('Content-Type: application/json');
@@ -24,6 +26,13 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     echo json_encode(['error' => 'Method not allowed']);
     exit;
 }
+
+// Log incoming request for debugging
+$debug_log = "Contact Handler Debug - " . date('Y-m-d H:i:s') . "\n";
+$debug_log .= "Request Method: " . $_SERVER['REQUEST_METHOD'] . "\n";
+$debug_log .= "Content Type: " . ($_SERVER['CONTENT_TYPE'] ?? 'Not set') . "\n";
+$debug_log .= "Raw Input: " . file_get_contents('php://input') . "\n";
+file_put_contents('contact_debug.log', $debug_log, FILE_APPEND);
 
 // Get JSON input
 $input = json_decode(file_get_contents('php://input'), true);
@@ -162,6 +171,13 @@ if ($priority === 'urgent' && $type === 'bug') {
 }
 
 try {
+    // Test if mail function exists
+    if (!function_exists('mail')) {
+        throw new Exception('Mail function not available on this server');
+    }
+    
+    file_put_contents('contact_debug.log', "Attempting to send email to: {$config['to_email']}\n", FILE_APPEND);
+    
     // Attempt to send email
     $mailSent = mail(
         $config['to_email'],
@@ -170,20 +186,27 @@ try {
         implode("\r\n", $headers)
     );
 
+    file_put_contents('contact_debug.log', "Mail function result: " . ($mailSent ? 'SUCCESS' : 'FAILED') . "\n", FILE_APPEND);
+
     if ($mailSent) {
-        // Log successful submission (optional)
+        // Log successful submission
         $logEntry = date('Y-m-d H:i:s') . " - SUCCESS - $type from $email ($fullName)\n";
         error_log($logEntry, 3, 'contact_form.log');
 
         // Send auto-reply to user
-        sendAutoReply($email, $fullName, $type, $config);
+        $autoReplyResult = sendAutoReply($email, $fullName, $type, $config);
+        file_put_contents('contact_debug.log', "Auto-reply result: " . ($autoReplyResult ? 'SUCCESS' : 'FAILED') . "\n", FILE_APPEND);
 
         echo json_encode([
             'success' => true, 
-            'message' => 'Message sent successfully! We\'ll get back to you within 24-48 hours.'
+            'message' => 'Message sent successfully! We\'ll get back to you within 24-48 hours.',
+            'debug' => [
+                'admin_email_sent' => $mailSent,
+                'auto_reply_sent' => $autoReplyResult
+            ]
         ]);
     } else {
-        throw new Exception('Mail function returned false');
+        throw new Exception('Mail function returned false - check server mail configuration');
     }
 
 } catch (Exception $e) {
@@ -242,7 +265,7 @@ For additional questions, submit a new message at {$config['site_url']}/contact.
         'Content-Type: text/plain; charset=UTF-8'
     ];
 
-    // Send auto-reply (don't throw error if this fails)
-    mail($userEmail, $autoReplySubject, $autoReplyBody, implode("\r\n", $autoReplyHeaders));
+    // Send auto-reply and return result
+    return mail($userEmail, $autoReplySubject, $autoReplyBody, implode("\r\n", $autoReplyHeaders));
 }
 ?>

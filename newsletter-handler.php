@@ -1,10 +1,12 @@
 <?php
 // newsletter-handler.php - Docket One Newsletter Subscription Handler
-// Place this file in your root directory alongside contact-handler.php
+// Enhanced with better debugging and error handling
 
-// Enable error reporting for debugging (remove in production)
+// Enable error reporting for debugging
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+ini_set('log_errors', 1);
+ini_set('error_log', 'newsletter_php_errors.log');
 
 // Set headers
 header('Content-Type: application/json');
@@ -25,24 +27,43 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
+// Log incoming request for debugging
+$debug_log = "Newsletter Handler Debug - " . date('Y-m-d H:i:s') . "\n";
+$debug_log .= "Request Method: " . $_SERVER['REQUEST_METHOD'] . "\n";
+$debug_log .= "Content Type: " . ($_SERVER['CONTENT_TYPE'] ?? 'Not set') . "\n";
+$debug_log .= "Raw Input: " . file_get_contents('php://input') . "\n";
+file_put_contents('newsletter_debug.log', $debug_log, FILE_APPEND);
+
 // Get JSON input
 $input = json_decode(file_get_contents('php://input'), true);
 
 // Check if JSON was parsed correctly
 if (json_last_error() !== JSON_ERROR_NONE) {
+    $error = 'Invalid JSON data: ' . json_last_error_msg();
+    file_put_contents('newsletter_debug.log', "JSON Error: $error\n", FILE_APPEND);
     http_response_code(400);
-    echo json_encode(['error' => 'Invalid JSON data']);
+    echo json_encode(['error' => $error]);
     exit;
 }
 
-// Configuration - UPDATE THESE VALUES
+// Configuration - UPDATE THESE VALUES FOR YOUR SERVER
 $config = [
     'to_email' => 'newsletter@docket.one',        // Change to your email
     'from_email' => 'noreply@docket.one',         // Change to your domain
     'admin_name' => 'Docket One Newsletter',      // Your name/company
     'site_url' => 'https://docket.one',           // Your website URL
-    'subscribers_file' => 'newsletter_subscribers.txt' // File to store subscribers
+    'subscribers_file' => 'newsletter_subscribers.txt', // File to store subscribers
+    'smtp_debug' => true                          // Enable SMTP debugging
 ];
+
+// Test if we can write to the subscribers file
+if (!is_writable(dirname($config['subscribers_file']))) {
+    $error = 'Directory not writable: ' . dirname($config['subscribers_file']);
+    file_put_contents('newsletter_debug.log', "Write Error: $error\n", FILE_APPEND);
+    http_response_code(500);
+    echo json_encode(['error' => 'Server configuration error', 'debug' => $error]);
+    exit;
+}
 
 // Validate required fields
 if (empty($input['email']) || trim($input['email']) === '') {
@@ -61,21 +82,24 @@ if (!$email) {
     exit;
 }
 
-// Simple spam protection - check for suspicious patterns
+// Log the email being processed
+file_put_contents('newsletter_debug.log', "Processing email: $email from source: $source\n", FILE_APPEND);
+
+// Simple spam protection
 if (preg_match('/[<>"\']/', $email) || strlen($email) > 254) {
     http_response_code(400);
     echo json_encode(['error' => 'Invalid email format']);
     exit;
 }
 
-// Rate limiting - simple IP-based check
+// Rate limiting
 $ip = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
 $rateLimitFile = sys_get_temp_dir() . '/newsletter_rate_limit_' . md5($ip);
 $currentTime = time();
 
 if (file_exists($rateLimitFile)) {
     $lastSubmission = (int)file_get_contents($rateLimitFile);
-    if (($currentTime - $lastSubmission) < 300) { // 5 minutes between submissions
+    if (($currentTime - $lastSubmission) < 60) { // Reduced to 1 minute for testing
         http_response_code(429);
         echo json_encode(['error' => 'Please wait before subscribing again']);
         exit;
@@ -89,6 +113,7 @@ $isAlreadySubscribed = false;
 if (file_exists($subscribersFile)) {
     $subscribers = file($subscribersFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
     foreach ($subscribers as $subscriber) {
+        if (strpos($subscriber, '#') === 0) continue; // Skip comment lines
         $subscriberData = json_decode($subscriber, true);
         if ($subscriberData && $subscriberData['email'] === $email) {
             $isAlreadySubscribed = true;
@@ -117,12 +142,21 @@ $subscriptionData = [
 try {
     // Save subscriber to file
     $subscriberEntry = json_encode($subscriptionData) . "\n";
-    if (file_put_contents($subscribersFile, $subscriberEntry, FILE_APPEND | LOCK_EX) === false) {
-        throw new Exception('Failed to save subscriber data');
+    $writeResult = file_put_contents($subscribersFile, $subscriberEntry, FILE_APPEND | LOCK_EX);
+    
+    if ($writeResult === false) {
+        throw new Exception('Failed to save subscriber data to file');
     }
+    
+    file_put_contents('newsletter_debug.log', "Subscriber data saved successfully\n", FILE_APPEND);
 
     // Update rate limit file
     file_put_contents($rateLimitFile, $currentTime);
+
+    // Test mail function availability
+    if (!function_exists('mail')) {
+        throw new Exception('Mail function not available on this server');
+    }
 
     // Send notification email to admin
     $notificationSubject = 'New Newsletter Subscription - Docket One';
@@ -136,44 +170,54 @@ IP Address: $ip
 User Agent: " . ($_SERVER['HTTP_USER_AGENT'] ?? 'Unknown') . "
 
 ---
-Total subscribers: " . (count(file($subscribersFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES))) . "
+Total subscribers: " . (count(file($subscribersFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES)) - 3) . " (excluding header lines)
 ";
 
     $notificationHeaders = [
         'From: ' . $config['admin_name'] . ' <' . $config['from_email'] . '>',
+        'Reply-To: ' . $config['from_email'],
         'X-Mailer: Docket One Newsletter Handler',
         'MIME-Version: 1.0',
         'Content-Type: text/plain; charset=UTF-8'
     ];
 
-    mail(
+    $adminMailResult = mail(
         $config['to_email'],
         $notificationSubject,
         $notificationBody,
         implode("\r\n", $notificationHeaders)
     );
 
+    file_put_contents('newsletter_debug.log', "Admin email result: " . ($adminMailResult ? 'SUCCESS' : 'FAILED') . "\n", FILE_APPEND);
+
     // Send welcome email to subscriber
-    sendWelcomeEmail($email, $config);
+    $welcomeMailResult = sendWelcomeEmail($email, $config);
+    file_put_contents('newsletter_debug.log', "Welcome email result: " . ($welcomeMailResult ? 'SUCCESS' : 'FAILED') . "\n", FILE_APPEND);
 
     // Log successful subscription
-    $logEntry = date('Y-m-d H:i:s') . " - NEWSLETTER - $email subscribed from $source\n";
+    $logEntry = date('Y-m-d H:i:s') . " - NEWSLETTER SUCCESS - $email subscribed from $source (Admin: " . ($adminMailResult ? 'sent' : 'failed') . ", Welcome: " . ($welcomeMailResult ? 'sent' : 'failed') . ")\n";
     error_log($logEntry, 3, 'newsletter.log');
 
     echo json_encode([
         'success' => true,
-        'message' => 'Successfully subscribed! Welcome to the Docket One community.'
+        'message' => 'Successfully subscribed! Welcome to the Docket One community.',
+        'debug' => [
+            'admin_email_sent' => $adminMailResult,
+            'welcome_email_sent' => $welcomeMailResult,
+            'file_written' => true
+        ]
     ]);
 
 } catch (Exception $e) {
     // Log error
     $errorLog = date('Y-m-d H:i:s') . " - NEWSLETTER ERROR - Failed to subscribe $email: " . $e->getMessage() . "\n";
     error_log($errorLog, 3, 'newsletter_errors.log');
+    file_put_contents('newsletter_debug.log', "Exception: " . $e->getMessage() . "\n", FILE_APPEND);
 
     http_response_code(500);
     echo json_encode([
         'error' => 'Failed to subscribe. Please try again later.',
-        'debug' => $e->getMessage() // Remove this in production
+        'debug' => $e->getMessage()
     ]);
 }
 
@@ -217,12 +261,13 @@ To unsubscribe, reply with 'UNSUBSCRIBE' in the subject line.";
 
     $welcomeHeaders = [
         'From: ' . $config['admin_name'] . ' <' . $config['from_email'] . '>',
+        'Reply-To: ' . $config['from_email'],
         'X-Mailer: Docket One Newsletter Welcome',
         'MIME-Version: 1.0',
         'Content-Type: text/plain; charset=UTF-8'
     ];
 
-    // Send welcome email (don't throw error if this fails)
-    mail($email, $welcomeSubject, $welcomeBody, implode("\r\n", $welcomeHeaders));
+    // Send welcome email and return result
+    return mail($email, $welcomeSubject, $welcomeBody, implode("\r\n", $welcomeHeaders));
 }
 ?>

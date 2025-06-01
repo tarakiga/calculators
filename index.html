@@ -2424,6 +2424,8 @@
                 this.isSubmitting = true;
                 
                 try {
+                    console.log('Submitting newsletter subscription for:', this.email);
+                    
                     const response = await fetch('newsletter-handler.php', {
                         method: 'POST',
                         headers: {
@@ -2435,7 +2437,9 @@
                         })
                     });
 
+                    console.log('Newsletter response status:', response.status);
                     const result = await response.json();
+                    console.log('Newsletter response data:', result);
 
                     if (response.ok && result.success) {
                         this.showSuccess = true;
@@ -2445,11 +2449,11 @@
                             this.showSuccess = false;
                         }, 5000);
                     } else {
-                        throw new Error(result.error || 'Failed to subscribe');
+                        throw new Error(result.error || `Server returned ${response.status}`);
                     }
                 } catch (error) {
                     console.error('Newsletter subscription error:', error);
-                    alert('Failed to subscribe. Please try again later.');
+                    alert(`Newsletter subscription failed: ${error.message}\n\nPlease check the browser console for more details.`);
                 } finally {
                     this.isSubmitting = false;
                 }
@@ -2473,6 +2477,8 @@
                 this.isSubmitting = true;
                 
                 try {
+                    console.log('Submitting calculator request:', this.formData);
+                    
                     const response = await fetch('contact-handler.php', {
                         method: 'POST',
                         headers: {
@@ -2491,7 +2497,9 @@
                         })
                     });
 
+                    console.log('Calculator request response status:', response.status);
                     const result = await response.json();
+                    console.log('Calculator request response data:', result);
 
                     if (response.ok && result.success) {
                         this.showConfirmation = true;
@@ -2505,17 +2513,18 @@
                             description: ''
                         };
                     } else {
-                        throw new Error(result.error || 'Failed to send request');
+                        throw new Error(result.error || `Server returned ${response.status}`);
                     }
                 } catch (error) {
                     console.error('Calculator request error:', error);
-                    alert('Failed to send request. Please try again later.');
+                    alert(`Calculator request failed: ${error.message}\n\nPlease check the browser console for more details.`);
                 } finally {
                     this.isSubmitting = false;
                 }
             },
             closeModal() {
-                document.querySelector('[x-data]').showModal = false;
+                // Close the modal by setting showModal to false on the body context
+                this.$root.showModal = false;
                 this.showConfirmation = false;
             }
         }
