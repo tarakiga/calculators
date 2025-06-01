@@ -1,4 +1,4 @@
-﻿// Enhanced Navbar Search Functionality
+// Enhanced Navbar Search Functionality
 class EnhancedNavbar {
     constructor() {
         this.calculators = {
@@ -6,69 +6,66 @@ class EnhancedNavbar {
                 title: 'Big Kid Math',
                 description: 'Practical calculators for adult life decisions',
                 items: [
-                    { name: 'Caffeine Half-Life Calculator', file: 'Caffeine Half-Life Calculator.html' },
-                    { name: 'Car Ownership vs. Uber Cost Calculator', file: 'Car Ownership vs. Uber Cost Calculator.html' },
-                    { name: 'Generational Timeline Calculator', file: 'Generational Timeline Calculator.html' }
+                    { name: 'Caffeine Half-Life Calculator', file: 'caffeine-half-life-calculator.html' },
+                    { name: 'Car Ownership vs. Uber Cost Calculator', file: 'car-ownership-vs-uber-cost-calculator.html' },
+                    { name: 'Generational Timeline Calculator', file: 'generational-timeline-calculator.html' }
                 ]
             },
             'CipherLab': {
                 title: 'Cipher Lab',
                 description: 'Cryptography and encoding tools',
                 items: [
-                    { name: 'Caesar Cipher Calculator', file: 'Caesar Cipher Calculator.html' },
-                    { name: 'Morse Code Translator', file: 'morseCodeTranslatorEncoderDecoder.html' },
-                    { name: 'NATO Phonetic Alphabet Converter', file: 'NATO Phonetic Alphabet Converter.html' },
-                    { name: 'Ogham Translator', file: 'oghamTranslatorEncoderDecoder.html' },
-                    { name: 'Pigpen Cipher Calculator', file: 'Pigpen Cipher Calculator.html' },
-                    { name: 'Password Strength Calculator', file: 'passwordStrengthAngerScaleCalculator.html' }
+                    { name: 'Morse Code Translator', file: 'morse-code-translator.html' },
+                    { name: 'Ogham Translator', file: 'ogham-translator.html' },
+                    { name: 'Password Strength Calculator', file: 'password-strength-calculator.html' }
                 ]
             },
             'GeekGalaxy': {
                 title: 'Geek Galaxy',
                 description: 'Sci-fi and fantasy calculators',
                 items: [
-                    { name: 'AI Doomsday Countdown', file: 'AI Doomsday Countdown.html' },
-                    { name: 'Alien Communication Probability', file: 'Alien Communication Probability Calculator.html' },
-                    { name: 'Lightsaber Battery Life', file: 'Lightsaber Battery Life Calculator.html' },
-                    { name: 'Potion Brewer Calculator', file: 'Potion Brewer Calculator.html' },
-                    { name: 'Space Travel Time Calculator', file: 'Space Travel Time Calculator.html' },
-                    { name: 'Spaceship Fuel Calculator', file: 'Spaceship Fuel Calculator.html' },
-                    { name: 'Star Trek Warp Speed Converter', file: 'Star Trek Warp Speed Converte.html' },
-                    { name: 'Time Machine Paradox Detector', file: 'Time Machine Paradox Detector.html' },
-                    { name: 'Zombie Apocalypse Survival', file: 'Zombie Apocalypse Survival Calculator.html' }
+                    { name: 'AI Doomsday Countdown', file: 'ai-doomsday-countdown.html' },
+                    { name: 'Alien Communication Probability', file: 'alien-communication-probability.html' },
+                    { name: 'Lightsaber Battery Life', file: 'lightsaber-battery-life.html' },
+                    { name: 'Potion Brewer Calculator', file: 'potion-brewer-calculator.html' },
+                    { name: 'Space Travel Time Calculator', file: 'space-travel-time-calculator.html' },
+                    { name: 'Spaceship Fuel Calculator', file: 'spaceship-fuel-calculator.html' },
+                    { name: 'Star Trek Warp Speed Converter', file: 'star-trek-warp-speed-converter.html' },
+                    { name: 'Time Machine Paradox Detector', file: 'time-machine-paradox-detector.html' },
+                    { name: 'Zombie Apocalypse Survival', file: 'zombie-apocalypse-survival.html' }
                 ]
             },
             'LifeHacks': {
                 title: 'Life Hacks',
                 description: 'Optimize your daily life',
                 items: [
-                    { name: 'Coffee to Code Efficiency', file: 'Coffee to Code Efficiency Ratio Calculator.html' },
-                    { name: 'Inflation Impact Calculator', file: 'Inflation Impact Calculator.html' },
-                    { name: 'Procrastination ROI Calculator', file: 'Procrastination ROI Calculator.html' },
-                    { name: 'Sleep Cycle Optimizer', file: 'Sleep Cycle Optimizer.html' },
-                    { name: 'Social Media Addiction', file: 'Social Media Addiction Calculator.html' },
-                    { name: 'Stress-to-Ice-Cream Ratio', file: 'Stress-to-Ice-Cream Ratio Calculator.html' },
-                    { name: 'Time is Money Calculator', file: 'Time is Money Calculator.html' }
+                    { name: 'Coffee to Code Efficiency', file: 'coffee-to-code-efficiency.html' },
+                    { name: 'Inflation Impact Calculator', file: 'inflation-impact-calculator.html' },
+                    { name: 'Procrastination ROI Calculator', file: 'procrastination-roi-calculator.html' },
+                    { name: 'Sleep Cycle Optimizer', file: 'sleep-cycle-optimizer.html' },
+                    { name: 'Social Media Addiction', file: 'social-media-addiction.html' },
+                    { name: 'Stress-to-Ice-Cream Ratio', file: 'stress-to-ice-cream-ratio.html' },
+                    { name: 'Time is Money Calculator', file: 'time-is-money-calculator.html' }
                 ]
             },
             'Math_Magik': {
                 title: 'Math Magik',
                 description: 'Advanced mathematical tools and visualizations',
                 items: [
-                    { name: 'Double Pendulum Chaos', file: 'Double Pendulum Chaos.html' },
-                    { name: 'Entropy and Feigenbaum\'s Constant', file: 'entropy and feigenbaums constant.html' },
-                    { name: 'FIRE Number Calculator', file: 'FIRE Number Calculator.html' },
-                    { name: 'Pizza Pi Calculator', file: 'Pizza Pi Calculator.html' },
-                    { name: 'Your Life Visualized', file: 'Your Life Visualized.html' }
+                    { name: 'Double Pendulum Chaos', file: 'double-pendulum-chaos.html' },
+                    { name: 'Entropy and Feigenbaum\'s Constant', file: 'entropy-and-feigenbaums-constant.html' },
+                    { name: 'FIRE Number Calculator', file: 'fire-number-calculator.html' },
+                    { name: 'Pizza Pi Calculator', file: 'pizza-pi-calculator.html' },
+                    { name: 'Your Life Visualized', file: 'your-life-visualized.html' }
                 ]
             },
             'Otaku_Ops': {
                 title: 'Otaku Ops',
                 description: 'Gaming and pop culture calculators',
                 items: [
-                    { name: 'Anime Training Montage Planner', file: 'Anime Training Montage Planner.html' },
-                    { name: 'Conspiracy Theory Plausibility', file: 'Conspiracy Theory Plausibility Index.html' },
-                    { name: 'Minecraft Portal Planner', file: 'MINECRAFT PORTAL PLANNER.html' }
+                    { name: 'Anime Training Montage Planner', file: 'anime-training-montage-planner.html' },
+                    { name: 'Conspiracy Theory Plausibility', file: 'conspiracy-theory-plausibility.html' },
+                    { name: 'Minecraft Portal Planner', file: 'minecraft-portal-planner.html' }
                 ]
             }
         };
