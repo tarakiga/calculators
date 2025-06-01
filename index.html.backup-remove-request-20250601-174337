@@ -1041,7 +1041,7 @@
     </style>
 </head>
 
-<body x-data="{  }">
+<body x-data="{ showModal: false }">
     <!-- Floating Particles -->
     <div class="particles" id="particles"></div>
 
@@ -1869,6 +1869,12 @@
                                 Us</a></li>
                     </ul>
                 </div>
+
+                <div class="footer-section">
+                    <button class="request-calculator-btn" @click="showModal = true">
+                        💡 Request a Calculator
+                    </button>
+                </div>
             </div>
 
             <div class="footer-bottom">
@@ -1886,7 +1892,83 @@
         </div>
     </footer>
 
-    
+    <!-- Request Modal -->
+    <div x-data="calculatorRequestForm()" x-show="showModal" x-cloak class="modal-overlay" @click.self="closeModal()"
+        style="display: none;">
+        <div class="modal-content">
+            <div x-show="!showConfirmation">
+                <div class="modal-header">
+                    <h2 class="modal-title">💡 Request a Fun Calculator</h2>
+                    <p class="modal-subtitle">Got an idea for a calculator that would make life easier or more fun? We
+                        want to hear it!</p>
+                    <button class="modal-close" @click="closeModal()">✕</button>
+                </div>
+                <div class="modal-body">
+                    <form @submit.prevent="submitRequest()">
+                        <div class="form-group">
+                            <label class="form-label" for="userName">Your Name *</label>
+                            <input type="text" id="userName" class="form-input" x-model="formData.name" required
+                                placeholder="What should we call you?">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="userEmail">Email Address *</label>
+                            <input type="email" id="userEmail" class="form-input" x-model="formData.email" required
+                                placeholder="your@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="requestType">What Kind of Request? *</label>
+                            <select id="requestType" class="form-input form-select" x-model="formData.type" required>
+                                <option value="">Choose your request type</option>
+                                <option value="new-calculator">🧮 Brand New Calculator</option>
+                                <option value="enhancement">⚡ Improve Existing Calculator</option>
+                                <option value="category">🎯 New Category Idea</option>
+                                <option value="feature">✨ Cool New Feature</option>
+                                <option value="other">🤔 Something Else Entirely</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="calculatorTitle">Calculator Name/Title *</label>
+                            <input type="text" id="calculatorTitle" class="form-input" x-model="formData.title" required
+                                placeholder="e.g., 'Should I Call In Sick Calculator'">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="description">Tell Us About Your Idea! *</label>
+                            <textarea id="description" class="form-input form-textarea" x-model="formData.description"
+                                required placeholder="Describe your calculator idea!"></textarea>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" @click="closeModal()">Maybe Later</button>
+                            <button type="submit" class="btn btn-primary" :disabled="isSubmitting">
+                                <span x-show="isSubmitting" class="loading-spinner"></span>
+                                <span x-text="isSubmitting ? 'Sending...' : '🚀 Send My Idea'"></span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div x-show="showConfirmation" class="confirmation-modal" style="display: none;">
+                <div class="modal-header">
+                    <button class="modal-close" @click="closeModal()">✕</button>
+                </div>
+                <div class="modal-body">
+                    <div class="success-icon">🎉</div>
+                    <h3 class="confirmation-title">Awesome! We Got Your Idea!</h3>
+                    <p class="confirmation-message">
+                        Thanks for sharing your calculator idea with us! We're excited to check it out and see if we can
+                        make it happen.
+                        <br><br>
+                        <strong>What happens next?</strong><br>
+                        • You'll get a confirmation email shortly<br>
+                        • Our team will review your idea<br>
+                        • If we build it, you'll be the first to know!<br>
+                        • We might even name you as the inspiration 😊
+                    </p>
+                    <button class="btn btn-primary" @click="closeModal()" style="width: 100%;">
+                        🎮 Close & Keep Calculating!
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 
 <script>
@@ -2379,7 +2461,29 @@
         }
     }
 
-    
+    // Calculator request form functionality
+    function calculatorRequestForm() {
+        return {
+            showConfirmation: false,
+            isSubmitting: false,
+            formData: {
+                name: '',
+                email: '',
+                type: '',
+                title: '',
+                description: ''
+            },
+            async submitRequest() {
+                this.isSubmitting = true;
+                
+                try {
+                    console.log('Submitting calculator request:', this.formData);
+                    
+                    const response = await fetch('contact-handler.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
                         body: JSON.stringify({
                             firstName: this.formData.name,
                             lastName: '',
