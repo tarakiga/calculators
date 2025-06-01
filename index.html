@@ -2423,16 +2423,36 @@
                 
                 this.isSubmitting = true;
                 
-                // Simulate API call
-                await new Promise(resolve => setTimeout(resolve, 1000));
-                
-                this.isSubmitting = false;
-                this.showSuccess = true;
-                this.email = '';
-                
-                setTimeout(() => {
-                    this.showSuccess = false;
-                }, 5000);
+                try {
+                    const response = await fetch('newsletter-handler.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            email: this.email,
+                            source: 'homepage_newsletter'
+                        })
+                    });
+
+                    const result = await response.json();
+
+                    if (response.ok && result.success) {
+                        this.showSuccess = true;
+                        this.email = '';
+                        
+                        setTimeout(() => {
+                            this.showSuccess = false;
+                        }, 5000);
+                    } else {
+                        throw new Error(result.error || 'Failed to subscribe');
+                    }
+                } catch (error) {
+                    console.error('Newsletter subscription error:', error);
+                    alert('Failed to subscribe. Please try again later.');
+                } finally {
+                    this.isSubmitting = false;
+                }
             }
         }
     }
@@ -2452,20 +2472,47 @@
             async submitRequest() {
                 this.isSubmitting = true;
                 
-                // Simulate API call
-                await new Promise(resolve => setTimeout(resolve, 1500));
-                
-                this.isSubmitting = false;
-                this.showConfirmation = true;
-                
-                // Reset form
-                this.formData = {
-                    name: '',
-                    email: '',
-                    type: '',
-                    title: '',
-                    description: ''
-                };
+                try {
+                    const response = await fetch('contact-handler.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            firstName: this.formData.name,
+                            lastName: '',
+                            email: this.formData.email,
+                            subject: this.formData.title,
+                            message: this.formData.description,
+                            type: 'feature',
+                            calculator: this.formData.type,
+                            priority: 'medium',
+                            source: 'homepage_calculator_request'
+                        })
+                    });
+
+                    const result = await response.json();
+
+                    if (response.ok && result.success) {
+                        this.showConfirmation = true;
+                        
+                        // Reset form
+                        this.formData = {
+                            name: '',
+                            email: '',
+                            type: '',
+                            title: '',
+                            description: ''
+                        };
+                    } else {
+                        throw new Error(result.error || 'Failed to send request');
+                    }
+                } catch (error) {
+                    console.error('Calculator request error:', error);
+                    alert('Failed to send request. Please try again later.');
+                } finally {
+                    this.isSubmitting = false;
+                }
             },
             closeModal() {
                 document.querySelector('[x-data]').showModal = false;
