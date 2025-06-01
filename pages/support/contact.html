@@ -649,8 +649,8 @@
             showNewsletterStatus('Subscribing...', 'loading');
 
             try {
-                // Use PHP newsletter handler
-                const response = await fetch('newsletter-handler.php', {
+                // Use PHP newsletter handler - correct path from subdirectory
+                const response = await fetch('../../newsletter-handler.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
