@@ -40,6 +40,7 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="common/footer/premium-footer.js"></script>
     <script src="common/navbar-enhanced.js"></script>
+    <script src="script.js"></script>
     <script src="https://analytics.ahrefs.com/analytics.js" data-key="LJUZ/Iuc9YVDc6biyso88A" async></script>
 
     <!-- Service Worker Registration -->
@@ -2699,85 +2700,16 @@
                 }, 100));
             });
 
-            // Set up tab switching
-            const converterSelect = document.getElementById('converterSelect');
-            if (converterSelect) {
-                converterSelect.addEventListener('change', function () {
-                    const selectedValue = this.value;
-                    document.querySelectorAll('.tab-content').forEach(tab => {
-                        tab.classList.remove('active');
-                    });
-                    const targetTab = document.getElementById(selectedValue);
-                    if (targetTab) {
-                        targetTab.classList.add('active');
-
-                        // If switching to currency, trigger conversion
-                        if (selectedValue === 'currency') {
-                            setTimeout(updateCurrencyConversion, 100);
-                        }
-                    }
-                });
-            }
-
             // Initialize mobile menu functionality
             const menuBtn = document.querySelector('.mobile-menu-btn');
             const navLinks = document.querySelector('.nav-links');
 
             if (menuBtn && navLinks) {
-                menuBtn.addEventListener('click', () => {
-                    const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
-                    menuBtn.classList.toggle('active');
+                menuBtn.addEventListener('click', function () {
                     navLinks.classList.toggle('active');
-                    menuBtn.setAttribute('aria-expanded', (!isExpanded).toString());
-                    document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
-                });
-
-                // Close menu when clicking outside
-                document.addEventListener('click', (e) => {
-                    if (navLinks.classList.contains('active') &&
-                        !e.target.closest('.nav-links') &&
-                        !e.target.closest('.mobile-menu-btn')) {
-                        menuBtn.classList.remove('active');
-                        navLinks.classList.remove('active');
-                        menuBtn.setAttribute('aria-expanded', 'false');
-                        document.body.style.overflow = '';
-                    }
-                });
-
-                // Close menu when window is resized above mobile breakpoint
-                window.addEventListener('resize', () => {
-                    if (window.innerWidth > 768) {
-                        menuBtn.classList.remove('active');
-                        navLinks.classList.remove('active');
-                        menuBtn.setAttribute('aria-expanded', 'false');
-                        document.body.style.overflow = '';
-                    }
+                    this.classList.toggle('active');
                 });
             }
-
-            // Initialize currency converter with delay to ensure DOM is ready
-            setTimeout(() => {
-                setupCurrencyConverter();
-            }, 1000);
-
-            // Add intersection observer for animations
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.animationPlayState = 'running';
-                    }
-                });
-            }, observerOptions);
-
-            // Observe category cards for staggered animations
-            document.querySelectorAll('.category-card').forEach(card => {
-                observer.observe(card);
-            });
         });
 
         // Add some gesture animations for mobile
@@ -2842,14 +2774,34 @@
 
             try {
                 console.log('Fetching blog posts...');
-                const response = await fetch('https://blog.docket.one/wp-json/wp/v2/posts?_embed', {
-                    method: 'GET',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    },
-                    mode: 'cors'
-                });
+
+                // Try with CORS proxy as fallback
+                const apiUrl = 'https://blog.docket.one/wp-json/wp/v2/posts?_embed';
+                const corsProxyUrl = `https://cors-anywhere.herokuapp.com/${apiUrl}`;
+
+                let response;
+                try {
+                    // First try direct request
+                    response = await fetch(apiUrl, {
+                        method: 'GET',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        mode: 'cors'
+                    });
+                } catch (directError) {
+                    console.log('Direct request failed, trying CORS proxy...', directError);
+                    // If direct request fails, try with CORS proxy
+                    response = await fetch(corsProxyUrl, {
+                        method: 'GET',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json',
+                            'Origin': window.location.origin
+                        }
+                    });
+                }
 
                 console.log('Response status:', response.status);
                 console.log('Response headers:', Object.fromEntries(response.headers.entries()));
@@ -2907,6 +2859,7 @@
                     <div class="error-message">
                         <p>Unable to load blog posts. Please try again later.</p>
                         <p style="font-size: 0.8em; color: #666;">Error: ${error.message}</p>
+                        <p style="font-size: 0.8em; color: #666;">Please check the browser console for more details.</p>
                     </div>
                 `;
             }
@@ -2919,6 +2872,20 @@
         });
     </script>
 
+    <script type="module">
+        import { createBreadcrumb } from '../../common/breadcrumb.js';
+        const breadcrumbs = [
+            { name: 'Home', url: '/' },
+            { name: 'BigKidMath', url: '/pages/BigKidMath/' },
+            { name: 'Car Ownership vs. Uber Cost Calculator', url: window.location.pathname }
+        ];
+        const breadcrumbNav = createBreadcrumb(breadcrumbs);
+        const hero = document.querySelector('.hero');
+        if (hero) {
+            document.body.insertBefore(breadcrumbNav, hero);
+        }
+    </script>
+    <script src="../../common/converter.js"></script>
 </body>
 
 </html>

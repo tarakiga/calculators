@@ -28,17 +28,14 @@ document.addEventListener('DOMContentLoaded', function () {
             dropdowns.forEach(dropdown => dropdown.classList.remove('active'));
         }
     });
-});
 
-// Wait for DOM to be fully loaded before running any code
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initializeConverter);
-} else {
+    // Initialize converter
     initializeConverter();
-}
+});
 
 function initializeConverter() {
     const converterSelect = document.getElementById('converterSelect');
+    console.log('Initializing converter with select element:', converterSelect);
 
     // Only proceed if we have the required elements
     if (!converterSelect) {
@@ -47,21 +44,38 @@ function initializeConverter() {
     }
 
     const tabContents = document.querySelectorAll('.tab-content');
+    console.log('Found tab contents:', tabContents.length);
 
     function updateContent() {
+        const currentValue = converterSelect.value;
+        console.log('Updating content for selection:', currentValue);
+
         // Hide all content sections
-        tabContents.forEach(content => content.classList.remove('active'));
+        tabContents.forEach(content => {
+            content.classList.remove('active');
+            console.log('Removing active class from:', content.id);
+        });
 
         // Show selected content
-        const selectedTab = converterSelect.value;
-        const selectedContent = document.getElementById(selectedTab);
+        const selectedContent = document.getElementById(currentValue);
+        console.log('Selected content element:', selectedContent);
+
         if (selectedContent) {
             selectedContent.classList.add('active');
+            console.log('Added active class to:', currentValue);
+
+            // If switching to currency, trigger conversion
+            if (currentValue === 'currency') {
+                setTimeout(updateCurrencyConversion, 100);
+            }
         }
     }
 
     // Set up event listeners
-    converterSelect.addEventListener('change', updateContent);
+    converterSelect.addEventListener('change', function (e) {
+        console.log('Select changed to:', e.target.value);
+        updateContent();
+    });
 
     // Show initial content
     updateContent();
