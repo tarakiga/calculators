@@ -1,28 +1,32 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Space Travel Time Calculator | Geek Galaxy</title>
-    
+
     <!-- Enhanced Social Media Meta Tags -->
     <meta property="og:title" content="Space Travel Time Calculator | Plan Your Interstellar Journey">
-    <meta property="og:description" content="Calculate travel times to destinations across the galaxy using real spacecraft and Star Trek ships. From SpaceX to USS Enterprise!">
+    <meta property="og:description"
+        content="Calculate travel times to destinations across the galaxy using real spacecraft and Star Trek ships. From SpaceX to USS Enterprise!">
     <meta property="og:image" content="https://docket.one/social-preview.jpg">
     <meta property="og:url" content="https://docket.one/pages/GeekGalaxy/Space%20Travel%20Time%20Calculator.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Docket One Calculators">
-    
+
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Space Travel Time Calculator">
-    <meta name="twitter:description" content="Calculate travel times across the galaxy using SpaceX, Star Trek ships, and more!">
+    <meta name="twitter:description"
+        content="Calculate travel times across the galaxy using SpaceX, Star Trek ships, and more!">
     <meta name="twitter:image" content="https://docket.one/social-preview.jpg">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="../../common/navbar-enhanced.css">
     <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+
     <style>
         :root {
             --space-blue: #00d4ff;
@@ -36,9 +40,13 @@
             --text-dim: #94a3b8;
             --radius: 12px;
         }
-        
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             background: var(--space-black);
@@ -47,12 +55,15 @@
             min-height: 100vh;
             position: relative;
         }
-        
+
         body::before {
             content: '';
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: 
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
                 radial-gradient(2px 2px at 20px 30px, var(--space-blue), transparent),
                 radial-gradient(3px 3px at 200px 100px, var(--star-gold), transparent),
                 radial-gradient(1px 1px at 90px 40px, var(--nebula-purple), transparent);
@@ -61,19 +72,24 @@
             opacity: 0.15;
             z-index: -1;
         }
-        
+
         @keyframes cosmicDrift {
-            0% { transform: translateY(0) translateX(0); }
-            100% { transform: translateY(-300px) translateX(-200px); }
+            0% {
+                transform: translateY(0) translateX(0);
+            }
+
+            100% {
+                transform: translateY(-300px) translateX(-200px);
+            }
         }
-        
+
         .hero {
             background: linear-gradient(135deg, var(--space-black), var(--space-dark));
             padding: 4rem 2rem;
             text-align: center;
             border-bottom: 1px solid rgba(0, 212, 255, 0.2);
         }
-        
+
         .hero h1 {
             font-size: clamp(2rem, 4vw, 3rem);
             font-weight: 800;
@@ -82,23 +98,24 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        
+
         .hero p {
             font-size: 1.2rem;
             color: var(--text-dim);
-        }        
+        }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 3rem 2rem;
         }
-        
+
         .calculator-grid {
             display: grid;
             grid-template-columns: 400px 1fr;
             gap: 3rem;
         }
-        
+
         .panel {
             background: var(--surface);
             backdrop-filter: blur(15px);
@@ -106,7 +123,7 @@
             padding: 2rem;
             border: 1px solid rgba(0, 212, 255, 0.2);
         }
-        
+
         .panel h2 {
             font-size: 1.5rem;
             font-weight: 700;
@@ -115,7 +132,7 @@
             align-items: center;
             gap: 0.75rem;
         }
-        
+
         .destination-grid {
             display: grid;
             gap: 0.75rem;
@@ -123,7 +140,7 @@
             max-height: 400px;
             overflow-y: auto;
         }
-        
+
         .destination-option {
             background: var(--space-dark);
             border: 2px solid transparent;
@@ -135,13 +152,13 @@
             align-items: center;
             gap: 1rem;
         }
-        
+
         .destination-option:hover,
         .destination-option.active {
             border-color: var(--destination-color);
             box-shadow: 0 0 20px rgba(var(--destination-rgb), 0.3);
         }
-        
+
         .destination-icon {
             font-size: 1.5rem;
             width: 40px;
@@ -152,17 +169,17 @@
             border-radius: 50%;
             color: var(--destination-color);
         }
-        
+
         .destination-info h3 {
             font-weight: 600;
             margin-bottom: 0.25rem;
         }
-        
+
         .destination-info p {
             font-size: 0.875rem;
             color: var(--text-dim);
         }
-        
+
         .propulsion-dropdown select {
             width: 100%;
             background: var(--space-dark);
@@ -173,7 +190,7 @@
             font-size: 1rem;
             margin-bottom: 1rem;
         }
-        
+
         /* Share Button Styles */
         .share-button {
             background: linear-gradient(135deg, var(--nebula-purple), var(--space-blue));
@@ -191,21 +208,21 @@
             margin-top: 1rem;
             box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
         }
-        
+
         .share-button:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
         }
-        
+
         .share-button:active {
             transform: translateY(0);
         }
-        
+
         .share-dropdown {
             position: relative;
             display: inline-block;
         }
-        
+
         .share-menu {
             position: absolute;
             top: 100%;
@@ -220,11 +237,11 @@
             display: none;
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
         }
-        
+
         .share-menu.active {
             display: block;
         }
-        
+
         .share-option {
             display: flex;
             align-items: center;
@@ -236,25 +253,27 @@
             color: var(--text);
             text-decoration: none;
         }
-        
+
         .share-option:hover {
             background: rgba(0, 212, 255, 0.1);
             color: var(--space-blue);
         }
-        
+
         .share-icon {
             width: 20px;
             height: 20px;
             font-size: 1.2rem;
         }
-        
+
         /* Hidden canvas for image generation */
         #shareCanvas {
             display: none;
         }
-        
+
         @media (max-width: 1024px) {
-            .calculator-grid { grid-template-columns: 1fr; }
+            .calculator-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
     <link rel="stylesheet" href="../../common/footer/premium-footer.css">
@@ -285,38 +304,41 @@
     <link rel="stylesheet" href="../../common/footer/premium-footer.css">
     <script src="../../common/footer/premium-footer.js"></script>
     <script src="../../common/add-breadcrumbs.js"></script>
-    <script src="../../common/add-keyboard-accessibility.js"></script></head>
+    <script src="../../common/add-keyboard-accessibility.js"></script>
+</head>
+
 <body x-data="{ showModal: false }">
     <!-- Enhanced Navigation Bar -->
     <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-<nav class="main-nav">
-    <div class="nav-container">
-        <div class="nav-logo">
-            <a href="../../index.html">🧮 Docket One</a>
+    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="../../index.html">🧮 Docket One</a>
+            </div>
+            <div class="nav-search">
+                <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input"
+                    aria-label="Search calculators">
+                <div id="search-results" class="search-results"></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../BigKidMath/index.html" class="category-link">Big Kid Math</a></li>
+                <li><a href="../CipherLab/index.html" class="category-link">Cipher Lab</a></li>
+                <li><a href="../GeekGalaxy/index.html" class="category-link">Geek Galaxy</a></li>
+                <li><a href="../LifeHacks/index.html" class="category-link">Life Hacks</a></li>
+                <li><a href="../Math_Magik/index.html" class="category-link">Math Magik</a></li>
+                <li><a href="../Otaku_Ops/index.html" class="category-link">Otaku Ops</a></li>
+                <li><a href="../../index.html" class="home-link">🏠 Home</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
-        <div class="nav-search">
-            <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input" aria-label="Search calculators">
-            <div id="search-results" class="search-results"></div>
-        </div>
-        <ul class="nav-links">
-            <li><a href="../BigKidMath/index.html" class="category-link">Big Kid Math</a></li>
-            <li><a href="../CipherLab/index.html" class="category-link">Cipher Lab</a></li>
-            <li><a href="../GeekGalaxy/index.html" class="category-link">Geek Galaxy</a></li>
-            <li><a href="../LifeHacks/index.html" class="category-link">Life Hacks</a></li>
-            <li><a href="../Math_Magik/index.html" class="category-link">Math Magik</a></li>
-            <li><a href="../Otaku_Ops/index.html" class="category-link">Otaku Ops</a></li>
-            <li><a href="../../index.html" class="home-link">🏠 Home</a></li>
-        </ul>
-        <button class="mobile-menu-btn" aria-label="Toggle menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-    </div>
-</nav>
+    </nav>
 
     <!-- Hero Section -->
     <section class="hero">
@@ -329,15 +351,14 @@
             <!-- Mission Planning Panel -->
             <div class="panel">
                 <h2>🚀 Mission Planning</h2>
-                
+
                 <!-- Destination Selection -->
                 <h3 style="margin-bottom: 1rem;">Select Destination</h3>
                 <div class="destination-grid">
                     <template x-for="(destination, key) in destinations" :key="key">
-                        <div class="destination-option" 
-                             :class="{ active: selectedDestination === key }"
-                             :style="`--destination-color: ${destination.color}; --destination-rgb: ${destination.rgb}`"
-                             @click="selectDestination(key)">
+                        <div class="destination-option" :class="{ active: selectedDestination === key }"
+                            :style="`--destination-color: ${destination.color}; --destination-rgb: ${destination.rgb}`"
+                            @click="selectDestination(key)">
                             <div class="destination-icon" x-text="destination.emoji"></div>
                             <div class="destination-info">
                                 <h3 x-text="destination.name"></h3>
@@ -351,7 +372,7 @@
             <!-- Journey Analysis Panel -->
             <div class="panel">
                 <h2>🌌 Journey Analysis</h2>
-                
+
                 <!-- Propulsion Selection Dropdown -->
                 <div class="propulsion-dropdown">
                     <label style="display: block; font-weight: 600; margin-bottom: 0.5rem;">Propulsion System</label>
@@ -361,32 +382,43 @@
                         </template>
                     </select>
                 </div>
-                
+
                 <div x-show="travelTime > 0" x-transition>
                     <div style="text-align: center; margin: 2rem 0;">
                         <div style="font-size: 3rem; margin-bottom: 1rem;">
-                            <span :style="`color: ${destinations[selectedDestination]?.color}`" x-text="destinations[selectedDestination]?.emoji"></span>
+                            <span :style="`color: ${destinations[selectedDestination]?.color}`"
+                                x-text="destinations[selectedDestination]?.emoji"></span>
                         </div>
-                        <div style="font-size: 2rem; font-weight: 800; color: var(--space-blue); margin-bottom: 0.5rem;" x-text="formatTime(travelTime)"></div>
-                        <div style="color: var(--text-dim);">Travel Time to <span x-text="destinations[selectedDestination]?.name"></span></div>
+                        <div style="font-size: 2rem; font-weight: 800; color: var(--space-blue); margin-bottom: 0.5rem;"
+                            x-text="formatTime(travelTime)"></div>
+                        <div style="color: var(--text-dim);">Travel Time to <span
+                                x-text="destinations[selectedDestination]?.name"></span></div>
                     </div>
 
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-top: 2rem;">
-                        <div style="background: var(--space-dark); padding: 1rem; border-radius: var(--radius); text-align: center;">
-                            <div style="font-size: 1.25rem; font-weight: 700; color: var(--nebula-purple);" x-text="formatSpeed(currentSpeed)"></div>
+                    <div
+                        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-top: 2rem;">
+                        <div
+                            style="background: var(--space-dark); padding: 1rem; border-radius: var(--radius); text-align: center;">
+                            <div style="font-size: 1.25rem; font-weight: 700; color: var(--nebula-purple);"
+                                x-text="formatSpeed(currentSpeed)"></div>
                             <div style="font-size: 0.875rem; color: var(--text-dim);">Average Speed</div>
                         </div>
-                        <div style="background: var(--space-dark); padding: 1rem; border-radius: var(--radius); text-align: center;">
-                            <div style="font-size: 1.25rem; font-weight: 700; color: var(--star-gold);" x-text="formatDistance(currentDistance)"></div>
+                        <div
+                            style="background: var(--space-dark); padding: 1rem; border-radius: var(--radius); text-align: center;">
+                            <div style="font-size: 1.25rem; font-weight: 700; color: var(--star-gold);"
+                                x-text="formatDistance(currentDistance)"></div>
                             <div style="font-size: 0.875rem; color: var(--text-dim);">Distance</div>
                         </div>
-                        <div style="background: var(--space-dark); padding: 1rem; border-radius: var(--radius); text-align: center;">
-                            <div style="font-size: 1.25rem; font-weight: 700; color: var(--mars-red);" x-text="formatFuel(calculateFuel())"></div>
+                        <div
+                            style="background: var(--space-dark); padding: 1rem; border-radius: var(--radius); text-align: center;">
+                            <div style="font-size: 1.25rem; font-weight: 700; color: var(--mars-red);"
+                                x-text="formatFuel(calculateFuel())"></div>
                             <div style="font-size: 0.875rem; color: var(--text-dim);">Fuel Required</div>
                         </div>
                     </div>
 
-                    <div style="margin-top: 2rem; padding: 1.5rem; background: var(--space-dark); border-radius: var(--radius);">
+                    <div
+                        style="margin-top: 2rem; padding: 1.5rem; background: var(--space-dark); border-radius: var(--radius);">
                         <h3 style="margin-bottom: 1rem;">Mission Details:</h3>
                         <div style="display: grid; gap: 0.5rem;">
                             <div style="display: flex; justify-content: space-between;">
@@ -395,18 +427,20 @@
                             </div>
                             <div style="display: flex; justify-content: space-between;">
                                 <span>Destination:</span>
-                                <span style="color: var(--space-blue);" x-text="destinations[selectedDestination]?.name"></span>
+                                <span style="color: var(--space-blue);"
+                                    x-text="destinations[selectedDestination]?.name"></span>
                             </div>
                             <div style="display: flex; justify-content: space-between;">
                                 <span>Propulsion:</span>
-                                <span style="color: var(--space-blue);" x-text="propulsionSystems[selectedPropulsion]?.name"></span>
+                                <span style="color: var(--space-blue);"
+                                    x-text="propulsionSystems[selectedPropulsion]?.name"></span>
                             </div>
                             <div style="display: flex; justify-content: space-between;">
                                 <span>Round Trip:</span>
                                 <span style="color: var(--space-blue);" x-text="formatTime(travelTime * 2)"></span>
                             </div>
                         </div>
-                        
+
                         <!-- Share Button -->
                         <div class="share-dropdown">
                             <button class="share-button" @click="toggleShareMenu()">
@@ -447,16 +481,17 @@
                     </div>
                 </div>
 
-                <div x-show="!selectedDestination || travelTime === 0" style="text-align: center; color: var(--text-dim); padding: 2rem;">
+                <div x-show="!selectedDestination || travelTime === 0"
+                    style="text-align: center; color: var(--text-dim); padding: 2rem;">
                     Select a destination to calculate travel time
                 </div>
             </div>
         </div>
     </main>
-    
+
     <!-- Hidden canvas for generating share images -->
     <canvas id="shareCanvas" width="1200" height="630"></canvas>
-    
+
     <script>
         function spaceCalculator() {
             return {
@@ -466,7 +501,7 @@
                 currentSpeed: 0,
                 currentDistance: 0,
                 showShareMenu: false,
-                
+
                 destinations: {
                     'moon': {
                         name: 'Moon',
@@ -549,7 +584,7 @@
                         rgb: '139, 92, 246'
                     }
                 },
-                
+
                 propulsionSystems: {
                     'car': {
                         name: 'Highway Speed',
@@ -627,36 +662,36 @@
                         speedDisplay: 'Speed of Light'
                     }
                 },
-                
+
                 init() {
                     this.calculateJourney();
                 },
-                
+
                 selectDestination(key) {
                     this.selectedDestination = key;
                     this.calculateJourney();
                 },
-                
+
                 calculateJourney() {
                     if (!this.selectedDestination || !this.selectedPropulsion) return;
-                    
+
                     const destination = this.destinations[this.selectedDestination];
                     const propulsion = this.propulsionSystems[this.selectedPropulsion];
-                    
+
                     this.currentDistance = destination.distanceKm;
                     this.currentSpeed = propulsion.speed;
                     this.travelTime = destination.distanceKm / propulsion.speed;
                 },
-                
+
                 calculateFuel() {
                     if (!this.selectedDestination || !this.selectedPropulsion) return 0;
-                    
+
                     const destination = this.destinations[this.selectedDestination];
                     const propulsion = this.propulsionSystems[this.selectedPropulsion];
-                    
+
                     // More realistic fuel calculation based on distance and propulsion efficiency
                     let baseFuel = destination.distanceKm / 1000000; // Base fuel per million km
-                    
+
                     // Adjust for propulsion efficiency (better propulsion = less fuel needed)
                     const efficiencyMap = {
                         'car': 0.1,
@@ -675,18 +710,18 @@
                         'fusion': 0.9,
                         'light': 1.0
                     };
-                    
+
                     const efficiency = efficiencyMap[this.selectedPropulsion] || 0.5;
                     baseFuel = baseFuel / efficiency;
-                    
+
                     // For extremely long distances (intergalactic), use different calculation
                     if (destination.distanceKm > 9.461e12) { // Beyond 1 light-year
                         baseFuel = Math.pow(destination.distanceKm / 9.461e12, 0.8) * 1000000; // Logarithmic scaling
                     }
-                    
+
                     return Math.round(baseFuel * 1000);
                 },
-                
+
                 formatFuel(kg) {
                     if (kg < 1000) {
                         return kg + ' kg';
@@ -702,7 +737,7 @@
                         return 'Theoretical';
                     }
                 },
-                
+
                 formatTime(hours) {
                     if (hours < 1) {
                         return Math.round(hours * 60) + ' minutes';
@@ -722,7 +757,7 @@
                         return millions.toLocaleString() + ' million years';
                     }
                 },
-                
+
                 formatSpeed(kmh) {
                     if (kmh < 1000) {
                         return kmh.toFixed(0) + ' km/h';
@@ -733,7 +768,7 @@
                         return lightSpeedPercent.toFixed(1) + '% light speed';
                     }
                 },
-                
+
                 formatDistance(km) {
                     if (km < 1000000) {
                         return (km / 1000).toFixed(0) + ' thousand km';
@@ -750,29 +785,29 @@
                         }
                     }
                 },
-                
+
                 // Sharing functionality
                 toggleShareMenu() {
                     this.showShareMenu = !this.showShareMenu;
                 },
-                
+
                 generateShareText() {
                     const destination = this.destinations[this.selectedDestination];
                     const propulsion = this.propulsionSystems[this.selectedPropulsion];
                     const travelTime = this.formatTime(this.travelTime);
                     const fuel = this.formatFuel(this.calculateFuel());
-                    
+
                     return `🚀 Space Journey: ${destination.name} using ${propulsion.name} = ${travelTime} travel time & ${fuel} fuel! Plan your interstellar mission at docket.one`;
                 },
-                
+
                 generateShareImage() {
                     const canvas = document.getElementById('shareCanvas');
                     const ctx = canvas.getContext('2d');
-                    
+
                     // Set canvas dimensions for optimal social media sharing
                     canvas.width = 1200;
                     canvas.height = 630;
-                    
+
                     // Create gradient background
                     const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
                     gradient.addColorStop(0, '#0a0a0f');
@@ -781,7 +816,7 @@
                     gradient.addColorStop(1, '#0a0a0f');
                     ctx.fillStyle = gradient;
                     ctx.fillRect(0, 0, canvas.width, canvas.height);
-                    
+
                     // Add stars background
                     ctx.fillStyle = '#ffffff';
                     for (let i = 0; i < 150; i++) {
@@ -792,7 +827,7 @@
                         ctx.arc(x, y, size, 0, 2 * Math.PI);
                         ctx.fill();
                     }
-                    
+
                     // Add some larger stars
                     ctx.fillStyle = '#00d4ff';
                     for (let i = 0; i < 20; i++) {
@@ -803,59 +838,59 @@
                         ctx.arc(x, y, size, 0, 2 * Math.PI);
                         ctx.fill();
                     }
-                    
+
                     // Title
                     ctx.fillStyle = '#00d4ff';
                     ctx.font = 'bold 40px Inter, sans-serif';
                     ctx.textAlign = 'center';
                     ctx.fillText('SPACE TRAVEL TIME CALCULATOR', canvas.width / 2, 50);
-                    
+
                     // Get current mission data
                     const destination = this.destinations[this.selectedDestination];
                     const propulsion = this.propulsionSystems[this.selectedPropulsion];
                     const fuel = this.formatFuel(this.calculateFuel());
-                    
+
                     // Create two-column layout for mission details
                     const leftColumnX = 300;
                     const rightColumnX = 900;
                     const startY = 120;
-                    
+
                     // Left Column - Destination Info
                     ctx.fillStyle = '#8b5cf6';
                     ctx.font = 'bold 28px Inter, sans-serif';
                     ctx.textAlign = 'center';
                     ctx.fillText('DESTINATION', leftColumnX, startY);
-                    
+
                     // Destination emoji (larger)
                     ctx.font = '80px Inter, sans-serif';
                     ctx.fillText(destination.emoji, leftColumnX, startY + 80);
-                    
+
                     ctx.fillStyle = '#ffffff';
                     ctx.font = 'bold 32px Inter, sans-serif';
                     ctx.fillText(destination.name, leftColumnX, startY + 130);
-                    
+
                     ctx.fillStyle = '#94a3b8';
                     ctx.font = '20px Inter, sans-serif';
                     ctx.fillText(destination.distance, leftColumnX, startY + 160);
-                    
+
                     // Right Column - Mission Details
                     ctx.fillStyle = '#fbbf24';
                     ctx.font = 'bold 28px Inter, sans-serif';
                     ctx.fillText('MISSION DETAILS', rightColumnX, startY);
-                    
+
                     // Mission details with icons
                     const detailsY = startY + 50;
                     const lineHeight = 35;
                     ctx.textAlign = 'left';
                     ctx.font = '22px Inter, sans-serif';
-                    
+
                     // Propulsion
                     ctx.fillStyle = '#00d4ff';
                     ctx.fillText('🚀 Propulsion:', rightColumnX - 150, detailsY + lineHeight);
                     ctx.fillStyle = '#ffffff';
                     ctx.font = '20px Inter, sans-serif';
                     ctx.fillText(propulsion.name, rightColumnX - 150, detailsY + lineHeight + 25);
-                    
+
                     // Travel Time (highlighted)
                     ctx.fillStyle = '#00d4ff';
                     ctx.font = '22px Inter, sans-serif';
@@ -863,7 +898,7 @@
                     ctx.fillStyle = '#fbbf24';
                     ctx.font = 'bold 28px Inter, sans-serif';
                     ctx.fillText(this.formatTime(this.travelTime), rightColumnX - 150, detailsY + lineHeight * 3 + 30);
-                    
+
                     // Speed
                     ctx.fillStyle = '#00d4ff';
                     ctx.font = '22px Inter, sans-serif';
@@ -871,7 +906,7 @@
                     ctx.fillStyle = '#ffffff';
                     ctx.font = '20px Inter, sans-serif';
                     ctx.fillText(this.formatSpeed(this.currentSpeed), rightColumnX - 150, detailsY + lineHeight * 5 + 25);
-                    
+
                     // Fuel Required
                     ctx.fillStyle = '#00d4ff';
                     ctx.font = '22px Inter, sans-serif';
@@ -879,7 +914,7 @@
                     ctx.fillStyle = '#ffffff';
                     ctx.font = '20px Inter, sans-serif';
                     ctx.fillText(fuel, rightColumnX - 150, detailsY + lineHeight * 7 + 25);
-                    
+
                     // Round Trip
                     ctx.fillStyle = '#00d4ff';
                     ctx.font = '22px Inter, sans-serif';
@@ -887,26 +922,26 @@
                     ctx.fillStyle = '#8b5cf6';
                     ctx.font = 'bold 24px Inter, sans-serif';
                     ctx.fillText(this.formatTime(this.travelTime * 2), rightColumnX - 150, detailsY + lineHeight * 9 + 25);
-                    
+
                     // Bottom section - Call to Action
                     ctx.fillStyle = '#00d4ff';
                     ctx.font = 'bold 24px Inter, sans-serif';
                     ctx.textAlign = 'center';
                     ctx.fillText('Calculate your own space journey!', canvas.width / 2, 560);
-                    
+
                     // Website URL
                     ctx.fillStyle = '#fbbf24';
                     ctx.font = '20px Inter, sans-serif';
                     ctx.fillText('docket.one/pages/GeekGalaxy/Space Travel Time Calculator', canvas.width / 2, 590);
-                    
+
                     return canvas.toDataURL('image/png');
                 },
-                
+
                 // Enhanced sharing functionality with automatic image inclusion
                 async shareOnTwitter() {
                     const text = this.generateShareText();
                     const calculatorUrl = 'https://docket.one/pages/GeekGalaxy/Space%20Travel%20Time%20Calculator.html';
-                    
+
                     // Check if Web Share API is supported (mobile devices)
                     if (navigator.share && navigator.canShare) {
                         try {
@@ -915,7 +950,7 @@
                             const response = await fetch(imageDataUrl);
                             const blob = await response.blob();
                             const file = new File([blob], `space-journey-${this.selectedDestination}.png`, { type: 'image/png' });
-                            
+
                             if (navigator.canShare({ files: [file] })) {
                                 await navigator.share({
                                     title: 'Space Travel Time Calculator',
@@ -930,17 +965,17 @@
                             console.log('Native sharing failed, falling back to Twitter web');
                         }
                     }
-                    
+
                     // Fallback: Open Twitter with text and URL (image will be from OpenGraph)
                     const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(calculatorUrl)}`;
                     window.open(twitterUrl, '_blank');
                     this.showShareMenu = false;
                 },
-                
+
                 async shareOnFacebook() {
                     const calculatorUrl = 'https://docket.one/pages/GeekGalaxy/Space%20Travel%20Time%20Calculator.html';
                     const text = this.generateShareText();
-                    
+
                     // Check if Web Share API is supported
                     if (navigator.share && navigator.canShare) {
                         try {
@@ -948,7 +983,7 @@
                             const response = await fetch(imageDataUrl);
                             const blob = await response.blob();
                             const file = new File([blob], `space-journey-${this.selectedDestination}.png`, { type: 'image/png' });
-                            
+
                             if (navigator.canShare({ files: [file] })) {
                                 await navigator.share({
                                     title: 'Space Travel Time Calculator',
@@ -963,17 +998,17 @@
                             console.log('Native sharing failed, falling back to Facebook web');
                         }
                     }
-                    
+
                     // Fallback: Facebook sharing (will use OpenGraph meta tags for image)
                     const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(calculatorUrl)}&quote=${encodeURIComponent(text)}`;
                     window.open(facebookUrl, '_blank');
                     this.showShareMenu = false;
                 },
-                
+
                 async shareOnLinkedIn() {
                     const text = this.generateShareText();
                     const calculatorUrl = 'https://docket.one/pages/GeekGalaxy/Space%20Travel%20Time%20Calculator.html';
-                    
+
                     // Check if Web Share API is supported
                     if (navigator.share && navigator.canShare) {
                         try {
@@ -981,7 +1016,7 @@
                             const response = await fetch(imageDataUrl);
                             const blob = await response.blob();
                             const file = new File([blob], `space-journey-${this.selectedDestination}.png`, { type: 'image/png' });
-                            
+
                             if (navigator.canShare({ files: [file] })) {
                                 await navigator.share({
                                     title: 'Space Travel Time Calculator',
@@ -996,17 +1031,17 @@
                             console.log('Native sharing failed, falling back to LinkedIn web');
                         }
                     }
-                    
+
                     // Fallback: LinkedIn sharing
                     const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(calculatorUrl)}&summary=${encodeURIComponent(text)}`;
                     window.open(linkedInUrl, '_blank');
                     this.showShareMenu = false;
                 },
-                
+
                 async shareGeneral() {
                     const text = this.generateShareText();
                     const calculatorUrl = 'https://docket.one/pages/GeekGalaxy/Space%20Travel%20Time%20Calculator.html';
-                    
+
                     // Try Web Share API first (works great on mobile)
                     if (navigator.share) {
                         try {
@@ -1014,7 +1049,7 @@
                             const response = await fetch(imageDataUrl);
                             const blob = await response.blob();
                             const file = new File([blob], `space-journey-${this.selectedDestination}-${this.selectedPropulsion}.png`, { type: 'image/png' });
-                            
+
                             // Check if the device can share files
                             if (navigator.canShare && navigator.canShare({ files: [file] })) {
                                 await navigator.share({
@@ -1039,7 +1074,7 @@
                             }
                         }
                     }
-                    
+
                     // Fallback: Copy to clipboard and show instructions
                     try {
                         await navigator.clipboard.writeText(`${text} ${calculatorUrl}`);
@@ -1052,7 +1087,7 @@
                     }
                     this.showShareMenu = false;
                 },
-                
+
                 shareOnReddit() {
                     const text = this.generateShareText();
                     const calculatorUrl = 'https://docket.one/pages/GeekGalaxy/Space%20Travel%20Time%20Calculator.html';
@@ -1060,7 +1095,7 @@
                     window.open(redditUrl, '_blank');
                     this.showShareMenu = false;
                 },
-                
+
                 async copyShareLink() {
                     const calculatorUrl = 'https://docket.one/pages/GeekGalaxy/Space%20Travel%20Time%20Calculator.html';
                     try {
@@ -1077,7 +1112,7 @@
                     }
                     this.showShareMenu = false;
                 },
-                
+
                 downloadImage() {
                     const imageDataUrl = this.generateShareImage();
                     const link = document.createElement('a');
@@ -1091,26 +1126,26 @@
     </script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
             const navLinks = document.querySelector('.nav-links');
-            
+
             if (mobileMenuBtn && navLinks) {
-                mobileMenuBtn.addEventListener('click', function() {
+                mobileMenuBtn.addEventListener('click', function () {
                     navLinks.classList.toggle('active');
                     mobileMenuBtn.classList.toggle('active');
                 });
-                
-                document.addEventListener('click', function(event) {
+
+                document.addEventListener('click', function (event) {
                     if (!event.target.closest('.main-nav')) {
                         navLinks.classList.remove('active');
                         mobileMenuBtn.classList.remove('active');
                     }
                 });
             }
-            
+
             // Close share menu when clicking outside
-            document.addEventListener('click', function(event) {
+            document.addEventListener('click', function (event) {
                 if (!event.target.closest('.share-dropdown')) {
                     const shareMenus = document.querySelectorAll('.share-menu');
                     shareMenus.forEach(menu => menu.classList.remove('active'));
@@ -1118,176 +1153,176 @@
             });
         });
     </script>
-<!-- Newsletter Bar -->
-<div class="newsletter-bar" x-data="newsletterForm()">
-    <div class="newsletter-container">
-        <div class="newsletter-content">
-            <div class="newsletter-info">
-                <h3>&#127881; Join Our Calculator Community!</h3>
-                <p>Get updates on new fun calculators and practical tools</p>
-            </div>
-            <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
-                <input 
-                    type="email" 
-                    class="newsletter-input"
-                    placeholder="Enter your email for calculator updates"
-                    x-model="email"
-                    required
-                >
-                <button 
-                    type="submit" 
-                    class="newsletter-submit"
-                    :disabled="isSubmitting"
-                >
-                    <span x-show="isSubmitting" class="loading-spinner"></span>
-                    <span x-text="isSubmitting ? 'Subscribing...' : '&#128640; Subscribe'"></span>
-                </button>
-            </form>
-            <div x-show="showSuccess" class="newsletter-success" style="display: none;">
-                <p style="color: var(--accent-light); font-weight: 600;">
-                    &#9989; Awesome! You'll get updates on the coolest new calculators!
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Footer -->
-<footer class="footer">
-    <div class="footer-container">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h4>&#127919; About Docket.One</h4>
-                <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the tools for modern life.</p>
-                <p>Practical meets playful. Because adulting is hard enough.</p>
-            </div>
-
-            <div class="footer-section">
-                <h4>&#127914; Calculator Categories</h4>
-                <ul class="footer-links">
-                    <li><a href="/pages/BigKidMath/"><span class="calculator-emoji">&#129518;</span> BigKidMath - Adult Life Tools</a></li>
-                    <li><a href="/pages/CipherLab/"><span class="calculator-emoji">&#128272;</span> CipherLab - Secret Codes & Security</a></li>
-                    <li><a href="/pages/GeekGalaxy/"><span class="calculator-emoji">&#128640;</span> GeekGalaxy - Sci-Fi & Fantasy Fun</a></li>
-                    <li><a href="/pages/LifeHacks/"><span class="calculator-emoji">&#9889;</span> LifeHacks - Productivity & Wellness</a></li>
-                    <li><a href="/pages/Math_Magik/"><span class="calculator-emoji">&#127917;</span> Math Magik - Mathematical Wizardry</a></li>
-                    <li><a href="/pages/Otaku_Ops/"><span class="calculator-emoji">&#127999;</span> Otaku Ops - Anime & Culture</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-                <h4>&#128172; Support & Info</h4>
-                <ul class="footer-links">
-                    <li><a href="/pages/support/help.html"><span class="calculator-emoji">&#10067;</span> Help & FAQ</a></li>
-                    <li><a href="/privacy"><span class="calculator-emoji">&#128274;</span> Privacy Policy</a></li>
-                    <li><a href="/terms"><span class="calculator-emoji">&#128203;</span> Terms of Service</a></li>
-                    <li><a href="/accessibility"><span class="calculator-emoji">&#9855;</span> Accessibility</a></li>
-                    <li><a href="/pages/support/contact.html"><span class="calculator-emoji">&#128231;</span> Contact Us</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-                <button 
-                    class="request-calculator-btn"
-                    @click="showModal = true"
-                >
-                    &#128161; Request a Calculator
-                </button>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <div class="footer-logo">&#129518; Docket.One</div>
-            <div class="footer-copyright">
-                Â© 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
-            </div>
-            <div class="social-links">
-                <a href="#" class="social-link" aria-label="Twitter">&#120143;</a>
-                <a href="#" class="social-link" aria-label="LinkedIn">&#128188;</a>
-                <a href="#" class="social-link" aria-label="GitHub">&#128025;</a>
-                <a href="#" class="social-link" aria-label="Email">&#128231;</a>
-            </div>
-        </div>
-    </div>
-</footer>
-
-<!-- Request Modal -->
-<div 
-    x-data="calculatorRequestForm()"
-    x-show="showModal"
-    x-cloak
-    class="modal-overlay"
-    @click.self="closeModal()"
-    style="display: none;"
->
-    <div class="modal-content">
-        <div x-show="!showConfirmation">
-            <div class="modal-header">
-                <h2 class="modal-title">&#128161; Request a Fun Calculator</h2>
-                <p class="modal-subtitle">Got an idea for a calculator that would make life easier or more fun? We want to hear it!</p>
-                <button class="modal-close" @click="closeModal()">&#10005;</button>
-            </div>
-            <div class="modal-body">
-                <form @submit.prevent="submitRequest()">
-                    <div class="form-group">
-                        <label class="form-label" for="userName">Your Name *</label>
-                        <input type="text" id="userName" class="form-input" x-model="formData.name" required placeholder="What should we call you?">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="userEmail">Email Address *</label>
-                        <input type="email" id="userEmail" class="form-input" x-model="formData.email" required placeholder="your@email.com">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="requestType">What Kind of Request? *</label>
-                        <select id="requestType" class="form-input form-select" x-model="formData.type" required>
-                            <option value="">Choose your request type</option>
-                            <option value="new-calculator">&#127358; Brand New Calculator</option>
-                            <option value="enhancement">&#9889; Improve Existing Calculator</option>
-                            <option value="category">&#127914; New Category Idea</option>
-                            <option value="feature">&#10024; Cool New Feature</option>
-                            <option value="other">&#129300; Something Else Entirely</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="calculatorTitle">Calculator Name/Title *</label>
-                        <input type="text" id="calculatorTitle" class="form-input" x-model="formData.title" required placeholder="e.g., 'Should I Call In Sick Calculator'">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="description">Tell Us About Your Idea! *</label>
-                        <textarea id="description" class="form-input form-textarea" x-model="formData.description" required placeholder="Describe your calculator idea!"></textarea>
-                    </div>
-                    <div class="form-actions">
-                        <button type="button" class="btn btn-secondary" @click="closeModal()">Maybe Later</button>
-                        <button type="submit" class="btn btn-primary" :disabled="isSubmitting">
-                            <span x-show="isSubmitting" class="loading-spinner"></span>
-                            <span x-text="isSubmitting ? 'Sending...' : '&#128640; Send My Idea'"></span>
-                        </button>
-                    </div>
+    <!-- Newsletter Bar -->
+    <div class="newsletter-bar" x-data="newsletterForm()">
+        <div class="newsletter-container">
+            <div class="newsletter-content">
+                <div class="newsletter-info">
+                    <h3>&#127881; Join Our Calculator Community!</h3>
+                    <p>Get updates on new fun calculators and practical tools</p>
+                </div>
+                <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
+                    <input type="email" class="newsletter-input" placeholder="Enter your email for calculator updates"
+                        x-model="email" required>
+                    <button type="submit" class="newsletter-submit" :disabled="isSubmitting">
+                        <span x-show="isSubmitting" class="loading-spinner"></span>
+                        <span x-text="isSubmitting ? 'Subscribing...' : '&#128640; Subscribe'"></span>
+                    </button>
                 </form>
-            </div>
-        </div>
-        <div x-show="showConfirmation" class="confirmation-modal" style="display: none;">
-            <div class="modal-header">
-                <button class="modal-close" @click="closeModal()">&#10005;</button>
-            </div>
-            <div class="modal-body">
-                <div class="success-icon">&#127881;</div>
-                <h3 class="confirmation-title">Awesome! We Got Your Idea!</h3>
-                <p class="confirmation-message">
-                    Thanks for sharing your calculator idea with us! We're excited to check it out and see if we can make it happen. 
-                    <br><br>
-                    <strong>What happens next?</strong><br>
-                    â€¢ You'll get a confirmation email shortly<br>
-                    â€¢ Our team will review your idea<br>
-                    â€¢ If we build it, you'll be the first to know!<br>
-                    â€¢ We might even name you as the inspiration &#128522;
-                </p>
-                <button class="btn btn-primary" @click="closeModal()" style="width: 100%;">
-                    &#127919; Close & Keep Calculating!
-                </button>
+                <div x-show="showSuccess" class="newsletter-success" style="display: none;">
+                    <p style="color: var(--accent-light); font-weight: 600;">
+                        &#9989; Awesome! You'll get updates on the coolest new calculators!
+                    </p>
+                </div>
             </div>
         </div>
     </div>
-</div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>&#127919; About Docket.One</h4>
+                    <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you
+                        should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the
+                        tools for modern life.</p>
+                    <p>Practical meets playful. Because adulting is hard enough.</p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>&#127914; Calculator Categories</h4>
+                    <ul class="footer-links">
+                        <li><a href="/pages/BigKidMath/"><span class="calculator-emoji">&#129518;</span> BigKidMath -
+                                Adult Life Tools</a></li>
+                        <li><a href="/pages/CipherLab/"><span class="calculator-emoji">&#128272;</span> CipherLab -
+                                Secret Codes & Security</a></li>
+                        <li><a href="/pages/GeekGalaxy/"><span class="calculator-emoji">&#128640;</span> GeekGalaxy -
+                                Sci-Fi & Fantasy Fun</a></li>
+                        <li><a href="/pages/LifeHacks/"><span class="calculator-emoji">&#9889;</span> LifeHacks -
+                                Productivity & Wellness</a></li>
+                        <li><a href="/pages/Math_Magik/"><span class="calculator-emoji">&#127917;</span> Math Magik -
+                                Mathematical Wizardry</a></li>
+                        <li><a href="/pages/Otaku_Ops/"><span class="calculator-emoji">&#127999;</span> Otaku Ops -
+                                Anime & Culture</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>&#128172; Support & Info</h4>
+                    <ul class="footer-links">
+                        <li><a href="/pages/support/help.html"><span class="calculator-emoji">&#10067;</span> Help &
+                                FAQ</a></li>
+                        <li><a href="/privacy"><span class="calculator-emoji">&#128274;</span> Privacy Policy</a></li>
+                        <li><a href="/terms"><span class="calculator-emoji">&#128203;</span> Terms of Service</a></li>
+                        <li><a href="/accessibility"><span class="calculator-emoji">&#9855;</span> Accessibility</a>
+                        </li>
+                        <li><a href="/pages/support/contact.html"><span class="calculator-emoji">&#128231;</span>
+                                Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <button class="request-calculator-btn" @click="showModal = true">
+                        &#128161; Request a Calculator
+                    </button>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-logo">&#129518; Docket.One</div>
+                <div class="footer-copyright">
+                    Â© 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
+                </div>
+                <div class="social-links">
+                    <a href="#" class="social-link" aria-label="Twitter">&#120143;</a>
+                    <a href="#" class="social-link" aria-label="LinkedIn">&#128188;</a>
+                    <a href="#" class="social-link" aria-label="GitHub">&#128025;</a>
+                    <a href="#" class="social-link" aria-label="Email">&#128231;</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Request Modal -->
+    <div x-data="calculatorRequestForm()" x-show="showModal" x-cloak class="modal-overlay" @click.self="closeModal()"
+        style="display: none;">
+        <div class="modal-content">
+            <div x-show="!showConfirmation">
+                <div class="modal-header">
+                    <h2 class="modal-title">&#128161; Request a Fun Calculator</h2>
+                    <p class="modal-subtitle">Got an idea for a calculator that would make life easier or more fun? We
+                        want to hear it!</p>
+                    <button class="modal-close" @click="closeModal()">&#10005;</button>
+                </div>
+                <div class="modal-body">
+                    <form @submit.prevent="submitRequest()">
+                        <div class="form-group">
+                            <label class="form-label" for="userName">Your Name *</label>
+                            <input type="text" id="userName" class="form-input" x-model="formData.name" required
+                                placeholder="What should we call you?">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="userEmail">Email Address *</label>
+                            <input type="email" id="userEmail" class="form-input" x-model="formData.email" required
+                                placeholder="your@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="requestType">What Kind of Request? *</label>
+                            <select id="requestType" class="form-input form-select" x-model="formData.type" required>
+                                <option value="">Choose your request type</option>
+                                <option value="new-calculator">&#127358; Brand New Calculator</option>
+                                <option value="enhancement">&#9889; Improve Existing Calculator</option>
+                                <option value="category">&#127914; New Category Idea</option>
+                                <option value="feature">&#10024; Cool New Feature</option>
+                                <option value="other">&#129300; Something Else Entirely</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="calculatorTitle">Calculator Name/Title *</label>
+                            <input type="text" id="calculatorTitle" class="form-input" x-model="formData.title" required
+                                placeholder="e.g., 'Should I Call In Sick Calculator'">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="description">Tell Us About Your Idea! *</label>
+                            <textarea id="description" class="form-input form-textarea" x-model="formData.description"
+                                required placeholder="Describe your calculator idea!"></textarea>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" @click="closeModal()">Maybe Later</button>
+                            <button type="submit" class="btn btn-primary" :disabled="isSubmitting">
+                                <span x-show="isSubmitting" class="loading-spinner"></span>
+                                <span x-text="isSubmitting ? 'Sending...' : '&#128640; Send My Idea'"></span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div x-show="showConfirmation" class="confirmation-modal" style="display: none;">
+                <div class="modal-header">
+                    <button class="modal-close" @click="closeModal()">&#10005;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="success-icon">&#127881;</div>
+                    <h3 class="confirmation-title">Awesome! We Got Your Idea!</h3>
+                    <p class="confirmation-message">
+                        Thanks for sharing your calculator idea with us! We're excited to check it out and see if we can
+                        make it happen.
+                        <br><br>
+                        <strong>What happens next?</strong><br>
+                        â€¢ You'll get a confirmation email shortly<br>
+                        â€¢ Our team will review your idea<br>
+                        â€¢ If we build it, you'll be the first to know!<br>
+                        â€¢ We might even name you as the inspiration &#128522;
+                    </p>
+                    <button class="btn btn-primary" @click="closeModal()" style="width: 100%;">
+                        &#127919; Close & Keep Calculating!
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </body>
+
 </html>
