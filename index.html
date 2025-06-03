@@ -237,10 +237,8 @@
             font-size: clamp(2.5rem, 6vw, 4.5rem);
             font-weight: 800;
             margin-bottom: var(--space-lg);
-            background: linear-gradient(135deg, #ffffff 0%, #e5e7eb 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #ffffff;
+            /* Changed from gradient to solid color for better contrast */
             animation: slideInUp 1s ease-out 0.2s both;
             text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
         }
@@ -305,7 +303,8 @@
 
         .cta-primary {
             background: var(--accent);
-            color: var(--text);
+            color: #000000;
+            /* Changed to black for better contrast */
             padding: var(--space-lg) var(--space-2xl);
             border-radius: var(--radius-lg);
             text-decoration: none;
@@ -316,6 +315,8 @@
             border: 2px solid transparent;
             position: relative;
             overflow: hidden;
+            outline: none;
+            /* Remove default outline */
         }
 
         .cta-primary::before {
@@ -337,6 +338,11 @@
             background: var(--accent-light);
             transform: translateY(-3px);
             box-shadow: 0 15px 35px rgba(245, 158, 11, 0.4);
+        }
+
+        .cta-primary:focus-visible {
+            outline: 3px solid #000000;
+            outline-offset: 2px;
         }
 
         .cta-secondary {
@@ -457,12 +463,12 @@
             font-weight: 500;
             transition: all 0.3s ease;
             cursor: pointer;
+            outline: none;
         }
 
-        .converter-dropdown:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        .converter-dropdown:focus-visible {
+            outline: 3px solid var(--primary);
+            outline-offset: 2px;
         }
 
         .converter-dropdown:hover {
@@ -1193,6 +1199,8 @@
             }
         }
     </style>
+    <meta name="theme-color" content="#6366f1">
+    <meta name="color-scheme" content="light dark">
 </head>
 
 <body x-data="{  }">

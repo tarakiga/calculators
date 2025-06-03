@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Calculate the best pizza value by comparing different sizes and prices. Find out which pizza gives you the most bang for your buck!">
     <title>Pizza Pi Calculator | Docket One</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
@@ -119,7 +121,7 @@
         }
 
         .pizza-wave {
-            background: linear-gradient(135deg, #E53E3E 0%, #FC8181 100%);
+            background: linear-gradient(135deg, #E53E3E 0%, #B91C1C 100%);
             position: relative;
             overflow: hidden;
         }
@@ -131,10 +133,10 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(45deg, rgba(255, 255, 255, 0.1) 25%, transparent 25%),
-                linear-gradient(-45deg, rgba(255, 255, 255, 0.1) 25%, transparent 25%),
-                linear-gradient(45deg, transparent 75%, rgba(255, 255, 255, 0.1) 75%),
-                linear-gradient(-45deg, transparent 75%, rgba(255, 255, 255, 0.1) 75%);
+            background: linear-gradient(45deg, rgba(0, 0, 0, 0.15) 25%, transparent 25%),
+                linear-gradient(-45deg, rgba(0, 0, 0, 0.15) 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, rgba(0, 0, 0, 0.15) 75%),
+                linear-gradient(-45deg, transparent 75%, rgba(0, 0, 0, 0.15) 75%);
             background-size: 20px 20px;
             animation: wave 20s linear infinite;
         }
@@ -218,6 +220,8 @@
         .input-focus {
             transform: scale(1.02);
             box-shadow: 0 0 15px rgba(229, 62, 62, 0.3);
+            outline: 3px solid var(--primary);
+            outline-offset: 2px;
         }
 
         .calculate-btn {
@@ -398,6 +402,72 @@
             color: #718096;
             font-size: 14px;
         }
+
+        .mobile-menu-btn {
+            min-width: 44px;
+            min-height: 44px;
+            padding: 12px;
+        }
+
+        /* Add focus styles for better keyboard navigation */
+        *:focus-visible {
+            outline: 3px solid #E53E3E;
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+
+        /* Improve contrast for better readability */
+        [class*="text-[#C53030]"] {
+            color: #B91C1C;
+            /* Darker red for better contrast */
+        }
+
+        /* Add focus styles for interactive elements */
+        .preset-btn:focus-visible,
+        .calculate-btn:focus-visible {
+            outline: 3px solid #E53E3E;
+            outline-offset: 2px;
+            box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.3);
+        }
+
+        /* Ensure sufficient contrast for text */
+        .text-white {
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Add focus styles for form inputs */
+        .form-input:focus-visible,
+        .form-select:focus-visible {
+            outline: 3px solid #E53E3E;
+            outline-offset: 2px;
+            border-color: #E53E3E;
+        }
+
+        /* Ensure sufficient contrast for disabled states */
+        .form-input:disabled,
+        .form-select:disabled {
+            background-color: #F3F4F6;
+            color: #6B7280;
+            border-color: #D1D5DB;
+        }
+
+        /* Add focus styles for buttons */
+        button:focus-visible {
+            outline: 3px solid #E53E3E;
+            outline-offset: 2px;
+            box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.3);
+        }
+
+        /* Ensure focus styles are visible */
+        .pizza-wave:focus-within {
+            outline: 3px solid #FFFFFF;
+            outline-offset: 2px;
+        }
+
+        /* Improve badge contrast */
+        .bg-white\/30 {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
     </style>
 
     <link rel="stylesheet" href="../../common/navbar-enhanced.css">
@@ -472,128 +542,191 @@
     <div class="container mx-auto px-4 py-12">
         <div class="max-w-4xl mx-auto">
             <!-- Hero Section -->
-            <div class="relative pizza-wave rounded-2xl overflow-hidden mb-8">
+            <div class="relative pizza-wave rounded-2xl overflow-hidden mb-8" role="banner"
+                aria-labelledby="hero-title hero-subtitle">
                 <div class="relative z-10 px-8 py-12 text-center">
-                    <div class="inline-flex items-center px-4 py-2 bg-white/10 rounded-full mb-4">
-                        <span class="text-2xl mr-2 pulse">🍕</span>
+                    <div class="inline-flex items-center px-4 py-2 bg-white/30 rounded-full mb-4" role="complementary"
+                        aria-label="Pizza Math badge">
+                        <span class="text-2xl mr-2 pulse" aria-hidden="true">🍕</span>
                         <span class="text-white font-medium">Pizza Math</span>
                     </div>
-                    <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">
-                        <span class="rotate inline-block">
+                    <h1 id="hero-title" class="text-4xl md:text-5xl font-bold text-white mb-4 drop-shadow-lg">
+                        <span class="rotate inline-block" aria-hidden="true">
                             <i class="fas fa-pizza-slice mr-2"></i>
                         </span>
                         Pizza Pi Calculator
                     </h1>
-                    <p class="text-white/90 text-lg max-w-2xl mx-auto">
+                    <p id="hero-subtitle" class="text-white text-lg max-w-2xl mx-auto drop-shadow-md">
                         Because size <em>does</em> matter when it comes to pizza value!
                     </p>
                 </div>
             </div>
 
             <!-- Calculator Content -->
-            <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden" role="main" aria-label="Pizza Calculator">
                 <div class="p-6 md:p-8">
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
                         <!-- Pizza 1 -->
-                        <div class="bg-[#FFF5F5] p-6 rounded-xl border-l-4 border-[#E53E3E]">
-                            <h2 class="text-xl font-bold mb-4 text-[#C53030]">
-                                <i class="fas fa-pizza-slice mr-2"></i> Pizza #1
+                        <div class="bg-[#FFF5F5] p-6 rounded-xl border-l-4 border-[#E53E3E]" role="group"
+                            aria-labelledby="pizza1-title">
+                            <h2 id="pizza1-title" class="text-xl font-bold mb-4 text-[#C53030]">
+                                <i class="fas fa-pizza-slice mr-2" aria-hidden="true"></i> Pizza #1
                             </h2>
                             <div class="space-y-4">
                                 <div>
-                                    <label class="block text-sm font-medium mb-1 text-[#C53030]">Diameter
-                                        (inches)</label>
-                                    <input type="number" x-model="pizzas[0].size" min="5" max="30" step="0.1"
+                                    <label for="pizza1-size"
+                                        class="block text-sm font-medium mb-1 text-[#C53030]">Diameter (inches)</label>
+                                    <input type="number" id="pizza1-size" x-model="pizzas[0].size" min="5" max="30"
+                                        step="0.1"
                                         class="w-full p-2 border border-[#FC8181] rounded-lg focus:ring-2 focus:ring-[#E53E3E] focus:border-transparent"
-                                        @input="calculate">
+                                        @input="calculate" aria-label="Pizza 1 diameter in inches">
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1 text-[#C53030]">Price ($)</label>
-                                    <input type="number" x-model="pizzas[0].price" min="1" max="100" step="0.01"
+                                    <label for="pizza1-price"
+                                        class="block text-sm font-medium mb-1 text-[#C53030]">Price ($)</label>
+                                    <input type="number" id="pizza1-price" x-model="pizzas[0].price" min="1" max="100"
+                                        step="0.01"
                                         class="w-full p-2 border border-[#FC8181] rounded-lg focus:ring-2 focus:ring-[#E53E3E] focus:border-transparent"
-                                        @input="calculate">
+                                        @input="calculate" aria-label="Pizza 1 price in dollars">
                                 </div>
                             </div>
                         </div>
 
                         <!-- Pizza 2 -->
-                        <div class="bg-[#FFF5F5] p-6 rounded-xl border-l-4 border-[#E53E3E]">
-                            <h2 class="text-xl font-bold mb-4 text-[#C53030]">
-                                <i class="fas fa-pizza-slice mr-2"></i> Pizza #2
+                        <div class="bg-[#FFF5F5] p-6 rounded-xl border-l-4 border-[#E53E3E]" role="group"
+                            aria-labelledby="pizza2-title">
+                            <h2 id="pizza2-title" class="text-xl font-bold mb-4 text-[#C53030]">
+                                <i class="fas fa-pizza-slice mr-2" aria-hidden="true"></i> Pizza #2
                             </h2>
                             <div class="space-y-4">
                                 <div>
-                                    <label class="block text-sm font-medium mb-1 text-[#C53030]">Diameter
-                                        (inches)</label>
-                                    <input type="number" x-model="pizzas[1].size" min="5" max="30" step="0.1"
+                                    <label for="pizza2-size"
+                                        class="block text-sm font-medium mb-1 text-[#C53030]">Diameter (inches)</label>
+                                    <input type="number" id="pizza2-size" x-model="pizzas[1].size" min="5" max="30"
+                                        step="0.1"
                                         class="w-full p-2 border border-[#FC8181] rounded-lg focus:ring-2 focus:ring-[#E53E3E] focus:border-transparent"
-                                        @input="calculate">
+                                        @input="calculate" aria-label="Pizza 2 diameter in inches">
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1 text-[#C53030]">Price ($)</label>
-                                    <input type="number" x-model="pizzas[1].price" min="1" max="100" step="0.01"
+                                    <label for="pizza2-price"
+                                        class="block text-sm font-medium mb-1 text-[#C53030]">Price ($)</label>
+                                    <input type="number" id="pizza2-price" x-model="pizzas[1].price" min="1" max="100"
+                                        step="0.01"
                                         class="w-full p-2 border border-[#FC8181] rounded-lg focus:ring-2 focus:ring-[#E53E3E] focus:border-transparent"
-                                        @input="calculate">
+                                        @input="calculate" aria-label="Pizza 2 price in dollars">
                                 </div>
                             </div>
                         </div>
 
                         <!-- Pizza 3 -->
-                        <div class="bg-[#FFF5F5] p-6 rounded-xl border-l-4 border-[#E53E3E]">
-                            <h2 class="text-xl font-bold mb-4 text-[#C53030]">
-                                <i class="fas fa-pizza-slice mr-2"></i> Pizza #3 (Optional)
+                        <div class="bg-[#FFF5F5] p-6 rounded-xl border-l-4 border-[#E53E3E]" role="group"
+                            aria-labelledby="pizza3-title">
+                            <h2 id="pizza3-title" class="text-xl font-bold mb-4 text-[#C53030]">
+                                <i class="fas fa-pizza-slice mr-2" aria-hidden="true"></i> Pizza #3 (Optional)
                             </h2>
                             <div class="space-y-4">
                                 <div>
-                                    <label class="block text-sm font-medium mb-1 text-[#C53030]">Diameter
-                                        (inches)</label>
-                                    <input type="number" x-model="pizzas[2].size" min="5" max="30" step="0.1"
+                                    <label for="pizza3-size"
+                                        class="block text-sm font-medium mb-1 text-[#C53030]">Diameter (inches)</label>
+                                    <input type="number" id="pizza3-size" x-model="pizzas[2].size" min="5" max="30"
+                                        step="0.1"
                                         class="w-full p-2 border border-[#FC8181] rounded-lg focus:ring-2 focus:ring-[#E53E3E] focus:border-transparent"
-                                        @input="calculate">
+                                        @input="calculate" aria-label="Pizza 3 diameter in inches">
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1 text-[#C53030]">Price ($)</label>
-                                    <input type="number" x-model="pizzas[2].price" min="1" max="100" step="0.01"
+                                    <label for="pizza3-price"
+                                        class="block text-sm font-medium mb-1 text-[#C53030]">Price ($)</label>
+                                    <input type="number" id="pizza3-price" x-model="pizzas[2].price" min="1" max="100"
+                                        step="0.01"
                                         class="w-full p-2 border border-[#FC8181] rounded-lg focus:ring-2 focus:ring-[#E53E3E] focus:border-transparent"
-                                        @input="calculate">
+                                        @input="calculate" aria-label="Pizza 3 price in dollars">
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Add after the pizza input cards -->
-                    <div class="pizza-presets">
-                        <button class="preset-btn" @click="applyPreset('personal')">Personal (10")</button>
-                        <button class="preset-btn" @click="applyPreset('medium')">Medium (12")</button>
-                        <button class="preset-btn" @click="applyPreset('large')">Large (14")</button>
-                        <button class="preset-btn" @click="applyPreset('xlarge')">X-Large (16")</button>
-                        <button class="preset-btn" @click="applyPreset('party')">Party (18")</button>
+                    <!-- Preset Buttons -->
+                    <div class="pizza-presets" role="group" aria-label="Pizza size presets">
+                        <button class="preset-btn" data-preset="personal" @click="applyPreset('personal')"
+                            aria-label="Apply personal size preset (10 inches)">Personal (10")</button>
+                        <button class="preset-btn" data-preset="medium" @click="applyPreset('medium')"
+                            aria-label="Apply medium size preset (12 inches)">Medium (12")</button>
+                        <button class="preset-btn" data-preset="large" @click="applyPreset('large')"
+                            aria-label="Apply large size preset (14 inches)">Large (14")</button>
+                        <button class="preset-btn" data-preset="xlarge" @click="applyPreset('xlarge')"
+                            aria-label="Apply extra large size preset (16 inches)">X-Large (16")</button>
+                        <button class="preset-btn" data-preset="party" @click="applyPreset('party')"
+                            aria-label="Apply party size preset (18 inches)">Party (18")</button>
+                    </div>
+
+                    <!-- Preset Instructions -->
+                    <div class="bg-gray-100 p-3 rounded-lg mt-2 mb-4">
+                        <p class="text-sm text-gray-900">💡 Click any preset button to quickly fill in a pizza's size
+                            and price. Use these to compare different pizza sizes!</p>
                     </div>
 
                     <!-- Calculate Button -->
                     <button @click="calculate"
-                        class="w-full bg-gradient-to-r from-[#E53E3E] to-[#C53030] text-white font-bold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5">
-                        <i class="fas fa-calculator mr-2"></i> Calculate Pizza Value
+                        class="w-full bg-gradient-to-r from-[#E53E3E] to-[#C53030] text-white font-bold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5"
+                        aria-label="Calculate pizza value comparison">
+                        <i class="fas fa-calculator mr-2" aria-hidden="true"></i> Calculate Pizza Value
                     </button>
 
-                    <!-- Results -->
-                    <div x-show="results" x-transition class="space-y-6 mt-8">
+                    <!-- Results Section -->
+                    <div x-show="results" x-transition class="space-y-6 mt-8" role="region"
+                        aria-label="Calculation results">
+                        <!-- Pizza Size Visualization -->
+                        <div class="pizza-size-visualizer" role="group" aria-label="Pizza size comparison">
+                            <template x-for="(pizza, index) in activePizzas" :key="index">
+                                <div class="pizza-circle"
+                                    :style="'width: ' + (pizza.size * 10) + 'px; height: ' + (pizza.size * 10) + 'px;'"
+                                    :class="{ 'best-value': pizza.isBestValue }"
+                                    :aria-label="'Pizza ' + (index + 1) + ' size visualization'">
+                                    <div class="pizza-slice"></div>
+                                </div>
+                            </template>
+                        </div>
+
+                        <!-- Pizza Stats -->
+                        <div class="pizza-stats" role="group" aria-label="Pizza statistics">
+                            <div class="stat-card">
+                                <div class="stat-label">Total Pizza Area</div>
+                                <div class="stat-value"
+                                    x-text="activePizzas.reduce((sum, p) => sum + p.area, 0).toFixed(1) + ' in²'"></div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-label">Total Crust Length</div>
+                                <div class="stat-value"
+                                    x-text="activePizzas.reduce((sum, p) => sum + p.crust, 0).toFixed(1) + ' in'"></div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-label">Average Value</div>
+                                <div class="stat-value"
+                                    x-text="(activePizzas.reduce((sum, p) => sum + p.value, 0) / activePizzas.length).toFixed(2) + ' in²/$'">
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- Pizza Comparison -->
-                        <div class="bg-[#FFF5F5] p-6 rounded-xl">
-                            <h3 class="text-lg font-bold mb-4 text-[#C53030]">Pizza Value Analysis</h3>
+                        <div class="bg-[#FFF5F5] p-6 rounded-xl" role="group" aria-labelledby="comparison-title">
+                            <h3 id="comparison-title" class="text-lg font-bold mb-4 text-[#B91C1C]">Pizza Value Analysis
+                            </h3>
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                                 <template x-for="(pizza, index) in activePizzas" :key="index">
                                     <div class="bg-white p-6 rounded-lg shadow-sm pizza-card"
-                                        :class="{ 'best-value': pizza.isBestValue }">
+                                        :class="{ 'best-value': pizza.isBestValue }" role="article"
+                                        :aria-label="'Pizza ' + (index + 1) + ' analysis'">
                                         <div class="text-center">
-                                            <h4 class="text-lg font-bold mb-2" x-text="'Pizza #' + (index + 1)"></h4>
-                                            <div class="text-3xl font-bold text-[#E53E3E] mb-2" x-text="pizza.size + '\"'"></div>
-                                            <div class="text-xl mb-2" x-text="' $' + pizza.price.toFixed(2)"></div>
-                                            <div class="text-sm text-[#718096] mb-1"
+                                            <h4 class="text-lg font-bold mb-2 text-[#1F2937]"
+                                                x-text="'Pizza #' + (index + 1)"></h4>
+                                            <div class="text-3xl font-bold text-[#B91C1C] mb-2" x-text="pizza.size + '\"'"></div>
+                                            <div class="text-xl mb-2 text-[#1F2937]" x-text="' $' +
+                                                pizza.price.toFixed(2)"></div>
+                                            <div class="text-sm text-[#4B5563] mb-1"
                                                 x-text="pizza.area.toFixed(1) + ' in² total'"></div>
-                                            <div class="text-sm text-[#718096] mb-1"
+                                            <div class="text-sm text-[#4B5563] mb-1"
                                                 x-text="pizza.crust.toFixed(1) + '\" crust'"></div>
-                                            <div class="text-lg font-bold text-[#C53030]"
+                                            <div class="text-lg font-bold text-[#B91C1C]"
                                                 x-text="pizza.value.toFixed(2) + ' in²/$'"></div>
                                         </div>
                                     </div>
@@ -602,95 +735,8 @@
                         </div>
 
                         <!-- Fun Facts -->
-                        <div class="bg-[#FFF5F5] p-6 rounded-xl">
-                            <h3 class="text-lg font-bold mb-4 text-[#C53030]">Pizza Math Fun Facts</h3>
-                            <div class="bg-white p-6 rounded-lg">
-                                <div class="prose max-w-none" x-html="funFact"></div>
-                            </div>
-                        </div>
-
-                        <!-- Math Formulas -->
-                        <div class="bg-[#FFF5F5] p-6 rounded-xl">
-                            <h3 class="text-lg font-bold mb-4 text-[#C53030]">Pizza Math Formulas</h3>
-                            <div class="bg-white p-6 rounded-lg space-y-2">
-                                <p class="flex items-center">
-                                    <span class="text-[#E53E3E] mr-2">•</span>
-                                    <strong>Area</strong> = π × (radius)² (radius = diameter ÷ 2)
-                                </p>
-                                <p class="flex items-center">
-                                    <span class="text-[#E53E3E] mr-2">•</span>
-                                    <strong>Value Score</strong> = Area ÷ Price (higher is better)
-                                </p>
-                                <p class="flex items-center">
-                                    <span class="text-[#E53E3E] mr-2">•</span>
-                                    <strong>Crust Length</strong> = π × diameter (total inches of delicious crust)
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Add before the results section -->
-                    <div class="pizza-size-visualizer" x-show="activePizzas.length > 0">
-                        <template x-for="(pizza, index) in activePizzas" :key="index">
-                            <div class="pizza-circle" :style="{
-                                width: (pizza.size * 10) + 'px',
-                                height: (pizza.size * 10) + 'px',
-                                transform: pizza.isBestValue ? 'scale(1.1)' : 'scale(1)'
-                            }">
-                                <div class="pizza-slice" style="transform: rotate(45deg)"></div>
-                                <div class="pizza-slice" style="transform: rotate(135deg)"></div>
-                                <div class="pizza-slice" style="transform: rotate(225deg)"></div>
-                                <div class="pizza-slice" style="transform: rotate(315deg)"></div>
-                            </div>
-                        </template>
-                    </div>
-
-                    <!-- Add after the pizza comparison section -->
-                    <div class="comparison-chart" x-show="results">
-                        <template x-for="(pizza, index) in activePizzas" :key="index">
-                            <div class="chart-bar" :style="{
-                                height: (pizza.value / maxValue * 100) + '%'
-                            }" :data-value="pizza.value.toFixed(2) + ' in²/$'"></div>
-                        </template>
-                    </div>
-
-                    <div class="pizza-stats" x-show="results">
-                        <div class="stat-card">
-                            <div class="stat-label">Total Pizza Area</div>
-                            <div class="stat-value" x-text="totalArea.toFixed(1) + ' in²'"></div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-label">Total Crust Length</div>
-                            <div class="stat-value" x-text="totalCrust.toFixed(1) + '"'"></div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-label">Average Value Score</div>
-                            <div class="stat-value" x-text="averageValue.toFixed(2) + ' in²/$'"></div>
-                        </div>
-                    </div>
-
-                    <div class="pizza-tips" x-show="results">
-                        <h3 class="text-lg font-bold mb-4 text-[#C53030]">Pizza Tips</h3>
-                        <div class="tip-item">
-                            <span class="tip-icon">💡</span>
-                            <div>
-                                <strong>Best Value:</strong> Pizza #<span x-text="bestValueIndex + 1"></span> offers the
-                                best value at
-                                <span x-text="bestValue.toFixed(2)"></span> in² per dollar!
-                            </div>
-                        </div>
-                        <div class="tip-item" x-show="totalArea > 200">
-                            <span class="tip-icon">🎉</span>
-                            <div>
-                                <strong>Party Ready:</strong> You have enough pizza to feed a small party!
-                            </div>
-                        </div>
-                        <div class="tip-item" x-show="averageValue > 15">
-                            <span class="tip-icon">💰</span>
-                            <div>
-                                <strong>Great Deal:</strong> Your average value score is excellent!
-                            </div>
-                        </div>
+                        <div class="bg-white p-6 rounded-xl" x-html="funFact" role="complementary"
+                            aria-label="Fun facts about pizza comparison"></div>
                     </div>
                 </div>
             </div>
@@ -702,8 +748,8 @@
         <div class="flex items-center">
             <span class="text-2xl mr-2" x-text="achievementIcon"></span>
             <div>
-                <h4 class="font-bold" x-text="achievementTitle"></h4>
-                <p class="text-sm" x-text="achievementDescription"></p>
+                <h4 class="font-bold text-gray-800" x-text="achievementTitle"></h4>
+                <p class="text-sm text-gray-700" x-text="achievementDescription"></p>
             </div>
         </div>
     </div>
@@ -745,24 +791,25 @@
                 achievementTitle: '',
                 achievementDescription: '',
                 funFact: '',
-                sounds: {},
 
                 init() {
-                    // Add sound effects
-                    this.sounds = {
-                        calculate: new Audio('https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3'),
-                        achievement: new Audio('https://assets.mixkit.co/active_storage/sfx/270/270-preview.mp3'),
-                        hover: new Audio('https://assets.mixkit.co/active_storage/sfx/270/270-preview.mp3')
-                    };
+                    // Initialize the calculator
+                    this.calculate();
 
-                    // Add input focus effects
-                    document.querySelectorAll('input').forEach(input => {
-                        input.addEventListener('focus', () => {
-                            input.classList.add('input-focus');
-                            this.sounds.hover.play();
+                    // Add input event listeners
+                    document.querySelectorAll('input[type="number"]').forEach(input => {
+                        input.addEventListener('input', () => {
+                            this.calculate();
                         });
-                        input.addEventListener('blur', () => {
-                            input.classList.remove('input-focus');
+                    });
+
+                    // Add preset button listeners
+                    document.querySelectorAll('.preset-btn').forEach(button => {
+                        button.addEventListener('click', (e) => {
+                            const preset = e.target.getAttribute('data-preset');
+                            if (preset) {
+                                this.applyPreset(preset);
+                            }
                         });
                     });
                 },
@@ -771,33 +818,11 @@
                     return this.pizzas.filter(p => p.size > 0 && p.price > 0);
                 },
 
-                get maxValue() {
-                    return Math.max(...this.activePizzas.map(p => p.value));
-                },
-
-                get totalArea() {
-                    return this.activePizzas.reduce((sum, p) => sum + p.area, 0);
-                },
-
-                get totalCrust() {
-                    return this.activePizzas.reduce((sum, p) => sum + p.crust, 0);
-                },
-
-                get averageValue() {
-                    return this.activePizzas.reduce((sum, p) => sum + p.value, 0) / this.activePizzas.length;
-                },
-
-                get bestValueIndex() {
-                    return this.activePizzas.findIndex(p => p.isBestValue);
-                },
-
-                get bestValue() {
-                    return this.activePizzas.find(p => p.isBestValue)?.value || 0;
-                },
-
                 calculate() {
-                    // Play calculation sound
-                    this.sounds.calculate.play();
+                    // Reset best value flags
+                    this.pizzas.forEach(pizza => {
+                        pizza.isBestValue = false;
+                    });
 
                     // Calculate values for each pizza
                     this.activePizzas.forEach(pizza => {
@@ -821,10 +846,26 @@
                     // Check for achievements
                     this.checkAchievements();
 
+                    // Show results
                     this.results = true;
 
-                    // Add confetti effect
-                    this.createConfetti();
+                    // Update live region
+                    this.updateLiveRegion();
+
+                    // Force Alpine.js to update the view
+                    this.$nextTick(() => {
+                        this.$forceUpdate();
+                    });
+                },
+
+                updateLiveRegion() {
+                    const liveRegion = document.getElementById('dynamic-updates');
+                    if (liveRegion) {
+                        const bestPizza = this.activePizzas.find(p => p.isBestValue);
+                        if (bestPizza) {
+                            liveRegion.textContent = `Best value: Pizza ${this.bestValueIndex + 1} with ${bestPizza.value.toFixed(2)} square inches per dollar`;
+                        }
+                    }
                 },
 
                 generateFunFact() {
@@ -834,27 +875,27 @@
                         const p3 = this.activePizzas[2];
 
                         if (this.activePizzas.length === 2) {
-                            const areaDiff = ((p1.area + p2.area - p2.area) / p2.area * 100).toFixed(0);
-                            const crustDiff = ((p1.crust + p2.crust - p2.crust) / p2.crust * 100).toFixed(0);
+                            const areaDiff = ((p1.area - p2.area) / p2.area * 100).toFixed(0);
+                            const crustDiff = ((p1.crust - p2.crust) / p2.crust * 100).toFixed(0);
 
                             this.funFact = `
-                                <p>🍕 <strong>Fun Fact:</strong> 2 ${p1.size.toFixed(0)}" pizzas give you 
-                                ${areaDiff}% more pizza than 1 ${p2.size.toFixed(0)}" pizza!</p>
-                                <p>And ${crustDiff}% more crust for dipping! 🧀</p>
+                                <p class="text-gray-800">🍕 <strong>Fun Fact:</strong> A ${p1.size.toFixed(0)}" pizza gives you 
+                                ${Math.abs(areaDiff)}% ${areaDiff > 0 ? 'more' : 'less'} pizza than a ${p2.size.toFixed(0)}" pizza!</p>
+                                <p class="text-gray-700">And ${Math.abs(crustDiff)}% ${crustDiff > 0 ? 'more' : 'less'} crust for dipping! 🧀</p>
                             `;
                         } else if (this.activePizzas.length === 3) {
                             const areaRatio = (p1.area + p2.area) / p3.area;
                             const diff = Math.abs(areaRatio * 100 - 100).toFixed(0);
 
                             this.funFact = `
-                                <p>🍕 <strong>Fun Fact:</strong> Combining Pizza #1 and #2 gives you 
+                                <p class="text-gray-800">🍕 <strong>Fun Fact:</strong> Combining Pizza #1 and #2 gives you 
                                 ${areaRatio > 1 ? 'more' : 'less'} pizza than Pizza #3 
                                 (${diff}% ${areaRatio > 1 ? 'more' : 'less'})</p>
                             `;
                         }
                     } else {
                         this.funFact = `
-                            <p>🍕 <strong>Tip:</strong> Add more pizza options to compare value!</p>
+                            <p class="text-gray-800">🍕 <strong>Tip:</strong> Add more pizza options to compare value!</p>
                         `;
                     }
                 },
@@ -871,39 +912,12 @@
                             this.achievementIcon = '🏆';
                             this.achievementTitle = 'Pizza Value Champion';
                             this.achievementDescription = 'You found an amazing pizza deal!';
-                            this.sounds.achievement.play();
-                            this.createConfetti();
-                        } else if (bestPizza.size >= 20) {
+                        } else if (bestPizza && bestPizza.size >= 20) {
                             this.showAchievement = true;
                             this.achievementIcon = '🍕';
                             this.achievementTitle = 'Pizza Size Master';
-                            this.achievementDescription = 'That's one big pizza!';
-                            this.sounds.achievement.play();
-                            this.createConfetti();
+                            this.achievementDescription = 'That\'s one big pizza!';
                         }
-                    }
-                },
-
-                createConfetti() {
-                    const colors = ['#E53E3E', '#FC8181', '#F6AD55', '#C53030'];
-                    for (let i = 0; i < 50; i++) {
-                        const confetti = document.createElement('div');
-                        confetti.className = 'confetti';
-                        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                        confetti.style.left = Math.random() * 100 + 'vw';
-                        confetti.style.top = -10 + 'px';
-                        confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
-                        document.body.appendChild(confetti);
-
-                        const animation = confetti.animate([
-                            { transform: `translate(0, 0) rotate(0deg)`, opacity: 1 },
-                            { transform: `translate(${Math.random() * 100 - 50}px, ${window.innerHeight}px) rotate(${Math.random() * 360}deg)`, opacity: 0 }
-                        ], {
-                            duration: 2000 + Math.random() * 1000,
-                            easing: 'cubic-bezier(0.1, 0.8, 0.2, 1)'
-                        });
-
-                        animation.onfinish = () => confetti.remove();
                     }
                 },
 
@@ -918,9 +932,10 @@
 
                     const preset = presets[type];
                     if (preset) {
-                        // Find the first empty pizza slot
-                        const emptyIndex = this.pizzas.findIndex(p => p.size === 0);
+                        // Find the first empty or cleared pizza slot
+                        const emptyIndex = this.pizzas.findIndex(p => !p.size || !p.price || p.size === 0 || p.price === 0);
                         if (emptyIndex !== -1) {
+                            // Apply the preset to the empty slot
                             this.pizzas[emptyIndex] = {
                                 ...preset,
                                 area: 0,
@@ -928,12 +943,35 @@
                                 crust: 0,
                                 isBestValue: false
                             };
+
+                            // Highlight the updated pizza slot
+                            const pizzaSlot = document.querySelector(`#pizza${emptyIndex + 1}-size`);
+                            if (pizzaSlot) {
+                                pizzaSlot.classList.add('input-focus');
+                                setTimeout(() => {
+                                    pizzaSlot.classList.remove('input-focus');
+                                }, 1000);
+                            }
+
                             this.calculate();
+                        } else {
+                            // If no empty slots, show a message
+                            const liveRegion = document.getElementById('dynamic-updates');
+                            if (liveRegion) {
+                                liveRegion.textContent = 'All pizza slots are filled. Clear a slot first to add a new preset.';
+                            }
                         }
                     }
                 }
             };
         }
+
+        // Initialize the calculator when the page loads
+        document.addEventListener('DOMContentLoaded', function () {
+            const calculator = pizzaCalculator();
+            window.calculator = calculator; // Make it globally accessible if needed
+            calculator.init();
+        });
     </script>
 
     <script>
@@ -1092,9 +1130,10 @@
                         </div>
                         <div class="form-actions">
                             <button type="button" class="btn btn-secondary" @click="closeModal()">Maybe Later</button>
-                            <button type="submit" class="btn btn-primary" :disabled="isSubmitting">
-                                <span x-show="isSubmitting" class="loading-spinner"></span>
-                                <span x-text="isSubmitting ? 'Sending...' : '&#128640; Send My Idea'"></span>
+                            <button type="submit" class="btn btn-primary" :disabled="isSubmitting" aria-busy="true"
+                                aria-label="Submitting form...">
+                                <span class="loading-spinner" aria-hidden="true"></span>
+                                <span class="button-text">Submit</span>
                             </button>
                         </div>
                     </form>
@@ -1123,6 +1162,14 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div aria-live="polite" class="aria-live" id="dynamic-updates">
+        <!-- Dynamic content updates will be announced here -->
+    </div>
+
+    <div role="alert" aria-live="assertive" class="error-container" id="form-errors">
+        <!-- Error messages will be announced here -->
     </div>
 
 </body>
