@@ -1,5 +1,5 @@
 // Service Worker with Enhanced Cache Management
-const CACHE_VERSION = 'v2'; // Update this with each deployment
+const CACHE_VERSION = 'v3'; // Update this with each deployment
 const CACHE_NAME = `calculator-cache-${CACHE_VERSION}`;
 const OFFLINE_URL = '/offline.html';
 
