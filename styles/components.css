@@ -1,0 +1,80 @@
+/* Component-specific styles */
+
+/* Result display */
+.result {
+    display: block !important;
+    visibility: visible !important;
+}
+
+/* Center alignment */
+.text-center {
+    text-align: center;
+}
+
+/* Category cards with animation delays */
+.category-card {
+    --delay: 0;
+    animation-delay: calc(var(--delay) * 0.2s);
+}
+
+.category-card.bigkidmath { --delay: 1; }
+.category-card.cipherlab { --delay: 2; }
+.category-card.geekgalaxy { --delay: 3; }
+.category-card.lifehacks { --delay: 4; }
+.category-card.mathmagik { --delay: 5; }
+.category-card.otakuops { --delay: 6; }
+
+/* Newsletter success message */
+.newsletter-success {
+    display: none;
+}
+
+.newsletter-success p {
+    color: var(--accent-light);
+    font-weight: 600;
+}
+
+/* Blog loading states */
+.blog-title.loading-shimmer {
+    height: 24px;
+    width: 80%;
+}
+
+.blog-date.loading-shimmer {
+    height: 16px;
+    width: 40%;
+}
+
+/* Blog image */
+.blog-image {
+    background-image: var(--blog-image);
+    background-size: cover;
+    background-position: center;
+}
+
+/* Card icons with animation delays */
+.card-icon.float-animation {
+    animation-delay: var(--delay, 0.2s);
+}
+
+.card-icon.float-animation:nth-child(1) { animation-delay: 0.2s; }
+.card-icon.float-animation:nth-child(2) { animation-delay: 0.4s; }
+.card-icon.float-animation:nth-child(3) { animation-delay: 0.6s; }
+.card-icon.float-animation:nth-child(4) { animation-delay: 0.8s; }
+.card-icon.float-animation:nth-child(5) { animation-delay: 1.0s; }
+.card-icon.float-animation:nth-child(6) { animation-delay: 1.2s; }
+.card-icon.float-animation:nth-child(7) { animation-delay: 1.4s; }
+.card-icon.float-animation:nth-child(8) { animation-delay: 1.6s; }
+.card-icon.float-animation:nth-child(9) { animation-delay: 1.8s; }
+.card-icon.float-animation:nth-child(10) { animation-delay: 2.0s; }
+
+/* Button styles */
+.btn-primary {
+    width: 100%;
+    margin-top: 1rem;
+}
+
+/* Confirmation modal */
+.confirmation-modal {
+    display: none;
+} 

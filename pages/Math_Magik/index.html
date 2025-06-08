@@ -2,312 +2,82 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Math Magik - Advanced Mathematical Tools | Docket One</title>
-    <meta name="description"
-        content="Explore the fascinating world of advanced mathematics with interactive calculators and visualizations.">
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
+    <!-- Basic Meta -->
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+	<title>Math Magik - Mathematical Wizardry Calculators | Docket One</title>
+	<meta name="description" content="Enchanted calculators for number theory, geometry, fractals, and mathematical puzzles. Discover golden ratios, perfect numbers, and other mathematical marvels.">
+	<meta name="keywords" content="math calculators, number theory, golden ratio, fibonacci sequence, prime numbers, geometry tools, fractals, mathematical puzzles, algebra tools">
+	<meta name="author" content="Docket One">
 
-    <!-- Premium Fonts -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
-        rel="stylesheet">
+	<!-- Cache Control -->
+	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Expires" content="0">
 
-    <style>
-        :root {
-            --primary: #8b5cf6;
-            --primary-light: #a78bfa;
-            --secondary: #06b6d4;
-            --accent: #f59e0b;
-            --gray-50: #f9fafb;
-            --gray-600: #4b5563;
-            --gray-800: #1f2937;
-            --gray-900: #111827;
-            --bg-secondary: var(--gray-50);
-            --surface-elevated: #ffffff;
-            --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            --space-md: 1rem;
-            --space-lg: 1.5rem;
-            --space-xl: 2rem;
-            --space-2xl: 3rem;
-            --space-3xl: 4rem;
-            --space-4xl: 6rem;
-            --radius-lg: 16px;
-            --radius-xl: 24px;
-            --radius-full: 9999px;
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
-        }
+	<!-- Canonical URL -->
+	<link rel="canonical" href="https://docket.one/pages/Math_Magik/index.html" />
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+	<!-- Open Graph / Facebook -->
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="https://docket.one/pages/Math_Magik/index.html">
+	<meta property="og:title" content="Math Magik - Mathematical Wizardry Calculators | Docket One">
+	<meta property="og:description" content="Enchanted calculators for number theory, geometry, fractals, and mathematical puzzles. Discover golden ratios, perfect numbers, and other mathematical marvels.">
+	<meta property="og:image" content="https://docket.one/images/mathmagik-social-preview.jpg">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:site_name" content="Docket One">
 
-        body {
-            font-family: var(--font-primary);
-            background: var(--bg-secondary);
-            color: var(--gray-800);
-            line-height: 1.6;
-        }
+	<!-- Twitter -->
+	<meta property="twitter:card" content="summary_large_image">
+	<meta property="twitter:url" content="https://docket.one/pages/Math_Magik/index.html">
+	<meta property="twitter:title" content="Math Magik - Mathematical Wizardry Calculators | Docket One">
+	<meta property="twitter:description" content="Enchanted calculators for number theory, geometry, fractals, and mathematical puzzles. Discover golden ratios, perfect numbers, and other mathematical marvels.">
+	<meta property="twitter:image" content="https://docket.one/images/mathmagik-social-preview.jpg">
+	<meta property="twitter:site" content="@DocketOne">
 
-        .hero {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 30%, var(--secondary) 70%, var(--accent) 100%);
-            color: white;
-            padding: var(--space-4xl) var(--space-xl);
-            text-align: center;
-            overflow: hidden;
-        }
+	<!-- Versioned Assets -->
+	<link rel="stylesheet" href="../../common/santa-improvements.css?v=20250609">
+	<link rel="stylesheet" href="../../common/global-calculator.css?v=20250609">
+	<link rel="stylesheet" href="../../common/themes/dark-theme.css?v=20250609">
+	<link rel="stylesheet" href="../../common/footer/premium-footer.css?v=20250609">
+	<link rel="stylesheet" href="../../styles/mathmagik.css?v=20250609">
+	<link rel="stylesheet" href="../../common/navbar-enhanced.css?v=20250609">
 
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
+	<!-- Preload Math Resources -->
+	<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+	<link rel="preload" href="../../scripts/mathjax-config.js" as="script">
+	<link rel="preconnect" href="https://polyfill.io">
 
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: var(--space-md);
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: var(--space-md);
-            border-radius: var(--radius-full);
-            font-size: 0.875rem;
-            font-weight: 500;
-            margin-bottom: var(--space-xl);
-            animation: fadeInUp 0.6s ease-out;
-        }
+	<!-- MathJax Configuration -->
+	<script>
+	window.MathJax = {
+	  tex: {
+		inlineMath: [['$', '$'], ['\\(', '\\)']]
+	  },
+	  svg: {
+		fontCache: 'global'
+	  }
+	};
+	</script>
+	<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+	<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
-        .hero-title {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 800;
-            margin: 0 0 var(--space-lg) 0;
-            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            animation: fadeInUp 0.6s ease-out 0.2s both;
-        }
+	<!-- Favicon with Math Theme -->
+	<link rel="icon" href="../../favicon-math.ico" type="image/x-icon">
+	<link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon-math.png">
+	<link rel="manifest" href="../../mathmagik.webmanifest">
 
-        .hero-subtitle {
-            font-size: clamp(1.125rem, 2vw, 1.25rem);
-            opacity: 0.9;
-            margin: 0 0 var(--space-2xl) 0;
-            animation: fadeInUp 0.6s ease-out 0.4s both;
-        }
+	<!-- Theme Color for PWA -->
+	<meta name="theme-color" content="#673AB7"> <!-- Deep purple for mathematical elegance -->
 
-        .hero-cta {
-            display: inline-flex;
-            align-items: center;
-            gap: var(--space-md);
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            color: white;
-            padding: var(--space-md) var(--space-xl);
-            text-decoration: none;
-            border-radius: var(--radius-full);
-            font-weight: 600;
-            transition: var(--transition-base);
-            animation: fadeInUp 0.6s ease-out 0.6s both;
-        }
-
-        .hero-cta:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 var(--space-xl);
-        }
-
-        .section {
-            padding: var(--space-4xl) 0;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: var(--space-3xl);
-        }
-
-        .section-title {
-            font-size: clamp(2rem, 4vw, 2.5rem);
-            font-weight: 700;
-            color: var(--gray-900);
-            margin: 0 0 var(--space-md) 0;
-        }
-
-        .section-subtitle {
-            font-size: 1.125rem;
-            color: var(--gray-600);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .calculator-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-            gap: var(--space-xl);
-            margin: var(--space-3xl) 0;
-        }
-
-        .calculator-card {
-            background: var(--surface-elevated);
-            border-radius: var(--radius-xl);
-            padding: var(--space-2xl);
-            box-shadow: var(--shadow-lg);
-            border: 1px solid #e5e7eb;
-            transition: var(--transition-base);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .calculator-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            transform: scaleX(0);
-            transition: var(--transition-base);
-        }
-
-        .calculator-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-2xl);
-            border-color: var(--primary);
-        }
-
-        .calculator-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .card-icon {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 64px;
-            height: 64px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: var(--radius-lg);
-            font-size: 2rem;
-            margin-bottom: var(--space-lg);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .card-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--gray-900);
-            margin: 0 0 var(--space-md) 0;
-        }
-
-        .card-description {
-            color: var(--gray-600);
-            margin: 0 0 var(--space-xl) 0;
-            line-height: 1.7;
-        }
-
-        .btn-primary {
-            display: inline-flex;
-            align-items: center;
-            gap: var(--space-md);
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            color: white;
-            padding: var(--space-md) var(--space-lg);
-            text-decoration: none;
-            border-radius: var(--radius-full);
-            font-weight: 600;
-            transition: var(--transition-base);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .float-animation {
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-
-            0%,
-            100% {
-                transform: translateY(0px);
-            }
-
-            50% {
-                transform: translateY(-10px);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .hero {
-                padding: var(--space-3xl) var(--space-md);
-            }
-
-            .calculator-grid {
-                grid-template-columns: 1fr;
-                gap: var(--space-lg);
-            }
-
-            .container {
-                padding: 0 var(--space-md);
-            }
-        }
-    </style>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="../../common/navbar-enhanced.js"></script>
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
     <script src="../../common/footer/premium-footer.js"></script>
-
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
-    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script>
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
-    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script>
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
-    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script>
-
     <script src="../../common/add-breadcrumbs.js"></script>
     <script src="../../common/add-keyboard-accessibility.js"></script></head>
 
 <body x-data="{ showModal: false }">
-    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
     <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
     <nav class="main-nav">
         <div class="nav-container">
@@ -529,7 +299,7 @@
         <div class="newsletter-container">
             <div class="newsletter-content">
                 <div class="newsletter-info">
-                    <h3>&#127881; Join Our Calculator Community!</h3>
+                    <h3>🎉 Join Our Calculator Community!</h3>
                     <p>Get updates on new fun calculators and practical tools</p>
                 </div>
                 <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
@@ -537,12 +307,12 @@
                         x-model="email" required>
                     <button type="submit" class="newsletter-submit" :disabled="isSubmitting">
                         <span x-show="isSubmitting" class="loading-spinner"></span>
-                        <span x-text="isSubmitting ? 'Subscribing...' : '&#128640; Subscribe'"></span>
+                        <span x-text="isSubmitting ? 'Subscribing...' : '🚀 Subscribe'"></span>
                     </button>
                 </form>
-                <div x-show="showSuccess" class="newsletter-success" style="display: none;">
+                <div x-show="showSuccess" class="newsletter-success">
                     <p style="color: var(--accent-light); font-weight: 600;">
-                        &#9989; Awesome! You'll get updates on the coolest new calculators!
+                        ✅ Awesome! You'll get updates on the coolest new calculators!
                     </p>
                 </div>
             </div>
@@ -554,7 +324,7 @@
         <div class="footer-container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h4>&#127919; About Docket.One</h4>
+                    <h4>🎮 About Docket.One</h4>
                     <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you
                         should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the
                         tools for modern life.</p>
@@ -562,135 +332,56 @@
                 </div>
 
                 <div class="footer-section">
-                    <h4>&#127914; Calculator Categories</h4>
+                    <h4>🎯 Calculator Categories</h4>
                     <ul class="footer-links">
-                        <li><a href="/pages/BigKidMath/"><span class="calculator-emoji">&#129518;</span> BigKidMath -
-                                Adult Life Tools</a></li>
-                        <li><a href="/pages/CipherLab/"><span class="calculator-emoji">&#128272;</span> CipherLab -
-                                Secret Codes & Security</a></li>
-                        <li><a href="/pages/GeekGalaxy/"><span class="calculator-emoji">&#128640;</span> GeekGalaxy -
-                                Sci-Fi & Fantasy Fun</a></li>
-                        <li><a href="/pages/LifeHacks/"><span class="calculator-emoji">&#9889;</span> LifeHacks -
-                                Productivity & Wellness</a></li>
-                        <li><a href="/pages/Math_Magik/"><span class="calculator-emoji">&#127917;</span> Math Magik -
-                                Mathematical Wizardry</a></li>
-                        <li><a href="/pages/Otaku_Ops/"><span class="calculator-emoji">&#127999;</span> Otaku Ops -
-                                Anime & Culture</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h4>&#128172; Support & Info</h4>
-                    <ul class="footer-links">
-                        <li><a href="/pages/support/help.html"><span class="calculator-emoji">&#10067;</span> Help & FAQ</a></li>
-                        <li><a href="/privacy"><span class="calculator-emoji">&#128274;</span> Privacy Policy</a></li>
-                        <li><a href="/terms"><span class="calculator-emoji">&#128203;</span> Terms of Service</a></li>
-                        <li><a href="/accessibility"><span class="calculator-emoji">&#9855;</span> Accessibility</a>
+                        <li><a href="https://docket.one/pages/BigKidMath/"><span class="calculator-emoji">🧠</span>
+                                BigKidMath - Adult Life Tools</a></li>
+                        <li><a href="https://docket.one/pages/CipherLab/"><span class="calculator-emoji">🔐</span>
+                                CipherLab - Secret Codes & Security</a>
                         </li>
-                        <li><a href="/pages/support/contact.html"><span class="calculator-emoji">&#128231;</span> Contact Us</a></li>
+                        <li><a href="https://docket.one/pages/GeekGalaxy/"><span class="calculator-emoji">🚀</span>
+                                GeekGalaxy - Sci-Fi & Fantasy Fun</a></li>
+                        <li><a href="https://docket.one/pages/LifeHacks/"><span class="calculator-emoji">⚡</span>
+                                LifeHacks - Productivity & Wellness</a></li>
+                        <li><a href="https://docket.one/pages/Math_Magik/"><span class="calculator-emoji">🧙‍♀️</span>
+                                Math Magik - Mathematical Wizardry</a>
+                        </li>
+                        <li><a href="https://docket.one/pages/Otaku_Ops/"><span class="calculator-emoji">🗾</span> Otaku
+                                Ops - Anime & Culture</a></li>
                     </ul>
                 </div>
 
                 <div class="footer-section">
-                    <button class="request-calculator-btn" @click="showModal = true">
-                        &#128161; Request a Calculator
-                    </button>
+                    <h4>💬 Support & Info</h4>
+                    <ul class="footer-links">
+                        <li><a href="pages/support/help.html"><span class="calculator-emoji">❓</span> Help &
+                                FAQ</a></li>
+                        <li><a href="pages/support/privacy.html"><span class="calculator-emoji">🔒</span> Privacy
+                                Policy</a></li>
+                        <li><a href="pages/support/terms.html"><span class="calculator-emoji">📋</span> Terms of
+                                Service</a></li>
+                        <li><a href="pages/support/accessibility.html"><span class="calculator-emoji">♿</span>
+                                Accessibility</a></li>
+                        <li><a href="pages/support/contact.html"><span class="calculator-emoji">📧</span> Contact
+                                Us</a></li>
+                    </ul>
                 </div>
             </div>
 
             <div class="footer-bottom">
-                <div class="footer-logo">&#129518; Docket.One</div>
+                <div class="footer-logo">🧮 Docket.One</div>
                 <div class="footer-copyright">
-                    Â© 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
+                    © 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
                 </div>
                 <div class="social-links">
-                    <a href="#" class="social-link" aria-label="Twitter">&#120143;</a>
-                    <a href="#" class="social-link" aria-label="LinkedIn">&#128188;</a>
-                    <a href="#" class="social-link" aria-label="GitHub">&#128025;</a>
-                    <a href="#" class="social-link" aria-label="Email">&#128231;</a>
+                    <a href="#" class="social-link" aria-label="Twitter">𝕏</a>
+                    <a href="#" class="social-link" aria-label="LinkedIn">💼</a>
+                    <a href="#" class="social-link" aria-label="GitHub">🐙</a>
+                    <a href="#" class="social-link" aria-label="Email">📧</a>
                 </div>
             </div>
         </div>
     </footer>
-
-    <!-- Request Modal -->
-    <div x-data="calculatorRequestForm()" x-show="showModal" x-cloak class="modal-overlay" @click.self="closeModal()"
-        style="display: none;">
-        <div class="modal-content">
-            <div x-show="!showConfirmation">
-                <div class="modal-header">
-                    <h2 class="modal-title">&#128161; Request a Fun Calculator</h2>
-                    <p class="modal-subtitle">Got an idea for a calculator that would make life easier or more fun? We
-                        want to hear it!</p>
-                    <button class="modal-close" @click="closeModal()">&#10005;</button>
-                </div>
-                <div class="modal-body">
-                    <form @submit.prevent="submitRequest()">
-                        <div class="form-group">
-                            <label class="form-label" for="userName">Your Name *</label>
-                            <input type="text" id="userName" class="form-input" x-model="formData.name" required
-                                placeholder="What should we call you?">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" for="userEmail">Email Address *</label>
-                            <input type="email" id="userEmail" class="form-input" x-model="formData.email" required
-                                placeholder="your@email.com">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" for="requestType">What Kind of Request? *</label>
-                            <select id="requestType" class="form-input form-select" x-model="formData.type" required>
-                                <option value="">Choose your request type</option>
-                                <option value="new-calculator">&#127358; Brand New Calculator</option>
-                                <option value="enhancement">&#9889; Improve Existing Calculator</option>
-                                <option value="category">&#127914; New Category Idea</option>
-                                <option value="feature">&#10024; Cool New Feature</option>
-                                <option value="other">&#129300; Something Else Entirely</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" for="calculatorTitle">Calculator Name/Title *</label>
-                            <input type="text" id="calculatorTitle" class="form-input" x-model="formData.title" required
-                                placeholder="e.g., 'Should I Call In Sick Calculator'">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" for="description">Tell Us About Your Idea! *</label>
-                            <textarea id="description" class="form-input form-textarea" x-model="formData.description"
-                                required placeholder="Describe your calculator idea!"></textarea>
-                        </div>
-                        <div class="form-actions">
-                            <button type="button" class="btn btn-secondary" @click="closeModal()">Maybe Later</button>
-                            <button type="submit" class="btn btn-primary" :disabled="isSubmitting">
-                                <span x-show="isSubmitting" class="loading-spinner"></span>
-                                <span x-text="isSubmitting ? 'Sending...' : '&#128640; Send My Idea'"></span>
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div x-show="showConfirmation" class="confirmation-modal" style="display: none;">
-                <div class="modal-header">
-                    <button class="modal-close" @click="closeModal()">&#10005;</button>
-                </div>
-                <div class="modal-body">
-                    <div class="success-icon">&#127881;</div>
-                    <h3 class="confirmation-title">Awesome! We Got Your Idea!</h3>
-                    <p class="confirmation-message">
-                        Thanks for sharing your calculator idea with us! We're excited to check it out and see if we can
-                        make it happen.
-                        <br><br>
-                        <strong>What happens next?</strong><br>
-                        â€¢ You'll get a confirmation email shortly<br>
-                        â€¢ Our team will review your idea<br>
-                        â€¢ If we build it, you'll be the first to know!<br>
-                        â€¢ We might even name you as the inspiration &#128522;
-                    </p>
-                    <button class="btn btn-primary" @click="closeModal()" style="width: 100%;">
-                        &#127919; Close & Keep Calculating!
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
 
 </body>
 
