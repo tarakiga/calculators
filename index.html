@@ -59,21 +59,17 @@
     <!-- Service Worker Registration -->
     <script>
         if ('serviceWorker' in navigator) {
-            // Only register service worker if we're on HTTPS or localhost
-            if (window.location.protocol === 'https:' || window.location.hostname === 'localhost') {
-                window.addEventListener('load', () => {
-                    navigator.serviceWorker.register('/sw.js')
-                        .then(registration => {
-                            console.log('ServiceWorker registration successful with scope: ', registration.scope);
-                        })
-                        .catch(error => {
-                            console.log('ServiceWorker registration failed: ', error);
-                        });
-                });
-            } else {
-                console.log('ServiceWorker not registered: Protocol must be HTTPS or localhost');
-            }
+  navigator.serviceWorker.register('/sw.js').then(reg => {
+    reg.onupdatefound = () => {
+      const newWorker = reg.installing;
+      newWorker.onstatechange = () => {
+        if (newWorker.state === 'activated') {
+          window.location.reload();
         }
+      };
+    };
+  });
+}
     </script>
 
     <!-- Schema.org markup for Google -->
@@ -1720,19 +1716,7 @@
         });
     </script>
 
-    <script type="module">
-        import { createBreadcrumb } from '../../common/breadcrumb.js';
-        const breadcrumbs = [
-            { name: 'Home', url: '/' },
-            { name: 'BigKidMath', url: '/pages/BigKidMath/' },
-            { name: 'Car Ownership vs. Uber Cost Calculator', url: window.location.pathname }
-        ];
-        const breadcrumbNav = createBreadcrumb(breadcrumbs);
-        const hero = document.querySelector('.hero');
-        if (hero) {
-            document.body.insertBefore(breadcrumbNav, hero);
-        }
-    </script>
+    
     <script src="../../common/converter.js"></script>
 </body>
 
