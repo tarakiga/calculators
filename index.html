@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+	<!-- Basic Meta -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
@@ -27,9 +28,10 @@
     <meta property="twitter:description"
         content="Discover fun, practical calculators for modern life! From caffeine half-life to zombie apocalypse survival - we make adulting easier.">
     <meta property="twitter:image" content="https://docket.one/social-preview.jpg">
+	<meta name="theme-color" content="#6366f1">
+    <meta name="color-scheme" content="light dark">
 
     <title>Docket One - Calculators That Actually Matter</title>
-
     
     <link rel="stylesheet" href="common/santa-improvements.css">
     <link rel="stylesheet" href="common/global-calculator.css">
@@ -41,13 +43,11 @@
     <link rel="stylesheet" href="styles/categories.css">
     <link rel="stylesheet" href="styles/global.css">
     <link rel="stylesheet" href="styles/hero.css">
-    <link rel="stylesheet" href="styles/homepage.css">
     <link rel="stylesheet" href="styles/universal-calc.css?v=1.0.2">
     <link rel="stylesheet" href="styles/style.css">
 	<link rel="stylesheet" href="common/navbar-enhanced.css">
 	<!-- Premium Fonts -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
         rel="stylesheet">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
     <script src="common/footer/premium-footer.js"></script>
@@ -59,84 +59,53 @@
     <!-- Service Worker Registration -->
     <script>
         if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/sw.js').then(reg => {
-    reg.onupdatefound = () => {
-      const newWorker = reg.installing;
-      newWorker.onstatechange = () => {
-        if (newWorker.state === 'activated') {
-          window.location.reload();
-        }
-      };
-    };
-  });
+			  navigator.serviceWorker.register('/sw.js').then(reg => {
+				reg.onupdatefound = () => {
+				  const newWorker = reg.installing;
+				  newWorker.onstatechange = () => {
+					if (newWorker.state === 'activated') {
+					  // Create and show a "New version available" notification
+					  // that the user can click to reload the page.
+					  // This is a conceptual fix; actual implementation requires more code.
+					  console.log('A new version of the site is available. Please refresh.');
+					  // Example: document.getElementById('update-notification').style.display = 'block';
+					}
+				  };
+				};
+			  });
 }
     </script>
-
     <!-- Schema.org markup for Google -->
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "Docket One - Calculators That Actually Matter",
-      "description": "Discover fun, practical calculators for modern life! From caffeine half-life to zombie apocalypse survival, car vs Uber costs to morse code - we make adulting easier.",
-      "url": "https://docket.one",
-      "applicationCategory": "UtilityApplication",
-      "operatingSystem": "Any",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
-      "featureList": [
-        "Adult life calculators",
-        "Caffeine half-life calculator",
-        "Car vs Uber cost comparison",
-        "Generational timeline explorer",
-        "Morse code translator",
-        "Password security analyzer",
-        "Space travel time calculator",
-        "Zombie apocalypse survival planner",
-        "Coffee to code efficiency tracker",
-        "Stress to ice cream ratio calculator"
-      ]
-    }
-    </script>
-
-    <meta name="theme-color" content="#6366f1">
-    <meta name="color-scheme" content="light dark">
-</head>
-
-<body x-data="{  }">
-    <!-- Floating Particles -->
-    <div class="particles" id="particles"></div>
-
-    <!-- Enhanced Navigation Bar -->
-    <nav class="main-nav">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <a href="index.html">🧮 Docket One</a>
-            </div>
-            <div class="nav-search">
-                <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input"
-                    aria-label="Search calculators">
-                <div id="search-results" class="search-results"></div>
-            </div>
-            <ul class="nav-links">
-                <li><a href="pages/BigKidMath/index.html" class="category-link">Big Kid Math</a></li>
-                <li><a href="pages/CipherLab/index.html" class="category-link">Cipher Lab</a></li>
-                <li><a href="pages/GeekGalaxy/index.html" class="category-link">Geek Galaxy</a></li>
-                <li><a href="pages/LifeHacks/index.html" class="category-link">Life Hacks</a></li>
-                <li><a href="pages/Math_Magik/index.html" class="category-link">Math Magik</a></li>
-                <li><a href="pages/Otaku_Ops/index.html" class="category-link">Otaku Ops</a></li>
-                <li><a href="index.html" class="home-link">🏠 Home</a></li>
-            </ul>
-            <button class="mobile-menu-btn" aria-label="Toggle menu" aria-expanded="false">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </nav>
+										{
+				  "@context": "https://schema.org",
+				  "@type": "WebApplication",
+				  "name": "Docket One - Calculators That Actually Matter",
+				  "description": "Discover fun, practical calculators for modern life! From caffeine half-life to zombie apocalypse survival, car vs Uber costs to morse code - we make adulting easier.",
+				  "url": "https://docket.one",
+				  "applicationCategory": "UtilityApplication",
+				  "operatingSystem": "Any",
+				  "offers": {
+					"@type": "Offer",
+					"price": "0",
+					"priceCurrency": "USD"
+				  },
+				  "featureList": [
+					"Adult life calculators",
+					"Caffeine half-life calculator",
+					"Car vs Uber cost comparison",
+					"Generational timeline explorer",
+					"Morse code translator",
+					"Password security analyzer",
+					"Space travel time calculator",
+					"Zombie apocalypse survival planner",
+					"Coffee to code efficiency tracker",
+					"Stress to ice cream ratio calculator"
+				  ]
+				}
+    </script></head>
+<body x-data="{ showModal: false }">
+    
 
     <!-- Hero Section -->
     <section class="hero">
@@ -1030,9 +999,6 @@
             </div>
         </div>
     </footer>
-
-
-    </div>
   <script src="styles/unical.js"></script>
 </body>
 
