@@ -1621,6 +1621,55 @@
                     this.classList.toggle('active');
                 });
             }
+			
+			// Initialize converter select with mobile support
+    const converterSelect = document.getElementById('converterSelect');
+    if (converterSelect) {
+        function handleConverterChange() {
+            const selectedValue = this.value;
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            // Hide all tab contents
+            tabContents.forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab
+            const selectedTab = document.getElementById(selectedValue);
+            if (selectedTab) {
+                selectedTab.classList.add('active');
+            }
+            
+            // Force mobile browsers to redraw
+            if ('ontouchstart' in window) {
+                document.body.style.display = 'none';
+                document.body.offsetHeight; // Trigger reflow
+                document.body.style.display = '';
+            }
+        }
+
+        converterSelect.addEventListener('change', handleConverterChange);
+        
+        // Special handling for iOS
+        if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+            converterSelect.addEventListener('touchstart', function(e) {
+                e.preventDefault();
+                this.focus();
+            }, {passive: false});
+        }
+    }
+			// Initialize converter select
+    const converterSelect = document.getElementById('converterSelect');
+    if (converterSelect) {
+        converterSelect.addEventListener('change', handleConverterChange);
+        
+        // Special handling for iOS
+        if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+            converterSelect.addEventListener('touchstart', function(e) {
+                e.preventDefault();
+                this.focus();
+            }, {passive: false});
+        }
         });
 
         // Add some gesture animations for mobile

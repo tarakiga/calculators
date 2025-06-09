@@ -46,10 +46,10 @@ self.addEventListener('activate', (event) => {
 
 // Fetch - Stale-while-revalidate strategy
 self.addEventListener('fetch', (event) => {
-  // Skip non-GET requests and cross-origin assets
-  if (event.request.method !== 'GET' || !event.request.url.startsWith(self.location.origin)) {
-    return;
-  }
+    // Skip caching for converter.js
+    if (event.request.url.includes('converter.js')) {
+        return fetch(event.request);
+    }
 
   // Handle navigation requests separately
   if (event.request.mode === 'navigate') {
