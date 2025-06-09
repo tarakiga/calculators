@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -25,294 +25,20 @@
         rel="stylesheet">
     <link rel="stylesheet" href="../../common/navbar-enhanced.css">
     <link rel="stylesheet" href="../../common/santa-improvements.css">
+	<link rel="stylesheet" href="../../styles/global.css">
+	<link rel="stylesheet" href="../../styles/galaxyquest.css">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
 
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
+    <script src="../../common/footer/premium-footer.js"></script>
     <style>
-        :root {
-            --space-blue: #00d4ff;
-            --nebula-purple: #8b5cf6;
-            --star-gold: #fbbf24;
-            --mars-red: #ef4444;
-            --space-black: #0a0a0f;
-            --space-dark: #1a1a2e;
-            --surface: rgba(0, 212, 255, 0.08);
-            --text: #e2e8f0;
-            --text-dim: #94a3b8;
-            --radius: 12px;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--space-black);
-            color: var(--text);
-            line-height: 1.6;
-            min-height: 100vh;
-            position: relative;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background:
-                radial-gradient(2px 2px at 20px 30px, var(--space-blue), transparent),
-                radial-gradient(3px 3px at 200px 100px, var(--star-gold), transparent),
-                radial-gradient(1px 1px at 90px 40px, var(--nebula-purple), transparent);
-            background-size: 400px 300px;
-            animation: cosmicDrift 40s linear infinite;
-            opacity: 0.15;
-            z-index: -1;
-        }
-
-        @keyframes cosmicDrift {
-            0% {
-                transform: translateY(0) translateX(0);
-            }
-
-            100% {
-                transform: translateY(-300px) translateX(-200px);
-            }
-        }
-
-        .hero {
-            background: linear-gradient(135deg, var(--space-black), var(--space-dark));
-            padding: 4rem 2rem;
-            text-align: center;
-            border-bottom: 1px solid rgba(0, 212, 255, 0.2);
-        }
-
-        .hero h1 {
-            font-size: clamp(2rem, 4vw, 3rem);
-            font-weight: 800;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--space-blue), var(--nebula-purple), var(--star-gold));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            color: var(--text-dim);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 3rem 2rem;
-        }
-
-        .calculator-grid {
-            display: grid;
-            grid-template-columns: 400px 1fr;
-            gap: 3rem;
-        }
-
-        .panel {
-            background: var(--surface);
-            backdrop-filter: blur(15px);
-            border-radius: var(--radius);
-            padding: 2rem;
-            border: 1px solid rgba(0, 212, 255, 0.2);
-        }
-
-        .panel h2 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .destination-grid {
-            display: grid;
-            gap: 0.75rem;
-            margin-bottom: 2rem;
-            max-height: 400px;
-            overflow-y: auto;
-        }
-
-        .destination-option {
-            background: var(--space-dark);
-            border: 2px solid transparent;
-            border-radius: var(--radius);
-            padding: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .destination-option:hover,
-        .destination-option.active {
-            border-color: var(--destination-color);
-            box-shadow: 0 0 20px rgba(var(--destination-rgb), 0.3);
-        }
-
-        .destination-icon {
-            font-size: 1.5rem;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            color: var(--destination-color);
-        }
-
-        .destination-info h3 {
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-        }
-
-        .destination-info p {
-            font-size: 0.875rem;
-            color: var(--text-dim);
-        }
-
-        .propulsion-dropdown select {
-            width: 100%;
-            background: var(--space-dark);
-            color: var(--text);
-            border: 1px solid rgba(0, 212, 255, 0.2);
-            border-radius: var(--radius);
-            padding: 0.75rem;
-            font-size: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        /* Share Button Styles */
-        .share-button {
-            background: linear-gradient(135deg, var(--nebula-purple), var(--space-blue));
-            color: white;
-            border: none;
-            border-radius: var(--radius);
-            padding: 0.75rem 1.5rem;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-top: 1rem;
-            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
-        }
-
-        .share-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
-        }
-
-        .share-button:active {
-            transform: translateY(0);
-        }
-
-        .share-dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
-        .share-menu {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background: var(--space-dark);
-            border: 1px solid rgba(0, 212, 255, 0.2);
-            border-radius: var(--radius);
-            padding: 0.5rem;
-            margin-top: 0.5rem;
-            min-width: 200px;
-            z-index: 1000;
-            display: none;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-        }
-
-        .share-menu.active {
-            display: block;
-        }
-
-        .share-option {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 0.75rem;
-            border-radius: var(--radius);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            color: var(--text);
-            text-decoration: none;
-        }
-
-        .share-option:hover {
-            background: rgba(0, 212, 255, 0.1);
-            color: var(--space-blue);
-        }
-
-        .share-icon {
-            width: 20px;
-            height: 20px;
-            font-size: 1.2rem;
-        }
-
-        /* Hidden canvas for image generation */
-        #shareCanvas {
-            display: none;
-        }
-
-        @media (max-width: 1024px) {
-            .calculator-grid {
-                grid-template-columns: 1fr;
-            }
-        }
+        /* ADDED: Hide elements managed by Alpine.js until it's ready */
+        [x-cloak] { display: none !important; }
     </style>
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script>
-
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
-    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script>
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
-    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script>
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
-    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script>
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
-    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script>
-    <script src="../../common/add-breadcrumbs.js"></script>
-    <script src="../../common/add-keyboard-accessibility.js"></script>
 </head>
 
-<body x-data="{ showModal: false }">
+<body> <!-- REMOVED: x-data from body tag -->
     <!-- Enhanced Navigation Bar -->
-    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
     <nav class="main-nav">
         <div class="nav-container">
             <div class="nav-logo">
@@ -362,7 +88,8 @@
                             <div class="destination-icon" x-text="destination.emoji"></div>
                             <div class="destination-info">
                                 <h3 x-text="destination.name"></h3>
-                                <p x-text="destination.distance"></p>
+                                <p x-text="`${destination.distanceDisplay} (avg)`"></p>
+                                <p class="distance-note" x-text="destination.distanceNote"></p>
                             </div>
                         </div>
                     </template>
@@ -393,6 +120,7 @@
                             x-text="formatTime(travelTime)"></div>
                         <div style="color: var(--text-dim);">Travel Time to <span
                                 x-text="destinations[selectedDestination]?.name"></span></div>
+                        <p class="distance-note" style="margin-top: 0.5rem;" x-text="destinations[selectedDestination]?.distanceNote"></p>
                     </div>
 
                     <div
@@ -407,7 +135,7 @@
                             style="background: var(--space-dark); padding: 1rem; border-radius: var(--radius); text-align: center;">
                             <div style="font-size: 1.25rem; font-weight: 700; color: var(--star-gold);"
                                 x-text="formatDistance(currentDistance)"></div>
-                            <div style="font-size: 0.875rem; color: var(--text-dim);">Distance</div>
+                            <div style="font-size: 0.875rem; color: var(--text-dim);">Distance (avg)</div>
                         </div>
                         <div
                             style="background: var(--space-dark); padding: 1rem; border-radius: var(--radius); text-align: center;">
@@ -415,6 +143,34 @@
                                 x-text="formatFuel(calculateFuel())"></div>
                             <div style="font-size: 0.875rem; color: var(--text-dim);">Fuel Required</div>
                         </div>
+                    </div>
+
+                    <!-- Hohmann Transfer Windows Table -->
+                    <div style="margin-top: 2rem;" x-show="selectedDestination && destinations[selectedDestination].hohmannWindows">
+                        <h3 style="margin-bottom: 1rem;">🚀 Upcoming Hohmann Transfer Windows</h3>
+                        <div style="overflow-x: auto;">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Year</th>
+                                        <th>Month</th>
+                                        <th>Optimal Days</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <template x-for="(window, index) in destinations[selectedDestination].hohmannWindows" :key="index">
+                                        <tr>
+                                            <td x-text="window.year"></td>
+                                            <td x-text="window.month"></td>
+                                            <td x-text="window.optimalDays + ' days'"></td>
+                                        </tr>
+                                    </template>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p class="distance-note" style="margin-top: 0.5rem;">
+                            Hohmann transfers are the most fuel-efficient paths between planets. Windows occur when planets are optimally aligned.
+                        </p>
                     </div>
 
                     <div
@@ -441,43 +197,11 @@
                             </div>
                         </div>
 
-                        <!-- Share Button -->
-                        <div class="share-dropdown">
-                            <button class="share-button" @click="toggleShareMenu()">
-                                <span>🚀</span>
-                                <span>Share Journey</span>
-                            </button>
-                            <div class="share-menu" :class="{ active: showShareMenu }">
-                                <a class="share-option" @click="shareGeneral()" href="#" @click.prevent>
-                                    <span class="share-icon">📱</span>
-                                    <span>Share with Image</span>
-                                </a>
-                                <a class="share-option" @click="shareOnTwitter()" href="#" @click.prevent>
-                                    <span class="share-icon">🐦</span>
-                                    <span>Share on Twitter</span>
-                                </a>
-                                <a class="share-option" @click="shareOnFacebook()" href="#" @click.prevent>
-                                    <span class="share-icon">📘</span>
-                                    <span>Share on Facebook</span>
-                                </a>
-                                <a class="share-option" @click="shareOnLinkedIn()" href="#" @click.prevent>
-                                    <span class="share-icon">💼</span>
-                                    <span>Share on LinkedIn</span>
-                                </a>
-                                <a class="share-option" @click="shareOnReddit()" href="#" @click.prevent>
-                                    <span class="share-icon">🤖</span>
-                                    <span>Share on Reddit</span>
-                                </a>
-                                <a class="share-option" @click="copyShareLink()" href="#" @click.prevent>
-                                    <span class="share-icon">🔗</span>
-                                    <span>Copy Link</span>
-                                </a>
-                                <a class="share-option" @click="downloadImage()" href="#" @click.prevent>
-                                    <span class="share-icon">💾</span>
-                                    <span>Download Image</span>
-                                </a>
-                            </div>
-                        </div>
+                        <!-- REPLACED: Share Button -->
+                        <button class="share-button premium" @click="openShareModal()">
+                            <span class="share-icon">🚀</span>
+                            <span>Share Journey</span>
+                        </button>
                     </div>
                 </div>
 
@@ -486,11 +210,78 @@
                     Select a destination to calculate travel time
                 </div>
             </div>
+
+            <!-- ADDED: Premium Share Modal -->
+            <div class="modal-overlay" x-show="showModal" @click.self="showModal = false" x-transition:enter="transition ease-out duration-300"
+                x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+                x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100"
+                x-transition:leave-end="opacity-0" x-cloak>
+                <div class="modal-content" x-show="showModal"
+                    x-transition:enter="transition ease-out duration-300"
+                    x-transition:enter-start="opacity-0 transform scale-95"
+                    x-transition:enter-end="opacity-100 transform scale-100"
+                    x-transition:leave="transition ease-in duration-200"
+                    x-transition:leave-start="opacity-100 transform scale-100"
+                    x-transition:leave-end="opacity-0 transform scale-95">
+            
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h3 class="modal-title">Share Your Interstellar Journey</h3>
+                        <button class="modal-close" @click="showModal = false">&times;</button>
+                    </div>
+            
+                    <!-- Modal Body -->
+                    <div class="modal-body">
+                        <!-- Image Preview -->
+                        <div class="image-preview-container">
+                            <img :src="shareImageUrl" alt="Shareable image of the space journey" class="image-preview">
+                        </div>
+            
+                        <!-- Share Actions -->
+                        <p class="share-prompt">Share your mission briefing with the world:</p>
+                        <div class="share-grid">
+                            <button class="modal-share-button" @click="shareGeneral()">
+                                <span class="modal-share-icon">📱</span>
+                                <span>Share...</span>
+                            </button>
+                            <button class="modal-share-button" @click="shareOnTwitter()">
+                                <span class="modal-share-icon">🐦</span>
+                                <span>Twitter</span>
+                            </button>
+                            <button class="modal-share-button" @click="shareOnFacebook()">
+                                <span class="modal-share-icon">📘</span>
+                                <span>Facebook</span>
+                            </button>
+                            <button class="modal-share-button" @click="shareOnLinkedIn()">
+                                <span class="modal-share-icon">💼</span>
+                                <span>LinkedIn</span>
+                            </button>
+                            <button class="modal-share-button" @click="shareOnReddit()">
+                                <span class="modal-share-icon">🤖</span>
+                                <span>Reddit</span>
+                            </button>
+                            <button class="modal-share-button" @click="downloadImage()">
+                                <span class="modal-share-icon">💾</span>
+                                <span>Download</span>
+                            </button>
+                        </div>
+                        
+                        <!-- Copy Link Section -->
+                        <div class="copy-link-section">
+                            <input type="text" readonly value="https://docket.one/pages/GeekGalaxy/Space%20Travel%20Time%20Calculator.html" class="copy-link-input">
+                            <button class="copy-link-button" @click="copyShareLink($el)">
+                                <span>🔗</span>
+                                <span>Copy Link</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 
     <!-- Hidden canvas for generating share images -->
-    <canvas id="shareCanvas" width="1200" height="630"></canvas>
+    <canvas id="shareCanvas" width="1200" height="630" style="display: none;"></canvas>
 
     <script>
         function spaceCalculator() {
@@ -500,167 +291,168 @@
                 travelTime: 0,
                 currentSpeed: 0,
                 currentDistance: 0,
-                showShareMenu: false,
+                // MODIFIED: State for the new modal
+                showModal: false,
+                shareImageUrl: '',
 
                 destinations: {
                     'moon': {
                         name: 'Moon',
                         emoji: '🌙',
-                        distance: '384,400 km',
-                        distanceKm: 384400,
+                        distanceDisplay: '384,400 km',
+                        minDistanceKm: 363300,
+                        maxDistanceKm: 405500,
+                        avgDistanceKm: 384400,
                         color: '#e5e7eb',
-                        rgb: '229, 231, 235'
+                        rgb: '229, 231, 235',
+                        distanceNote: 'Distance varies by ~42,200 km due to elliptical orbit',
+                        hohmannWindows: [
+							{ year: 2025, month: 'November', optimalDays: 28 },
+                            { year: 2026, month: 'February', optimalDays: 30 }]
                     },
                     'mercury': {
                         name: 'Mercury',
                         emoji: '☿️',
-                        distance: '77 million km',
-                        distanceKm: 77000000,
+                        distanceDisplay: '77 million km',
+                        minDistanceKm: 77000000,
+                        maxDistanceKm: 222000000,
+                        avgDistanceKm: 77000000,
                         color: '#9ca3af',
-                        rgb: '156, 163, 175'
+                        rgb: '156, 163, 175',
+                        distanceNote: 'Distance varies greatly due to orbit (77M-222M km)',
+                        hohmannWindows: [
+                            { year: 2025, month: 'August', optimalDays: 28 },
+                            { year: 2026, month: 'April', optimalDays: 30 }
+                        ]
                     },
                     'venus': {
                         name: 'Venus',
                         emoji: '♀️',
-                        distance: '41 million km',
-                        distanceKm: 41000000,
+                        distanceDisplay: '41 million km',
+                        minDistanceKm: 38000000,
+                        maxDistanceKm: 261000000,
+                        avgDistanceKm: 41000000,
                         color: '#fbbf24',
-                        rgb: '251, 191, 36'
+                        rgb: '251, 191, 36',
+                        distanceNote: 'Distance varies from 38M-261M km',
+                        hohmannWindows: [
+                            { year: 2026, month: 'July', optimalDays: 30 },
+                            { year: 2028, month: 'March', optimalDays: 28 }
+                        ]
                     },
                     'mars': {
                         name: 'Mars',
                         emoji: '🔴',
-                        distance: '78 million km',
-                        distanceKm: 78000000,
+                        distanceDisplay: '78 million km',
+                        minDistanceKm: 54600000,
+                        maxDistanceKm: 401000000,
+                        avgDistanceKm: 78000000,
                         color: '#ef4444',
-                        rgb: '239, 68, 68'
+                        rgb: '239, 68, 68',
+                        distanceNote: 'Distance varies from 54.6M-401M km',
+                        hohmannWindows: [
+                            { year: 2026, month: 'November', optimalDays: 30 },
+                            { year: 2029, month: 'January', optimalDays: 28 }
+                        ]
                     },
                     'jupiter': {
                         name: 'Jupiter',
                         emoji: '🪐',
-                        distance: '628 million km',
-                        distanceKm: 628000000,
+                        distanceDisplay: '628 million km',
+                        minDistanceKm: 588000000,
+                        maxDistanceKm: 968000000,
+                        avgDistanceKm: 628000000,
                         color: '#f97316',
-                        rgb: '249, 115, 22'
+                        rgb: '249, 115, 22',
+                        distanceNote: 'Distance varies from 588M-968M km',
+                        hohmannWindows: [
+                            { year: 2025, month: 'September', optimalDays: 30 },
+                            { year: 2026, month: 'October', optimalDays: 28 }
+                        ]
                     },
                     'saturn': {
                         name: 'Saturn',
                         emoji: '🪐',
-                        distance: '1.2 billion km',
-                        distanceKm: 1200000000,
+                        distanceDisplay: '1.2 billion km',
+                        minDistanceKm: 1200000000,
+                        maxDistanceKm: 1660000000,
+                        avgDistanceKm: 1200000000,
                         color: '#eab308',
-                        rgb: '234, 179, 8'
+                        rgb: '234, 179, 8',
+                        distanceNote: 'Distance varies from 1.2B-1.66B km',
+                        hohmannWindows: [
+                            { year: 2026, month: 'June', optimalDays: 30 },
+                            { year: 2027, month: 'June', optimalDays: 28 }
+                        ]
                     },
                     'uranus': {
                         name: 'Uranus',
                         emoji: '🔵',
-                        distance: '2.7 billion km',
-                        distanceKm: 2700000000,
+                        distanceDisplay: '2.7 billion km',
+                        minDistanceKm: 2580000000,
+                        maxDistanceKm: 3150000000,
+                        avgDistanceKm: 2700000000,
                         color: '#06b6d4',
-                        rgb: '6, 182, 212'
+                        rgb: '6, 182, 212',
+                        distanceNote: 'Distance varies from 2.58B-3.15B km',
+                        hohmannWindows: [
+                            { year: 2031, month: 'June', optimalDays: 30 },
+                            { year: 2032, month: 'April', optimalDays: 28 }
+                        ]
                     },
                     'neptune': {
                         name: 'Neptune',
                         emoji: '🔵',
-                        distance: '4.3 billion km',
-                        distanceKm: 4300000000,
+                        distanceDisplay: '4.3 billion km',
+                        minDistanceKm: 4300000000,
+                        maxDistanceKm: 4700000000,
+                        avgDistanceKm: 4300000000,
                         color: '#3b82f6',
-                        rgb: '59, 130, 246'
+                        rgb: '59, 130, 246',
+                        distanceNote: 'Distance varies from 4.3B-4.7B km',
+                        hohmannWindows: [
+                            { year: 2028, month: 'December', optimalDays: 30 },
+                            { year: 2030, month: 'January', optimalDays: 28 }
+                        ]
                     },
                     'proxima': {
                         name: 'Proxima Centauri',
                         emoji: '⭐',
-                        distance: '4.24 light-years',
+                        distanceDisplay: '4.24 light-years',
                         distanceKm: 4.24 * 9.461e12,
                         color: '#fbbf24',
-                        rgb: '251, 191, 36'
+                        rgb: '251, 191, 36',
+                        distanceNote: 'Fixed distance (nearest star to our solar system)',
+                        hohmannWindows: []
                     },
                     'andromeda': {
                         name: 'Andromeda Galaxy',
                         emoji: '🌌',
-                        distance: '2.5 million light-years',
+                        distanceDisplay: '2.5 million light-years',
                         distanceKm: 2.5e6 * 9.461e12,
                         color: '#8b5cf6',
-                        rgb: '139, 92, 246'
+                        rgb: '139, 92, 246',
+                        distanceNote: 'Fixed distance (nearest major galaxy)',
+                        hohmannWindows: []
                     }
                 },
 
                 propulsionSystems: {
-                    'car': {
-                        name: 'Highway Speed',
-                        speed: 100,
-                        speedDisplay: '100 km/h'
-                    },
-                    'jet': {
-                        name: 'Jet Aircraft',
-                        speed: 900,
-                        speedDisplay: '900 km/h'
-                    },
-                    'blue-origin': {
-                        name: 'Blue Origin New Shepard',
-                        speed: 3600,
-                        speedDisplay: '3,600 km/h'
-                    },
-                    'spacex-dragon': {
-                        name: 'SpaceX Dragon',
-                        speed: 27600,
-                        speedDisplay: '27,600 km/h'
-                    },
-                    'spacex-starship': {
-                        name: 'SpaceX Starship',
-                        speed: 28000,
-                        speedDisplay: '28,000 km/h'
-                    },
-                    'chemical': {
-                        name: 'Chemical Rocket',
-                        speed: 40000,
-                        speedDisplay: '40,000 km/h'
-                    },
-                    'enterprise-nx01': {
-                        name: 'Enterprise NX-01 (Warp 5)',
-                        speed: 5397763406,
-                        speedDisplay: 'Warp 5 (125x Light Speed)'
-                    },
-                    'enterprise-1701': {
-                        name: 'USS Enterprise NCC-1701 (Warp 8)',
-                        speed: 55834574327,
-                        speedDisplay: 'Warp 8 (512x Light Speed)'
-                    },
-                    'enterprise-d': {
-                        name: 'Enterprise-D (Warp 9.6)',
-                        speed: 180776156663,
-                        speedDisplay: 'Warp 9.6 (1,649x Light Speed)'
-                    },
-                    'voyager': {
-                        name: 'USS Voyager (Warp 9.975)',
-                        speed: 863013247550,
-                        speedDisplay: 'Warp 9.975 (7,912x Light Speed)'
-                    },
-                    'defiant': {
-                        name: 'USS Defiant (Warp 9.5)',
-                        speed: 129659643770,
-                        speedDisplay: 'Warp 9.5 (1,190x Light Speed)'
-                    },
-                    'borg-cube': {
-                        name: 'Borg Cube (Transwarp)',
-                        speed: 2158765619,
-                        speedDisplay: 'Transwarp (20,000x Light Speed)'
-                    },
-                    'ion': {
-                        name: 'Ion Drive',
-                        speed: 200000,
-                        speedDisplay: '200,000 km/h'
-                    },
-                    'fusion': {
-                        name: 'Fusion Ramjet',
-                        speed: 54000000,
-                        speedDisplay: '15% Light Speed'
-                    },
-                    'light': {
-                        name: 'Light Speed',
-                        speed: 1079252849,
-                        speedDisplay: 'Speed of Light'
-                    }
+                    'car': { name: 'Highway Speed', speed: 100, speedDisplay: '100 km/h' },
+                    'jet': { name: 'Jet Aircraft', speed: 900, speedDisplay: '900 km/h' },
+                    'blue-origin': { name: 'Blue Origin New Shepard', speed: 3600, speedDisplay: '3,600 km/h' },
+                    'spacex-dragon': { name: 'SpaceX Dragon', speed: 27600, speedDisplay: '27,600 km/h' },
+                    'spacex-starship': { name: 'SpaceX Starship', speed: 28000, speedDisplay: '28,000 km/h' },
+                    'chemical': { name: 'Chemical Rocket', speed: 40000, speedDisplay: '40,000 km/h' },
+                    'enterprise-nx01': { name: 'Enterprise NX-01 (Warp 5)', speed: 5397763406, speedDisplay: 'Warp 5 (125x Light Speed)' },
+                    'enterprise-1701': { name: 'USS Enterprise NCC-1701 (Warp 8)', speed: 55834574327, speedDisplay: 'Warp 8 (512x Light Speed)' },
+                    'enterprise-d': { name: 'Enterprise-D (Warp 9.6)', speed: 180776156663, speedDisplay: 'Warp 9.6 (1,649x Light Speed)' },
+                    'voyager': { name: 'USS Voyager (Warp 9.975)', speed: 863013247550, speedDisplay: 'Warp 9.975 (7,912x Light Speed)' },
+                    'defiant': { name: 'USS Defiant (Warp 9.5)', speed: 129659643770, speedDisplay: 'Warp 9.5 (1,190x Light Speed)' },
+                    'borg-cube': { name: 'Borg Cube (Transwarp)', speed: 2158765619, speedDisplay: 'Transwarp (20,000x Light Speed)' },
+                    'ion': { name: 'Ion Drive', speed: 200000, speedDisplay: '200,000 km/h' },
+                    'fusion': { name: 'Fusion Ramjet', speed: 54000000, speedDisplay: '15% Light Speed' },
+                    'light': { name: 'Light Speed', speed: 1079252849, speedDisplay: 'Speed of Light' }
                 },
 
                 init() {
@@ -674,121 +466,71 @@
 
                 calculateJourney() {
                     if (!this.selectedDestination || !this.selectedPropulsion) return;
-
                     const destination = this.destinations[this.selectedDestination];
                     const propulsion = this.propulsionSystems[this.selectedPropulsion];
-
-                    this.currentDistance = destination.distanceKm;
+                    this.currentDistance = destination.avgDistanceKm || destination.distanceKm;
                     this.currentSpeed = propulsion.speed;
-                    this.travelTime = destination.distanceKm / propulsion.speed;
+                    this.travelTime = this.currentDistance / propulsion.speed;
                 },
 
                 calculateFuel() {
                     if (!this.selectedDestination || !this.selectedPropulsion) return 0;
-
                     const destination = this.destinations[this.selectedDestination];
                     const propulsion = this.propulsionSystems[this.selectedPropulsion];
-
-                    // More realistic fuel calculation based on distance and propulsion efficiency
-                    let baseFuel = destination.distanceKm / 1000000; // Base fuel per million km
-
-                    // Adjust for propulsion efficiency (better propulsion = less fuel needed)
+                    const distance = destination.avgDistanceKm || destination.distanceKm;
+                    let baseFuel = distance / 1000000;
                     const efficiencyMap = {
-                        'car': 0.1,
-                        'jet': 0.2,
-                        'blue-origin': 0.4,
-                        'spacex-dragon': 0.55,
-                        'spacex-starship': 0.58,
-                        'chemical': 0.6,
-                        'enterprise-nx01': 0.85,
-                        'enterprise-1701': 0.9,
-                        'enterprise-d': 0.95,
-                        'voyager': 0.97,
-                        'defiant': 0.93,
-                        'borg-cube': 0.99,
-                        'ion': 0.8,
-                        'fusion': 0.9,
-                        'light': 1.0
+                        'car': 0.1, 'jet': 0.2, 'blue-origin': 0.4, 'spacex-dragon': 0.55, 'spacex-starship': 0.58,
+                        'chemical': 0.6, 'enterprise-nx01': 0.85, 'enterprise-1701': 0.9, 'enterprise-d': 0.95,
+                        'voyager': 0.97, 'defiant': 0.93, 'borg-cube': 0.99, 'ion': 0.8, 'fusion': 0.9, 'light': 1.0
                     };
-
                     const efficiency = efficiencyMap[this.selectedPropulsion] || 0.5;
                     baseFuel = baseFuel / efficiency;
-
-                    // For extremely long distances (intergalactic), use different calculation
-                    if (destination.distanceKm > 9.461e12) { // Beyond 1 light-year
-                        baseFuel = Math.pow(destination.distanceKm / 9.461e12, 0.8) * 1000000; // Logarithmic scaling
+                    if (distance > 9.461e12) {
+                        baseFuel = Math.pow(distance / 9.461e12, 0.8) * 1000000;
                     }
-
                     return Math.round(baseFuel * 1000);
                 },
 
                 formatFuel(kg) {
-                    if (kg < 1000) {
-                        return kg + ' kg';
-                    } else if (kg < 1000000) {
-                        return (kg / 1000).toFixed(1) + ' tons';
-                    } else if (kg < 1000000000) {
-                        return (kg / 1000000).toFixed(1) + ' kt';
-                    } else if (kg < 1000000000000) {
-                        return (kg / 1000000000).toFixed(1) + ' Mt';
-                    } else if (kg < 1000000000000000) {
-                        return (kg / 1000000000000).toFixed(1) + ' Gt';
-                    } else {
-                        return 'Theoretical';
-                    }
+                    if (kg < 1000) { return kg + ' kg'; }
+                    else if (kg < 1000000) { return (kg / 1000).toFixed(1) + ' tons'; }
+                    else if (kg < 1000000000) { return (kg / 1000000).toFixed(1) + ' kt'; }
+                    else if (kg < 1000000000000) { return (kg / 1000000000).toFixed(1) + ' Mt'; }
+                    else if (kg < 1000000000000000) { return (kg / 1000000000000).toFixed(1) + ' Gt'; }
+                    else { return 'Theoretical'; }
                 },
 
                 formatTime(hours) {
-                    if (hours < 1) {
-                        return Math.round(hours * 60) + ' minutes';
-                    } else if (hours < 24) {
-                        return hours.toFixed(1) + ' hours';
-                    } else if (hours < 24 * 365) {
-                        const days = Math.floor(hours / 24);
-                        return days.toLocaleString() + ' days';
-                    } else if (hours < 24 * 365 * 1000) {
-                        const years = Math.floor(hours / (24 * 365));
-                        return years.toLocaleString() + ' years';
-                    } else if (hours < 24 * 365 * 1000000) {
-                        const thousands = Math.floor(hours / (24 * 365 * 1000));
-                        return thousands.toLocaleString() + ' thousand years';
-                    } else {
-                        const millions = Math.floor(hours / (24 * 365 * 1000000));
-                        return millions.toLocaleString() + ' million years';
-                    }
+                    if (hours < 1) { return Math.round(hours * 60) + ' minutes'; }
+                    else if (hours < 24) { return hours.toFixed(1) + ' hours'; }
+                    else if (hours < 24 * 365) { const days = Math.floor(hours / 24); return days.toLocaleString() + ' days'; }
+                    else if (hours < 24 * 365 * 1000) { const years = Math.floor(hours / (24 * 365)); return years.toLocaleString() + ' years'; }
+                    else if (hours < 24 * 365 * 1000000) { const thousands = Math.floor(hours / (24 * 365 * 1000)); return thousands.toLocaleString() + ' thousand years'; }
+                    else { const millions = Math.floor(hours / (24 * 365 * 1000000)); return millions.toLocaleString() + ' million years'; }
                 },
 
                 formatSpeed(kmh) {
-                    if (kmh < 1000) {
-                        return kmh.toFixed(0) + ' km/h';
-                    } else if (kmh < 1000000) {
-                        return (kmh / 1000).toFixed(1) + 'K km/h';
-                    } else {
-                        const lightSpeedPercent = (kmh / 1079252849) * 100;
-                        return lightSpeedPercent.toFixed(1) + '% light speed';
-                    }
+                    if (kmh < 1000) { return kmh.toFixed(0) + ' km/h'; }
+                    else if (kmh < 1000000) { return (kmh / 1000).toFixed(1) + 'K km/h'; }
+                    else { const lightSpeedPercent = (kmh / 1079252849) * 100; return lightSpeedPercent.toFixed(1) + '% light speed'; }
                 },
 
                 formatDistance(km) {
-                    if (km < 1000000) {
-                        return (km / 1000).toFixed(0) + ' thousand km';
-                    } else if (km < 1000000000) {
-                        return (km / 1000000).toFixed(0) + ' million km';
-                    } else if (km < 9.461e12) {
-                        return (km / 1000000000).toFixed(1) + ' billion km';
-                    } else {
+                    if (km < 1000000) { return (km / 1000).toFixed(0) + ' thousand km'; }
+                    else if (km < 1000000000) { return (km / 1000000).toFixed(0) + ' million km'; }
+                    else if (km < 9.461e12) { return (km / 1000000000).toFixed(1) + ' billion km'; }
+                    else {
                         const lightYears = km / 9.461e12;
-                        if (lightYears < 1000000) {
-                            return (lightYears / 1000).toFixed(1) + 'K light-years';
-                        } else {
-                            return (lightYears / 1000000).toFixed(1) + 'M light-years';
-                        }
+                        if (lightYears < 1000000) { return (lightYears / 1000).toFixed(1) + 'K light-years'; }
+                        else { return (lightYears / 1000000).toFixed(1) + 'M light-years'; }
                     }
                 },
 
-                // Sharing functionality
-                toggleShareMenu() {
-                    this.showShareMenu = !this.showShareMenu;
+                // ADDED: Function to open and prepare the modal
+                openShareModal() {
+                    this.shareImageUrl = this.generateShareImage();
+                    this.showModal = true;
                 },
 
                 generateShareText() {
@@ -796,19 +538,14 @@
                     const propulsion = this.propulsionSystems[this.selectedPropulsion];
                     const travelTime = this.formatTime(this.travelTime);
                     const fuel = this.formatFuel(this.calculateFuel());
-
-                    return `🚀 Space Journey: ${destination.name} using ${propulsion.name} = ${travelTime} travel time & ${fuel} fuel! Plan your interstellar mission at docket.one`;
+                    return `🚀 Space Journey: ${destination.name} using ${propulsion.name} = ${travelTime} travel time & ${fuel} fuel! (Distance shown is average due to orbital variations) Plan your interstellar mission at docket.one`;
                 },
 
                 generateShareImage() {
                     const canvas = document.getElementById('shareCanvas');
                     const ctx = canvas.getContext('2d');
-
-                    // Set canvas dimensions for optimal social media sharing
                     canvas.width = 1200;
                     canvas.height = 630;
-
-                    // Create gradient background
                     const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
                     gradient.addColorStop(0, '#0a0a0f');
                     gradient.addColorStop(0.3, '#1a1a2e');
@@ -816,266 +553,134 @@
                     gradient.addColorStop(1, '#0a0a0f');
                     ctx.fillStyle = gradient;
                     ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-                    // Add stars background
                     ctx.fillStyle = '#ffffff';
                     for (let i = 0; i < 150; i++) {
-                        const x = Math.random() * canvas.width;
-                        const y = Math.random() * canvas.height;
-                        const size = Math.random() * 2 + 0.5;
-                        ctx.beginPath();
-                        ctx.arc(x, y, size, 0, 2 * Math.PI);
-                        ctx.fill();
+                        const x = Math.random() * canvas.width; const y = Math.random() * canvas.height; const size = Math.random() * 2 + 0.5;
+                        ctx.beginPath(); ctx.arc(x, y, size, 0, 2 * Math.PI); ctx.fill();
                     }
-
-                    // Add some larger stars
                     ctx.fillStyle = '#00d4ff';
                     for (let i = 0; i < 20; i++) {
-                        const x = Math.random() * canvas.width;
-                        const y = Math.random() * canvas.height;
-                        const size = Math.random() * 1.5 + 1;
-                        ctx.beginPath();
-                        ctx.arc(x, y, size, 0, 2 * Math.PI);
-                        ctx.fill();
+                        const x = Math.random() * canvas.width; const y = Math.random() * canvas.height; const size = Math.random() * 1.5 + 1;
+                        ctx.beginPath(); ctx.arc(x, y, size, 0, 2 * Math.PI); ctx.fill();
                     }
-
-                    // Title
                     ctx.fillStyle = '#00d4ff';
-                    ctx.font = 'bold 40px Inter, sans-serif';
-                    ctx.textAlign = 'center';
+                    ctx.font = 'bold 40px Inter, sans-serif'; ctx.textAlign = 'center';
                     ctx.fillText('SPACE TRAVEL TIME CALCULATOR', canvas.width / 2, 50);
-
-                    // Get current mission data
                     const destination = this.destinations[this.selectedDestination];
                     const propulsion = this.propulsionSystems[this.selectedPropulsion];
                     const fuel = this.formatFuel(this.calculateFuel());
-
-                    // Create two-column layout for mission details
-                    const leftColumnX = 300;
-                    const rightColumnX = 900;
-                    const startY = 120;
-
-                    // Left Column - Destination Info
-                    ctx.fillStyle = '#8b5cf6';
-                    ctx.font = 'bold 28px Inter, sans-serif';
-                    ctx.textAlign = 'center';
-                    ctx.fillText('DESTINATION', leftColumnX, startY);
-
-                    // Destination emoji (larger)
+                    const leftColumnX = 300; const rightColumnX = 900; const startY = 120;
+                    ctx.fillStyle = '#8b5cf6'; ctx.font = 'bold 28px Inter, sans-serif'; ctx.textAlign = 'left';
+                    ctx.fillText('DESTINATION', leftColumnX - 150, startY);
                     ctx.font = '80px Inter, sans-serif';
-                    ctx.fillText(destination.emoji, leftColumnX, startY + 80);
-
-                    ctx.fillStyle = '#ffffff';
-                    ctx.font = 'bold 32px Inter, sans-serif';
-                    ctx.fillText(destination.name, leftColumnX, startY + 130);
-
-                    ctx.fillStyle = '#94a3b8';
-                    ctx.font = '20px Inter, sans-serif';
-                    ctx.fillText(destination.distance, leftColumnX, startY + 160);
-
-                    // Right Column - Mission Details
-                    ctx.fillStyle = '#fbbf24';
-                    ctx.font = 'bold 28px Inter, sans-serif';
+                    ctx.fillText(destination.emoji, leftColumnX - 150, startY + 80);
+                    ctx.fillStyle = '#ffffff'; ctx.font = 'bold 32px Inter, sans-serif';
+                    ctx.fillText(destination.name, leftColumnX - 150, startY + 130);
+                    ctx.fillStyle = '#94a3b8'; ctx.font = '20px Inter, sans-serif';
+                    ctx.fillText(destination.distanceDisplay + ' (avg)', leftColumnX - 150, startY + 160);
+                    ctx.fillStyle = '#8b5cf6'; ctx.font = '16px Inter, sans-serif';
+                    ctx.fillText(destination.distanceNote, leftColumnX - 150, startY + 190);
+                    if (destination.hohmannWindows && destination.hohmannWindows.length > 0) {
+                        const tableStartY = startY + 230; ctx.fillStyle = '#00d4ff'; ctx.font = 'bold 20px Inter, sans-serif';
+                        ctx.fillText('UPCOMING HOHMANN TRANSFER WINDOWS', leftColumnX - 150, tableStartY);
+                        ctx.fillStyle = '#8b5cf6'; ctx.font = 'bold 16px Inter, sans-serif';
+                        ctx.fillText('Year', leftColumnX - 150, tableStartY + 30); ctx.fillText('Month', leftColumnX - 50, tableStartY + 30); ctx.fillText('Days', leftColumnX + 50, tableStartY + 30);
+                        ctx.fillStyle = '#ffffff'; ctx.font = '15px Inter, sans-serif';
+                        destination.hohmannWindows.forEach((window, index) => {
+                            const rowY = tableStartY + 55 + (index * 25);
+                            ctx.fillText(window.year, leftColumnX - 150, rowY); ctx.fillText(window.month, leftColumnX - 50, rowY); ctx.fillText(window.optimalDays, leftColumnX + 50, rowY);
+                        });
+                        ctx.fillStyle = '#94a3b8'; ctx.font = '12px Inter, sans-serif';
+                        ctx.fillText('Most fuel-efficient paths between planets', leftColumnX - 150, tableStartY + 120);
+                    }
+                    ctx.fillStyle = '#fbbf24'; ctx.font = 'bold 28px Inter, sans-serif'; ctx.textAlign = 'right';
                     ctx.fillText('MISSION DETAILS', rightColumnX, startY);
-
-                    // Mission details with icons
-                    const detailsY = startY + 50;
-                    const lineHeight = 35;
-                    ctx.textAlign = 'left';
-                    ctx.font = '22px Inter, sans-serif';
-
-                    // Propulsion
-                    ctx.fillStyle = '#00d4ff';
-                    ctx.fillText('🚀 Propulsion:', rightColumnX - 150, detailsY + lineHeight);
-                    ctx.fillStyle = '#ffffff';
-                    ctx.font = '20px Inter, sans-serif';
-                    ctx.fillText(propulsion.name, rightColumnX - 150, detailsY + lineHeight + 25);
-
-                    // Travel Time (highlighted)
-                    ctx.fillStyle = '#00d4ff';
-                    ctx.font = '22px Inter, sans-serif';
-                    ctx.fillText('⏱️ Travel Time:', rightColumnX - 150, detailsY + lineHeight * 3);
-                    ctx.fillStyle = '#fbbf24';
-                    ctx.font = 'bold 28px Inter, sans-serif';
-                    ctx.fillText(this.formatTime(this.travelTime), rightColumnX - 150, detailsY + lineHeight * 3 + 30);
-
-                    // Speed
-                    ctx.fillStyle = '#00d4ff';
-                    ctx.font = '22px Inter, sans-serif';
-                    ctx.fillText('⚡ Speed:', rightColumnX - 150, detailsY + lineHeight * 5);
-                    ctx.fillStyle = '#ffffff';
-                    ctx.font = '20px Inter, sans-serif';
-                    ctx.fillText(this.formatSpeed(this.currentSpeed), rightColumnX - 150, detailsY + lineHeight * 5 + 25);
-
-                    // Fuel Required
-                    ctx.fillStyle = '#00d4ff';
-                    ctx.font = '22px Inter, sans-serif';
-                    ctx.fillText('⛽ Fuel Required:', rightColumnX - 150, detailsY + lineHeight * 7);
-                    ctx.fillStyle = '#ffffff';
-                    ctx.font = '20px Inter, sans-serif';
-                    ctx.fillText(fuel, rightColumnX - 150, detailsY + lineHeight * 7 + 25);
-
-                    // Round Trip
-                    ctx.fillStyle = '#00d4ff';
-                    ctx.font = '22px Inter, sans-serif';
-                    ctx.fillText('🔄 Round Trip:', rightColumnX - 150, detailsY + lineHeight * 9);
-                    ctx.fillStyle = '#8b5cf6';
-                    ctx.font = 'bold 24px Inter, sans-serif';
-                    ctx.fillText(this.formatTime(this.travelTime * 2), rightColumnX - 150, detailsY + lineHeight * 9 + 25);
-
-                    // Bottom section - Call to Action
-                    ctx.fillStyle = '#00d4ff';
-                    ctx.font = 'bold 24px Inter, sans-serif';
-                    ctx.textAlign = 'center';
-                    ctx.fillText('Calculate your own space journey!', canvas.width / 2, 560);
-
-                    // Website URL
-                    ctx.fillStyle = '#fbbf24';
-                    ctx.font = '20px Inter, sans-serif';
-                    ctx.fillText('docket.one/pages/GeekGalaxy/Space Travel Time Calculator', canvas.width / 2, 590);
-
+                    const detailsY = startY + 50; const lineHeight = 35; ctx.textAlign = 'right'; ctx.font = '22px Inter, sans-serif';
+                    ctx.fillStyle = '#00d4ff'; ctx.fillText('🚀 Propulsion:', rightColumnX, detailsY + lineHeight);
+                    ctx.fillStyle = '#ffffff'; ctx.font = '20px Inter, sans-serif'; ctx.fillText(propulsion.name, rightColumnX, detailsY + lineHeight + 25);
+                    ctx.fillStyle = '#00d4ff'; ctx.font = '22px Inter, sans-serif'; ctx.fillText('⏱️ Travel Time:', rightColumnX, detailsY + lineHeight * 3);
+                    ctx.fillStyle = '#fbbf24'; ctx.font = 'bold 28px Inter, sans-serif'; ctx.fillText(this.formatTime(this.travelTime), rightColumnX, detailsY + lineHeight * 3 + 30);
+                    ctx.fillStyle = '#00d4ff'; ctx.font = '22px Inter, sans-serif'; ctx.fillText('⚡ Speed:', rightColumnX, detailsY + lineHeight * 5);
+                    ctx.fillStyle = '#ffffff'; ctx.font = '20px Inter, sans-serif'; ctx.fillText(this.formatSpeed(this.currentSpeed), rightColumnX, detailsY + lineHeight * 5 + 25);
+                    ctx.fillStyle = '#00d4ff'; ctx.font = '22px Inter, sans-serif'; ctx.fillText('⛽ Fuel Required:', rightColumnX, detailsY + lineHeight * 7);
+                    ctx.fillStyle = '#ffffff'; ctx.font = '20px Inter, sans-serif'; ctx.fillText(fuel, rightColumnX, detailsY + lineHeight * 7 + 25);
+                    ctx.fillStyle = '#00d4ff'; ctx.font = '22px Inter, sans-serif'; ctx.fillText('🔄 Round Trip:', rightColumnX , detailsY + lineHeight * 9);
+                    ctx.fillStyle = '#8b5cf6'; ctx.font = 'bold 24px Inter, sans-serif'; ctx.fillText(this.formatTime(this.travelTime * 2), rightColumnX, detailsY + lineHeight * 9 + 25);
+                    ctx.fillStyle = '#00d4ff'; ctx.font = 'bold 24px Inter, sans-serif'; ctx.textAlign = 'center';
+                    ctx.fillText('Calculate your own space journey!', canvas.width / 2, 580);
+                    ctx.fillStyle = '#fbbf24'; ctx.font = '20px Inter, sans-serif';
+                    ctx.fillText('docket.one/pages/GeekGalaxy/Space Travel Time Calculator', canvas.width / 2, 610);
                     return canvas.toDataURL('image/png');
                 },
 
-                // Enhanced sharing functionality with automatic image inclusion
                 async shareOnTwitter() {
                     const text = this.generateShareText();
                     const calculatorUrl = 'https://docket.one/pages/GeekGalaxy/Space%20Travel%20Time%20Calculator.html';
-
-                    // Check if Web Share API is supported (mobile devices)
                     if (navigator.share && navigator.canShare) {
                         try {
-                            // Generate and convert image to blob for native sharing
-                            const imageDataUrl = this.generateShareImage();
-                            const response = await fetch(imageDataUrl);
-                            const blob = await response.blob();
+                            const imageDataUrl = this.generateShareImage(); const response = await fetch(imageDataUrl); const blob = await response.blob();
                             const file = new File([blob], `space-journey-${this.selectedDestination}.png`, { type: 'image/png' });
-
                             if (navigator.canShare({ files: [file] })) {
-                                await navigator.share({
-                                    title: 'Space Travel Time Calculator',
-                                    text: text,
-                                    url: calculatorUrl,
-                                    files: [file]
-                                });
-                                this.showShareMenu = false;
+                                await navigator.share({ title: 'Space Travel Time Calculator', text: text, url: calculatorUrl, files: [file] });
                                 return;
                             }
-                        } catch (err) {
-                            console.log('Native sharing failed, falling back to Twitter web');
-                        }
+                        } catch (err) { console.log('Native sharing failed, falling back to Twitter web'); }
                     }
-
-                    // Fallback: Open Twitter with text and URL (image will be from OpenGraph)
                     const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(calculatorUrl)}`;
                     window.open(twitterUrl, '_blank');
-                    this.showShareMenu = false;
                 },
 
                 async shareOnFacebook() {
                     const calculatorUrl = 'https://docket.one/pages/GeekGalaxy/Space%20Travel%20Time%20Calculator.html';
                     const text = this.generateShareText();
-
-                    // Check if Web Share API is supported
                     if (navigator.share && navigator.canShare) {
                         try {
-                            const imageDataUrl = this.generateShareImage();
-                            const response = await fetch(imageDataUrl);
-                            const blob = await response.blob();
+                            const imageDataUrl = this.generateShareImage(); const response = await fetch(imageDataUrl); const blob = await response.blob();
                             const file = new File([blob], `space-journey-${this.selectedDestination}.png`, { type: 'image/png' });
-
                             if (navigator.canShare({ files: [file] })) {
-                                await navigator.share({
-                                    title: 'Space Travel Time Calculator',
-                                    text: text,
-                                    url: calculatorUrl,
-                                    files: [file]
-                                });
-                                this.showShareMenu = false;
+                                await navigator.share({ title: 'Space Travel Time Calculator', text: text, url: calculatorUrl, files: [file] });
                                 return;
                             }
-                        } catch (err) {
-                            console.log('Native sharing failed, falling back to Facebook web');
-                        }
+                        } catch (err) { console.log('Native sharing failed, falling back to Facebook web'); }
                     }
-
-                    // Fallback: Facebook sharing (will use OpenGraph meta tags for image)
                     const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(calculatorUrl)}&quote=${encodeURIComponent(text)}`;
                     window.open(facebookUrl, '_blank');
-                    this.showShareMenu = false;
                 },
 
                 async shareOnLinkedIn() {
                     const text = this.generateShareText();
                     const calculatorUrl = 'https://docket.one/pages/GeekGalaxy/Space%20Travel%20Time%20Calculator.html';
-
-                    // Check if Web Share API is supported
                     if (navigator.share && navigator.canShare) {
                         try {
-                            const imageDataUrl = this.generateShareImage();
-                            const response = await fetch(imageDataUrl);
-                            const blob = await response.blob();
+                            const imageDataUrl = this.generateShareImage(); const response = await fetch(imageDataUrl); const blob = await response.blob();
                             const file = new File([blob], `space-journey-${this.selectedDestination}.png`, { type: 'image/png' });
-
                             if (navigator.canShare({ files: [file] })) {
-                                await navigator.share({
-                                    title: 'Space Travel Time Calculator',
-                                    text: text,
-                                    url: calculatorUrl,
-                                    files: [file]
-                                });
-                                this.showShareMenu = false;
+                                await navigator.share({ title: 'Space Travel Time Calculator', text: text, url: calculatorUrl, files: [file] });
                                 return;
                             }
-                        } catch (err) {
-                            console.log('Native sharing failed, falling back to LinkedIn web');
-                        }
+                        } catch (err) { console.log('Native sharing failed, falling back to LinkedIn web'); }
                     }
-
-                    // Fallback: LinkedIn sharing
                     const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(calculatorUrl)}&summary=${encodeURIComponent(text)}`;
                     window.open(linkedInUrl, '_blank');
-                    this.showShareMenu = false;
                 },
 
                 async shareGeneral() {
                     const text = this.generateShareText();
                     const calculatorUrl = 'https://docket.one/pages/GeekGalaxy/Space%20Travel%20Time%20Calculator.html';
-
-                    // Try Web Share API first (works great on mobile)
                     if (navigator.share) {
                         try {
-                            const imageDataUrl = this.generateShareImage();
-                            const response = await fetch(imageDataUrl);
-                            const blob = await response.blob();
+                            const imageDataUrl = this.generateShareImage(); const response = await fetch(imageDataUrl); const blob = await response.blob();
                             const file = new File([blob], `space-journey-${this.selectedDestination}-${this.selectedPropulsion}.png`, { type: 'image/png' });
-
-                            // Check if the device can share files
                             if (navigator.canShare && navigator.canShare({ files: [file] })) {
-                                await navigator.share({
-                                    title: 'Space Travel Time Calculator - Mission Brief',
-                                    text: text,
-                                    url: calculatorUrl,
-                                    files: [file]
-                                });
+                                await navigator.share({ title: 'Space Travel Time Calculator - Mission Brief', text: text, url: calculatorUrl, files: [file] });
                             } else {
-                                // Share without file if files aren't supported
-                                await navigator.share({
-                                    title: 'Space Travel Time Calculator',
-                                    text: text,
-                                    url: calculatorUrl
-                                });
+                                await navigator.share({ title: 'Space Travel Time Calculator', text: text, url: calculatorUrl });
                             }
-                            this.showShareMenu = false;
                             return;
                         } catch (err) {
-                            if (err.name !== 'AbortError') {
-                                console.log('Web Share API failed:', err);
-                            }
+                            if (err.name !== 'AbortError') { console.log('Web Share API failed:', err); }
                         }
                     }
-
-                    // Fallback: Copy to clipboard and show instructions
                     try {
                         await navigator.clipboard.writeText(`${text} ${calculatorUrl}`);
                         alert('✅ Mission details copied to clipboard!\n\nYou can now paste this into any social media platform. The image has been downloaded separately for you to attach.');
@@ -1085,7 +690,6 @@
                         alert('Please manually copy the mission details and download the image to share on your preferred platform.');
                         this.downloadImage();
                     }
-                    this.showShareMenu = false;
                 },
 
                 shareOnReddit() {
@@ -1093,24 +697,24 @@
                     const calculatorUrl = 'https://docket.one/pages/GeekGalaxy/Space%20Travel%20Time%20Calculator.html';
                     const redditUrl = `https://reddit.com/submit?title=${encodeURIComponent(text)}&url=${encodeURIComponent(calculatorUrl)}`;
                     window.open(redditUrl, '_blank');
-                    this.showShareMenu = false;
                 },
 
-                async copyShareLink() {
+                // MODIFIED: copyShareLink now provides UI feedback within the modal
+                async copyShareLink(buttonElement) {
                     const calculatorUrl = 'https://docket.one/pages/GeekGalaxy/Space%20Travel%20Time%20Calculator.html';
                     try {
                         await navigator.clipboard.writeText(calculatorUrl);
-                        // Show temporary success message
-                        const button = document.querySelector('.share-button');
-                        const originalText = button.innerHTML;
-                        button.innerHTML = '<span>✅</span><span>Link Copied!</span>';
+                        const originalHtml = buttonElement.innerHTML;
+                        buttonElement.innerHTML = '<span>✅</span><span>Copied!</span>';
+                        buttonElement.disabled = true;
                         setTimeout(() => {
-                            button.innerHTML = originalText;
+                            buttonElement.innerHTML = originalHtml;
+                            buttonElement.disabled = false;
                         }, 2000);
                     } catch (err) {
                         console.error('Failed to copy link:', err);
+                        alert('Failed to copy link. Please copy it manually.');
                     }
-                    this.showShareMenu = false;
                 },
 
                 downloadImage() {
@@ -1119,7 +723,6 @@
                     link.download = `space-journey-${this.selectedDestination}-${this.selectedPropulsion}.png`;
                     link.href = imageDataUrl;
                     link.click();
-                    this.showShareMenu = false;
                 }
             }
         }
@@ -1143,14 +746,6 @@
                     }
                 });
             }
-
-            // Close share menu when clicking outside
-            document.addEventListener('click', function (event) {
-                if (!event.target.closest('.share-dropdown')) {
-                    const shareMenus = document.querySelectorAll('.share-menu');
-                    shareMenus.forEach(menu => menu.classList.remove('active'));
-                }
-            });
         });
     </script>
     <!-- Newsletter Bar -->
@@ -1158,7 +753,7 @@
         <div class="newsletter-container">
             <div class="newsletter-content">
                 <div class="newsletter-info">
-                    <h3>&#127881; Join Our Calculator Community!</h3>
+                    <h3>🎉 Join Our Calculator Community!</h3>
                     <p>Get updates on new fun calculators and practical tools</p>
                 </div>
                 <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
@@ -1166,12 +761,12 @@
                         x-model="email" required>
                     <button type="submit" class="newsletter-submit" :disabled="isSubmitting">
                         <span x-show="isSubmitting" class="loading-spinner"></span>
-                        <span x-text="isSubmitting ? 'Subscribing...' : '&#128640; Subscribe'"></span>
+                        <span x-text="isSubmitting ? 'Subscribing...' : '🚀 Subscribe'"></span>
                     </button>
                 </form>
-                <div x-show="showSuccess" class="newsletter-success" style="display: none;">
+                <div x-show="showSuccess" class="newsletter-success">
                     <p style="color: var(--accent-light); font-weight: 600;">
-                        &#9989; Awesome! You'll get updates on the coolest new calculators!
+                        ✅ Awesome! You'll get updates on the coolest new calculators!
                     </p>
                 </div>
             </div>
@@ -1183,7 +778,7 @@
         <div class="footer-container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h4>&#127919; About Docket.One</h4>
+                    <h4>🎮 About Docket.One</h4>
                     <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you
                         should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the
                         tools for modern life.</p>
@@ -1191,137 +786,56 @@
                 </div>
 
                 <div class="footer-section">
-                    <h4>&#127914; Calculator Categories</h4>
+                    <h4>🎯 Calculator Categories</h4>
                     <ul class="footer-links">
-                        <li><a href="/pages/BigKidMath/"><span class="calculator-emoji">&#129518;</span> BigKidMath -
-                                Adult Life Tools</a></li>
-                        <li><a href="/pages/CipherLab/"><span class="calculator-emoji">&#128272;</span> CipherLab -
-                                Secret Codes & Security</a></li>
-                        <li><a href="/pages/GeekGalaxy/"><span class="calculator-emoji">&#128640;</span> GeekGalaxy -
-                                Sci-Fi & Fantasy Fun</a></li>
-                        <li><a href="/pages/LifeHacks/"><span class="calculator-emoji">&#9889;</span> LifeHacks -
-                                Productivity & Wellness</a></li>
-                        <li><a href="/pages/Math_Magik/"><span class="calculator-emoji">&#127917;</span> Math Magik -
-                                Mathematical Wizardry</a></li>
-                        <li><a href="/pages/Otaku_Ops/"><span class="calculator-emoji">&#127999;</span> Otaku Ops -
-                                Anime & Culture</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h4>&#128172; Support & Info</h4>
-                    <ul class="footer-links">
-                        <li><a href="/pages/support/help.html"><span class="calculator-emoji">&#10067;</span> Help &
-                                FAQ</a></li>
-                        <li><a href="/privacy"><span class="calculator-emoji">&#128274;</span> Privacy Policy</a></li>
-                        <li><a href="/terms"><span class="calculator-emoji">&#128203;</span> Terms of Service</a></li>
-                        <li><a href="/accessibility"><span class="calculator-emoji">&#9855;</span> Accessibility</a>
+                        <li><a href="https://docket.one/pages/BigKidMath/"><span class="calculator-emoji">🧠</span>
+                                BigKidMath - Adult Life Tools</a></li>
+                        <li><a href="https://docket.one/pages/CipherLab/"><span class="calculator-emoji">🔐</span>
+                                CipherLab - Secret Codes & Security</a>
                         </li>
-                        <li><a href="/pages/support/contact.html"><span class="calculator-emoji">&#128231;</span>
-                                Contact Us</a></li>
+                        <li><a href="https://docket.one/pages/GeekGalaxy/"><span class="calculator-emoji">🚀</span>
+                                GeekGalaxy - Sci-Fi & Fantasy Fun</a></li>
+                        <li><a href="https://docket.one/pages/LifeHacks/"><span class="calculator-emoji">⚡</span>
+                                LifeHacks - Productivity & Wellness</a></li>
+                        <li><a href="https://docket.one/pages/Math_Magik/"><span class="calculator-emoji">🧙‍♀️</span>
+                                Math Magik - Mathematical Wizardry</a>
+                        </li>
+                        <li><a href="https://docket.one/pages/Otaku_Ops/"><span class="calculator-emoji">🗾</span> Otaku
+                                Ops - Anime & Culture</a></li>
                     </ul>
                 </div>
 
                 <div class="footer-section">
-                    <button class="request-calculator-btn" @click="showModal = true">
-                        &#128161; Request a Calculator
-                    </button>
+                    <h4>💬 Support & Info</h4>
+                    <ul class="footer-links">
+                        <li><a href="pages/support/help.html"><span class="calculator-emoji">❓</span> Help &
+                                FAQ</a></li>
+                        <li><a href="pages/support/privacy.html"><span class="calculator-emoji">🔒</span> Privacy
+                                Policy</a></li>
+                        <li><a href="pages/support/terms.html"><span class="calculator-emoji">📋</span> Terms of
+                                Service</a></li>
+                        <li><a href="pages/support/accessibility.html"><span class="calculator-emoji">♿</span>
+                                Accessibility</a></li>
+                        <li><a href="pages/support/contact.html"><span class="calculator-emoji">📧</span> Contact
+                                Us</a></li>
+                    </ul>
                 </div>
             </div>
 
             <div class="footer-bottom">
-                <div class="footer-logo">&#129518; Docket.One</div>
+                <div class="footer-logo">🧮 Docket.One</div>
                 <div class="footer-copyright">
-                    Â© 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
+                    © 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
                 </div>
                 <div class="social-links">
-                    <a href="#" class="social-link" aria-label="Twitter">&#120143;</a>
-                    <a href="#" class="social-link" aria-label="LinkedIn">&#128188;</a>
-                    <a href="#" class="social-link" aria-label="GitHub">&#128025;</a>
-                    <a href="#" class="social-link" aria-label="Email">&#128231;</a>
+                    <a href="#" class="social-link" aria-label="Twitter">𝕏</a>
+                    <a href="#" class="social-link" aria-label="LinkedIn">💼</a>
+                    <a href="#" class="social-link" aria-label="GitHub">🐙</a>
+                    <a href="#" class="social-link" aria-label="Email">📧</a>
                 </div>
             </div>
         </div>
     </footer>
-
-    <!-- Request Modal -->
-    <div x-data="calculatorRequestForm()" x-show="showModal" x-cloak class="modal-overlay" @click.self="closeModal()"
-        style="display: none;">
-        <div class="modal-content">
-            <div x-show="!showConfirmation">
-                <div class="modal-header">
-                    <h2 class="modal-title">&#128161; Request a Fun Calculator</h2>
-                    <p class="modal-subtitle">Got an idea for a calculator that would make life easier or more fun? We
-                        want to hear it!</p>
-                    <button class="modal-close" @click="closeModal()">&#10005;</button>
-                </div>
-                <div class="modal-body">
-                    <form @submit.prevent="submitRequest()">
-                        <div class="form-group">
-                            <label class="form-label" for="userName">Your Name *</label>
-                            <input type="text" id="userName" class="form-input" x-model="formData.name" required
-                                placeholder="What should we call you?">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" for="userEmail">Email Address *</label>
-                            <input type="email" id="userEmail" class="form-input" x-model="formData.email" required
-                                placeholder="your@email.com">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" for="requestType">What Kind of Request? *</label>
-                            <select id="requestType" class="form-input form-select" x-model="formData.type" required>
-                                <option value="">Choose your request type</option>
-                                <option value="new-calculator">&#127358; Brand New Calculator</option>
-                                <option value="enhancement">&#9889; Improve Existing Calculator</option>
-                                <option value="category">&#127914; New Category Idea</option>
-                                <option value="feature">&#10024; Cool New Feature</option>
-                                <option value="other">&#129300; Something Else Entirely</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" for="calculatorTitle">Calculator Name/Title *</label>
-                            <input type="text" id="calculatorTitle" class="form-input" x-model="formData.title" required
-                                placeholder="e.g., 'Should I Call In Sick Calculator'">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" for="description">Tell Us About Your Idea! *</label>
-                            <textarea id="description" class="form-input form-textarea" x-model="formData.description"
-                                required placeholder="Describe your calculator idea!"></textarea>
-                        </div>
-                        <div class="form-actions">
-                            <button type="button" class="btn btn-secondary" @click="closeModal()">Maybe Later</button>
-                            <button type="submit" class="btn btn-primary" :disabled="isSubmitting">
-                                <span x-show="isSubmitting" class="loading-spinner"></span>
-                                <span x-text="isSubmitting ? 'Sending...' : '&#128640; Send My Idea'"></span>
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div x-show="showConfirmation" class="confirmation-modal" style="display: none;">
-                <div class="modal-header">
-                    <button class="modal-close" @click="closeModal()">&#10005;</button>
-                </div>
-                <div class="modal-body">
-                    <div class="success-icon">&#127881;</div>
-                    <h3 class="confirmation-title">Awesome! We Got Your Idea!</h3>
-                    <p class="confirmation-message">
-                        Thanks for sharing your calculator idea with us! We're excited to check it out and see if we can
-                        make it happen.
-                        <br><br>
-                        <strong>What happens next?</strong><br>
-                        â€¢ You'll get a confirmation email shortly<br>
-                        â€¢ Our team will review your idea<br>
-                        â€¢ If we build it, you'll be the first to know!<br>
-                        â€¢ We might even name you as the inspiration &#128522;
-                    </p>
-                    <button class="btn btn-primary" @click="closeModal()" style="width: 100%;">
-                        &#127919; Close & Keep Calculating!
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
 
 </body>
 
