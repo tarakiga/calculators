@@ -383,8 +383,6 @@
             </div>
         </div>
     </footer>
-
-    <script src="../../common/navbar-enhanced.js"></script>
     <script>
         // Global variables
         let caffeineChart = null;
@@ -805,6 +803,12 @@
                 });
             }
         }
+    </script>
+	<script src="../../common/navbar-enhanced.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            new EnhancedNavbar();
+        });
     </script>
 
 </body>
