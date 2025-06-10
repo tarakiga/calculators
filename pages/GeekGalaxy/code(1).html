@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- [Header content remains the same, fully updated] -->
+    <!-- Basic Meta -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Force Sensitivity Holocron (Aptitude Test) | GeekGalaxy | Docket One</title>
+    <meta name="description" content="An interactive Force Sensitivity test. Undertake the Jedi trials, test your focus and insight, and receive a detailed Holocron analysis of your midichlorian count and Force potential.">
+    <meta name="keywords" content="force sensitivity test, midichlorian calculator, jedi or sith test, star wars quiz, force alignment, geek tools, interactive calculator">
+    <meta name="author" content="Docket One">
+    <!-- Cache Control -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://docket.one/pages/GeekGalaxy/Force%20Sensitivity%20Test.html" />
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://docket.one/pages/GeekGalaxy/Force%20Sensitivity%20Test.html">
+    <meta property="og:title" content="Force Sensitivity Holocron (Aptitude Test) | GeekGalaxy | Docket One">
+    <meta property="og:description" content="An interactive Force Sensitivity test. Undertake the Jedi trials, test your focus and insight, and receive a detailed Holocron analysis of your midichlorian count and Force potential.">
+    <meta property="og:image" content="https://docket.one/images/geekgalaxy-force-test-social-preview.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="Docket One">
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://docket.one/pages/GeekGalaxy/Force%20Sensitivity%20Test.html">
+    <meta name="twitter:title" content="Force Sensitivity Holocron (Aptitude Test) | GeekGalaxy | Docket One">
+    <meta name="twitter:description" content="An interactive Force Sensitivity test. Undertake the Jedi trials, test your focus and insight, and receive a detailed Holocron analysis of your midichlorian count and Force potential.">
+    <meta name="twitter:image" content="https://docket.one/images/geekgalaxy-force-test-social-preview.jpg">
+    <meta property="twitter:site" content="@DocketOne">
+    
+    <!-- Dependencies -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Versioned Assets -->
+    <link rel="stylesheet" href="../../common/santa-improvements.css?v=20250609">
+    <link rel="stylesheet" href="../../common/global-calculator.css?v=20250609">
+    <link rel="stylesheet" href="../../common/themes/dark-theme.css?v=20250609">
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css?v=20250609">
+    <link rel="stylesheet" href="../../styles/force-test.css?v=20250609">
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css?v=20250609">
+	<link rel="stylesheet" href="styles/global.css">
+	<link rel="stylesheet" href="styles/style.css">
+    <script src="../../common/navbar-enhanced.js"></script>
+    <script src="../../common/add-keyboard-accessibility.js"></script>
+    
+</head>
+
+<body x-data="forceCalculator()" x-init="init()">
+    <!-- [The rest of the body HTML remains exactly the same as the previous version] -->
+    <div class="container text-center py-8">
+        <h1 class="font-display text-4xl md:text-5xl font-extrabold text-white uppercase tracking-wider">
+            The <span class="text-yellow-400">Force</span> Aptitude Holocron
+        </h1>
+        <p class="text-lg text-gray-400 mt-2">The will of the Force has brought you here. Your journey begins now.</p>
+    </div>
+
+    <main class="wizard-container">
+        <!-- Step 1: The Calling -->
+        <div x-show="currentStep === 1" x-transition:enter.duration.500ms>
+            <h2 class="wizard-step-title">Trial 1: The Calling</h2>
+            <p class="wizard-step-subtitle">The Force resonates through all living things. From where does your connection stem?</p>
+            <div class="control-group">
+                <label for="lineage" class="block text-lg font-medium mb-2">Bloodline & Lineage</label>
+                <select id="lineage" x-model="answers.lineage" class="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg text-white">
+                    <option value="unknown">Unknown Heritage</option>
+                    <option value="skywalker">Skywalker Bloodline</option>
+                    <option value="kenobi">Kenobi Lineage</option>
+                    <option value="palpatine">Palpatine Heritage</option>
+                    <option value="yoda">Yoda's Species</option>
+                </select>
+            </div>
+            <div class="wizard-nav">
+                <span></span>
+                <button class="wizard-btn" @click="currentStep = 2">Next Trial &rarr;</button>
+            </div>
+        </div>
+
+        <!-- Step 2: Trial of Spirit -->
+        <div x-show="currentStep === 2" x-transition:enter.duration.500ms>
+            <h2 class="wizard-step-title">Trial 2: The Trial of Spirit</h2>
+            <p class="wizard-step-subtitle">The Force requires a clear mind. Center yourself. Click the orb when it is perfectly balanced (at its largest and smallest points).</p>
+            <div class="focus-orb-container">
+                <div x-show="focusGame.active" class="focus-orb" @click="clickFocusOrb()"></div>
+            </div>
+            <p class="text-center text-muted">Score: <span x-text="focusGame.score"></span> | Clicks Remaining: <span x-text="focusGame.clicksLeft"></span></p>
+            <div class="wizard-nav">
+                <button class="wizard-btn secondary" @click="currentStep = 1">&larr; Previous Trial</button>
+                <button class="wizard-btn" @click="currentStep = 3" :disabled="focusGame.active">Next Trial &rarr;</button>
+            </div>
+        </div>
+
+        <!-- Step 3: Trial of Insight -->
+        <div x-show="currentStep === 3" x-transition:enter.duration.500ms>
+            <h2 class="wizard-step-title">Trial 3: The Trial of Insight</h2>
+            <p class="wizard-step-subtitle">A vision appears in the Force. What do you see? How do you interpret it?</p>
+            <div class="vision-text">"You see a locked door. Beyond it, a great power. The key is lost, but the wall is weak."</div>
+            <div class="option-grid">
+                <div class="option-card" :class="{'selected': answers.visionChoice === 'search'}" @click="answers.visionChoice = 'search'">
+                    <h4 class="font-bold">Search for the Key</h4><p class="text-sm text-muted">Patience and wisdom will reveal the proper path.</p>
+                </div>
+                <div class="option-card" :class="{'selected': answers.visionChoice === 'protect'}" @click="answers.visionChoice = 'protect'">
+                    <h4 class="font-bold">Guard the Door</h4><p class="text-sm text-muted">Some power is not meant to be disturbed. Defend it.</p>
+                </div>
+                <div class="option-card" :class="{'selected': answers.visionChoice === 'convince'}" @click="answers.visionChoice = 'convince'">
+                    <h4 class="font-bold">Persuade the Lock</h4><p class="text-sm text-muted">The mind is the true key. Influence the world to your will.</p>
+                </div>
+                <div class="option-card" :class="{'selected': answers.visionChoice === 'break'}" @click="answers.visionChoice = 'break'">
+                    <h4 class="font-bold">Break Down the Wall</h4><p class="text-sm text-muted">Power is for the taking. Obstacles are temporary.</p>
+                </div>
+            </div>
+            <div class="wizard-nav">
+                <button class="wizard-btn secondary" @click="currentStep = 2">&larr; Previous Trial</button>
+                <button class="wizard-btn" @click="calculate()" :disabled="!answers.visionChoice || isLoading">
+                    <span x-show="!isLoading">Reveal My Path &rarr;</span>
+                    <span x-show="isLoading">The Force is Revealing...</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Step 4: Results Holocron -->
+        <div x-show="currentStep === 4" x-transition:enter.duration.500ms>
+            <h2 class="wizard-step-title">Holocron Analysis</h2>
+            <p class="wizard-step-subtitle">The will of the Force is revealed. This is your potential.</p>
+            <div class="results-grid">
+                <div class="text-center">
+                    <h3 class="text-lg text-muted">Midichlorian Count</h3>
+                    <div class="count-display" x-text="results.midichlorianCount.toLocaleString()"></div>
+                    <p class="font-bold text-yellow-400" x-text="results.title"></p>
+                </div>
+                <div class="text-center">
+                    <h3 class="text-lg text-muted">Force Alignment</h3>
+                    <div class="alignment-meter mt-8"><div class="alignment-marker" :style="`left: ${results.alignment}%`"></div></div>
+                    <div class="flex justify-between text-xs mt-2 px-2"><span class="text-red-400">Dark</span><span class="text-gray-400">Balanced</span><span class="text-blue-400">Light</span></div>
+                    <p class="font-bold text-yellow-400 mt-4" x-text="results.alignmentText"></p>
+                </div>
+                <div class="col-span-1 md:col-span-2">
+                     <h3 class="text-lg text-center text-muted mb-4">Force Affinity Profile</h3>
+                     <div style="height: 300px;"><canvas id="affinityChart"></canvas></div>
+                </div>
+            </div>
+            <div class="wizard-nav">
+                <button class="wizard-btn secondary" @click="resetTest()"><i class="fas fa-sync-alt"></i> Retake Trials</button>
+                <button class="wizard-btn" @click="showShareModal = true"><i class="fas fa-share-alt"></i> Share Analysis</button>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Share Modal and Canvas -->
+    <div x-show="showShareModal" x-cloak class="modal-overlay" @click.self="showShareModal = false" style="display: none;">
+        <div class="modal-content" @click.stop>
+            <div class="modal-header"><h2 class="modal-title">⭐ Transmit Force ID</h2><button class="modal-close" @click="showShareModal = false">×</button></div>
+            <div class="modal-body">
+                <div class="share-modal-grid">
+                    <button class="share-modal-button" @click="shareGeneral(); showShareModal = false"><span class="share-modal-icon">📱</span> Share ID Card </button>
+                    <button class="share-modal-button" @click="copyShareLink(); showShareModal = false"><span class="share-modal-icon">🔗</span> Copy Link </button>
+                    <button class="share-modal-button" @click="downloadImage(); showShareModal = false"><span class="share-modal-icon">💾</span> Download ID Card </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <canvas id="shareCanvas" width="1200" height="630" style="display: none;"></canvas>
+
+    <script>
+        function forceCalculator() {
+            return {
+                currentStep: 1, isLoading: false, hasResults: false, showShareModal: false, chartInstance: null,
+                answers: { lineage: 'unknown', focusScore: 0, visionChoice: '' },
+                focusGame: { active: false, score: 0, clicksLeft: 5, pulseInterval: null, orb: null },
+                results: { midichlorianCount: 0, title: '', alignment: 50, alignmentText: '', aspects: { control: 0, sense: 0, alter: 0 } },
+                
+                init() {
+                    this.$watch('currentStep', (step) => {
+                        if (step === 2 && !this.focusGame.pulseInterval) this.startFocusTrial();
+                        else if (step !== 2) this.stopFocusTrial();
+                    });
+                },
+                
+                startFocusTrial() {
+                    this.focusGame = { active: true, score: 0, clicksLeft: 5, pulseInterval: null, orb: document.querySelector('.focus-orb') };
+                    this.focusGame.pulseInterval = setInterval(() => {
+                        // The animation is CSS-driven, this interval is just for timing checks
+                    }, 100);
+                },
+
+                stopFocusTrial() {
+                    clearInterval(this.focusGame.pulseInterval);
+                    this.focusGame.pulseInterval = null;
+                },
+
+                clickFocusOrb() {
+                    if (!this.focusGame.active) return;
+                    
+                    const scale = getComputedStyle(this.focusGame.orb).transform.split(',')[3].trim();
+                    const scaleValue = parseFloat(scale);
+
+                    let points = 0;
+                    if (scaleValue > 0.98 || scaleValue < 0.62) points = 100; // Perfect click
+                    else if (scaleValue > 0.9 || scaleValue < 0.7) points = 50;
+                    else points = 10;
+                    
+                    this.focusGame.score += points;
+                    this.focusGame.clicksLeft--;
+
+                    if (this.focusGame.clicksLeft <= 0) {
+                        this.focusGame.active = false;
+                        this.stopFocusTrial();
+                        this.answers.focusScore = this.focusGame.score;
+                    }
+                },
+
+                calculate() {
+                    this.isLoading = true;
+                    this.stopFocusTrial();
+                    
+                    setTimeout(() => {
+                        let baseCount = 2500;
+                        let alignment = 50; // Start at balanced
+
+                        // Lineage
+                        const lineageMods = { unknown: 1.0, skywalker: 1.8, kenobi: 1.4, palpatine: 1.6, yoda: 1.5 };
+                        baseCount *= lineageMods[this.answers.lineage];
+                        if (this.answers.lineage === 'palpatine') alignment -= 15;
+                        if (this.answers.lineage === 'kenobi') alignment += 10;
+                        if (this.answers.lineage === 'skywalker') alignment = 50; // inherently balanced/conflicted
+                        
+                        // Focus Trial
+                        baseCount += this.answers.focusScore * 20; // Max 10,000
+                        alignment += (this.answers.focusScore - 250) / 25; // Good score pushes to light
+                        
+                        // Vision Quest
+                        const visionMods = {
+                            search: { count: 1.1, align: 10, aspects: { control: 1, sense: 3, alter: 1 } },
+                            protect: { count: 1.0, align: 20, aspects: { control: 3, sense: 2, alter: 0 } },
+                            convince: { count: 1.2, align: -10, aspects: { control: 1, sense: 2, alter: 3 } },
+                            break: { count: 1.4, align: -25, aspects: { control: 2, sense: 1, alter: 4 } }
+                        };
+                        const vision = visionMods[this.answers.visionChoice];
+                        baseCount *= vision.count;
+                        alignment += vision.align;
+
+                        // Finalize
+                        this.results.midichlorianCount = Math.round(baseCount);
+                        this.results.alignment = Math.max(5, Math.min(95, Math.round(alignment)));
+                        
+                        // Set Title & Alignment Text
+                        if (this.results.midichlorianCount > 20000) this.results.title = 'The Chosen One';
+                        else if (this.results.midichlorianCount > 15000) this.results.title = 'Jedi Master Potential';
+                        else if (this.results.midichlorianCount > 10000) this.results.title = 'Jedi Knight Potential';
+                        else this.results.title = 'Force-Sensitive';
+
+                        if (this.results.alignment > 70) this.results.alignmentText = 'Paragon of the Light';
+                        else if (this.results.alignment > 55) this.results.alignmentText = 'Light Side Adherent';
+                        else if (this.results.alignment < 30) this.results.alignmentText = 'Embracing the Darkness';
+                        else if (this.results.alignment < 45) this.results.alignmentText = 'Dark Side Tendencies';
+                        else this.results.alignmentText = 'Centered in Balance';
+                        
+                        // Calculate Aspects for Radar Chart
+                        let aspects = {
+                            control: this.answers.focusScore / 5, // Max 100
+                            sense: (this.answers.lineage === 'kenobi' ? 30 : 0) + (this.answers.lineage === 'yoda' ? 20 : 0),
+                            alter: (this.answers.lineage === 'skywalker' ? 20 : 0) + (this.answers.lineage === 'palpatine' ? 30 : 0)
+                        };
+                        aspects.control += vision.aspects.control * 10;
+                        aspects.sense += vision.aspects.sense * 20;
+                        aspects.alter += vision.aspects.alter * 15;
+                        this.results.aspects = {
+                            control: Math.min(100, Math.round(aspects.control)),
+                            sense: Math.min(100, Math.round(aspects.sense)),
+                            alter: Math.min(100, Math.round(aspects.alter))
+                        };
+
+                        this.isLoading = false;
+                        this.hasResults = true;
+                        this.currentStep = 4;
+                        this.$nextTick(() => this.initRadarChart());
+                    }, 1500);
+                },
+
+                initRadarChart() {
+                    if (this.chartInstance) this.chartInstance.destroy();
+                    const ctx = document.getElementById('affinityChart').getContext('2d');
+                    this.chartInstance = new Chart(ctx, {
+                        type: 'radar',
+                        data: {
+                            labels: ['Control (Self)', 'Sense (Perception)', 'Alter (Influence)'],
+                            datasets: [{
+                                label: 'Force Affinity',
+                                data: [this.results.aspects.control, this.results.aspects.sense, this.results.aspects.alter],
+                                backgroundColor: 'rgba(75, 213, 238, 0.2)',
+                                borderColor: 'rgba(75, 213, 238, 1)',
+                                borderWidth: 2,
+                                pointBackgroundColor: '#FFE81F'
+                            }]
+                        },
+                        options: {
+                            maintainAspectRatio: false,
+                            scales: { r: { angleLines: { color: 'rgba(255, 255, 255, 0.2)' }, grid: { color: 'rgba(255, 255, 255, 0.2)' }, pointLabels: { color: '#EAEAEA', font: { size: 14 } }, ticks: { display: false, beginAtZero: true, max: 100 } } },
+                            plugins: { legend: { display: false } }
+                        }
+                    });
+                },
+
+                resetTest() {
+                    this.currentStep = 1; this.hasResults = false;
+                    this.answers = { lineage: 'unknown', focusScore: 0, visionChoice: '' };
+                    this.focusGame.score = 0; this.focusGame.clicksLeft = 5;
+                },
+
+                generateShareImage() {
+                    const canvas = document.getElementById('shareCanvas'); const ctx = canvas.getContext('2d');
+                    ctx.fillStyle = '#000000'; ctx.fillRect(0, 0, 1200, 630);
+                    ctx.textAlign = 'center'; ctx.fillStyle = '#FFE81F'; ctx.font = "bold 48px 'Orbitron', sans-serif";
+                    ctx.fillText('FORCE SENSITIVITY ANALYSIS', 600, 80);
+                    
+                    ctx.fillStyle = '#4BD5EE'; ctx.font = "bold 120px 'Orbitron', sans-serif";
+                    ctx.fillText(this.results.midichlorianCount.toLocaleString(), 600, 220);
+                    ctx.fillStyle = '#EAEAEA'; ctx.font = "32px 'Inter', sans-serif";
+                    ctx.fillText('MIDICHLORIANS PER CELL', 600, 270);
+
+                    ctx.fillStyle = '#FFE81F'; ctx.font = "bold 40px 'Orbitron', sans-serif";
+                    ctx.fillText(this.results.title.toUpperCase(), 600, 350);
+
+                    ctx.textAlign = 'left'; ctx.font = "bold 28px 'Inter', sans-serif";
+                    ctx.fillStyle = '#EAEAEA';
+                    ctx.fillText(`CONTROL: ${this.results.aspects.control}%`, 150, 450);
+                    ctx.fillText(`SENSE: ${this.results.aspects.sense}%`, 150, 500);
+                    ctx.fillText(`ALTER: ${this.results.aspects.alter}%`, 150, 550);
+
+                    ctx.textAlign = 'right';
+                    ctx.fillText(`ALIGNMENT: ${this.results.alignmentText.toUpperCase()}`, 1050, 450);
+                    ctx.fillText(`LINEAGE: ${this.answers.lineage.toUpperCase()}`, 1050, 500);
+                    
+                    ctx.textAlign = 'center'; ctx.font = "24px 'Orbitron', sans-serif"; ctx.fillStyle = '#4A90E2';
+                    ctx.fillText('docket.one/pages/GeekGalaxy/', 600, 600);
+                    return canvas.toDataURL('image/png');
+                },
+                generateShareText() { return `My Force analysis revealed a midichlorian count of ${this.results.midichlorianCount.toLocaleString()}! My potential is: ${this.results.title}. Take the trial:`; },
+                async shareGeneral() { if (!navigator.share) { this.downloadImage(); alert('Image downloaded.'); return; } try { const r = await fetch(this.generateShareImage()); const b = await r.blob(); const f = new File([b], 'force-id.png', { type: 'image/png' }); await navigator.share({ title: 'My Force Sensitivity Analysis', text: this.generateShareText(), files: [f] }); } catch (e) { console.error(e); } },
+                async copyShareLink() { try { await navigator.clipboard.writeText(window.location.href); alert('Link copied!'); } catch (err) { alert('Failed to copy.'); } },
+                downloadImage() { const link = document.createElement('a'); link.download = 'force-id.png'; link.href = this.generateShareImage(); link.click(); }
+            }
+        }
+    </script>
+	<!-- Newsletter Bar -->
+    <div class="newsletter-bar" x-data="newsletterForm()">
+        <div class="newsletter-container">
+            <div class="newsletter-content">
+                <div class="newsletter-info">
+                    <h3>🎉 Join Our Calculator Community!</h3>
+                    <p>Get updates on new fun calculators and practical tools</p>
+                </div>
+                <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
+                    <input type="email" class="newsletter-input" placeholder="Enter your email for calculator updates"
+                        x-model="email" required>
+                    <button type="submit" class="newsletter-submit" :disabled="isSubmitting">
+                        <span x-show="isSubmitting" class="loading-spinner"></span>
+                        <span x-text="isSubmitting ? 'Subscribing...' : '🚀 Subscribe'"></span>
+                    </button>
+                </form>
+                <div x-show="showSuccess" class="newsletter-success">
+                    <p style="color: var(--accent-light); font-weight: 600;">
+                        ✅ Awesome! You'll get updates on the coolest new calculators!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>🎮 About Docket.One</h4>
+                    <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you
+                        should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the
+                        tools for modern life.</p>
+                    <p>Practical meets playful. Because adulting is hard enough.</p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>🎯 Calculator Categories</h4>
+                    <ul class="footer-links">
+                        <li><a href="https://docket.one/pages/BigKidMath/"><span class="calculator-emoji">🧠</span>
+                                BigKidMath - Adult Life Tools</a></li>
+                        <li><a href="https://docket.one/pages/CipherLab/"><span class="calculator-emoji">🔐</span>
+                                CipherLab - Secret Codes & Security</a>
+                        </li>
+                        <li><a href="https://docket.one/pages/GeekGalaxy/"><span class="calculator-emoji">🚀</span>
+                                GeekGalaxy - Sci-Fi & Fantasy Fun</a></li>
+                        <li><a href="https://docket.one/pages/LifeHacks/"><span class="calculator-emoji">⚡</span>
+                                LifeHacks - Productivity & Wellness</a></li>
+                        <li><a href="https://docket.one/pages/Math_Magik/"><span class="calculator-emoji">🧙‍♀️</span>
+                                Math Magik - Mathematical Wizardry</a>
+                        </li>
+                        <li><a href="https://docket.one/pages/Otaku_Ops/"><span class="calculator-emoji">🗾</span> Otaku
+                                Ops - Anime & Culture</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>💬 Support & Info</h4>
+                    <ul class="footer-links">
+                        <li><a href="pages/support/help.html"><span class="calculator-emoji">❓</span> Help &
+                                FAQ</a></li>
+                        <li><a href="pages/support/privacy.html"><span class="calculator-emoji">🔒</span> Privacy
+                                Policy</a></li>
+                        <li><a href="pages/support/terms.html"><span class="calculator-emoji">📋</span> Terms of
+                                Service</a></li>
+                        <li><a href="pages/support/accessibility.html"><span class="calculator-emoji">♿</span>
+                                Accessibility</a></li>
+                        <li><a href="pages/support/contact.html"><span class="calculator-emoji">📧</span> Contact
+                                Us</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-logo">🧮 Docket.One</div>
+                <div class="footer-copyright">
+                    © 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
+                </div>
+                <div class="social-links">
+                    <a href="#" class="social-link" aria-label="Twitter">𝕏</a>
+                    <a href="#" class="social-link" aria-label="LinkedIn">💼</a>
+                    <a href="#" class="social-link" aria-label="GitHub">🐙</a>
+                    <a href="#" class="social-link" aria-label="Email">📧</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
