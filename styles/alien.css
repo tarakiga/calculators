@@ -1,0 +1,42 @@
+:root {
+            --primary: #4A90E2; --secondary: #9B59B6; --accent: #F5A623;
+            --background: #0B0E1A; --surface: #1A1D29; --text: #EAEAEA; --text-muted: #B0B8C3;
+            --glow-primary: 0 0 15px rgba(74, 144, 226, 0.4);
+            --space-md: 1rem; --space-lg: 1.5rem; --space-xl: 2rem;
+            --radius-md: 8px; --radius-lg: 12px;
+        }
+        body { background: var(--background); color: var(--text); font-family: 'Inter', sans-serif; }
+        .font-display { font-family: 'Orbitron', sans-serif; }
+        .calculator-layout { display: grid; grid-template-columns: 1fr; gap: var(--space-xl); max-width: 1400px; margin: auto; padding: var(--space-xl); }
+        @media (min-width: 1024px) { .calculator-layout { grid-template-columns: 450px 1fr; } }
+
+        .panel { background: var(--surface); border-radius: var(--radius-lg); padding: var(--space-xl); border: 1px solid rgba(74, 144, 226, 0.2); }
+        .control-group { margin-bottom: 2.5rem; }
+        .control-label { display: flex; justify-content: space-between; align-items: center; font-weight: 600; margin-bottom: 0.5rem; }
+        .label-text { display: flex; align-items: center; gap: 0.5rem; }
+        
+        /* NEW Labeled Slider Component */
+        .labeled-slider { position: relative; }
+        .slider-track { position: relative; }
+        .slider-labels { display: flex; justify-content: space-between; padding: 0 10px; margin-top: 0.5rem; }
+        .slider-label { font-size: 0.7rem; color: var(--text-muted); transition: color 0.3s, transform 0.3s; text-align: center; flex: 1; }
+        .slider-label.active { color: var(--accent); font-weight: 700; transform: scale(1.1); }
+        
+        .info-icon { cursor: pointer; color: var(--text-muted); transition: color 0.2s; }
+        .info-icon:hover { color: var(--primary); }
+        .tooltip { position: absolute; background: #0B0E1A; border: 1px solid var(--primary); padding: 0.75rem; border-radius: var(--radius-md); z-index: 10; width: 250px; font-size: 0.8rem; line-height: 1.4; box-shadow: 0 5px 15px rgba(0,0,0,0.5); pointer-events: none; }
+        
+        input[type="range"] { width: 100%; -webkit-appearance: none; appearance: none; height: 8px; background: rgba(74, 144, 226, 0.1); border-radius: 4px; outline: none; margin-top: 1rem; }
+        input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%; background: var(--primary); cursor: pointer; box-shadow: var(--glow-primary); transition: transform 0.2s; margin-top: -6px; }
+        input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.2); }
+
+        .results-header { text-align: center; padding: var(--space-lg); background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://docket.one/images/texture-space.jpg'); border-radius: var(--radius-lg); margin-bottom: var(--space-xl); }
+        .scenario-title { font-family: 'Orbitron', sans-serif; font-size: 2rem; color: var(--accent); text-transform: uppercase; letter-spacing: 2px; }
+        .contact-probability { font-size: 5rem; font-weight: 900; color: white; line-height: 1; text-shadow: 0 0 20px var(--primary); }
+        
+        .stat-bar { margin-bottom: 1.25rem; }
+        .stat-bar .label-text { font-size: 0.875rem; font-weight: 600; }
+        .progress-track { background: #0B0E1A; border-radius: 99px; height: 1rem; overflow: hidden; border: 1px solid #4A90E2; }
+        .progress-fill { height: 100%; transition: width 0.3s ease-out; border-radius: 99px; }
+        
+        .drake-equation-display { font-family: 'Orbitron', sans-serif; text-align: center; font-size: 1.5rem; padding: 1rem; background: rgba(0,0,0,0.3); border-radius: var(--radius-md); margin-bottom: 1.5rem; color: var(--accent); }

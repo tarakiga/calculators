@@ -1,658 +1,288 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
+    <!-- [Header content remains the same, fully updated] -->
+    <!-- Basic Meta -->
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Potion Brewer Calculator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>The Alchemist's Grimoire: Potion Crafting Calculator | Math Magik</title>
+    <meta name="description" content="A premium potion brewing simulator. Combine magical ingredients based on their core properties to discover dozens of potent recipes and complete your alchemical grimoire.">
+    <meta name="keywords" content="potion calculator, alchemy simulator, magic recipe generator, fantasy calculator, grimoire, crafting game, interactive calculator, Math Magik">
+    <meta name="author" content="Docket One">
+    <!-- Cache Control -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://docket.one/pages/Math_Magik/Potion%20Brewer%20Calculator.html" />
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://docket.one/pages/Math_Magik/Potion%20Brewer%20Calculator.html">
+    <meta property="og:title" content="The Alchemist's Grimoire: Potion Crafting Calculator | Math Magik">
+    <meta property="og:description" content="A premium potion brewing simulator. Combine magical ingredients based on their core properties to discover dozens of potent recipes and complete your alchemical grimoire.">
+    <meta property="og:image" content="https://docket.one/images/mathmagik-potion-social-preview.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="Docket One">
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://docket.one/pages/Math_Magik/Potion%20Brewer%20Calculator.html">
+    <meta name="twitter:title" content="The Alchemist's Grimoire: Potion Crafting Calculator | Math Magik">
+    <meta name="twitter:description" content="A premium potion brewing simulator. Combine magical ingredients based on their core properties to discover dozens of potent recipes and complete your alchemical grimoire.">
+    <meta name="twitter:image" content="https://docket.one/images/mathmagik-potion-social-preview.jpg">
+    <meta property="twitter:site" content="@DocketOne">
 
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script>
+    <!-- Dependencies -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
-    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script>
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
-    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script>
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
-    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script>
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
-    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script>
-
-    <script src="../../common/add-breadcrumbs.js"></script>
+    <!-- Versioned Assets -->
+    <link rel="stylesheet" href="../../common/santa-improvements.css?v=20250609">
+    <link rel="stylesheet" href="../../common/global-calculator.css?v=20250609">
+    <link rel="stylesheet" href="../../common/themes/dark-theme.css?v=20250609">
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css?v=20250609">
+    <link rel="stylesheet" href="../../styles/potion.css?v=20250609">
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css?v=20250609">
+    <script src="../../common/navbar-enhanced.js"></script>
     <script src="../../common/add-keyboard-accessibility.js"></script>
 </head>
 
-<body x-data="{ showModal: false }">
-    <!-- Enhanced Navigation Bar -->
-    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-    <nav class="main-nav">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <a href="../../index.html">🧮 Docket One</a>
+<body x-data="potionBrewer()" x-init="init()">
+
+    <div class="container text-center py-8">
+        <h1 class="font-display text-4xl md:text-5xl font-extrabold text-white uppercase tracking-wider">
+            The Alchemist's <span class="text-purple-400">Workbench</span>
+        </h1>
+        <p class="text-lg text-gray-400 mt-2">Combine ingredients, discover recipes, and fill your Grimoire.</p>
+    </div>
+
+    <main class="layout">
+        <!-- REVISED: Left panel is now the permanently visible ingredient shelf -->
+        <aside class="panel">
+            <h2 class="panel-title">Alchemist's Shelf</h2>
+            <div class="ingredient-grid">
+                <template x-for="ingredient in allIngredients">
+                    <div class="ingredient-card" 
+                         :class="{'disabled': selectedIngredients.includes(ingredient.id) || selectedIngredients.length >= 3}"
+                         @click="toggleIngredient(ingredient.id)">
+                        <span class="icon" x-text="ingredient.icon"></span>
+                        <h4 class="font-bold" x-text="ingredient.name"></h4>
+                    </div>
+                </template>
             </div>
-            <div class="nav-search">
-                <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input"
-                    aria-label="Search calculators">
-                <div id="search-results" class="search-results"></div>
+        </aside>
+
+        <!-- REVISED: Right panel is the workbench with cauldron and results -->
+        <section class="panel">
+            <h2 class="panel-title">Brewing Cauldron</h2>
+            
+            <div class="cauldron-container">
+                <svg class="cauldron-svg" viewBox="0 0 100 100" :style="`--glow-color: ${cauldron.color}`">
+                    <path class="cauldron-liquid" :fill="cauldron.color" d="M 10 50 C 10 70, 30 90, 50 90 C 70 90, 90 70, 90 50 A 40 20 0 0 0 10 50 Z" />
+                    <path fill="#222" d="M 10 50 C 10 30, 90 30, 90 50 A 40 20 0 0 1 10 50 Z" />
+                    <path fill="#333" d="M 15 40 Q 50 25, 85 40 L 90 50 Q 50 35, 10 50 Z" />
+                </svg>
             </div>
-            <ul class="nav-links">
-                <li><a href="../BigKidMath/index.html" class="category-link">Big Kid Math</a></li>
-                <li><a href="../CipherLab/index.html" class="category-link">Cipher Lab</a></li>
-                <li><a href="../GeekGalaxy/index.html" class="category-link">Geek Galaxy</a></li>
-                <li><a href="../LifeHacks/index.html" class="category-link">Life Hacks</a></li>
-                <li><a href="../Math_Magik/index.html" class="category-link">Math Magik</a></li>
-                <li><a href="../Otaku_Ops/index.html" class="category-link">Otaku Ops</a></li>
-                <li><a href="../../index.html" class="home-link">🏠 Home</a></li>
-            </ul>
-            <button class="mobile-menu-btn" aria-label="Toggle menu">
-                <span></span>
-                <span></span>
-                <span></span>
+
+            <div class="selected-ingredients-list">
+                <h4 class="text-sm text-center text-muted" x-show="selectedIngredients.length === 0">Add up to 3 ingredients from the shelf.</h4>
+                <template x-for="id in selectedIngredients" :key="id">
+                    <div class="selected-ingredient-item" x-transition>
+                        <span><span x-text="getIngredientById(id).icon"></span> <span x-text="getIngredientById(id).name"></span></span>
+                        <button class="remove-btn" @click="toggleIngredient(id)">&times;</button>
+                    </div>
+                </template>
+            </div>
+
+            <div class="result-card">
+                <h3 class="potion-tier" x-text="potionResult.tier"></h3>
+                <h2 class="potion-name" x-text="potionResult.name"></h2>
+                <p class="potion-description" x-text="potionResult.description"></p>
+                <p class="potion-warning" x-show="potionResult.warning" x-text="potionResult.warning"></p>
+            </div>
+
+            <button @click="brewPotion" :disabled="isLoading || selectedIngredients.length === 0 || potionResult.tier === 'Mundane Concoction' || isCurrentRecipeDiscovered()" class="w-full mt-6 bg-gradient-to-r from-purple-600 to-purple-800 text-white font-bold py-3 rounded-lg shadow-lg hover:shadow-xl transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
+                <span x-show="!isLoading && !isCurrentRecipeDiscovered()"><i class="fas fa-magic"></i> Record in Grimoire</span>
+                <span x-show="!isLoading && isCurrentRecipeDiscovered()">Recipe Already Known</span>
+                <span x-show="isLoading">Recording...</span>
             </button>
+             <button @click="resetCauldron" class="w-full mt-2 bg-gray-600 text-white font-bold py-2 rounded-lg hover:bg-gray-700 transition">Reset Cauldron</button>
+            
+            <div class="mt-8">
+                <h3 class="panel-title">Discovered Recipes (<span x-text="Object.keys(grimoire).length"></span>/<span x-text="recipes.length"></span>)</h3>
+                <div class="grimoire-list">
+                    <template x-for="recipe in recipes">
+                        <div class="grimoire-entry" :class="{'discovered': grimoire[recipe.id]}">
+                            <h4 class="font-bold" x-text="grimoire[recipe.id] ? grimoire[recipe.id].name : 'Undiscovered Potion'"></h4>
+                            <p class="text-sm text-muted" x-text="grimoire[recipe.id] ? grimoire[recipe.id].ingredients.map(id => getIngredientById(id).name).join(' + ') : '???'"></p>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </section>
+
+        <!-- Share Modal and Canvas -->
+        <div x-show="showShareModal" x-cloak class="modal-overlay" @click.self="showShareModal = false" style="display: none;">
+            <div class="modal-content" @click.stop>
+                <div class="modal-header"><h2 class="modal-title">📜 Share Recipe Card</h2><button class="modal-close" @click="showShareModal = false">×</button></div>
+                <div class="modal-body">
+                    <div class="share-modal-grid">
+                        <button class="share-modal-button" @click="shareGeneral(); showShareModal = false"><span class="share-modal-icon">📱</span> Share Card </button>
+                        <button class="share-modal-button" @click="copyShareLink(); showShareModal = false"><span class="share-modal-icon">🔗</span> Copy Link </button>
+                        <button class="share-modal-button" @click="downloadImage(); showShareModal = false"><span class="share-modal-icon">💾</span> Download Card </button>
+                    </div>
+                </div>
+            </div>
         </div>
-    </nav>
-
-
-
-
-
-    <style>
-        :root {
-            --primary: #9B59B6;
-            --primary-light: #B39DDB;
-            --primary-dark: #7B1FA2;
-            --secondary: #E74C3C;
-            --accent: #2ECC71;
-            --background: #1A1D29;
-            --surface: #2C2F3D;
-            --text: #FFFFFF;
-            --text-muted: #B0B8C3;
-        }
-
-        body {
-            background:
-                radial-gradient(circle at 20% 50%, rgba(155, 89, 182, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(46, 204, 113, 0.1) 0%, transparent 50%),
-                linear-gradient(135deg, var(--background) 0%, var(--surface) 100%);
-            color: var(--text);
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-        }
-
-        .potion-brewer {
-            max-width: 800px;
-            margin: 2rem auto;
-            padding: 2rem;
-            background: rgba(44, 47, 61, 0.8);
-            border-radius: 16px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(155, 89, 182, 0.2);
-        }
-
-        .potion-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 20px rgba(155, 89, 182, 0.3);
-        }
-
-        .potion-subtitle {
-            text-align: center;
-            color: var(--text-muted);
-            margin-bottom: 2rem;
-        }
-
-        .ingredients-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .ingredient-card {
-            background: rgba(155, 89, 182, 0.1);
-            border: 2px solid rgba(155, 89, 182, 0.2);
-            border-radius: 12px;
-            padding: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .ingredient-card:hover {
-            transform: translateY(-2px);
-            border-color: var(--primary);
-            box-shadow: 0 0 20px rgba(155, 89, 182, 0.2);
-        }
-
-        .ingredient-card.selected {
-            background: rgba(155, 89, 182, 0.2);
-            border-color: var(--primary);
-            box-shadow: 0 0 20px rgba(155, 89, 182, 0.3);
-        }
-
-        .ingredient-card input[type="checkbox"] {
-            display: none;
-        }
-
-        .ingredient-icon {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-            display: block;
-            text-align: center;
-        }
-
-        .ingredient-name {
-            font-weight: 600;
-            text-align: center;
-            margin-bottom: 0.5rem;
-        }
-
-        .ingredient-description {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            text-align: center;
-        }
-
-        .brew-button {
-            display: block;
-            width: 100%;
-            padding: 1rem;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            border: none;
-            border-radius: 8px;
-            color: white;
-            font-size: 1.2rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin: 2rem 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .brew-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 20px rgba(155, 89, 182, 0.4);
-        }
-
-        .brew-button:active {
-            transform: translateY(0);
-        }
-
-        .brew-button::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg,
-                    transparent,
-                    rgba(255, 255, 255, 0.1),
-                    transparent);
-            transform: rotate(45deg);
-            transition: all 0.3s ease;
-        }
-
-        .brew-button:hover::after {
-            animation: shine 1.5s infinite;
-        }
-
-        @keyframes shine {
-            0% {
-                transform: translateX(-100%) rotate(45deg);
-            }
-
-            100% {
-                transform: translateX(100%) rotate(45deg);
-            }
-        }
-
-        .potion-result {
-            background: rgba(155, 89, 182, 0.1);
-            border-radius: 12px;
-            padding: 2rem;
-            text-align: center;
-            margin-top: 2rem;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.5s ease;
-        }
-
-        .potion-result.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .potion-effect {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: var(--primary);
-        }
-
-        .potion-warning {
-            color: var(--secondary);
-            font-weight: 600;
-            margin-top: 1rem;
-        }
-
-        .cauldron {
-            width: 200px;
-            height: 200px;
-            margin: 2rem auto;
-            position: relative;
-            transition: all 0.3s ease;
-        }
-
-        .cauldron:hover {
-            transform: scale(1.05);
-        }
-
-        .cauldron-bubble {
-            position: absolute;
-            background: rgba(155, 89, 182, 0.3);
-            border-radius: 50%;
-            animation: bubble 3s infinite;
-        }
-
-        @keyframes bubble {
-            0% {
-                transform: translateY(0) scale(1);
-                opacity: 0.8;
-            }
-
-            100% {
-                transform: translateY(-100px) scale(0);
-                opacity: 0;
-            }
-        }
-
-        .ingredient-animation {
-            position: absolute;
-            font-size: 2rem;
-            animation: float 2s infinite;
-        }
-
-        @keyframes float {
-
-            0%,
-            100% {
-                transform: translateY(0) rotate(0deg);
-            }
-
-            50% {
-                transform: translateY(-20px) rotate(10deg);
-            }
-        }
-
-        .success-animation {
-            animation: success 1s ease-out;
-        }
-
-        @keyframes success {
-            0% {
-                transform: scale(1);
-            }
-
-            50% {
-                transform: scale(1.2);
-            }
-
-            100% {
-                transform: scale(1);
-            }
-        }
-
-        .explosion-animation {
-            animation: explode 0.5s ease-out;
-        }
-
-        @keyframes explode {
-            0% {
-                transform: scale(1);
-                opacity: 1;
-            }
-
-            50% {
-                transform: scale(1.5);
-                opacity: 0.8;
-            }
-
-            100% {
-                transform: scale(2);
-                opacity: 0;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .potion-brewer {
-                margin: 1rem;
-                padding: 1rem;
-            }
-
-            .potion-title {
-                font-size: 2rem;
-            }
-
-            .ingredients-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
-
-    <div class="potion-brewer" x-data="potionBrewer()">
-        <h1 class="potion-title">✨ Potion Brewer ✨</h1>
-        <p class="potion-subtitle">Mix ingredients to discover magical effects! (Warning: Bad combos may explode!)</p>
-
-        <div class="cauldron" id="cauldron">
-            <div class="cauldron-bubble"
-                style="left: 20%; bottom: 20%; width: 20px; height: 20px; animation-delay: 0s;"></div>
-            <div class="cauldron-bubble"
-                style="left: 50%; bottom: 30%; width: 15px; height: 15px; animation-delay: 0.5s;"></div>
-            <div class="cauldron-bubble"
-                style="left: 80%; bottom: 25%; width: 25px; height: 25px; animation-delay: 1s;"></div>
-        </div>
-
-        <div class="ingredients-grid">
-            <label class="ingredient-card" :class="{ selected: ingredients.moonflower }">
-                <input type="checkbox" x-model="ingredients.moonflower" @change="updateCauldron">
-                <span class="ingredient-icon">🌙</span>
-                <span class="ingredient-name">Moonflower Petals</span>
-                <span class="ingredient-description">Rare petals that bloom only under moonlight</span>
-            </label>
-
-            <label class="ingredient-card" :class="{ selected: ingredients.dragonScale }">
-                <input type="checkbox" x-model="ingredients.dragonScale" @change="updateCauldron">
-                <span class="ingredient-icon">🐉</span>
-                <span class="ingredient-name">Dragon Scale</span>
-                <span class="ingredient-description">Tough scales with magical properties</span>
-            </label>
-
-            <label class="ingredient-card" :class="{ selected: ingredients.witchMushroom }">
-                <input type="checkbox" x-model="ingredients.witchMushroom" @change="updateCauldron">
-                <span class="ingredient-icon">🍄</span>
-                <span class="ingredient-name">Witch's Mushroom</span>
-                <span class="ingredient-description">Glowing fungi with mysterious powers</span>
-            </label>
-
-            <label class="ingredient-card" :class="{ selected: ingredients.phoenixFeather }">
-                <input type="checkbox" x-model="ingredients.phoenixFeather" @change="updateCauldron">
-                <span class="ingredient-icon">🔥</span>
-                <span class="ingredient-name">Phoenix Feather</span>
-                <span class="ingredient-description">Burning feathers that never extinguish</span>
-            </label>
-        </div>
-
-        <button class="brew-button" @click="brewPotion" :disabled="isBrewing">
-            <span x-show="!isBrewing">🧪 Brew Potion!</span>
-            <span x-show="isBrewing">✨ Brewing...</span>
-        </button>
-
-        <div class="potion-result" :class="{ show: hasResult }" x-show="hasResult" x-transition>
-            <div class="potion-effect" x-html="result.effect"></div>
-            <div class="potion-warning" x-show="result.warning" x-html="result.warning"></div>
-        </div>
-    </div>
-
+        <canvas id="shareCanvas" width="1200" height="630" style="display: none;"></canvas>
+    </main>
+    
     <script>
-        document.addEventListener('alpine:init', () => {
-            Alpine.data('potionBrewer', () => ({
-                ingredients: {
-                    moonflower: false,
-                    dragonScale: false,
-                    witchMushroom: false,
-                    phoenixFeather: false
+        function potionBrewer() {
+            return {
+                isLoading: false, showShareModal: false,
+                allIngredients: [
+                    { id: 'moonflower', name: 'Moonflower', icon: '🌙', properties: { illusion: 2, life: 1 } },
+                    { id: 'dragonscale', name: 'Dragon Scale', icon: '🐉', properties: { fire: 2, order: 1 } },
+                    { id: 'phoenixfeather', name: 'Phoenix Feather', icon: '🔥', properties: { fire: 1, life: 2 } },
+                    { id: 'shadowcap', name: 'Shadowcap', icon: '🍄', properties: { death: 2, illusion: 1 } },
+                    { id: 'sunstone', name: 'Sunstone', icon: '☀️', properties: { life: 1, order: 2 } },
+                    { id: 'voidcrystal', name: 'Void Crystal', icon: '🔮', properties: { chaos: 2, death: 1 } },
+                    { id: 'frostfern', name: 'Frostfern', icon: '❄️', properties: { chaos: 1, illusion: 2 } },
+                    { id: 'ironwood', name: 'Ironwood Bark', icon: '🌳', properties: { order: 1, life: 1 } },
+                ],
+                recipes: [
+                    { id: 'moonflower_phoenixfeather', name: 'Elixir of Rejuvenation', tier: 'Potent Elixir', description: "A shimmering liquid that heals wounds and restores vitality.", warning: "Side effect: May cause temporary glowing." },
+                    { id: 'dragonscale_sunstone', name: 'Draught of Stone Skin', tier: 'Potent Elixir', description: "Grants incredible physical resistance by hardening the skin.", warning: "" },
+                    { id: 'moonflower_shadowcap', name: 'Potion of Invisibility', tier: 'Minor Potion', description: "Renders the drinker unseen for a short period.", warning: "" },
+                    { id: 'phoenixfeather_sunstone', name: 'Philter of Blinding Light', tier: 'Minor Potion', description: "Creates a flash of light, blinding those nearby.", warning: "" },
+                    { id: 'dragonscale_phoenixfeather', name: 'Volatile Concoction', tier: 'Volatile Mixture', description: "An unstable, explosive mixture. Handle with extreme care.", warning: "Highly explosive! Do not consume." },
+                    { id: 'shadowcap_voidcrystal', name: 'Draught of Living Death', tier: 'Legendary Philter', description: "A potion that induces a death-like slumber.", warning: "Extremely dangerous. Only a master alchemist can brew a counter-agent." },
+                    { id: 'frostfern_voidcrystal', name: 'Elixir of Winter\'s Grasp', tier: 'Potent Elixir', description: "Grants the user control over ice and cold.", warning: "May cause permanent chills." },
+                    { id: 'ironwood_sunstone_dragonscale', name: 'Potion of the Colossus', tier: 'Legendary Philter', description: "Vastly increases size and strength for a limited time.", warning: "Causes extreme exhaustion afterward." }
+                ],
+                selectedIngredients: [],
+                potionResult: {},
+                cauldron: { color: '#8e44ad' },
+                grimoire: {},
+
+                init() {
+                    const savedGrimoire = localStorage.getItem('potionGrimoire');
+                    if (savedGrimoire) this.grimoire = JSON.parse(savedGrimoire);
+                    this.$watch('selectedIngredients', () => this.calculatePotion(), { deep: true });
+                    this.calculatePotion();
                 },
-                isBrewing: false,
-                hasResult: false,
-                result: {
-                    effect: '',
-                    warning: ''
+
+                getIngredientById(id) { return this.allIngredients.find(ing => ing.id === id); },
+                
+                toggleIngredient(id) {
+                    if (this.isLoading) return;
+                    const index = this.selectedIngredients.indexOf(id);
+                    if (index > -1) {
+                        this.selectedIngredients.splice(index, 1);
+                    } else if (this.selectedIngredients.length < 3) {
+                        this.selectedIngredients.push(id);
+                    }
+                },
+                
+                resetCauldron() { this.selectedIngredients = []; },
+
+                calculatePotion() {
+                    if (this.selectedIngredients.length === 0) {
+                        this.potionResult = { name: 'Empty Cauldron', tier: 'Ready for Brewing', description: 'Select ingredients from the shelf to begin.', warning: '' };
+                        this.cauldron.color = '#8e44ad';
+                        return;
+                    }
+                    
+                    const recipeId = this.selectedIngredients.slice().sort().join('_');
+                    const foundRecipe = this.recipes.find(r => r.id === recipeId);
+
+                    this.potionResult = foundRecipe 
+                        ? foundRecipe 
+                        : { name: 'Mundane Concoction', tier: 'Mundane Concoction', description: 'This mixture seems inert and has no discernible magical properties.', warning: 'Perhaps try a different combination.' };
+                    
+                    this.updateCauldronColor();
                 },
 
-                updateCauldron() {
-                    const cauldron = document.getElementById('cauldron');
-                    const selectedCount = Object.values(this.ingredients).filter(Boolean).length;
-
-                    // Update cauldron color based on selected ingredients
-                    const hue = (selectedCount * 60) % 360;
-                    cauldron.style.background = `linear-gradient(135deg, hsl(${hue}, 70%, 50%), hsl(${hue + 30}, 70%, 30%))`;
-
-                    // Add floating ingredients
-                    this.addFloatingIngredients();
-                },
-
-                addFloatingIngredients() {
-                    const cauldron = document.getElementById('cauldron');
-                    const icons = {
-                        moonflower: '🌙',
-                        dragonScale: '🐉',
-                        witchMushroom: '🍄',
-                        phoenixFeather: '🔥'
-                    };
-
-                    // Remove existing animations
-                    const existing = cauldron.querySelectorAll('.ingredient-animation');
-                    existing.forEach(el => el.remove());
-
-                    // Add new animations for selected ingredients
-                    Object.entries(this.ingredients).forEach(([key, selected]) => {
-                        if (selected) {
-                            const icon = document.createElement('div');
-                            icon.className = 'ingredient-animation';
-                            icon.textContent = icons[key];
-                            icon.style.left = `${Math.random() * 80 + 10}%`;
-                            icon.style.bottom = `${Math.random() * 60 + 20}%`;
-                            icon.style.animationDelay = `${Math.random() * 2}s`;
-                            cauldron.appendChild(icon);
-                        }
+                updateCauldronColor() {
+                    if (this.selectedIngredients.length === 0) {
+                        this.cauldron.color = '#8e44ad';
+                        return;
+                    }
+                    let totalProps = { fire: 0, life: 0, illusion: 0, chaos: 0, order: 0, death: 0 };
+                    this.selectedIngredients.forEach(id => {
+                        const ing = this.getIngredientById(id);
+                        for (const prop in ing.properties) { totalProps[prop] += ing.properties[prop]; }
                     });
+                    const primaryProp = Object.keys(totalProps).reduce((a, b) => totalProps[a] > totalProps[b] ? a : b);
+                    const colors = { fire: '#e74c3c', life: '#2ecc71', illusion: '#3498db', chaos: '#9b59b6', order: '#f1c40f', death: '#7f8c8d' };
+                    this.cauldron.color = colors[primaryProp] || '#8e44ad';
                 },
 
-                async brewPotion() {
-                    this.isBrewing = true;
-                    this.hasResult = false;
-
-                    // Try to play sound but don't let it block the brewing process
-                    try {
-                        const brewSound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-magical-coin-win-1936.mp3');
-                        brewSound.volume = 0.5;
-                        // Don't await the sound play
-                        brewSound.play().catch(() => {
-                            // Silently fail if sound doesn't play
-                            console.log('Sound playback failed - continuing with brewing');
-                        });
-                    } catch (error) {
-                        // Silently fail if sound creation fails
-                        console.log('Sound creation failed - continuing with brewing');
-                    }
-
-                    // Simulate brewing time
-                    await new Promise(resolve => setTimeout(resolve, 2000));
-
-                    const { moonflower, dragonScale, witchMushroom, phoenixFeather } = this.ingredients;
-
-                    // Determine potion effect
-                    if (moonflower && phoenixFeather && !dragonScale && !witchMushroom) {
-                        this.result = {
-                            effect: '🌟 <strong>Healing Potion</strong>: Restores 50 HP!',
-                            warning: ''
-                        };
-                        this.playSuccessAnimation();
-                    }
-                    else if (dragonScale && witchMushroom && !moonflower) {
-                        this.result = {
-                            effect: '🔥 <strong>Fire Resistance Potion</strong>: Immune to flames for 1 hour!',
-                            warning: ''
-                        };
-                        this.playSuccessAnimation();
-                    }
-                    else if (moonflower && witchMushroom && !phoenixFeather) {
-                        this.result = {
-                            effect: '👻 <strong>Invisibility Potion</strong>: Vanish for 5 minutes!',
-                            warning: ''
-                        };
-                        this.playSuccessAnimation();
-                    }
-                    else if (dragonScale && phoenixFeather) {
-                        this.result = {
-                            effect: '💥 <strong>Explosive Sludge</strong>: The potion violently explodes!',
-                            warning: '⚠️ Warning: Never mix dragon scales with phoenix feathers!'
-                        };
-                        this.playExplosionAnimation();
-                    }
-                    else if (witchMushroom && phoenixFeather) {
-                        this.result = {
-                            effect: '☠️ <strong>Toxic Fumes</strong>: The mixture releases poisonous gas!',
-                            warning: '⚠️ Warning: This combo is deadly!'
-                        };
-                        this.playExplosionAnimation();
-                    }
-                    else {
-                        this.result = {
-                            effect: '🌀 <strong>Mysterious Liquid</strong>: Unknown effect... (Try a different mix!)',
-                            warning: ''
-                        };
-                    }
-
-                    this.hasResult = true;
-                    this.isBrewing = false;
+                isCurrentRecipeDiscovered() {
+                    const recipeId = this.selectedIngredients.slice().sort().join('_');
+                    return !!this.grimoire[recipeId];
                 },
-
-                playSuccessAnimation() {
-                    const cauldron = document.getElementById('cauldron');
-                    cauldron.classList.add('success-animation');
-                    setTimeout(() => cauldron.classList.remove('success-animation'), 1000);
-                },
-
-                playExplosionAnimation() {
-                    const cauldron = document.getElementById('cauldron');
-                    cauldron.classList.add('explosion-animation');
-                    setTimeout(() => cauldron.classList.remove('explosion-animation'), 500);
-                }
-            }));
-        });
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-            const navLinks = document.querySelector('.nav-links');
-
-            if (mobileMenuBtn && navLinks) {
-                mobileMenuBtn.addEventListener('click', function () {
-                    navLinks.classList.toggle('active');
-                    mobileMenuBtn.classList.toggle('active');
-                });
-                document.addEventListener('click', function (event) {
-                    if (!event.target.closest('.main-nav')) {
-                        navLinks.classList.remove('active');
-                        mobileMenuBtn.classList.remove('active');
-                    }
-                });
-            }
-        });
-    </script>
-
-    <div class="related-calculators"
-        style="margin-top: 2rem; padding: 1rem; background: rgba(0,0,0,0.1); border-radius: 8px;">
-        <h3 style="margin-top: 0;">Related Geek Galaxy Tools</h3>
-        <a href="./AI Doomsday Countdown.html"
-            style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">AI
-            Doomsday Countdown</a><a href="./Alien Communication Probability Calculator.html"
-            style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Alien
-            Communication Probability Calculator</a><a href="./Lightsaber Battery Life Calculator.html"
-            style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Lightsaber
-            Battery Life Calculator</a>
-        <a href="./index.html"
-            style="display: block; padding: 0.5rem; margin-top: 1rem; background: rgba(74,144,226,0.2); border-radius: 4px; text-decoration: none; color: inherit; font-weight: bold;">←
-            Back to Geek Galaxy Hub</a>
-    </div>
-
-    <script>
-        // 🎅 Santa Claude's Interactive Enhancements
-        document.addEventListener('DOMContentLoaded', function () {
-            console.log('🎅 Santa Claude's enhancements loaded!');
-
-            // Enhanced button interactions
-            const buttons = document.querySelectorAll('button, .btn');
-            buttons.forEach(btn => {
-                btn.addEventListener('click', function () {
-                    this.classList.add('loading');
+                
+                brewPotion() {
+                    this.isLoading = true;
                     setTimeout(() => {
-                        this.classList.remove('loading');
-                    }, 500);
-                });
-            });
-
-            // Enhanced results display
-            const resultElements = document.querySelectorAll('.result, .results, .output, #result, #output');
-            resultElements.forEach(el => {
-                const observer = new MutationObserver(function (mutations) {
-                    mutations.forEach(function (mutation) {
-                        if (mutation.type === 'childList' || mutation.type === 'characterData') {
-                            el.classList.add('show');
+                        const recipeId = this.selectedIngredients.slice().sort().join('_');
+                        if (this.potionResult.tier !== 'Mundane Concoction' && !this.grimoire[recipeId]) {
+                            this.grimoire[recipeId] = { name: this.potionResult.name, ingredients: this.selectedIngredients };
+                            localStorage.setItem('potionGrimoire', JSON.stringify(this.grimoire));
                         }
-                    });
-                });
-                observer.observe(el, { childList: true, subtree: true, characterData: true });
-            });
+                        this.isLoading = false;
+                        
+                        // Add a share button and handle its click event
+                        const shareButton = document.querySelector('.share-button');
+                        if(shareButton) {
+                            shareButton.style.display = 'block'; // Or however you want to show it
+                        }
+                    }, 1000);
+                },
 
-            // Form validation enhancements
-            const inputs = document.querySelectorAll('input[type="number"], input[type="text"]');
-            inputs.forEach(input => {
-                input.addEventListener('input', function () {
-                    if (this.checkValidity()) {
-                        this.classList.remove('input-error');
-                        this.classList.add('input-success');
-                    } else {
-                        this.classList.remove('input-success');
-                        this.classList.add('input-error');
+                // Share functionality
+                generateShareImage() {
+                    // [Share Image Generation Logic - Remains Unchanged]
+                    const canvas = document.getElementById('shareCanvas'); const ctx = canvas.getContext('2d');
+                    ctx.fillStyle = '#1e1b26'; ctx.fillRect(0, 0, 1200, 630);
+                    ctx.textAlign = 'center'; ctx.font = "bold 48px 'IM Fell English SC', serif";
+                    ctx.fillStyle = '#f1c40f'; ctx.fillText('Alchemical Discovery', 600, 80);
+                    ctx.fillStyle = this.potionResult.warning ? '#c0392b' : '#27ae60';
+                    ctx.font = "bold 80px 'IM Fell English SC', serif"; ctx.fillText(this.potionResult.name, 600, 180);
+                    
+                    ctx.font = "120px 'Inter', sans-serif";
+                    const icons = this.selectedIngredients.map(id => this.getIngredientById(id).icon);
+                    const iconString = icons.join(' + ');
+                    ctx.fillText(iconString, 600, 320);
+                    
+                    ctx.font = "32px 'Inter', sans-serif"; ctx.fillStyle = '#ecf0f1';
+                    ctx.fillText(this.potionResult.description, 600, 420, 1000);
+                    if (this.potionResult.warning) {
+                        ctx.font = "bold 28px 'Inter', sans-serif"; ctx.fillStyle = '#c0392b';
+                        ctx.fillText(this.potionResult.warning, 600, 480);
                     }
-                });
-            });
-        });
+
+                    ctx.font = "24px 'IM Fell English SC', serif"; ctx.fillStyle = '#8e44ad';
+                    ctx.fillText('docket.one/pages/Math_Magik/', 600, 580);
+                    return canvas.toDataURL('image/png');
+                },
+                generateShareText() { return `I discovered the recipe for "${this.potionResult.name}" in The Alchemist's Grimoire! Can you find them all?`; },
+                async shareGeneral() { if (!navigator.share) { this.downloadImage(); alert('Image downloaded.'); return; } try { const r = await fetch(this.generateShareImage()); const b = await r.blob(); const f = new File([b], 'potion-recipe.png', { type: 'image/png' }); await navigator.share({ title: 'Potion Recipe Discovered!', text: this.generateShareText(), files: [f] }); } catch (e) { console.error(e); } },
+                async copyShareLink() { try { await navigator.clipboard.writeText(window.location.href); alert('Link copied!'); } catch (err) { alert('Failed to copy.'); } },
+                downloadImage() { const link = document.createElement('a'); link.download = 'potion-recipe.png'; link.href = this.generateShareImage(); link.click(); }
+            }
+        }
     </script>
-    <!-- Newsletter Bar -->
+	<!-- Newsletter Bar -->
     <div class="newsletter-bar" x-data="newsletterForm()">
         <div class="newsletter-container">
             <div class="newsletter-content">
                 <div class="newsletter-info">
-                    <h3>&#127881; Join Our Calculator Community!</h3>
+                    <h3>🎉 Join Our Calculator Community!</h3>
                     <p>Get updates on new fun calculators and practical tools</p>
                 </div>
                 <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
@@ -660,12 +290,12 @@
                         x-model="email" required>
                     <button type="submit" class="newsletter-submit" :disabled="isSubmitting">
                         <span x-show="isSubmitting" class="loading-spinner"></span>
-                        <span x-text="isSubmitting ? 'Subscribing...' : '&#128640; Subscribe'"></span>
+                        <span x-text="isSubmitting ? 'Subscribing...' : '🚀 Subscribe'"></span>
                     </button>
                 </form>
-                <div x-show="showSuccess" class="newsletter-success" style="display: none;">
+                <div x-show="showSuccess" class="newsletter-success">
                     <p style="color: var(--accent-light); font-weight: 600;">
-                        &#9989; Awesome! You'll get updates on the coolest new calculators!
+                        ✅ Awesome! You'll get updates on the coolest new calculators!
                     </p>
                 </div>
             </div>
@@ -677,7 +307,7 @@
         <div class="footer-container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h4>&#127919; About Docket.One</h4>
+                    <h4>🎮 About Docket.One</h4>
                     <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you
                         should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the
                         tools for modern life.</p>
@@ -685,138 +315,55 @@
                 </div>
 
                 <div class="footer-section">
-                    <h4>&#127914; Calculator Categories</h4>
+                    <h4>🎯 Calculator Categories</h4>
                     <ul class="footer-links">
-                        <li><a href="/pages/BigKidMath/"><span class="calculator-emoji">&#129518;</span> BigKidMath -
-                                Adult Life Tools</a></li>
-                        <li><a href="/pages/CipherLab/"><span class="calculator-emoji">&#128272;</span> CipherLab -
-                                Secret Codes & Security</a></li>
-                        <li><a href="/pages/GeekGalaxy/"><span class="calculator-emoji">&#128640;</span> GeekGalaxy -
-                                Sci-Fi & Fantasy Fun</a></li>
-                        <li><a href="/pages/LifeHacks/"><span class="calculator-emoji">&#9889;</span> LifeHacks -
-                                Productivity & Wellness</a></li>
-                        <li><a href="/pages/Math_Magik/"><span class="calculator-emoji">&#127917;</span> Math Magik -
-                                Mathematical Wizardry</a></li>
-                        <li><a href="/pages/Otaku_Ops/"><span class="calculator-emoji">&#127999;</span> Otaku Ops -
-                                Anime & Culture</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h4>&#128172; Support & Info</h4>
-                    <ul class="footer-links">
-                        <li><a href="/pages/support/help.html"><span class="calculator-emoji">&#10067;</span> Help &
-                                FAQ</a></li>
-                        <li><a href="/privacy"><span class="calculator-emoji">&#128274;</span> Privacy Policy</a></li>
-                        <li><a href="/terms"><span class="calculator-emoji">&#128203;</span> Terms of Service</a></li>
-                        <li><a href="/accessibility"><span class="calculator-emoji">&#9855;</span> Accessibility</a>
+                        <li><a href="https://docket.one/pages/BigKidMath/"><span class="calculator-emoji">🧠</span>
+                                BigKidMath - Adult Life Tools</a></li>
+                        <li><a href="https://docket.one/pages/CipherLab/"><span class="calculator-emoji">🔐</span>
+                                CipherLab - Secret Codes & Security</a>
                         </li>
-                        <li><a href="/pages/support/contact.html"><span class="calculator-emoji">&#128231;</span>
-                                Contact Us</a></li>
+                        <li><a href="https://docket.one/pages/GeekGalaxy/"><span class="calculator-emoji">🚀</span>
+                                GeekGalaxy - Sci-Fi & Fantasy Fun</a></li>
+                        <li><a href="https://docket.one/pages/LifeHacks/"><span class="calculator-emoji">⚡</span>
+                                LifeHacks - Productivity & Wellness</a></li>
+                        <li><a href="https://docket.one/pages/Math_Magik/"><span class="calculator-emoji">🧙‍♀️</span>
+                                Math Magik - Mathematical Wizardry</a>
+                        </li>
+                        <li><a href="https://docket.one/pages/Otaku_Ops/"><span class="calculator-emoji">🗾</span> Otaku
+                                Ops - Anime & Culture</a></li>
                     </ul>
                 </div>
 
                 <div class="footer-section">
-                    <button class="request-calculator-btn" @click="showModal = true">
-                        &#128161; Request a Calculator
-                    </button>
+                    <h4>💬 Support & Info</h4>
+                    <ul class="footer-links">
+                        <li><a href="pages/support/help.html"><span class="calculator-emoji">❓</span> Help &
+                                FAQ</a></li>
+                        <li><a href="pages/support/privacy.html"><span class="calculator-emoji">🔒</span> Privacy
+                                Policy</a></li>
+                        <li><a href="pages/support/terms.html"><span class="calculator-emoji">📋</span> Terms of
+                                Service</a></li>
+                        <li><a href="pages/support/accessibility.html"><span class="calculator-emoji">♿</span>
+                                Accessibility</a></li>
+                        <li><a href="pages/support/contact.html"><span class="calculator-emoji">📧</span> Contact
+                                Us</a></li>
+                    </ul>
                 </div>
             </div>
 
             <div class="footer-bottom">
-                <div class="footer-logo">&#129518; Docket.One</div>
+                <div class="footer-logo">🧮 Docket.One</div>
                 <div class="footer-copyright">
-                    Â© 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
+                    © 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
                 </div>
                 <div class="social-links">
-                    <a href="#" class="social-link" aria-label="Twitter">&#120143;</a>
-                    <a href="#" class="social-link" aria-label="LinkedIn">&#128188;</a>
-                    <a href="#" class="social-link" aria-label="GitHub">&#128025;</a>
-                    <a href="#" class="social-link" aria-label="Email">&#128231;</a>
+                    <a href="#" class="social-link" aria-label="Twitter">𝕏</a>
+                    <a href="#" class="social-link" aria-label="LinkedIn">💼</a>
+                    <a href="#" class="social-link" aria-label="GitHub">🐙</a>
+                    <a href="#" class="social-link" aria-label="Email">📧</a>
                 </div>
             </div>
         </div>
     </footer>
-
-    <!-- Request Modal -->
-    <div x-data="calculatorRequestForm()" x-show="showModal" x-cloak class="modal-overlay" @click.self="closeModal()"
-        style="display: none;">
-        <div class="modal-content">
-            <div x-show="!showConfirmation">
-                <div class="modal-header">
-                    <h2 class="modal-title">&#128161; Request a Fun Calculator</h2>
-                    <p class="modal-subtitle">Got an idea for a calculator that would make life easier or more fun? We
-                        want to hear it!</p>
-                    <button class="modal-close" @click="closeModal()">&#10005;</button>
-                </div>
-                <div class="modal-body">
-                    <form @submit.prevent="submitRequest()">
-                        <div class="form-group">
-                            <label class="form-label" for="userName">Your Name *</label>
-                            <input type="text" id="userName" class="form-input" x-model="formData.name" required
-                                placeholder="What should we call you?">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" for="userEmail">Email Address *</label>
-                            <input type="email" id="userEmail" class="form-input" x-model="formData.email" required
-                                placeholder="your@email.com">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" for="requestType">What Kind of Request? *</label>
-                            <select id="requestType" class="form-input form-select" x-model="formData.type" required>
-                                <option value="">Choose your request type</option>
-                                <option value="new-calculator">&#127358; Brand New Calculator</option>
-                                <option value="enhancement">&#9889; Improve Existing Calculator</option>
-                                <option value="category">&#127914; New Category Idea</option>
-                                <option value="feature">&#10024; Cool New Feature</option>
-                                <option value="other">&#129300; Something Else Entirely</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" for="calculatorTitle">Calculator Name/Title *</label>
-                            <input type="text" id="calculatorTitle" class="form-input" x-model="formData.title" required
-                                placeholder="e.g., 'Should I Call In Sick Calculator'">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" for="description">Tell Us About Your Idea! *</label>
-                            <textarea id="description" class="form-input form-textarea" x-model="formData.description"
-                                required placeholder="Describe your calculator idea!"></textarea>
-                        </div>
-                        <div class="form-actions">
-                            <button type="button" class="btn btn-secondary" @click="closeModal()">Maybe Later</button>
-                            <button type="submit" class="btn btn-primary" :disabled="isSubmitting">
-                                <span x-show="isSubmitting" class="loading-spinner"></span>
-                                <span x-text="isSubmitting ? 'Sending...' : '&#128640; Send My Idea'"></span>
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div x-show="showConfirmation" class="confirmation-modal" style="display: none;">
-                <div class="modal-header">
-                    <button class="modal-close" @click="closeModal()">&#10005;</button>
-                </div>
-                <div class="modal-body">
-                    <div class="success-icon">&#127881;</div>
-                    <h3 class="confirmation-title">Awesome! We Got Your Idea!</h3>
-                    <p class="confirmation-message">
-                        Thanks for sharing your calculator idea with us! We're excited to check it out and see if we can
-                        make it happen.
-                        <br><br>
-                        <strong>What happens next?</strong><br>
-                        â€¢ You'll get a confirmation email shortly<br>
-                        â€¢ Our team will review your idea<br>
-                        â€¢ If we build it, you'll be the first to know!<br>
-                        â€¢ We might even name you as the inspiration &#128522;
-                    </p>
-                    <button class="btn btn-primary" @click="closeModal()" style="width: 100%;">
-                        &#127919; Close & Keep Calculating!
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
 </body>
-
 </html>

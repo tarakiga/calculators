@@ -1,0 +1,33 @@
+:root {
+            --primary: #00bcd4; --secondary: #ffeb3b; --danger: #f44336;
+            --background: #0a0a14; --surface: #1a1a28; --text: #e0e0e0; --text-muted: #9e9e9e;
+            --glow: 0 0 15px rgba(0, 188, 212, 0.5);
+            --space-md: 1rem; --space-lg: 1.5rem; --radius-md: 8px; --radius-lg: 12px;
+        }
+        body { background: var(--background); color: var(--text); font-family: 'Roboto Condensed', sans-serif; }
+        .font-display { font-family: 'Orbitron', sans-serif; }
+        .layout { display: grid; grid-template-columns: 1fr; gap: 1.5rem; max-width: 1400px; margin: auto; padding: 1.5rem; }
+        @media (min-width: 1024px) { .layout { grid-template-columns: 400px 1fr; } }
+        
+        .panel { background: var(--surface); border-radius: var(--radius-lg); padding: var(--space-lg); border: 1px solid rgba(0, 188, 212, 0.2); }
+        .panel-title { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--primary); text-transform: uppercase; letter-spacing: 2px; border-bottom: 2px solid var(--secondary); padding-bottom: 0.5rem; margin-bottom: 1.5rem; }
+        
+        .control-group { margin-bottom: 1.5rem; }
+        .control-label { font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.75rem; }
+        select, input { width: 100%; background: #0a0a14; border: 1px solid var(--primary); border-radius: var(--radius-md); padding: 0.75rem; color: var(--text); }
+        
+        /* Timeline Visualization */
+        .timeline-viz { height: 120px; margin: 1rem 0; }
+        #timelinePath { stroke: var(--primary); stroke-width: 3; fill: none; transition: d 0.3s ease-out; }
+        #divergentPath { stroke: var(--danger); stroke-width: 3; fill: none; opacity: 0.8; stroke-dasharray: 5 5; transition: d 0.3s ease-out; animation: dash-flow 1s linear infinite; }
+        @keyframes dash-flow { to { stroke-dashoffset: -10; } }
+
+        /* Risk Gauge */
+        .risk-gauge-container { position: relative; width: 150px; height: 75px; margin: 1rem auto; overflow: hidden; }
+        .risk-gauge-track, .risk-gauge-fill { position: absolute; width: 150px; height: 150px; border-radius: 50%; border: 20px solid; top: 0; }
+        .risk-gauge-track { border-color: #333; }
+        .risk-gauge-fill { clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%); transform: rotate(0deg); transition: transform 0.5s; border-color: var(--danger); }
+        .risk-readout { position: absolute; bottom: 0; width: 100%; text-align: center; }
+        .risk-value { font-family: 'Orbitron'; font-size: 2.5rem; }
+        
+        .paradox-breakdown li { background: #2a2a38; padding: 0.5rem 1rem; border-radius: var(--radius-md); margin-bottom: 0.5rem; display: flex; justify-content: space-between; align-items: center; }

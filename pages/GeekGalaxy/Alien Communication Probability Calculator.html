@@ -1,1261 +1,425 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
+    <!-- Basic Meta -->
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>Alien Communication Probability Calculator | GeekGalaxy | Docket One</title>
-    <meta name="description"
-        content="Calculate the probability of successful communication with alien civilizations using the Drake Equation and advanced xenosociological analysis.">
-
-    <!-- Required Dependencies -->
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
+    <meta name="description" content="An intuitive, premium calculator for the probability of alien communication, featuring an interactive Drake Equation simulator and real-time analysis.">
+    <meta name="keywords" content="alien communication, drake equation, SETI, exoplanet calculator, first contact, astrobiology, fermi paradox, geek tools, sci-fi calculator">
+    <meta name="author" content="Docket One">
+    <!-- Cache Control -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://docket.one/pages/GeekGalaxy/Alien%20Communication%20Probability%20Calculator.html" />
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://docket.one/pages/GeekGalaxy/Alien%20Communication%20Probability%20Calculator.html">
+    <meta property="og:title" content="Alien Communication Probability Calculator | GeekGalaxy | Docket One">
+    <meta property="og:description" content="An intuitive, premium calculator for the probability of alien communication, featuring an interactive Drake Equation simulator and real-time analysis.">
+    <meta property="og:image" content="https://docket.one/images/geekgalaxy-aliencomm-social-preview.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="Docket One">
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://docket.one/pages/GeekGalaxy/Alien%20Communication%20Probability%20Calculator.html">
+    <meta name="twitter:title" content="Alien Communication Probability Calculator | GeekGalaxy | Docket One">
+    <meta name="twitter:description" content="An intuitive, premium calculator for the probability of alien communication, featuring an interactive Drake Equation simulator and real-time analysis.">
+    <meta name="twitter:image" content="https://docket.one/images/geekgalaxy-aliencomm-social-preview.jpg">
+    <meta property="twitter:site" content="@DocketOne">
+    
+    <!-- Dependencies -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    <style>
-        :root {
-            /* GeekGalaxy - Space theme colors */
-            --primary: #4A90E2;
-            --primary-light: #7BB3F0;
-            --primary-dark: #2E5A9B;
-            --secondary: #9B59B6;
-            --accent: #E74C3C;
-            --success: #2ECC71;
-            --warning: #F39C12;
-            --background: #0B0E1A;
-            --surface: #1A1D29;
-            --text: #FFFFFF;
-            --text-muted: #B0B8C3;
-
-            /* Spacing Scale */
-            --space-xs: 0.25rem;
-            --space-sm: 0.5rem;
-            --space-md: 1rem;
-            --space-lg: 1.5rem;
-            --space-xl: 2rem;
-            --space-2xl: 3rem;
-            --space-3xl: 4rem;
-
-            /* Glow Effects */
-            --glow-primary: 0 0 20px rgba(74, 144, 226, 0.3);
-            --glow-secondary: 0 0 20px rgba(155, 89, 182, 0.3);
-            --glow-success: 0 0 20px rgba(46, 204, 113, 0.3);
-
-            /* Border Radius */
-            --radius-sm: 6px;
-            --radius-md: 8px;
-            --radius-lg: 12px;
-            --radius-xl: 16px;
-        }
-
-        * {
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        body {
-            background:
-                radial-gradient(circle at 20% 50%, rgba(74, 144, 226, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(155, 89, 182, 0.1) 0%, transparent 50%),
-                linear-gradient(135deg, var(--background) 0%, var(--surface) 100%);
-            color: var(--text);
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-            background-attachment: fixed;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* Animated Stars */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background:
-                radial-gradient(2px 2px at 20px 30px, rgba(255, 255, 255, 0.3), transparent),
-                radial-gradient(2px 2px at 40px 70px, rgba(74, 144, 226, 0.4), transparent),
-                radial-gradient(1px 1px at 90px 40px, rgba(155, 89, 182, 0.3), transparent);
-            background-size: 200px 200px;
-            animation: starfield 50s linear infinite;
-            pointer-events: none;
-            z-index: -1;
-            opacity: 0.6;
-        }
-
-        @keyframes starfield {
-            0% {
-                transform: translateY(0) translateX(0);
-            }
-
-            100% {
-                transform: translateY(-200px) translateX(-200px);
-            }
-        }
-
-        /* Enhanced Navbar */
-        .main-nav {
-            background: rgba(11, 14, 26, 0.95);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(74, 144, 226, 0.2);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: var(--space-md) var(--space-xl);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .nav-logo a {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 800;
-            font-size: 1.25rem;
-            text-shadow: var(--glow-primary);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: var(--space-lg);
-            align-items: center;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        .nav-link {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-weight: 500;
-            padding: var(--space-sm) var(--space-md);
-            border-radius: var(--radius-md);
-            transition: all 0.3s ease;
-        }
-
-        .nav-link:hover {
-            background: rgba(74, 144, 226, 0.1);
-            color: var(--primary);
-        }
-
-        .nav-link.active {
-            background: var(--primary);
-            color: var(--background);
-            box-shadow: var(--glow-primary);
-        }
-
-        /* Hero Section */
-        .hero {
-            padding: var(--space-2xl) var(--space-xl);
-            text-align: center;
-            min-height: 60vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .hero-content {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .hero-badge {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: var(--background);
-            display: inline-flex;
-            align-items: center;
-            gap: var(--space-sm);
-            padding: var(--space-sm) var(--space-lg);
-            border-radius: 999px;
-            font-weight: 600;
-            margin-bottom: var(--space-lg);
-            box-shadow: var(--glow-primary);
-            animation: fadeInUp 0.6s ease-out;
-        }
-
-        .alien-icon {
-            font-size: clamp(4rem, 10vw, 8rem);
-            margin-bottom: var(--space-lg);
-            animation: alienFloat 4s ease-in-out infinite, fadeInUp 0.6s ease-out 0.2s both;
-            filter: drop-shadow(0 0 20px rgba(74, 144, 226, 0.5));
-        }
-
-        @keyframes alienFloat {
-
-            0%,
-            100% {
-                transform: translateY(0) rotate(0deg);
-                filter: drop-shadow(0 0 20px rgba(74, 144, 226, 0.5));
-            }
-
-            25% {
-                transform: translateY(-10px) rotate(2deg);
-                filter: drop-shadow(0 0 30px rgba(155, 89, 182, 0.7));
-            }
-
-            50% {
-                transform: translateY(-20px) rotate(0deg);
-                filter: drop-shadow(0 0 40px rgba(46, 204, 113, 0.6));
-            }
-
-            75% {
-                transform: translateY(-10px) rotate(-2deg);
-                filter: drop-shadow(0 0 30px rgba(243, 156, 18, 0.5));
-            }
-        }
-
-        .hero-title {
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            font-weight: 800;
-            margin-bottom: var(--space-lg);
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: fadeInUp 0.6s ease-out 0.4s both;
-            line-height: 1.2;
-        }
-
-        .hero-subtitle {
-            font-size: clamp(1rem, 2vw, 1.25rem);
-            max-width: 700px;
-            margin: 0 auto;
-            opacity: 0.9;
-            color: var(--text-muted);
-            animation: fadeInUp 0.6s ease-out 0.6s both;
-        }
-
-        /* Calculator Container */
-        .calculator-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: var(--space-xl);
-            width: 100%;
-        }
-
-        .tabs {
-            display: flex;
-            background: rgba(74, 144, 226, 0.05);
-            border-radius: var(--radius-lg);
-            padding: var(--space-xs);
-            margin-bottom: var(--space-xl);
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            border: 1px solid rgba(74, 144, 226, 0.2);
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-        }
-
-        .tabs::-webkit-scrollbar {
-            display: none;
-        }
-
-        .tab-btn {
-            flex: 1;
-            min-width: max-content;
-            padding: var(--space-md) var(--space-lg);
-            background: transparent;
-            border: none;
-            border-radius: var(--radius-md);
-            font-weight: 600;
-            color: var(--text-muted);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-        }
-
-        .tab-btn:hover {
-            background: rgba(74, 144, 226, 0.1);
-            color: var(--primary);
-        }
-
-        .tab-btn.active {
-            background: var(--primary);
-            color: var(--background);
-            box-shadow: var(--glow-primary);
-        }
-
-        /* Form Elements */
-        .form-group {
-            margin-bottom: var(--space-xl);
-        }
-
-        .form-label {
-            display: block;
-            font-size: 1.125rem;
-            font-weight: 600;
-            color: var(--text);
-            margin-bottom: var(--space-md);
-        }
-
-        .form-input {
-            width: 100%;
-            padding: var(--space-md);
-            background: var(--surface);
-            border: 2px solid rgba(74, 144, 226, 0.2);
-            border-radius: var(--radius-md);
-            color: var(--text);
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: var(--glow-primary);
-        }
-
-        .form-select {
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%234A90E2' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right var(--space-md) center;
-            background-size: 1.25rem;
-            padding-right: var(--space-2xl);
-        }
-
-        /* Results Section */
-        .results-section {
-            margin-top: var(--space-xl);
-            animation: fadeIn 0.6s ease-out;
-        }
-
-        .result-card {
-            background: var(--surface);
-            border-radius: var(--radius-lg);
-            padding: var(--space-xl);
-            margin-bottom: var(--space-lg);
-            border-left: 4px solid var(--primary);
-            box-shadow: var(--glow-primary);
-        }
-
-        .result-header {
-            text-align: center;
-            margin-bottom: var(--space-lg);
-        }
-
-        .result-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text);
-            margin-bottom: var(--space-sm);
-        }
-
-        .result-percentage {
-            font-size: clamp(2.5rem, 5vw, 3.5rem);
-            font-weight: 800;
-            color: var(--primary);
-            margin: var(--space-md) 0;
-            text-shadow: var(--glow-primary);
-        }
-
-        .progress-bar {
-            height: 1rem;
-            background: var(--background);
-            border-radius: var(--radius-sm);
-            overflow: hidden;
-            margin: var(--space-md) 0;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);
-            border-radius: var(--radius-sm);
-            transition: width 1s ease-out;
-        }
-
-        /* Mobile Optimizations */
-        @media (max-width: 768px) {
-            .nav-container {
-                padding: var(--space-sm);
-            }
-
-            .nav-links {
-                display: none;
-                position: fixed;
-                top: 60px;
-                left: 0;
-                right: 0;
-                background: var(--background);
-                padding: var(--space-md);
-                flex-direction: column;
-                gap: var(--space-sm);
-                border-bottom: 1px solid rgba(74, 144, 226, 0.2);
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .mobile-menu-btn {
-                display: block;
-                background: none;
-                border: none;
-                padding: var(--space-sm);
-                cursor: pointer;
-            }
-
-            .mobile-menu-btn span {
-                display: block;
-                width: 24px;
-                height: 2px;
-                background: var(--primary);
-                margin: 4px 0;
-                transition: all 0.3s ease;
-            }
-
-            .mobile-menu-btn.active span:nth-child(1) {
-                transform: rotate(45deg) translate(5px, 5px);
-            }
-
-            .mobile-menu-btn.active span:nth-child(2) {
-                opacity: 0;
-            }
-
-            .mobile-menu-btn.active span:nth-child(3) {
-                transform: rotate(-45deg) translate(5px, -5px);
-            }
-
-            .hero {
-                padding: var(--space-xl) var(--space-md);
-                min-height: 50vh;
-            }
-
-            .calculator-container {
-                padding: var(--space-md);
-            }
-
-            .form-group {
-                margin-bottom: var(--space-lg);
-            }
-
-            .result-card {
-                padding: var(--space-lg);
-            }
-        }
-
-        /* Touch Device Optimizations */
-        @media (hover: none) {
-            .tab-btn:hover {
-                background: transparent;
-                color: var(--text-muted);
-            }
-
-            .tab-btn.active {
-                background: var(--primary);
-                color: var(--background);
-            }
-
-            .form-input:focus {
-                box-shadow: none;
-            }
-        }
-
-        /* Reduced Motion */
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                animation: none !important;
-                transition: none !important;
-            }
-        }
-
-        /* Animations */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .drake-equation {
-            padding: var(--space-lg);
-        }
-
-        .equation-display {
-            font-size: 1.5rem;
-            font-weight: 700;
-            text-align: center;
-            margin: var(--space-xl) 0;
-            padding: var(--space-lg);
-            background: rgba(74, 144, 226, 0.1);
-            border-radius: var(--radius-lg);
-            border: 1px solid rgba(74, 144, 226, 0.2);
-        }
-
-        .equation-components {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: var(--space-lg);
-            margin: var(--space-xl) 0;
-        }
-
-        .component {
-            background: var(--surface);
-            padding: var(--space-lg);
-            border-radius: var(--radius-md);
-            border: 1px solid rgba(74, 144, 226, 0.2);
-        }
-
-        .component h4 {
-            color: var(--primary);
-            margin-bottom: var(--space-sm);
-            font-size: 1.25rem;
-        }
-
-        .component p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            line-height: 1.5;
-        }
-
-        .drake-insights {
-            background: rgba(74, 144, 226, 0.1);
-            padding: var(--space-lg);
-            border-radius: var(--radius-lg);
-            margin: var(--space-xl) 0;
-        }
-
-        .drake-insights h4 {
-            color: var(--primary);
-            margin-bottom: var(--space-md);
-        }
-
-        .drake-insights ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .drake-insights li {
-            margin-bottom: var(--space-sm);
-            padding-left: var(--space-lg);
-            position: relative;
-        }
-
-        .drake-insights li::before {
-            content: '•';
-            color: var(--primary);
-            position: absolute;
-            left: 0;
-        }
-
-        .drake-calculator {
-            background: var(--surface);
-            padding: var(--space-xl);
-            border-radius: var(--radius-lg);
-            margin-top: var(--space-xl);
-        }
-
-        .drake-calculator h4 {
-            color: var(--primary);
-            margin-bottom: var(--space-lg);
-        }
-
-        .drake-result {
-            text-align: center;
-            margin-top: var(--space-xl);
-            padding: var(--space-lg);
-            background: rgba(74, 144, 226, 0.1);
-            border-radius: var(--radius-lg);
-        }
-
-        .drake-result h4 {
-            color: var(--text);
-            margin-bottom: var(--space-md);
-        }
-
-        .result-value {
-            font-size: 2rem;
-            font-weight: 800;
-            color: var(--primary);
-            text-shadow: var(--glow-primary);
-        }
-
-        @media (max-width: 768px) {
-            .equation-components {
-                grid-template-columns: 1fr;
-            }
-
-            .drake-calculator {
-                padding: var(--space-lg);
-            }
-
-            .equation-display {
-                font-size: 1.25rem;
-                padding: var(--space-md);
-            }
-        }
-    </style>
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script>
-
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
-    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script>
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
-    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script>
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
-    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script>
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
-    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script>
-
-    <script src="../../common/add-breadcrumbs.js"></script>
-    <script src="../../common/add-keyboard-accessibility.js"></script></head>
-
-<body x-data="{ showModal: false }">
-    <!-- Navigation -->
-    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-    <nav class="main-nav">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <a href="../../index.html">🧮 Docket One</a>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Versioned Assets -->
+    <link rel="stylesheet" href="../../common/santa-improvements.css?v=20250609">
+    <link rel="stylesheet" href="../../common/global-calculator.css?v=20250609">
+    <link rel="stylesheet" href="../../common/themes/dark-theme.css?v=20250609">
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css?v=20250609">
+    <link rel="stylesheet" href="../../styles/alien.css?v=20250609">
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css?v=20250609">
+	<script src="../../common/navbar-enhanced.js"></script>
+    <script src="../../common/add-keyboard-accessibility.js"></script>
+</head>
+
+<body x-data="alienCalculator()" x-init="init()">
+
+    <div class="container text-center py-8">
+        <h1 class="font-display text-4xl md:text-5xl font-extrabold text-white uppercase tracking-wider">
+            First Contact <span class="text-blue-400">Probability Engine</span>
+        </h1>
+        <p class="text-lg text-gray-400 mt-2">Are we alone? Input the variables and find out.</p>
+    </div>
+
+    <main class="calculator-layout">
+        <!-- Controls Panel -->
+        <aside class="panel">
+            <h2 class="font-display text-2xl mb-6">Cosmic Parameters</h2>
+            <div class="tabs mb-6">
+                <button class="tab-btn" :class="{'active': activeTab === 'comms'}" @click="activeTab = 'comms'"><i class="fas fa-satellite-dish"></i> Comms</button>
+                <button class="tab-btn" :class="{'active': activeTab === 'drake'}" @click="activeTab = 'drake'"><i class="fas fa-atom"></i> Drake</button>
             </div>
-            <div class="nav-search">
-                <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input"
-                    aria-label="Search calculators">
-                <div id="search-results" class="search-results"></div>
-            </div>
-            <ul class="nav-links">
-                <li><a href="../BigKidMath/index.html" class="category-link">Big Kid Math</a></li>
-                <li><a href="../CipherLab/index.html" class="category-link">Cipher Lab</a></li>
-                <li><a href="../GeekGalaxy/index.html" class="category-link">Geek Galaxy</a></li>
-                <li><a href="../LifeHacks/index.html" class="category-link">Life Hacks</a></li>
-                <li><a href="../Math_Magik/index.html" class="category-link">Math Magik</a></li>
-                <li><a href="../Otaku_Ops/index.html" class="category-link">Otaku Ops</a></li>
-                <li><a href="../../index.html" class="home-link">🏠 Home</a></li>
-            </ul>
-            <button class="mobile-menu-btn" aria-label="Toggle menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </nav>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <div class="hero-badge">
-                <span>🛸</span>
-                <span>GeekGalaxy</span>
-            </div>
-            <div class="alien-icon">👽</div>
-            <h1 class="hero-title">Alien Communication Probability</h1>
-            <p class="hero-subtitle">
-                Calculate your chances of successfully communicating with extraterrestrial civilizations
-                using the Drake Equation and advanced xenosociological analysis.
-            </p>
-        </div>
-    </section>
-
-    <!-- Calculator -->
-    <div class="calculator-container" x-data="alienCalculator()">
-        <!-- Tab Navigation -->
-        <div class="tabs">
-            <button class="tab-btn" :class="{ active: activeTab === 'calculator' }" @click="activeTab = 'calculator'">
-                <span>🧮</span>
-                <span>Calculator</span>
-            </button>
-            <button class="tab-btn" :class="{ active: activeTab === 'results' }" @click="activeTab = 'results'"
-                :disabled="!hasResults">
-                <span>📊</span>
-                <span>Results</span>
-            </button>
-            <button class="tab-btn" :class="{ active: activeTab === 'drake' }" @click="activeTab = 'drake'">
-                <span>🧬</span>
-                <span>Drake Equation</span>
-            </button>
-        </div>
-
-        <!-- Calculator Panel -->
-        <div class="calculator-panel">
-            <!-- Calculator Tab -->
-            <div x-show="activeTab === 'calculator'" x-transition>
-                <div class="controls">
-                    <!-- Basic Parameters -->
-                    <div class="control-section">
-                        <h3>🌌 Galactic Parameters</h3>
-                        <div class="slider-control">
-                            <div class="slider-label">
-                                <label>Estimated Civilizations</label>
-                                <span class="slider-value" x-text="formatNumber(civilizations)"></span>
-                            </div>
-                            <input type="range" class="slider" min="1" max="1000000" step="1000"
-                                x-model="civilizations">
-                        </div>
-
-                        <div class="control-group">
-                            <label for="message-quality">Message Quality</label>
-                            <select id="message-quality" x-model="messageQuality">
-                                <option value="0.1">Primitive (🐒 grunts)</option>
-                                <option value="0.3">Basic (Binary code)</option>
-                                <option value="0.6">Mathematical (Prime numbers)</option>
-                                <option value="0.8">Advanced (Scientific data)</option>
-                                <option value="0.95">Perfect (Universal language)</option>
-                            </select>
-                        </div>
+            <div x-show="activeTab === 'comms'" x-transition>
+                <div class="control-group labeled-slider">
+                    <div class="control-label"><span class="label-text"><i class="fas fa-comments text-green-400"></i> Message Complexity</span></div>
+                    <div class="slider-track"><input type="range" min="1" max="100" x-model.number="factors.messageQuality"></div>
+                    <div class="slider-labels">
+                        <span class="slider-label" :class="{'active': getCommDescriptor('message', factors.messageQuality) === 'Primitive'}">Primitive</span>
+                        <span class="slider-label" :class="{'active': getCommDescriptor('message', factors.messageQuality) === 'Structured'}">Structured</span>
+                        <span class="slider-label" :class="{'active': getCommDescriptor('message', factors.messageQuality) === 'Advanced'}">Advanced</span>
                     </div>
+                </div>
+                <div class="control-group labeled-slider">
+                    <div class="control-label"><span class="label-text"><i class="fas fa-broadcast-tower text-red-400"></i> Signal Strength</span></div>
+                    <div class="slider-track"><input type="range" min="1" max="100" x-model.number="factors.humanTech"></div>
+                    <div class="slider-labels">
+                        <span class="slider-label" :class="{'active': getCommDescriptor('tech', factors.humanTech) === 'Weak'}">Weak</span>
+                        <span class="slider-label" :class="{'active': getCommDescriptor('tech', factors.humanTech) === 'Focused'}">Focused</span>
+                        <span class="slider-label" :class="{'active': getCommDescriptor('tech', factors.humanTech) === 'Powerful'}">Powerful</span>
+                    </div>
+                </div>
+                <div class="control-group labeled-slider">
+                    <div class="control-label"><span class="label-text"><i class="fas fa-brain text-purple-400"></i> Recipient Cognitive Ability</span></div>
+                    <div class="slider-track"><input type="range" min="1" max="100" x-model.number="factors.alienIntellect"></div>
+                    <div class="slider-labels">
+                        <span class="slider-label" :class="{'active': getCommDescriptor('intellect', factors.alienIntellect) === 'Rudimentary'}">Rudimentary</span>
+                        <span class="slider-label" :class="{'active': getCommDescriptor('intellect', factors.alienIntellect) === 'Scientific'}">Scientific</span>
+                        <span class="slider-label" :class="{'active': getCommDescriptor('intellect', factors.alienIntellect) === 'Superintelligent'}">Superintelligent</span>
+                    </div>
+                </div>
+                <div class="control-group labeled-slider">
+                    <div class="control-label"><span class="label-text"><i class="fas fa-handshake text-yellow-400"></i> Recipient Disposition</span></div>
+                    <div class="slider-track"><input type="range" min="1" max="100" x-model.number="factors.alienMood"></div>
+                    <div class="slider-labels">
+                        <span class="slider-label" :class="{'active': getCommDescriptor('mood', factors.alienMood) === 'Hostile'}">Hostile</span>
+                        <span class="slider-label" :class="{'active': getCommDescriptor('mood', factors.alienMood) === 'Cautious'}">Cautious</span>
+                        <span class="slider-label" :class="{'active': getCommDescriptor('mood', factors.alienMood) === 'Benevolent'}">Benevolent</span>
+                    </div>
+                </div>
+            </div>
 
-                    <!-- Alien Factors -->
-                    <div class="control-section">
-                        <h3>👽 Alien Civilization</h3>
-                        <div class="control-group">
-                            <label for="alien-tech">Technology Level</label>
-                            <select id="alien-tech" x-model="alienTech">
-                                <option value="1">Stone Age</option>
-                                <option value="3">Industrial</option>
-                                <option value="6">Spacefaring</option>
-                                <option value="9">Type II Civilization</option>
-                                <option value="10">God-like</option>
-                            </select>
-                        </div>
+            <div x-show="activeTab === 'drake'" x-transition>
+                 <div class="control-group relative labeled-slider">
+                    <div class="control-label"><span class="label-text">R* <i class="fas fa-info-circle info-icon" @mouseenter="activeTooltip = 'rStar'" @mouseleave="activeTooltip = null"></i></span><span class="label-value" x-text="drake.rStar.toFixed(1) + ' stars/yr'"></span></div>
+                    <div class="slider-track"><input type="range" min="1" max="10" step="0.1" x-model.number="drake.rStar"></div>
+                    <div x-show="activeTooltip === 'rStar'" class="tooltip" x-text="tooltips.rStar"></div>
+                </div>
+                <div class="control-group relative labeled-slider">
+                    <div class="control-label"><span class="label-text">f<sub class="text-xs">p</sub> <i class="fas fa-info-circle info-icon" @mouseenter="activeTooltip = 'fp'" @mouseleave="activeTooltip = null"></i></span><span class="label-value" x-text="(drake.fp*100).toFixed(0)+'%'"></span></div>
+                    <div class="slider-track"><input type="range" min="0.01" max="1" step="0.01" x-model.number="drake.fp"></div>
+                    <div class="slider-labels"><span class="slider-label">Pessimistic</span><span class="slider-label">Optimistic</span></div>
+                    <div x-show="activeTooltip === 'fp'" class="tooltip" x-text="tooltips.fp"></div>
+                </div>
+                 <div class="control-group relative labeled-slider">
+                    <div class="control-label"><span class="label-text">n<sub class="text-xs">e</sub> <i class="fas fa-info-circle info-icon" @mouseenter="activeTooltip = 'ne'" @mouseleave="activeTooltip = null"></i></span><span class="label-value" x-text="drake.ne.toFixed(1)"></span></div>
+                    <div class="slider-track"><input type="range" min="0.1" max="5" step="0.1" x-model.number="drake.ne"></div>
+                    <div class="slider-labels"><span class="slider-label">Rare</span><span class="slider-label">Common</span></div>
+                    <div x-show="activeTooltip === 'ne'" class="tooltip" x-text="tooltips.ne"></div>
+                </div>
+                 <div class="control-group relative labeled-slider">
+                    <div class="control-label"><span class="label-text">L (Lifetime) <i class="fas fa-info-circle info-icon" @mouseenter="activeTooltip = 'l'" @mouseleave="activeTooltip = null"></i></span><span class="label-value" x-text="drake.l.toLocaleString() + ' yrs'"></span></div>
+                    <div class="slider-track"><input type="range" min="0" max="100" x-model.number="drake.l_log"></div>
+                    <div class="slider-labels">
+                        <span class="slider-label" :class="{'active': drake.l < 1000}">Brief</span>
+                        <span class="slider-label" :class="{'active': drake.l >= 1000 && drake.l < 100000}">Fragile</span>
+                        <span class="slider-label" :class="{'active': drake.l >= 100000}">Enduring</span>
+                    </div>
+                    <div x-show="activeTooltip === 'l'" class="tooltip" x-text="tooltips.l"></div>
+                </div>
+            </div>
+        </aside>
 
-                        <div class="control-group">
-                            <label for="alien-mood">Disposition</label>
-                            <select id="alien-mood" x-model="alienMood">
-                                <option value="0.1">Hostile</option>
-                                <option value="0.3">Suspicious</option>
-                                <option value="0.6">Neutral</option>
-                                <option value="0.8">Friendly</option>
-                                <option value="0.95">Enthusiastic</option>
-                            </select>
-                        </div>
+        <!-- [Results Panel is largely the same, but now updates in real-time] -->
+        <section class="panel">
+            <div x-show="!isLoading" x-transition.opacity>
+                <div class="results-header">
+                    <div class="scenario-title" x-text="results.scenario"></div>
+                    <div class="contact-probability" x-text="results.probability + '%'"></div>
+                    <p class="text-gray-300">First Contact Probability</p>
+                </div>
+                
+                <h3 class="font-display text-xl mb-4">Probability Factor Analysis:</h3>
+                
+                <div class="stat-bar">
+                    <div class="control-label"><span class="label-text"><i class="fas fa-star text-yellow-400"></i> Galactic Rarity</span> <span class="label-value" x-text="results.subScores.rarity + '%'"></span></div>
+                    <div class="progress-track"><div class="progress-fill" :style="`width: ${results.subScores.rarity}%`" style="background: var(--accent);"></div></div>
+                </div>
+                <div class="stat-bar">
+                    <div class="control-label"><span class="label-text"><i class="fas fa-cogs text-blue-400"></i> Technological Compatibility</span> <span class="label-value" x-text="results.subScores.tech + '%'"></span></div>
+                    <div class="progress-track"><div class="progress-fill" :style="`width: ${results.subScores.tech}%`" style="background: var(--primary);"></div></div>
+                </div>
+                <div class="stat-bar">
+                    <div class="control-label"><span class="label-text"><i class="fas fa-hand-spock text-purple-400"></i> Xenosociological Filter</span> <span class="label-value" x-text="results.subScores.social + '%'"></span></div>
+                    <div class="progress-track"><div class="progress-fill" :style="`width: ${results.subScores.social}%`" style="background: var(--secondary);"></div></div>
+                </div>
+
+                <div x-show="activeTab === 'drake'" class="mt-8 p-4 bg-gray-900/50 rounded-lg">
+                    <div class="drake-equation-display">N = R* ⋅ f<sub class="text-xs">p</sub> ⋅ n<sub class="text-xs">e</sub> ⋅ f<sub class="text-xs">l</sub> ⋅ f<sub class="text-xs">i</sub> ⋅ f<sub class="text-xs">c</sub> ⋅ L</div>
+                    <p class="text-center">Estimated number of detectable civilizations in the Milky Way:</p>
+                    <p class="font-display text-4xl text-center text-accent" x-text="results.drakeN.toLocaleString()"></p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+                    <div class="bg-gray-900/50 p-4 rounded-lg border-l-4 border-blue-400">
+                        <h4 class="font-bold text-lg mb-2"><i class="fas fa-angle-double-up"></i> Key Strengths</h4>
+                        <ul class="list-disc pl-5 space-y-1 text-gray-300 text-sm">
+                            <template x-for="item in results.strengths">
+                                <li x-text="item"></li>
+                            </template>
+                        </ul>
+                    </div>
+                     <div class="bg-gray-900/50 p-4 rounded-lg border-l-4 border-red-500">
+                        <h4 class="font-bold text-lg mb-2"><i class="fas fa-angle-double-down"></i> Major Hurdles</h4>
+                        <ul class="list-disc pl-5 space-y-1 text-gray-300 text-sm">
+                            <template x-for="item in results.hurdles">
+                                <li x-text="item"></li>
+                            </template>
+                        </ul>
                     </div>
                 </div>
 
-                <!-- Live Probability Display -->
-                <div class="probability-display">
-                    <div class="probability-label">Communication Success Probability</div>
-                    <div class="probability-value" x-text="liveProbability + '%'"></div>
-                    <div class="confidence-level" :class="confidenceClass" x-text="confidenceText"></div>
-                </div>
-
-                <button class="calculate-btn" @click="calculateProbability()" :disabled="isLoading">
-                    <span x-show="!isLoading">🚀 INITIATE CONTACT PROTOCOL</span>
-                    <span x-show="isLoading">SCANNING COSMOS...</span>
-                    <span x-show="isLoading" class="loading-spinner"></span>
+                <button @click="showShareModal = true" class="w-full mt-8 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold py-3 rounded-lg shadow-lg hover:shadow-xl transition duration-200">
+                    <i class="fas fa-share-alt mr-2"></i> Broadcast Analysis Dossier
                 </button>
             </div>
+            <div x-show="isLoading" class="text-center py-20"><i class="fas fa-spinner fa-spin text-4xl text-blue-400"></i><p class="mt-4 text-lg">Scanning Cosmic Background...</p></div>
+        </section>
 
-            <!-- Results Tab -->
-            <div x-show="activeTab === 'results'" x-transition>
-                <div class="results-grid">
-                    <div class="result-card" style="grid-column: 1 / -1;">
-                        <h3>🎯 Communication Analysis Results</h3>
-                        <div style="text-align: center; margin: var(--space-xl) 0;">
-                            <div style="font-size: 3rem; font-weight: 800; color: var(--primary);"
-                                x-text="results.probability + '%'"></div>
-                            <div style="margin: var(--space-md) 0;">Overall Success Rate</div>
-                        </div>
-                        <div
-                            style="background: rgba(74, 144, 226, 0.1); padding: var(--space-lg); border-radius: var(--radius-md);">
-                            <h4 style="color: var(--primary); margin-bottom: var(--space-md);">🔬 Modern Discoveries
-                            </h4>
-                            <ul style="line-height: 1.6; margin-left: var(--space-lg);">
-                                <li><strong>Kepler Telescope:</strong> Found ~20% of Sun-like stars have Earth-sized
-                                    planets</li>
-                                <li><strong>Extremophiles:</strong> Life exists in extreme conditions, expanding
-                                    habitable zones</li>
-                                <li><strong>JWST:</strong> Can detect atmospheric biosignatures on exoplanets</li>
-                                <li><strong>SETI@Home:</strong> Millions of computers searching for alien signals</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Drake Equation Tab -->
-            <div x-show="activeTab === 'drake'" x-transition>
-                <div class="result-card">
-                    <div class="result-header">
-                        <h3 class="result-title">The Drake Equation</h3>
-                        <p class="hero-subtitle">A mathematical formula for estimating the number of active,
-                            communicative extraterrestrial civilizations in our galaxy</p>
-                    </div>
-
-                    <div class="drake-equation">
-                        <div class="equation-display">
-                            N = R* × fp × ne × fl × fi × fc × L
-                        </div>
-
-                        <div class="equation-components">
-                            <div class="component">
-                                <h4>N</h4>
-                                <p>The number of civilizations with which we could potentially communicate</p>
-                            </div>
-
-                            <div class="component">
-                                <h4>R*</h4>
-                                <p>The average rate of star formation in our galaxy (estimated: 1-3 stars per year)</p>
-                            </div>
-
-                            <div class="component">
-                                <h4>fp</h4>
-                                <p>The fraction of stars that have planetary systems (estimated: 0.5-1)</p>
-                            </div>
-
-                            <div class="component">
-                                <h4>ne</h4>
-                                <p>The average number of planets that could potentially support life per star with
-                                    planets (estimated: 0.1-5)</p>
-                            </div>
-
-                            <div class="component">
-                                <h4>fl</h4>
-                                <p>The fraction of planets that could support life that actually develop life
-                                    (estimated: 0.1-1)</p>
-                            </div>
-
-                            <div class="component">
-                                <h4>fi</h4>
-                                <p>The fraction of planets with life that develop intelligent life (estimated: 0.1-1)
-                                </p>
-                            </div>
-
-                            <div class="component">
-                                <h4>fc</h4>
-                                <p>The fraction of civilizations that develop technology that releases detectable signs
-                                    of their existence (estimated: 0.1-1)</p>
-                            </div>
-
-                            <div class="component">
-                                <h4>L</h4>
-                                <p>The length of time such civilizations release detectable signals (estimated:
-                                    100-10,000,000 years)</p>
-                            </div>
-                        </div>
-
-                        <div class="drake-insights">
-                            <h4>Modern Insights</h4>
-                            <ul>
-                                <li>Recent exoplanet discoveries suggest fp and ne might be higher than originally
-                                    estimated</li>
-                                <li>The discovery of extremophiles on Earth suggests fl might be higher than previously
-                                    thought</li>
-                                <li>SETI and other programs are actively searching for fc signals</li>
-                                <li>L remains the most uncertain factor in the equation</li>
-                            </ul>
-                        </div>
-
-                        <div class="drake-calculator">
-                            <h4>Try Your Own Estimates</h4>
-                            <div class="slider-control">
-                                <div class="slider-label">
-                                    <label>R* (Stars per year)</label>
-                                    <span class="slider-value" x-text="drakeValues.rStar"></span>
-                                </div>
-                                <input type="range" class="slider" min="1" max="10" step="0.1"
-                                    x-model="drakeValues.rStar">
-                            </div>
-
-                            <div class="slider-control">
-                                <div class="slider-label">
-                                    <label>fp (Fraction with planets)</label>
-                                    <span class="slider-value" x-text="drakeValues.fp"></span>
-                                </div>
-                                <input type="range" class="slider" min="0" max="1" step="0.1" x-model="drakeValues.fp">
-                            </div>
-
-                            <div class="slider-control">
-                                <div class="slider-label">
-                                    <label>ne (Planets per star)</label>
-                                    <span class="slider-value" x-text="drakeValues.ne"></span>
-                                </div>
-                                <input type="range" class="slider" min="0" max="5" step="0.1" x-model="drakeValues.ne">
-                            </div>
-
-                            <div class="slider-control">
-                                <div class="slider-label">
-                                    <label>fl (Life probability)</label>
-                                    <span class="slider-value" x-text="drakeValues.fl"></span>
-                                </div>
-                                <input type="range" class="slider" min="0" max="1" step="0.1" x-model="drakeValues.fl">
-                            </div>
-
-                            <div class="slider-control">
-                                <div class="slider-label">
-                                    <label>fi (Intelligence probability)</label>
-                                    <span class="slider-value" x-text="drakeValues.fi"></span>
-                                </div>
-                                <input type="range" class="slider" min="0" max="1" step="0.1" x-model="drakeValues.fi">
-                            </div>
-
-                            <div class="slider-control">
-                                <div class="slider-label">
-                                    <label>fc (Technology probability)</label>
-                                    <span class="slider-value" x-text="drakeValues.fc"></span>
-                                </div>
-                                <input type="range" class="slider" min="0" max="1" step="0.1" x-model="drakeValues.fc">
-                            </div>
-
-                            <div class="slider-control">
-                                <div class="slider-label">
-                                    <label>L (Civilization lifetime in years)</label>
-                                    <span class="slider-value" x-text="formatNumber(drakeValues.l)"></span>
-                                </div>
-                                <input type="range" class="slider" min="100" max="10000000" step="100"
-                                    x-model="drakeValues.l">
-                            </div>
-
-                            <div class="drake-result">
-                                <h4>Estimated Number of Civilizations:</h4>
-                                <div class="result-value" x-text="formatNumber(calculateDrake())"></div>
-                            </div>
-                        </div>
+        <!-- [Share Modal and Canvas remain the same] -->
+        <div x-show="showShareModal" x-cloak class="modal-overlay" @click.self="showShareModal = false" style="display: none;">
+            <div class="modal-content" @click.stop>
+                <div class="modal-header"><h2 class="modal-title">📡 Transmit Dossier</h2><p class="modal-subtitle">Share your findings with the rest of humanity.</p><button class="modal-close" @click="showShareModal = false">×</button></div>
+                <div class="modal-body">
+                    <div class="share-modal-grid">
+                        <button class="share-modal-button" @click="shareGeneral(); showShareModal = false"><span class="share-modal-icon">📱</span> Share Card </button>
+                        <button class="share-modal-button" @click="copyShareLink(); showShareModal = false"><span class="share-modal-icon">🔗</span> Copy Link </button>
+                        <button class="share-modal-button" @click="downloadImage(); showShareModal = false"><span class="share-modal-icon">💾</span> Download Card </button>
                     </div>
                 </div>
             </div>
         </div>
+        <canvas id="shareCanvas" width="1200" height="630" style="display: none;"></canvas>
+    </main>
+    
+    <script>
+        function alienCalculator() {
+            return {
+                isLoading: true, showShareModal: false, activeTab: 'comms', activeTooltip: null,
+                factors: { messageQuality: 50, humanTech: 50, alienIntellect: 50, alienMood: 50 },
+                drake: { rStar: 2, fp: 0.5, ne: 2, fl: 0.1, fi: 0.01, fc: 0.01, l: 10000, l_log: 50 },
+                results: { probability: 0, scenario: '', drakeN: 0, subScores: { rarity: 0, tech: 0, social: 0 }, strengths: [], hurdles: [] },
+                
+                tooltips: {
+                    rStar: "The average rate of formation of stars suitable for life.",
+                    fp: "The fraction of those stars that have planets.",
+                    ne: "The average number of planets that can potentially support life.",
+                    fl: "The fraction of suitable planets on which life actually appears.",
+                    fi: "The fraction of life-bearing planets on which intelligent life emerges.",
+                    fc: "The fraction of civilizations that develop detectable technology.",
+                    l: "The length of time such civilizations release detectable signals."
+                },
 
-        <script>
-            // Alien Communication Calculator
-            function alienCalculator() {
-                return {
-                    activeTab: 'calculator',
-                    isLoading: false,
-                    hasResults: false,
+                init() {
+                    const debouncedCalc = this.debounce(this.calculate, 300);
+                    this.$watch('factors', debouncedCalc, { deep: true });
+                    this.$watch('drake', () => {
+                        // Logarithmic scale for L
+                        const minp = 0; const maxp = 100;
+                        const minv = Math.log(100); const maxv = Math.log(10000000);
+                        const scale = (maxv - minv) / (maxp - minp);
+                        this.drake.l = Math.round(Math.exp(minv + scale * (this.drake.l_log - minp)));
+                        debouncedCalc();
+                    }, { deep: true });
+                    this.calculate();
+                },
 
-                    // Inputs
-                    civilizations: 10000,
-                    messageQuality: 0.6,
-                    alienTech: 6,
-                    alienMood: 0.6,
+                debounce(func, wait) { let timeout; return (...args) => { clearTimeout(timeout); timeout = setTimeout(() => func.apply(this, args), wait); }; },
 
-                    // Results
-                    results: {
-                        probability: 0,
-                        scenario: { title: '', description: '' },
-                        alienReaction: ''
-                    },
-
-                    // Drake Equation values
-                    drakeValues: {
-                        rStar: 2,
-                        fp: 0.5,
-                        ne: 2,
-                        fl: 0.5,
-                        fi: 0.5,
-                        fc: 0.5,
-                        l: 1000
-                    },
-
-                    get liveProbability() {
-                        return this.calculateLiveProbability().toFixed(1);
-                    },
-
-                    get confidenceClass() {
-                        const prob = parseFloat(this.liveProbability);
-                        if (prob < 20) return 'confidence-low';
-                        if (prob < 60) return 'confidence-medium';
-                        return 'confidence-high';
-                    },
-
-                    get confidenceText() {
-                        const prob = parseFloat(this.liveProbability);
-                        if (prob < 10) return 'Extremely Unlikely';
-                        if (prob < 25) return 'Low Probability';
-                        if (prob < 50) return 'Moderate Chance';
-                        if (prob < 75) return 'Good Prospects';
-                        return 'High Probability';
-                    },
-
-                    formatNumber(num) {
-                        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                    },
-
-                    calculateLiveProbability() {
-                        // Base probability from civilization count
-                        let probability = Math.min(100, (this.civilizations / 100000) * 100);
-
-                        // Apply modifiers
-                        probability *= this.messageQuality;
-                        probability *= (this.alienTech / 10);
-                        probability *= this.alienMood;
-
-                        // Add some randomness
-                        probability *= (0.8 + Math.random() * 0.4);
-
-                        return Math.min(99.9, Math.max(0.1, probability));
-                    },
-
-                    calculateProbability() {
-                        this.isLoading = true;
-
-                        setTimeout(() => {
-                            const finalProb = this.calculateLiveProbability();
-                            this.results.probability = finalProb.toFixed(1);
-
-                            // Determine scenario
-                            if (finalProb >= 80) {
-                                this.results.scenario = {
-                                    title: "🎉 Highly Probable Contact",
-                                    description: "Excellent conditions for successful communication! Multiple civilizations likely within range with high probability of positive response."
-                                };
-                                this.results.alienReaction = "They're probably already composing a welcome message and preparing the universal translator! 🛸🍪";
-                            } else if (finalProb >= 60) {
-                                this.results.scenario = {
-                                    title: "🌟 Promising Prospects",
-                                    description: "Good chance of establishing contact with at least one civilization. Message quality and technological compatibility favor success."
-                                };
-                                this.results.alienReaction = "High chance of response! (Might still take a few centuries though) ⏳";
-                            } else if (finalProb >= 40) {
-                                this.results.scenario = {
-                                    title: "🎲 Moderate Possibility",
-                                    description: "Decent odds of contact, but success depends on optimizing message content and transmission methods."
-                                };
-                                this.results.alienReaction = "50/50 chance they'll respond or facepalm at our primitive tech 🤦‍♂️";
-                            } else if (finalProb >= 20) {
-                                this.results.scenario = {
-                                    title: "📡 Long Shot Scenario",
-                                    description: "Low but not impossible chance of contact. Major improvements needed in message design or targeting strategy."
-                                };
-                                this.results.alienReaction = "Might mistake our signals for cosmic static 📡";
-                            } else {
-                                this.results.scenario = {
-                                    title: "🤐 Cosmic Silence Expected",
-                                    description: "Current parameters suggest very low probability of successful contact. Consider fundamental changes to approach."
-                                };
-                                this.results.alienReaction = "They'll definitely yeet our message into space trash 🗑️";
-                            }
-
-                            this.hasResults = true;
-                            this.isLoading = false;
-                            this.activeTab = 'results';
-                        }, 2000);
-                    },
-
-                    // Calculate Drake Equation
-                    calculateDrake() {
-                        const { rStar, fp, ne, fl, fi, fc, l } = this.drakeValues;
-                        return Math.round(rStar * fp * ne * fl * fi * fc * l);
+                getCommDescriptor(type, value) {
+                    switch (type) {
+                        case 'message':
+                            if (value <= 33) return 'Primitive'; if (value <= 66) return 'Structured'; return 'Advanced';
+                        case 'tech':
+                            if (value <= 33) return 'Weak'; if (value <= 66) return 'Focused'; return 'Powerful';
+                        case 'intellect':
+                            if (value <= 33) return 'Rudimentary'; if (value <= 66) return 'Scientific'; return 'Superintelligent';
+                        case 'mood':
+                            if (value <= 33) return 'Hostile'; if (value <= 66) return 'Cautious'; return 'Benevolent';
                     }
-                }
+                },
+                
+                calculate() {
+                    // [Calculation logic remains the same]
+                    this.isLoading = true;
+                    setTimeout(() => {
+                        const N = this.drake.rStar * this.drake.fp * this.drake.ne * this.drake.fl * this.drake.fi * this.drake.fc * this.drake.l;
+                        this.results.drakeN = parseFloat(N.toPrecision(3));
+
+                        const rarityScore = Math.min(100, (Math.log10(N + 1) / 5) * 100);
+                        const techScore = (this.factors.messageQuality + this.factors.humanTech) / 2;
+                        const socialScore = (this.factors.alienIntellect + this.factors.alienMood) / 2;
+                        
+                        this.results.subScores = {
+                            rarity: Math.round(rarityScore),
+                            tech: Math.round(techScore),
+                            social: Math.round(socialScore)
+                        };
+
+                        const finalProb = (rarityScore * 0.4) + (techScore * 0.3) + (socialScore * 0.3);
+                        this.results.probability = Math.round(finalProb);
+
+                        this.generateAnalysis();
+                        this.isLoading = false;
+                    }, 500);
+                },
+
+                generateAnalysis() {
+                    const prob = this.results.probability;
+                    if (prob >= 80) this.results.scenario = "First Contact Imminent";
+                    else if (prob >= 60) this.results.scenario = "Promising Signal";
+                    else if (prob >= 40) this.results.scenario = "Cosmic Whisper";
+                    else if (prob >= 20) this.results.scenario = "Needle in a Haystack";
+                    else this.results.scenario = "Echoes in the Void";
+
+                    this.results.strengths = []; this.results.hurdles = [];
+                    const scores = this.results.subScores;
+                    if (scores.rarity > 60) this.results.strengths.push("Galaxy is likely teeming with civilizations.");
+                    if (scores.tech > 60) this.results.strengths.push("Our messaging & tech are advanced enough to be understood.");
+                    if (scores.social > 60) this.results.strengths.push("The aliens are likely intelligent and receptive.");
+
+                    if (scores.rarity < 40) this.results.hurdles.push("Intelligent life is exceedingly rare, making contact difficult.");
+                    if (scores.tech < 40) this.results.hurdles.push("Our signals may be too primitive or poorly constructed to be noticed.");
+                    if (scores.social < 40) this.results.hurdles.push("Aliens may be too different, hostile, or uninterested to reply.");
+                    
+                    if (this.results.strengths.length === 0) this.results.strengths.push("No significant advantages. Success relies on sheer luck.");
+                    if (this.results.hurdles.length === 0) this.results.hurdles.push("No critical weaknesses, but the Great Filter could still be ahead.");
+                },
+                
+                // [Share functionality remains the same]
+                generateShareImage() {
+                    const canvas = document.getElementById('shareCanvas'); const ctx = canvas.getContext('2d');
+                    ctx.fillStyle = '#0B0E1A'; ctx.fillRect(0, 0, 1200, 630);
+                    ctx.textAlign = 'center';
+                    ctx.fillStyle = '#4A90E2'; ctx.font = "bold 48px 'Orbitron', sans-serif";
+                    ctx.fillText('FIRST CONTACT DOSSIER', 600, 80);
+                    ctx.fillStyle = '#F5A623'; ctx.font = "bold 72px 'Orbitron', sans-serif";
+                    ctx.fillText(this.results.scenario, 600, 160);
+                    ctx.fillStyle = '#EAEAEA'; ctx.font = "160px 'Orbitron', sans-serif";
+                    ctx.fillText(this.results.probability + '%', 600, 320);
+                    ctx.font = "32px 'Inter', sans-serif"; ctx.fillText('PROBABILITY OF SUCCESSFUL COMMUNICATION', 600, 370);
+                    
+                    ctx.textAlign = 'left'; ctx.font = "bold 28px 'Inter', sans-serif";
+                    const drawBar = (label, value, y, color) => {
+                        ctx.fillStyle = '#EAEAEA'; ctx.fillText(`${label}: ${value}%`, 150, y);
+                        ctx.fillStyle = '#1A1D29'; ctx.fillRect(150, y + 15, 900, 20);
+                        ctx.fillStyle = color; ctx.fillRect(150, y + 15, 900 * (value/100), 20);
+                    };
+                    drawBar('Galactic Rarity', this.results.subScores.rarity, 450, '#F5A623');
+                    drawBar('Tech Compatibility', this.results.subScores.tech, 500, '#4A90E2');
+                    drawBar('Xenosociology', this.results.subScores.social, 550, '#9B59B6');
+                    return canvas.toDataURL('image/png');
+                },
+                generateShareText() { return `My First Contact analysis shows a ${this.results.probability}% chance of success, with a "${this.results.scenario}" scenario. What are your odds?`; },
+                async shareGeneral() { if (!navigator.share) { this.downloadImage(); alert('Image downloaded for manual sharing.'); return; } try { const r = await fetch(this.generateShareImage()); const b = await r.blob(); const f = new File([b], 'alien-dossier.png', { type: 'image/png' }); await navigator.share({ title: 'First Contact Dossier', text: this.generateShareText(), files: [f] }); } catch (e) { console.error(e); } },
+                async copyShareLink() { try { await navigator.clipboard.writeText(window.location.href); alert('Link copied!'); } catch (err) { alert('Failed to copy.'); } },
+                downloadImage() { const link = document.createElement('a'); link.download = 'first-contact-dossier.png'; link.href = this.generateShareImage(); link.click(); }
             }
-        </script>
-        <!-- Newsletter Bar -->
-        <div class="newsletter-bar" x-data="newsletterForm()">
-            <div class="newsletter-container">
-                <div class="newsletter-content">
-                    <div class="newsletter-info">
-                        <h3>&#127881; Join Our Calculator Community!</h3>
-                        <p>Get updates on new fun calculators and practical tools</p>
-                    </div>
-                    <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
-                        <input type="email" class="newsletter-input"
-                            placeholder="Enter your email for calculator updates" x-model="email" required>
-                        <button type="submit" class="newsletter-submit" :disabled="isSubmitting">
-                            <span x-show="isSubmitting" class="loading-spinner"></span>
-                            <span x-text="isSubmitting ? 'Subscribing...' : '&#128640; Subscribe'"></span>
-                        </button>
-                    </form>
-                    <div x-show="showSuccess" class="newsletter-success" style="display: none;">
-                        <p style="color: var(--accent-light); font-weight: 600;">
-                            &#9989; Awesome! You'll get updates on the coolest new calculators!
-                        </p>
-                    </div>
+        }
+    </script>
+	<!-- Newsletter Bar -->
+    <div class="newsletter-bar" x-data="newsletterForm()">
+        <div class="newsletter-container">
+            <div class="newsletter-content">
+                <div class="newsletter-info">
+                    <h3>🎉 Join Our Calculator Community!</h3>
+                    <p>Get updates on new fun calculators and practical tools</p>
+                </div>
+                <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
+                    <input type="email" class="newsletter-input" placeholder="Enter your email for calculator updates"
+                        x-model="email" required>
+                    <button type="submit" class="newsletter-submit" :disabled="isSubmitting">
+                        <span x-show="isSubmitting" class="loading-spinner"></span>
+                        <span x-text="isSubmitting ? 'Subscribing...' : '🚀 Subscribe'"></span>
+                    </button>
+                </form>
+                <div x-show="showSuccess" class="newsletter-success">
+                    <p style="color: var(--accent-light); font-weight: 600;">
+                        ✅ Awesome! You'll get updates on the coolest new calculators!
+                    </p>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Footer -->
-        <footer class="footer">
-            <div class="footer-container">
-                <div class="footer-content">
-                    <div class="footer-section">
-                        <h4>&#127919; About Docket.One</h4>
-                        <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if
-                            you should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've
-                            got the tools for modern life.</p>
-                        <p>Practical meets playful. Because adulting is hard enough.</p>
-                    </div>
-
-                    <div class="footer-section">
-                        <h4>&#127914; Calculator Categories</h4>
-                        <ul class="footer-links">
-                            <li><a href="/pages/BigKidMath/"><span class="calculator-emoji">&#129518;</span> BigKidMath
-                                    - Adult Life Tools</a></li>
-                            <li><a href="/pages/CipherLab/"><span class="calculator-emoji">&#128272;</span> CipherLab -
-                                    Secret Codes & Security</a></li>
-                            <li><a href="/pages/GeekGalaxy/"><span class="calculator-emoji">&#128640;</span> GeekGalaxy
-                                    - Sci-Fi & Fantasy Fun</a></li>
-                            <li><a href="/pages/LifeHacks/"><span class="calculator-emoji">&#9889;</span> LifeHacks -
-                                    Productivity & Wellness</a></li>
-                            <li><a href="/pages/Math_Magik/"><span class="calculator-emoji">&#127917;</span> Math Magik
-                                    - Mathematical Wizardry</a></li>
-                            <li><a href="/pages/Otaku_Ops/"><span class="calculator-emoji">&#127999;</span> Otaku Ops -
-                                    Anime & Culture</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="footer-section">
-                        <h4>&#128172; Support & Info</h4>
-                        <ul class="footer-links">
-                            <li><a href="/pages/support/help.html"><span class="calculator-emoji">&#10067;</span> Help & FAQ</a></li>
-                            <li><a href="/privacy"><span class="calculator-emoji">&#128274;</span> Privacy Policy</a>
-                            </li>
-                            <li><a href="/terms"><span class="calculator-emoji">&#128203;</span> Terms of Service</a>
-                            </li>
-                            <li><a href="/accessibility"><span class="calculator-emoji">&#9855;</span> Accessibility</a>
-                            </li>
-                            <li><a href="/pages/support/contact.html"><span class="calculator-emoji">&#128231;</span> Contact Us</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="footer-section">
-                        <button class="request-calculator-btn" @click="showModal = true">
-                            &#128161; Request a Calculator
-                        </button>
-                    </div>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>🎮 About Docket.One</h4>
+                    <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you
+                        should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the
+                        tools for modern life.</p>
+                    <p>Practical meets playful. Because adulting is hard enough.</p>
                 </div>
 
-                <div class="footer-bottom">
-                    <div class="footer-logo">&#129518; Docket.One</div>
-                    <div class="footer-copyright">
-                        Â© 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
-                    </div>
-                    <div class="social-links">
-                        <a href="#" class="social-link" aria-label="Twitter">&#120143;</a>
-                        <a href="#" class="social-link" aria-label="LinkedIn">&#128188;</a>
-                        <a href="#" class="social-link" aria-label="GitHub">&#128025;</a>
-                        <a href="#" class="social-link" aria-label="Email">&#128231;</a>
-                    </div>
+                <div class="footer-section">
+                    <h4>🎯 Calculator Categories</h4>
+                    <ul class="footer-links">
+                        <li><a href="https://docket.one/pages/BigKidMath/"><span class="calculator-emoji">🧠</span>
+                                BigKidMath - Adult Life Tools</a></li>
+                        <li><a href="https://docket.one/pages/CipherLab/"><span class="calculator-emoji">🔐</span>
+                                CipherLab - Secret Codes & Security</a>
+                        </li>
+                        <li><a href="https://docket.one/pages/GeekGalaxy/"><span class="calculator-emoji">🚀</span>
+                                GeekGalaxy - Sci-Fi & Fantasy Fun</a></li>
+                        <li><a href="https://docket.one/pages/LifeHacks/"><span class="calculator-emoji">⚡</span>
+                                LifeHacks - Productivity & Wellness</a></li>
+                        <li><a href="https://docket.one/pages/Math_Magik/"><span class="calculator-emoji">🧙‍♀️</span>
+                                Math Magik - Mathematical Wizardry</a>
+                        </li>
+                        <li><a href="https://docket.one/pages/Otaku_Ops/"><span class="calculator-emoji">🗾</span> Otaku
+                                Ops - Anime & Culture</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>💬 Support & Info</h4>
+                    <ul class="footer-links">
+                        <li><a href="pages/support/help.html"><span class="calculator-emoji">❓</span> Help &
+                                FAQ</a></li>
+                        <li><a href="pages/support/privacy.html"><span class="calculator-emoji">🔒</span> Privacy
+                                Policy</a></li>
+                        <li><a href="pages/support/terms.html"><span class="calculator-emoji">📋</span> Terms of
+                                Service</a></li>
+                        <li><a href="pages/support/accessibility.html"><span class="calculator-emoji">♿</span>
+                                Accessibility</a></li>
+                        <li><a href="pages/support/contact.html"><span class="calculator-emoji">📧</span> Contact
+                                Us</a></li>
+                    </ul>
                 </div>
             </div>
-        </footer>
 
-        <!-- Request Modal -->
-        <div x-data="calculatorRequestForm()" x-show="showModal" x-cloak class="modal-overlay"
-            @click.self="closeModal()" style="display: none;">
-            <div class="modal-content">
-                <div x-show="!showConfirmation">
-                    <div class="modal-header">
-                        <h2 class="modal-title">&#128161; Request a Fun Calculator</h2>
-                        <p class="modal-subtitle">Got an idea for a calculator that would make life easier or more fun?
-                            We want to hear it!</p>
-                        <button class="modal-close" @click="closeModal()">&#10005;</button>
-                    </div>
-                    <div class="modal-body">
-                        <form @submit.prevent="submitRequest()">
-                            <div class="form-group">
-                                <label class="form-label" for="userName">Your Name *</label>
-                                <input type="text" id="userName" class="form-input" x-model="formData.name" required
-                                    placeholder="What should we call you?">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label" for="userEmail">Email Address *</label>
-                                <input type="email" id="userEmail" class="form-input" x-model="formData.email" required
-                                    placeholder="your@email.com">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label" for="requestType">What Kind of Request? *</label>
-                                <select id="requestType" class="form-input form-select" x-model="formData.type"
-                                    required>
-                                    <option value="">Choose your request type</option>
-                                    <option value="new-calculator">&#127358; Brand New Calculator</option>
-                                    <option value="enhancement">&#9889; Improve Existing Calculator</option>
-                                    <option value="category">&#127914; New Category Idea</option>
-                                    <option value="feature">&#10024; Cool New Feature</option>
-                                    <option value="other">&#129300; Something Else Entirely</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label" for="calculatorTitle">Calculator Name/Title *</label>
-                                <input type="text" id="calculatorTitle" class="form-input" x-model="formData.title"
-                                    required placeholder="e.g., 'Should I Call In Sick Calculator'">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label" for="description">Tell Us About Your Idea! *</label>
-                                <textarea id="description" class="form-input form-textarea"
-                                    x-model="formData.description" required
-                                    placeholder="Describe your calculator idea!"></textarea>
-                            </div>
-                            <div class="form-actions">
-                                <button type="button" class="btn btn-secondary" @click="closeModal()">Maybe
-                                    Later</button>
-                                <button type="submit" class="btn btn-primary" :disabled="isSubmitting">
-                                    <span x-show="isSubmitting" class="loading-spinner"></span>
-                                    <span x-text="isSubmitting ? 'Sending...' : '&#128640; Send My Idea'"></span>
-                                </button>
-                            </div>
-                        </form>
-                    </div>
+            <div class="footer-bottom">
+                <div class="footer-logo">🧮 Docket.One</div>
+                <div class="footer-copyright">
+                    © 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
                 </div>
-                <div x-show="showConfirmation" class="confirmation-modal" style="display: none;">
-                    <div class="modal-header">
-                        <button class="modal-close" @click="closeModal()">&#10005;</button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="success-icon">&#127881;</div>
-                        <h3 class="confirmation-title">Awesome! We Got Your Idea!</h3>
-                        <p class="confirmation-message">
-                            Thanks for sharing your calculator idea with us! We're excited to check it out and see if we
-                            can make it happen.
-                            <br><br>
-                            <strong>What happens next?</strong><br>
-                            â€¢ You'll get a confirmation email shortly<br>
-                            â€¢ Our team will review your idea<br>
-                            â€¢ If we build it, you'll be the first to know!<br>
-                            â€¢ We might even name you as the inspiration &#128522;
-                        </p>
-                        <button class="btn btn-primary" @click="closeModal()" style="width: 100%;">
-                            &#127919; Close & Keep Calculating!
-                        </button>
-                    </div>
+                <div class="social-links">
+                    <a href="#" class="social-link" aria-label="Twitter">𝕏</a>
+                    <a href="#" class="social-link" aria-label="LinkedIn">💼</a>
+                    <a href="#" class="social-link" aria-label="GitHub">🐙</a>
+                    <a href="#" class="social-link" aria-label="Email">📧</a>
                 </div>
             </div>
         </div>
-
+    </footer>
 </body>
-
 </html>

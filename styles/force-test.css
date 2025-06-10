@@ -1,0 +1,37 @@
+:root {
+            --primary: #FFE81F; --secondary: #4BD5EE; --accent: #FF0000;
+            --background: #000000; --surface: #111111; --text: #EAEAEA; --text-muted: #CCCCCC;
+            --glow-primary: 0 0 20px rgba(255, 232, 31, 0.4); --glow-secondary: 0 0 20px rgba(75, 213, 238, 0.4); --glow-accent: 0 0 20px rgba(255, 0, 0, 0.4);
+            --space-md: 1rem; --space-lg: 1.5rem; --space-xl: 2rem;
+            --radius-md: 8px; --radius-lg: 12px;
+        }
+        body { background: var(--background); color: var(--text); font-family: 'Inter', sans-serif; }
+        .font-display { font-family: 'Orbitron', sans-serif; }
+        
+        .wizard-container { max-width: 800px; margin: 2rem auto; padding: var(--space-xl); background: var(--surface); border: 1px solid rgba(255, 232, 31, 0.2); border-radius: var(--radius-lg); box-shadow: 0 8px 32px rgba(0,0,0,0.5); }
+        .wizard-step-title { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; text-align: center; color: var(--primary); margin-bottom: 0.5rem; }
+        .wizard-step-subtitle { text-align: center; color: var(--text-muted); margin-bottom: 2rem; }
+        .wizard-nav { display: flex; justify-content: space-between; margin-top: 2rem; }
+        .wizard-btn { background: linear-gradient(135deg, var(--primary), #D4AF37); color: #000; border: none; padding: 0.75rem 1.5rem; border-radius: var(--radius-md); font-weight: 700; cursor: pointer; transition: all 0.2s; }
+        .wizard-btn:hover { transform: translateY(-2px); box-shadow: var(--glow-primary); }
+        .wizard-btn:disabled { background: #555; color: #888; cursor: not-allowed; transform: none; box-shadow: none; }
+        .wizard-btn.secondary { background: transparent; border: 2px solid var(--secondary); color: var(--secondary); }
+
+        /* Trial 2: Focus Test */
+        .focus-orb-container { height: 200px; display: flex; align-items: center; justify-content: center; }
+        .focus-orb { width: 100px; height: 100px; border-radius: 50%; background: var(--secondary); cursor: pointer; transition: all 0.1s; animation: pulse 2s infinite ease-in-out; }
+        @keyframes pulse { 0% { transform: scale(1); box-shadow: 0 0 20px var(--glow-secondary); } 50% { transform: scale(0.6); box-shadow: 0 0 40px var(--glow-accent); } 100% { transform: scale(1); box-shadow: 0 0 20px var(--glow-secondary); } }
+        
+        /* Trial 3: Vision Quest */
+        .vision-text { font-style: italic; text-align: center; color: var(--text-muted); border: 1px dashed var(--secondary); padding: 1rem; border-radius: var(--radius-md); margin-bottom: 1.5rem; }
+        .option-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+        @media (min-width: 640px) { .option-grid { grid-template-columns: 1fr 1fr; } }
+        .option-card { background: #222; padding: 1rem; border-radius: var(--radius-md); border: 2px solid #444; cursor: pointer; transition: all 0.2s; }
+        .option-card:hover { border-color: var(--primary); transform: scale(1.03); }
+        .option-card.selected { border-color: var(--primary); background: rgba(255, 232, 31, 0.1); }
+        
+        /* Results */
+        .results-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl); }
+        .count-display { text-align: center; font-size: 5rem; font-weight: 900; color: var(--primary); text-shadow: var(--glow-primary); }
+        .alignment-meter { height: 1.5rem; background: linear-gradient(90deg, var(--accent), #555, var(--secondary)); border-radius: 99px; position: relative; }
+        .alignment-marker { position: absolute; top: -0.25rem; width: 0.25rem; height: 2rem; background: var(--primary); border-radius: 2px; transition: left 1s ease-out; }

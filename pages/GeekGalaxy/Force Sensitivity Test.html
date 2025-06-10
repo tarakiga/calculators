@@ -1,1552 +1,441 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+    <!-- Basic Meta -->
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Force Sensitivity Test (Midichlorian Calculator) | GeekGalaxy | Docket One</title>
-    <meta name="description" content="Test your Force sensitivity and discover your midichlorian count. Calculate your potential as a Jedi or Sith based on your answers and lineage.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Force Sensitivity Holocron (Aptitude Test) | GeekGalaxy | Docket One</title>
+    <meta name="description" content="An interactive Force Sensitivity test. Undertake the Jedi trials, test your focus and insight, and receive a detailed Holocron analysis of your midichlorian count and Force potential.">
+    <meta name="keywords" content="force sensitivity test, midichlorian calculator, jedi or sith test, star wars quiz, force alignment, geek tools, interactive calculator">
+    <meta name="author" content="Docket One">
 
-    <!-- Enhanced Social Media Meta Tags -->
-    <meta property="og:title" content="Force Sensitivity Test (Midichlorian Calculator) | GeekGalaxy | Docket One">
-    <meta property="og:description" content="Test your Force sensitivity and discover your midichlorian count. Calculate your potential as a Jedi or Sith based on your answers and lineage.">
-    <meta property="og:image" content="https://docket.one/social-preview.jpg">
-    <meta property="og:url" content="https://docket.one/pages/GeekGalaxy/Force%20Sensitivity%20Test.html">
+    <!-- Cache Control -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://docket.one/pages/GeekGalaxy/Force%20Sensitivity%20Test.html" />
+
+    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Docket One Calculators">
+    <meta property="og:url" content="https://docket.one/pages/GeekGalaxy/Force%20Sensitivity%20Test.html">
+    <meta property="og:title" content="Force Sensitivity Holocron (Aptitude Test) | GeekGalaxy | Docket One">
+    <meta property="og:description" content="An interactive Force Sensitivity test. Undertake the Jedi trials, test your focus and insight, and receive a detailed Holocron analysis of your midichlorian count and Force potential.">
+    <meta property="og:image" content="https://docket.one/images/geekgalaxy-force-test-social-preview.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="Docket One">
 
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Force Sensitivity Test - Midichlorian Calculator">
-    <meta name="twitter:description" content="Discover your midichlorian count and Force potential in the Star Wars universe">
-    <meta name="twitter:image" content="https://docket.one/social-preview.jpg">
-
-    <!-- Required Dependencies -->
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="twitter:url" content="https://docket.one/pages/GeekGalaxy/Force%20Sensitivity%20Test.html">
+    <meta name="twitter:title" content="Force Sensitivity Holocron (Aptitude Test) | GeekGalaxy | Docket One">
+    <meta name="twitter:description" content="An interactive Force Sensitivity test. Undertake the Jedi trials, test your focus and insight, and receive a detailed Holocron analysis of your midichlorian count and Force potential.">
+    <meta name="twitter:image" content="https://docket.one/images/geekgalaxy-force-test-social-preview.jpg">
+    <meta property="twitter:site" content="@DocketOne">
+    
+    <!-- Dependencies -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
-    <style>
-        :root {
-            /* GeekGalaxy - Star Wars inspired color palette */
-            --primary: #FFE81F; /* Jedi Yellow */
-            --primary-light: #FFF5A3;
-            --primary-dark: #B3A300;
-            --secondary: #4BD5EE; /* Lightsaber Blue */
-            --accent: #FF0000; /* Sith Red */
-            --background: #000000; /* Space Black */
-            --surface: #111111;
-            --text: #FFFFFF; /* Pure White */
-            --text-muted: #CCCCCC;
-
-            /* Consistent spacing scale */
-            --space-xs: 0.25rem;
-            --space-sm: 0.5rem;
-            --space-md: 1rem;
-            --space-lg: 1.5rem;
-            --space-xl: 2rem;
-            --space-2xl: 3rem;
-            --space-3xl: 4rem;
-
-            /* Professional shadows and effects */
-            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            --glow-primary: 0 0 20px rgba(255, 232, 31, 0.3);
-            --glow-secondary: 0 0 20px rgba(75, 213, 238, 0.3);
-            --glow-accent: 0 0 20px rgba(255, 0, 0, 0.3);
-
-            /* Border radius system */
-            --radius-sm: 6px;
-            --radius-md: 8px;
-            --radius-lg: 12px;
-            --radius-xl: 16px;
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            background: var(--background);
-            color: var(--text);
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-        }
-
-        /* Enhanced Navbar */
-        .main-nav {
-            background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 232, 31, 0.2);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: var(--space-md) var(--space-xl);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .nav-logo a {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 800;
-            font-size: 1.25rem;
-            display: flex;
-            align-items: center;
-            gap: var(--space-sm);
-            text-shadow: var(--glow-primary);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: var(--space-lg);
-            align-items: center;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        .nav-link {
-            color: var(--text);
-            text-decoration: none;
-            font-weight: 500;
-            padding: var(--space-sm) var(--space-md);
-            border-radius: var(--radius-md);
-            transition: all 0.3s ease;
-        }
-
-        .nav-link:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--primary);
-        }
-
-        .nav-link.active {
-            background: var(--primary);
-            color: var(--background);
-            box-shadow: var(--glow-primary);
-        }
-
-        .nav-toggle {
-            display: none;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: var(--space-sm);
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .nav-toggle span {
-            display: block;
-            width: 24px;
-            height: 2px;
-            background: var(--primary);
-            transition: all 0.3s ease;
-            border-radius: 2px;
-        }
-
-        /* Hero Section */
-        .hero {
-            background: 
-                radial-gradient(circle at 20% 50%, rgba(255, 232, 31, 0.15) 0%, transparent 50%), 
-                radial-gradient(circle at 80% 20%, rgba(75, 213, 238, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 40% 80%, rgba(255, 0, 0, 0.1) 0%, transparent 50%),
-                linear-gradient(135deg, #000000 0%, #111111 100%);
-            padding: var(--space-3xl) var(--space-xl);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            min-height: 60vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(2px 2px at 20px 30px, rgba(255, 232, 31, 0.3), transparent),
-                radial-gradient(2px 2px at 40px 70px, rgba(75, 213, 238, 0.2), transparent),
-                radial-gradient(1px 1px at 90px 40px, rgba(255, 255, 255, 0.3), transparent);
-            background-size: 100px 100px;
-            animation: starfield 20s linear infinite;
-            opacity: 0.6;
-            pointer-events: none;
-        }
-
-        @keyframes starfield {
-            0% { transform: translateY(0) translateX(0); }
-            100% { transform: translateY(-100px) translateX(-100px); }
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 1;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .hero-badge {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: var(--background);
-            display: inline-flex;
-            align-items: center;
-            gap: var(--space-sm);
-            padding: var(--space-sm) var(--space-lg);
-            border-radius: 999px;
-            font-weight: 600;
-            margin-bottom: var(--space-lg);
-            box-shadow: var(--glow-primary);
-            animation: fadeInUp 0.6s ease-out;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .hero-title {
-            font-size: clamp(2.5rem, 6vw, 4rem);
-            font-weight: 800;
-            margin-bottom: var(--space-lg);
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-shadow: 0 4px 20px rgba(255, 232, 31, 0.3);
-            animation: fadeInUp 0.6s ease-out 0.2s both;
-            line-height: 1.2;
-        }
-
-        .hero-subtitle {
-            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
-            max-width: 700px;
-            margin: 0 auto var(--space-xl);
-            opacity: 0.9;
-            color: var(--text-muted);
-            animation: fadeInUp 0.6s ease-out 0.4s both;
-            line-height: 1.5;
-        }
-
-        .hero-stats {
-            display: flex;
-            justify-content: center;
-            gap: var(--space-xl);
-            margin-top: var(--space-xl);
-            animation: fadeInUp 0.6s ease-out 0.6s both;
-        }
-
-        .hero-stat {
-            text-align: center;
-        }
-
-        .hero-stat-number {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--primary);
-            display: block;
-            text-shadow: var(--glow-primary);
-        }
-
-        .hero-stat-label {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        /* Calculator Container */
-        .calculator-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: var(--space-xl);
-            position: relative;
-        }
-
-        /* Tab Navigation */
-        .tabs {
-            display: flex;
-            background: rgba(255, 232, 31, 0.05);
-            border-radius: var(--radius-lg);
-            padding: var(--space-xs);
-            margin-bottom: var(--space-xl);
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            border: 1px solid rgba(255, 232, 31, 0.2);
-        }
-
-        .tab-btn {
-            flex: 1;
-            padding: var(--space-md) var(--space-lg);
-            background: transparent;
-            border: none;
-            border-radius: var(--radius-md);
-            font-weight: 600;
-            color: var(--text);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: var(--space-sm);
-            font-family: 'Inter', sans-serif;
-        }
-
-        .tab-btn:hover {
-            background: rgba(255, 232, 31, 0.1);
-            color: var(--primary);
-        }
-
-        .tab-btn.active {
-            background: var(--primary);
-            color: var(--background);
-            box-shadow: var(--glow-primary);
-        }
-
-        /* Calculator Panel */
-        .calculator-panel {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: var(--radius-xl);
-            padding: var(--space-xl);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .calculator-panel::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
-        }
-
-        /* Form Elements */
-        .input-group {
-            margin-bottom: var(--space-lg);
-        }
-
-        .input-group label {
-            display: block;
-            margin-bottom: var(--space-sm);
-            font-weight: 600;
-            color: var(--primary);
-            font-size: 1rem;
-        }
-
-        .input-group select {
-            width: 100%;
-            padding: var(--space-md);
-            border: 2px solid rgba(255, 232, 31, 0.2);
-            border-radius: var(--radius-md);
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text);
-            font-family: 'Inter', sans-serif;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-        }
-
-        .input-group select:focus {
-            border-color: var(--primary);
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(255, 232, 31, 0.2);
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        .input-group select option {
-            background: var(--surface);
-            color: var(--text);
-            padding: var(--space-sm);
-            border: none;
-        }
-
-        .input-group select option:hover,
-        .input-group select option:focus,
-        .input-group select option:checked {
-            background: rgba(255, 232, 31, 0.2);
-            color: var(--text);
-        }
-
-        /* Question Groups */
-        .question-group {
-            margin-bottom: var(--space-xl);
-        }
-
-        .question {
-            font-weight: 600;
-            margin-bottom: var(--space-md);
-            color: var(--text);
-            font-size: 1.1rem;
-        }
-
-        .options {
-            display: grid;
-            gap: var(--space-sm);
-        }
-
-        .option {
-            background: rgba(255, 255, 255, 0.05);
-            padding: var(--space-md);
-            border-radius: var(--radius-md);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-            font-size: 1rem;
-            text-align: center;
-        }
-
-        .option:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: var(--primary);
-            transform: translateY(-1px);
-        }
-
-        .option.selected {
-            background: var(--primary);
-            color: var(--background);
-            border-color: var(--primary);
-            box-shadow: var(--glow-primary);
-        }
-
-        /* Action Buttons */
-        .action-btn {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: var(--background);
-            border: none;
-            padding: var(--space-md) var(--space-xl);
-            border-radius: var(--radius-md);
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            gap: var(--space-sm);
-            text-decoration: none;
-            font-family: 'Inter', sans-serif;
-            box-shadow: var(--glow-primary);
-        }
-
-        .action-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 232, 31, 0.4);
-        }
-
-        .action-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .action-btn.secondary {
-            background: linear-gradient(135deg, var(--secondary), #3BA3C7);
-            box-shadow: var(--glow-secondary);
-        }
-
-        .action-btn.accent {
-            background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-            box-shadow: none;
-        }
-
-        /* Results Styling */
-        .results-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: var(--space-xl);
-            animation: fadeInUp 0.8s ease-out;
-        }
-
-        .count-animation {
-            font-size: clamp(3rem, 8vw, 5rem);
-            font-weight: 800;
-            color: var(--primary);
-            text-shadow: var(--glow-primary);
-            margin: var(--space-lg) 0;
-            animation: countUp 2s ease-out forwards, pulse 2s infinite 2s;
-        }
-
-        .potential-meter {
-            height: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            margin: var(--space-lg) 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .potential-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--secondary), var(--primary));
-            border-radius: 10px;
-            width: 0%;
-            animation: fillMeter 1.5s ease-out forwards 0.5s;
-            position: relative;
-        }
-
-        /* Character Cards */
-        .character-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: var(--space-lg);
-        }
-
-        .character-card {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: var(--radius-lg);
-            padding: var(--space-lg);
-            text-align: center;
-            border: 2px solid transparent;
-            transition: all 0.3s ease;
-        }
-
-        .character-card.highlighted {
-            border-color: var(--primary);
-            background: rgba(255, 232, 31, 0.1);
-            transform: scale(1.05);
-            box-shadow: var(--glow-primary);
-        }
-
-        .character-name {
-            font-weight: 600;
-            margin-bottom: var(--space-sm);
-            color: var(--text);
-            font-size: 1.1rem;
-        }
-
-        .character-count {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--secondary);
-            margin-bottom: var(--space-sm);
-            text-shadow: var(--glow-secondary);
-        }
-
-        .character-description {
-            font-size: 0.9rem;
-            opacity: 0.8;
-            line-height: 1.4;
-            color: var(--text-muted);
-        }
-
-        /* Loading Spinner */
-        .loading-spinner {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top-color: var(--primary);
-            animation: spin 1s ease-in-out infinite;
-            margin-left: var(--space-sm);
-        }
-
-        /* Mobile Responsiveness */
-        @media (max-width: 768px) {
-            .nav-toggle {
-                display: flex;
-            }
-
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background: rgba(0, 0, 0, 0.95);
-                padding: var(--space-lg);
-                flex-direction: column;
-                gap: var(--space-sm);
-                border-top: 1px solid rgba(255, 232, 31, 0.2);
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .hero {
-                padding: var(--space-2xl) var(--space-lg);
-                min-height: 50vh;
-            }
-
-            .hero-stats {
-                flex-direction: column;
-                gap: var(--space-lg);
-            }
-
-            .calculator-container {
-                padding: var(--space-lg);
-            }
-
-            .results-container {
-                grid-template-columns: 1fr;
-                gap: var(--space-lg);
-            }
-
-            .character-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .options {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes countUp {
-            0% { transform: scale(0.8); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        @keyframes fillMeter {
-            to { width: var(--meter-width); }
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
-        /* Share Button Styles */
-        .share-button {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: var(--background);
-            border: none;
-            border-radius: var(--radius-md);
-            padding: 0.75rem 1.5rem;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-top: 1rem;
-            box-shadow: var(--glow-primary);
-            width: 100%;
-            justify-content: center;
-        }
-
-        .share-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 232, 31, 0.4);
-        }
-
-        .share-dropdown {
-            position: relative;
-            display: inline-block;
-            width: 100%;
-        }
-
-        .share-menu {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: var(--surface);
-            border: 1px solid rgba(255, 232, 31, 0.2);
-            border-radius: var(--radius-md);
-            padding: 0.5rem;
-            margin-top: 0.5rem;
-            z-index: 1000;
-            display: none;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-        }
-
-        .share-menu.active {
-            display: block;
-        }
-
-        .share-option {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 0.75rem;
-            border-radius: var(--radius-md);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            color: var(--text);
-            text-decoration: none;
-        }
-
-        .share-option:hover {
-            background: rgba(255, 232, 31, 0.1);
-            color: var(--primary);
-        }
-
-        /* Hidden canvas for image generation */
-        #shareCanvas {
-            display: none;
-        }
-    </style>
-
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
-    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script>
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
-    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script>
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
-    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script>
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
-    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script>
-    <script src="../../common/add-breadcrumbs.js"></script>
-    <script src="../../common/add-keyboard-accessibility.js"></script></head>
-
-<body>
-    <!-- Enhanced Navigation -->
-    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-<nav class="main-nav">
-    <div class="nav-container">
-        <div class="nav-logo">
-            <a href="../../index.html">🧮 Docket One</a>
-        </div>
-        <div class="nav-search">
-            <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input" aria-label="Search calculators">
-            <div id="search-results" class="search-results"></div>
-        </div>
-        <ul class="nav-links">
-            <li><a href="../BigKidMath/index.html" class="category-link">Big Kid Math</a></li>
-            <li><a href="../CipherLab/index.html" class="category-link">Cipher Lab</a></li>
-            <li><a href="../GeekGalaxy/index.html" class="category-link">Geek Galaxy</a></li>
-            <li><a href="../LifeHacks/index.html" class="category-link">Life Hacks</a></li>
-            <li><a href="../Math_Magik/index.html" class="category-link">Math Magik</a></li>
-            <li><a href="../Otaku_Ops/index.html" class="category-link">Otaku Ops</a></li>
-            <li><a href="../../index.html" class="home-link">🏠 Home</a></li>
-        </ul>
-        <button class="mobile-menu-btn" aria-label="Toggle menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Versioned Assets -->
+    <link rel="stylesheet" href="../../common/santa-improvements.css?v=20250609">
+    <link rel="stylesheet" href="../../common/global-calculator.css?v=20250609">
+    <link rel="stylesheet" href="../../common/themes/dark-theme.css?v=20250609">
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css?v=20250609">
+    <link rel="stylesheet" href="../../styles/force-test.css?v=20250609">
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css?v=20250609">
+    <script src="../../common/navbar-enhanced.js"></script>
+    <script src="../../common/add-keyboard-accessibility.js"></script>
+</head>
+
+<body x-data="forceCalculator()" x-init="init()">
+
+    <div class="container text-center py-8">
+        <h1 class="font-display text-4xl md:text-5xl font-extrabold text-white uppercase tracking-wider">
+            The <span class="text-yellow-400">Force</span> Aptitude Holocron
+        </h1>
+        <p class="text-lg text-gray-400 mt-2">The will of the Force has brought you here. Your journey begins now.</p>
     </div>
-</nav>
 
-    <!-- Premium Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <div class="hero-badge">
-                <span>⭐</span>
-                <span>GeekGalaxy</span>
+    <main class="wizard-container">
+        <!-- Step 1: The Calling -->
+        <div x-show="currentStep === 1" x-transition:enter.duration.500ms>
+            <h2 class="wizard-step-title">Trial 1: The Calling</h2>
+            <p class="wizard-step-subtitle">The Force resonates through all living things. From where does your connection stem?</p>
+            <div class="control-group">
+                <label for="lineage" class="block text-lg font-medium mb-2">Bloodline & Lineage</label>
+                <select id="lineage" x-model="answers.lineage" class="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg text-white">
+                    <option value="unknown">Unknown Heritage</option>
+                    <option value="skywalker">Skywalker Bloodline</option>
+                    <option value="kenobi">Kenobi Lineage</option>
+                    <option value-="palpatine">Palpatine Heritage</option>
+                    <option value="yoda">Yoda's Species</option>
+                </select>
             </div>
-            <h1 class="hero-title">Force Sensitivity Test</h1>
-            <p class="hero-subtitle">
-                Discover your midichlorian count and unlock your true potential in the Force. 
-                Are you destined to become a Jedi Master or will you embrace the power of the Dark Side?
-            </p>
-            <div class="hero-stats">
-                <div class="hero-stat">
-                    <span class="hero-stat-number">27,700</span>
-                    <span class="hero-stat-label">Anakin's Count</span>
-                </div>
-                <div class="hero-stat">
-                    <span class="hero-stat-number">17,700</span>
-                    <span class="hero-stat-label">Yoda's Count</span>
-                </div>
-                <div class="hero-stat">
-                    <span class="hero-stat-number">???</span>
-                    <span class="hero-stat-label">Your Count</span>
-                </div>
+            <div class="wizard-nav">
+                <span></span>
+                <button class="wizard-btn" @click="currentStep = 2">Next Trial &rarr;</button>
             </div>
         </div>
-    </section>
 
-    <!-- Calculator Container -->
-    <div class="calculator-container" x-data="forceCalculator()">
-        <!-- Tab Navigation -->
-        <div class="tabs">
-            <button class="tab-btn" :class="{ active: activeTab === 'calculator' }" @click="activeTab = 'calculator'">
-                <span>🧪</span>
-                <span>Test</span>
-            </button>
-            <button class="tab-btn" :class="{ active: activeTab === 'results' }" @click="activeTab = 'results'" :disabled="!hasResults">
-                <span>⭐</span>
-                <span>Results</span>
-            </button>
-            <button class="tab-btn" :class="{ active: activeTab === 'lore' }" @click="activeTab = 'lore'">
-                <span>📚</span>
-                <span>Lore</span>
-            </button>
+        <!-- Step 2: Trial of Spirit -->
+        <div x-show="currentStep === 2" x-transition:enter.duration.500ms>
+            <h2 class="wizard-step-title">Trial 2: The Trial of Spirit</h2>
+            <p class="wizard-step-subtitle">The Force requires a clear mind. Center yourself. Click the orb when it is perfectly balanced (at its largest and smallest points).</p>
+            <div class="focus-orb-container">
+                <div x-show="focusGame.active" class="focus-orb" @click="clickFocusOrb()"></div>
+            </div>
+            <p class="text-center text-muted">Score: <span x-text="focusGame.score"></span> | Clicks Remaining: <span x-text="focusGame.clicksLeft"></span></p>
+            <div class="wizard-nav">
+                <button class="wizard-btn secondary" @click="currentStep = 1">&larr; Previous Trial</button>
+                <button class="wizard-btn" @click="currentStep = 3" :disabled="focusGame.active">Next Trial &rarr;</button>
+            </div>
         </div>
 
-        <!-- Calculator Panel -->
-        <div class="calculator-panel">
-            <!-- Test Tab -->
-            <div x-show="activeTab === 'calculator'" x-transition>
-                <h2 style="text-align: center; color: var(--primary); margin-bottom: var(--space-xl);">Comprehensive Force Sensitivity Assessment</h2>
-                
-                <!-- Personal Background -->
-                <div style="background: rgba(255, 232, 31, 0.05); padding: var(--space-lg); border-radius: var(--radius-lg); margin-bottom: var(--space-xl); border: 1px solid rgba(255, 232, 31, 0.2);">
-                    <h3 style="color: var(--primary); margin-bottom: var(--space-lg);">🧬 Personal Background</h3>
-                    
-                    <div class="input-group">
-                        <label for="lineage">Force Lineage</label>
-                        <select id="lineage" x-model="lineage">
-                            <option value="random">Unknown Heritage</option>
-                            <option value="skywalker">Skywalker Bloodline</option>
-                            <option value="kenobi">Kenobi Lineage</option>
-                            <option value="palpatine">Palpatine Heritage</option>
-                            <option value="windu">Windu Tradition</option>
-                            <option value="yoda">Yoda's Species</option>
-                        </select>
-                    </div>
-
-                    <div class="input-group">
-                        <label for="training">Current Training Level</label>
-                        <select id="training" x-model="training">
-                            <option value="untrained">Force-Sensitive (Untrained)</option>
-                            <option value="padawan">Padawan Learner</option>
-                            <option value="knight">Jedi Knight</option>
-                            <option value="master">Master of the Force</option>
-                        </select>
-                    </div>
+        <!-- Step 3: Trial of Insight -->
+        <div x-show="currentStep === 3" x-transition:enter.duration.500ms>
+            <h2 class="wizard-step-title">Trial 3: The Trial of Insight</h2>
+            <p class="wizard-step-subtitle">A vision appears in the Force. What do you see? How do you interpret it?</p>
+            <div class="vision-text">"You see a locked door. Beyond it, a great power. The key is lost, but the wall is weak."</div>
+            <div class="option-grid">
+                <div class="option-card" :class="{'selected': answers.visionChoice === 'search'}" @click="answers.visionChoice = 'search'">
+                    <h4 class="font-bold">Search for the Key</h4><p class="text-sm text-muted">Patience and wisdom will reveal the proper path.</p>
                 </div>
-
-                <!-- Force Experiences -->
-                <div style="background: rgba(75, 213, 238, 0.05); padding: var(--space-lg); border-radius: var(--radius-lg); margin-bottom: var(--space-xl); border: 1px solid rgba(75, 213, 238, 0.2);">
-                    <h3 style="color: var(--secondary); margin-bottom: var(--space-lg);">⚡ Force Experiences</h3>
-                    
-                    <div class="question-group">
-                        <div class="question">How often do you experience strong intuitive feelings?</div>
-                        <div class="options" style="grid-template-columns: repeat(4, 1fr);">
-                            <div class="option" :class="{ selected: intuition === 'never' }" @click="intuition = 'never'">Never</div>
-                            <div class="option" :class="{ selected: intuition === 'rarely' }" @click="intuition = 'rarely'">Rarely</div>
-                            <div class="option" :class="{ selected: intuition === 'sometimes' }" @click="intuition = 'sometimes'">Sometimes</div>
-                            <div class="option" :class="{ selected: intuition === 'often' }" @click="intuition = 'often'">Very Often</div>
-                        </div>
-                    </div>
-
-                    <div class="question-group">
-                        <div class="question">Can you remain calm in chaos?</div>
-                        <div class="options" style="grid-template-columns: repeat(4, 1fr);">
-                            <div class="option" :class="{ selected: emotionalControl === 'never' }" @click="emotionalControl = 'never'">Never</div>
-                            <div class="option" :class="{ selected: emotionalControl === 'sometimes' }" @click="emotionalControl = 'sometimes'">Sometimes</div>
-                            <div class="option" :class="{ selected: emotionalControl === 'usually' }" @click="emotionalControl = 'usually'">Usually</div>
-                            <div class="option" :class="{ selected: emotionalControl === 'always' }" @click="emotionalControl = 'always'">Always</div>
-                        </div>
-                    </div>
-
-                    <div class="question-group">
-                        <div class="question">Do you believe in destiny?</div>
-                        <div class="options" style="grid-template-columns: repeat(4, 1fr);">
-                            <div class="option" :class="{ selected: destinyBelief === 'not' }" @click="destinyBelief = 'not'">Not at all</div>
-                            <div class="option" :class="{ selected: destinyBelief === 'somewhat' }" @click="destinyBelief = 'somewhat'">Somewhat</div>
-                            <div class="option" :class="{ selected: destinyBelief === 'strongly' }" @click="destinyBelief = 'strongly'">Strongly</div>
-                            <div class="option" :class="{ selected: destinyBelief === 'absolutely' }" @click="destinyBelief = 'absolutely'">Absolutely</div>
-                        </div>
-                    </div>
+                <div class="option-card" :class="{'selected': answers.visionChoice === 'protect'}" @click="answers.visionChoice = 'protect'">
+                    <h4 class="font-bold">Guard the Door</h4><p class="text-sm text-muted">Some power is not meant to be disturbed. Defend it.</p>
                 </div>
-
-                <div style="text-align: center; color: var(--text-muted); margin-bottom: var(--space-lg);">
-                    <p>Assessment Progress: <strong x-text="progressPercentage + '%'"></strong></p>
-                    <div style="height: 4px; background: rgba(255, 255, 255, 0.1); border-radius: 2px; margin: var(--space-sm) 0;">
-                        <div style="height: 100%; background: linear-gradient(90deg, var(--primary), var(--secondary)); border-radius: 2px; transition: width 0.3s ease;" :style="`width: ${progressPercentage}%`"></div>
-                    </div>
+                <div class="option-card" :class="{'selected': answers.visionChoice === 'convince'}" @click="answers.visionChoice = 'convince'">
+                    <h4 class="font-bold">Persuade the Lock</h4><p class="text-sm text-muted">The mind is the true key. Influence the world to your will.</p>
                 </div>
-
-                <button class="action-btn" @click="calculate()" :disabled="!isValid || isLoading" style="width: 100%;">
-                    <span x-show="!isLoading">🔮 Calculate Force Sensitivity</span>
-                    <span x-show="isLoading">Analyzing Your Force Signature...</span>
-                    <span x-show="isLoading" class="loading-spinner"></span>
+                <div class="option-card" :class="{'selected': answers.visionChoice === 'break'}" @click="answers.visionChoice = 'break'">
+                    <h4 class="font-bold">Break Down the Wall</h4><p class="text-sm text-muted">Power is for the taking. Obstacles are temporary.</p>
+                </div>
+            </div>
+            <div class="wizard-nav">
+                <button class="wizard-btn secondary" @click="currentStep = 2">&larr; Previous Trial</button>
+                <button class="wizard-btn" @click="calculate()" :disabled="!answers.visionChoice || isLoading">
+                    <span x-show="!isLoading">Reveal My Path &rarr;</span>
+                    <span x-show="isLoading">The Force is Revealing...</span>
                 </button>
             </div>
+        </div>
 
-            <!-- Results Tab -->
-            <div x-show="activeTab === 'results'" x-transition>
-                <div class="results-container" x-show="hasResults">
-                    <!-- Midichlorian Display -->
-                    <div style="grid-column: 1 / -1; background: rgba(255, 232, 31, 0.05); border-radius: var(--radius-xl); padding: var(--space-xl); text-align: center; border: 1px solid rgba(255, 232, 31, 0.2);">
-                        <h2>Your Midichlorian Count</h2>
-                        <div class="count-animation" x-text="midichlorianCount + ' mc/μL'"></div>
-                        <p x-text="countDescription"></p>
-                    </div>
-
-                    <!-- Force Potential -->
-                    <div style="background: rgba(75, 213, 238, 0.05); border-radius: var(--radius-xl); padding: var(--space-xl); border: 1px solid rgba(75, 213, 238, 0.2);">
-                        <h3>Force Potential</h3>
-                        <h4 style="color: var(--secondary); margin-bottom: var(--space-md);" x-text="forcePotential.title"></h4>
-                        <div class="potential-meter">
-                            <div class="potential-fill" :style="`--meter-width: ${potentialPercentage}%;`"></div>
-                        </div>
-                        <p x-text="forcePotential.description"></p>
-                    </div>
-
-                    <!-- Force Alignment -->
-                    <div style="background: rgba(255, 255, 255, 0.05); border-radius: var(--radius-xl); padding: var(--space-xl); border: 1px solid rgba(255, 255, 255, 0.1);">
-                        <h3 style="color: var(--text); margin-bottom: var(--space-lg);">Force Alignment</h3>
-                        <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-sm); font-size: 0.9rem; opacity: 0.8;">
-                            <span>🔴 Dark Side</span>
-                            <span>⚖️ Balanced</span>
-                            <span>🔵 Light Side</span>
-                        </div>
-                        <div style="position: relative; height: 60px; background: linear-gradient(90deg, var(--accent), rgba(255, 255, 255, 0.2), var(--secondary)); border-radius: 30px; margin: var(--space-lg) 0;">
-                            <div style="position: absolute; width: 40px; height: 40px; background: var(--primary); border-radius: 50%; top: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; transition: left 1s ease-out; box-shadow: var(--glow-primary);" :style="`left: calc(${alignment}% - 20px)`">⭐</div>
-                        </div>
-                        <p style="text-align: center; font-weight: 600;" x-text="alignmentText"></p>
-                    </div>
-
-                    <!-- Character Comparison -->
-                    <div style="grid-column: 1 / -1; background: rgba(255, 255, 255, 0.05); border-radius: var(--radius-xl); padding: var(--space-xl); border: 1px solid rgba(255, 255, 255, 0.1); margin-top: var(--space-xl);">
-                        <h3 style="text-align: center; color: var(--primary); margin-bottom: var(--space-xl);">How You Rank Among Force Users</h3>
-                        <div class="character-grid">
-                            <template x-for="character in characters" :key="character.name">
-                                <div class="character-card" :class="{ highlighted: character.isPlayer }">
-                                    <div class="character-name" x-text="character.name"></div>
-                                    <div class="character-count" x-text="character.count + ' mc/μL'"></div>
-                                    <div class="character-description" x-text="character.description"></div>
-                                </div>
-                            </template>
-                        </div>
-                    </div>
-
-                    <!-- Action Buttons -->
-                    <div style="grid-column: 1 / -1; display: flex; gap: var(--space-lg); justify-content: center; flex-wrap: wrap; margin-top: var(--space-xl);">
-                        <button class="action-btn">
-                            <span>📊</span>
-                            <span>Download Report</span>
-                        </button>
-                        <button class="action-btn accent" @click="resetTest()">
-                            <span>🔄</span>
-                            <span>Retake Test</span>
-                        </button>
-                    </div>
-
-                    <!-- Share Button -->
-                    <div style="grid-column: 1 / -1; margin-top: var(--space-xl);">
-                        <div class="share-dropdown">
-                            <button class="share-button" @click="toggleShareMenu()">
-                                <span>⭐</span>
-                                <span>Share Force Analysis</span>
-                            </button>
-                            <div class="share-menu" :class="{ active: showShareMenu }">
-                                <a class="share-option" @click="shareGeneral()" href="#" @click.prevent>
-                                    <span class="share-icon">📱</span>
-                                    <span>Share with Image</span>
-                                </a>
-                                <a class="share-option" @click="shareOnTwitter()" href="#" @click.prevent>
-                                    <span class="share-icon">🐦</span>
-                                    <span>Share on Twitter</span>
-                                </a>
-                                <a class="share-option" @click="shareOnFacebook()" href="#" @click.prevent>
-                                    <span class="share-icon">📘</span>
-                                    <span>Share on Facebook</span>
-                                </a>
-                                <a class="share-option" @click="shareOnLinkedIn()" href="#" @click.prevent>
-                                    <span class="share-icon">💼</span>
-                                    <span>Share on LinkedIn</span>
-                                </a>
-                                <a class="share-option" @click="shareOnReddit()" href="#" @click.prevent>
-                                    <span class="share-icon">🤖</span>
-                                    <span>Share on Reddit</span>
-                                </a>
-                                <a class="share-option" @click="copyShareLink()" href="#" @click.prevent>
-                                    <span class="share-icon">🔗</span>
-                                    <span>Copy Link</span>
-                                </a>
-                                <a class="share-option" @click="downloadImage()" href="#" @click.prevent>
-                                    <span class="share-icon">💾</span>
-                                    <span>Download Image</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+        <!-- Step 4: Results Holocron -->
+        <div x-show="currentStep === 4" x-transition:enter.duration.500ms>
+            <h2 class="wizard-step-title">Holocron Analysis</h2>
+            <p class="wizard-step-subtitle">The will of the Force is revealed. This is your potential.</p>
+            <div class="results-grid">
+                <div class="text-center">
+                    <h3 class="text-lg text-muted">Midichlorian Count</h3>
+                    <div class="count-display" x-text="results.midichlorianCount.toLocaleString()"></div>
+                    <p class="font-bold text-yellow-400" x-text="results.title"></p>
+                </div>
+                <div class="text-center">
+                    <h3 class="text-lg text-muted">Force Alignment</h3>
+                    <div class="alignment-meter mt-8"><div class="alignment-marker" :style="`left: ${results.alignment}%`"></div></div>
+                    <div class="flex justify-between text-xs mt-2 px-2"><span class="text-red-400">Dark</span><span class="text-gray-400">Balanced</span><span class="text-blue-400">Light</span></div>
+                    <p class="font-bold text-yellow-400 mt-4" x-text="results.alignmentText"></p>
+                </div>
+                <div class="col-span-1 md:col-span-2">
+                     <h3 class="text-lg text-center text-muted mb-4">Force Affinity Profile</h3>
+                     <div style="height: 300px;"><canvas id="affinityChart"></canvas></div>
                 </div>
             </div>
-
-            <!-- Lore Tab -->
-            <div x-show="activeTab === 'lore'" x-transition>
-                <div style="max-width: 800px; margin: 0 auto;">
-                    <h2 style="text-align: center; color: var(--primary); margin-bottom: var(--space-xl);">The Science of the Force</h2>
-                    
-                    <div style="background: rgba(255, 232, 31, 0.05); padding: var(--space-xl); border-radius: var(--radius-lg); margin-bottom: var(--space-xl); border: 1px solid rgba(255, 232, 31, 0.2);">
-                        <h3 style="color: var(--primary); margin-bottom: var(--space-md);">🔬 What are Midichlorians?</h3>
-                        <p style="line-height: 1.6; margin-bottom: var(--space-md);">
-                            Midichlorians are microscopic life forms that reside within the cells of all living beings. 
-                            They are the conduit between the living Force and the cosmic Force, allowing Force-sensitive 
-                            individuals to access and manipulate the energy field that binds the galaxy together.
-                        </p>
-                        <p style="line-height: 1.6;">
-                            The higher your midichlorian count, the stronger your potential connection to the Force. 
-                            However, raw power means nothing without proper training and wisdom.
-                        </p>
-                    </div>
-
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg); margin-bottom: var(--space-xl);">
-                        <div style="background: rgba(75, 213, 238, 0.05); padding: var(--space-lg); border-radius: var(--radius-lg); border: 1px solid rgba(75, 213, 238, 0.2);">
-                            <h4 style="color: var(--secondary); margin-bottom: var(--space-md);">🌟 Light Side Philosophy</h4>
-                            <p style="font-size: 0.9rem; line-height: 1.5;">
-                                The Jedi seek balance, peace, and harmony. They use the Force for knowledge and defense, 
-                                never for attack. Emotion leads to the dark side - serenity and wisdom guide the Light.
-                            </p>
-                        </div>
-                        <div style="background: rgba(255, 0, 0, 0.05); padding: var(--space-lg); border-radius: var(--radius-lg); border: 1px solid rgba(255, 0, 0, 0.2);">
-                            <h4 style="color: var(--accent); margin-bottom: var(--space-md);">⚡ Dark Side Philosophy</h4>
-                            <p style="font-size: 0.9rem; line-height: 1.5;">
-                                The Sith embrace passion and emotion as sources of power. Through strength and victory, 
-                                they break their chains. The Dark Side offers quick power but demands a terrible price.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div style="background: rgba(255, 255, 255, 0.05); padding: var(--space-xl); border-radius: var(--radius-lg); border: 1px solid rgba(255, 255, 255, 0.1);">
-                        <h3 style="color: var(--text); margin-bottom: var(--space-lg);">📊 Force Sensitivity Scale</h3>
-                        <div style="display: grid; gap: var(--space-md);">
-                            <div style="display: flex; justify-content: space-between; align-items: center; padding: var(--space-sm); background: rgba(255, 255, 255, 0.03); border-radius: var(--radius-sm);">
-                                <span>Basic Sensitivity</span>
-                                <span style="color: var(--text-muted);">2,500 - 5,000 mc/μL</span>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; align-items: center; padding: var(--space-sm); background: rgba(255, 255, 255, 0.03); border-radius: var(--radius-sm);">
-                                <span>Padawan Level</span>
-                                <span style="color: var(--secondary);">5,000 - 10,000 mc/μL</span>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; align-items: center; padding: var(--space-sm); background: rgba(255, 255, 255, 0.03); border-radius: var(--radius-sm);">
-                                <span>Knight Level</span>
-                                <span style="color: var(--primary);">10,000 - 15,000 mc/μL</span>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; align-items: center; padding: var(--space-sm); background: rgba(255, 255, 255, 0.03); border-radius: var(--radius-sm);">
-                                <span>Master Level</span>
-                                <span style="color: var(--primary);">15,000 - 20,000 mc/μL</span>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; align-items: center; padding: var(--space-sm); background: rgba(255, 232, 31, 0.1); border-radius: var(--radius-sm); border: 1px solid rgba(255, 232, 31, 0.3);">
-                                <span><strong>Chosen One Level</strong></span>
-                                <span style="color: var(--primary);"><strong>20,000+ mc/μL</strong></span>
-                            </div>
-                        </div>
-                    </div>
+            <div class="wizard-nav">
+                <button class="wizard-btn secondary" @click="resetTest()"><i class="fas fa-sync-alt"></i> Retake Trials</button>
+                <button class="wizard-btn" @click="showShareModal = true"><i class="fas fa-share-alt"></i> Share Analysis</button>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Share Modal and Canvas -->
+    <div x-show="showShareModal" x-cloak class="modal-overlay" @click.self="showShareModal = false" style="display: none;">
+        <div class="modal-content" @click.stop>
+            <div class="modal-header"><h2 class="modal-title">⭐ Transmit Force ID</h2><button class="modal-close" @click="showShareModal = false">×</button></div>
+            <div class="modal-body">
+                <div class="share-modal-grid">
+                    <button class="share-modal-button" @click="shareGeneral(); showShareModal = false"><span class="share-modal-icon">📱</span> Share ID Card </button>
+                    <button class="share-modal-button" @click="copyShareLink(); showShareModal = false"><span class="share-modal-icon">🔗</span> Copy Link </button>
+                    <button class="share-modal-button" @click="downloadImage(); showShareModal = false"><span class="share-modal-icon">💾</span> Download ID Card </button>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- Hidden canvas for generating share images -->
-    <canvas id="shareCanvas" width="1200" height="630"></canvas>
+    <canvas id="shareCanvas" width="1200" height="630" style="display: none;"></canvas>
 
     <script>
-        // Mobile Navigation
-        document.addEventListener('DOMContentLoaded', function() {
-            const navToggle = document.querySelector('.nav-toggle');
-            const navLinks = document.querySelector('.nav-links');
-
-            navToggle.addEventListener('click', function() {
-                navLinks.classList.toggle('active');
-                this.classList.toggle('active');
-            });
-
-            document.addEventListener('click', function(event) {
-                if (!event.target.closest('.nav-container')) {
-                    navLinks.classList.remove('active');
-                    navToggle.classList.remove('active');
-                }
-                
-                // Close share menu when clicking outside
-                if (!event.target.closest('.share-dropdown')) {
-                    const shareMenus = document.querySelectorAll('.share-menu');
-                    shareMenus.forEach(menu => menu.classList.remove('active'));
-                }
-            });
-        });
-
-        // Force Calculator
         function forceCalculator() {
             return {
-                activeTab: 'calculator',
-                lineage: 'random',
-                training: 'untrained',
-                intuition: '',
-                emotionalControl: '',
-                destinyBelief: '',
-                midichlorianCount: 0,
-                forcePotential: { title: '', description: '' },
-                alignment: 50,
-                isLoading: false,
-                hasResults: false,
-                showShareMenu: false,
-
-                get progressPercentage() {
-                    const fields = [
-                        this.lineage !== 'random',
-                        this.training !== 'untrained',
-                        !!this.intuition,
-                        !!this.emotionalControl,
-                        !!this.destinyBelief
-                    ];
-                    const completed = fields.filter(Boolean).length;
-                    return Math.round((completed / fields.length) * 100);
+                currentStep: 1, isLoading: false, hasResults: false, showShareModal: false, chartInstance: null,
+                answers: { lineage: 'unknown', focusScore: 0, visionChoice: '' },
+                focusGame: { active: false, score: 0, clicksLeft: 5, pulseInterval: null, orb: null },
+                results: { midichlorianCount: 0, title: '', alignment: 50, alignmentText: '', aspects: { control: 0, sense: 0, alter: 0 } },
+                
+                init() {
+                    this.$watch('currentStep', (step) => {
+                        if (step === 2 && !this.focusGame.pulseInterval) this.startFocusTrial();
+                        else if (step !== 2) this.stopFocusTrial();
+                    });
+                },
+                
+                startFocusTrial() {
+                    this.focusGame = { active: true, score: 0, clicksLeft: 5, pulseInterval: null, orb: document.querySelector('.focus-orb') };
+                    this.focusGame.pulseInterval = setInterval(() => {
+                        // The animation is CSS-driven, this interval is just for timing checks
+                    }, 100);
                 },
 
-                get isValid() {
-                    return this.intuition && this.emotionalControl && this.destinyBelief;
+                stopFocusTrial() {
+                    clearInterval(this.focusGame.pulseInterval);
+                    this.focusGame.pulseInterval = null;
                 },
 
-                get countDescription() {
-                    if (this.midichlorianCount > 20000) {
-                        return "Extraordinary! Your count rivals the legendary Chosen One.";
-                    } else if (this.midichlorianCount > 15000) {
-                        return "Exceptional Force sensitivity - Master level potential.";
-                    } else if (this.midichlorianCount > 10000) {
-                        return "Strong Force connection - Knight level abilities.";
-                    } else if (this.midichlorianCount > 5000) {
-                        return "Good Force sensitivity - Padawan level potential.";
-                    } else {
-                        return "Basic Force awareness - training will unlock your potential.";
+                clickFocusOrb() {
+                    if (!this.focusGame.active) return;
+                    
+                    const scale = getComputedStyle(this.focusGame.orb).transform.split(',')[3].trim();
+                    const scaleValue = parseFloat(scale);
+
+                    let points = 0;
+                    if (scaleValue > 0.98 || scaleValue < 0.62) points = 100; // Perfect click
+                    else if (scaleValue > 0.9 || scaleValue < 0.7) points = 50;
+                    else points = 10;
+                    
+                    this.focusGame.score += points;
+                    this.focusGame.clicksLeft--;
+
+                    if (this.focusGame.clicksLeft <= 0) {
+                        this.focusGame.active = false;
+                        this.stopFocusTrial();
+                        this.answers.focusScore = this.focusGame.score;
                     }
-                },
-
-                get potentialPercentage() {
-                    return Math.min(100, (this.midichlorianCount / 30000) * 100);
-                },
-
-                get alignmentText() {
-                    if (this.alignment > 75) {
-                        return "Strong connection to the Light Side";
-                    } else if (this.alignment > 60) {
-                        return "Leaning towards the Light Side";
-                    } else if (this.alignment > 40) {
-                        return "Balanced in the Force";
-                    } else if (this.alignment > 25) {
-                        return "Leaning towards the Dark Side";
-                    } else {
-                        return "Strong connection to the Dark Side";
-                    }
-                },
-
-                get characters() {
-                    const baseCharacters = [
-                        { name: "Luke Skywalker", count: 14500, description: "The legendary Jedi who restored balance", isPlayer: false },
-                        { name: "Obi-Wan Kenobi", count: 13400, description: "Master of defensive lightsaber combat", isPlayer: false },
-                        { name: "Yoda", count: 17700, description: "Grand Master of the Jedi Order", isPlayer: false },
-                        { name: "Anakin Skywalker", count: 27700, description: "The Chosen One", isPlayer: false },
-                        { name: "Emperor Palpatine", count: 20500, description: "Dark Lord of the Sith", isPlayer: false },
-                        { name: "Mace Windu", count: 16800, description: "Master of Vaapad lightsaber form", isPlayer: false }
-                    ];
-
-                    if (this.hasResults) {
-                        const playerCharacter = {
-                            name: "You",
-                            count: this.midichlorianCount,
-                            description: "Your Force potential",
-                            isPlayer: true
-                        };
-                        return [...baseCharacters, playerCharacter].sort((a, b) => b.count - a.count);
-                    }
-
-                    return baseCharacters;
                 },
 
                 calculate() {
                     this.isLoading = true;
-
+                    this.stopFocusTrial();
+                    
                     setTimeout(() => {
-                        // Enhanced calculation
-                        let count = 3000 + Math.random() * 2000;
+                        let baseCount = 2500;
+                        let alignment = 50; // Start at balanced
 
-                        // Lineage modifiers
-                        const lineageModifiers = {
-                            skywalker: 2.2,
-                            kenobi: 1.8,
-                            palpatine: 2.0,
-                            windu: 1.6,
-                            yoda: 1.9,
-                            random: 1.0
-                        };
-
-                        // Training modifiers
-                        const trainingModifiers = {
-                            untrained: 1.0,
-                            padawan: 1.4,
-                            knight: 1.8,
-                            master: 2.2
-                        };
-
-                        // Experience modifiers
-                        const intuitionModifiers = {
-                            never: 0.7,
-                            rarely: 0.9,
-                            sometimes: 1.1,
-                            often: 1.4
-                        };
-
-                        const emotionalModifiers = {
-                            never: 0.8,
-                            sometimes: 1.0,
-                            usually: 1.2,
-                            always: 1.4
-                        };
-
-                        const destinyModifiers = {
-                            not: 0.9,
-                            somewhat: 1.0,
-                            strongly: 1.2,
-                            absolutely: 1.3
-                        };
-
-                        // Apply modifiers
-                        count *= lineageModifiers[this.lineage] || 1.0;
-                        count *= trainingModifiers[this.training] || 1.0;
-                        count *= intuitionModifiers[this.intuition] || 1.0;
-                        count *= emotionalModifiers[this.emotionalControl] || 1.0;
-                        count *= destinyModifiers[this.destinyBelief] || 1.0;
-
-                        this.midichlorianCount = Math.round(count / 100) * 100;
-
-                        // Set potential
-                        if (this.midichlorianCount > 20000) {
-                            this.forcePotential = {
-                                title: "The Chosen One",
-                                description: "Your midichlorian count is legendary! The prophecies speak of one such as you."
-                            };
-                        } else if (this.midichlorianCount > 15000) {
-                            this.forcePotential = {
-                                title: "Jedi Master",
-                                description: "You possess the potential to become a powerful Jedi Master, capable of advanced Force techniques."
-                            };
-                        } else if (this.midichlorianCount > 10000) {
-                            this.forcePotential = {
-                                title: "Jedi Knight",
-                                description: "Strong Force sensitivity flows through you. With proper training, you could become a respected Knight."
-                            };
-                        } else if (this.midichlorianCount > 5000) {
-                            this.forcePotential = {
-                                title: "Padawan Learner",
-                                description: "You have a good connection to the Force. Under guidance, you could develop significant abilities."
-                            };
-                        } else {
-                            this.forcePotential = {
-                                title: "Force Sensitive",
-                                description: "You have a basic connection to the Force. With dedication, you can unlock your potential."
-                            };
-                        }
-
-                        // Calculate alignment
-                        this.alignment = 50;
-                        if (this.emotionalControl === 'always') this.alignment += 20;
-                        if (this.emotionalControl === 'never') this.alignment -= 20;
-                        if (this.lineage === 'palpatine') this.alignment -= 15;
-                        if (this.lineage === 'kenobi') this.alignment += 15;
-                        if (this.destinyBelief === 'absolutely') this.alignment += 10;
+                        // Lineage
+                        const lineageMods = { unknown: 1.0, skywalker: 1.8, kenobi: 1.4, palpatine: 1.6, yoda: 1.5 };
+                        baseCount *= lineageMods[this.answers.lineage];
+                        if (this.answers.lineage === 'palpatine') alignment -= 15;
+                        if (this.answers.lineage === 'kenobi') alignment += 10;
+                        if (this.answers.lineage === 'skywalker') alignment = 50; // inherently balanced/conflicted
                         
-                        this.alignment = Math.max(0, Math.min(100, this.alignment));
+                        // Focus Trial
+                        baseCount += this.answers.focusScore * 20; // Max 10,000
+                        alignment += (this.answers.focusScore - 250) / 25; // Good score pushes to light
+                        
+                        // Vision Quest
+                        const visionMods = {
+                            search: { count: 1.1, align: 10, aspects: { control: 1, sense: 3, alter: 1 } },
+                            protect: { count: 1.0, align: 20, aspects: { control: 3, sense: 2, alter: 0 } },
+                            convince: { count: 1.2, align: -10, aspects: { control: 1, sense: 2, alter: 3 } },
+                            break: { count: 1.4, align: -25, aspects: { control: 2, sense: 1, alter: 4 } }
+                        };
+                        const vision = visionMods[this.answers.visionChoice];
+                        baseCount *= vision.count;
+                        alignment += vision.align;
 
-                        this.hasResults = true;
+                        // Finalize
+                        this.results.midichlorianCount = Math.round(baseCount);
+                        this.results.alignment = Math.max(5, Math.min(95, Math.round(alignment)));
+                        
+                        // Set Title & Alignment Text
+                        if (this.results.midichlorianCount > 20000) this.results.title = 'The Chosen One';
+                        else if (this.results.midichlorianCount > 15000) this.results.title = 'Jedi Master Potential';
+                        else if (this.results.midichlorianCount > 10000) this.results.title = 'Jedi Knight Potential';
+                        else this.results.title = 'Force-Sensitive';
+
+                        if (this.results.alignment > 70) this.results.alignmentText = 'Paragon of the Light';
+                        else if (this.results.alignment > 55) this.results.alignmentText = 'Light Side Adherent';
+                        else if (this.results.alignment < 30) this.results.alignmentText = 'Embracing the Darkness';
+                        else if (this.results.alignment < 45) this.results.alignmentText = 'Dark Side Tendencies';
+                        else this.results.alignmentText = 'Centered in Balance';
+                        
+                        // Calculate Aspects for Radar Chart
+                        let aspects = {
+                            control: this.answers.focusScore / 5, // Max 100
+                            sense: (this.answers.lineage === 'kenobi' ? 30 : 0) + (this.answers.lineage === 'yoda' ? 20 : 0),
+                            alter: (this.answers.lineage === 'skywalker' ? 20 : 0) + (this.answers.lineage === 'palpatine' ? 30 : 0)
+                        };
+                        aspects.control += vision.aspects.control * 10;
+                        aspects.sense += vision.aspects.sense * 20;
+                        aspects.alter += vision.aspects.alter * 15;
+                        this.results.aspects = {
+                            control: Math.min(100, Math.round(aspects.control)),
+                            sense: Math.min(100, Math.round(aspects.sense)),
+                            alter: Math.min(100, Math.round(aspects.alter))
+                        };
+
                         this.isLoading = false;
-                        this.activeTab = 'results';
-                    }, 2000);
+                        this.hasResults = true;
+                        this.currentStep = 4;
+                        this.$nextTick(() => this.initRadarChart());
+                    }, 1500);
+                },
+
+                initRadarChart() {
+                    if (this.chartInstance) this.chartInstance.destroy();
+                    const ctx = document.getElementById('affinityChart').getContext('2d');
+                    this.chartInstance = new Chart(ctx, {
+                        type: 'radar',
+                        data: {
+                            labels: ['Control (Self)', 'Sense (Perception)', 'Alter (Influence)'],
+                            datasets: [{
+                                label: 'Force Affinity',
+                                data: [this.results.aspects.control, this.results.aspects.sense, this.results.aspects.alter],
+                                backgroundColor: 'rgba(75, 213, 238, 0.2)',
+                                borderColor: 'rgba(75, 213, 238, 1)',
+                                borderWidth: 2,
+                                pointBackgroundColor: '#FFE81F'
+                            }]
+                        },
+                        options: {
+                            maintainAspectRatio: false,
+                            scales: { r: { angleLines: { color: 'rgba(255, 255, 255, 0.2)' }, grid: { color: 'rgba(255, 255, 255, 0.2)' }, pointLabels: { color: '#EAEAEA', font: { size: 14 } }, ticks: { display: false, beginAtZero: true, max: 100 } } },
+                            plugins: { legend: { display: false } }
+                        }
+                    });
                 },
 
                 resetTest() {
-                    this.activeTab = 'calculator';
-                    this.lineage = 'random';
-                    this.training = 'untrained';
-                    this.intuition = '';
-                    this.emotionalControl = '';
-                    this.destinyBelief = '';
-                    this.hasResults = false;
-                    this.midichlorianCount = 0;
-                    this.alignment = 50;
-                },
-
-                toggleShareMenu() {
-                    this.showShareMenu = !this.showShareMenu;
-                },
-
-                generateShareText() {
-                    return `⭐ Force Sensitivity Test: ${this.midichlorianCount} mc/μL midichlorians! ${this.forcePotential.title} level 🌟 Test yours at docket.one`;
+                    this.currentStep = 1; this.hasResults = false;
+                    this.answers = { lineage: 'unknown', focusScore: 0, visionChoice: '' };
+                    this.focusGame.score = 0; this.focusGame.clicksLeft = 5;
                 },
 
                 generateShareImage() {
-                    try {
-                        const canvas = document.getElementById('shareCanvas');
-                        const ctx = canvas.getContext('2d');
-                        
-                        canvas.width = 1200;
-                        canvas.height = 630;
-                        
-                        // Gradient background
-                        const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-                        gradient.addColorStop(0, '#000000');
-                        gradient.addColorStop(0.3, '#111111');
-                        gradient.addColorStop(0.7, '#111111');
-                        gradient.addColorStop(1, '#000000');
-                        ctx.fillStyle = gradient;
-                        ctx.fillRect(0, 0, canvas.width, canvas.height);
-                        
-                        // Stars
-                        ctx.fillStyle = '#ffffff';
-                        for (let i = 0; i < 200; i++) {
-                            const x = Math.random() * canvas.width;
-                            const y = Math.random() * canvas.height;
-                            const size = Math.random() * 2 + 0.5;
-                            ctx.beginPath();
-                            ctx.arc(x, y, size, 0, 2 * Math.PI);
-                            ctx.fill();
-                        }
-                        
-                        // Title
-                        ctx.fillStyle = '#FFE81F';
-                        ctx.font = 'bold 42px Inter, sans-serif';
-                        ctx.textAlign = 'center';
-                        ctx.fillText('FORCE SENSITIVITY TEST RESULTS', canvas.width / 2, 80);
-                        
-                        // Main result
-                        ctx.fillStyle = '#4BD5EE';
-                        ctx.font = 'bold 64px Inter, sans-serif';
-                        ctx.fillText(`${this.midichlorianCount} mc/μL`, canvas.width / 2, 180);
-                        
-                        // Potential level
-                        ctx.fillStyle = '#FFE81F';
-                        ctx.font = 'bold 32px Inter, sans-serif';
-                        ctx.fillText(this.forcePotential.title, canvas.width / 2, 240);
-                        
-                        // Left Column
-                        const leftX = 200;
-                        ctx.fillStyle = '#FFFFFF';
-                        ctx.font = 'bold 24px Inter, sans-serif';
-                        ctx.textAlign = 'left';
-                        ctx.fillText('⭐ FORCE POTENTIAL', leftX, 320);
-                        ctx.fillText(`${this.potentialPercentage.toFixed(0)}%`, leftX, 350);
-                        
-                        ctx.fillText('⚖️ FORCE ALIGNMENT', leftX, 410);
-                        ctx.fillText(this.alignmentText, leftX, 440);
-                        
-                        ctx.fillText('🧬 LINEAGE', leftX, 500);
-                        ctx.fillText(this.lineage.charAt(0).toUpperCase() + this.lineage.slice(1), leftX, 530);
-                        
-                        // Right Column - Character comparison
-                        const rightX = 700;
-                        ctx.fillText('📊 RANK COMPARISON', rightX, 320);
-                        ctx.font = '20px Inter, sans-serif';
-                        
-                        let yPos = 350;
-                        const topCharacters = this.characters.slice(0, 4);
-                        topCharacters.forEach(char => {
-                            if (char.isPlayer) {
-                                ctx.fillStyle = '#FFE81F';
-                            } else {
-                                ctx.fillStyle = '#CCCCCC';
-                            }
-                            ctx.fillText(`${char.name}: ${char.count}`, rightX, yPos);
-                            yPos += 30;
-                        });
-                        
-                        // Footer
-                        ctx.fillStyle = '#FFE81F';
-                        ctx.font = '20px Inter, sans-serif';
-                        ctx.textAlign = 'center';
-                        ctx.fillText('docket.one/pages/GeekGalaxy/Force%20Sensitivity%20Test', canvas.width / 2, 590);
-                        
-                        return canvas.toDataURL('image/png');
-                    } catch (error) {
-                        console.warn('Canvas image generation failed:', error);
-                        return null;
-                    }
-                },
-
-                async shareGeneral() {
-                    const text = this.generateShareText();
-                    const calculatorUrl = 'https://docket.one/pages/GeekGalaxy/Force%20Sensitivity%20Test.html';
+                    const canvas = document.getElementById('shareCanvas'); const ctx = canvas.getContext('2d');
+                    ctx.fillStyle = '#000000'; ctx.fillRect(0, 0, 1200, 630);
+                    ctx.textAlign = 'center'; ctx.fillStyle = '#FFE81F'; ctx.font = "bold 48px 'Orbitron', sans-serif";
+                    ctx.fillText('FORCE SENSITIVITY ANALYSIS', 600, 80);
                     
-                    // Check if we're running locally
-                    const isLocal = window.location.protocol === 'file:';
+                    ctx.fillStyle = '#4BD5EE'; ctx.font = "bold 120px 'Orbitron', sans-serif";
+                    ctx.fillText(this.results.midichlorianCount.toLocaleString(), 600, 220);
+                    ctx.fillStyle = '#EAEAEA'; ctx.font = "32px 'Inter', sans-serif";
+                    ctx.fillText('MIDICHLORIANS PER CELL', 600, 270);
+
+                    ctx.fillStyle = '#FFE81F'; ctx.font = "bold 40px 'Orbitron', sans-serif";
+                    ctx.fillText(this.results.title.toUpperCase(), 600, 350);
+
+                    ctx.textAlign = 'left'; ctx.font = "bold 28px 'Inter', sans-serif";
+                    ctx.fillStyle = '#EAEAEA';
+                    ctx.fillText(`CONTROL: ${this.results.aspects.control}%`, 150, 450);
+                    ctx.fillText(`SENSE: ${this.results.aspects.sense}%`, 150, 500);
+                    ctx.fillText(`ALTER: ${this.results.aspects.alter}%`, 150, 550);
+
+                    ctx.textAlign = 'right';
+                    ctx.fillText(`ALIGNMENT: ${this.results.alignmentText.toUpperCase()}`, 1050, 450);
+                    ctx.fillText(`LINEAGE: ${this.answers.lineage.toUpperCase()}`, 1050, 500);
                     
-                    if (isLocal) {
-                        // For local files, just copy text and download image
-                        try {
-                            if (navigator.clipboard && navigator.clipboard.writeText) {
-                                await navigator.clipboard.writeText(`${text} ${calculatorUrl}`);
-                                alert('✅ Share text copied to clipboard!\n\nImage will download separately.');
-                            } else {
-                                // Fallback for older browsers
-                                const textArea = document.createElement('textarea');
-                                textArea.value = `${text} ${calculatorUrl}`;
-                                document.body.appendChild(textArea);
-                                textArea.select();
-                                document.execCommand('copy');
-                                document.body.removeChild(textArea);
-                                alert('✅ Share text copied to clipboard!\n\nImage will download separately.');
-                            }
-                            this.downloadImage();
-                        } catch (err) {
-                            console.warn('Clipboard failed, downloading image only:', err);
-                            this.downloadImage();
-                            alert('📥 Image downloaded! Share text:\n\n' + text + '\n\n' + calculatorUrl);
-                        }
-                        this.showShareMenu = false;
-                        return;
-                    }
-                    
-                    // Web Share API for mobile (HTTPS only)
-                    if (navigator.share) {
-                        try {
-                            const imageDataUrl = this.generateShareImage();
-                            if (imageDataUrl) {
-                                const response = await fetch(imageDataUrl);
-                                const blob = await response.blob();
-                                const file = new File([blob], `force-test-${Date.now()}.png`, { type: 'image/png' });
-                                
-                                if (navigator.canShare && navigator.canShare({ files: [file] })) {
-                                    await navigator.share({
-                                        title: 'Force Sensitivity Test - Results',
-                                        text: text,
-                                        url: calculatorUrl,
-                                        files: [file]
-                                    });
-                                } else {
-                                    await navigator.share({
-                                        title: 'Force Sensitivity Test',
-                                        text: text,
-                                        url: calculatorUrl
-                                    });
-                                }
-                            } else {
-                                await navigator.share({
-                                    title: 'Force Sensitivity Test',
-                                    text: text,
-                                    url: calculatorUrl
-                                });
-                            }
-                            this.showShareMenu = false;
-                            return;
-                        } catch (err) {
-                            if (err.name !== 'AbortError') {
-                                console.log('Web Share API failed:', err);
-                            } else {
-                                this.showShareMenu = false;
-                                return;
-                            }
-                        }
-                    }
-                    
-                    // Fallback for desktop
-                    try {
-                        await navigator.clipboard.writeText(`${text} ${calculatorUrl}`);
-                        alert('✅ Results copied to clipboard!\n\nThe image has been downloaded for you to attach.');
-                        this.downloadImage();
-                    } catch (err) {
-                        console.error('Clipboard failed:', err);
-                        this.downloadImage();
-                        alert('📥 Image downloaded! Share text:\n\n' + text + '\n\n' + calculatorUrl);
-                    }
-                    this.showShareMenu = false;
+                    ctx.textAlign = 'center'; ctx.font = "24px 'Orbitron', sans-serif"; ctx.fillStyle = '#4A90E2';
+                    ctx.fillText('docket.one/pages/GeekGalaxy/', 600, 600);
+                    return canvas.toDataURL('image/png');
                 },
-
-                async shareOnTwitter() {
-                    const text = this.generateShareText();
-                    const calculatorUrl = 'https://docket.one/pages/GeekGalaxy/Force%20Sensitivity%20Test.html';
-                    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(calculatorUrl)}`;
-                    window.open(twitterUrl, '_blank');
-                    this.showShareMenu = false;
-                },
-
-                async shareOnFacebook() {
-                    const calculatorUrl = 'https://docket.one/pages/GeekGalaxy/Force%20Sensitivity%20Test.html';
-                    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(calculatorUrl)}`;
-                    window.open(facebookUrl, '_blank');
-                    this.showShareMenu = false;
-                },
-
-                async shareOnLinkedIn() {
-                    const calculatorUrl = 'https://docket.one/pages/GeekGalaxy/Force%20Sensitivity%20Test.html';
-                    const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(calculatorUrl)}`;
-                    window.open(linkedInUrl, '_blank');
-                    this.showShareMenu = false;
-                },
-
-                async shareOnReddit() {
-                    const text = this.generateShareText();
-                    const calculatorUrl = 'https://docket.one/pages/GeekGalaxy/Force%20Sensitivity%20Test.html';
-                    const redditUrl = `https://reddit.com/submit?url=${encodeURIComponent(calculatorUrl)}&title=${encodeURIComponent(text)}`;
-                    window.open(redditUrl, '_blank');
-                    this.showShareMenu = false;
-                },
-
-                async copyShareLink() {
-                    const calculatorUrl = 'https://docket.one/pages/GeekGalaxy/Force%20Sensitivity%20Test.html';
-                    try {
-                        await navigator.clipboard.writeText(calculatorUrl);
-                        const button = document.querySelector('.share-button');
-                        const originalText = button.innerHTML;
-                        button.innerHTML = '<span>✅</span><span>Link Copied!</span>';
-                        setTimeout(() => {
-                            button.innerHTML = originalText;
-                        }, 2000);
-                    } catch (err) {
-                        console.error('Failed to copy link:', err);
-                    }
-                    this.showShareMenu = false;
-                },
-
-                downloadImage() {
-                    try {
-                        const imageDataUrl = this.generateShareImage();
-                        if (imageDataUrl) {
-                            const link = document.createElement('a');
-                            link.download = `force-test-${Date.now()}.png`;
-                            link.href = imageDataUrl;
-                            document.body.appendChild(link);
-                            link.click();
-                            document.body.removeChild(link);
-                        } else {
-                            alert('⚠️ Image generation failed. Sharing text only.');
-                        }
-                    } catch (error) {
-                        console.error('Download failed:', error);
-                        alert('⚠️ Image download failed. Please try again or use text sharing.');
-                    }
-                    this.showShareMenu = false;
-                }
+                generateShareText() { return `My Force analysis revealed a midichlorian count of ${this.results.midichlorianCount.toLocaleString()}! My potential is: ${this.results.title}. Take the trial:`; },
+                async shareGeneral() { if (!navigator.share) { this.downloadImage(); alert('Image downloaded.'); return; } try { const r = await fetch(this.generateShareImage()); const b = await r.blob(); const f = new File([b], 'force-id.png', { type: 'image/png' }); await navigator.share({ title: 'My Force Sensitivity Analysis', text: this.generateShareText(), files: [f] }); } catch (e) { console.error(e); } },
+                async copyShareLink() { try { await navigator.clipboard.writeText(window.location.href); alert('Link copied!'); } catch (err) { alert('Failed to copy.'); } },
+                downloadImage() { const link = document.createElement('a'); link.download = 'force-id.png'; link.href = this.generateShareImage(); link.click(); }
             }
         }
     </script>
+	<!-- Newsletter Bar -->
+    <div class="newsletter-bar" x-data="newsletterForm()">
+        <div class="newsletter-container">
+            <div class="newsletter-content">
+                <div class="newsletter-info">
+                    <h3>🎉 Join Our Calculator Community!</h3>
+                    <p>Get updates on new fun calculators and practical tools</p>
+                </div>
+                <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
+                    <input type="email" class="newsletter-input" placeholder="Enter your email for calculator updates"
+                        x-model="email" required>
+                    <button type="submit" class="newsletter-submit" :disabled="isSubmitting">
+                        <span x-show="isSubmitting" class="loading-spinner"></span>
+                        <span x-text="isSubmitting ? 'Subscribing...' : '🚀 Subscribe'"></span>
+                    </button>
+                </form>
+                <div x-show="showSuccess" class="newsletter-success">
+                    <p style="color: var(--accent-light); font-weight: 600;">
+                        ✅ Awesome! You'll get updates on the coolest new calculators!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>🎮 About Docket.One</h4>
+                    <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you
+                        should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the
+                        tools for modern life.</p>
+                    <p>Practical meets playful. Because adulting is hard enough.</p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>🎯 Calculator Categories</h4>
+                    <ul class="footer-links">
+                        <li><a href="https://docket.one/pages/BigKidMath/"><span class="calculator-emoji">🧠</span>
+                                BigKidMath - Adult Life Tools</a></li>
+                        <li><a href="https://docket.one/pages/CipherLab/"><span class="calculator-emoji">🔐</span>
+                                CipherLab - Secret Codes & Security</a>
+                        </li>
+                        <li><a href="https://docket.one/pages/GeekGalaxy/"><span class="calculator-emoji">🚀</span>
+                                GeekGalaxy - Sci-Fi & Fantasy Fun</a></li>
+                        <li><a href="https://docket.one/pages/LifeHacks/"><span class="calculator-emoji">⚡</span>
+                                LifeHacks - Productivity & Wellness</a></li>
+                        <li><a href="https://docket.one/pages/Math_Magik/"><span class="calculator-emoji">🧙‍♀️</span>
+                                Math Magik - Mathematical Wizardry</a>
+                        </li>
+                        <li><a href="https://docket.one/pages/Otaku_Ops/"><span class="calculator-emoji">🗾</span> Otaku
+                                Ops - Anime & Culture</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>💬 Support & Info</h4>
+                    <ul class="footer-links">
+                        <li><a href="pages/support/help.html"><span class="calculator-emoji">❓</span> Help &
+                                FAQ</a></li>
+                        <li><a href="pages/support/privacy.html"><span class="calculator-emoji">🔒</span> Privacy
+                                Policy</a></li>
+                        <li><a href="pages/support/terms.html"><span class="calculator-emoji">📋</span> Terms of
+                                Service</a></li>
+                        <li><a href="pages/support/accessibility.html"><span class="calculator-emoji">♿</span>
+                                Accessibility</a></li>
+                        <li><a href="pages/support/contact.html"><span class="calculator-emoji">📧</span> Contact
+                                Us</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-logo">🧮 Docket.One</div>
+                <div class="footer-copyright">
+                    © 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
+                </div>
+                <div class="social-links">
+                    <a href="#" class="social-link" aria-label="Twitter">𝕏</a>
+                    <a href="#" class="social-link" aria-label="LinkedIn">💼</a>
+                    <a href="#" class="social-link" aria-label="GitHub">🐙</a>
+                    <a href="#" class="social-link" aria-label="Email">📧</a>
+                </div>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>

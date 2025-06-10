@@ -1,0 +1,35 @@
+:root {
+            --primary: #8b0000; --primary-light: #b82e2e; --primary-dark: #6e0000;
+            --secondary: #4a7729; --accent: #ffd700; --background: #1a1a1a;
+            --surface: #2d2d2d; --text: #e5e5e5; --text-muted: #a0a0a0;
+            --danger: #dc2626; --warning: #f59e0b; --success: #4a7729;
+            --space-md: 1rem; --space-lg: 1.5rem; --space-xl: 2rem;
+            --radius-md: 0.5rem; --radius-lg: 0.75rem;
+        }
+        body { background: var(--background); color: var(--text); font-family: 'Inter', sans-serif; }
+        .font-display { font-family: 'Changa', sans-serif; }
+        .calculator-layout { display: grid; grid-template-columns: 1fr; gap: var(--space-xl); max-width: 1400px; margin: auto; padding: var(--space-xl); }
+        @media (min-width: 1024px) { .calculator-layout { grid-template-columns: 450px 1fr; } }
+
+        .controls-panel, .results-panel { background: var(--surface); border-radius: var(--radius-lg); padding: var(--space-xl); border: 1px solid rgba(255,255,255,0.1); }
+        .control-group { margin-bottom: var(--space-lg); }
+        .control-label { display: flex; align-items: center; gap: 0.5rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--text); }
+        
+        .option-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 0.5rem; }
+        .option-btn { background: #3a3a3a; border: 2px solid transparent; color: var(--text-muted); border-radius: var(--radius-md); padding: 0.75rem; text-align: center; cursor: pointer; transition: all 0.2s ease; }
+        .option-btn:hover { background: #4a4a4a; }
+        .option-btn.active { background: var(--secondary); color: white; border-color: var(--accent); font-weight: 600; transform: scale(1.05); }
+        .option-btn .icon { font-size: 1.5rem; margin-bottom: 0.25rem; }
+        .skill-btn.active { background: var(--primary); }
+
+        .results-header { text-align: center; padding: var(--space-lg); background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://docket.one/images/texture-blood.png'); border-radius: var(--radius-md); margin-bottom: var(--space-xl); }
+        .survivor-profile { font-family: 'Changa', sans-serif; font-size: 2rem; color: var(--accent); text-transform: uppercase; letter-spacing: 2px; }
+        .survival-chance { font-size: 5rem; font-weight: 800; color: white; line-height: 1; text-shadow: 0 0 15px var(--primary-light); }
+        
+        .stat-bar { margin-bottom: 1rem; }
+        .stat-bar-label { display: flex; justify-content: space-between; font-size: 0.875rem; font-weight: 600; margin-bottom: 0.25rem; }
+        .progress-track { background: #1a1a1a; border-radius: 99px; height: 1rem; overflow: hidden; border: 1px solid #444; }
+        .progress-fill { height: 100%; transition: width 0.5s ease-out; border-radius: 99px; }
+        .combat-fill { background: linear-gradient(90deg, #b82e2e, #8b0000); }
+        .resource-fill { background: linear-gradient(90deg, #6b9e3d, #4a7729); }
+        .security-fill { background: linear-gradient(90deg, #f59e0b, #b45309); }

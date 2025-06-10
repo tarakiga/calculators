@@ -1,349 +1,59 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Basic Meta -->
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mandalorian Beskar Armor Durability Calculator | Geek Galaxy</title>
-    <meta name="description" content="Calculate your Beskar armor's durability and survival rate. This is the Way.">
-    
-    <!-- Enhanced Social Media Meta Tags -->
-    <meta property="og:title" content="Mandalorian Beskar Armor Durability Calculator | Geek Galaxy | Docket One">
-    <meta property="og:description" content="Calculate your Beskar armor's durability and survival rate based on purity, battle intensity, and maintenance. This is the Way.">
-    <meta property="og:image" content="https://docket.one/social-preview.jpg">
-    <meta property="og:url" content="https://docket.one/pages/GeekGalaxy/Mandalorian%20Beskar%20Armor%20Calculator.html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Mandalorian Armor Configurator & Analysis | GeekGalaxy</title>
+    <meta name="description" content="A premium Beskar armor calculator. Configure your armor piece by piece, add system upgrades, and receive a real-time combat analysis of your Mandalorian loadout.">
+    <meta name="keywords" content="mandalorian calculator, beskar armor, armor calculator, star wars calculator, geek tools, custom build, combat analysis, this is the way">
+    <meta name="author" content="Docket One">
+
+    <!-- Cache Control -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://docket.one/pages/GeekGalaxy/Mandalorian%20Beskar%20Armor%20Calculator.html" />
+
+    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Docket One Calculators">
+    <meta property="og:url" content="https://docket.one/pages/GeekGalaxy/Mandalorian%20Beskar%20Armor%20Calculator.html">
+    <meta property="og:title" content="Mandalorian Armor Configurator & Analysis | GeekGalaxy">
+    <meta property="og:description" content="A premium Beskar armor calculator. Configure your armor piece by piece, add system upgrades, and receive a real-time combat analysis of your Mandalorian loadout.">
+    <meta property="og:image" content="https://docket.one/images/geekgalaxy-mando-social-preview.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="Docket One">
 
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Mandalorian Beskar Armor Calculator">
-    <meta name="twitter:description" content="Calculate Beskar armor durability and survival odds - This is the Way">
-    <meta name="twitter:image" content="https://docket.one/social-preview.jpg">
+    <meta name="twitter:url" content="https://docket.one/pages/GeekGalaxy/Mandalorian%20Beskar%20Armor%20Calculator.html">
+    <meta name="twitter:title" content="Mandalorian Armor Configurator & Analysis | GeekGalaxy">
+    <meta name="twitter:description" content="A premium Beskar armor calculator. Configure your armor piece by piece, add system upgrades, and receive a real-time combat analysis of your Mandalorian loadout.">
+    <meta name="twitter:image" content="https://docket.one/images/geekgalaxy-mando-social-preview.jpg">
+    <meta property="twitter:site" content="@DocketOne">
     
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <!-- Dependencies -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    
-    <style>
-        :root {
-            /* Mandalorian Color Palette */
-            --beskar-silver: #c0c5ce;
-            --beskar-dark: #8b949e;
-            --mando-blue: #0969da;
-            --mando-red: #da3633;
-            --mando-gold: #fb8500;
-            --space-black: #0a0a0f;
-            --space-dark: #1a1a2e;
-            --surface: rgba(192, 197, 206, 0.08);
-            --text: #e2e8f0;
-            --text-dim: #94a3b8;
-            --radius: 12px;
-        }
-        
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--space-black);
-            color: var(--text);
-            line-height: 1.6;
-            min-height: 100vh;
-            position: relative;
-        }
-        
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: 
-                radial-gradient(2px 2px at 20px 30px, var(--beskar-silver), transparent),
-                radial-gradient(3px 3px at 200px 100px, var(--mando-blue), transparent),
-                radial-gradient(1px 1px at 90px 40px, var(--mando-gold), transparent);
-            background-size: 400px 300px;
-            animation: mandoDrift 35s linear infinite;
-            opacity: 0.1;
-            z-index: -1;
-        }
-        
-        @keyframes mandoDrift {
-            0% { transform: translateY(0) translateX(0); }
-            100% { transform: translateY(-300px) translateX(-150px); }
-        }
-        
-        .hero {
-            background: linear-gradient(135deg, var(--space-black), var(--space-dark));
-            padding: 4rem 2rem;
-            text-align: center;
-            border-bottom: 1px solid rgba(192, 197, 206, 0.2);
-        }
-        
-        .hero h1 {
-            font-size: clamp(2rem, 4vw, 3rem);
-            font-weight: 800;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--beskar-silver), var(--mando-blue), var(--mando-gold));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .hero p {
-            font-size: 1.2rem;
-            color: var(--text-dim);
-            margin-bottom: 0.5rem;
-        }
-        
-        .hero-tagline {
-            font-size: 1rem;
-            color: var(--mando-gold);
-            font-weight: 600;
-            font-style: italic;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 3rem 2rem;
-        }
-        
-        .calculator-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-        }
-        
-        .panel {
-            background: var(--surface);
-            backdrop-filter: blur(15px);
-            border-radius: var(--radius);
-            padding: 2rem;
-            border: 1px solid rgba(192, 197, 206, 0.2);
-        }
-        
-        .panel h2 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-        
-        .beskar-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-        
-        .beskar-option {
-            background: var(--space-dark);
-            border: 2px solid transparent;
-            border-radius: var(--radius);
-            padding: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .beskar-option:hover,
-        .beskar-option.active {
-            border-color: var(--beskar-color);
-            box-shadow: 0 0 20px rgba(var(--beskar-rgb), 0.3);
-        }
-        
-        .beskar-name {
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-        
-        .beskar-stats {
-            font-size: 0.875rem;
-            color: var(--text-dim);
-        }
-        
-        .damage-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .damage-type {
-            background: var(--space-dark);
-            border: 2px solid transparent;
-            border-radius: var(--radius);
-            padding: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
-        }
-        
-        .damage-type:hover,
-        .damage-type.active {
-            border-color: var(--damage-color);
-            box-shadow: 0 0 15px rgba(var(--damage-rgb), 0.3);
-        }
-        
-        .slider-group {
-            margin-bottom: 1.5rem;
-        }
-        
-        .slider-label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            font-size: 0.875rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        input[type="range"] {
-            width: 100%;
-            height: 8px;
-            border-radius: 5px;
-            background: var(--space-dark);
-            outline: none;
-            margin: 0.5rem 0;
-        }
-        
-        @media (max-width: 768px) {
-            .calculator-grid { grid-template-columns: 1fr; }
-            .beskar-grid { grid-template-columns: 1fr; }
-        }
-        
-        /* Share Button Styles */
-        .share-button {
-            background: linear-gradient(135deg, var(--beskar-silver), var(--mando-blue));
-            color: white;
-            border: none;
-            border-radius: var(--radius);
-            padding: 0.75rem 1.5rem;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-top: 1rem;
-            box-shadow: 0 4px 15px rgba(192, 197, 206, 0.3);
-            width: 100%;
-            justify-content: center;
-        }
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Teko:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-        .share-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(192, 197, 206, 0.4);
-        }
-
-        .share-dropdown {
-            position: relative;
-            display: inline-block;
-            width: 100%;
-        }
-
-        .share-menu {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: var(--space-dark);
-            border: 1px solid rgba(192, 197, 206, 0.2);
-            border-radius: var(--radius);
-            padding: 0.5rem;
-            margin-top: 0.5rem;
-            z-index: 1000;
-            display: none;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-        }
-
-        .share-menu.active {
-            display: block;
-        }
-
-        .share-option {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 0.75rem;
-            border-radius: var(--radius);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            color: var(--text);
-            text-decoration: none;
-        }
-
-        .share-option:hover {
-            background: rgba(192, 197, 206, 0.1);
-            color: var(--beskar-silver);
-        }
-
-        /* Hidden canvas for image generation */
-        #shareCanvas {
-            display: none;
-        }
-    </style>
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
+    <!-- Versioned Assets -->
+    <link rel="stylesheet" href="../../common/santa-improvements.css?v=20250609">
+    <link rel="stylesheet" href="../../common/global-calculator.css?v=20250609">
+    <link rel="stylesheet" href="../../common/themes/dark-theme.css?v=20250609">
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css?v=20250609">
+    <link rel="stylesheet" href="../../styles/mando.css?v=20250609">
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css?v=20250609">
+	<script src="../../common/navbar-enhanced.js"></script>
     <script src="../../common/footer/premium-footer.js"></script>
-
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
-    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script>
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
-    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script>
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
-    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script>
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
-    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script>
-    <script src="../../common/add-breadcrumbs.js"></script>
     <script src="../../common/add-keyboard-accessibility.js"></script></head>
 
 <body x-data="{ showModal: false }">
     <!-- Enhanced Navigation Bar -->
-    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-<nav class="main-nav">
-    <div class="nav-container">
-        <div class="nav-logo">
-            <a href="../../index.html">🧮 Docket One</a>
-        </div>
-        <div class="nav-search">
-            <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input" aria-label="Search calculators">
-            <div id="search-results" class="search-results"></div>
-        </div>
-        <ul class="nav-links">
-            <li><a href="../BigKidMath/index.html" class="category-link">Big Kid Math</a></li>
-            <li><a href="../CipherLab/index.html" class="category-link">Cipher Lab</a></li>
-            <li><a href="../GeekGalaxy/index.html" class="category-link">Geek Galaxy</a></li>
-            <li><a href="../LifeHacks/index.html" class="category-link">Life Hacks</a></li>
-            <li><a href="../Math_Magik/index.html" class="category-link">Math Magik</a></li>
-            <li><a href="../Otaku_Ops/index.html" class="category-link">Otaku Ops</a></li>
-            <li><a href="../../index.html" class="home-link">🏠 Home</a></li>
-        </ul>
-        <button class="mobile-menu-btn" aria-label="Toggle menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-    </div>
-</nav>
-
     <!-- Hero Section -->
     <section class="hero">
         <h1>Mandalorian Beskar Armor Calculator</h1>
@@ -935,176 +645,93 @@
             }
         });
     </script>
-<!-- Newsletter Bar -->
-<div class="newsletter-bar" x-data="newsletterForm()">
-    <div class="newsletter-container">
-        <div class="newsletter-content">
-            <div class="newsletter-info">
-                <h3>&#127881; Join Our Calculator Community!</h3>
-                <p>Get updates on new fun calculators and practical tools</p>
-            </div>
-            <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
-                <input 
-                    type="email" 
-                    class="newsletter-input"
-                    placeholder="Enter your email for calculator updates"
-                    x-model="email"
-                    required
-                >
-                <button 
-                    type="submit" 
-                    class="newsletter-submit"
-                    :disabled="isSubmitting"
-                >
-                    <span x-show="isSubmitting" class="loading-spinner"></span>
-                    <span x-text="isSubmitting ? 'Subscribing...' : '&#128640; Subscribe'"></span>
-                </button>
-            </form>
-            <div x-show="showSuccess" class="newsletter-success" style="display: none;">
-                <p style="color: var(--accent-light); font-weight: 600;">
-                    &#9989; Awesome! You'll get updates on the coolest new calculators!
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Footer -->
-<footer class="footer">
-    <div class="footer-container">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h4>&#127919; About Docket.One</h4>
-                <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the tools for modern life.</p>
-                <p>Practical meets playful. Because adulting is hard enough.</p>
-            </div>
-
-            <div class="footer-section">
-                <h4>&#127914; Calculator Categories</h4>
-                <ul class="footer-links">
-                    <li><a href="/pages/BigKidMath/"><span class="calculator-emoji">&#129518;</span> BigKidMath - Adult Life Tools</a></li>
-                    <li><a href="/pages/CipherLab/"><span class="calculator-emoji">&#128272;</span> CipherLab - Secret Codes & Security</a></li>
-                    <li><a href="/pages/GeekGalaxy/"><span class="calculator-emoji">&#128640;</span> GeekGalaxy - Sci-Fi & Fantasy Fun</a></li>
-                    <li><a href="/pages/LifeHacks/"><span class="calculator-emoji">&#9889;</span> LifeHacks - Productivity & Wellness</a></li>
-                    <li><a href="/pages/Math_Magik/"><span class="calculator-emoji">&#127917;</span> Math Magik - Mathematical Wizardry</a></li>
-                    <li><a href="/pages/Otaku_Ops/"><span class="calculator-emoji">&#127999;</span> Otaku Ops - Anime & Culture</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-                <h4>&#128172; Support & Info</h4>
-                <ul class="footer-links">
-                    <li><a href="/pages/support/help.html"><span class="calculator-emoji">&#10067;</span> Help & FAQ</a></li>
-                    <li><a href="/privacy"><span class="calculator-emoji">&#128274;</span> Privacy Policy</a></li>
-                    <li><a href="/terms"><span class="calculator-emoji">&#128203;</span> Terms of Service</a></li>
-                    <li><a href="/accessibility"><span class="calculator-emoji">&#9855;</span> Accessibility</a></li>
-                    <li><a href="/pages/support/contact.html"><span class="calculator-emoji">&#128231;</span> Contact Us</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-                <button 
-                    class="request-calculator-btn"
-                    @click="showModal = true"
-                >
-                    &#128161; Request a Calculator
-                </button>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <div class="footer-logo">&#129518; Docket.One</div>
-            <div class="footer-copyright">
-                Â© 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
-            </div>
-            <div class="social-links">
-                <a href="#" class="social-link" aria-label="Twitter">&#120143;</a>
-                <a href="#" class="social-link" aria-label="LinkedIn">&#128188;</a>
-                <a href="#" class="social-link" aria-label="GitHub">&#128025;</a>
-                <a href="#" class="social-link" aria-label="Email">&#128231;</a>
-            </div>
-        </div>
-    </div>
-</footer>
-
-<!-- Request Modal -->
-<div 
-    x-data="calculatorRequestForm()"
-    x-show="showModal"
-    x-cloak
-    class="modal-overlay"
-    @click.self="closeModal()"
-    style="display: none;"
->
-    <div class="modal-content">
-        <div x-show="!showConfirmation">
-            <div class="modal-header">
-                <h2 class="modal-title">&#128161; Request a Fun Calculator</h2>
-                <p class="modal-subtitle">Got an idea for a calculator that would make life easier or more fun? We want to hear it!</p>
-                <button class="modal-close" @click="closeModal()">&#10005;</button>
-            </div>
-            <div class="modal-body">
-                <form @submit.prevent="submitRequest()">
-                    <div class="form-group">
-                        <label class="form-label" for="userName">Your Name *</label>
-                        <input type="text" id="userName" class="form-input" x-model="formData.name" required placeholder="What should we call you?">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="userEmail">Email Address *</label>
-                        <input type="email" id="userEmail" class="form-input" x-model="formData.email" required placeholder="your@email.com">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="requestType">What Kind of Request? *</label>
-                        <select id="requestType" class="form-input form-select" x-model="formData.type" required>
-                            <option value="">Choose your request type</option>
-                            <option value="new-calculator">&#127358; Brand New Calculator</option>
-                            <option value="enhancement">&#9889; Improve Existing Calculator</option>
-                            <option value="category">&#127914; New Category Idea</option>
-                            <option value="feature">&#10024; Cool New Feature</option>
-                            <option value="other">&#129300; Something Else Entirely</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="calculatorTitle">Calculator Name/Title *</label>
-                        <input type="text" id="calculatorTitle" class="form-input" x-model="formData.title" required placeholder="e.g., 'Should I Call In Sick Calculator'">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="description">Tell Us About Your Idea! *</label>
-                        <textarea id="description" class="form-input form-textarea" x-model="formData.description" required placeholder="Describe your calculator idea!"></textarea>
-                    </div>
-                    <div class="form-actions">
-                        <button type="button" class="btn btn-secondary" @click="closeModal()">Maybe Later</button>
-                        <button type="submit" class="btn btn-primary" :disabled="isSubmitting">
-                            <span x-show="isSubmitting" class="loading-spinner"></span>
-                            <span x-text="isSubmitting ? 'Sending...' : '&#128640; Send My Idea'"></span>
-                        </button>
-                    </div>
+	<!-- Newsletter Bar -->
+    <div class="newsletter-bar" x-data="newsletterForm()">
+        <div class="newsletter-container">
+            <div class="newsletter-content">
+                <div class="newsletter-info">
+                    <h3>🎉 Join Our Calculator Community!</h3>
+                    <p>Get updates on new fun calculators and practical tools</p>
+                </div>
+                <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
+                    <input type="email" class="newsletter-input" placeholder="Enter your email for calculator updates"
+                        x-model="email" required>
+                    <button type="submit" class="newsletter-submit" :disabled="isSubmitting">
+                        <span x-show="isSubmitting" class="loading-spinner"></span>
+                        <span x-text="isSubmitting ? 'Subscribing...' : '🚀 Subscribe'"></span>
+                    </button>
                 </form>
-            </div>
-        </div>
-        <div x-show="showConfirmation" class="confirmation-modal" style="display: none;">
-            <div class="modal-header">
-                <button class="modal-close" @click="closeModal()">&#10005;</button>
-            </div>
-            <div class="modal-body">
-                <div class="success-icon">&#127881;</div>
-                <h3 class="confirmation-title">Awesome! We Got Your Idea!</h3>
-                <p class="confirmation-message">
-                    Thanks for sharing your calculator idea with us! We're excited to check it out and see if we can make it happen. 
-                    <br><br>
-                    <strong>What happens next?</strong><br>
-                    â€¢ You'll get a confirmation email shortly<br>
-                    â€¢ Our team will review your idea<br>
-                    â€¢ If we build it, you'll be the first to know!<br>
-                    â€¢ We might even name you as the inspiration &#128522;
-                </p>
-                <button class="btn btn-primary" @click="closeModal()" style="width: 100%;">
-                    &#127919; Close & Keep Calculating!
-                </button>
+                <div x-show="showSuccess" class="newsletter-success">
+                    <p style="color: var(--accent-light); font-weight: 600;">
+                        ✅ Awesome! You'll get updates on the coolest new calculators!
+                    </p>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>🎮 About Docket.One</h4>
+                    <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you
+                        should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the
+                        tools for modern life.</p>
+                    <p>Practical meets playful. Because adulting is hard enough.</p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>🎯 Calculator Categories</h4>
+                    <ul class="footer-links">
+                        <li><a href="https://docket.one/pages/BigKidMath/"><span class="calculator-emoji">🧠</span>
+                                BigKidMath - Adult Life Tools</a></li>
+                        <li><a href="https://docket.one/pages/CipherLab/"><span class="calculator-emoji">🔐</span>
+                                CipherLab - Secret Codes & Security</a>
+                        </li>
+                        <li><a href="https://docket.one/pages/GeekGalaxy/"><span class="calculator-emoji">🚀</span>
+                                GeekGalaxy - Sci-Fi & Fantasy Fun</a></li>
+                        <li><a href="https://docket.one/pages/LifeHacks/"><span class="calculator-emoji">⚡</span>
+                                LifeHacks - Productivity & Wellness</a></li>
+                        <li><a href="https://docket.one/pages/Math_Magik/"><span class="calculator-emoji">🧙‍♀️</span>
+                                Math Magik - Mathematical Wizardry</a>
+                        </li>
+                        <li><a href="https://docket.one/pages/Otaku_Ops/"><span class="calculator-emoji">🗾</span> Otaku
+                                Ops - Anime & Culture</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>💬 Support & Info</h4>
+                    <ul class="footer-links">
+                        <li><a href="pages/support/help.html"><span class="calculator-emoji">❓</span> Help &
+                                FAQ</a></li>
+                        <li><a href="pages/support/privacy.html"><span class="calculator-emoji">🔒</span> Privacy
+                                Policy</a></li>
+                        <li><a href="pages/support/terms.html"><span class="calculator-emoji">📋</span> Terms of
+                                Service</a></li>
+                        <li><a href="pages/support/accessibility.html"><span class="calculator-emoji">♿</span>
+                                Accessibility</a></li>
+                        <li><a href="pages/support/contact.html"><span class="calculator-emoji">📧</span> Contact
+                                Us</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-logo">🧮 Docket.One</div>
+                <div class="footer-copyright">
+                    © 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
+                </div>
+                <div class="social-links">
+                    <a href="#" class="social-link" aria-label="Twitter">𝕏</a>
+                    <a href="#" class="social-link" aria-label="LinkedIn">💼</a>
+                    <a href="#" class="social-link" aria-label="GitHub">🐙</a>
+                    <a href="#" class="social-link" aria-label="Email">📧</a>
+                </div>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
