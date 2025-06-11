@@ -1,0 +1,308 @@
+--- START OF FILE Waifu-Husbando Compatibility Matrix.html ---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Basic Meta -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Waifu/Husbando Compatibility Matrix | Otaku Ops</title>
+    <meta name="description" content="Discover your ideal anime partner archetype! Take our interactive personality and preference test to generate a detailed compatibility dossier for your perfect waifu or husbando.">
+    <meta name="keywords" content="waifu generator, husbando generator, anime quiz, anime compatibility, otaku tools, tsundere, kuudere, yandere, genki, character archetype">
+    <meta name="author" content="Docket One">
+
+    <!-- Cache Control -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://docket.one/pages/Otaku_Ops/Waifu-Husbando%20Compatibility%20Matrix.html" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://docket.one/pages/Otaku_Ops/Waifu-Husbando%20Compatibility%20Matrix.html">
+    <meta property="og:title" content="Waifu/Husbando Compatibility Matrix | Otaku Ops">
+    <meta property="og:description" content="Discover your ideal anime partner archetype! Take our interactive personality and preference test to generate a detailed compatibility dossier for your perfect waifu or husbando.">
+    <meta property="og:image" content="https://docket.one/images/otakuops-waifu-social-preview.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="Docket One">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://docket.one/pages/Otaku_Ops/Waifu-Husbando%20Compatibility%20Matrix.html">
+    <meta name="twitter:title" content="Waifu/Husbando Compatibility Matrix | Otaku Ops">
+    <meta name="twitter:description" content="Discover your ideal anime partner archetype! Take our interactive personality and preference test to generate a detailed compatibility dossier for your perfect waifu or husbando.">
+    <meta name="twitter:image" content="https://docket.one/images/otakuops-waifu-social-preview.jpg">
+    <meta property="twitter:site" content="@DocketOne">
+    
+    <!-- Dependencies -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Versioned Assets -->
+    <link rel="stylesheet" href="../../common/santa-improvements.css?v=20250609">
+    <link rel="stylesheet" href="../../common/global-calculator.css?v=20250609">
+    <link rel="stylesheet" href="../../common/themes/dark-theme.css?v=20250609">
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css?v=20250609">
+    <link rel="stylesheet" href="../../styles/otakuops-waifu.css?v=20250609">
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css?v=20250609">
+    
+    <style>
+        :root {
+            --primary: #ec4899; --secondary: #8b5cf6; --accent: #38bdf8;
+            --background: #111827; --surface: #1f2937; --text: #f9fafb; --text-muted: #9ca3af;
+            --glow: 0 0 15px rgba(236, 72, 153, 0.4);
+            --radius-lg: 1rem;
+        }
+        body { background: var(--background); color: var(--text); font-family: 'Manrope', sans-serif; }
+        .font-display { font-family: 'Poppins', sans-serif; }
+        
+        .wizard-container { max-width: 900px; margin: 2rem auto; padding: 2rem; background: var(--surface); border: 1px solid #374151; border-radius: var(--radius-lg); box-shadow: 0 8px 32px rgba(0,0,0,0.5); }
+        .wizard-step-title { font-family: 'Poppins', sans-serif; font-size: 1.75rem; text-align: center; color: var(--primary); margin-bottom: 0.5rem; }
+        .wizard-step-subtitle { text-align: center; color: var(--text-muted); margin-bottom: 2rem; }
+        .wizard-nav { display: flex; justify-content: space-between; margin-top: 2rem; }
+        .wizard-btn { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 0.5rem; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+        
+        .control-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+        @media (min-width: 768px) { .control-grid { grid-template-columns: 1fr 1fr; } }
+        
+        .slider-group { margin-bottom: 2rem; }
+        .slider-label { display: flex; justify-content: space-between; font-weight: 600; margin-bottom: 1rem; }
+        input[type="range"] { width: 100%; }
+
+        .trait-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 0.5rem; }
+        .trait-btn { background: #374151; border: 1px solid #4b5563; color: var(--text-muted); padding: 0.5rem; border-radius: 0.5rem; cursor: pointer; transition: all 0.2s; }
+        .trait-btn.selected { background: var(--accent); color: #111827; border-color: var(--accent); font-weight: 700; }
+
+        .results-dossier { background: #111827; padding: 2rem; border-radius: var(--radius-lg); border: 2px solid var(--primary); }
+        .dossier-title { font-size: 2.5rem; color: var(--primary); }
+        .sync-rate { font-size: 1.25rem; color: var(--accent); }
+        .manifestation-list img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; margin-right: 0.5rem; }
+    </style>
+    <script src="../../common/add-breadcrumbs.js"></script>
+    <script src="../../common/add-keyboard-accessibility.js"></script>
+</head>
+
+<body x-data="compatibilityMatrix()" x-init="init()">
+    
+    <header class="text-center py-16 px-4">
+        <h1 class="font-display text-4xl md:text-6xl font-bold text-white mb-4">
+            Waifu/Husbando <span class="text-pink-400">Synthesis Lab</span>
+        </h1>
+        <p class="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto">Initiating synchronization sequence. Analyze your preferences to generate the profile of your ideal partner archetype.</p>
+    </header>
+
+    <main class="wizard-container">
+        <!-- Step 1: Personality Matrix -->
+        <div x-show="currentStep === 1" x-transition:enter.duration.500ms>
+            <h2 class="wizard-step-title">Phase 1: Personality Synchronization</h2>
+            <p class="wizard-step-subtitle">Calibrate the core personality traits. Where do your preferences lie on these spectrums?</p>
+            <div class="control-grid">
+                <div>
+                    <div class="slider-group">
+                        <div class="slider-label"><span>Reserved</span><span>Expressive</span></div>
+                        <input type="range" min="0" max="100" x-model.number="prefs.social">
+                    </div>
+                    <div class="slider-group">
+                        <div class="slider-label"><span>Calm</span><span>Passionate</span></div>
+                        <input type="range" min="0" max="100" x-model.number="prefs.passion">
+                    </div>
+                </div>
+                <div><canvas id="prefsChart"></canvas></div>
+            </div>
+            <div class="wizard-nav"><span/> <button class="wizard-btn" @click="currentStep = 2">Next Phase &rarr;</button></div>
+        </div>
+
+        <!-- Step 2: Dynamics & Tropes -->
+        <div x-show="currentStep === 2" x-transition:enter.duration.500ms>
+            <h2 class="wizard-step-title">Phase 2: Dynamic & Trope Alignment</h2>
+            <p class="wizard-step-subtitle">Define the nature of your ideal relationship and preferred character tropes.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="font-bold text-lg mb-4 text-center">Relationship Dynamic</h3>
+                    <div class="slider-group">
+                        <div class="slider-label"><span>Teasing Banter</span><span>Sweet & Gentle</span></div>
+                        <input type="range" min="0" max="100" x-model.number="prefs.dynamic">
+                    </div>
+                    <div class="slider-group">
+                        <div class="slider-label"><span>Protective</span><span>Independent</span></div>
+                        <input type="range" min="0" max="100" x-model.number="prefs.dependence">
+                    </div>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg mb-4 text-center">Aesthetic Tropes</h3>
+                    <div class="trait-grid">
+                        <template x-for="trait in allTraits">
+                            <button class="trait-btn" :class="{'selected': answers.traits.includes(trait.id)}" @click="toggleTrait(trait.id)" x-text="trait.name"></button>
+                        </template>
+                    </div>
+                </div>
+            </div>
+            <div class="wizard-nav"><button class="wizard-btn" @click="currentStep = 1">&larr; Back</button> <button class="wizard-btn" @click="generateProfile()" :disabled="isLoading">
+                <span x-show="!isLoading">Synthesize Profile &rarr;</span><span x-show="isLoading">Synthesizing...</span>
+            </button></div>
+        </div>
+
+        <!-- Step 3: Results -->
+        <div x-show="currentStep === 3" x-transition:enter.duration.500ms>
+            <h2 class="wizard-step-title">Synchronization Complete</h2>
+            <p class="wizard-step-subtitle">Analysis finished. Your ideal partner archetype has been synthesized. Please review the dossier.</p>
+            <div class="results-dossier">
+                <div class="text-center mb-6">
+                    <h3 class="font-display dossier-title" x-text="results.archetype.name"></h3>
+                    <p class="sync-rate" x-text="`SYNCHRONIZATION RATE: ${results.syncRate}%`"></p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-bold mb-2">Key Traits:</h4>
+                        <ul class="list-disc pl-5 space-y-1">
+                            <template x-for="trait in results.archetype.traits"><li x-text="trait"></li></template>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold mb-2">Relationship Dynamic:</h4>
+                        <p class="text-sm text-gray-300" x-text="results.archetype.dynamic"></p>
+                    </div>
+                    <div class="md:col-span-2">
+                        <h4 class="font-bold mb-2">Known Manifestations (Examples):</h4>
+                        <div class="flex flex-wrap gap-4">
+                            <template x-for="char in results.archetype.examples">
+                                <div class="flex items-center bg-gray-800 p-2 rounded-lg">
+                                    <img :src="char.img" :alt="char.name" class="w-10 h-10 rounded-full object-cover mr-3">
+                                    <div>
+                                        <div class="font-semibold" x-text="char.name"></div>
+                                        <div class="text-xs text-gray-400" x-text="char.series"></div>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="wizard-nav"><button class="wizard-btn" @click="reset()"><i class="fas fa-sync-alt"></i> Re-Sync</button><button class="wizard-btn" @click="showShareModal = true"><i class="fas fa-share-alt"></i> Share Dossier</button></div>
+        </div>
+    </main>
+    
+    <div x-show="showShareModal" x-cloak class="modal-overlay" @click.self="showShareModal = false" style="display: none;">
+        <div class="modal-content" @click.stop>
+            <div class="modal-header"><h2 class="modal-title">💌 Share Compatibility Dossier</h2><button class="modal-close" @click="showShareModal = false">×</button></div>
+            <div class="modal-body">
+                <div class="share-modal-grid">
+                    <button class="share-modal-button" @click="shareGeneral(); showShareModal = false"><span class="share-modal-icon">📱</span> Share Card</button>
+                    <button class="share-modal-button" @click="copyShareLink(); showShareModal = false"><span class="share-modal-icon">🔗</span> Copy Link</button>
+                    <button class="share-modal-button" @click="downloadImage(); showShareModal = false"><span class="share-modal-icon">💾</span> Download Card</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <canvas id="shareCanvas" width="1200" height="630" style="display: none;"></canvas>
+
+    <script>
+        function compatibilityMatrix() {
+            return {
+                currentStep: 1, isLoading: false, showShareModal: false, chartInstance: null,
+                prefs: { social: 50, passion: 50, dynamic: 50, dependence: 50 },
+                allTraits: [ {id: 'glasses', name: 'Glasses'}, {id: 'ahoge', name: 'Ahoge'}, {id: 'animal_ears', name: 'Animal Ears'}, {id: 'ojou-sama', name: 'Ojou-sama Laugh'} ],
+                answers: { traits: [] },
+                results: { archetype: {}, syncRate: 0 },
+                
+                archetypes: {
+                    tsundere: { name: "The Prideful Tsundere", score: 0, traits: ["Harsh Exterior, Soft Interior", "Secretly Caring", "Prone to Outbursts"], dynamic: "A fiery, challenging relationship that slowly blossoms into deep, genuine affection. Expect a lot of banter and blushing.", examples:[{name: 'Taiga Aisaka', series: 'Toradora!', img:'https://i.imgur.com/u3A2dYy.jpg'},{name: 'Asuka Langley', series: 'Evangelion', img:'https://i.imgur.com/vHqgC8A.jpg'}] },
+                    kuudere: { name: "The Stoic Kuudere", score: 0, traits: ["Calm & Collected", "Logically-Minded", "Shows Emotion Rarely"], dynamic: "A quiet, stable relationship built on deep understanding rather than overt passion. Their rare smiles are worth more than gold.", examples:[{name: 'Yuki Nagato', series: 'Haruhi Suzumiya', img:'https://i.imgur.com/3i4vA0s.jpg'},{name: 'Rei Ayanami', series: 'Evangelion', img:'https://i.imgur.com/5H0J4f9.jpg'}] },
+                    dandere: { name: "The Shy Dandere", score: 0, traits: ["Extremely Introverted", "Sweet & Gentle", "Opens Up to a Select Few"], dynamic: "A gentle, nurturing relationship where you are their safe space. Your goal is to help them come out of their shell.", examples:[{name: 'Hinata Hyuga', series: 'Naruto', img:'https://i.imgur.com/8N4Z2r2.jpg'},{name: 'Miku Nakano', series: 'Quintessential Quintuplets', img:'https://i.imgur.com/9G7iQ6N.jpg'}] },
+                    genki: { name: "The Energetic Genki", score: 0, traits: ["Endlessly Optimistic", "Highly Expressive & Loud", "The Center of Attention"], dynamic: "A life full of adventure, energy, and excitement. There will never be a dull moment, but you'll need to keep up!", examples:[{name: 'Haruhi Suzumiya', series: 'Haruhi Suzumiya', img:'https://i.imgur.com/9Oqj9h3.jpg'},{name: 'Chika Fujiwara', series: 'Kaguya-sama', img:'https://i.imgur.com/eZJ7gYJ.jpg'}] },
+                    protector: { name: "The Loyal Protector", score: 0, traits: ["Devoted & Loyal", "Physically Strong", "Will Defend You at All Costs"], dynamic: "A relationship defined by safety and unwavering support. They are your shield against the world.", examples:[{name: 'Mikasa Ackerman', series: 'Attack on Titan', img:'https://i.imgur.com/mCgSj1p.jpg'},{name: 'Saber', series: 'Fate/Stay Night', img:'https://i.imgur.com/6E2V3q2.jpg'}] }
+                },
+
+                init() {
+                    this.$watch('prefs', () => this.renderChart(), { deep: true });
+                    this.$nextTick(() => this.renderChart());
+                },
+                toggleTrait(id) { const i = this.answers.traits.indexOf(id); i > -1 ? this.answers.traits.splice(i, 1) : this.answers.traits.push(id); },
+
+                generateProfile() {
+                    this.isLoading = true;
+                    setTimeout(() => {
+                        Object.values(this.archetypes).forEach(a => a.score = 0);
+                        
+                        // Score based on personality
+                        if (this.prefs.social < 40) { this.archetypes.kuudere.score += 2; this.archetypes.dandere.score += 3; } else { this.archetypes.genki.score += 2; this.archetypes.tsundere.score += 1; }
+                        if (this.prefs.passion > 60) { this.archetypes.tsundere.score += 2; this.archetypes.genki.score += 2; } else { this.archetypes.kuudere.score += 2; this.archetypes.dandere.score += 1; }
+                        
+                        // Score based on dynamics
+                        if (this.prefs.dynamic < 40) { this.archetypes.tsundere.score += 3; } else { this.archetypes.dandere.score += 2; this.archetypes.genki.score += 1; }
+                        if (this.prefs.dependence < 40) { this.archetypes.protector.score += 4; } else { this.archetypes.kuudere.score += 1; }
+                        
+                        // Finalize
+                        let bestMatch = 'kuudere'; let maxScore = 0; let totalScore = 0;
+                        for(const key in this.archetypes) {
+                            totalScore += this.archetypes[key].score;
+                            if (this.archetypes[key].score > maxScore) { maxScore = this.archetypes[key].score; bestMatch = key; }
+                        }
+                        
+                        this.results.archetype = this.archetypes[bestMatch];
+                        this.results.syncRate = Math.round((maxScore / totalScore) * 100) || 100;
+
+                        this.isLoading = false;
+                        this.currentStep = 3;
+                    }, 1000);
+                },
+
+                renderChart() {
+                    if (this.chartInstance) this.chartInstance.destroy();
+                    const ctx = document.getElementById('prefsChart').getContext('2d');
+                    this.chartInstance = new Chart(ctx, {
+                        type: 'radar',
+                        data: {
+                            labels: ['Expressive', 'Passionate', 'Gentle', 'Protective', 'Independent'],
+                            datasets: [{
+                                data: [this.prefs.social, this.prefs.passion, this.prefs.dynamic, 100-this.prefs.dependence, this.prefs.dependence],
+                                backgroundColor: 'rgba(236, 72, 153, 0.2)', borderColor: 'rgba(236, 72, 153, 1)', borderWidth: 2
+                            }]
+                        },
+                        options: { maintainAspectRatio: false, scales: { r: { angleLines: { color: 'rgba(255,255,255,0.2)' }, grid: { color: 'rgba(255,255,255,0.2)' }, pointLabels: { color: '#f9fafb', font: { size: 12 } }, ticks: { display: false, beginAtZero: true, max: 100 } } }, plugins: { legend: { display: false } } }
+                    });
+                },
+                
+                reset() { this.currentStep = 1; this.prefs = { social: 50, passion: 50, dynamic: 50, dependence: 50 }; this.answers.traits = []; },
+
+                generateShareImage() {
+                    const canvas = document.getElementById('shareCanvas'); const ctx = canvas.getContext('2d');
+                    ctx.fillStyle = '#111827'; ctx.fillRect(0, 0, 1200, 630);
+                    ctx.textAlign = 'center'; ctx.font = "bold 48px 'Poppins', sans-serif";
+                    ctx.fillStyle = '#ec4899'; ctx.fillText('IDEAL PARTNER COMPATIBILITY DOSSIER', 600, 80);
+                    
+                    ctx.fillStyle = '#fde047'; ctx.font = "bold 80px 'Poppins', sans-serif";
+                    ctx.fillText(this.results.archetype.name, 600, 180);
+                    ctx.font = "40px 'Poppins', sans-serif"; ctx.fillStyle = '#38bdf8';
+                    ctx.fillText(`Synchronization Rate: ${this.results.syncRate}%`, 600, 240);
+                    
+                    ctx.textAlign = 'left'; ctx.font = "bold 28px 'Manrope', sans-serif"; ctx.fillStyle = '#f9fafb';
+                    ctx.fillText('Key Traits:', 150, 320);
+                    ctx.font = "24px 'Manrope', sans-serif"; ctx.fillStyle = '#9ca3af';
+                    this.results.archetype.traits.forEach((trait, i) => ctx.fillText(`• ${trait}`, 170, 360 + i*40));
+                    
+                    ctx.font = "bold 28px 'Manrope', sans-serif"; ctx.fillStyle = '#f9fafb';
+                    ctx.fillText('Known Manifestations:', 650, 320);
+                    this.results.archetype.examples.forEach((char, i) => {
+                        ctx.font = "24px 'Manrope', sans-serif"; ctx.fillStyle = '#9ca3af';
+                        ctx.fillText(`${char.name} (${char.series})`, 670, 360 + i*40);
+                    });
+                    
+                    ctx.font = "24px 'Poppins', serif"; ctx.fillStyle = '#8b5cf6'; ctx.textAlign = 'center';
+                    ctx.fillText('docket.one/pages/Otaku_Ops/', 600, 580);
+                    return canvas.toDataURL('image/png');
+                },
+                generateShareText() { return `My ideal partner is the "${this.results.archetype.name}" type with a ${this.results.syncRate}% sync rate! Find out your type:`; },
+                async shareGeneral() { if (!navigator.share) { this.downloadImage(); alert('Image downloaded.'); return; } try { const r = await fetch(this.generateShareImage()); const b = await r.blob(); const f = new File([b], 'waifu-dossier.png', { type: 'image/png' }); await navigator.share({ title: 'My Waifu/Husbando Dossier', text: this.generateShareText(), files: [f] }); } catch (e) { console.error(e); } },
+                async copyShareLink() { try { await navigator.clipboard.writeText(window.location.href); alert('Link copied!'); } catch (err) { alert('Failed to copy.'); } },
+                downloadImage() { const link = document.createElement('a'); link.download = 'waifu-dossier.png'; link.href = this.generateShareImage(); link.click(); }
+            }
+        }
+    </script>
+</body>
+</html>

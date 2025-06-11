@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Basic Meta -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Isekai Reincarnation Profile Generator | Otaku Ops</title>
+    <meta name="description" content="What kind of Isekai protagonist would you be? Take our interactive quiz to analyze your real-world skills, determine your fantasy class, and unlock your unique 'Cheat Skill'.">
+    <meta name="keywords" content="isekai generator, isekai quiz, anime calculator, protagonist generator, cheat skill, otaku tools, fantasy rpg, character sheet">
+    <meta name="author" content="Docket One">
+
+    <!-- Cache Control -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://docket.one/pages/Otaku_Ops/Isekai%20Reincarnation%20Profile%20Generator.html" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://docket.one/pages/Otaku_Ops/Isekai%20Reincarnation%20Profile%20Generator.html">
+    <meta property="og:title" content="Isekai Reincarnation Profile Generator | Otaku Ops">
+    <meta property="og:description" content="What kind of Isekai protagonist would you be? Take our interactive quiz to analyze your real-world skills, determine your fantasy class, and unlock your unique 'Cheat Skill'.">
+    <meta property="og:image" content="https://docket.one/images/otakuops-isekai-social-preview.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="Docket One">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://docket.one/pages/Otaku_Ops/Isekai%20Reincarnation%20Profile%20Generator.html">
+    <meta name="twitter:title" content="Isekai Reincarnation Profile Generator | Otaku Ops">
+    <meta name="twitter:description" content="What kind of Isekai protagonist would you be? Take our interactive quiz to analyze your real-world skills, determine your fantasy class, and unlock your unique 'Cheat Skill'.">
+    <meta name="twitter:image" content="https://docket.one/images/otakuops-isekai-social-preview.jpg">
+    <meta property="twitter:site" content="@DocketOne">
+    
+    <!-- Dependencies -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Versioned Assets -->
+    <link rel="stylesheet" href="../../common/santa-improvements.css?v=20250609">
+    <link rel="stylesheet" href="../../common/global-calculator.css?v=20250609">
+    <link rel="stylesheet" href="../../common/themes/dark-theme.css?v=20250609">
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css?v=20250609">
+    <link rel="stylesheet" href="../../styles/isekai.css?v=20250609">
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css?v=20250609">
+	<script src="../../common/navbar-enhanced.js"></script>
+    <script src="../../common/add-breadcrumbs.js"></script>
+    <script src="../../common/add-keyboard-accessibility.js"></script>
+</head>
+
+<body x-data="isekaiGenerator()" x-init="init()">
+    
+    <header class="summoning-circle-header">
+        <div class="summoning-circle"></div>
+        <div class="relative z-10">
+            <h1 class="font-display text-4xl md:text-6xl font-bold text-white mb-4">The Isekai Reincarnation Portal</h1>
+            <p class="text-lg md:text-xl text-indigo-200 max-w-3xl mx-auto">Your mundane life has ended. A new world awaits. Let the Goddess of Reincarnation determine your fate.</p>
+        </div>
+    </header>
+
+    <main class="wizard-container">
+        <!-- Step 1: Recall Past Life -->
+        <div x-show="currentStep === 1" x-transition:enter.duration.500ms>
+            <h2 class="wizard-step-title">Step 1: Recall Your Past Life</h2>
+            <p class="wizard-step-subtitle">The Goddess peers into your soul, assessing the talents you honed on Earth. Choose up to 5 skills.</p>
+            <div class="skill-grid">
+                <template x-for="skill in allSkills">
+                    <div class="skill-card" :class="{'selected': answers.skills.includes(skill.id), 'opacity-50 cursor-not-allowed': answers.skills.length >= 5 && !answers.skills.includes(skill.id)}" @click="toggleSkill(skill.id)">
+                        <div class="icon" x-text="skill.icon"></div><div class="text-sm font-semibold" x-text="skill.name"></div>
+                    </div>
+                </template>
+            </div>
+            <div class="wizard-nav"><span/> <button class="wizard-btn" @click="currentStep = 2" :disabled="answers.skills.length === 0">Next Step &rarr;</button></div>
+        </div>
+
+        <!-- Step 2: Choose Your Path -->
+        <div x-show="currentStep === 2" x-transition:enter.duration.500ms>
+            <h2 class="wizard-step-title">Step 2: Choose Your Path</h2>
+            <p class="wizard-step-subtitle">Before you are reborn, you must choose your ambition. What do you desire most in this new life?</p>
+             <div class="skill-grid">
+                <div class="skill-card" :class="{'selected': answers.path === 'power'}" @click="answers.path = 'power'"><div class="icon">💥</div><div>Power</div></div>
+                <div class="skill-card" :class="{'selected': answers.path === 'knowledge'}" @click="answers.path = 'knowledge'"><div class="icon">🧠</div><div>Knowledge</div></div>
+                <div class="skill-card" :class="{'selected': answers.path === 'influence'}" @click="answers.path = 'influence'"><div class="icon">👑</div><div>Influence</div></div>
+                <div class="skill-card" :class="{'selected': answers.path === 'freedom'}" @click="answers.path = 'freedom'"><div class="icon">🕊️</div><div>Freedom</div></div>
+            </div>
+            <div class="wizard-nav"><button class="wizard-btn" @click="currentStep = 1">&larr; Back</button> <button class="wizard-btn" @click="generateProfile()" :disabled="!answers.path || isLoading">
+                <span x-show="!isLoading">Be Reborn &rarr;</span><span x-show="isLoading">Reincarnating...</span>
+            </button></div>
+        </div>
+
+        <!-- Step 3: Results -->
+        <div x-show="currentStep === 3" x-transition:enter.duration.500ms>
+            <h2 class="wizard-step-title">Your New Life Awaits...</h2>
+            <p class="wizard-step-subtitle">The Goddess has reviewed your potential and granted you a new status. May you find glory in this new world!</p>
+            <div class="results-panel">
+                <div class="status-window">
+                    <h3 class="status-header">Status Window</h3>
+                    <div class="stat-item"><span>CLASS:</span> <span class="font-bold text-secondary" x-text="results.class"></span></div>
+                    <div class="stat-item"><span>TITLE:</span> <span class="font-bold text-secondary" x-text="results.title"></span></div>
+                    <div class="cheat-skill">
+                        <div class="text-sm font-bold">CHEAT SKILL</div>
+                        <div class="font-bold text-lg" x-text="`[${results.cheatSkill.name}]`"></div>
+                        <p class="text-xs mt-1" x-text="results.cheatSkill.desc"></p>
+                    </div>
+                </div>
+                <div><canvas id="statsChart"></canvas></div>
+            </div>
+            <div class="wizard-nav">
+                <button class="wizard-btn" @click="reset()"><i class="fas fa-sync-alt"></i> Reincarnate Again</button>
+                <button class="wizard-btn" @click="showShareModal = true"><i class="fas fa-share-alt"></i> Share Your Profile</button>
+            </div>
+        </div>
+        
+    </main>
+
+    <div x-show="showShareModal" x-cloak class="modal-overlay" @click.self="showShareModal = false" style="display: none;">
+        <div class="modal-content" @click.stop>
+            <div class="modal-header"><h2 class="modal-title">📜 Share Adventurer Card</h2><button class="modal-close" @click="showShareModal = false">×</button></div>
+            <div class="modal-body">
+                <div class="share-modal-grid">
+                    <button class="share-modal-button" @click="shareGeneral(); showShareModal = false"><span class="share-modal-icon">📱</span> Share Card</button>
+                    <button class="share-modal-button" @click="copyShareLink(); showShareModal = false"><span class="share-modal-icon">🔗</span> Copy Link</button>
+                    <button class="share-modal-button" @click="downloadImage(); showShareModal = false"><span class="share-modal-icon">💾</span> Download Card</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <canvas id="shareCanvas" width="1200" height="630" style="display: none;"></canvas>
+
+    <script>
+        function isekaiGenerator() {
+            return {
+                currentStep: 1, isLoading: false, showShareModal: false, chartInstance: null,
+                allSkills: [
+                    { id: 'programming', name: 'Programming', icon: '💻', stats: { INT: 3, LCK: 1 } }, { id: 'cooking', name: 'Cooking', icon: '🍳', stats: { CHA: 2, INT: 1 } },
+                    { id: 'first_aid', name: 'First Aid', icon: '🩹', stats: { INT: 2, CHA: 1 } }, { id: 'manual_labor', name: 'Manual Labor', icon: '💪', stats: { STR: 3 } },
+                    { id: 'martial_arts', name: 'Martial Arts', icon: '🥋', stats: { STR: 2, AGI: 2 } }, { id: 'gaming', name: 'Gaming', icon: '🎮', stats: { AGI: 2, LCK: 2 } },
+                    { id: 'business', name: 'Business', icon: '📈', stats: { CHA: 3, INT: 1 } }, { id: 'creative', name: 'Art/Music', icon: '🎨', stats: { CHA: 2, AGI: 1 } },
+                    { id: 'mechanics', name: 'Mechanics', icon: '🔧', stats: { INT: 2, STR: 1 } }, { id: 'outdoors', name: 'Outdoorsmanship', icon: '🏕️', stats: { STR: 1, AGI: 1, INT: 1 } },
+                ],
+                answers: { skills: [], path: '' },
+                results: { class: '', title: '', stats: {}, cheatSkill: { name: '', desc: '' } },
+                
+                init() {},
+
+                toggleSkill(id) {
+                    const index = this.answers.skills.indexOf(id);
+                    if (index > -1) this.answers.skills.splice(index, 1);
+                    else if (this.answers.skills.length < 5) this.answers.skills.push(id);
+                },
+
+                generateProfile() {
+                    this.isLoading = true;
+                    setTimeout(() => {
+                        let stats = { STR: 10, AGI: 10, INT: 10, CHA: 10, LCK: 10 };
+                        this.answers.skills.forEach(skillId => {
+                            const skill = this.allSkills.find(s => s.id === skillId);
+                            for (const stat in skill.stats) { stats[stat] += skill.stats[stat] * 5; }
+                        });
+                        this.results.stats = stats;
+                        
+                        const primaryStat = Object.keys(stats).reduce((a, b) => stats[a] > stats[b] ? a : b);
+                        this.generateClassAndTitle(primaryStat);
+                        this.generateCheatSkill(primaryStat);
+                        
+                        this.isLoading = false;
+                        this.currentStep = 3;
+                        this.$nextTick(() => this.renderChart());
+                    }, 1500);
+                },
+
+                generateClassAndTitle(primaryStat) {
+                    const classes = { STR: "Warrior", AGI: "Rogue", INT: "Mage", CHA: "Bard", LCK: "Gambler" };
+                    const titles = {
+                        power: { STR: "The Unstoppable", AGI: "The Unseen Blade", INT: "The Archon", CHA: "The Sovereign", LCK: "The Kingmaker" },
+                        knowledge: { STR: "The Battle Tactician", AGI: "The Perfect Assassin", INT: "The Sage", CHA: "The Spymaster", LCK: "The Oracle" },
+                        influence: { STR: "The Warlord", AGI: "The Shadow Broker", INT: "The Grand Vizier", CHA: "The Messiah", LCK: "The Eminence" },
+                        freedom: { STR: "The Liberator", AGI: "The Free Spirit", INT: "The Mad Inventor", CHA: "The Revolutionary", LCK: "The Anomaly" },
+                    };
+                    this.results.class = classes[primaryStat];
+                    this.results.title = titles[this.answers.path][primaryStat];
+                },
+
+                generateCheatSkill(primaryStat) {
+                    const skills = {
+                        power: {
+                            STR: { name: "Limitless Strength", desc: "Your physical power grows infinitely with every battle won." },
+                            AGI: { name: "Absolute Evasion", desc: "You cannot be hit by any attack you are aware of." },
+                            INT: { name: "Ultimate Magic", desc: "Cast any spell you can imagine, ignoring all costs and requirements." },
+                            CHA: { name: "Irresistible Command", desc: "Your words become absolute law to those who hear them." },
+                            LCK: { name: "Probability Manipulation", desc: "You can dictate the outcome of any chance-based event." },
+                        },
+                        knowledge: {
+                            STR: { name: "Anatomical Deconstruction", desc: "Instantly know and strike every weak point of any opponent." },
+                            AGI: { name: "Path to Victory", desc: "Your body reflexively knows the most efficient path to any goal." },
+                            INT: { name: "Akashic Records Access", desc: "You have instant, complete knowledge of everything in the universe." },
+                            CHA: { name: "Perfect Lie Detection", desc: "You instantly know the complete truth of any statement you hear." },
+                            LCK: { name: "Divine Revelation", desc: "You receive a perfect premonition whenever you are about to make a mistake." },
+                        },
+                        influence: {
+                            STR: { name: "Aura of the Conqueror", desc: "Your mere presence inspires absolute loyalty in allies and terror in foes." },
+                            AGI: { name: "Ubiquitous Presence", desc: "You can appear wherever you are known or spoken of." },
+                            INT: { name: "System Administrator", desc: "View and edit the 'Status Windows' of people, places, and things." },
+                            CHA: { name: "Emotional Contagion", desc: "You can make anyone feel any emotion you desire, from love to despair." },
+                            LCK: { name: "Fated Encounter", desc: "You can arrange for any two people to meet at the perfect time and place." },
+                        },
+                        freedom: {
+                            STR: { name: "Unbreakable Will", desc: "You are immune to all forms of mental, physical, or spiritual control." },
+                            AGI: { name: "Boundary Walker", desc: "You can ignore all physical barriers, phasing through walls and obstacles." },
+                            INT: { name: "Concept Creation", desc: "If you can understand a concept, you can bring it into physical existence." },
+                            CHA: { name: "Plausible Deniability", desc: "You can convince anyone that you were not responsible for any action." },
+                            LCK: { name: "Plot Armor", desc: "You cannot be killed or permanently harmed by any random or unintended event." },
+                        },
+                    };
+                    this.results.cheatSkill = skills[this.answers.path][primaryStat];
+                },
+
+                renderChart() {
+                    if(this.chartInstance) this.chartInstance.destroy();
+                    const ctx = document.getElementById('statsChart').getContext('2d');
+                    this.chartInstance = new Chart(ctx, {
+                        type: 'radar',
+                        data: {
+                            labels: ['STR', 'AGI', 'INT', 'CHA', 'LCK'],
+                            datasets: [{
+                                label: 'Your Stats', data: Object.values(this.results.stats),
+                                backgroundColor: 'rgba(34, 211, 238, 0.2)', borderColor: 'rgba(34, 211, 238, 1)',
+                                borderWidth: 2, pointBackgroundColor: 'rgba(253, 224, 71, 1)'
+                            }]
+                        },
+                        options: { maintainAspectRatio: false, scales: { r: { angleLines: { color: 'rgba(255,255,255,0.2)' }, grid: { color: 'rgba(255,255,255,0.2)' }, pointLabels: { color: '#e0e7ff', font: { size: 14 } }, ticks: { display: false, beginAtZero: true, max: 50 } } }, plugins: { legend: { display: false } } }
+                    });
+                },
+
+                reset() {
+                    this.currentStep = 1;
+                    this.answers = { skills: [], path: '' };
+                },
+
+                generateShareImage() {
+                    const canvas = document.getElementById('shareCanvas'); const ctx = canvas.getContext('2d');
+                    ctx.fillStyle = '#1e1b4b'; ctx.fillRect(0, 0, 1200, 630);
+                    ctx.textAlign = 'center'; ctx.font = "bold 48px 'Cinzel Decorative', serif";
+                    ctx.fillStyle = '#fde047'; ctx.fillText('ISEKAI ADVENTURER CARD', 600, 80);
+                    
+                    ctx.fillStyle = '#e0e7ff'; ctx.font = "bold 72px 'Cinzel Decorative', serif";
+                    ctx.fillText(this.results.class, 600, 180);
+                    ctx.font = "32px 'Manrope', sans-serif"; ctx.fillStyle = '#a5b4fc';
+                    ctx.fillText(`Title: ${this.results.title}`, 600, 230);
+
+                    ctx.fillStyle = '#22d3ee'; ctx.font = "bold 40px 'Manrope', sans-serif";
+                    ctx.fillText(`CHEAT SKILL: [${this.results.cheatSkill.name}]`, 600, 320);
+                    
+                    ctx.font = "24px 'Manrope', sans-serif"; ctx.fillStyle = '#e0e7ff';
+                    ctx.fillText(this.results.cheatSkill.desc, 600, 370, 1000);
+                    
+                    ctx.font = "28px 'Manrope', sans-serif"; ctx.textAlign = 'left';
+                    const stats = this.results.stats;
+                    ctx.fillText(`STR: ${stats.STR}`, 150, 480); ctx.fillText(`AGI: ${stats.AGI}`, 150, 530);
+                    ctx.fillText(`INT: ${stats.INT}`, 500, 480); ctx.fillText(`CHA: ${stats.CHA}`, 500, 530);
+                    ctx.fillText(`LCK: ${stats.LCK}`, 850, 480);
+                    
+                    ctx.font = "24px 'Cinzel Decorative', serif"; ctx.fillStyle = '#a78bfa'; ctx.textAlign = 'center';
+                    ctx.fillText('docket.one/pages/Otaku_Ops/', 600, 600);
+                    return canvas.toDataURL('image/png');
+                },
+                generateShareText() { return `I was reincarnated as a(n) ${this.results.class} with the cheat skill [${this.results.cheatSkill.name}]! Find out your Isekai profile:`; },
+                async shareGeneral() { if (!navigator.share) { this.downloadImage(); alert('Image downloaded.'); return; } try { const r = await fetch(this.generateShareImage()); const b = await r.blob(); const f = new File([b], 'isekai-card.png', { type: 'image/png' }); await navigator.share({ title: 'My Isekai Profile', text: this.generateShareText(), files: [f] }); } catch (e) { console.error(e); } },
+                async copyShareLink() { try { await navigator.clipboard.writeText(window.location.href); alert('Link copied!'); } catch (err) { alert('Failed to copy.'); } },
+                downloadImage() { const link = document.createElement('a'); link.download = 'isekai-card.png'; link.href = this.generateShareImage(); link.click(); }
+            }
+        }
+    </script>
+	<!-- Newsletter Bar -->
+    <div class="newsletter-bar" x-data="newsletterForm()">
+        <div class="newsletter-container">
+            <div class="newsletter-content">
+                <div class="newsletter-info">
+                    <h3>🎉 Join Our Calculator Community!</h3>
+                    <p>Get updates on new fun calculators and practical tools</p>
+                </div>
+                <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
+                    <input type="email" class="newsletter-input" placeholder="Enter your email for calculator updates"
+                        x-model="email" required>
+                    <button type="submit" class="newsletter-submit" :disabled="isSubmitting">
+                        <span x-show="isSubmitting" class="loading-spinner"></span>
+                        <span x-text="isSubmitting ? 'Subscribing...' : '🚀 Subscribe'"></span>
+                    </button>
+                </form>
+                <div x-show="showSuccess" class="newsletter-success">
+                    <p style="color: var(--accent-light); font-weight: 600;">
+                        ✅ Awesome! You'll get updates on the coolest new calculators!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>🎮 About Docket.One</h4>
+                    <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you
+                        should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the
+                        tools for modern life.</p>
+                    <p>Practical meets playful. Because adulting is hard enough.</p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>🎯 Calculator Categories</h4>
+                    <ul class="footer-links">
+                        <li><a href="https://docket.one/pages/BigKidMath/"><span class="calculator-emoji">🧠</span>
+                                BigKidMath - Adult Life Tools</a></li>
+                        <li><a href="https://docket.one/pages/CipherLab/"><span class="calculator-emoji">🔐</span>
+                                CipherLab - Secret Codes & Security</a>
+                        </li>
+                        <li><a href="https://docket.one/pages/GeekGalaxy/"><span class="calculator-emoji">🚀</span>
+                                GeekGalaxy - Sci-Fi & Fantasy Fun</a></li>
+                        <li><a href="https://docket.one/pages/LifeHacks/"><span class="calculator-emoji">⚡</span>
+                                LifeHacks - Productivity & Wellness</a></li>
+                        <li><a href="https://docket.one/pages/Math_Magik/"><span class="calculator-emoji">🧙‍♀️</span>
+                                Math Magik - Mathematical Wizardry</a>
+                        </li>
+                        <li><a href="https://docket.one/pages/Otaku_Ops/"><span class="calculator-emoji">🗾</span> Otaku
+                                Ops - Anime & Culture</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>💬 Support & Info</h4>
+                    <ul class="footer-links">
+                        <li><a href="pages/support/help.html"><span class="calculator-emoji">❓</span> Help &
+                                FAQ</a></li>
+                        <li><a href="pages/support/privacy.html"><span class="calculator-emoji">🔒</span> Privacy
+                                Policy</a></li>
+                        <li><a href="pages/support/terms.html"><span class="calculator-emoji">📋</span> Terms of
+                                Service</a></li>
+                        <li><a href="pages/support/accessibility.html"><span class="calculator-emoji">♿</span>
+                                Accessibility</a></li>
+                        <li><a href="pages/support/contact.html"><span class="calculator-emoji">📧</span> Contact
+                                Us</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-logo">🧮 Docket.One</div>
+                <div class="footer-copyright">
+                    © 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
+                </div>
+                <div class="social-links">
+                    <a href="#" class="social-link" aria-label="Twitter">𝕏</a>
+                    <a href="#" class="social-link" aria-label="LinkedIn">💼</a>
+                    <a href="#" class="social-link" aria-label="GitHub">🐙</a>
+                    <a href="#" class="social-link" aria-label="Email">📧</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

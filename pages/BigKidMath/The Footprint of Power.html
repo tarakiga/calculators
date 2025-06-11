@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- [Header content remains the same, fully updated] -->
+    <!-- Basic Meta -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>The Footprint of Power: Land Use Calculator | Big Kid Math | Docket One</title>
+    <meta name="description" content="A premium calculator to visualize and compare the land area required for solar, wind, and nuclear power to meet the energy needs of a given population.">
+    <meta name="keywords" content="energy land use, renewable energy calculator, nuclear power land, solar farm size, wind farm area, power density, Big Kid Math, energy policy calculator">
+    <meta name="author" content="Docket One">
+    <!-- Cache Control -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://docket.one/pages/BigKidMath/Land%20Requirements%20for%20Carbon-Free%20Energy.html" />
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://docket.one/pages/BigKidMath/Land%20Requirements%20for%20Carbon-Free%20Energy.html">
+    <meta property="og:title" content="The Footprint of Power: Land Use Calculator | Big Kid Math | Docket One">
+    <meta property="og:description" content="A premium calculator to visualize and compare the land area required for solar, wind, and nuclear power to meet the energy needs of a given population.">
+    <meta property="og:image" content="https://docket.one/images/bigkidmath-landuse-social-preview.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="Docket One">
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://docket.one/pages/BigKidMath/Land%20Requirements%20for%20Carbon-Free%20Energy.html">
+    <meta name="twitter:title" content="The Footprint of Power: Land Use Calculator | Big Kid Math | Docket One">
+    <meta name="twitter:description" content="A premium calculator to visualize and compare the land area required for solar, wind, and nuclear power to meet the energy needs of a given population.">
+    <meta name="twitter:image" content="https://docket.one/images/bigkidmath-landuse-social-preview.jpg">
+    <meta property="twitter:site" content="@DocketOne">
+    
+    <!-- Dependencies -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Exo+2:wght@600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Versioned Assets -->
+    <link rel="stylesheet" href="../../common/santa-improvements.css?v=20250609">
+    <link rel="stylesheet" href="../../common/global-calculator.css?v=20250609">
+    <link rel="stylesheet" href="../../common/themes/dark-theme.css?v=20250609">
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css?v=20250609">
+    <link rel="stylesheet" href="../../styles/landuse.css?v=20250609">
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css?v=20250609">
+    <script src="../../common/navbar-enhanced.js"></script>
+    <script src="../../common/add-keyboard-accessibility.js"></script>
+</head>
+
+<body x-data="landUseCalculator()" x-init="calculate()">
+    <!-- [Header and Navbar remain unchanged] -->
+    <div class="container text-center py-8">
+        <h1 class="font-display text-4xl md:text-5xl font-extrabold text-gray-800 uppercase tracking-wide">
+            The Footprint of <span class="text-teal-600">Power</span>
+        </h1>
+        <p class="text-lg text-gray-600 mt-2">A Land Use Calculator for Carbon-Free Energy Technologies</p>
+    </div>
+
+    <main class="calculator-layout">
+        <div class="panel">
+            <h2 class="panel-title">Energy Target</h2>
+            <div class="control-grid">
+                <div class="control-group">
+                    <label for="population" class="control-label">Power a City of:</label>
+                    <div class="population-display" x-text="population.toLocaleString() + ' people'"></div>
+                    <input type="range" id="population" min="10000" max="10000000" step="10000" x-model.number="population">
+                    <div class="flex justify-between text-xs text-gray-500 mt-2"><span>10k</span><span>1M</span><span>10M</span></div>
+                </div>
+                
+                <div x-data="{ open: false }" class="mt-2">
+                    <button @click="open = !open" class="text-sm text-gray-600 font-semibold flex items-center gap-2">
+                        <i class="fas fa-cog"></i> Advanced Assumptions
+                        <i class="fas" :class="open ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+                    </button>
+                    <div x-show="open" x-transition class="mt-4 p-4 bg-gray-100 rounded-lg text-sm">
+                        <div class="control-group">
+                            <label for="consumption" class="control-label text-xs">Annual Per-Capita Consumption</label>
+                            <input type="range" id="consumption" min="5000" max="20000" step="500" x-model.number="kwhPerCapita">
+                            <p class="text-center font-bold text-teal-700" x-text="kwhPerCapita.toLocaleString() + ' kWh/person'"></p>
+                        </div>
+                        <p class="text-xs text-gray-500">This calculator uses average power demand. Actual land use can vary based on capacity factor, geography, and storage requirements.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <h2 class="panel-title">Results: Required Land Area</h2>
+            
+            <div class="results-grid">
+                <!-- Solar, Wind, Nuclear cards... -->
+                <div class="result-card" style="border-color: var(--solar-color);"><div class="card-header"><i class="fas fa-sun card-icon" style="color: var(--solar-color);"></i><h3 class="card-title">Solar Photovoltaic</h3></div><p class="land-area" x-text="formatNumber(solar.land) + ' km²'"></p><p class="land-comparison" x-text="solar.comparison"></p><p class="text-xs text-gray-500 mt-2" x-text="`Power Density: ${powerDensities.solar} W/m²`"></p></div>
+                <div class="result-card" style="border-color: var(--wind-color);"><div class="card-header"><i class="fas fa-wind card-icon" style="color: var(--wind-color);"></i><h3 class="card-title">Onshore Wind</h3></div><p class="land-area" x-text="formatNumber(wind.land) + ' km²'"></p><p class="land-comparison" x-text="wind.comparison"></p><p class="text-xs text-gray-500 mt-2" x-text="`Power Density: ${powerDensities.wind} W/m²`"></p></div>
+                <div class="result-card" style="border-color: var(--nuclear-color);"><div class="card-header"><i class="fas fa-atom card-icon" style="color: var(--nuclear-color);"></i><h3 class="card-title">Nuclear Fission</h3></div><p class="land-area" x-text="formatNumber(nuclear.land) + ' km²'"></p><p class="land-comparison" x-text="nuclear.comparison"></p><p class="text-xs text-gray-500 mt-2" x-text="`Power Density: ${powerDensities.nuclear} W/m²`"></p></div>
+            </div>
+
+            <div class="visualizer">
+                <h3 class="panel-title text-center">Relative Land Use Comparison</h3>
+                <svg class="viz-svg" viewBox="0 0 320 120">
+                    <!-- Solar Bar -->
+                    <g transform="translate(40, 0)">
+                        <rect class="viz-bar" :y="100 - vizHeight.solar" :height="vizHeight.solar" width="60" rx="4" :fill="powerDensities.colors.solar"></rect>
+                        <text class="viz-label" x="30" y="115" text-anchor="middle">Solar</text>
+                    </g>
+                    <!-- Wind Bar -->
+                    <g transform="translate(130, 0)">
+                        <rect class="viz-bar" :y="100 - vizHeight.wind" :height="vizHeight.wind" width="60" rx="4" :fill="powerDensities.colors.wind"></rect>
+                        <text class="viz-label" x="30" y="115" text-anchor="middle">Wind</text>
+                    </g>
+                    <!-- Nuclear Bar -->
+                    <g transform="translate(220, 0)">
+                        <rect class="viz-bar" :y="100 - vizHeight.nuclear" :height="vizHeight.nuclear" width="60" rx="4" :fill="powerDensities.colors.nuclear"></rect>
+                        <text class="viz-not-to-scale" x="30" y="90" text-anchor="middle" x-show="isNuclearNotToScale">Not to Scale</text>
+                        <text class="viz-label" x="30" y="115" text-anchor="middle">Nuclear</text>
+                    </g>
+                </svg>
+            </div>
+            
+            <button @click="openShareModal()" class="w-full mt-8 bg-gradient-to-r from-teal-500 to-cyan-600 text-white font-bold py-3 rounded-lg shadow-lg hover:shadow-xl transition duration-200">
+                <i class="fas fa-share-alt mr-2"></i> Share Analysis Report
+            </button>
+        </div>
+
+        <div x-show="showShareModal" x-cloak class="modal-overlay" @click.self="showShareModal = false" style="display: none;">
+            <div class="modal-content !max-w-4xl" @click.stop>
+                <div class="modal-header"><h2 class="modal-title">📈 Share Analysis Report</h2><button class="modal-close" @click="showShareModal = false">×</button></div>
+                <div class="modal-body">
+                    <div class="share-modal-layout">
+                        <div class="share-preview-container">
+                            <img :src="sharePreviewImage" alt="Shareable report preview" class="share-preview-image">
+                        </div>
+                        <div class="share-actions">
+                            <button class="share-action-btn primary" @click="shareGeneral()"><i class="fas fa-paper-plane"></i> Share to Socials</button>
+                            <button class="share-action-btn secondary" @click="copyShareLink()"><i class="fas fa-link"></i> Copy Link</button>
+                            <button class="share-action-btn secondary" @click="downloadImage()"><i class="fas fa-download"></i> Download Report</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <canvas id="shareCanvas" width="1200" height="630" style="display: none;"></canvas>
+    </main>
+    
+    <script>
+        function landUseCalculator() {
+            return {
+                population: 1000000, kwhPerCapita: 12000, showShareModal: false, sharePreviewImage: '',
+                powerDensities: { solar: 10, wind: 3, nuclear: 800, colors: { solar: '#F5A623', wind: '#4A90E2', nuclear: '#27AE60' } },
+                solar: { land: 0, comparison: '' }, wind: { land: 0, comparison: '' }, nuclear: { land: 0, comparison: '' },
+                vizHeight: { solar: 0, wind: 0, nuclear: 0 }, isNuclearNotToScale: false,
+                
+                init() {
+                    const debouncedCalc = this.debounce(this.calculate, 200);
+                    this.$watch('population', debouncedCalc); this.$watch('kwhPerCapita', debouncedCalc);
+                },
+                debounce(func, wait) { let timeout; return (...args) => { clearTimeout(timeout); timeout = setTimeout(() => func.apply(this, args), wait); }; },
+
+                calculate() {
+                    const totalKwhYear = this.population * this.kwhPerCapita;
+                    const avgPowerWatts = (totalKwhYear * 1000) / (365 * 24);
+                    this.solar.land = this.calculateLandArea(avgPowerWatts, this.powerDensities.solar);
+                    this.wind.land = this.calculateLandArea(avgPowerWatts, this.powerDensities.wind);
+                    this.nuclear.land = this.calculateLandArea(avgPowerWatts, this.powerDensities.nuclear);
+                    this.solar.comparison = this.getComparison(this.solar.land);
+                    this.wind.comparison = this.getComparison(this.wind.land);
+                    this.nuclear.comparison = this.getComparison(this.nuclear.land);
+                    this.updateVisualizer();
+                },
+
+                calculateLandArea(powerWatts, density) { if (density === 0) return 0; return (powerWatts / density) / 1e6; },
+                getComparison(areaKm2) {
+                    const centralParkArea = 3.41; const comparisonValue = areaKm2 / centralParkArea;
+                    if (comparisonValue < 0.1) return 'Less than a city block';
+                    if (comparisonValue < 1) return 'About the size of a large park';
+                    return `Equivalent to ${this.formatNumber(comparisonValue)} Central Parks`;
+                },
+                updateVisualizer() {
+                    const maxRenewableLand = Math.max(this.solar.land, this.wind.land, 0.1);
+                    this.vizHeight.solar = Math.min(100, (this.solar.land / maxRenewableLand) * 100);
+                    this.vizHeight.wind = Math.min(100, (this.wind.land / maxRenewableLand) * 100);
+                    const nuclearActualHeight = (this.nuclear.land / maxRenewableLand) * 100;
+                    this.isNuclearNotToScale = nuclearActualHeight < 2 && this.nuclear.land > 0;
+                    this.vizHeight.nuclear = this.isNuclearNotToScale ? 2 : nuclearActualHeight;
+                },
+                formatNumber(num) { return num.toLocaleString(undefined, { maximumFractionDigits: 1 }); },
+                openShareModal() { this.sharePreviewImage = this.generateShareImage(); this.showShareModal = true; },
+                
+                generateShareImage() {
+                    const canvas = document.getElementById('shareCanvas'); const ctx = canvas.getContext('2d');
+                    ctx.fillStyle = '#F0F4F8'; ctx.fillRect(0, 0, 1200, 630);
+                    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                    
+                    ctx.font = "bold 60px 'Exo 2', sans-serif"; ctx.fillStyle = '#1A202C';
+                    ctx.fillText('The Footprint of Power', 600, 80);
+                    
+                    ctx.font = "32px 'Inter', sans-serif"; ctx.fillStyle = '#718096';
+                    ctx.fillText(`Land required to power a city of ${this.population.toLocaleString()} people`, 600, 140);
+                    
+                    const drawResult = (comparison, name, land, color, x, y) => {
+                        ctx.font = "bold 32px 'Inter', sans-serif"; ctx.fillStyle = '#1A202C';
+                        ctx.fillText(name, x, y);
+                        ctx.font = "bold 48px 'Exo 2', sans-serif"; ctx.fillStyle = color;
+                        ctx.fillText(`${this.formatNumber(land)} km²`, x, y + 55);
+                        ctx.font = "24px 'Inter', sans-serif"; ctx.fillStyle = '#718096';
+                        // A helper to wrap text
+                        const wrapText = (text, x, y, maxWidth, lineHeight) => {
+                            let words = text.split(' ');
+                            let line = '';
+                            for(let n = 0; n < words.length; n++) {
+                                let testLine = line + words[n] + ' ';
+                                let metrics = ctx.measureText(testLine);
+                                let testWidth = metrics.width;
+                                if (testWidth > maxWidth && n > 0) {
+                                    ctx.fillText(line, x, y);
+                                    line = words[n] + ' ';
+                                    y += lineHeight;
+                                } else {
+                                    line = testLine;
+                                }
+                            }
+                            ctx.fillText(line, x, y);
+                        }
+                        wrapText(comparison, x, y + 110, 280, 28);
+                    };
+                    
+                    drawResult(this.solar.comparison, 'Solar', this.solar.land, '#F5A623', 300, 320);
+                    drawResult(this.wind.comparison, 'Wind', this.wind.land, '#4A90E2', 600, 320);
+                    drawResult(this.nuclear.comparison, 'Nuclear', this.nuclear.land, '#27AE60', 900, 320);
+
+                    ctx.font = "24px 'Exo 2', sans-serif"; ctx.fillStyle = '#007B8A';
+                    ctx.fillText('docket.one/pages/BigKidMath/', 600, 580);
+                    return canvas.toDataURL('image/png');
+                },
+                generateShareText() { return `To power a city of ${this.population.toLocaleString()}, you'd need ${this.formatNumber(this.solar.land)} km² for solar, but only ${this.formatNumber(this.nuclear.land)} km² for nuclear! See the trade-offs:`; },
+                async shareGeneral() { if (!navigator.share) { this.downloadImage(); alert('Image downloaded.'); return; } try { const r = await fetch(this.generateShareImage()); const b = await r.blob(); const f = new File([b], 'land-use-report.png', { type: 'image/png' }); await navigator.share({ title: 'Energy Land Use Analysis', text: this.generateShareText(), files: [f] }); } catch (e) { console.error(e); } },
+                async copyShareLink() { try { await navigator.clipboard.writeText(window.location.href); alert('Link copied!'); } catch (err) { alert('Failed to copy.'); } },
+                downloadImage() { const link = document.createElement('a'); link.download = 'land-use-report.png'; link.href = this.generateShareImage(); link.click(); }
+            }
+        }
+    </script>
+	<!-- Newsletter Bar
+    <div class="newsletter-bar" x-data="newsletterForm()">
+        <div class="newsletter-container">
+            <div class="newsletter-content">
+                <div class="newsletter-info">
+                    <h3>🎉 Join Our Calculator Community!</h3>
+                    <p>Get updates on new fun calculators and practical tools</p>
+                </div>
+                <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
+                    <input type="email" class="newsletter-input" placeholder="Enter your email for calculator updates"
+                        x-model="email" required>
+                    <button type="submit" class="newsletter-submit" :disabled="isSubmitting">
+                        <span x-show="isSubmitting" class="loading-spinner"></span>
+                        <span x-text="isSubmitting ? 'Subscribing...' : '🚀 Subscribe'"></span>
+                    </button>
+                </form>
+                <div x-show="showSuccess" class="newsletter-success">
+                    <p style="color: var(--accent-light); font-weight: 600;">
+                        ✅ Awesome! You'll get updates on the coolest new calculators!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>🎮 About Docket.One</h4>
+                    <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you
+                        should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the
+                        tools for modern life.</p>
+                    <p>Practical meets playful. Because adulting is hard enough.</p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>🎯 Calculator Categories</h4>
+                    <ul class="footer-links">
+                        <li><a href="https://docket.one/pages/BigKidMath/"><span class="calculator-emoji">🧠</span>
+                                BigKidMath - Adult Life Tools</a></li>
+                        <li><a href="https://docket.one/pages/CipherLab/"><span class="calculator-emoji">🔐</span>
+                                CipherLab - Secret Codes & Security</a>
+                        </li>
+                        <li><a href="https://docket.one/pages/GeekGalaxy/"><span class="calculator-emoji">🚀</span>
+                                GeekGalaxy - Sci-Fi & Fantasy Fun</a></li>
+                        <li><a href="https://docket.one/pages/LifeHacks/"><span class="calculator-emoji">⚡</span>
+                                LifeHacks - Productivity & Wellness</a></li>
+                        <li><a href="https://docket.one/pages/Math_Magik/"><span class="calculator-emoji">🧙‍♀️</span>
+                                Math Magik - Mathematical Wizardry</a>
+                        </li>
+                        <li><a href="https://docket.one/pages/Otaku_Ops/"><span class="calculator-emoji">🗾</span> Otaku
+                                Ops - Anime & Culture</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>💬 Support & Info</h4>
+                    <ul class="footer-links">
+                        <li><a href="pages/support/help.html"><span class="calculator-emoji">❓</span> Help &
+                                FAQ</a></li>
+                        <li><a href="pages/support/privacy.html"><span class="calculator-emoji">🔒</span> Privacy
+                                Policy</a></li>
+                        <li><a href="pages/support/terms.html"><span class="calculator-emoji">📋</span> Terms of
+                                Service</a></li>
+                        <li><a href="pages/support/accessibility.html"><span class="calculator-emoji">♿</span>
+                                Accessibility</a></li>
+                        <li><a href="pages/support/contact.html"><span class="calculator-emoji">📧</span> Contact
+                                Us</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-logo">🧮 Docket.One</div>
+                <div class="footer-copyright">
+                    © 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
+                </div>
+                <div class="social-links">
+                    <a href="#" class="social-link" aria-label="Twitter">𝕏</a>
+                    <a href="#" class="social-link" aria-label="LinkedIn">💼</a>
+                    <a href="#" class="social-link" aria-label="GitHub">🐙</a>
+                    <a href="#" class="social-link" aria-label="Email">📧</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
