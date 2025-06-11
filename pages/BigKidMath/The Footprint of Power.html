@@ -196,8 +196,12 @@
                     ctx.fillText('The Footprint of Power', 600, 80);
                     
                     ctx.font = "32px 'Inter', sans-serif"; ctx.fillStyle = '#718096';
-                    ctx.fillText(`Land required to power a city of ${this.population.toLocaleString()} people`, 600, 140);
+                    ctx.fillText(`Land required to power a city of ${this.population.toLocaleString()} people`, 600, 150);
                     
+                    // NEW: Add the assumptions line
+                    ctx.font = "italic 28px 'Inter', sans-serif"; ctx.fillStyle = '#007B8A';
+                    ctx.fillText(`(Based on ${this.kwhPerCapita.toLocaleString()} kWh/person/year consumption)`, 600, 200);
+
                     const drawResult = (comparison, name, land, color, x, y) => {
                         ctx.font = "bold 32px 'Inter', sans-serif"; ctx.fillStyle = '#1A202C';
                         ctx.fillText(name, x, y);
@@ -206,28 +210,21 @@
                         ctx.font = "24px 'Inter', sans-serif"; ctx.fillStyle = '#718096';
                         // A helper to wrap text
                         const wrapText = (text, x, y, maxWidth, lineHeight) => {
-                            let words = text.split(' ');
-                            let line = '';
+                            let words = text.split(' '); let line = '';
                             for(let n = 0; n < words.length; n++) {
                                 let testLine = line + words[n] + ' ';
-                                let metrics = ctx.measureText(testLine);
-                                let testWidth = metrics.width;
-                                if (testWidth > maxWidth && n > 0) {
-                                    ctx.fillText(line, x, y);
-                                    line = words[n] + ' ';
-                                    y += lineHeight;
-                                } else {
-                                    line = testLine;
-                                }
+                                if (ctx.measureText(testLine).width > maxWidth && n > 0) {
+                                    ctx.fillText(line, x, y); line = words[n] + ' '; y += lineHeight;
+                                } else { line = testLine; }
                             }
                             ctx.fillText(line, x, y);
                         }
                         wrapText(comparison, x, y + 110, 280, 28);
                     };
                     
-                    drawResult(this.solar.comparison, 'Solar', this.solar.land, '#F5A623', 300, 320);
-                    drawResult(this.wind.comparison, 'Wind', this.wind.land, '#4A90E2', 600, 320);
-                    drawResult(this.nuclear.comparison, 'Nuclear', this.nuclear.land, '#27AE60', 900, 320);
+                    drawResult(this.solar.comparison, 'Solar', this.solar.land, '#F5A623', 300, 350);
+                    drawResult(this.wind.comparison, 'Wind', this.wind.land, '#4A90E2', 600, 350);
+                    drawResult(this.nuclear.comparison, 'Nuclear', this.nuclear.land, '#27AE60', 900, 350);
 
                     ctx.font = "24px 'Exo 2', sans-serif"; ctx.fillStyle = '#007B8A';
                     ctx.fillText('docket.one/pages/BigKidMath/', 600, 580);
