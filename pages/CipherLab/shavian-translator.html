@@ -1,0 +1,402 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Basic Meta -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Shavian Alphabet Translator | CipherLab | Docket One</title>
+    <meta name="description" content="Translate English text to the Shavian alphabet, a unique script created for the English language. Explore a modern take on phonetics.">
+    <meta name="keywords" content="shavian alphabet, shavian translator, phonetic alphabet, george bernard shaw, alternative writing system, cipher tools, docket one">
+    <meta name="author" content="Docket One">
+
+    <!-- Cache Control -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://docket.one/pages/CipherLab/shavian-translator.html" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://docket.one/pages/CipherLab/shavian-translator.html">
+    <meta property="og:title" content="Shavian Alphabet Translator | CipherLab | Docket One">
+    <meta property="og:description" content="Translate English text to the Shavian alphabet, a unique script created for the English language. Explore a modern take on phonetics.">
+    <meta property="og:image" content="https://docket.one/images/cipherlab-shavian-social-preview.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="Docket One">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://docket.one/pages/CipherLab/shavian-translator.html">
+    <meta name="twitter:title" content="Shavian Alphabet Translator | CipherLab | Docket One">
+    <meta name="twitter:description" content="Translate English text to the Shavian alphabet, a unique script created for the English language. Explore a modern take on phonetics.">
+    <meta name="twitter:image" content="https://docket.one/images/cipherlab-shavian-social-preview.jpg">
+    <meta property="twitter:site" content="@DocketOne">
+
+    <!-- Versioned Assets -->
+    <link rel="stylesheet" href="../../common/santa-improvements.css?v=20250609">
+    <link rel="stylesheet" href="../../common/global-calculator.css?v=20250609">
+    <link rel="stylesheet" href="../../common/themes/dark-theme.css?v=20250609">
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css?v=20250609">
+    <link rel="stylesheet" href="../../styles/shavian-translator.css?v=20250609">
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css?v=20250609">
+    
+    <!-- Preload Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Shavian&display=swap" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="icon" href="../../favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
+    <link rel="manifest" href="../../site.webmanifest">
+
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#1e293b">
+
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="../../common/navbar-enhanced.js"></script>
+    <script src="../../common/footer/premium-footer.js"></script>
+    <script src="../../common/add-breadcrumbs.js"></script>
+    <script src="../../common/add-keyboard-accessibility.js"></script>
+</head>
+<body x-data="{ showModal: false, showShareModal: false }">
+    <!-- enhanced-navbar Section -->
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Shavian Alphabet Translator</h1>
+        <p>Unlock the beauty of phonetic English with the Shavian alphabet.</p>
+    </section>
+
+    <main class="container" x-data="shavianTranslator()">
+        <div class="translator-grid">
+            <!-- Input Panel -->
+            <div class="panel">
+                <h2>📜 English Text</h2>
+                <textarea x-model="inputText" @input.debounce.500ms="translate" placeholder="Enter English text here..." class="shavian-textarea"></textarea>
+                <div class="controls">
+                    <button @click="clearText" class="control-button">Clear</button>
+                    <button @click="copyOutput" class="control-button">Copy Shavian</button>
+                </div>
+                <!-- Upgraded Share Button -->
+                <button class="share-button" @click="showShareModal = true">
+                    <span>🚀</span>
+                    <span>Share Your Translation</span>
+                </button>
+            </div>
+
+            <!-- Output Panel -->
+            <div class="panel">
+                <h2>𐑖𐑱𐑝𐑾𐑯 𐑨𐑤𐑓𐑩𐑚𐑧𐑑</h2>
+                <div x-html="shavianOutput" class="shavian-output"></div>
+            </div>
+        </div>
+
+        <!-- Share Modal -->
+        <div x-show="showShareModal" x-cloak class="modal-overlay" @click.self="showShareModal = false" style="display: none;">
+            <div class="modal-content" @click.stop>
+                <div class="modal-header">
+                    <h2 class="modal-title">🚀 Share Your Translation</h2>
+                    <p class="modal-subtitle">Share your Shavian translation with the world!</p>
+                    <button class="modal-close" @click="showShareModal = false">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="share-modal-grid">
+                        <button class="share-modal-button" @click="shareGeneral(); showShareModal = false">
+                            <span class="share-modal-icon">📱</span> Share with Image
+                        </button>
+                        <button class="share-modal-button" @click="shareOnTwitter(); showShareModal = false">
+                            <span class="share-modal-icon">🐦</span> Twitter
+                        </button>
+                        <button class="share-modal-button" @click="shareOnFacebook(); showShareModal = false">
+                            <span class="share-modal-icon">📘</span> Facebook
+                        </button>
+                        <button class="share-modal-button" @click="shareOnLinkedIn(); showShareModal = false">
+                            <span class="share-modal-icon">💼</span> LinkedIn
+                        </button>
+                        <button class="share-modal-button" @click="shareOnReddit(); showShareModal = false">
+                            <span class="share-modal-icon">🤖</span> Reddit
+                        </button>
+                        <button class="share-modal-button" @click="copyShareLink(); showShareModal = false">
+                            <span class="share-modal-icon">🔗</span> Copy Link
+                        </button>
+                         <button class="share-modal-button" @click="downloadImage(); showShareModal = false">
+                            <span class="share-modal-icon">💾</span> Download Image
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Hidden canvas for generating share images -->
+    <canvas id="shareCanvas" width="1200" height="630"></canvas>
+    
+    <script>
+        function shavianTranslator() {
+            return {
+                inputText: 'Hello, world!\n\nThis is a demonstration of the Shavian alphabet translator. Try typing words like \'enough\', \'church\', or \'measure\'.',
+                shavianOutput: '',
+                showShareModal: false,
+                // This map is ordered by length to ensure longest match is found first.
+                shavianMap: {
+                    'church': '𐑗𐑻𐑗', 'measure': '𐑥𐑧𐑠𐑼', 'enough': '𐑦𐑯𐑳𐑓',
+                    'the': '𐑞', 'and': '𐑯', 'for': '𐑓', 'are': '𐑸', 'you': '𐑿',
+                    'ch': '𐑗', 'sh': '𐑖', 'th': '𐑔', 'dh': '𐑞', 'ng': '𐑙',
+                    'p': '𐑐', 'b': '𐑚', 't': '𐑑', 'd': '𐑛', 'k': '𐑒', 'g': '𐑜',
+                    'f': '𐑓', 'v': '𐑝', 's': '𐑕', 'z': '𐑟', 'h': '𐑣', 'j': '𐑡',
+                    'l': '𐑤', 'r': '𐑮', 'm': '𐑥', 'n': '𐑯', 'w': '𐑢', 'y': '𐑘',
+                    'a': '𐑨', 'e': '𐑧', 'i': '𐑦', 'o': '𐑪', 'u': '𐑳',
+                    'aa': '𐑸', 'ee': '𐑰', 'ie': '𐑲', 'ou': '𐑬', 'oi': '𐑶',
+                    'air': '𐑺', 'ear': '𐑽', 'our': '𐑻', 'or': '𐑹', 
+                    'er': '𐑼', 'ur': '𐑻', 'oo': '𐑵', 'eau': '𐑴',
+                    ' ': ' ', '\n': '<br>'
+                },
+                // Get the keys once and sort them by length, descending. This is crucial for the matching logic.
+                sortedKeys: [],
+
+                init() {
+                    this.sortedKeys = Object.keys(this.shavianMap).sort((a, b) => b.length - a.length);
+                    this.translate();
+                },
+
+                translate() {
+                    let text = this.inputText.toLowerCase();
+                    let result = '';
+                    let i = 0;
+                    while (i < text.length) {
+                        let foundMatch = false;
+                        for (const key of this.sortedKeys) {
+                            if (text.substring(i, i + key.length) === key) {
+                                result += this.shavianMap[key];
+                                i += key.length;
+                                foundMatch = true;
+                                break;
+                            }
+                        }
+                        if (!foundMatch) {
+                            result += text[i];
+                            i++;
+                        }
+                    }
+                    this.shavianOutput = result;
+                },
+
+                clearText() {
+                    this.inputText = '';
+                    this.translate();
+                },
+
+                copyOutput() {
+                    navigator.clipboard.writeText(this.shavianOutput.replace(/<br>/g, '\n')).then(() => {
+                        alert('✅ Shavian text copied to clipboard!');
+                    }, () => {
+                        alert('❌ Failed to copy text.');
+                    });
+                },
+
+                generateShareText() {
+                    return `I just translated text to the Shavian alphabet! 📜\n\n"${this.inputText.substring(0, 50)}..."\n\nSee the full translation and try it yourself!`;
+                },
+
+                generateShareImage() {
+                    const canvas = document.getElementById('shareCanvas');
+                    const ctx = canvas.getContext('2d');
+                    canvas.width = 1200;
+                    canvas.height = 630;
+                    
+                    const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+                    gradient.addColorStop(0, '#1a202c');
+                    gradient.addColorStop(1, '#2d3748');
+                    ctx.fillStyle = gradient;
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                    ctx.textAlign = 'center';
+                    ctx.fillStyle = '#f6ad55';
+                    ctx.font = 'bold 52px Inter, sans-serif';
+                    ctx.fillText('Shavian Alphabet Translation', canvas.width / 2, 100);
+
+                    ctx.fillStyle = '#a0aec0';
+                    ctx.font = '28px Inter, sans-serif';
+                    ctx.fillText('English:', canvas.width / 2, 180);
+                    ctx.fillStyle = '#edf2f7';
+                    ctx.font = 'italic 32px Inter, sans-serif';
+                    ctx.fillText(`"${this.inputText.substring(0, 40)}..."`, canvas.width / 2, 230);
+
+                    ctx.fillStyle = '#a0aec0';
+                    ctx.font = '28px Inter, sans-serif';
+                    ctx.fillText('Shavian:', canvas.width / 2, 320);
+                    ctx.fillStyle = '#f7fafc';
+                    ctx.font = '60px \'Noto Sans Shavian\', sans-serif';
+                    ctx.fillText(this.shavianOutput.replace(/<br>/g, ' ').substring(0, 30), canvas.width / 2, 400);
+
+                    ctx.fillStyle = '#f6ad55';
+                    ctx.font = 'bold 28px Inter, sans-serif';
+                    ctx.fillText('docket.one/pages/CipherLab/', canvas.width / 2, 580);
+                    
+                    return canvas.toDataURL('image/png');
+                },
+
+                async shareGeneral() {
+                    const text = this.generateShareText();
+                    const calculatorUrl = 'https://docket.one/pages/CipherLab/shavian-translator.html';
+                    
+                    if (navigator.share) {
+                        try {
+                            const imageDataUrl = this.generateShareImage();
+                            const response = await fetch(imageDataUrl);
+                            const blob = await response.blob();
+                            const file = new File([blob], `shavian-translation-${Date.now()}.png`, { type: 'image/png' });
+                            
+                            if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                                await navigator.share({ title: 'Shavian Translation', text, url: calculatorUrl, files: [file] });
+                            } else {
+                                await navigator.share({ title: 'Shavian Translator', text, url: calculatorUrl });
+                            }
+                        } catch (err) {
+                            if (err.name !== 'AbortError') console.error('Web Share API failed:', err);
+                        }
+                    } else {
+                        try {
+                            await navigator.clipboard.writeText(`${text} ${calculatorUrl}`);
+                            alert('✅ Results copied to clipboard!\n\nThe image has been downloaded for you to attach.');
+                            this.downloadImage();
+                        } catch (err) {
+                            console.error('Clipboard failed:', err);
+                            this.downloadImage();
+                            alert('📥 Image downloaded! Share text:\n\n' + text + '\n\n' + calculatorUrl);
+                        }
+                    }
+                },
+
+                shareOnTwitter() {
+                    const text = this.generateShareText();
+                    const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(window.location.href)}`;
+                    window.open(url, '_blank');
+                },
+                shareOnFacebook() {
+                    const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`;
+                    window.open(url, '_blank');
+                },
+                shareOnLinkedIn() {
+                    const url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`;
+                    window.open(url, '_blank');
+                },
+                shareOnReddit() {
+                    const title = 'I just translated English to the Shavian Alphabet!';
+                    const url = `https://reddit.com/submit?url=${encodeURIComponent(window.location.href)}&title=${encodeURIComponent(title)}`;
+                    window.open(url, '_blank');
+                },
+                async copyShareLink() {
+                    try {
+                        await navigator.clipboard.writeText(window.location.href);
+                        alert('✅ Link copied to clipboard!');
+                    } catch (err) {
+                        console.error('Failed to copy link:', err);
+                        alert('❌ Failed to copy link.');
+                    }
+                },
+                downloadImage() {
+                    const imageDataUrl = this.generateShareImage();
+                    const link = document.createElement('a');
+                    link.download = `shavian-translation-${Date.now()}.png`;
+                    link.href = imageDataUrl;
+                    link.click();
+                }
+            }
+        }
+    </script>
+    <script src="../../common/mobile-menu.js"></script>
+    <!-- Newsletter Bar -->
+    <div class="newsletter-bar" x-data="newsletterForm()">
+        <div class="newsletter-container">
+            <div class="newsletter-content">
+                <div class="newsletter-info">
+                    <h3>🎉 Join Our Calculator Community!</h3>
+                    <p>Get updates on new fun calculators and practical tools</p>
+                </div>
+                <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
+                    <input type="email" class="newsletter-input" placeholder="Enter your email for calculator updates"
+                        x-model="email" required>
+                    <button type="submit" class="newsletter-submit" :disabled="isSubmitting">
+                        <span x-show="isSubmitting" class="loading-spinner"></span>
+                        <span x-text="isSubmitting ? 'Subscribing...' : '🚀 Subscribe'"></span>
+                    </button>
+                </form>
+                <div x-show="showSuccess" class="newsletter-success">
+                    <p style="color: var(--accent-light); font-weight: 600;">
+                        ✅ Awesome! You'll get updates on the coolest new calculators!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>🎮 About Docket.One</h4>
+                    <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you
+                        should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the
+                        tools for modern life.</p>
+                    <p>Practical meets playful. Because adulting is hard enough.</p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>🎯 Calculator Categories</h4>
+                    <ul class="footer-links">
+                        <li><a href="https://docket.one/pages/BigKidMath/"><span class="calculator-emoji">🧠</span>
+                                BigKidMath - Adult Life Tools</a></li>
+                        <li><a href="https://docket.one/pages/CipherLab/"><span class="calculator-emoji">🔐</span>
+                                CipherLab - Secret Codes & Security</a>
+                        </li>
+                        <li><a href="https://docket.one/pages/GeekGalaxy/"><span class="calculator-emoji">🚀</span>
+                                GeekGalaxy - Sci-Fi & Fantasy Fun</a></li>
+                        <li><a href="https://docket.one/pages/LifeHacks/"><span class="calculator-emoji">⚡</span>
+                                LifeHacks - Productivity & Wellness</a></li>
+                        <li><a href="https://docket.one/pages/Math_Magik/"><span class="calculator-emoji">🧙‍♀️</span>
+                                Math Magik - Mathematical Wizardry</a>
+                        </li>
+                        <li><a href="https://docket.one/pages/Otaku_Ops/"><span class="calculator-emoji">🗾</span> Otaku
+                                Ops - Anime & Culture</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>💬 Support & Info</h4>
+                    <ul class="footer-links">
+                        <li><a href="pages/support/help.html"><span class="calculator-emoji">❓</span> Help &
+                                FAQ</a></li>
+                        <li><a href="pages/support/privacy.html"><span class="calculator-emoji">🔒</span> Privacy
+                                Policy</a></li>
+                        <li><a href="pages/support/terms.html"><span class="calculator-emoji">📋</span> Terms of
+                                Service</a></li>
+                        <li><a href="pages/support/accessibility.html"><span class="calculator-emoji">♿</span>
+                                Accessibility</a></li>
+                        <li><a href="pages/support/contact.html"><span class="calculator-emoji">📧</span> Contact
+                                Us</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-logo">🧮 Docket.One</div>
+                <div class="footer-copyright">
+                    © 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
+                </div>
+                <div class="social-links">
+                    <a href="#" class="social-link" aria-label="Twitter">𝕏</a>
+                    <a href="#" class="social-link" aria-label="LinkedIn">💼</a>
+                    <a href="#" class="social-link" aria-label="GitHub">🐙</a>
+                    <a href="#" class="social-link" aria-label="Email">📧</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
