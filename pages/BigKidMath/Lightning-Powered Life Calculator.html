@@ -21,480 +21,21 @@
     <!-- Fonts and Dependencies -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../styles/lighting-power.css">
     <link rel="stylesheet" href="../../common/santa-improvements.css">
-    
-    <style>
-        /* Lightning-Themed Design System */
-        :root {
-            /* Lightning Color Palette */
-            --lightning-yellow: #fbbf24;
-            --lightning-blue: #0ea5e9;
-            --lightning-purple: #8b5cf6;
-            --lightning-white: #f8fafc;
-            --lightning-dark: #0f172a;
-            --storm-gray: #334155;
-            --energy-orange: #f97316;
-            
-            /* Spacing Scale */
-            --space-xs: 0.25rem;
-            --space-sm: 0.5rem;
-            --space-md: 1rem;
-            --space-lg: 1.5rem;
-            --space-xl: 2rem;
-            --space-2xl: 3rem;
-            --space-3xl: 4rem;
-            
-            /* Professional Shadows */
-            --shadow-sm: 0 1px 2px 0 rgba(251, 191, 36, 0.05);
-            --shadow-md: 0 4px 6px -1px rgba(251, 191, 36, 0.1);
-            --shadow-lg: 0 10px 15px -3px rgba(251, 191, 36, 0.1);
-            --shadow-xl: 0 20px 25px -5px rgba(251, 191, 36, 0.1);
-            
-            /* Border Radius */
-            --radius: 0.75rem;
-            --radius-sm: 0.5rem;
-            --radius-lg: 1rem;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, var(--lightning-dark) 0%, var(--storm-gray) 50%, var(--lightning-dark) 100%);
-            color: var(--lightning-white);
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        /* Hero Section */
-        .hero {
-            text-align: center;
-            padding: var(--space-3xl) var(--space-lg);
-            background: radial-gradient(circle at center, rgba(251, 191, 36, 0.1) 0%, transparent 70%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="1" fill="%23fbbf24" opacity="0.3"/><circle cx="80" cy="40" r="0.5" fill="%23fbbf24" opacity="0.5"/><circle cx="40" cy="80" r="1.5" fill="%23fbbf24" opacity="0.4"/><circle cx="90" cy="10" r="0.8" fill="%23fbbf24" opacity="0.6"/><circle cx="10" cy="90" r="1.2" fill="%23fbbf24" opacity="0.3"/></svg>') repeat;
-            animation: sparkle 8s linear infinite;
-            pointer-events: none;
-        }
-
-        @keyframes sparkle {
-            0% { transform: translateY(0px) rotate(0deg); }
-            100% { transform: translateY(-100px) rotate(360deg); }
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: var(--space-sm);
-            background: linear-gradient(135deg, var(--lightning-yellow), var(--energy-orange));
-            color: var(--lightning-dark);
-            padding: var(--space-sm) var(--space-lg);
-            border-radius: 2rem;
-            font-size: 0.875rem;
-            font-weight: 600;
-            margin-bottom: var(--space-lg);
-            box-shadow: var(--shadow-lg);
-        }
-        .hero-title {
-            font-size: clamp(2.5rem, 6vw, 4rem);
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--lightning-yellow), var(--lightning-blue));
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: var(--space-lg);
-            line-height: 1.1;
-        }
-
-        .hero-subtitle {
-            font-size: 1.25rem;
-            color: rgba(248, 250, 252, 0.8);
-            max-width: 600px;
-            margin: 0 auto var(--space-2xl);
-            line-height: 1.6;
-        }
-
-        /* Main Content Layout */
-        .calculator-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 var(--space-lg) var(--space-3xl);
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: var(--space-2xl);
-            align-items: start;
-        }
-
-        /* Input Panel */
-        .input-panel {
-            background: rgba(248, 250, 252, 0.05);
-            border: 1px solid rgba(251, 191, 36, 0.2);
-            border-radius: var(--radius-lg);
-            padding: var(--space-2xl);
-            backdrop-filter: blur(10px);
-            box-shadow: var(--shadow-xl);
-            position: sticky;
-            top: 80px;
-        }
-
-        .panel-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--lightning-yellow);
-            margin-bottom: var(--space-xl);
-            display: flex;
-            align-items: center;
-            gap: var(--space-sm);
-        }
-
-        .input-group {
-            margin-bottom: var(--space-xl);
-        }
-
-        .input-label {
-            display: block;
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--lightning-white);
-            margin-bottom: var(--space-sm);
-        }
-        .slider-container {
-            position: relative;
-            margin-bottom: var(--space-md);
-        }
-
-        .slider {
-            width: 100%;
-            height: 8px;
-            border-radius: 4px;
-            background: linear-gradient(90deg, var(--lightning-yellow), var(--lightning-blue));
-            outline: none;
-            -webkit-appearance: none;
-            appearance: none;
-            cursor: pointer;
-        }
-
-        .slider::-webkit-slider-thumb {
-            appearance: none;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            background: var(--lightning-white);
-            border: 3px solid var(--lightning-yellow);
-            cursor: pointer;
-            box-shadow: 0 2px 8px rgba(251, 191, 36, 0.3);
-        }
-
-        .slider::-moz-range-thumb {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            background: var(--lightning-white);
-            border: 3px solid var(--lightning-yellow);
-            cursor: pointer;
-            box-shadow: 0 2px 8px rgba(251, 191, 36, 0.3);
-        }
-
-        .slider-value {
-            background: linear-gradient(135deg, var(--lightning-yellow), var(--energy-orange));
-            color: var(--lightning-dark);
-            padding: var(--space-sm) var(--space-md);
-            border-radius: var(--radius);
-            font-weight: 700;
-            font-size: 1.125rem;
-            display: inline-block;
-            margin-top: var(--space-sm);
-        }
-
-        .lifestyle-options {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: var(--space-md);
-            margin-top: var(--space-sm);
-        }
-
-        .lifestyle-option {
-            background: rgba(248, 250, 252, 0.05);
-            border: 2px solid rgba(251, 191, 36, 0.2);
-            border-radius: var(--radius);
-            padding: var(--space-lg);
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .lifestyle-option.active {
-            background: linear-gradient(135deg, var(--lightning-yellow), var(--lightning-blue));
-            color: var(--lightning-dark);
-            border-color: var(--lightning-yellow);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .lifestyle-option:hover {
-            border-color: var(--lightning-yellow);
-            transform: translateY(-2px);
-        }
-
-        .lifestyle-emoji {
-            font-size: 1.5rem;
-            margin-bottom: var(--space-sm);
-        }
-
-        .lifestyle-label {
-            font-weight: 600;
-            font-size: 0.875rem;
-        }
-
-        /* Results Panel */
-        .results-panel {
-            background: rgba(248, 250, 252, 0.05);
-            border: 1px solid rgba(251, 191, 36, 0.2);
-            border-radius: var(--radius-lg);
-            padding: var(--space-2xl);
-            backdrop-filter: blur(10px);
-            box-shadow: var(--shadow-xl);
-        }
-
-        .lightning-animation {
-            text-align: center;
-            margin-bottom: var(--space-2xl);
-            position: relative;
-            height: 120px;
-        }
-
-        .lightning-bolt {
-            font-size: 4rem;
-            color: var(--lightning-yellow);
-            animation: lightning-flash 2s ease-in-out infinite;
-            text-shadow: 0 0 20px var(--lightning-yellow);
-        }
-
-        @keyframes lightning-flash {
-            0%, 50%, 100% { opacity: 1; transform: scale(1); }
-            25% { opacity: 0.7; transform: scale(1.1); }
-            75% { opacity: 0.9; transform: scale(0.95); }
-        }
-
-        .main-result {
-            text-align: center;
-            margin-bottom: var(--space-2xl);
-        }
-
-        .result-number {
-            font-size: clamp(2rem, 4vw, 3.5rem);
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--lightning-yellow), var(--energy-orange));
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: var(--space-sm);
-        }
-        .result-label {
-            font-size: 1.25rem;
-            color: rgba(248, 250, 252, 0.9);
-            font-weight: 600;
-        }
-
-        .energy-breakdown {
-            background: rgba(251, 191, 36, 0.1);
-            border-radius: var(--radius);
-            padding: var(--space-lg);
-            margin-bottom: var(--space-xl);
-        }
-
-        .breakdown-title {
-            font-size: 1.125rem;
-            font-weight: 700;
-            color: var(--lightning-yellow);
-            margin-bottom: var(--space-md);
-        }
-
-        .breakdown-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: var(--space-sm) 0;
-            border-bottom: 1px solid rgba(251, 191, 36, 0.1);
-        }
-
-        .breakdown-item:last-child {
-            border-bottom: none;
-        }
-
-        .comparisons-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: var(--space-lg);
-        }
-
-        .comparison-card {
-            background: rgba(14, 165, 233, 0.1);
-            border: 1px solid rgba(14, 165, 233, 0.2);
-            border-radius: var(--radius);
-            padding: var(--space-lg);
-            text-align: center;
-        }
-
-        .comparison-emoji {
-            font-size: 2rem;
-            margin-bottom: var(--space-sm);
-        }
-
-        .comparison-value {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: var(--lightning-blue);
-            margin-bottom: var(--space-xs);
-        }
-
-        .comparison-label {
-            font-size: 0.875rem;
-            color: rgba(248, 250, 252, 0.7);
-        }
-        /* Share Button */
-        .share-button {
-            background: linear-gradient(135deg, var(--lightning-purple), var(--lightning-blue));
-            color: white;
-            border: none;
-            border-radius: var(--radius);
-            padding: 0.75rem 1.5rem;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-top: var(--space-lg);
-            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
-            width: 100%;
-            justify-content: center;
-        }
-
-        .share-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
-        }
-
-        /* Future Projection */
-        .future-projection {
-            margin-top: var(--space-xl);
-            background: rgba(139, 92, 246, 0.1);
-            border: 1px solid rgba(139, 92, 246, 0.2);
-            border-radius: var(--radius);
-            padding: var(--space-lg);
-        }
-
-        .projection-title {
-            font-size: 1.125rem;
-            font-weight: 700;
-            color: var(--lightning-purple);
-            margin-bottom: var(--space-md);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .calculator-container {
-                grid-template-columns: 1fr;
-                gap: var(--space-xl);
-            }
-
-            .input-panel {
-                position: static;
-            }
-
-            .lifestyle-options {
-                grid-template-columns: 1fr;
-            }
-
-            .comparisons-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .hero {
-                padding: var(--space-2xl) var(--space-lg);
-            }
-        }
-        /* Hidden canvas for sharing */
-        #shareCanvas {
-            display: none;
-        }
-    </style>
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script>
-
     <link rel="stylesheet" href="../../common/navbar-enhanced.css">
     <link rel="stylesheet" href="../../common/santa-improvements.css">
     <link rel="stylesheet" href="../../common/global-calculator.css">
     <link rel="stylesheet" href="../../common/themes/dark-theme.css">
     <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script>
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
-    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script>
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
-    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script>
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
-    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
+    <script src="../../common/footer/footer-inject.js"></script>
+    <script src="../../common/navbar-enhanced.js"></script>
     <script src="../../common/footer/premium-footer.js"></script>
     <script src="../../common/add-breadcrumbs.js"></script>
-    <script src="../../common/add-keyboard-accessibility.js"></script></head>
+    <script src="../../common/add-keyboard-accessibility.js"></script>
+</head>
 <body x-data="lightningCalculator()">
     <!-- Enhanced Navigation Bar -->
-    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-<nav class="main-nav">
-    <div class="nav-container">
-        <div class="nav-logo">
-            <a href="../../index.html">🧮 Docket One</a>
-        </div>
-        <div class="nav-search">
-            <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input" aria-label="Search calculators">
-            <div id="search-results" class="search-results"></div>
-        </div>
-        <ul class="nav-links">
-            <li><a href="../BigKidMath/index.html" class="category-link">Big Kid Math</a></li>
-            <li><a href="../CipherLab/index.html" class="category-link">Cipher Lab</a></li>
-            <li><a href="../GeekGalaxy/index.html" class="category-link">Geek Galaxy</a></li>
-            <li><a href="../LifeHacks/index.html" class="category-link">Life Hacks</a></li>
-            <li><a href="../Math_Magik/index.html" class="category-link">Math Magik</a></li>
-            <li><a href="../Otaku_Ops/index.html" class="category-link">Otaku Ops</a></li>
-            <li><a href="../../index.html" class="home-link">🏠 Home</a></li>
-        </ul>
-        <button class="mobile-menu-btn" aria-label="Toggle menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-    </div>
-</nav>
-
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-badge">
@@ -633,6 +174,45 @@
 
     <!-- Hidden canvas for generating share images -->
     <canvas id="shareCanvas" width="1200" height="630"></canvas>
+
+    <section class="content-section">
+        <div class="container">
+            <h2>The Science of Lightning</h2>
+            <p>A typical lightning bolt contains about 1 billion joules of energy. While this sounds like a lot, capturing and storing that energy is a massive challenge. Lightning is incredibly fast and powerful, and we don't currently have the technology to harness it effectively.</p>
+            <p>This calculator uses the 1-billion-joule figure as a baseline to give you a fun and awe-inspiring way to think about your own energy consumption.</p>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <h2>Your Energy Footprint</h2>
+            <p>Your personal energy consumption is influenced by many factors. Here's a look at what contributes to your energy footprint:</p>
+            <ul>
+                <li><strong>Housing:</strong> The size of your home, the type of heating and cooling you use, and your appliance usage all play a big role.</li>
+                <li><strong>Transportation:</strong> How you get around, whether by car, public transit, or bike, has a significant impact on your energy use.</li>
+                <li><strong>Diet:</strong> The food you eat, especially meat and dairy, has a surprisingly large energy footprint.</li>
+                <li><strong>Consumer Goods:</strong> The products you buy, from clothing to electronics, all require energy to produce and transport.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq">
+                <h3>Could we ever really power our lives with lightning?</h3>
+                <p>While it's a fun idea, it's not practical with our current technology. The challenges of capturing, storing, and distributing the energy from a lightning strike are immense. However, it's a great way to visualize the massive amounts of energy we use every day.</p>
+            </div>
+            <div class="faq">
+                <h3>What are joules?</h3>
+                <p>A joule is a unit of energy. It's the amount of energy transferred when a force of one newton is applied over a distance of one meter. To put it in perspective, a 60-watt light bulb uses 60 joules of energy every second.</p>
+            </div>
+            <div class="faq">
+                <h3>How can I reduce my energy consumption?</h3>
+                <p>There are many ways to reduce your energy footprint, from simple things like turning off lights when you leave a room to bigger changes like switching to renewable energy sources or driving an electric car.</p>
+            </div>
+        </div>
+    </section>
 
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script>
@@ -906,98 +486,7 @@
             }
         });
     </script>
-<!-- Newsletter Bar -->
-<div class="newsletter-bar" x-data="newsletterForm()">
-    <div class="newsletter-container">
-        <div class="newsletter-content">
-            <div class="newsletter-info">
-                <h3>&#127881; Join Our Calculator Community!</h3>
-                <p>Get updates on new fun calculators and practical tools</p>
-            </div>
-            <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
-                <input 
-                    type="email" 
-                    class="newsletter-input"
-                    placeholder="Enter your email for calculator updates"
-                    x-model="email"
-                    required
-                >
-                <button 
-                    type="submit" 
-                    class="newsletter-submit"
-                    :disabled="isSubmitting"
-                >
-                    <span x-show="isSubmitting" class="loading-spinner"></span>
-                    <span x-text="isSubmitting ? 'Subscribing...' : '&#128640; Subscribe'"></span>
-                </button>
-            </form>
-            <div x-show="showSuccess" class="newsletter-success" style="display: none;">
-                <p style="color: var(--accent-light); font-weight: 600;">
-                    &#9989; Awesome! You'll get updates on the coolest new calculators!
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Footer -->
-<footer class="footer">
-    <div class="footer-container">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h4>&#127919; About Docket.One</h4>
-                <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the tools for modern life.</p>
-                <p>Practical meets playful. Because adulting is hard enough.</p>
-            </div>
-
-            <div class="footer-section">
-                <h4>&#127914; Calculator Categories</h4>
-                <ul class="footer-links">
-                    <li><a href="/pages/BigKidMath/"><span class="calculator-emoji">&#129518;</span> BigKidMath - Adult Life Tools</a></li>
-                    <li><a href="/pages/CipherLab/"><span class="calculator-emoji">&#128272;</span> CipherLab - Secret Codes & Security</a></li>
-                    <li><a href="/pages/GeekGalaxy/"><span class="calculator-emoji">&#128640;</span> GeekGalaxy - Sci-Fi & Fantasy Fun</a></li>
-                    <li><a href="/pages/LifeHacks/"><span class="calculator-emoji">&#9889;</span> LifeHacks - Productivity & Wellness</a></li>
-                    <li><a href="/pages/Math_Magik/"><span class="calculator-emoji">&#127917;</span> Math Magik - Mathematical Wizardry</a></li>
-                    <li><a href="/pages/Otaku_Ops/"><span class="calculator-emoji">&#127999;</span> Otaku Ops - Anime & Culture</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-                <h4>&#128172; Support & Info</h4>
-                <ul class="footer-links">
-                    <li><a href="/pages/support/help.html"><span class="calculator-emoji">&#10067;</span> Help & FAQ</a></li>
-                    <li><a href="/privacy"><span class="calculator-emoji">&#128274;</span> Privacy Policy</a></li>
-                    <li><a href="/terms"><span class="calculator-emoji">&#128203;</span> Terms of Service</a></li>
-                    <li><a href="/accessibility"><span class="calculator-emoji">&#9855;</span> Accessibility</a></li>
-                    <li><a href="/pages/support/contact.html"><span class="calculator-emoji">&#128231;</span> Contact Us</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-                <button 
-                    class="request-calculator-btn"
-                    @click="showModal = true"
-                >
-                    &#128161; Request a Calculator
-                </button>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <div class="footer-logo">&#129518; Docket.One</div>
-            <div class="footer-copyright">
-                Â© 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
-            </div>
-            <div class="social-links">
-                <a href="#" class="social-link" aria-label="Twitter">&#120143;</a>
-                <a href="#" class="social-link" aria-label="LinkedIn">&#128188;</a>
-                <a href="#" class="social-link" aria-label="GitHub">&#128025;</a>
-                <a href="#" class="social-link" aria-label="Email">&#128231;</a>
-            </div>
-        </div>
-    </div>
-</footer>
-
+<!-- Footer (Handled by JS) -->
 <!-- Request Modal -->
 <div 
     x-data="calculatorRequestForm()"

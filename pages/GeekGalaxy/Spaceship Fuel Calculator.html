@@ -49,11 +49,12 @@
     <link rel="stylesheet" href="../../styles/spacefuel.css?v=20250609">
     <link rel="stylesheet" href="../../common/navbar-enhanced.css?v=20250609">
     <script src="../../common/navbar-enhanced.js"></script>
+    <script src="../../common/footer/footer-inject.js"></script>
     <script src="../../common/add-keyboard-accessibility.js"></script>
 </head>
 
 <body x-data="fuelPlanner()" x-init="calculate()">
-
+    <!-- Navigation (Handled by JS) -->
     <div class="container text-center py-8">
         <h1 class="font-display text-4xl md:text-5xl font-extrabold text-white uppercase tracking-wider">
             Interstellar <span class="text-yellow-400">Trip & Fuel</span> Planner
@@ -162,6 +163,52 @@
         </div>
         <canvas id="shareCanvas" width="1200" height="630" style="display: none;"></canvas>
     </main>
+
+    <section class="content-section">
+        <div class="container">
+            <h2>Interstellar Fuels: From Kerosene to Antimatter</h2>
+            <p>The vast distances of interstellar space demand propulsion systems with incredible energy densities. This calculator explores a range of theoretical and real-world fuels, each with its own advantages and limitations:</p>
+            <ul>
+                <li><strong>Gasoline & Liquid Hydrogen:</strong> While common on Earth, these fuels have relatively low energy densities and are only practical for short-range, intra-system travel.</li>
+                <li><strong>Fission Pellets:</strong> Used in nuclear fission rockets, these offer significantly higher energy density than chemical fuels, making longer journeys feasible.</li>
+                <li><strong>Coaxium:</strong> A fictional, highly volatile hyperfuel from the Star Wars universe, representing a leap in energy storage for faster-than-light travel.</li>
+                <li><strong>Warp Plasma:</strong> The fuel for warp drives in Star Trek, this exotic matter-antimatter reaction provides the immense energy needed to bend spacetime.</li>
+                <li><strong>Antimatter:</strong> The ultimate theoretical fuel, antimatter-matter annihilation releases nearly 100% of mass as energy, offering unparalleled efficiency for interstellar voyages.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <h2>Challenges of Interstellar Logistics</h2>
+            <p>Fueling and supplying missions across light-years presents monumental challenges:</p>
+            <ul>
+                <li><strong>Mass Ratios:</strong> For every unit of payload, an enormous amount of fuel is often required, especially for conventional propulsion.</li>
+                <li><strong>Energy Storage:</strong> Storing and safely handling fuels with extreme energy densities (like antimatter) requires advanced containment technologies.</li>
+                <li><strong>Refueling:</strong> Establishing refueling stations in deep space or at distant star systems is a complex undertaking, requiring advanced infrastructure.</li>
+                <li><strong>Time & Distance:</strong> Even with advanced fuels, travel times can be decades or centuries, necessitating self-sustaining ships and crews.</li>
+                <li><strong>Resource Acquisition:</strong> Future missions might rely on in-situ resource utilization (ISRU), mining asteroids or planets for fuel and materials.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq">
+                <h3>What is a light-year?</h3>
+                <p>A light-year is a unit of distance, not time. It is the distance that light travels in one Earth year, which is approximately 9.461 trillion kilometers (about 5.879 trillion miles). It's used to measure the vast distances between stars and galaxies.</p>
+            </div>
+            <div class="faq">
+                <h3>Is antimatter a real thing?</h3>
+                <p>Yes, antimatter is real! It's composed of antiparticles, which have the same mass as ordinary particles but opposite electric charge and other quantum numbers. When matter and antimatter meet, they annihilate each other, converting their entire mass into energy. However, producing and storing antimatter in significant quantities is currently beyond our technological capabilities.</p>
+            </div>
+            <div class="faq">
+                <h3>How do fictional fuels like Coaxium or Warp Plasma work?</h3>
+                <p>Fictional fuels often draw inspiration from real physics but take liberties to enable faster-than-light travel or immense power output. Coaxium, for example, is depicted as a highly concentrated and volatile energy source. Warp plasma, in Star Trek, is typically a superheated, energized form of deuterium and antideuterium that powers the warp core, allowing for spacetime manipulation.</p>
+            </div>
+        </div>
+    </section>
     
     <script>
         function fuelPlanner() {
@@ -276,93 +323,6 @@
             }
         }
     </script>
-	<!-- Newsletter Bar -->
-    <div class="newsletter-bar" x-data="newsletterForm()">
-        <div class="newsletter-container">
-            <div class="newsletter-content">
-                <div class="newsletter-info">
-                    <h3>🎉 Join Our Calculator Community!</h3>
-                    <p>Get updates on new fun calculators and practical tools</p>
-                </div>
-                <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
-                    <input type="email" class="newsletter-input" placeholder="Enter your email for calculator updates"
-                        x-model="email" required>
-                    <button type="submit" class="newsletter-submit" :disabled="isSubmitting">
-                        <span x-show="isSubmitting" class="loading-spinner"></span>
-                        <span x-text="isSubmitting ? 'Subscribing...' : '🚀 Subscribe'"></span>
-                    </button>
-                </form>
-                <div x-show="showSuccess" class="newsletter-success">
-                    <p style="color: var(--accent-light); font-weight: 600;">
-                        ✅ Awesome! You'll get updates on the coolest new calculators!
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>🎮 About Docket.One</h4>
-                    <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you
-                        should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the
-                        tools for modern life.</p>
-                    <p>Practical meets playful. Because adulting is hard enough.</p>
-                </div>
-
-                <div class="footer-section">
-                    <h4>🎯 Calculator Categories</h4>
-                    <ul class="footer-links">
-                        <li><a href="https://docket.one/pages/BigKidMath/"><span class="calculator-emoji">🧠</span>
-                                BigKidMath - Adult Life Tools</a></li>
-                        <li><a href="https://docket.one/pages/CipherLab/"><span class="calculator-emoji">🔐</span>
-                                CipherLab - Secret Codes & Security</a>
-                        </li>
-                        <li><a href="https://docket.one/pages/GeekGalaxy/"><span class="calculator-emoji">🚀</span>
-                                GeekGalaxy - Sci-Fi & Fantasy Fun</a></li>
-                        <li><a href="https://docket.one/pages/LifeHacks/"><span class="calculator-emoji">⚡</span>
-                                LifeHacks - Productivity & Wellness</a></li>
-                        <li><a href="https://docket.one/pages/Math_Magik/"><span class="calculator-emoji">🧙‍♀️</span>
-                                Math Magik - Mathematical Wizardry</a>
-                        </li>
-                        <li><a href="https://docket.one/pages/Otaku_Ops/"><span class="calculator-emoji">🗾</span> Otaku
-                                Ops - Anime & Culture</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h4>💬 Support & Info</h4>
-                    <ul class="footer-links">
-                        <li><a href="pages/support/help.html"><span class="calculator-emoji">❓</span> Help &
-                                FAQ</a></li>
-                        <li><a href="pages/support/privacy.html"><span class="calculator-emoji">🔒</span> Privacy
-                                Policy</a></li>
-                        <li><a href="pages/support/terms.html"><span class="calculator-emoji">📋</span> Terms of
-                                Service</a></li>
-                        <li><a href="pages/support/accessibility.html"><span class="calculator-emoji">♿</span>
-                                Accessibility</a></li>
-                        <li><a href="pages/support/contact.html"><span class="calculator-emoji">📧</span> Contact
-                                Us</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <div class="footer-logo">🧮 Docket.One</div>
-                <div class="footer-copyright">
-                    © 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
-                </div>
-                <div class="social-links">
-                    <a href="#" class="social-link" aria-label="Twitter">𝕏</a>
-                    <a href="#" class="social-link" aria-label="LinkedIn">💼</a>
-                    <a href="#" class="social-link" aria-label="GitHub">🐙</a>
-                    <a href="#" class="social-link" aria-label="Email">📧</a>
-                </div>
-            </div>
-        </div>
-    </footer>
+	<!-- Footer (Handled by JS) -->
 </body>
 </html>

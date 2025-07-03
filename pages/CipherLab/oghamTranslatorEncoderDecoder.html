@@ -12,339 +12,19 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    
-    <style>
-        :root {
-            --primary: #d4af37;
-            --secondary: #228b22;
-            --accent: #cd7f32;
-            --gray-50: #f9fafb;
-            --gray-100: #f3f4f6;
-            --gray-200: #e5e7eb;
-            --gray-600: #4b5563;
-            --gray-800: #1f2937;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--gray-50);
-            color: var(--gray-800);
-            line-height: 1.6;
-        }
-        
-        .hero {
-            background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 50%, var(--secondary) 100%);
-            color: white;
-            padding: 4rem 2rem;
-            text-align: center;
-        }
-        
-        .hero-title {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-        }
-        
-        .hero-subtitle {
-            font-size: 1.125rem;
-            opacity: 0.9;
-        }
-        
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 3rem 2rem;
-        }
-        
-        .translator-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 2rem;
-        }
-        
-        .translator-panel, .info-panel {
-            background: white;
-            border-radius: 16px;
-            padding: 2rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            border: 1px solid var(--gray-200);
-        }
-        
-        .mode-selector {
-            display: flex;
-            background: var(--gray-100);
-            border-radius: 8px;
-            padding: 4px;
-            margin-bottom: 2rem;
-        }
-        
-        .mode-button {
-            flex: 1;
-            padding: 0.75rem;
-            border: none;
-            border-radius: 6px;
-            background: transparent;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .mode-button.active {
-            background: var(--primary);
-            color: white;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        .input-field, .output-field {
-            width: 100%;
-            padding: 1rem;
-            border: 2px solid var(--gray-200);
-            border-radius: 12px;
-            font-size: 1rem;
-            min-height: 120px;
-            margin-bottom: 1rem;
-            resize: vertical;
-        }
-        
-        .input-field:focus {
-            outline: none;
-            border-color: var(--primary);
-        }
-        
-        .output-field {
-            background: var(--gray-50);
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--accent);
-        }
-        
-        .ogham-display {
-            background: linear-gradient(145deg, #f5f5f0, #e8e8e0);
-            border: 3px solid var(--accent);
-            border-radius: 12px;
-            padding: 2rem;
-            margin: 1rem 0;
-            min-height: 120px;
-            position: relative;
-            text-align: center;
-        }
-        
-        .ogham-text {
-            font-size: 2rem;
-            line-height: 1.8;
-            color: var(--accent);
-            font-weight: 600;
-            letter-spacing: 2px;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .controls {
-            display: flex;
-            gap: 1rem;
-            margin: 1rem 0;
-            flex-wrap: wrap;
-        }
-        
-        .btn {
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-        }
-        
-        .btn-secondary {
-            background: var(--gray-200);
-            color: var(--gray-800);
-        }
-        
-        .btn-export {
-            background: var(--secondary);
-            color: white;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        
-        .btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-        
-        .character-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
-            gap: 0.5rem;
-            margin: 1rem 0;
-        }
-        
-        .character-item {
-            background: var(--gray-50);
-            border: 1px solid var(--gray-200);
-            border-radius: 8px;
-            padding: 0.5rem;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .character-item:hover {
-            background: white;
-            border-color: var(--primary);
-            transform: translateY(-2px);
-        }
-        
-        .character-ogham {
-            font-size: 1.5rem;
-            display: block;
-            margin-bottom: 0.25rem;
-        }
-        
-        .character-latin {
-            font-size: 0.75rem;
-            font-weight: 600;
-        }
-        
-        .cultural-info {
-            background: linear-gradient(135deg, var(--secondary), var(--accent));
-            color: white;
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin: 2rem 0;
-        }
-        
-        .cultural-info h3 {
-            margin-bottom: 1rem;
-        }
-        
-        .cultural-info p {
-            margin-bottom: 0.75rem;
-            opacity: 0.95;
-        }
-        
-        .export-section {
-            background: var(--gray-50);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin: 2rem 0;
-        }
-        
-        .export-section h3 {
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .export-options {
-            display: flex;
-            gap: 0.75rem;
-            flex-wrap: wrap;
-        }
-        
-        @media (max-width: 768px) {
-            .translator-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .hero {
-                padding: 2rem 1rem;
-            }
-            
-            .hero-title {
-                font-size: 2rem;
-            }
-            
-            .container {
-                padding: 2rem 1rem;
-            }
-            
-            .controls {
-                flex-direction: column;
-            }
-            
-            .export-options {
-                flex-direction: column;
-            }
-        }
-    </style>
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script>
-
+    <link rel="stylesheet" href="../../styles/ogham.css">
     <link rel="stylesheet" href="../../common/navbar-enhanced.css">
     <link rel="stylesheet" href="../../common/santa-improvements.css">
     <link rel="stylesheet" href="../../common/global-calculator.css">
     <link rel="stylesheet" href="../../common/themes/dark-theme.css">
     <link rel="stylesheet" href="../../common/footer/premium-footer.css">
     <script src="../../common/footer/premium-footer.js"></script>
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
-    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script>
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
-    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script>
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
-    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script>
+    <script src="../../common/navbar-enhanced.js"></script>
+    <script src="../../common/footer/footer-inject.js"></script>
     <script src="../../common/add-breadcrumbs.js"></script>
     <script src="../../common/add-keyboard-accessibility.js"></script></head>
 <body x-data="{ showModal: false }">
     <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-<nav class="main-nav">
-    <div class="nav-container">
-        <div class="nav-logo">
-            <a href="../../index.html">🧮 Docket One</a>
-        </div>
-        <div class="nav-search">
-            <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input" aria-label="Search calculators">
-            <div id="search-results" class="search-results"></div>
-        </div>
-        <ul class="nav-links">
-            <li><a href="../BigKidMath/index.html" class="category-link">Big Kid Math</a></li>
-            <li><a href="../CipherLab/index.html" class="category-link">Cipher Lab</a></li>
-            <li><a href="../GeekGalaxy/index.html" class="category-link">Geek Galaxy</a></li>
-            <li><a href="../LifeHacks/index.html" class="category-link">Life Hacks</a></li>
-            <li><a href="../Math_Magik/index.html" class="category-link">Math Magik</a></li>
-            <li><a href="../Otaku_Ops/index.html" class="category-link">Otaku Ops</a></li>
-            <li><a href="../../index.html" class="home-link">🏠 Home</a></li>
-        </ul>
-        <button class="mobile-menu-btn" aria-label="Toggle menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-    </div>
-</nav>
 
     <section class="hero">
         <h1 class="hero-title">🗿 Ogham Translator</h1>
@@ -433,6 +113,40 @@
             </div>
         </div>
     </main>
+
+    <section class="content-section">
+        <div class="container">
+            <h2>The History of Ogham</h2>
+            <p>Ogham is an ancient alphabet that was used to write the early Irish language. It is the earliest form of writing in Ireland, dating back to the 4th century AD. The script is made up of a series of lines and notches, which were carved into the edges of stone monuments.</p>
+            <p>These Ogham stones are found throughout Ireland and in parts of Wales, Scotland, and the Isle of Man. They are a fascinating glimpse into the world of early medieval Ireland, and they provide valuable information about the language, culture, and society of the time.</p>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <h2>The Ogham Alphabet and the Trees</h2>
+            <p>Each letter of the Ogham alphabet is named after a tree or plant. This reflects the deep connection that the ancient Irish had with the natural world. The trees were not just a source of food and shelter, but also a source of spiritual and cultural inspiration.</p>
+            <p>The Ogham alphabet is sometimes referred to as the "Celtic Tree Alphabet." Each letter has its own unique symbolism and meaning, and the study of Ogham is a fascinating way to learn about the rich mythology and folklore of the Celtic world.</p>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq">
+                <h3>How was Ogham written?</h3>
+                <p>Ogham was typically carved into the edges of standing stones, reading from bottom to top. The lines were carved on either side of a central line, or "stemline."</p>
+            </div>
+            <div class="faq">
+                <h3>What was Ogham used for?</h3>
+                <p>Ogham was primarily used for monumental inscriptions, such as marking territory or commemorating the dead. It was also used for magical and divinatory purposes.</p>
+            </div>
+            <div class="faq">
+                <h3>Is Ogham still used today?</h3>
+                <p>While no longer used for everyday communication, Ogham is still studied by historians, archaeologists, and enthusiasts of Celtic culture. It is also used in modern art and design.</p>
+            </div>
+        </div>
+    </section>
 
     <script>
         document.addEventListener('alpine:init', () => {
@@ -678,97 +392,7 @@
             }));
         });
     </script>
-<!-- Newsletter Bar -->
-<div class="newsletter-bar" x-data="newsletterForm()">
-    <div class="newsletter-container">
-        <div class="newsletter-content">
-            <div class="newsletter-info">
-                <h3>&#127881; Join Our Calculator Community!</h3>
-                <p>Get updates on new fun calculators and practical tools</p>
-            </div>
-            <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
-                <input 
-                    type="email" 
-                    class="newsletter-input"
-                    placeholder="Enter your email for calculator updates"
-                    x-model="email"
-                    required
-                >
-                <button 
-                    type="submit" 
-                    class="newsletter-submit"
-                    :disabled="isSubmitting"
-                >
-                    <span x-show="isSubmitting" class="loading-spinner"></span>
-                    <span x-text="isSubmitting ? 'Subscribing...' : '&#128640; Subscribe'"></span>
-                </button>
-            </form>
-            <div x-show="showSuccess" class="newsletter-success" style="display: none;">
-                <p style="color: var(--accent-light); font-weight: 600;">
-                    &#9989; Awesome! You'll get updates on the coolest new calculators!
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Footer -->
-<footer class="footer">
-    <div class="footer-container">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h4>&#127919; About Docket.One</h4>
-                <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the tools for modern life.</p>
-                <p>Practical meets playful. Because adulting is hard enough.</p>
-            </div>
-
-            <div class="footer-section">
-                <h4>&#127914; Calculator Categories</h4>
-                <ul class="footer-links">
-                    <li><a href="/pages/BigKidMath/"><span class="calculator-emoji">&#129518;</span> BigKidMath - Adult Life Tools</a></li>
-                    <li><a href="/pages/CipherLab/"><span class="calculator-emoji">&#128272;</span> CipherLab - Secret Codes & Security</a></li>
-                    <li><a href="/pages/GeekGalaxy/"><span class="calculator-emoji">&#128640;</span> GeekGalaxy - Sci-Fi & Fantasy Fun</a></li>
-                    <li><a href="/pages/LifeHacks/"><span class="calculator-emoji">&#9889;</span> LifeHacks - Productivity & Wellness</a></li>
-                    <li><a href="/pages/Math_Magik/"><span class="calculator-emoji">&#127917;</span> Math Magik - Mathematical Wizardry</a></li>
-                    <li><a href="/pages/Otaku_Ops/"><span class="calculator-emoji">&#127999;</span> Otaku Ops - Anime & Culture</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-                <h4>&#128172; Support & Info</h4>
-                <ul class="footer-links">
-                    <li><a href="/pages/support/help.html"><span class="calculator-emoji">&#10067;</span> Help & FAQ</a></li>
-                    <li><a href="/privacy"><span class="calculator-emoji">&#128274;</span> Privacy Policy</a></li>
-                    <li><a href="/terms"><span class="calculator-emoji">&#128203;</span> Terms of Service</a></li>
-                    <li><a href="/accessibility"><span class="calculator-emoji">&#9855;</span> Accessibility</a></li>
-                    <li><a href="/pages/support/contact.html"><span class="calculator-emoji">&#128231;</span> Contact Us</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-                <button 
-                    class="request-calculator-btn"
-                    @click="showModal = true"
-                >
-                    &#128161; Request a Calculator
-                </button>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <div class="footer-logo">&#129518; Docket.One</div>
-            <div class="footer-copyright">
-                Â© 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
-            </div>
-            <div class="social-links">
-                <a href="#" class="social-link" aria-label="Twitter">&#120143;</a>
-                <a href="#" class="social-link" aria-label="LinkedIn">&#128188;</a>
-                <a href="#" class="social-link" aria-label="GitHub">&#128025;</a>
-                <a href="#" class="social-link" aria-label="Email">&#128231;</a>
-            </div>
-        </div>
-    </div>
-</footer>
+<!-- Footer (Handled by JS) -->
 
 <!-- Request Modal -->
 <div 

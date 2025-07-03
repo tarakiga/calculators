@@ -50,11 +50,13 @@
     <link rel="stylesheet" href="../../common/navbar-enhanced.css?v=20250609">
 	<script src="../../common/navbar-enhanced.js"></script>
     <script src="../../common/add-breadcrumbs.js"></script>
+    <script src="../../common/footer/premium-footer.js"></script>
+    <script src="../../common/footer/footer-inject.js"></script>
     <script src="../../common/add-keyboard-accessibility.js"></script>
 </head>
 
 <body x-data="isekaiGenerator()" x-init="init()">
-    
+    <!-- Navigation Bar -->
     <header class="summoning-circle-header">
         <div class="summoning-circle"></div>
         <div class="relative z-10">
@@ -276,93 +278,31 @@
             }
         }
     </script>
-	<!-- Newsletter Bar -->
-    <div class="newsletter-bar" x-data="newsletterForm()">
-        <div class="newsletter-container">
-            <div class="newsletter-content">
-                <div class="newsletter-info">
-                    <h3>🎉 Join Our Calculator Community!</h3>
-                    <p>Get updates on new fun calculators and practical tools</p>
-                </div>
-                <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
-                    <input type="email" class="newsletter-input" placeholder="Enter your email for calculator updates"
-                        x-model="email" required>
-                    <button type="submit" class="newsletter-submit" :disabled="isSubmitting">
-                        <span x-show="isSubmitting" class="loading-spinner"></span>
-                        <span x-text="isSubmitting ? 'Subscribing...' : '🚀 Subscribe'"></span>
-                    </button>
-                </form>
-                <div x-show="showSuccess" class="newsletter-success">
-                    <p style="color: var(--accent-light); font-weight: 600;">
-                        ✅ Awesome! You'll get updates on the coolest new calculators!
-                    </p>
-                </div>
-            </div>
+    <!-- Premium Content: Description, How it Works, FAQ -->
+    <section class="content-section premium-info-section" style="width:100vw; position:relative; left:50%; right:50%; margin-left:-50vw; margin-right:-50vw; background:var(--otaku-bg, #232946); padding:3rem 0;">
+      <div style="max-width:900px; margin:0 auto; padding:0 2rem;">
+        <h2 class="premium-heading" style="font-size:2rem; margin-bottom:0.5em; color:#8BE9FD; font-weight:800; letter-spacing:-1px;">About This Calculator</h2>
+        <p style="font-size:1.15rem; color:#fff; max-width:800px; margin-bottom:1.5em;">
+          The Isekai Reincarnation Profile Generator creates your alternate-universe persona. Discover your new world, class, skills, and quirks—perfect for fans of isekai anime and light novels.
+        </p>
+        <h2 class="premium-heading" style="font-size:1.5rem; margin-top:2em; margin-bottom:0.5em; color:#F1FA8C; font-weight:700;">How It Works</h2>
+        <ul style="font-size:1.05rem; color:#fff; margin-bottom:1.5em; list-style:disc inside; max-width:800px;">
+          <li><strong>Input Name:</strong> Enter your name or a character alias.</li>
+          <li><strong>Randomize:</strong> Let the generator assign your world, class, and abilities.</li>
+          <li><strong>Profile Output:</strong> See your full reincarnation profile, including stats and quirks.</li>
+          <li><strong>Share:</strong> Download or share your new identity with friends.</li>
+        </ul>
+        <h2 class="premium-heading" style="font-size:1.5rem; margin-top:2em; margin-bottom:0.5em; color:#8BE9FD; font-weight:700;">Frequently Asked Questions</h2>
+        <div class="faq-list" style="max-width:800px;">
+          <div class="faq"><h3 style="font-size:1.1rem; color:#F1FA8C; font-weight:600;">Is this random?</h3><p style="color:#fff;">Yes, results are randomized for fun.</p></div>
+          <div class="faq"><h3 style="font-size:1.1rem; color:#F1FA8C; font-weight:600;">Can I use this for RPGs?</h3><p style="color:#fff;">Definitely! It's great for character inspiration.</p></div>
+          <div class="faq"><h3 style="font-size:1.1rem; color:#F1FA8C; font-weight:600;">Are results saved?</h3><p style="color:#fff;">No, all profiles are generated locally and not stored.</p></div>
+          <div class="faq"><h3 style="font-size:1.1rem; color:#F1FA8C; font-weight:600;">Can I share my profile?</h3><p style="color:#fff;">Yes, use the export or share feature.</p></div>
         </div>
-    </div>
+      </div>
+    </section>
+	<!-- Footer (Handled by JS) -->
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>🎮 About Docket.One</h4>
-                    <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you
-                        should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the
-                        tools for modern life.</p>
-                    <p>Practical meets playful. Because adulting is hard enough.</p>
-                </div>
-
-                <div class="footer-section">
-                    <h4>🎯 Calculator Categories</h4>
-                    <ul class="footer-links">
-                        <li><a href="https://docket.one/pages/BigKidMath/"><span class="calculator-emoji">🧠</span>
-                                BigKidMath - Adult Life Tools</a></li>
-                        <li><a href="https://docket.one/pages/CipherLab/"><span class="calculator-emoji">🔐</span>
-                                CipherLab - Secret Codes & Security</a>
-                        </li>
-                        <li><a href="https://docket.one/pages/GeekGalaxy/"><span class="calculator-emoji">🚀</span>
-                                GeekGalaxy - Sci-Fi & Fantasy Fun</a></li>
-                        <li><a href="https://docket.one/pages/LifeHacks/"><span class="calculator-emoji">⚡</span>
-                                LifeHacks - Productivity & Wellness</a></li>
-                        <li><a href="https://docket.one/pages/Math_Magik/"><span class="calculator-emoji">🧙‍♀️</span>
-                                Math Magik - Mathematical Wizardry</a>
-                        </li>
-                        <li><a href="https://docket.one/pages/Otaku_Ops/"><span class="calculator-emoji">🗾</span> Otaku
-                                Ops - Anime & Culture</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h4>💬 Support & Info</h4>
-                    <ul class="footer-links">
-                        <li><a href="pages/support/help.html"><span class="calculator-emoji">❓</span> Help &
-                                FAQ</a></li>
-                        <li><a href="pages/support/privacy.html"><span class="calculator-emoji">🔒</span> Privacy
-                                Policy</a></li>
-                        <li><a href="pages/support/terms.html"><span class="calculator-emoji">📋</span> Terms of
-                                Service</a></li>
-                        <li><a href="pages/support/accessibility.html"><span class="calculator-emoji">♿</span>
-                                Accessibility</a></li>
-                        <li><a href="pages/support/contact.html"><span class="calculator-emoji">📧</span> Contact
-                                Us</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <div class="footer-logo">🧮 Docket.One</div>
-                <div class="footer-copyright">
-                    © 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
-                </div>
-                <div class="social-links">
-                    <a href="#" class="social-link" aria-label="Twitter">𝕏</a>
-                    <a href="#" class="social-link" aria-label="LinkedIn">💼</a>
-                    <a href="#" class="social-link" aria-label="GitHub">🐙</a>
-                    <a href="#" class="social-link" aria-label="Email">📧</a>
-                </div>
-            </div>
-        </div>
-    </footer>
+    
 </body>
 </html>

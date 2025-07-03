@@ -11,175 +11,23 @@
     <link rel="stylesheet" href="../../common/santa-improvements.css">
     <link rel="stylesheet" href="../../common/global-calculator.css">
     <link rel="stylesheet" href="../../common/themes/dark-theme.css">
+    <link rel="stylesheet" href="../../styles/double-pendulum.css">
     <link rel="stylesheet" href="../../common/footer/premium-footer.css">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <script src="../../common/footer/premium-footer.js"></script>
-
-    <style>
-        body {
-            padding: 1rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        h1 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            text-align: center;
-        }
-
-        .description {
-            max-width: 800px;
-            margin: 0 auto 2rem;
-            text-align: center;
-            line-height: 1.6;
-            color: var(--text-secondary);
-        }
-
-        #controls {
-            display: grid;
-            gap: 1.5rem;
-            margin: 2rem auto;
-            max-width: 800px;
-            padding: 1.5rem;
-            background: var(--surface-elevated);
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .control-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .control-group label {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: 500;
-        }
-
-        .slider {
-            width: 100%;
-            height: 8px;
-            -webkit-appearance: none;
-            background: linear-gradient(to right, var(--deadline-red), var(--proc-warning), var(--productivity-green));
-            border-radius: 4px;
-            outline: none;
-        }
-
-        .slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 24px;
-            height: 24px;
-            background: var(--proc-primary);
-            border-radius: 50%;
-            cursor: pointer;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
-        #reset {
-            width: 100%;
-            padding: 1rem;
-            background: linear-gradient(135deg, var(--proc-primary), var(--lazy-purple));
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        #reset:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.2);
-        }
-
-        .canvas-container {
-            width: 100%;
-            max-width: 800px;
-            margin: 2rem auto;
-            aspect-ratio: 16/10;
-            position: relative;
-        }
-
-        #pendulumCanvas {
-            width: 100%;
-            height: 100%;
-            display: block;
-        }
-
-        @media (min-width: 768px) {
-            #controls {
-                grid-template-columns: repeat(3, 1fr);
-            }
-
-            #reset {
-                grid-column: 1 / -1;
-            }
-        }
-
-        @media (max-width: 767px) {
-            body {
-                padding: 0.5rem;
-            }
-
-            h1 {
-                font-size: 1.5rem;
-            }
-
-            .description {
-                font-size: 0.9rem;
-                padding: 0 1rem;
-            }
-
-            #controls {
-                padding: 1rem;
-            }
-
-            .control-group label {
-                font-size: 0.9rem;
-            }
-        }
-    </style>
-
+    <script src="../../common/footer/footer-inject.js"></script>
+    <script src="../../common/navbar-enhanced.js"></script>
+    <script src="../../common/footer/footer-inject.js"></script>
     <script src="../../common/add-breadcrumbs.js"></script>
     <script src="../../common/add-keyboard-accessibility.js"></script>
 </head>
 
 <body x-data="{ showModal: false }">
     <!-- Navigation Bar -->
-    <nav class="main-nav">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <a href="../../index.html">🧮 Docket One</a>
-            </div>
-            <div class="nav-search">
-                <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input"
-                    aria-label="Search calculators">
-                <div id="search-results" class="search-results"></div>
-            </div>
-            <ul class="nav-links">
-                <li><a href="../BigKidMath/index.html" class="category-link">Big Kid Math</a></li>
-                <li><a href="../CipherLab/index.html" class="category-link">Cipher Lab</a></li>
-                <li><a href="../GeekGalaxy/index.html" class="category-link">Geek Galaxy</a></li>
-                <li><a href="../LifeHacks/index.html" class="category-link">Life Hacks</a></li>
-                <li><a href="../Math_Magik/index.html" class="category-link">Math Magik</a></li>
-                <li><a href="../Otaku_Ops/index.html" class="category-link">Otaku Ops</a></li>
-                <li><a href="../../index.html" class="home-link">🏠 Home</a></li>
-            </ul>
-            <button class="mobile-menu-btn" aria-label="Toggle menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </nav>
-
+    
+    <div class="px-4 py-12">
     <h1>Double Pendulum Chaos</h1>
     <div class="description">
         This simulation shows how tiny changes can lead to completely unpredictable results—a key idea in chaos theory.
@@ -350,27 +198,11 @@
         animate();
     </script>
 
-    <div class="related-calculators"
-        style="margin-top: 2rem; padding: 1rem; background: rgba(0,0,0,0.1); border-radius: 8px;">
-        <h3 style="margin-top: 0;">Related Math Magik Tools</h3>
-        <a href="./entropy and feigenbaums constant.html"
-            style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">entropy
-            and feigenbaums constant</a>
-        <a href="./FIRE Number Calculator.html"
-            style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">FIRE
-            Number Calculator</a>
-        <a href="./Inflation Impact Calculator.html"
-            style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Inflation
-            Impact Calculator</a>
-        <a href="./index.html"
-            style="display: block; padding: 0.5rem; margin-top: 1rem; background: rgba(74,144,226,0.2); border-radius: 4px; text-decoration: none; color: inherit; font-weight: bold;">←
-            Back to Math Magik Hub</a>
-    </div>
 
     <script>
         // 🎅 Santa Claude's Interactive Enhancements
         document.addEventListener('DOMContentLoaded', function () {
-            console.log('🎅 Santa Claude's enhancements loaded!');
+            console.log("🎅 Santa Claude's enhancements loaded!");
 
             // Enhanced button interactions
             const buttons = document.querySelectorAll('button, .btn');
@@ -411,97 +243,8 @@
             });
         });
     </script>
-
-    <!-- Newsletter Bar -->
-    <div class="newsletter-bar" x-data="newsletterForm()">
-        <div class="newsletter-container">
-            <div class="newsletter-content">
-                <div class="newsletter-info">
-                    <h3>&#127881; Join Our Calculator Community!</h3>
-                    <p>Get updates on new fun calculators and practical tools</p>
-                </div>
-                <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
-                    <input type="email" class="newsletter-input" placeholder="Enter your email for calculator updates"
-                        x-model="email" required>
-                    <button type="submit" class="newsletter-submit" :disabled="isSubmitting">
-                        <span x-show="isSubmitting" class="loading-spinner"></span>
-                        <span x-text="isSubmitting ? 'Subscribing...' : '&#128640; Subscribe'"></span>
-                    </button>
-                </form>
-                <div x-show="showSuccess" class="newsletter-success" style="display: none;">
-                    <p style="color: var(--accent-light); font-weight: 600;">
-                        &#9989; Awesome! You'll get updates on the coolest new calculators!
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>&#127919; About Docket.One</h4>
-                    <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you
-                        should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the
-                        tools for modern life.</p>
-                    <p>Practical meets playful. Because adulting is hard enough.</p>
-                </div>
-
-                <div class="footer-section">
-                    <h4>&#127914; Calculator Categories</h4>
-                    <ul class="footer-links">
-                        <li><a href="/pages/BigKidMath/"><span class="calculator-emoji">&#129518;</span> BigKidMath -
-                                Adult Life Tools</a></li>
-                        <li><a href="/pages/CipherLab/"><span class="calculator-emoji">&#128272;</span> CipherLab -
-                                Secret Codes & Security</a></li>
-                        <li><a href="/pages/GeekGalaxy/"><span class="calculator-emoji">&#128640;</span> GeekGalaxy -
-                                Sci-Fi & Fantasy Fun</a></li>
-                        <li><a href="/pages/LifeHacks/"><span class="calculator-emoji">&#9889;</span> LifeHacks -
-                                Productivity & Wellness</a></li>
-                        <li><a href="/pages/Math_Magik/"><span class="calculator-emoji">&#127917;</span> Math Magik -
-                                Mathematical Wizardry</a></li>
-                        <li><a href="/pages/Otaku_Ops/"><span class="calculator-emoji">&#127999;</span> Otaku Ops -
-                                Anime & Culture</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h4>&#128172; Support & Info</h4>
-                    <ul class="footer-links">
-                        <li><a href="/pages/support/help.html"><span class="calculator-emoji">&#10067;</span> Help &
-                                FAQ</a></li>
-                        <li><a href="/privacy"><span class="calculator-emoji">&#128274;</span> Privacy Policy</a></li>
-                        <li><a href="/terms"><span class="calculator-emoji">&#128203;</span> Terms of Service</a></li>
-                        <li><a href="/accessibility"><span class="calculator-emoji">&#9855;</span> Accessibility</a>
-                        </li>
-                        <li><a href="/pages/support/contact.html"><span class="calculator-emoji">&#128231;</span>
-                                Contact Us</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <button class="request-calculator-btn" @click="showModal = true">
-                        &#128161; Request a Calculator
-                    </button>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <div class="footer-logo">&#129518; Docket.One</div>
-                <div class="footer-copyright">
-                    Â© 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
-                </div>
-                <div class="social-links">
-                    <a href="#" class="social-link" aria-label="Twitter">&#120143;</a>
-                    <a href="#" class="social-link" aria-label="LinkedIn">&#128188;</a>
-                    <a href="#" class="social-link" aria-label="GitHub">&#128025;</a>
-                    <a href="#" class="social-link" aria-label="Email">&#128231;</a>
-                </div>
-            </div>
-        </div>
-    </footer>
+<!-- Footer (Handled by JS) -->
+    
 
     <!-- Request Modal -->
     <div x-data="calculatorRequestForm()" x-show="showModal" x-cloak class="modal-overlay" @click.self="closeModal()"
@@ -581,6 +324,31 @@
             </div>
         </div>
     </div>
+
+    <!-- Premium Content: Description, How it Works, FAQ -->
+    <section class="content-section premium-info-section" style="width:100vw; position:relative; left:50%; right:50%; margin-left:-50vw; margin-right:-50vw; background:var(--space-dark, #181a20); padding:3rem 0;">
+      <div style="max-width:900px; margin:0 auto; padding:0 2rem;">
+        <h2 class="premium-heading" style="font-size:2rem; margin-bottom:0.5em; color:#3B82F6; font-weight:800; letter-spacing:-1px;">About This Calculator</h2>
+        <p style="font-size:1.15rem; color:#fff; max-width:800px; margin-bottom:1.5em;">
+          Double Pendulum Chaos simulates the classic physics experiment where two pendulums, starting almost identically, quickly diverge. Explore the butterfly effect and see chaos theory in action.
+        </p>
+        <h2 class="premium-heading" style="font-size:1.5rem; margin-top:2em; margin-bottom:0.5em; color:#8B5CF6; font-weight:700;">How It Works</h2>
+        <ul style="font-size:1.05rem; color:#fff; margin-bottom:1.5em; list-style:disc inside; max-width:800px;">
+          <li><strong>Adjust Angles:</strong> Set initial angles and perturbations.</li>
+          <li><strong>Visualize:</strong> Watch two pendulums swing and diverge.</li>
+          <li><strong>Reset:</strong> Try different settings to see new patterns.</li>
+          <li><strong>Learn:</strong> Read the description for real-world chaos examples.</li>
+        </ul>
+        <h2 class="premium-heading" style="font-size:1.5rem; margin-top:2em; margin-bottom:0.5em; color:#3B82F6; font-weight:700;">Frequently Asked Questions</h2>
+        <div class="faq-list" style="max-width:800px;">
+          <div class="faq"><h3 style="font-size:1.1rem; color:#8B5CF6; font-weight:600;">What is a double pendulum?</h3><p style="color:#fff;">It's a system with two swinging arms, known for chaotic motion.</p></div>
+          <div class="faq"><h3 style="font-size:1.1rem; color:#8B5CF6; font-weight:600;">Why do small changes matter?</h3><p style="color:#fff;">Tiny differences in starting conditions lead to big differences over time.</p></div>
+          <div class="faq"><h3 style="font-size:1.1rem; color:#8B5CF6; font-weight:600;">Can I use this for homework?</h3><p style="color:#fff;">Yes! It's a great demo for physics and math classes.</p></div>
+          <div class="faq"><h3 style="font-size:1.1rem; color:#8B5CF6; font-weight:600;">Is my data saved?</h3><p style="color:#fff;">No, all calculations are local and private.</p></div>
+        </div>
+      </div>
+    </section>
+
 </body>
 
 </html>

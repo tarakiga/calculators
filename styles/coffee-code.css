@@ -1,0 +1,267 @@
+        :root {
+            --primary: #6F4E37;
+            --primary-light: #A67B5B;
+            --primary-dark: #4A3524;
+            --accent: #FFD700;
+            --background: #FFF8F0;
+            --text: #2C1810;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            10%,
+            30%,
+            50%,
+            70%,
+            90% {
+                transform: translateX(-5px);
+            }
+
+            20%,
+            40%,
+            60%,
+            80% {
+                transform: translateX(5px);
+            }
+        }
+
+        .animate-pulse {
+            animation: pulse 2s infinite;
+        }
+
+        .animate-shake {
+            animation: shake 0.5s;
+        }
+
+        .progress-bar {
+            transition: width 0.5s ease-in-out;
+        }
+
+        .code-bg {
+            background-color: #1e1e1e;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .terminal {
+            font-family: 'Courier New', monospace;
+        }
+
+        .coffee-stain {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle at center, rgba(166, 123, 91, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(20px);
+            z-index: 0;
+        }
+
+        .coffee-stain-1 {
+            top: -50px;
+            right: -50px;
+            transform: rotate(15deg);
+        }
+
+        .coffee-stain-2 {
+            bottom: -30px;
+            left: -30px;
+            transform: rotate(-15deg);
+            opacity: 0.3;
+        }
+
+        .input-group {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .input-group:focus-within {
+            transform: translateY(-2px);
+        }
+
+        .custom-slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 4px;
+            background: var(--primary-light);
+            border-radius: 2px;
+            outline: none;
+        }
+
+        .custom-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: var(--primary);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .custom-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        .efficiency-meter {
+            position: relative;
+            overflow: hidden;
+            border-radius: 9999px;
+            background: #E5E7EB;
+        }
+
+        .efficiency-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-light) 0%, var(--primary) 100%);
+            transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide-up {
+            animation: slideUp 0.5s ease forwards;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes typing {
+            from {
+                width: 0
+            }
+
+            to {
+                width: 100%
+            }
+        }
+
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .spinning {
+            animation: spin 2s linear infinite;
+        }
+
+        .typing {
+            overflow: hidden;
+            white-space: nowrap;
+            animation: typing 3s steps(40, end);
+        }
+
+        .coffee-cup {
+            position: relative;
+            display: inline-block;
+        }
+
+        .coffee-steam {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+            animation: steam 2s ease-in-out infinite;
+        }
+
+        @keyframes steam {
+
+            0%,
+            100% {
+                transform: translateX(-50%) scaleY(1);
+                opacity: 0.3;
+            }
+
+            50% {
+                transform: translateX(-50%) scaleY(1.5);
+                opacity: 0.1;
+            }
+        }
+
+        .achievement-badge {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transform: translateX(120%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .achievement-badge.show {
+            transform: translateX(0);
+        }
+
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            opacity: 0;
+            z-index: 999;
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }

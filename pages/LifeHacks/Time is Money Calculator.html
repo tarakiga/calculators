@@ -9,237 +9,22 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --primary: #2C5282;
-            --primary-light: #4299E1;
-            --primary-dark: #1A365D;
-            --accent: #F6AD55;
-            --background: #F7FAFC;
-            --text: #2D3748;
-        }
-
-        @keyframes float {
-
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-10px);
-            }
-        }
-
-        @keyframes pulse {
-
-            0%,
-            100% {
-                transform: scale(1);
-            }
-
-            50% {
-                transform: scale(1.05);
-            }
-        }
-
-        @keyframes typing {
-            from {
-                width: 0
-            }
-
-            to {
-                width: 100%
-            }
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .floating {
-            animation: float 3s ease-in-out infinite;
-        }
-
-        .pulse {
-            animation: pulse 2s infinite;
-        }
-
-        .typing {
-            overflow: hidden;
-            white-space: nowrap;
-            animation: typing 3s steps(40, end);
-        }
-
-        .slide-up {
-            animation: slideUp 0.5s ease forwards;
-        }
-
-        .custom-slider {
-            -webkit-appearance: none;
-            width: 100%;
-            height: 4px;
-            background: var(--primary-light);
-            border-radius: 2px;
-            outline: none;
-        }
-
-        .custom-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 20px;
-            height: 20px;
-            background: var(--primary);
-            border-radius: 50%;
-            cursor: pointer;
-            transition: transform 0.2s ease;
-        }
-
-        .custom-slider::-webkit-slider-thumb:hover {
-            transform: scale(1.2);
-        }
-
-        .achievement-badge {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: white;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transform: translateX(120%);
-            transition: transform 0.3s ease;
-            z-index: 1000;
-        }
-
-        .achievement-badge.show {
-            transform: translateX(0);
-        }
-
-        .clock-icon {
-            position: relative;
-            display: inline-block;
-        }
-
-        .clock-icon::after {
-            content: '⏰';
-            position: absolute;
-            top: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 1.5rem;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        .money-wave {
-            background: linear-gradient(135deg, #2C5282 0%, #4299E1 100%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .money-wave::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, rgba(255, 255, 255, 0.1) 25%, transparent 25%),
-                linear-gradient(-45deg, rgba(255, 255, 255, 0.1) 25%, transparent 25%),
-                linear-gradient(45deg, transparent 75%, rgba(255, 255, 255, 0.1) 75%),
-                linear-gradient(-45deg, transparent 75%, rgba(255, 255, 255, 0.1) 75%);
-            background-size: 20px 20px;
-            animation: wave 20s linear infinite;
-        }
-
-        @keyframes wave {
-            0% {
-                background-position: 0 0;
-            }
-
-            100% {
-                background-position: 40px 40px;
-            }
-        }
-    </style>
-
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script>
-
+    <link rel="stylesheet" href="../../styles/money-time.css">
     <link rel="stylesheet" href="../../common/navbar-enhanced.css">
     <link rel="stylesheet" href="../../common/santa-improvements.css">
     <link rel="stylesheet" href="../../common/global-calculator.css">
     <link rel="stylesheet" href="../../common/themes/dark-theme.css">
     <link rel="stylesheet" href="../../common/footer/premium-footer.css">
     <script src="../../common/footer/premium-footer.js"></script>
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
-    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script>
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
-    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script>
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
-    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script>
-
+    <script src="../../common/footer/footer-inject.js"></script>
+    <script src="../../common/navbar-enhanced.js"></script>
     <script src="../../common/add-breadcrumbs.js"></script>
     <script src="../../common/add-keyboard-accessibility.js"></script>
 </head>
 
 <body class="bg-[#F7FAFC] min-h-screen" x-data="timeMoneyCalculator()">
     <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-    <nav class="main-nav">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <a href="../../index.html">🧮 Docket One</a>
-            </div>
-            <div class="nav-search">
-                <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input"
-                    aria-label="Search calculators">
-                <div id="search-results" class="search-results"></div>
-            </div>
-            <ul class="nav-links">
-                <li><a href="../BigKidMath/index.html" class="category-link">Big Kid Math</a></li>
-                <li><a href="../CipherLab/index.html" class="category-link">Cipher Lab</a></li>
-                <li><a href="../GeekGalaxy/index.html" class="category-link">Geek Galaxy</a></li>
-                <li><a href="../LifeHacks/index.html" class="category-link">Life Hacks</a></li>
-                <li><a href="../Math_Magik/index.html" class="category-link">Math Magik</a></li>
-                <li><a href="../Otaku_Ops/index.html" class="category-link">Otaku Ops</a></li>
-                <li><a href="../../index.html" class="home-link">🏠 Home</a></li>
-            </ul>
-            <button class="mobile-menu-btn" aria-label="Toggle menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </nav>
+   
 
     <div class="container mx-auto px-4 py-12">
         <div class="max-w-4xl mx-auto">
@@ -408,28 +193,29 @@
         </div>
     </div>
 
-    <!-- Related Calculators -->
-    <div class="related-calculators max-w-4xl mx-auto mt-8 p-6 bg-white/50 backdrop-blur-sm rounded-xl">
-        <h3 class="text-lg font-bold mb-4 text-[#1A365D]">Related Life Hacks Tools</h3>
-        <div class="space-y-2">
-            <a href="./Coffee to Code Efficiency Ratio Calculator.html"
-                class="block p-3 bg-white/80 hover:bg-white rounded-lg transition-colors text-[#1A365D] hover:text-[#2C5282]">
-                Coffee to Code Efficiency Ratio Calculator
-            </a>
-            <a href="./Inflation Impact Calculator.html"
-                class="block p-3 bg-white/80 hover:bg-white rounded-lg transition-colors text-[#1A365D] hover:text-[#2C5282]">
-                Inflation Impact Calculator
-            </a>
-            <a href="./Sleep Cycle Optimizer.html"
-                class="block p-3 bg-white/80 hover:bg-white rounded-lg transition-colors text-[#1A365D] hover:text-[#2C5282]">
-                Sleep Cycle Optimizer
-            </a>
-            <a href="./index.html"
-                class="block p-3 mt-4 bg-[#2C5282] hover:bg-[#1A365D] rounded-lg transition-colors text-white font-medium">
-                ← Back to Life Hacks Hub
-            </a>
+    <!-- Premium Content: Description, How it Works, FAQ -->
+    <section class="content-section premium-info-section" style="width:100vw; position:relative; left:50%; right:50%; margin-left:-50vw; margin-right:-50vw; background:var(--space-dark, #181a20); padding:3rem 0;">
+      <div style="max-width:900px; margin:0 auto; padding:0 2rem;">
+        <h2 class="premium-heading" style="font-size:2rem; margin-bottom:0.5em; color:#2C5282; font-weight:800; letter-spacing:-1px;">About This Calculator</h2>
+        <p style="font-size:1.15rem; color:var(--text-dim); max-width:800px; margin-bottom:1.5em;">
+          The Time is Money Calculator shows the true value of your time. Convert any activity into its hourly wage equivalent and see what you could buy with the time you spend. Make smarter decisions about how you invest your hours.
+        </p>
+        <h2 class="premium-heading" style="font-size:1.5rem; margin-top:2em; margin-bottom:0.5em; color:#4299E1; font-weight:700;">How It Works</h2>
+        <ul style="font-size:1.05rem; color:var(--text-dim); margin-bottom:1.5em; list-style:disc inside; max-width:800px;">
+          <li><strong>Salary Input:</strong> Enter your annual salary.</li>
+          <li><strong>Activity & Time:</strong> Describe your activity and time spent.</li>
+          <li><strong>Opportunity Cost:</strong> See the real cost of your activity.</li>
+          <li><strong>Alternative Purchases:</strong> Discover what you could have bought instead.</li>
+        </ul>
+        <h2 class="premium-heading" style="font-size:1.5rem; margin-top:2em; margin-bottom:0.5em; color:#2C5282; font-weight:700;">Frequently Asked Questions</h2>
+        <div class="faq-list" style="max-width:800px;">
+          <div class="faq"><h3 style="font-size:1.1rem; color:#4299E1; font-weight:600;">Is my salary data saved?</h3><p style="color:var(--text-dim);">No, all calculations are local and private.</p></div>
+          <div class="faq"><h3 style="font-size:1.1rem; color:#4299E1; font-weight:600;">What if I'm paid hourly?</h3><p style="color:var(--text-dim);">Enter your annualized income for best results.</p></div>
+          <div class="faq"><h3 style="font-size:1.1rem; color:#4299E1; font-weight:600;">Can I compare multiple activities?</h3><p style="color:var(--text-dim);">Yes, just enter new activities and see the results.</p></div>
+          <div class="faq"><h3 style="font-size:1.1rem; color:#4299E1; font-weight:600;">How accurate is this?</h3><p style="color:var(--text-dim);">It's an estimate—real value depends on your priorities.</p></div>
         </div>
-    </div>
+      </div>
+    </section>
 
     <script>
         document.addEventListener('alpine:init', () => {
@@ -546,96 +332,7 @@
             }
         });
     </script>
-    <!-- Newsletter Bar -->
-    <div class="newsletter-bar" x-data="newsletterForm()">
-        <div class="newsletter-container">
-            <div class="newsletter-content">
-                <div class="newsletter-info">
-                    <h3>&#127881; Join Our Calculator Community!</h3>
-                    <p>Get updates on new fun calculators and practical tools</p>
-                </div>
-                <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
-                    <input type="email" class="newsletter-input" placeholder="Enter your email for calculator updates"
-                        x-model="email" required>
-                    <button type="submit" class="newsletter-submit" :disabled="isSubmitting">
-                        <span x-show="isSubmitting" class="loading-spinner"></span>
-                        <span x-text="isSubmitting ? 'Subscribing...' : '&#128640; Subscribe'"></span>
-                    </button>
-                </form>
-                <div x-show="showSuccess" class="newsletter-success" style="display: none;">
-                    <p style="color: var(--accent-light); font-weight: 600;">
-                        &#9989; Awesome! You'll get updates on the coolest new calculators!
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>&#127919; About Docket.One</h4>
-                    <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you
-                        should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the
-                        tools for modern life.</p>
-                    <p>Practical meets playful. Because adulting is hard enough.</p>
-                </div>
-
-                <div class="footer-section">
-                    <h4>&#127914; Calculator Categories</h4>
-                    <ul class="footer-links">
-                        <li><a href="/pages/BigKidMath/"><span class="calculator-emoji">&#129518;</span> BigKidMath -
-                                Adult Life Tools</a></li>
-                        <li><a href="/pages/CipherLab/"><span class="calculator-emoji">&#128272;</span> CipherLab -
-                                Secret Codes & Security</a></li>
-                        <li><a href="/pages/GeekGalaxy/"><span class="calculator-emoji">&#128640;</span> GeekGalaxy -
-                                Sci-Fi & Fantasy Fun</a></li>
-                        <li><a href="/pages/LifeHacks/"><span class="calculator-emoji">&#9889;</span> LifeHacks -
-                                Productivity & Wellness</a></li>
-                        <li><a href="/pages/Math_Magik/"><span class="calculator-emoji">&#127917;</span> Math Magik -
-                                Mathematical Wizardry</a></li>
-                        <li><a href="/pages/Otaku_Ops/"><span class="calculator-emoji">&#127999;</span> Otaku Ops -
-                                Anime & Culture</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h4>&#128172; Support & Info</h4>
-                    <ul class="footer-links">
-                        <li><a href="/pages/support/help.html"><span class="calculator-emoji">&#10067;</span> Help &
-                                FAQ</a></li>
-                        <li><a href="/privacy"><span class="calculator-emoji">&#128274;</span> Privacy Policy</a></li>
-                        <li><a href="/terms"><span class="calculator-emoji">&#128203;</span> Terms of Service</a></li>
-                        <li><a href="/accessibility"><span class="calculator-emoji">&#9855;</span> Accessibility</a>
-                        </li>
-                        <li><a href="/pages/support/contact.html"><span class="calculator-emoji">&#128231;</span>
-                                Contact Us</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <button class="request-calculator-btn" @click="showModal = true">
-                        &#128161; Request a Calculator
-                    </button>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <div class="footer-logo">&#129518; Docket.One</div>
-                <div class="footer-copyright">
-                    Â© 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
-                </div>
-                <div class="social-links">
-                    <a href="#" class="social-link" aria-label="Twitter">&#120143;</a>
-                    <a href="#" class="social-link" aria-label="LinkedIn">&#128188;</a>
-                    <a href="#" class="social-link" aria-label="GitHub">&#128025;</a>
-                    <a href="#" class="social-link" aria-label="Email">&#128231;</a>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <!-- Footer (Handled by JS) -->
 
     <!-- Request Modal -->
     <div x-data="calculatorRequestForm()" x-show="showModal" x-cloak class="modal-overlay" @click.self="closeModal()"

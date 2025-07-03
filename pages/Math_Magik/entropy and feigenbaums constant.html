@@ -13,192 +13,13 @@
     <link rel="stylesheet" href="../../common/global-calculator.css">
     <link rel="stylesheet" href="../../common/themes/dark-theme.css">
     <link rel="stylesheet" href="../../common/footer/premium-footer.css">
+    <link rel="stylesheet" href="../../styles/entropy.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <script src="../../common/footer/premium-footer.js"></script>
-
-    <style>
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 2rem;
-            background: var(--card);
-            border-radius: 1rem;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        }
-
-        /* Button Styles */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0.625rem 1.25rem;
-            font-weight: 500;
-            font-size: 0.875rem;
-            line-height: 1.25rem;
-            border-radius: 0.5rem;
-            border: 1px solid transparent;
-            cursor: pointer;
-            transition: all 0.15s ease;
-            user-select: none;
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-        }
-
-        .btn-primary {
-            background: linear-gradient(to bottom, var(--primary), #1d4ed8);
-            color: white;
-        }
-
-        .btn-secondary {
-            background: linear-gradient(to bottom, #f1f5f9, #e2e8f0);
-            color: var(--text);
-            border-color: var(--border);
-        }
-
-        /* Tab Styles */
-        .tabs {
-            display: flex;
-            border-bottom: 1px solid var(--border);
-            margin-bottom: 1.5rem;
-        }
-
-        .tab-btn {
-            padding: 0.75rem 1.5rem;
-            font-weight: 500;
-            color: var(--text-light);
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .tab-btn.active {
-            color: var(--primary);
-        }
-
-        .tab-btn.active::after {
-            content: '';
-            position: absolute;
-            bottom: -1px;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: var(--primary);
-        }
-
-        /* Simulator Styles */
-        .simulator-container {
-            position: relative;
-            height: 300px;
-            width: 100%;
-            background: linear-gradient(to bottom, #f8fafc, #e2e8f0);
-            border-radius: 0.5rem;
-            border: 1px solid #cbd5e1;
-            overflow: hidden;
-        }
-
-        .bifurcation-point {
-            position: absolute;
-            width: 3px;
-            height: 3px;
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: all 0.3s ease;
-            background-color: var(--primary);
-        }
-
-        .bifurcation-point:hover {
-            width: 6px;
-            height: 6px;
-            opacity: 1 !important;
-        }
-
-        .simulator-controls {
-            display: flex;
-            gap: 0.5rem;
-            margin-top: 1rem;
-        }
-
-        .simulator-status {
-            margin-top: 1rem;
-            padding: 0.5rem;
-            background: #e2e8f0;
-            border-radius: 0.25rem;
-            font-family: monospace;
-        }
-
-        /* Entropy Visual */
-        .entropy-visual {
-            height: 10px;
-            background: linear-gradient(90deg, var(--primary) 0%, var(--primary) var(--entropy-percent), var(--border) var(--entropy-percent), var(--border) 100%);
-            border-radius: 5px;
-            margin: 1rem 0;
-        }
-
-        /* Header Section Styles */
-        .header-section {
-            max-width: 800px;
-            margin: 2rem auto;
-            padding: 2rem;
-            background: var(--surface-elevated);
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-
-        .header-section h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: var(--text-primary);
-        }
-
-        .header-section p {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            color: var(--text-secondary);
-            margin-bottom: 1.5rem;
-        }
-
-        .header-section .key-features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .header-section .feature {
-            padding: 1rem;
-            background: var(--surface);
-            border-radius: 8px;
-            text-align: left;
-        }
-
-        .header-section .feature h3 {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-            color: var(--text-primary);
-        }
-
-        .header-section .feature p {
-            font-size: 0.95rem;
-            margin-bottom: 0;
-        }
-
-        @media (max-width: 768px) {
-            .header-section {
-                padding: 1.5rem;
-                margin: 1rem;
-            }
-
-            .header-section h1 {
-                font-size: 2rem;
-            }
-
-            .header-section p {
-                font-size: 1rem;
-            }
-        }
-    </style>
+    <script src="../../common/footer/footer-inject.js"></script>
+    <script src="../../common/navbar-enhanced.js"></script>
+    
 
     <script src="../../common/add-breadcrumbs.js"></script>
     <script src="../../common/add-keyboard-accessibility.js"></script>
@@ -206,32 +27,7 @@
 
 <body x-data="{ showModal: false }">
     <!-- Navigation Bar -->
-    <nav class="main-nav">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <a href="../../index.html">🧮 Docket One</a>
-            </div>
-            <div class="nav-search">
-                <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input"
-                    aria-label="Search calculators">
-                <div id="search-results" class="search-results"></div>
-            </div>
-            <ul class="nav-links">
-                <li><a href="../BigKidMath/index.html" class="category-link">Big Kid Math</a></li>
-                <li><a href="../CipherLab/index.html" class="category-link">Cipher Lab</a></li>
-                <li><a href="../GeekGalaxy/index.html" class="category-link">Geek Galaxy</a></li>
-                <li><a href="../LifeHacks/index.html" class="category-link">Life Hacks</a></li>
-                <li><a href="../Math_Magik/index.html" class="category-link">Math Magik</a></li>
-                <li><a href="../Otaku_Ops/index.html" class="category-link">Otaku Ops</a></li>
-                <li><a href="../../index.html" class="home-link">🏠 Home</a></li>
-            </ul>
-            <button class="mobile-menu-btn" aria-label="Toggle menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </nav>
+
 
     <!-- Header Section -->
     <div class="header-section">
@@ -363,6 +159,30 @@
         </div>
     </div>
 
+    <!-- Premium Content: Description, How it Works, FAQ -->
+    <section class="content-section premium-info-section" style="width:100vw; position:relative; left:50%; right:50%; margin-left:-50vw; margin-right:-50vw; background:var(--space-dark, #181a20); padding:3rem 0;">
+      <div style="max-width:900px; margin:0 auto; padding:0 2rem;">
+        <h2 class="premium-heading" style="font-size:2rem; margin-bottom:0.5em; color:#3B82F6; font-weight:800; letter-spacing:-1px;">About This Calculator</h2>
+        <p style="font-size:1.15rem; color:#fff; max-width:800px; margin-bottom:1.5em;">
+          The Chaos Theory Explorer lets you play with entropy, Feigenbaum's constants, and chaos simulations. See how tiny changes can lead to wildly different outcomes—perfect for students, teachers, and chaos enthusiasts.
+        </p>
+        <h2 class="premium-heading" style="font-size:1.5rem; margin-top:2em; margin-bottom:0.5em; color:#8B5CF6; font-weight:700;">How It Works</h2>
+        <ul style="font-size:1.05rem; color:#fff; margin-bottom:1.5em; list-style:disc inside; max-width:800px;">
+          <li><strong>Entropy Calculator:</strong> Measure uncertainty in probability distributions.</li>
+          <li><strong>Feigenbaum's Constants:</strong> Explore universal constants in chaos.</li>
+          <li><strong>Simulator:</strong> Visualize the butterfly effect with interactive points.</li>
+          <li><strong>Tabs:</strong> Switch between tools for a full chaos experience.</li>
+        </ul>
+        <h2 class="premium-heading" style="font-size:1.5rem; margin-top:2em; margin-bottom:0.5em; color:#3B82F6; font-weight:700;">Frequently Asked Questions</h2>
+        <div class="faq-list" style="max-width:800px;">
+          <div class="faq"><h3 style="font-size:1.1rem; color:#8B5CF6; font-weight:600;">What is entropy?</h3><p style="color:#fff;">It measures uncertainty or disorder in a system.</p></div>
+          <div class="faq"><h3 style="font-size:1.1rem; color:#8B5CF6; font-weight:600;">Who is Feigenbaum?</h3><p style="color:#fff;">Mitchell Feigenbaum discovered universal constants in chaos theory.</p></div>
+          <div class="faq"><h3 style="font-size:1.1rem; color:#8B5CF6; font-weight:600;">Can I export my simulation?</h3><p style="color:#fff;">Yes, use the export button to save your diagram.</p></div>
+          <div class="faq"><h3 style="font-size:1.1rem; color:#8B5CF6; font-weight:600;">Is this for advanced users?</h3><p style="color:#fff;">It's for all levels—explanations are included.</p></div>
+        </div>
+      </div>
+    </section>
+
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <script>
         function calculator() {
@@ -489,25 +309,11 @@
         });
     </script>
 
-    <div class="related-calculators"
-        style="margin-top: 2rem; padding: 1rem; background: rgba(0,0,0,0.1); border-radius: 8px;">
-        <h3 style="margin-top: 0;">Related Math Magik Tools</h3>
-        <a href="./Double Pendulum Chaos.html"
-            style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Double
-            Pendulum Chaos</a><a href="./FIRE Number Calculator.html"
-            style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">FIRE
-            Number Calculator</a><a href="./Inflation Impact Calculator.html"
-            style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Inflation
-            Impact Calculator</a>
-        <a href="./index.html"
-            style="display: block; padding: 0.5rem; margin-top: 1rem; background: rgba(74,144,226,0.2); border-radius: 4px; text-decoration: none; color: inherit; font-weight: bold;">←
-            Back to Math Magik Hub</a>
-    </div>
 
     <script>
         // 🎅 Santa Claude's Interactive Enhancements
         document.addEventListener('DOMContentLoaded', function () {
-            console.log('🎅 Santa Claude's enhancements loaded!');
+            console.log("🎅 Santa Claude's enhancements loaded!");
 
             // Enhanced button interactions
             const buttons = document.querySelectorAll('button, .btn');
@@ -548,96 +354,8 @@
             });
         });
     </script>
-    <!-- Newsletter Bar -->
-    <div class="newsletter-bar" x-data="newsletterForm()">
-        <div class="newsletter-container">
-            <div class="newsletter-content">
-                <div class="newsletter-info">
-                    <h3>&#127881; Join Our Calculator Community!</h3>
-                    <p>Get updates on new fun calculators and practical tools</p>
-                </div>
-                <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
-                    <input type="email" class="newsletter-input" placeholder="Enter your email for calculator updates"
-                        x-model="email" required>
-                    <button type="submit" class="newsletter-submit" :disabled="isSubmitting">
-                        <span x-show="isSubmitting" class="loading-spinner"></span>
-                        <span x-text="isSubmitting ? 'Subscribing...' : '&#128640; Subscribe'"></span>
-                    </button>
-                </form>
-                <div x-show="showSuccess" class="newsletter-success" style="display: none;">
-                    <p style="color: var(--accent-light); font-weight: 600;">
-                        &#9989; Awesome! You'll get updates on the coolest new calculators!
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>&#127919; About Docket.One</h4>
-                    <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you
-                        should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the
-                        tools for modern life.</p>
-                    <p>Practical meets playful. Because adulting is hard enough.</p>
-                </div>
-
-                <div class="footer-section">
-                    <h4>&#127914; Calculator Categories</h4>
-                    <ul class="footer-links">
-                        <li><a href="/pages/BigKidMath/"><span class="calculator-emoji">&#129518;</span> BigKidMath -
-                                Adult Life Tools</a></li>
-                        <li><a href="/pages/CipherLab/"><span class="calculator-emoji">&#128272;</span> CipherLab -
-                                Secret Codes & Security</a></li>
-                        <li><a href="/pages/GeekGalaxy/"><span class="calculator-emoji">&#128640;</span> GeekGalaxy -
-                                Sci-Fi & Fantasy Fun</a></li>
-                        <li><a href="/pages/LifeHacks/"><span class="calculator-emoji">&#9889;</span> LifeHacks -
-                                Productivity & Wellness</a></li>
-                        <li><a href="/pages/Math_Magik/"><span class="calculator-emoji">&#127917;</span> Math Magik -
-                                Mathematical Wizardry</a></li>
-                        <li><a href="/pages/Otaku_Ops/"><span class="calculator-emoji">&#127999;</span> Otaku Ops -
-                                Anime & Culture</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h4>&#128172; Support & Info</h4>
-                    <ul class="footer-links">
-                        <li><a href="/pages/support/help.html"><span class="calculator-emoji">&#10067;</span> Help &
-                                FAQ</a></li>
-                        <li><a href="/privacy"><span class="calculator-emoji">&#128274;</span> Privacy Policy</a></li>
-                        <li><a href="/terms"><span class="calculator-emoji">&#128203;</span> Terms of Service</a></li>
-                        <li><a href="/accessibility"><span class="calculator-emoji">&#9855;</span> Accessibility</a>
-                        </li>
-                        <li><a href="/pages/support/contact.html"><span class="calculator-emoji">&#128231;</span>
-                                Contact Us</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <button class="request-calculator-btn" @click="showModal = true">
-                        &#128161; Request a Calculator
-                    </button>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <div class="footer-logo">&#129518; Docket.One</div>
-                <div class="footer-copyright">
-                    Â© 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
-                </div>
-                <div class="social-links">
-                    <a href="#" class="social-link" aria-label="Twitter">&#120143;</a>
-                    <a href="#" class="social-link" aria-label="LinkedIn">&#128188;</a>
-                    <a href="#" class="social-link" aria-label="GitHub">&#128025;</a>
-                    <a href="#" class="social-link" aria-label="Email">&#128231;</a>
-                </div>
-            </div>
-        </div>
-    </footer>
+    
+      <!-- Footer (Handled by JS) -->
 
     <!-- Request Modal -->
     <div x-data="calculatorRequestForm()" x-show="showModal" x-cloak class="modal-overlay" @click.self="closeModal()"
@@ -705,10 +423,10 @@
                         make it happen.
                         <br><br>
                         <strong>What happens next?</strong><br>
-                        â€¢ You'll get a confirmation email shortly<br>
-                        â€¢ Our team will review your idea<br>
-                        â€¢ If we build it, you'll be the first to know!<br>
-                        â€¢ We might even name you as the inspiration &#128522;
+                        • You'll get a confirmation email shortly<br>
+                        • Our team will review your idea<br>
+                        • If we build it, you'll be the first to know!<br>
+                        • We might even name you as the inspiration &#128522;
                     </p>
                     <button class="btn btn-primary" @click="closeModal()" style="width: 100%;">
                         &#127919; Close & Keep Calculating!
@@ -717,6 +435,8 @@
             </div>
         </div>
     </div>
+
+    
 
 </body>
 

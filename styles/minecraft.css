@@ -1,0 +1,227 @@
+:root {
+    --primary: #4a90e2;
+    --primary-dark: #357abd;
+    --success: #34c759;
+    --warning: #ff9500;
+    --danger: #ff3b30;
+    --surface: #ffffff;
+    --surface-elevated: #f8f9fa;
+    --text-primary: #1a1a1a;
+    --text-secondary: #666666;
+    --border: #e1e4e8;
+    --obsidian: #1a1a1a;
+    --portal: #6a0dad;
+}
+
+.header-section {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: var(--surface-elevated);
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.header-section h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.header-section p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+}
+
+.calculator {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: var(--surface);
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.input-group {
+    margin-bottom: 1.5rem;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.input-control {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+}
+
+.input-control:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+    outline: none;
+}
+
+.calculate-btn {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.calculate-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(74, 144, 226, 0.2);
+}
+
+.calculate-btn:active {
+    transform: translateY(0);
+}
+
+.results {
+    margin-top: 2rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+}
+
+.results.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.result-item {
+    background: var(--surface-elevated);
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.result-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+}
+
+.portal-visual {
+    margin: 2rem 0;
+    display: flex;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    border-radius: 12px;
+}
+
+.portal-row {
+    display: flex;
+    gap: 2px;
+}
+
+.portal-block {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    position: relative;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2);
+}
+
+.portal-block.obsidian {
+    background: #1a1a1a;
+    color: #666;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
+    box-shadow:
+        inset 0 0 0 1px rgba(255, 255, 255, 0.1),
+        inset 0 0 0 2px rgba(0, 0, 0, 0.3);
+}
+
+.portal-block.air {
+    background: linear-gradient(135deg, #6a0dad, #4b0082);
+    color: rgba(255, 255, 255, 0.8);
+    animation: portal-glow 2s infinite;
+    box-shadow:
+        inset 0 0 0 1px rgba(255, 255, 255, 0.2),
+        0 0 10px rgba(106, 13, 173, 0.5);
+}
+
+@keyframes portal-glow {
+    0% {
+        opacity: 0.8;
+        box-shadow:
+            inset 0 0 0 1px rgba(255, 255, 255, 0.2),
+            0 0 10px rgba(106, 13, 173, 0.5);
+    }
+
+    50% {
+        opacity: 1;
+        box-shadow:
+            inset 0 0 0 1px rgba(255, 255, 255, 0.3),
+            0 0 20px rgba(106, 13, 173, 0.7);
+    }
+
+    100% {
+        opacity: 0.8;
+        box-shadow:
+            inset 0 0 0 1px rgba(255, 255, 255, 0.2),
+            0 0 10px rgba(106, 13, 173, 0.5);
+    }
+}
+
+.building-tips {
+    background: var(--surface-elevated);
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-top: 1rem;
+}
+
+.building-tips ol {
+    margin: 0;
+    padding-left: 1.5rem;
+}
+
+.building-tips li {
+    margin-bottom: 0.5rem;
+    color: var(--text-secondary);
+}
+
+@media (max-width: 768px) {
+    .header-section {
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+
+    .header-section h1 {
+        font-size: 2rem;
+    }
+
+    .calculator {
+        margin: 1rem;
+        padding: 1.5rem;
+    }
+
+    .portal-block {
+        width: 30px;
+        height: 30px;
+        font-size: 0.8rem;
+    }
+}

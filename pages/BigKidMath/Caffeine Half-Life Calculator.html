@@ -119,6 +119,7 @@
     <link rel="stylesheet" href="../../common/footer/premium-footer.css">
     <script src="../../common/footer/premium-footer.js"></script>
     <script src="../../common/add-breadcrumbs.js"></script>
+    <script src="../../common/footer/footer-inject.js"></script>
     <script src="../../common/add-keyboard-accessibility.js"></script></head>
 
 <body x-data="{ showModal: false }">
@@ -294,95 +295,54 @@
         </div>
     </main>
 
+    <section class="content-section">
+        <div class="container">
+            <h2>Understanding Caffeine Half-Life</h2>
+            <p>Caffeine half-life is the time it takes for the concentration of caffeine in your body to be reduced by half. This can vary significantly from person to person due to a variety of factors.</p>
+            
+            <h3>Factors That Influence Caffeine Metabolism</h3>
+            <ul>
+                <li><strong>Genetics:</strong> Your genes play a major role in how quickly you metabolize caffeine.</li>
+                <li><strong>Age:</strong> As you get older, your ability to process caffeine can slow down.</li>
+                <li><strong>Liver Health:</strong> Your liver is the primary organ responsible for breaking down caffeine.</li>
+                <li><strong>Medications:</strong> Certain medications can interfere with caffeine metabolism.</li>
+                <li><strong>Pregnancy:</strong> Caffeine metabolism is significantly slower during pregnancy.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <h2>Tips for Managing Your Caffeine Intake</h2>
+            <p>Here are some tips to help you manage your caffeine consumption for better sleep and overall health:</p>
+            <ul>
+                <li><strong>Know Your Limits:</strong> The FDA recommends a maximum of 400mg of caffeine per day for most healthy adults.</li>
+                <li><strong>Time Your Last Dose:</strong> To avoid sleep disturbances, try to have your last caffeinated beverage at least 6-8 hours before bedtime.</li>
+                <li><strong>Stay Hydrated:</strong> Drink plenty of water throughout the day to help your body process caffeine.</li>
+                <li><strong>Listen to Your Body:</strong> Pay attention to how caffeine affects you and adjust your intake accordingly.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq">
+                <h3>How long does it take for caffeine to kick in?</h3>
+                <p>You'll typically feel the effects of caffeine within 15-45 minutes of consumption.</p>
+            </div>
+            <div class="faq">
+                <h3>Can I build a tolerance to caffeine?</h3>
+                <p>Yes, with regular consumption, your body can become less sensitive to the effects of caffeine.</p>
+            </div>
+            <div class="faq">
+                <h3>Is caffeine bad for you?</h3>
+                <p>In moderation, caffeine is generally considered safe for most people. However, excessive consumption can lead to negative side effects like anxiety, insomnia, and digestive issues.</p>
+            </div>
+        </div>
+    </section>
+
     <!-- Enhanced Footer -->
-    <!-- Newsletter Bar -->
-    <div class="newsletter-bar" x-data="newsletterForm()">
-        <div class="newsletter-container">
-            <div class="newsletter-content">
-                <div class="newsletter-info">
-                    <h3>🎉 Join Our Calculator Community!</h3>
-                    <p>Get updates on new fun calculators and practical tools</p>
-                </div>
-                <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
-                    <input type="email" class="newsletter-input" placeholder="Enter your email for calculator updates"
-                        x-model="email" required>
-                    <button type="submit" class="newsletter-submit" :disabled="isSubmitting">
-                        <span x-show="isSubmitting" class="loading-spinner"></span>
-                        <span x-text="isSubmitting ? 'Subscribing...' : '🚀 Subscribe'"></span>
-                    </button>
-                </form>
-                <div x-show="showSuccess" class="newsletter-success">
-                    <p style="color: var(--accent-light); font-weight: 600;">
-                        ✅ Awesome! You'll get updates on the coolest new calculators!
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>🎮 About Docket.One</h4>
-                    <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you
-                        should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the
-                        tools for modern life.</p>
-                    <p>Practical meets playful. Because adulting is hard enough.</p>
-                </div>
-
-                <div class="footer-section">
-                    <h4>🎯 Calculator Categories</h4>
-                    <ul class="footer-links">
-                        <li><a href="https://docket.one/pages/BigKidMath/"><span class="calculator-emoji">🧠</span>
-                                BigKidMath - Adult Life Tools</a></li>
-                        <li><a href="https://docket.one/pages/CipherLab/"><span class="calculator-emoji">🔐</span>
-                                CipherLab - Secret Codes & Security</a>
-                        </li>
-                        <li><a href="https://docket.one/pages/GeekGalaxy/"><span class="calculator-emoji">🚀</span>
-                                GeekGalaxy - Sci-Fi & Fantasy Fun</a></li>
-                        <li><a href="https://docket.one/pages/LifeHacks/"><span class="calculator-emoji">⚡</span>
-                                LifeHacks - Productivity & Wellness</a></li>
-                        <li><a href="https://docket.one/pages/Math_Magik/"><span class="calculator-emoji">🧙‍♀️</span>
-                                Math Magik - Mathematical Wizardry</a>
-                        </li>
-                        <li><a href="https://docket.one/pages/Otaku_Ops/"><span class="calculator-emoji">🗾</span> Otaku
-                                Ops - Anime & Culture</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h4>💬 Support & Info</h4>
-                    <ul class="footer-links">
-                        <li><a href="pages/support/help.html"><span class="calculator-emoji">❓</span> Help &
-                                FAQ</a></li>
-                        <li><a href="pages/support/privacy.html"><span class="calculator-emoji">🔒</span> Privacy
-                                Policy</a></li>
-                        <li><a href="pages/support/terms.html"><span class="calculator-emoji">📋</span> Terms of
-                                Service</a></li>
-                        <li><a href="pages/support/accessibility.html"><span class="calculator-emoji">♿</span>
-                                Accessibility</a></li>
-                        <li><a href="pages/support/contact.html"><span class="calculator-emoji">📧</span> Contact
-                                Us</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <div class="footer-logo">🧮 Docket.One</div>
-                <div class="footer-copyright">
-                    © 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
-                </div>
-                <div class="social-links">
-                    <a href="#" class="social-link" aria-label="Twitter">𝕏</a>
-                    <a href="#" class="social-link" aria-label="LinkedIn">💼</a>
-                    <a href="#" class="social-link" aria-label="GitHub">🐙</a>
-                    <a href="#" class="social-link" aria-label="Email">📧</a>
-                </div>
-            </div>
-        </div>
-    </footer>
     <script>
         // Global variables
         let caffeineChart = null;

@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Basic Meta -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Should I Engage? Conversation Calculator | LifeHacks | Docket One</title>
+    <meta name="description" content="Decide if you should engage in a conversation—on the phone, in person, or online—using science-backed parameters. Save time, energy, and sanity with this interactive LifeHack!">
+    <meta name="keywords" content="conversation calculator, engagement calculator, social decision tool, lifehacks, should I engage, social energy, introvert, extrovert, online forum, phone call, decision tool, premium calculator">
+    <meta name="author" content="Docket One">
+
+    <!-- Cache Control -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://docket.one/pages/LifeHacks/Conversation%20Engagement%20Calculator.html" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://docket.one/pages/LifeHacks/Conversation%20Engagement%20Calculator.html">
+    <meta property="og:title" content="Should I Engage? Conversation Calculator | LifeHacks | Docket One">
+    <meta property="og:description" content="Decide if you should engage in a conversation—on the phone, in person, or online—using science-backed parameters. Save time, energy, and sanity with this interactive LifeHack!">
+    <meta property="og:image" content="https://docket.one/images/lifehacks-conversation-social-preview.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="Docket One">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://docket.one/pages/LifeHacks/Conversation%20Engagement%20Calculator.html">
+    <meta name="twitter:title" content="Should I Engage? Conversation Calculator | LifeHacks | Docket One">
+    <meta name="twitter:description" content="Decide if you should engage in a conversation—on the phone, in person, or online—using science-backed parameters. Save time, energy, and sanity with this interactive LifeHack!">
+    <meta name="twitter:image" content="https://docket.one/images/lifehacks-conversation-social-preview.jpg">
+    <meta property="twitter:site" content="@DocketOne">
+
+    <!-- Versioned Assets -->
+    <link rel="stylesheet" href="../../common/santa-improvements.css?v=20250609">
+    <link rel="stylesheet" href="../../common/global-calculator.css?v=20250609">
+    <link rel="stylesheet" href="../../common/themes/dark-theme.css?v=20250609">
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css?v=20250609">
+    <link rel="stylesheet" href="../../styles/lifehacks.css?v=20250609">
+    <link rel="stylesheet" href="../../common/navbar-enhanced.css?v=20250609">
+    
+    <!-- Preload Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="preload" href="../../fonts/SciFiFont.woff2" as="font" type="font/woff2" crossorigin>
+
+    <!-- Favicon -->
+    <link rel="icon" href="../../favicon-lifehacks.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon-lifehacks.png">
+    <link rel="manifest" href="../../lifehacks.webmanifest">
+
+    <!-- Theme Color for PWA -->
+    <meta name="theme-color" content="#ffb300"> <!-- LifeHacks Orange -->
+
+    <!-- LifeHacks-Specific Metadata -->
+    <meta name="lifehacks:category" content="Social">
+    <meta name="lifehacks:theme" content="calculators">
+
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="../../common/navbar-enhanced.js"></script>
+    <script src="../../common/footer/premium-footer.js"></script>
+    <script src="../../common/add-breadcrumbs.js"></script>
+    <script src="../../common/footer/footer-inject.js"></script>
+    <script src="../../common/add-keyboard-accessibility.js"></script>
+    <style>
+        html { box-sizing: border-box; scroll-behavior: smooth; }
+        *, *:before, *:after { box-sizing: inherit; }
+
+        .panel {
+            padding: 2rem;
+            margin-bottom: 2rem;
+            background: rgba(255, 255, 255, 0.85);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+            border-radius: 1.5rem;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.18);
+            transition: box-shadow 0.2s;
+        }
+        @media (max-width: 600px) {
+            .panel { padding: 1rem; }
+        }
+        .panel:focus-within, .panel:hover {
+            box-shadow: 0 12px 40px rgba(255,179,0,0.18);
+        }
+        .premium-slider input[type=range] {
+            accent-color: #ffb300;
+            height: 6px;
+            border-radius: 3px;
+        }
+        .slider-wrapper {
+            position: relative;
+            width: 100%;
+        }
+        .slider-bubble {
+            position: absolute;
+            top: -2.2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #fffbe6;
+            color: #ffb300;
+            border-radius: 1rem;
+            padding: 0.2rem 0.8rem;
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: left 0.2s;
+            pointer-events: none;
+        }
+        .modal-overlay {
+            backdrop-filter: blur(6px);
+            background: rgba(0,0,0,0.25);
+            animation: fadeIn 0.3s;
+        }
+        .modal-content {
+            animation: popIn 0.4s cubic-bezier(.68,-0.55,.27,1.55);
+            padding: 2rem;
+        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes popIn { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        .slider-group {
+            margin-bottom: 1.5rem;
+            padding-top: 1.5rem;
+        }
+        .slider-label {
+            font-size: 1.125rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        .share-button {
+            padding: 0.75rem 2rem;
+            border-radius: 2rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+        .share-button:hover, .share-button:focus {
+            transform: scale(1.04);
+            box-shadow: 0 4px 16px rgba(255,179,0,0.12);
+            outline: 2px solid #ffb300;
+        }
+        .share-modal-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+        .faq-accordion {
+            margin-bottom: 1rem;
+            border-radius: 0.75rem;
+            background: rgba(255,255,255,0.7);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .faq-question {
+            width: 100%;
+            text-align: left;
+            background: none;
+            border: none;
+            font-size: 1.1rem;
+            color: #ffb300;
+            font-weight: 600;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            border-bottom: 1px solid #ffe0a3;
+        }
+        .faq-answer {
+            padding: 1rem 1.5rem;
+            color: var(--text-dim);
+        }
+        .faq-question svg {
+            width: 1.25em;
+            height: 1.25em;
+            margin-left: 0.5em;
+            transition: transform 0.2s;
+        }
+        [aria-expanded="true"] svg {
+            transform: rotate(90deg);
+        }
+    </style>
+</head>
+<body x-data="{ showModal: false, showShareModal: false }">
+    <!-- enhanced-navbar Section -->
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Should I Engage? Conversation Calculator</h1>
+        <p>Decide if you should join the chat, call, or thread—instantly.</p>
+    </section>
+
+    <main class="container">
+        <div class="calculator-grid" x-data="conversationEngagementCalculator()">
+            <!-- Controls Panel -->
+            <div class="panel">
+                <h2>🗣️ Engagement Factors</h2>
+                <!-- Engagement Type -->
+                <div class="slider-group premium-slider">
+                    <label class="slider-label" for="engagementType">Type of Conversation</label>
+                    <select id="engagementType" x-model="engagementType" @change="calculateScore()" class="premium-select">
+                        <option value="phone">Phone Call</option>
+                        <option value="forum">Online Forum</option>
+                        <option value="chat">Group Chat</option>
+                        <option value="inperson">In Person</option>
+                    </select>
+                </div>
+                <!-- Social Energy -->
+                <div class="slider-group premium-slider">
+                    <label class="slider-label" for="socialEnergy">Your Social Energy</label>
+                    <div class="slider-wrapper">
+                        <input id="socialEnergy" type="range" min="1" max="10" x-model.number="socialEnergy" @input="calculateScore()" @input="updateBubble($event, 'socialEnergyBubble')" aria-valuenow="5" aria-valuemin="1" aria-valuemax="10" aria-label="Social Energy">
+                        <span class="slider-bubble" :id="'socialEnergyBubble'" x-text="socialEnergy"></span>
+                    </div>
+                    <div x-text="'Level ' + socialEnergy + '/10 - ' + getEnergyDescription(socialEnergy)"></div>
+                </div>
+                <!-- Topic Relevance -->
+                <div class="slider-group premium-slider">
+                    <label class="slider-label" for="topicRelevance">Topic Relevance</label>
+                    <div class="slider-wrapper">
+                        <input id="topicRelevance" type="range" min="1" max="10" x-model.number="topicRelevance" @input="calculateScore()" @input="updateBubble($event, 'topicRelevanceBubble')" aria-valuenow="5" aria-valuemin="1" aria-valuemax="10" aria-label="Topic Relevance">
+                        <span class="slider-bubble" :id="'topicRelevanceBubble'" x-text="topicRelevance"></span>
+                    </div>
+                    <div x-text="'Level ' + topicRelevance + '/10 - ' + getTopicDescription(topicRelevance)"></div>
+                </div>
+                <!-- Potential Value -->
+                <div class="slider-group premium-slider">
+                    <label class="slider-label" for="potentialValue">Potential Value (Networking, Fun, Info)</label>
+                    <div class="slider-wrapper">
+                        <input id="potentialValue" type="range" min="1" max="10" x-model.number="potentialValue" @input="calculateScore()" @input="updateBubble($event, 'potentialValueBubble')" aria-valuenow="5" aria-valuemin="1" aria-valuemax="10" aria-label="Potential Value">
+                        <span class="slider-bubble" :id="'potentialValueBubble'" x-text="potentialValue"></span>
+                    </div>
+                    <div x-text="'Level ' + potentialValue + '/10 - ' + getValueDescription(potentialValue)"></div>
+                </div>
+                <!-- Drama Risk -->
+                <div class="slider-group premium-slider">
+                    <label class="slider-label" for="dramaRisk">Drama Risk</label>
+                    <div class="slider-wrapper">
+                        <input id="dramaRisk" type="range" min="1" max="10" x-model.number="dramaRisk" @input="calculateScore()" @input="updateBubble($event, 'dramaRiskBubble')" aria-valuenow="5" aria-valuemin="1" aria-valuemax="10" aria-label="Drama Risk">
+                        <span class="slider-bubble" :id="'dramaRiskBubble'" x-text="dramaRisk"></span>
+                    </div>
+                    <div x-text="'Level ' + dramaRisk + '/10 - ' + getDramaDescription(dramaRisk)"></div>
+                </div>
+            </div>
+            <!-- Results Panel -->
+            <div class="panel">
+                <h2>🤔 Should You Engage?</h2>
+                <div style="text-align: center; margin: 2rem 0;">
+                    <div style="font-size: 4rem; margin-bottom: 1rem;">
+                        <span :style="'color:' + resultColor" x-text="resultEmoji"></span>
+                    </div>
+                    <div style="font-size: 2rem; font-weight: 800; color: var(--lifehacks-orange); margin-bottom: 0.5rem;" x-text="resultText"></div>
+                    <div style="color: var(--text-dim);">Engagement Score: <span x-text="score"></span>/100</div>
+                </div>
+                <div style="margin-top: 2rem; padding: 1rem; background: var(--lifehacks-bg, #fffbe6); border-radius: var(--radius);">
+                    <h3 style="margin-bottom: 1rem;">Quick Tips:</h3>
+                    <ul style="list-style: disc inside; color: var(--text-dim);">
+                        <li x-show="score >= 80">Go for it! This is a high-value, low-drama opportunity.</li>
+                        <li x-show="score >= 60 && score < 80">Looks promising, but check your energy and topic fit.</li>
+                        <li x-show="score >= 40 && score < 60">Neutral zone—engage if you have time/energy.</li>
+                        <li x-show="score >= 20 && score < 40">Caution: Drama or low value likely. Consider skipping.</li>
+                        <li x-show="score < 20">Hard pass. Protect your time and sanity!</li>
+                    </ul>
+                </div>
+                <!-- Share Button -->
+                <button class="share-button" @click="showShareModal = true">
+                    <span>🔗</span>
+                    <span>Share Your Result</span>
+                </button>
+            </div>
+            <!-- Share Modal -->
+            <div x-show="showShareModal" x-cloak class="modal-overlay" @click.self="showShareModal = false" style="display: none;">
+                <div class="modal-content" @click.stop>
+                    <div class="modal-header">
+                        <h2 class="modal-title">🔗 Share Your Engagement Result</h2>
+                        <p class="modal-subtitle">Let friends know if you're joining the convo—or sitting this one out.</p>
+                        <button class="modal-close" @click="showShareModal = false">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="share-modal-grid">
+                            <button class="share-modal-button" @click="shareGeneral(); showShareModal = false">
+                                <span class="share-modal-icon">📱</span> Share with Image
+                            </button>
+                            <button class="share-modal-button" @click="shareOnTwitter(); showShareModal = false">
+                                <span class="share-modal-icon">🐦</span> Twitter
+                            </button>
+                            <button class="share-modal-button" @click="shareOnFacebook(); showShareModal = false">
+                                <span class="share-modal-icon">📘</span> Facebook
+                            </button>
+                            <button class="share-modal-button" @click="shareOnLinkedIn(); showShareModal = false">
+                                <span class="share-modal-icon">💼</span> LinkedIn
+                            </button>
+                            <button class="share-modal-button" @click="shareOnReddit(); showShareModal = false">
+                                <span class="share-modal-icon">🤖</span> Reddit
+                            </button>
+                            <button class="share-modal-button" @click="copyShareLink(); showShareModal = false">
+                                <span class="share-modal-icon">🔗</span> Copy Link
+                            </button>
+                            <button class="share-modal-button" @click="downloadImage(); showShareModal = false">
+                                <span class="share-modal-icon">💾</span> Download Image
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- Premium Content: Description, How it Works, FAQ -->
+    <section class="content-section premium-info-section" style="width:100vw; position:relative; left:50%; right:50%; margin-left:-50vw; margin-right:-50vw; background:var(--lifehacks-bg, #fffbe6); padding:3rem 0;">
+      <div style="max-width:900px; margin:0 auto; padding:0 2rem;">
+        <h2 class="premium-heading" style="font-size:2rem; margin-bottom:0.5em; color:var(--lifehacks-orange); font-weight:800; letter-spacing:-1px;">About This Calculator</h2>
+        <p style="font-size:1.15rem; color:var(--text-dim); max-width:800px; margin-bottom:1.5em;">
+          The Conversation Engagement Calculator is your go-to tool for deciding if you should join a conversation—on the phone, in person, or online. It weighs your social energy, topic relevance, potential value, and drama risk to help you make smarter, stress-free decisions. Save your time, energy, and sanity with this LifeHack!
+        </p>
+        <h2 class="premium-heading" style="font-size:1.5rem; margin-top:2em; margin-bottom:0.5em; color:#2e7d32; font-weight:700;">How It Works</h2>
+        <ul style="font-size:1.05rem; color:var(--text-dim); margin-bottom:1.5em; list-style:disc inside; max-width:800px;">
+          <li><strong>Type of Conversation:</strong> Phone, forum, chat, or in person—each has a different energy cost and value.</li>
+          <li><strong>Social Energy:</strong> Rate your current energy. Low energy? Maybe skip the drama.</li>
+          <li><strong>Topic Relevance:</strong> Is the topic interesting or important to you?</li>
+          <li><strong>Potential Value:</strong> Could you gain something—networking, fun, or info?</li>
+          <li><strong>Drama Risk:</strong> High drama? Maybe not worth it. Low drama? Go for it!</li>
+        </ul>
+        <h2 class="premium-heading" style="font-size:1.5rem; margin-top:2em; margin-bottom:0.5em; color:#d32f2f; font-weight:700;">Frequently Asked Questions</h2>
+        <div class="faq-list" style="max-width:800px;">
+          <div x-data="{ open: false }" class="faq-accordion">
+            <button @click="open = !open" :aria-expanded="open" class="faq-question">
+              <span>Is this calculator science-based?</span>
+              <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6 8a1 1 0 011.707-.707l3 3a1 1 0 010 1.414l-3 3A1 1 0 016 13.586V8z" clip-rule="evenodd"/></svg>
+            </button>
+            <div x-show="open" class="faq-answer">It's inspired by social science and productivity research, but ultimately for fun and self-awareness. Use it as a guide, not gospel.</div>
+          </div>
+          <div x-data="{ open: false }" class="faq-accordion">
+            <button @click="open = !open" :aria-expanded="open" class="faq-question">
+              <span>Can I use this for work meetings?</span>
+              <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6 8a1 1 0 011.707-.707l3 3a1 1 0 010 1.414l-3 3A1 1 0 016 13.586V8z" clip-rule="evenodd"/></svg>
+            </button>
+            <div x-show="open" class="faq-answer">Absolutely! It's great for deciding if a meeting or call is worth your time and energy.</div>
+          </div>
+          <div x-data="{ open: false }" class="faq-accordion">
+            <button @click="open = !open" :aria-expanded="open" class="faq-question">
+              <span>How do I share my results?</span>
+              <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6 8a1 1 0 011.707-.707l3 3a1 1 0 010 1.414l-3 3A1 1 0 016 13.586V8z" clip-rule="evenodd"/></svg>
+            </button>
+            <div x-show="open" class="faq-answer">Use the share button to post your engagement score or download a custom image for your records.</div>
+          </div>
+          <div x-data="{ open: false }" class="faq-accordion">
+            <button @click="open = !open" :aria-expanded="open" class="faq-question">
+              <span>Does it work for introverts and extroverts?</span>
+              <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6 8a1 1 0 011.707-.707l3 3a1 1 0 010 1.414l-3 3A1 1 0 016 13.586V8z" clip-rule="evenodd"/></svg>
+            </button>
+            <div x-show="open" class="faq-answer">Yes! Adjust your social energy and see how your results change. It's for everyone who values their time.</div>
+          </div>
+        </div>
+        </div>
+    </section>
+    <script>
+        function conversationEngagementCalculator() {
+            return {
+                engagementType: 'phone',
+                socialEnergy: 5,
+                topicRelevance: 5,
+                potentialValue: 5,
+                dramaRisk: 5,
+                score: 0,
+                resultText: '',
+                resultEmoji: '',
+                resultColor: '#ffb300',
+                init() { this.calculateScore(); this.$nextTick(() => { this.initBubbles(); }); },
+                calculateScore() {
+                    // Weighting factors
+                    const typeWeights = { phone: 1, forum: 0.8, chat: 0.9, inperson: 1.1 };
+                    const typeValue = typeWeights[this.engagementType] || 1;
+                    // Social energy and topic relevance are positive, drama is negative
+                    let score = 0;
+                    score += this.socialEnergy * 2.5;
+                    score += this.topicRelevance * 2.5;
+                    score += this.potentialValue * 3;
+                    score -= this.dramaRisk * 2.5;
+                    score = Math.round((score * typeValue) + 50); // Normalize to 0-100
+                    score = Math.max(0, Math.min(100, score));
+                    this.score = score;
+                    if (score >= 80) {
+                        this.resultText = 'Absolutely Engage!';
+                        this.resultEmoji = '🎉';
+                        this.resultColor = '#2e7d32';
+                    } else if (score >= 60) {
+                        this.resultText = 'Likely Worth It';
+                        this.resultEmoji = '👍';
+                        this.resultColor = '#388e3c';
+                    } else if (score >= 40) {
+                        this.resultText = 'Neutral Zone';
+                        this.resultEmoji = '🤔';
+                        this.resultColor = '#ffb300';
+                    } else if (score >= 20) {
+                        this.resultText = 'Probably Skip';
+                        this.resultEmoji = '⚠️';
+                        this.resultColor = '#d32f2f';
+                    } else {
+                        this.resultText = 'Hard Pass';
+                        this.resultEmoji = '🚫';
+                        this.resultColor = '#b71c1c';
+                    }
+                },
+                getEnergyDescription(val) {
+                    const desc = { 1: 'Exhausted', 3: 'Low', 5: 'Average', 7: 'Good', 10: 'Energized!' };
+                    return desc[val] || (val < 3 ? 'Very Low' : val < 7 ? 'Okay' : 'High');
+                },
+                getTopicDescription(val) {
+                    const desc = { 1: 'Not interested', 3: 'Mildly relevant', 5: 'Somewhat relevant', 7: 'Very relevant', 10: 'Super relevant!' };
+                    return desc[val] || (val < 3 ? 'Low' : val < 7 ? 'Medium' : 'High');
+                },
+                getValueDescription(val) {
+                    const desc = { 1: 'No value', 3: 'Low', 5: 'Some', 7: 'Good', 10: 'High!' };
+                    return desc[val] || (val < 3 ? 'Low' : val < 7 ? 'Medium' : 'High');
+                },
+                getDramaDescription(val) {
+                    const desc = { 1: 'No drama', 3: 'Low', 5: 'Some', 7: 'High', 10: 'Toxic!' };
+                    return desc[val] || (val < 3 ? 'Low' : val < 7 ? 'Medium' : 'High');
+                },
+                generateShareText() {
+                    return `Should I Engage? My score: ${this.score}/100 — ${this.resultText} (via Docket One LifeHacks)`;
+                },
+                generateShareImage() {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    canvas.width = 1200;
+                    canvas.height = 630;
+                    // Background
+                    ctx.fillStyle = '#fffbe6';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    // Title
+                    ctx.textAlign = 'center';
+                    ctx.fillStyle = '#ffb300';
+                    ctx.font = 'bold 48px Inter, sans-serif';
+                    ctx.fillText('Should I Engage?', canvas.width / 2, 90);
+                    // Score
+                    ctx.font = 'bold 120px Inter, sans-serif';
+                    ctx.fillStyle = this.resultColor;
+                    ctx.fillText(`${this.score}/100`, canvas.width / 2, 250);
+                    // Result
+                    ctx.font = 'bold 48px Inter, sans-serif';
+                    ctx.fillStyle = '#333';
+                    ctx.fillText(this.resultText, canvas.width / 2, 340);
+                    // Emoji
+                    ctx.font = '96px Inter, sans-serif';
+                    ctx.fillText(this.resultEmoji, canvas.width / 2, 440);
+                    // Footer
+                    ctx.font = '24px Inter, sans-serif';
+                    ctx.fillStyle = '#888';
+                    ctx.fillText('docket.one/pages/LifeHacks/', canvas.width / 2, 600);
+                    return canvas.toDataURL('image/png');
+                },
+                async shareGeneral() {
+                    const text = this.generateShareText();
+                    const calculatorUrl = 'https://docket.one/pages/LifeHacks/Conversation%20Engagement%20Calculator.html';
+                    if (navigator.share) {
+                        try {
+                            const imageDataUrl = this.generateShareImage();
+                            const response = await fetch(imageDataUrl);
+                            const blob = await response.blob();
+                            const file = new File([blob], `engagement-analysis-${Date.now()}.png`, { type: 'image/png' });
+                            if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                                await navigator.share({ title: 'Should I Engage?', text, url: calculatorUrl, files: [file] });
+                            } else {
+                                await navigator.share({ title: 'Should I Engage?', text, url: calculatorUrl });
+                            }
+                        } catch (err) {
+                            if (err.name !== 'AbortError') console.error('Web Share API failed:', err);
+                        }
+                    } else {
+                        try {
+                            await navigator.clipboard.writeText(`${text} ${calculatorUrl}`);
+                            alert('✅ Results copied to clipboard!\n\nThe image has been downloaded for you to attach.');
+                            this.downloadImage();
+                        } catch (err) {
+                            console.error('Clipboard failed:', err);
+                            this.downloadImage();
+                            alert('📥 Image downloaded! Share text:\n\n' + text + '\n\n' + calculatorUrl);
+                        }
+                    }
+                },
+                shareOnTwitter() {
+                    const text = this.generateShareText();
+                    const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(window.location.href)}`;
+                    window.open(url, '_blank');
+                },
+                shareOnFacebook() {
+                    const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`;
+                    window.open(url, '_blank');
+                },
+                shareOnLinkedIn() {
+                    const url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`;
+                    window.open(url, '_blank');
+                },
+                shareOnReddit() {
+                    const title = `Should I Engage? My score: ${this.score}/100`;
+                    const url = `https://reddit.com/submit?url=${encodeURIComponent(window.location.href)}&title=${encodeURIComponent(title)}`;
+                    window.open(url, '_blank');
+                },
+                async copyShareLink() {
+                    try {
+                        await navigator.clipboard.writeText(window.location.href);
+                        alert('✅ Link copied to clipboard!');
+                    } catch (err) {
+                        console.error('Failed to copy link:', err);
+                        alert('❌ Failed to copy link.');
+                    }
+                },
+                downloadImage() {
+                    const imageDataUrl = this.generateShareImage();
+                    const link = document.createElement('a');
+                    link.download = `engagement-analysis-${Date.now()}.png`;
+                    link.href = imageDataUrl;
+                    link.click();
+                },
+                updateBubble(event, bubbleId) {
+                    const input = event.target;
+                    const bubble = document.getElementById(bubbleId);
+                    if (!bubble) return;
+                    const min = Number(input.min);
+                    const max = Number(input.max);
+                    const val = Number(input.value);
+                    const percent = ((val - min) / (max - min)) * 100;
+                    bubble.style.left = `calc(${percent}% - 1.5rem)`;
+                },
+                initBubbles() {
+                    // Initialize all slider bubbles on load
+                    ['socialEnergy','topicRelevance','potentialValue','dramaRisk'].forEach(id => {
+                        const input = document.getElementById(id);
+                        if (input) {
+                            this.updateBubble({target: input}, id + 'Bubble');
+                        }
+                    });
+                },
+            }
+        }
+    </script>
+    <script src="../../common/mobile-menu.js"></script>
+    <!-- Footer (Handled by JS) -->
+</body>
+</html> 

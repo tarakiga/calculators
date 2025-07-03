@@ -10,534 +10,25 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --primary: #E53E3E;
-            --primary-light: #FC8181;
-            --primary-dark: #C53030;
-            --accent: #F6AD55;
-            --background: #FFF5F5;
-            --text: #2D3748;
-        }
-
-        @keyframes float {
-
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-10px);
-            }
-        }
-
-        @keyframes pulse {
-
-            0%,
-            100% {
-                transform: scale(1);
-            }
-
-            50% {
-                transform: scale(1.05);
-            }
-        }
-
-        @keyframes rotate {
-            from {
-                transform: rotate(0deg);
-            }
-
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes bounce {
-
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-20px);
-            }
-        }
-
-        @keyframes spin {
-            from {
-                transform: rotate(0deg);
-            }
-
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        @keyframes shake {
-
-            0%,
-            100% {
-                transform: translateX(0);
-            }
-
-            25% {
-                transform: translateX(-5px);
-            }
-
-            75% {
-                transform: translateX(5px);
-            }
-        }
-
-        .floating {
-            animation: float 3s ease-in-out infinite;
-        }
-
-        .pulse {
-            animation: pulse 2s infinite;
-        }
-
-        .rotate {
-            animation: rotate 20s linear infinite;
-        }
-
-        .slide-up {
-            animation: slideUp 0.5s ease forwards;
-        }
-
-        .pizza-wave {
-            background: linear-gradient(135deg, #E53E3E 0%, #B91C1C 100%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .pizza-wave::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, rgba(0, 0, 0, 0.15) 25%, transparent 25%),
-                linear-gradient(-45deg, rgba(0, 0, 0, 0.15) 25%, transparent 25%),
-                linear-gradient(45deg, transparent 75%, rgba(0, 0, 0, 0.15) 75%),
-                linear-gradient(-45deg, transparent 75%, rgba(0, 0, 0, 0.15) 75%);
-            background-size: 20px 20px;
-            animation: wave 20s linear infinite;
-        }
-
-        @keyframes wave {
-            0% {
-                background-position: 0 0;
-            }
-
-            100% {
-                background-position: 40px 40px;
-            }
-        }
-
-        .pizza-card {
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .pizza-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .pizza-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .pizza-card:hover::before {
-            opacity: 1;
-        }
-
-        .pizza-card.best-value::after {
-            content: '🏆';
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            font-size: 2rem;
-            animation: bounce 1s ease infinite;
-        }
-
-        .best-value {
-            border: 2px solid var(--primary);
-            box-shadow: 0 0 15px rgba(229, 62, 62, 0.2);
-        }
-
-        .achievement-badge {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: white;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transform: translateX(120%);
-            transition: transform 0.3s ease;
-            z-index: 1000;
-        }
-
-        .achievement-badge.show {
-            transform: translateX(0);
-        }
-
-        .confetti {
-            position: fixed;
-            width: 10px;
-            height: 10px;
-            background-color: #f00;
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .input-focus {
-            transform: scale(1.02);
-            box-shadow: 0 0 15px rgba(229, 62, 62, 0.3);
-            outline: 3px solid var(--primary);
-            outline-offset: 2px;
-        }
-
-        .calculate-btn {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .calculate-btn::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg,
-                    transparent,
-                    rgba(255, 255, 255, 0.3),
-                    transparent);
-            transform: rotate(45deg);
-            animation: shine 3s infinite;
-        }
-
-        @keyframes shine {
-            0% {
-                transform: translateX(-100%) rotate(45deg);
-            }
-
-            100% {
-                transform: translateX(100%) rotate(45deg);
-            }
-        }
-
-        .pizza-size-visualizer {
-            width: 100%;
-            height: 200px;
-            position: relative;
-            margin: 20px 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .pizza-circle {
-            border-radius: 50%;
-            background: linear-gradient(135deg, #E53E3E 0%, #FC8181 100%);
-            position: relative;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .pizza-circle::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 80%;
-            height: 80%;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .pizza-slice {
-            position: absolute;
-            width: 50%;
-            height: 50%;
-            background: rgba(255, 255, 255, 0.2);
-            clip-path: polygon(0 0, 100% 0, 0 100%);
-            transform-origin: bottom right;
-        }
-
-        .comparison-chart {
-            width: 100%;
-            height: 200px;
-            margin: 20px 0;
-            display: flex;
-            align-items: flex-end;
-            gap: 10px;
-            padding: 20px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .chart-bar {
-            flex: 1;
-            background: linear-gradient(to top, #E53E3E, #FC8181);
-            border-radius: 4px 4px 0 0;
-            transition: height 0.5s ease;
-            position: relative;
-            min-width: 40px;
-        }
-
-        .chart-bar::after {
-            content: attr(data-value);
-            position: absolute;
-            top: -25px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 12px;
-            color: #C53030;
-        }
-
-        .pizza-tips {
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
-            margin: 20px 0;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .tip-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin: 10px 0;
-            padding: 10px;
-            border-radius: 8px;
-            background: #FFF5F5;
-            transition: transform 0.2s ease;
-        }
-
-        .tip-item:hover {
-            transform: translateX(10px);
-        }
-
-        .tip-icon {
-            font-size: 24px;
-            color: #E53E3E;
-        }
-
-        .pizza-presets {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 10px;
-            margin: 20px 0;
-        }
-
-        .preset-btn {
-            padding: 10px;
-            border: 2px solid #E53E3E;
-            border-radius: 8px;
-            background: white;
-            color: #E53E3E;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .preset-btn:hover {
-            background: #E53E3E;
-            color: white;
-        }
-
-        .pizza-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin: 20px 0;
-        }
-
-        .stat-card {
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            text-align: center;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .stat-value {
-            font-size: 24px;
-            font-weight: bold;
-            color: #E53E3E;
-            margin: 10px 0;
-        }
-
-        .stat-label {
-            color: #718096;
-            font-size: 14px;
-        }
-
-        .mobile-menu-btn {
-            min-width: 44px;
-            min-height: 44px;
-            padding: 12px;
-        }
-
-        /* Add focus styles for better keyboard navigation */
-        *:focus-visible {
-            outline: 3px solid #E53E3E;
-            outline-offset: 2px;
-            border-radius: 4px;
-        }
-
-        /* Improve contrast for better readability */
-        [class*="text-[#C53030]"] {
-            color: #B91C1C;
-            /* Darker red for better contrast */
-        }
-
-        /* Add focus styles for interactive elements */
-        .preset-btn:focus-visible,
-        .calculate-btn:focus-visible {
-            outline: 3px solid #E53E3E;
-            outline-offset: 2px;
-            box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.3);
-        }
-
-        /* Ensure sufficient contrast for text */
-        .text-white {
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Add focus styles for form inputs */
-        .form-input:focus-visible,
-        .form-select:focus-visible {
-            outline: 3px solid #E53E3E;
-            outline-offset: 2px;
-            border-color: #E53E3E;
-        }
-
-        /* Ensure sufficient contrast for disabled states */
-        .form-input:disabled,
-        .form-select:disabled {
-            background-color: #F3F4F6;
-            color: #6B7280;
-            border-color: #D1D5DB;
-        }
-
-        /* Add focus styles for buttons */
-        button:focus-visible {
-            outline: 3px solid #E53E3E;
-            outline-offset: 2px;
-            box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.3);
-        }
-
-        /* Ensure focus styles are visible */
-        .pizza-wave:focus-within {
-            outline: 3px solid #FFFFFF;
-            outline-offset: 2px;
-        }
-
-        /* Improve badge contrast */
-        .bg-white\/30 {
-            background-color: rgba(255, 255, 255, 0.3);
-        }
-    </style>
+    
 
     <link rel="stylesheet" href="../../common/navbar-enhanced.css">
     <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../styles/pizza-pie.css">
+    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
+    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
     <link rel="stylesheet" href="../../common/global-calculator.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="../../common/footer/premium-footer.css">
     <script src="../../common/footer/premium-footer.js"></script>
-
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
-    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script>
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
-    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script>
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
-    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script>
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
-    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script>
-    <script src="../../common/add-breadcrumbs.js"></script>
+    <script src="../../common/footer/footer-inject.js"></script>
+    <script src="../../common/navbar-enhanced.js"></script>
     <script src="../../common/add-keyboard-accessibility.js"></script>
 </head>
 
 <body class="bg-[#FFF5F5] min-h-screen" x-data="pizzaCalculator()">
     <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-    <nav class="main-nav">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <a href="../../index.html">🧮 Docket One</a>
-            </div>
-            <div class="nav-search">
-                <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input"
-                    aria-label="Search calculators">
-                <div id="search-results" class="search-results"></div>
-            </div>
-            <ul class="nav-links">
-                <li><a href="../BigKidMath/index.html" class="category-link">Big Kid Math</a></li>
-                <li><a href="../CipherLab/index.html" class="category-link">Cipher Lab</a></li>
-                <li><a href="../GeekGalaxy/index.html" class="category-link">Geek Galaxy</a></li>
-                <li><a href="../LifeHacks/index.html" class="category-link">Life Hacks</a></li>
-                <li><a href="../Math_Magik/index.html" class="category-link">Math Magik</a></li>
-                <li><a href="../Otaku_Ops/index.html" class="category-link">Otaku Ops</a></li>
-                <li><a href="../../index.html" class="home-link">🏠 Home</a></li>
-            </ul>
-            <button class="mobile-menu-btn" aria-label="Toggle menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </nav>
 
     <div class="container mx-auto px-4 py-12">
         <div class="max-w-4xl mx-auto">
@@ -754,28 +245,29 @@
         </div>
     </div>
 
-    <!-- Related Calculators -->
-    <div class="related-calculators max-w-4xl mx-auto mt-8 p-6 bg-white/50 backdrop-blur-sm rounded-xl">
-        <h3 class="text-lg font-bold mb-4 text-[#C53030]">Related Math Magik Tools</h3>
-        <div class="space-y-2">
-            <a href="./Double Pendulum Chaos.html"
-                class="block p-3 bg-white/80 hover:bg-white rounded-lg transition-colors text-[#C53030] hover:text-[#E53E3E]">
-                Double Pendulum Chaos
-            </a>
-            <a href="./entropy and feigenbaums constant.html"
-                class="block p-3 bg-white/80 hover:bg-white rounded-lg transition-colors text-[#C53030] hover:text-[#E53E3E]">
-                Entropy and Feigenbaum's Constant
-            </a>
-            <a href="./FIRE Number Calculator.html"
-                class="block p-3 bg-white/80 hover:bg-white rounded-lg transition-colors text-[#C53030] hover:text-[#E53E3E]">
-                FIRE Number Calculator
-            </a>
-            <a href="./index.html"
-                class="block p-3 mt-4 bg-[#E53E3E] hover:bg-[#C53030] rounded-lg transition-colors text-white font-medium">
-                ← Back to Math Magik Hub
-            </a>
+    <!-- Premium Content: Description, How it Works, FAQ -->
+    <section class="content-section premium-info-section" style="width:100vw; position:relative; left:50%; right:50%; margin-left:-50vw; margin-right:-50vw; background:var(--space-dark, #181a20); padding:3rem 0;">
+      <div style="max-width:900px; margin:0 auto; padding:0 2rem;">
+        <h2 class="premium-heading" style="font-size:2rem; margin-bottom:0.5em; color:#E53E3E; font-weight:800; letter-spacing:-1px;">About This Calculator</h2>
+        <p style="font-size:1.15rem; color:#fff; max-width:800px; margin-bottom:1.5em;">
+          The Pizza Pi Calculator helps you get the most pizza for your money. Compare different sizes and prices to find the best value—because in pizza math, bigger is often better!
+        </p>
+        <h2 class="premium-heading" style="font-size:1.5rem; margin-top:2em; margin-bottom:0.5em; color:#FC8181; font-weight:700;">How It Works</h2>
+        <ul style="font-size:1.05rem; color:#fff; margin-bottom:1.5em; list-style:disc inside; max-width:800px;">
+          <li><strong>Input Sizes & Prices:</strong> Enter up to three pizza diameters and prices.</li>
+          <li><strong>Instant Value:</strong> See area, crust, and value per dollar for each pizza.</li>
+          <li><strong>Visualization:</strong> Compare pizzas visually to spot the best deal.</li>
+          <li><strong>Presets:</strong> Use quick buttons for common pizza sizes.</li>
+        </ul>
+        <h2 class="premium-heading" style="font-size:1.5rem; margin-top:2em; margin-bottom:0.5em; color:#E53E3E; font-weight:700;">Frequently Asked Questions</h2>
+        <div class="faq-list" style="max-width:800px;">
+          <div class="faq"><h3 style="font-size:1.1rem; color:#FC8181; font-weight:600;">Is this based on real math?</h3><p style="color:#fff;">Yes! Area is πr², so a bigger pizza is almost always a better deal.</p></div>
+          <div class="faq"><h3 style="font-size:1.1rem; color:#FC8181; font-weight:600;">Can I use metric units?</h3><p style="color:#fff;">Enter diameters in inches for best results, but you can convert from cm.</p></div>
+          <div class="faq"><h3 style="font-size:1.1rem; color:#FC8181; font-weight:600;">Does it work for square pizzas?</h3><p style="color:#fff;">This tool is for round pizzas, but you can estimate.</p></div>
+          <div class="faq"><h3 style="font-size:1.1rem; color:#FC8181; font-weight:600;">Is my data saved?</h3><p style="color:#fff;">No, all calculations are local and private.</p></div>
         </div>
-    </div>
+      </div>
+    </section>
 
     <script>
         function pizzaCalculator() {
@@ -993,96 +485,8 @@
             }
         });
     </script>
-    <!-- Newsletter Bar -->
-    <div class="newsletter-bar" x-data="newsletterForm()">
-        <div class="newsletter-container">
-            <div class="newsletter-content">
-                <div class="newsletter-info">
-                    <h3>&#127881; Join Our Calculator Community!</h3>
-                    <p>Get updates on new fun calculators and practical tools</p>
-                </div>
-                <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
-                    <input type="email" class="newsletter-input" placeholder="Enter your email for calculator updates"
-                        x-model="email" required>
-                    <button type="submit" class="newsletter-submit" :disabled="isSubmitting">
-                        <span x-show="isSubmitting" class="loading-spinner"></span>
-                        <span x-text="isSubmitting ? 'Subscribing...' : '&#128640; Subscribe'"></span>
-                    </button>
-                </form>
-                <div x-show="showSuccess" class="newsletter-success" style="display: none;">
-                    <p style="color: var(--accent-light); font-weight: 600;">
-                        &#9989; Awesome! You'll get updates on the coolest new calculators!
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>&#127919; About Docket.One</h4>
-                    <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you
-                        should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the
-                        tools for modern life.</p>
-                    <p>Practical meets playful. Because adulting is hard enough.</p>
-                </div>
-
-                <div class="footer-section">
-                    <h4>&#127914; Calculator Categories</h4>
-                    <ul class="footer-links">
-                        <li><a href="/pages/BigKidMath/"><span class="calculator-emoji">&#129518;</span> BigKidMath -
-                                Adult Life Tools</a></li>
-                        <li><a href="/pages/CipherLab/"><span class="calculator-emoji">&#128272;</span> CipherLab -
-                                Secret Codes & Security</a></li>
-                        <li><a href="/pages/GeekGalaxy/"><span class="calculator-emoji">&#128640;</span> GeekGalaxy -
-                                Sci-Fi & Fantasy Fun</a></li>
-                        <li><a href="/pages/LifeHacks/"><span class="calculator-emoji">&#9889;</span> LifeHacks -
-                                Productivity & Wellness</a></li>
-                        <li><a href="/pages/Math_Magik/"><span class="calculator-emoji">&#127917;</span> Math Magik -
-                                Mathematical Wizardry</a></li>
-                        <li><a href="/pages/Otaku_Ops/"><span class="calculator-emoji">&#127999;</span> Otaku Ops -
-                                Anime & Culture</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h4>&#128172; Support & Info</h4>
-                    <ul class="footer-links">
-                        <li><a href="/pages/support/help.html"><span class="calculator-emoji">&#10067;</span> Help &
-                                FAQ</a></li>
-                        <li><a href="/privacy"><span class="calculator-emoji">&#128274;</span> Privacy Policy</a></li>
-                        <li><a href="/terms"><span class="calculator-emoji">&#128203;</span> Terms of Service</a></li>
-                        <li><a href="/accessibility"><span class="calculator-emoji">&#9855;</span> Accessibility</a>
-                        </li>
-                        <li><a href="/pages/support/contact.html"><span class="calculator-emoji">&#128231;</span>
-                                Contact Us</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <button class="request-calculator-btn" @click="showModal = true">
-                        &#128161; Request a Calculator
-                    </button>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <div class="footer-logo">&#129518; Docket.One</div>
-                <div class="footer-copyright">
-                    Â© 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
-                </div>
-                <div class="social-links">
-                    <a href="#" class="social-link" aria-label="Twitter">&#120143;</a>
-                    <a href="#" class="social-link" aria-label="LinkedIn">&#128188;</a>
-                    <a href="#" class="social-link" aria-label="GitHub">&#128025;</a>
-                    <a href="#" class="social-link" aria-label="Email">&#128231;</a>
-                </div>
-            </div>
-        </div>
-    </footer>
+    
+    <!-- Footer (Handled by JS) -->
 
     <!-- Request Modal -->
     <div x-data="calculatorRequestForm()" x-show="showModal" x-cloak class="modal-overlay" @click.self="closeModal()"
@@ -1171,6 +575,8 @@
     <div role="alert" aria-live="assertive" class="error-container" id="form-errors">
         <!-- Error messages will be announced here -->
     </div>
+
+    
 
 </body>
 

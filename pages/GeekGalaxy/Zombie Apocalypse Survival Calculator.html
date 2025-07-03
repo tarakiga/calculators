@@ -49,11 +49,13 @@
     <link rel="stylesheet" href="../../styles/zombie.css?v=20250609">
     <link rel="stylesheet" href="../../common/navbar-enhanced.css?v=20250609">
 	<script src="../../common/navbar-enhanced.js"></script>
+    <script src="../../common/footer/footer-inject.js"></script>
     <script src="../../common/footer/premium-footer.js"></script>
     <script src="../../common/add-keyboard-accessibility.js"></script>
 </head>
 
 <body x-data="zombieCalculator()" x-init="init()">
+
 
     <div class="container text-center py-8">
         <h1 class="font-display text-4xl md:text-5xl font-extrabold text-white uppercase tracking-wider">
@@ -188,6 +190,30 @@
         </div>
         <canvas id="shareCanvas" width="1200" height="630" style="display: none;"></canvas>
     </main>
+    
+    <!-- Premium Content: Description, How it Works, FAQ -->
+    <section class="content-section premium-info-section" style="width:100vw; position:relative; left:50%; right:50%; margin-left:-50vw; margin-right:-50vw; background:var(--space-dark, #181a20); padding:3rem 0;">
+      <div style="max-width:900px; margin:0 auto; padding:0 2rem;">
+        <h2 class="premium-heading" style="font-size:2rem; margin-bottom:0.5em; color:#50fa7b; font-weight:800; letter-spacing:-1px;">About This Calculator</h2>
+        <p style="font-size:1.15rem; color:#fff; max-width:800px; margin-bottom:1.5em;">
+          The Zombie Apocalypse Survival Calculator helps you estimate your odds of surviving a zombie outbreak. Adjust your skills, supplies, and team to see how long you'd last in a world gone undead!
+        </p>
+        <h2 class="premium-heading" style="font-size:1.5rem; margin-top:2em; margin-bottom:0.5em; color:#8BE9FD; font-weight:700;">How It Works</h2>
+        <ul style="font-size:1.05rem; color:#fff; margin-bottom:1.5em; list-style:disc inside; max-width:800px;">
+          <li><strong>Set Your Stats:</strong> Input your physical fitness, survival skills, and resourcefulness.</li>
+          <li><strong>Choose Your Team:</strong> Add friends or fictional allies for bonus points.</li>
+          <li><strong>Supplies & Shelter:</strong> Rate your access to food, water, and safe locations.</li>
+          <li><strong>Simulation:</strong> See your survival time and tips for improvement.</li>
+        </ul>
+        <h2 class="premium-heading" style="font-size:1.5rem; margin-top:2em; margin-bottom:0.5em; color:#50fa7b; font-weight:700;">Frequently Asked Questions</h2>
+        <div class="faq-list" style="max-width:800px;">
+          <div class="faq"><h3 style="font-size:1.1rem; color:#8BE9FD; font-weight:600;">Is this realistic?</h3><p style="color:#fff;">It's a fun simulation, not a real survival guide.</p></div>
+          <div class="faq"><h3 style="font-size:1.1rem; color:#8BE9FD; font-weight:600;">Can I add my own team?</h3><p style="color:#fff;">Yes! Add friends, family, or favorite characters.</p></div>
+          <div class="faq"><h3 style="font-size:1.1rem; color:#8BE9FD; font-weight:600;">Are results saved?</h3><p style="color:#fff;">No, all calculations are local and private.</p></div>
+          <div class="faq"><h3 style="font-size:1.1rem; color:#8BE9FD; font-weight:600;">Can I share my results?</h3><p style="color:#fff;">Yes, screenshot or share your survival plan with friends.</p></div>
+        </div>
+      </div>
+    </section>
     
     <script>
         function zombieCalculator() {
@@ -337,93 +363,6 @@
             }
         }
     </script>
-	<!-- Newsletter Bar -->
-    <div class="newsletter-bar" x-data="newsletterForm()">
-        <div class="newsletter-container">
-            <div class="newsletter-content">
-                <div class="newsletter-info">
-                    <h3>🎉 Join Our Calculator Community!</h3>
-                    <p>Get updates on new fun calculators and practical tools</p>
-                </div>
-                <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
-                    <input type="email" class="newsletter-input" placeholder="Enter your email for calculator updates"
-                        x-model="email" required>
-                    <button type="submit" class="newsletter-submit" :disabled="isSubmitting">
-                        <span x-show="isSubmitting" class="loading-spinner"></span>
-                        <span x-text="isSubmitting ? 'Subscribing...' : '🚀 Subscribe'"></span>
-                    </button>
-                </form>
-                <div x-show="showSuccess" class="newsletter-success">
-                    <p style="color: var(--accent-light); font-weight: 600;">
-                        ✅ Awesome! You'll get updates on the coolest new calculators!
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>🎮 About Docket.One</h4>
-                    <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you
-                        should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the
-                        tools for modern life.</p>
-                    <p>Practical meets playful. Because adulting is hard enough.</p>
-                </div>
-
-                <div class="footer-section">
-                    <h4>🎯 Calculator Categories</h4>
-                    <ul class="footer-links">
-                        <li><a href="https://docket.one/pages/BigKidMath/"><span class="calculator-emoji">🧠</span>
-                                BigKidMath - Adult Life Tools</a></li>
-                        <li><a href="https://docket.one/pages/CipherLab/"><span class="calculator-emoji">🔐</span>
-                                CipherLab - Secret Codes & Security</a>
-                        </li>
-                        <li><a href="https://docket.one/pages/GeekGalaxy/"><span class="calculator-emoji">🚀</span>
-                                GeekGalaxy - Sci-Fi & Fantasy Fun</a></li>
-                        <li><a href="https://docket.one/pages/LifeHacks/"><span class="calculator-emoji">⚡</span>
-                                LifeHacks - Productivity & Wellness</a></li>
-                        <li><a href="https://docket.one/pages/Math_Magik/"><span class="calculator-emoji">🧙‍♀️</span>
-                                Math Magik - Mathematical Wizardry</a>
-                        </li>
-                        <li><a href="https://docket.one/pages/Otaku_Ops/"><span class="calculator-emoji">🗾</span> Otaku
-                                Ops - Anime & Culture</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h4>💬 Support & Info</h4>
-                    <ul class="footer-links">
-                        <li><a href="pages/support/help.html"><span class="calculator-emoji">❓</span> Help &
-                                FAQ</a></li>
-                        <li><a href="pages/support/privacy.html"><span class="calculator-emoji">🔒</span> Privacy
-                                Policy</a></li>
-                        <li><a href="pages/support/terms.html"><span class="calculator-emoji">📋</span> Terms of
-                                Service</a></li>
-                        <li><a href="pages/support/accessibility.html"><span class="calculator-emoji">♿</span>
-                                Accessibility</a></li>
-                        <li><a href="pages/support/contact.html"><span class="calculator-emoji">📧</span> Contact
-                                Us</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <div class="footer-logo">🧮 Docket.One</div>
-                <div class="footer-copyright">
-                    © 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
-                </div>
-                <div class="social-links">
-                    <a href="#" class="social-link" aria-label="Twitter">𝕏</a>
-                    <a href="#" class="social-link" aria-label="LinkedIn">💼</a>
-                    <a href="#" class="social-link" aria-label="GitHub">🐙</a>
-                    <a href="#" class="social-link" aria-label="Email">📧</a>
-                </div>
-            </div>
-        </div>
-    </footer>
+	<!-- Footer (Handled by JS) -->
 </body>
 </html>

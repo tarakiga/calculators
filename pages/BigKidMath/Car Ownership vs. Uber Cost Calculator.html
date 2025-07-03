@@ -74,38 +74,15 @@
 </script>
     
     <script src="../../common/footer/premium-footer.js"></script>
+    <script src="../../common/footer/footer-inject.js"></script>
 	<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../../common/navbar-enhanced.css"></script>
+    <script src="../../common/navbar-enhanced.js"></script>
     <script src="../../common/add-keyboard-accessibility.js"></script></head>
 
 <body x-data="{ showModal: false }">
-    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-    <nav class="main-nav">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <a href="../../index.html">🧮 Docket One</a>
-            </div>
-            <div class="nav-search">
-                <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input"
-                    aria-label="Search calculators">
-                <div id="search-results" class="search-results"></div>
-            </div>
-            <ul class="nav-links">
-                <li><a href="../BigKidMath/index.html" class="category-link">Big Kid Math</a></li>
-                <li><a href="../CipherLab/index.html" class="category-link">Cipher Lab</a></li>
-                <li><a href="../GeekGalaxy/index.html" class="category-link">Geek Galaxy</a></li>
-                <li><a href="../LifeHacks/index.html" class="category-link">Life Hacks</a></li>
-                <li><a href="../Math_Magik/index.html" class="category-link">Math Magik</a></li>
-                <li><a href="../Otaku_Ops/index.html" class="category-link">Otaku Ops</a></li>
-                <li><a href="../../index.html" class="home-link">🏠 Home</a></li>
-            </ul>
-            <button class="mobile-menu-btn" aria-label="Toggle menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </nav>
+    <!-- Navigation (Handled by JS) -->
 
     <section class="hero">
         <div class="hero-content">
@@ -261,7 +238,57 @@
         </div>
     </main>
 
-    <script src="../../common/navbar-enhanced.js"></script>
+    <section class="content-section">
+        <div class="container">
+            <h2>How The Calculator Works</h2>
+            <p>This calculator is designed to give you a comprehensive comparison between the long-term costs of owning a car and the regular expense of using a ridesharing service like Uber or Lyft. Here's a breakdown of the costs we consider:</p>
+            
+            <h3>Car Ownership Costs</h3>
+            <ul>
+                <li><strong>Purchase & Financing:</strong> This includes the full purchase price of the car, the term of your loan, and the interest rate. These factors determine your monthly car payment.</li>
+                <li><strong>Operating Costs:</strong> This is where the ongoing expenses of car ownership are factored in. We include annual insurance premiums, estimated maintenance costs (for things like oil changes, new tires, and unexpected repairs), and fuel costs based on your driving habits.</li>
+                <li><strong>Depreciation:</strong> While not a direct out-of-pocket expense, depreciation is the loss in a car's value over time, and it's one of the biggest costs of owning a car. Our calculator implicitly accounts for this by considering the full purchase price over the loan term.</li>
+            </ul>
+
+            <h3>Rideshare Costs</h3>
+            <ul>
+                <li><strong>Per-Ride-Cost:</strong> This is the average amount you spend on each Uber or Lyft ride. It's important to be realistic and include tips and potential surge pricing in your estimate.</li>
+                <li><strong>Frequency:</strong> We ask for the number of rides you take per week to get a clear picture of your annual rideshare spending.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <h2>Factors to Consider</h2>
+            <p>The numbers are important, but they're not the whole story. Here are some other factors to consider when making your decision:</p>
+            <ul>
+                <li><strong>Convenience:</strong> How important is it to have a car available at a moment's notice?</li>
+                <li><strong>Lifestyle:</strong> Do you frequently take long road trips or need to transport large items?</li>
+                <li><strong>Location:</strong> Is ridesharing readily available in your area? Is public transportation a viable option?</li>
+                <li><strong>Environmental Impact:</strong> Consider the carbon footprint of owning a car versus using ridesharing services.</li>
+                <li><strong>Stress:</strong> Don't forget to factor in the stress of driving in traffic, finding parking, and dealing with car maintenance.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq">
+                <h3>What's the biggest hidden cost of car ownership?</h3>
+                <p>Depreciation is often the largest and most overlooked cost of owning a new car. A new car can lose 20% or more of its value in the first year alone.</p>
+            </div>
+            <div class="faq">
+                <h3>Is it ever cheaper to own a car?</h3>
+                <p>Yes, if you drive frequently, have a long commute, or live in an area with limited ridesharing options, owning a car can be more economical in the long run.</p>
+            </div>
+            <div class="faq">
+                <h3>How can I save money on transportation?</h3>
+                <p>Consider a hybrid approach! You could own a less expensive, more fuel-efficient car for essential trips and use ridesharing for other occasions. Also, don't forget about public transportation, biking, or walking.</p>
+            </div>
+        </div>
+    </section>
     <script>
         function calculator() {
             return {
@@ -367,94 +394,7 @@
             }
         }
     </script>
-    <!-- Newsletter Bar -->
-    <div class="newsletter-bar" x-data="newsletterForm()">
-        <div class="newsletter-container">
-            <div class="newsletter-content">
-                <div class="newsletter-info">
-                    <h3>🎉 Join Our Calculator Community!</h3>
-                    <p>Get updates on new fun calculators and practical tools</p>
-                </div>
-                <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
-                    <input type="email" class="newsletter-input" placeholder="Enter your email for calculator updates"
-                        x-model="email" required>
-                    <button type="submit" class="newsletter-submit" :disabled="isSubmitting">
-                        <span x-show="isSubmitting" class="loading-spinner"></span>
-                        <span x-text="isSubmitting ? 'Subscribing...' : '🚀 Subscribe'"></span>
-                    </button>
-                </form>
-                <div x-show="showSuccess" class="newsletter-success">
-                    <p style="color: var(--accent-light); font-weight: 600;">
-                        ✅ Awesome! You'll get updates on the coolest new calculators!
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>🎮 About Docket.One</h4>
-                    <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you
-                        should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the
-                        tools for modern life.</p>
-                    <p>Practical meets playful. Because adulting is hard enough.</p>
-                </div>
-
-                <div class="footer-section">
-                    <h4>🎯 Calculator Categories</h4>
-                    <ul class="footer-links">
-                        <li><a href="https://docket.one/pages/BigKidMath/"><span class="calculator-emoji">🧠</span>
-                                BigKidMath - Adult Life Tools</a></li>
-                        <li><a href="https://docket.one/pages/CipherLab/"><span class="calculator-emoji">🔐</span>
-                                CipherLab - Secret Codes & Security</a>
-                        </li>
-                        <li><a href="https://docket.one/pages/GeekGalaxy/"><span class="calculator-emoji">🚀</span>
-                                GeekGalaxy - Sci-Fi & Fantasy Fun</a></li>
-                        <li><a href="https://docket.one/pages/LifeHacks/"><span class="calculator-emoji">⚡</span>
-                                LifeHacks - Productivity & Wellness</a></li>
-                        <li><a href="https://docket.one/pages/Math_Magik/"><span class="calculator-emoji">🧙‍♀️</span>
-                                Math Magik - Mathematical Wizardry</a>
-                        </li>
-                        <li><a href="https://docket.one/pages/Otaku_Ops/"><span class="calculator-emoji">🗾</span> Otaku
-                                Ops - Anime & Culture</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h4>💬 Support & Info</h4>
-                    <ul class="footer-links">
-                        <li><a href="pages/support/help.html"><span class="calculator-emoji">❓</span> Help &
-                                FAQ</a></li>
-                        <li><a href="pages/support/privacy.html"><span class="calculator-emoji">🔒</span> Privacy
-                                Policy</a></li>
-                        <li><a href="pages/support/terms.html"><span class="calculator-emoji">📋</span> Terms of
-                                Service</a></li>
-                        <li><a href="pages/support/accessibility.html"><span class="calculator-emoji">♿</span>
-                                Accessibility</a></li>
-                        <li><a href="pages/support/contact.html"><span class="calculator-emoji">📧</span> Contact
-                                Us</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <div class="footer-logo">🧮 Docket.One</div>
-                <div class="footer-copyright">
-                    © 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
-                </div>
-                <div class="social-links">
-                    <a href="#" class="social-link" aria-label="Twitter">𝕏</a>
-                    <a href="#" class="social-link" aria-label="LinkedIn">💼</a>
-                    <a href="#" class="social-link" aria-label="GitHub">🐙</a>
-                    <a href="#" class="social-link" aria-label="Email">📧</a>
-                </div>
-            </div>
-        </div>
-    </footer>
+    
 
 </body>
 

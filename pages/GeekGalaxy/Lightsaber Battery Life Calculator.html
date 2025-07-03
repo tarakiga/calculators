@@ -65,6 +65,7 @@
     <script src="../../common/navbar-enhanced.js"></script>
     <script src="../../common/footer/premium-footer.js"></script>
     <script src="../../common/add-breadcrumbs.js"></script>
+    <script src="../../common/footer/footer-inject.js"></script>
     <script src="../../common/add-keyboard-accessibility.js"></script>
 </head>
 <body x-data="{ showModal: false, showShareModal: false }">
@@ -204,10 +205,46 @@
 
         </div>
     </main>
+
+    <!-- Premium Content: Description, How it Works, FAQ -->
+    <section class="content-section premium-info-section" style="width:100vw; position:relative; left:50%; right:50%; margin-left:-50vw; margin-right:-50vw; background:var(--space-dark, #181a20); padding:3rem 0;">
+      <div style="max-width:900px; margin:0 auto; padding:0 2rem;">
+        <h2 class="premium-heading" style="font-size:2rem; margin-bottom:0.5em; color:var(--jedi-blue); font-weight:800; letter-spacing:-1px;">About This Calculator</h2>
+        <p style="font-size:1.15rem; color:var(--text-dim); max-width:800px; margin-bottom:1.5em;">
+          The Lightsaber Battery Life Calculator is a fan-made tool for Star Wars enthusiasts, cosplayers, and sci-fi fans. It lets you estimate how long your saber would last in the heat of battle, factoring in kyber crystal type, combat intensity, Force mastery, and saber age. Whether you're a Jedi, Sith, or somewhere in between, optimize your power management and share your results with the galaxy!
+        </p>
+        <h2 class="premium-heading" style="font-size:1.5rem; margin-top:2em; margin-bottom:0.5em; color:var(--luke-green); font-weight:700;">How It Works</h2>
+        <ul style="font-size:1.05rem; color:var(--text-dim); margin-bottom:1.5em; list-style:disc inside; max-width:800px;">
+          <li><strong>Crystal Type:</strong> Each kyber crystal has unique efficiency and base battery life. Select your crystal to see its impact.</li>
+          <li><strong>Combat Intensity:</strong> The more intense your battles, the faster your saber drains. Adjust the slider to match your style.</li>
+          <li><strong>Force Mastery:</strong> Higher mastery means better energy management. Jedi Masters get more out of every charge.</li>
+          <li><strong>Lightsaber Age:</strong> Older sabers lose efficiency over time. Keep your saber in top shape for best results.</li>
+          <li><strong>Fun, Not Canon:</strong> This tool is speculative and for entertainment. Actual Star Wars lore may differ!</li>
+        </ul>
+        <h2 class="premium-heading" style="font-size:1.5rem; margin-top:2em; margin-bottom:0.5em; color:var(--mace-purple); font-weight:700;">Frequently Asked Questions</h2>
+        <div class="faq-list" style="max-width:800px;">
+          <div class="faq">
+            <h3 style="font-size:1.1rem; color:var(--jedi-blue); font-weight:600;">Is this calculator official Star Wars canon?</h3>
+            <p style="color:var(--text-dim);">No, this is a fan-made tool for fun and education. It is not affiliated with or endorsed by Lucasfilm or Disney.</p>
+        </div>
+            <div class="faq">
+            <h3 style="font-size:1.1rem; color:var(--jedi-blue); font-weight:600;">How accurate are the results?</h3>
+            <p style="color:var(--text-dim);">Results are based on fictional logic and community lore, not real-world physics or official Star Wars data. Use it to spark imagination and debate!</p>
+            </div>
+            <div class="faq">
+            <h3 style="font-size:1.1rem; color:var(--jedi-blue); font-weight:600;">Can I share my results?</h3>
+            <p style="color:var(--text-dim);">Absolutely! Use the share button to post your saber stats on social media or download a custom image.</p>
+            </div>
+            <div class="faq">
+            <h3 style="font-size:1.1rem; color:var(--jedi-blue); font-weight:600;">Where can I learn more about lightsabers?</h3>
+            <p style="color:var(--text-dim);">Check out the lore sections below, or visit <a href="https://starwars.fandom.com/wiki/Lightsaber" target="_blank" rel="noopener" style="color:var(--luke-green); text-decoration:underline;">Wookieepedia</a> for deep dives into Star Wars technology and history.</p>
+          </div>
+            </div>
+        </div>
+    </section>
+
     
-    <!-- Hidden canvas for generating share images -->
-    <canvas id="shareCanvas" width="1200" height="630"></canvas>
-    
+
     <script>
         function lightsaberCalculator() {
             return {
@@ -393,93 +430,6 @@
         }
     </script>
     <script src="../../common/mobile-menu.js"></script>
-<!-- Newsletter Bar -->
-    <div class="newsletter-bar" x-data="newsletterForm()">
-        <div class="newsletter-container">
-            <div class="newsletter-content">
-                <div class="newsletter-info">
-                    <h3>🎉 Join Our Calculator Community!</h3>
-                    <p>Get updates on new fun calculators and practical tools</p>
-                </div>
-                <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
-                    <input type="email" class="newsletter-input" placeholder="Enter your email for calculator updates"
-                        x-model="email" required>
-                    <button type="submit" class="newsletter-submit" :disabled="isSubmitting">
-                        <span x-show="isSubmitting" class="loading-spinner"></span>
-                        <span x-text="isSubmitting ? 'Subscribing...' : '🚀 Subscribe'"></span>
-                    </button>
-                </form>
-                <div x-show="showSuccess" class="newsletter-success">
-                    <p style="color: var(--accent-light); font-weight: 600;">
-                        ✅ Awesome! You'll get updates on the coolest new calculators!
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>🎮 About Docket.One</h4>
-                    <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you
-                        should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the
-                        tools for modern life.</p>
-                    <p>Practical meets playful. Because adulting is hard enough.</p>
-                </div>
-
-                <div class="footer-section">
-                    <h4>🎯 Calculator Categories</h4>
-                    <ul class="footer-links">
-                        <li><a href="https://docket.one/pages/BigKidMath/"><span class="calculator-emoji">🧠</span>
-                                BigKidMath - Adult Life Tools</a></li>
-                        <li><a href="https://docket.one/pages/CipherLab/"><span class="calculator-emoji">🔐</span>
-                                CipherLab - Secret Codes & Security</a>
-                        </li>
-                        <li><a href="https://docket.one/pages/GeekGalaxy/"><span class="calculator-emoji">🚀</span>
-                                GeekGalaxy - Sci-Fi & Fantasy Fun</a></li>
-                        <li><a href="https://docket.one/pages/LifeHacks/"><span class="calculator-emoji">⚡</span>
-                                LifeHacks - Productivity & Wellness</a></li>
-                        <li><a href="https://docket.one/pages/Math_Magik/"><span class="calculator-emoji">🧙‍♀️</span>
-                                Math Magik - Mathematical Wizardry</a>
-                        </li>
-                        <li><a href="https://docket.one/pages/Otaku_Ops/"><span class="calculator-emoji">🗾</span> Otaku
-                                Ops - Anime & Culture</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h4>💬 Support & Info</h4>
-                    <ul class="footer-links">
-                        <li><a href="pages/support/help.html"><span class="calculator-emoji">❓</span> Help &
-                                FAQ</a></li>
-                        <li><a href="pages/support/privacy.html"><span class="calculator-emoji">🔒</span> Privacy
-                                Policy</a></li>
-                        <li><a href="pages/support/terms.html"><span class="calculator-emoji">📋</span> Terms of
-                                Service</a></li>
-                        <li><a href="pages/support/accessibility.html"><span class="calculator-emoji">♿</span>
-                                Accessibility</a></li>
-                        <li><a href="pages/support/contact.html"><span class="calculator-emoji">📧</span> Contact
-                                Us</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <div class="footer-logo">🧮 Docket.One</div>
-                <div class="footer-copyright">
-                    © 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
-                </div>
-                <div class="social-links">
-                    <a href="#" class="social-link" aria-label="Twitter">𝕏</a>
-                    <a href="#" class="social-link" aria-label="LinkedIn">💼</a>
-                    <a href="#" class="social-link" aria-label="GitHub">🐙</a>
-                    <a href="#" class="social-link" aria-label="Email">📧</a>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <!-- Footer (Handled by JS) -->
 </body>
 </html>

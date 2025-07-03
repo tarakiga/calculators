@@ -50,11 +50,12 @@
     <link rel="stylesheet" href="../../styles/startrek.css?v=20250609">
     <link rel="stylesheet" href="../../common/navbar-enhanced.css?v=20250609">
     <script src="../../common/navbar-enhanced.js"></script>
+    <script src="../../common/footer/footer-inject.js"></script>
     <script src="../../common/add-keyboard-accessibility.js"></script>
 </head>
 
 <body x-data="warpCalculator()" x-init="init()">
-
+    <!-- Navigation (Handled by JS) -->
     <div class="container text-center py-8">
         <h1 class="font-display text-4xl md:text-5xl font-extrabold text-white uppercase tracking-wider">
             Starfleet <span class="text-blue-400">Astrogation</span> Console
@@ -150,7 +151,41 @@
                 <p class="mt-1">Made with <i class="fas fa-heart text-red-400"></i> for Trekkies</p>
 </div>
     </main>
-    
+
+    <section class="content-section">
+        <div class="container">
+            <h2>Warp Drive: The Science (Fiction) Behind It</h2>
+            <p>The warp drive is the primary method of faster-than-light (FTL) travel in the Star Trek universe. Unlike conventional propulsion, which pushes a ship through space, a warp drive works by manipulating spacetime itself. It creates a "warp bubble" around the starship, contracting space in front of the ship and expanding it behind, allowing the vessel to travel at speeds far exceeding the speed of light without actually moving faster than light within its local spacetime.</p>
+            <p>This theoretical concept, while still firmly in the realm of science fiction, is based on the Alcubierre drive, a real-world theoretical solution to Einstein's field equations that would allow for FTL travel. The energy requirements for such a drive are immense, but in the Star Trek universe, dilithium crystals are used to regulate and control the matter-antimatter reactions that power the warp core.</p>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <h2>Warp Factor Scales: TOS vs. TNG</h2>
+            <p>The concept of "warp factor" has evolved throughout Star Trek's history. The original series (TOS) used a simple cubic relationship, where Warp Factor 2 was 8 times the speed of light (2^3), and Warp Factor 3 was 27 times the speed of light (3^3). This scale allowed for increasingly faster speeds with each integer increase.</p>
+            <p>However, with Star Trek: The Next Generation (TNG) and subsequent series, a new, more complex warp scale was introduced. This "Okuda scale" (named after Star Trek technical consultant Michael Okuda) made higher warp factors exponentially more difficult to achieve, with Warp 10 being an asymptotic barrier representing infinite velocity. This change allowed for more dramatic tension and realistic travel times within the vastness of the galaxy.</p>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq">
+                <h3>Is Warp 10 truly infinite speed?</h3>
+                <p>In the TNG warp scale, Warp 10 is indeed considered infinite velocity, meaning instantaneous travel to any point in the universe. However, in the Star Trek: Voyager episode "Threshold," it was depicted as having severe, mutagenic effects on anyone who traveled at that speed. This concept is generally considered non-canon or highly problematic by many fans.</p>
+            </div>
+            <div class="faq">
+                <h3>What is the fastest warp factor ever achieved?</h3>
+                <p>In the TNG era, the USS Enterprise-D typically cruised at Warp 6 or 7, and could achieve Warp 9.6 for short bursts. The USS Voyager was capable of Warp 9.975. The theoretical maximum of Warp 9.99 was rarely, if ever, sustained.</p>
+            </div>
+            <div class="faq">
+                <h3>What is LCARS?</h3>
+                <p>LCARS stands for Library Computer Access and Retrieval System. It is the fictional computer operating system and user interface used aboard Starfleet starships and facilities in the Star Trek universe. It is characterized by its distinctive colorful, touch-based interface and soothing voice prompts.</p>
+            </div>
+        </div>
+    </section>
+
     <script>
         function warpCalculator() {
             return {
@@ -264,93 +299,6 @@
             }
         }
     </script>
-	<!-- Newsletter Bar -->
-    <div class="newsletter-bar" x-data="newsletterForm()">
-        <div class="newsletter-container">
-            <div class="newsletter-content">
-                <div class="newsletter-info">
-                    <h3>🎉 Join Our Calculator Community!</h3>
-                    <p>Get updates on new fun calculators and practical tools</p>
-                </div>
-                <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
-                    <input type="email" class="newsletter-input" placeholder="Enter your email for calculator updates"
-                        x-model="email" required>
-                    <button type="submit" class="newsletter-submit" :disabled="isSubmitting">
-                        <span x-show="isSubmitting" class="loading-spinner"></span>
-                        <span x-text="isSubmitting ? 'Subscribing...' : '🚀 Subscribe'"></span>
-                    </button>
-                </form>
-                <div x-show="showSuccess" class="newsletter-success">
-                    <p style="color: var(--accent-light); font-weight: 600;">
-                        ✅ Awesome! You'll get updates on the coolest new calculators!
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>🎮 About Docket.One</h4>
-                    <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you
-                        should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the
-                        tools for modern life.</p>
-                    <p>Practical meets playful. Because adulting is hard enough.</p>
-                </div>
-
-                <div class="footer-section">
-                    <h4>🎯 Calculator Categories</h4>
-                    <ul class="footer-links">
-                        <li><a href="https://docket.one/pages/BigKidMath/"><span class="calculator-emoji">🧠</span>
-                                BigKidMath - Adult Life Tools</a></li>
-                        <li><a href="https://docket.one/pages/CipherLab/"><span class="calculator-emoji">🔐</span>
-                                CipherLab - Secret Codes & Security</a>
-                        </li>
-                        <li><a href="https://docket.one/pages/GeekGalaxy/"><span class="calculator-emoji">🚀</span>
-                                GeekGalaxy - Sci-Fi & Fantasy Fun</a></li>
-                        <li><a href="https://docket.one/pages/LifeHacks/"><span class="calculator-emoji">⚡</span>
-                                LifeHacks - Productivity & Wellness</a></li>
-                        <li><a href="https://docket.one/pages/Math_Magik/"><span class="calculator-emoji">🧙‍♀️</span>
-                                Math Magik - Mathematical Wizardry</a>
-                        </li>
-                        <li><a href="https://docket.one/pages/Otaku_Ops/"><span class="calculator-emoji">🗾</span> Otaku
-                                Ops - Anime & Culture</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h4>💬 Support & Info</h4>
-                    <ul class="footer-links">
-                        <li><a href="pages/support/help.html"><span class="calculator-emoji">❓</span> Help &
-                                FAQ</a></li>
-                        <li><a href="pages/support/privacy.html"><span class="calculator-emoji">🔒</span> Privacy
-                                Policy</a></li>
-                        <li><a href="pages/support/terms.html"><span class="calculator-emoji">📋</span> Terms of
-                                Service</a></li>
-                        <li><a href="pages/support/accessibility.html"><span class="calculator-emoji">♿</span>
-                                Accessibility</a></li>
-                        <li><a href="pages/support/contact.html"><span class="calculator-emoji">📧</span> Contact
-                                Us</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <div class="footer-logo">🧮 Docket.One</div>
-                <div class="footer-copyright">
-                    © 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
-                </div>
-                <div class="social-links">
-                    <a href="#" class="social-link" aria-label="Twitter">𝕏</a>
-                    <a href="#" class="social-link" aria-label="LinkedIn">💼</a>
-                    <a href="#" class="social-link" aria-label="GitHub">🐙</a>
-                    <a href="#" class="social-link" aria-label="Email">📧</a>
-                </div>
-            </div>
-        </div>
-    </footer>
+	<!-- Footer (Handled by JS) -->
 </body>
 </html>

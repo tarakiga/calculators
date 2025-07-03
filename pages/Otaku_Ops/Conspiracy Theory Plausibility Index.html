@@ -8,45 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        @keyframes float {
-
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-10px);
-            }
-        }
-
-        .animate-spin-slow {
-            animation: spin 8s linear infinite;
-        }
-
-        .animate-float {
-            animation: float 3s ease-in-out infinite;
-        }
-
-        .tinfoel-hat {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(200, 200, 200, 0.8) 100%);
-        }
-
-        .govt-seal {
-            background: linear-gradient(135deg, #0a0a3a 0%, #000000 100%);
-        }
-    </style>
+    
 
     <link rel="stylesheet" href="../../common/navbar-enhanced.css">
     <link rel="stylesheet" href="../../common/santa-improvements.css">
@@ -299,6 +261,30 @@
         </div>
     </div>
 
+    <!-- Premium Content: Description, How it Works, FAQ -->
+    <section class="content-section premium-info-section" style="width:100vw; position:relative; left:50%; right:50%; margin-left:-50vw; margin-right:-50vw; background:var(--otaku-bg, #232946); padding:3rem 0;">
+      <div style="max-width:900px; margin:0 auto; padding:0 2rem;">
+        <h2 class="premium-heading" style="font-size:2rem; margin-bottom:0.5em; color:#F1FA8C; font-weight:800; letter-spacing:-1px;">About This Calculator</h2>
+        <p style="font-size:1.15rem; color:#fff; max-width:800px; margin-bottom:1.5em;">
+          The Conspiracy Theory Plausibility Index lets you rate and compare wild theories for fun. Score plausibility, evidence, and entertainment value—then see which ideas rise to the top!
+        </p>
+        <h2 class="premium-heading" style="font-size:1.5rem; margin-top:2em; margin-bottom:0.5em; color:#FFB86B; font-weight:700;">How It Works</h2>
+        <ul style="font-size:1.05rem; color:#fff; margin-bottom:1.5em; list-style:disc inside; max-width:800px;">
+          <li><strong>Enter Theories:</strong> Add your favorite or original conspiracy theories.</li>
+          <li><strong>Rate Factors:</strong> Score each theory on plausibility, evidence, and fun.</li>
+          <li><strong>Index Output:</strong> See a ranked list and visual chart of results.</li>
+          <li><strong>Share:</strong> Download or share your index with friends.</li>
+        </ul>
+        <h2 class="premium-heading" style="font-size:1.5rem; margin-top:2em; margin-bottom:0.5em; color:#F1FA8C; font-weight:700;">Frequently Asked Questions</h2>
+        <div class="faq-list" style="max-width:800px;">
+          <div class="faq"><h3 style="font-size:1.1rem; color:#FFB86B; font-weight:600;">Is this serious?</h3><p style="color:#fff;">No, it's a lighthearted tool for entertainment.</p></div>
+          <div class="faq"><h3 style="font-size:1.1rem; color:#FFB86B; font-weight:600;">Can I add my own theories?</h3><p style="color:#fff;">Yes, custom entries are supported.</p></div>
+          <div class="faq"><h3 style="font-size:1.1rem; color:#FFB86B; font-weight:600;">Are results saved?</h3><p style="color:#fff;">No, all calculations are local and private.</p></div>
+          <div class="faq"><h3 style="font-size:1.1rem; color:#FFB86B; font-weight:600;">Can I share my index?</h3><p style="color:#fff;">Yes, use the export or share feature.</p></div>
+        </div>
+      </div>
+    </section>
+
     <script>
         document.addEventListener('alpine:init', () => {
             Alpine.data('conspiracyIndex', () => ({
@@ -473,7 +459,7 @@
     <script>
         // 🎅 Santa Claude's Interactive Enhancements
         document.addEventListener('DOMContentLoaded', function () {
-            console.log('🎅 Santa Claude's enhancements loaded!');
+            console.log("🎅 Santa Claude's enhancements loaded!");
 
             // Enhanced button interactions
             const buttons = document.querySelectorAll('button, .btn');
@@ -583,96 +569,7 @@
             }
         });
     </script>
-    <!-- Newsletter Bar -->
-    <div class="newsletter-bar" x-data="newsletterForm()">
-        <div class="newsletter-container">
-            <div class="newsletter-content">
-                <div class="newsletter-info">
-                    <h3>&#127881; Join Our Calculator Community!</h3>
-                    <p>Get updates on new fun calculators and practical tools</p>
-                </div>
-                <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
-                    <input type="email" class="newsletter-input" placeholder="Enter your email for calculator updates"
-                        x-model="email" required>
-                    <button type="submit" class="newsletter-submit" :disabled="isSubmitting">
-                        <span x-show="isSubmitting" class="loading-spinner"></span>
-                        <span x-text="isSubmitting ? 'Subscribing...' : '&#128640; Subscribe'"></span>
-                    </button>
-                </form>
-                <div x-show="showSuccess" class="newsletter-success" style="display: none;">
-                    <p style="color: var(--accent-light); font-weight: 600;">
-                        &#9989; Awesome! You'll get updates on the coolest new calculators!
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>&#127919; About Docket.One</h4>
-                    <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you
-                        should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the
-                        tools for modern life.</p>
-                    <p>Practical meets playful. Because adulting is hard enough.</p>
-                </div>
-
-                <div class="footer-section">
-                    <h4>&#127914; Calculator Categories</h4>
-                    <ul class="footer-links">
-                        <li><a href="/pages/BigKidMath/"><span class="calculator-emoji">&#129518;</span> BigKidMath -
-                                Adult Life Tools</a></li>
-                        <li><a href="/pages/CipherLab/"><span class="calculator-emoji">&#128272;</span> CipherLab -
-                                Secret Codes & Security</a></li>
-                        <li><a href="/pages/GeekGalaxy/"><span class="calculator-emoji">&#128640;</span> GeekGalaxy -
-                                Sci-Fi & Fantasy Fun</a></li>
-                        <li><a href="/pages/LifeHacks/"><span class="calculator-emoji">&#9889;</span> LifeHacks -
-                                Productivity & Wellness</a></li>
-                        <li><a href="/pages/Math_Magik/"><span class="calculator-emoji">&#127917;</span> Math Magik -
-                                Mathematical Wizardry</a></li>
-                        <li><a href="/pages/Otaku_Ops/"><span class="calculator-emoji">&#127999;</span> Otaku Ops -
-                                Anime & Culture</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h4>&#128172; Support & Info</h4>
-                    <ul class="footer-links">
-                        <li><a href="/pages/support/help.html"><span class="calculator-emoji">&#10067;</span> Help &
-                                FAQ</a></li>
-                        <li><a href="/privacy"><span class="calculator-emoji">&#128274;</span> Privacy Policy</a></li>
-                        <li><a href="/terms"><span class="calculator-emoji">&#128203;</span> Terms of Service</a></li>
-                        <li><a href="/accessibility"><span class="calculator-emoji">&#9855;</span> Accessibility</a>
-                        </li>
-                        <li><a href="/pages/support/contact.html"><span class="calculator-emoji">&#128231;</span>
-                                Contact Us</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <button class="request-calculator-btn" @click="showModal = true">
-                        &#128161; Request a Calculator
-                    </button>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <div class="footer-logo">&#129518; Docket.One</div>
-                <div class="footer-copyright">
-                    Â© 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
-                </div>
-                <div class="social-links">
-                    <a href="#" class="social-link" aria-label="Twitter">&#120143;</a>
-                    <a href="#" class="social-link" aria-label="LinkedIn">&#128188;</a>
-                    <a href="#" class="social-link" aria-label="GitHub">&#128025;</a>
-                    <a href="#" class="social-link" aria-label="Email">&#128231;</a>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <!-- Footer (Handled by JS) -->
 
     <!-- Request Modal -->
     <div x-data="calculatorRequestForm()" x-show="showModal" x-cloak class="modal-overlay" @click.self="closeModal()"
@@ -740,10 +637,10 @@
                         make it happen.
                         <br><br>
                         <strong>What happens next?</strong><br>
-                        â€¢ You'll get a confirmation email shortly<br>
-                        â€¢ Our team will review your idea<br>
-                        â€¢ If we build it, you'll be the first to know!<br>
-                        â€¢ We might even name you as the inspiration &#128522;
+                        • You'll get a confirmation email shortly<br>
+                        • Our team will review your idea<br>
+                        • If we build it, you'll be the first to know!<br>
+                        • We might even name you as the inspiration &#128522;
                     </p>
                     <button class="btn btn-primary" @click="closeModal()" style="width: 100%;">
                         &#127919; Close & Keep Calculating!

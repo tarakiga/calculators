@@ -31,6 +31,9 @@
 
     <link rel="stylesheet" href="../../common/footer/premium-footer.css">
     <script src="../../common/footer/premium-footer.js"></script>
+    <script src="../../common/footer/footer-inject.js"></script>
+    <script src="../../common/navbar-enhanced.js"></script>
+    <script src="../../common/add-keyboard-accessibility.js"></script>
     <style>
         /* ADDED: Hide elements managed by Alpine.js until it's ready */
         [x-cloak] { display: none !important; }
@@ -39,32 +42,6 @@
 
 <body> <!-- REMOVED: x-data from body tag -->
     <!-- Enhanced Navigation Bar -->
-    <nav class="main-nav">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <a href="../../index.html">🧮 Docket One</a>
-            </div>
-            <div class="nav-search">
-                <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input"
-                    aria-label="Search calculators">
-                <div id="search-results" class="search-results"></div>
-            </div>
-            <ul class="nav-links">
-                <li><a href="../BigKidMath/index.html" class="category-link">Big Kid Math</a></li>
-                <li><a href="../CipherLab/index.html" class="category-link">Cipher Lab</a></li>
-                <li><a href="../GeekGalaxy/index.html" class="category-link">Geek Galaxy</a></li>
-                <li><a href="../LifeHacks/index.html" class="category-link">Life Hacks</a></li>
-                <li><a href="../Math_Magik/index.html" class="category-link">Math Magik</a></li>
-                <li><a href="../Otaku_Ops/index.html" class="category-link">Otaku Ops</a></li>
-                <li><a href="../../index.html" class="home-link">🏠 Home</a></li>
-            </ul>
-            <button class="mobile-menu-btn" aria-label="Toggle menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </nav>
 
     <!-- Hero Section -->
     <section class="hero">
@@ -278,6 +255,53 @@
                 </div>
             </div>
         </div>
+    </main>
+
+    <section class="content-section">
+        <div class="container">
+            <h2>Propulsion Systems: From Rockets to Warp Drives</h2>
+            <p>The speed at which we can travel through space is limited by our propulsion technology. This calculator explores a range of systems, from current-day rockets to theoretical faster-than-light drives:</p>
+            <ul>
+                <li><strong>Chemical Rockets:</strong> Our current workhorses, these rely on the combustion of propellants to generate thrust. They are effective for travel within our solar system but are far too slow for interstellar journeys.</li>
+                <li><strong>Ion Drives:</strong> More efficient than chemical rockets, ion drives use electricity to accelerate ions to high speeds, providing continuous, low thrust. Ideal for long-duration, uncrewed missions.</li>
+                <li><strong>Fusion Ramjets:</strong> A theoretical propulsion system that would scoop up hydrogen from interstellar space and use it as fuel for a fusion reaction, potentially allowing for relativistic speeds (a significant fraction of the speed of light).</li>
+                <li><strong>Warp Drives:</strong> Purely theoretical at this stage, warp drives (as seen in Star Trek) would manipulate spacetime itself to allow for faster-than-light travel without violating the laws of physics within the warp bubble.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <h2>Challenges of Interstellar Travel</h2>
+            <p>Traveling between stars presents immense challenges that go far beyond just propulsion:</p>
+            <ul>
+                <li><strong>Immense Distances:</strong> Even the nearest star is trillions of kilometers away. Travel times, even at relativistic speeds, can span decades or centuries.</li>
+                <li><strong>Time Dilation:</strong> As a spacecraft approaches the speed of light, time for those on board would slow down relative to those on Earth. This means travelers would age less than their counterparts back home.</li>
+                <li><strong>Radiation:</strong> Interstellar space is filled with dangerous cosmic radiation that could be lethal to human travelers.</li>
+                <li><strong>Micrometeoroids:</strong> Even tiny dust particles can become deadly projectiles at high speeds, posing a significant threat to spacecraft.</li>
+                <li><strong>Resource Management:</strong> Sustaining a crew for decades or centuries in deep space requires incredible self-sufficiency and resource recycling.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq">
+                <h3>Is faster-than-light travel possible?</h3>
+                <p>Currently, faster-than-light (FTL) travel remains in the realm of science fiction. While theoretical concepts like warp drives exist, they require technologies and energy levels far beyond our current capabilities. The laws of physics, as we understand them, generally prohibit objects with mass from reaching or exceeding the speed of light.</p>
+            </div>
+            <div class="faq">
+                <h3>What is a light-year?</h3>
+                <p>A light-year is a unit of distance, not time. It is the distance that light travels in one Earth year, which is approximately 9.461 trillion kilometers (about 5.879 trillion miles). It's used to measure the vast distances between stars and galaxies.</p>
+            </div>
+            <div class="faq">
+                <h3>How long would it take to get to the nearest star?</h3>
+                <p>The nearest star to our solar system, Proxima Centauri, is about 4.24 light-years away. With current chemical rocket technology, it would take tens of thousands of years to reach it. Even with theoretical fusion ramjets, it would still take decades.</p>
+            </div>
+        </div>
+    </section>
+
     </main>
 
     <!-- Hidden canvas for generating share images -->
@@ -748,94 +772,7 @@
             }
         });
     </script>
-    <!-- Newsletter Bar -->
-    <div class="newsletter-bar" x-data="newsletterForm()">
-        <div class="newsletter-container">
-            <div class="newsletter-content">
-                <div class="newsletter-info">
-                    <h3>🎉 Join Our Calculator Community!</h3>
-                    <p>Get updates on new fun calculators and practical tools</p>
-                </div>
-                <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
-                    <input type="email" class="newsletter-input" placeholder="Enter your email for calculator updates"
-                        x-model="email" required>
-                    <button type="submit" class="newsletter-submit" :disabled="isSubmitting">
-                        <span x-show="isSubmitting" class="loading-spinner"></span>
-                        <span x-text="isSubmitting ? 'Subscribing...' : '🚀 Subscribe'"></span>
-                    </button>
-                </form>
-                <div x-show="showSuccess" class="newsletter-success">
-                    <p style="color: var(--accent-light); font-weight: 600;">
-                        ✅ Awesome! You'll get updates on the coolest new calculators!
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>🎮 About Docket.One</h4>
-                    <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you
-                        should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the
-                        tools for modern life.</p>
-                    <p>Practical meets playful. Because adulting is hard enough.</p>
-                </div>
-
-                <div class="footer-section">
-                    <h4>🎯 Calculator Categories</h4>
-                    <ul class="footer-links">
-                        <li><a href="https://docket.one/pages/BigKidMath/"><span class="calculator-emoji">🧠</span>
-                                BigKidMath - Adult Life Tools</a></li>
-                        <li><a href="https://docket.one/pages/CipherLab/"><span class="calculator-emoji">🔐</span>
-                                CipherLab - Secret Codes & Security</a>
-                        </li>
-                        <li><a href="https://docket.one/pages/GeekGalaxy/"><span class="calculator-emoji">🚀</span>
-                                GeekGalaxy - Sci-Fi & Fantasy Fun</a></li>
-                        <li><a href="https://docket.one/pages/LifeHacks/"><span class="calculator-emoji">⚡</span>
-                                LifeHacks - Productivity & Wellness</a></li>
-                        <li><a href="https://docket.one/pages/Math_Magik/"><span class="calculator-emoji">🧙‍♀️</span>
-                                Math Magik - Mathematical Wizardry</a>
-                        </li>
-                        <li><a href="https://docket.one/pages/Otaku_Ops/"><span class="calculator-emoji">🗾</span> Otaku
-                                Ops - Anime & Culture</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h4>💬 Support & Info</h4>
-                    <ul class="footer-links">
-                        <li><a href="pages/support/help.html"><span class="calculator-emoji">❓</span> Help &
-                                FAQ</a></li>
-                        <li><a href="pages/support/privacy.html"><span class="calculator-emoji">🔒</span> Privacy
-                                Policy</a></li>
-                        <li><a href="pages/support/terms.html"><span class="calculator-emoji">📋</span> Terms of
-                                Service</a></li>
-                        <li><a href="pages/support/accessibility.html"><span class="calculator-emoji">♿</span>
-                                Accessibility</a></li>
-                        <li><a href="pages/support/contact.html"><span class="calculator-emoji">📧</span> Contact
-                                Us</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <div class="footer-logo">🧮 Docket.One</div>
-                <div class="footer-copyright">
-                    © 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
-                </div>
-                <div class="social-links">
-                    <a href="#" class="social-link" aria-label="Twitter">𝕏</a>
-                    <a href="#" class="social-link" aria-label="LinkedIn">💼</a>
-                    <a href="#" class="social-link" aria-label="GitHub">🐙</a>
-                    <a href="#" class="social-link" aria-label="Email">📧</a>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <!-- Footer (Handled by JS) -->
 
 </body>
 

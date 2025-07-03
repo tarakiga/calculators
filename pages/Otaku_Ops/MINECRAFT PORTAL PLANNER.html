@@ -9,275 +9,21 @@
     <link rel="stylesheet" href="../../common/navbar-enhanced.css">
     <link rel="stylesheet" href="../../common/santa-improvements.css">
     <link rel="stylesheet" href="../../common/global-calculator.css">
+    <link rel="stylesheet" href="../../styles/minecraft.css">
     <link rel="stylesheet" href="../../common/themes/dark-theme.css">
     <link rel="stylesheet" href="../../common/footer/premium-footer.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
     <script src="../../common/footer/premium-footer.js"></script>
-
-    <style>
-        :root {
-            --primary: #4a90e2;
-            --primary-dark: #357abd;
-            --success: #34c759;
-            --warning: #ff9500;
-            --danger: #ff3b30;
-            --surface: #ffffff;
-            --surface-elevated: #f8f9fa;
-            --text-primary: #1a1a1a;
-            --text-secondary: #666666;
-            --border: #e1e4e8;
-            --obsidian: #1a1a1a;
-            --portal: #6a0dad;
-        }
-
-        .header-section {
-            max-width: 800px;
-            margin: 2rem auto;
-            padding: 2rem;
-            background: var(--surface-elevated);
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-
-        .header-section h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: var(--text-primary);
-        }
-
-        .header-section p {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            color: var(--text-secondary);
-            margin-bottom: 1.5rem;
-        }
-
-        .calculator {
-            max-width: 800px;
-            margin: 2rem auto;
-            padding: 2rem;
-            background: var(--surface);
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .input-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .input-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: var(--text-primary);
-        }
-
-        .input-control {
-            width: 100%;
-            padding: 0.75rem;
-            border: 2px solid var(--border);
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: all 0.2s ease;
-        }
-
-        .input-control:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
-            outline: none;
-        }
-
-        .calculate-btn {
-            width: 100%;
-            padding: 1rem;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .calculate-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(74, 144, 226, 0.2);
-        }
-
-        .calculate-btn:active {
-            transform: translateY(0);
-        }
-
-        .results {
-            margin-top: 2rem;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.3s ease;
-        }
-
-        .results.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .result-item {
-            background: var(--surface-elevated);
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-        }
-
-        .result-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 1rem;
-        }
-
-        .portal-visual {
-            margin: 2rem 0;
-            display: flex;
-            justify-content: center;
-            background: rgba(0, 0, 0, 0.1);
-            padding: 2rem;
-            border-radius: 12px;
-        }
-
-        .portal-row {
-            display: flex;
-            gap: 2px;
-        }
-
-        .portal-block {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            border-radius: 2px;
-            transition: all 0.3s ease;
-            position: relative;
-            box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2);
-        }
-
-        .portal-block.obsidian {
-            background: #1a1a1a;
-            color: #666;
-            text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
-            box-shadow:
-                inset 0 0 0 1px rgba(255, 255, 255, 0.1),
-                inset 0 0 0 2px rgba(0, 0, 0, 0.3);
-        }
-
-        .portal-block.air {
-            background: linear-gradient(135deg, #6a0dad, #4b0082);
-            color: rgba(255, 255, 255, 0.8);
-            animation: portal-glow 2s infinite;
-            box-shadow:
-                inset 0 0 0 1px rgba(255, 255, 255, 0.2),
-                0 0 10px rgba(106, 13, 173, 0.5);
-        }
-
-        @keyframes portal-glow {
-            0% {
-                opacity: 0.8;
-                box-shadow:
-                    inset 0 0 0 1px rgba(255, 255, 255, 0.2),
-                    0 0 10px rgba(106, 13, 173, 0.5);
-            }
-
-            50% {
-                opacity: 1;
-                box-shadow:
-                    inset 0 0 0 1px rgba(255, 255, 255, 0.3),
-                    0 0 20px rgba(106, 13, 173, 0.7);
-            }
-
-            100% {
-                opacity: 0.8;
-                box-shadow:
-                    inset 0 0 0 1px rgba(255, 255, 255, 0.2),
-                    0 0 10px rgba(106, 13, 173, 0.5);
-            }
-        }
-
-        .building-tips {
-            background: var(--surface-elevated);
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin-top: 1rem;
-        }
-
-        .building-tips ol {
-            margin: 0;
-            padding-left: 1.5rem;
-        }
-
-        .building-tips li {
-            margin-bottom: 0.5rem;
-            color: var(--text-secondary);
-        }
-
-        @media (max-width: 768px) {
-            .header-section {
-                padding: 1.5rem;
-                margin: 1rem;
-            }
-
-            .header-section h1 {
-                font-size: 2rem;
-            }
-
-            .calculator {
-                margin: 1rem;
-                padding: 1.5rem;
-            }
-
-            .portal-block {
-                width: 30px;
-                height: 30px;
-                font-size: 0.8rem;
-            }
-        }
-    </style>
-
+    <script src="../../common/footer/footer-inject.js"></script>
+    <script src="../../common/navbar-enhanced.js"></script>
     <script src="../../common/add-breadcrumbs.js"></script>
     <script src="../../common/add-keyboard-accessibility.js"></script>
 </head>
 
 <body x-data="{ showModal: false }">
     <!-- Navigation Bar -->
-    <nav class="main-nav">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <a href="../../index.html">🧮 Docket One</a>
-            </div>
-            <div class="nav-search">
-                <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input"
-                    aria-label="Search calculators">
-                <div id="search-results" class="search-results"></div>
-            </div>
-            <ul class="nav-links">
-                <li><a href="../BigKidMath/index.html" class="category-link">Big Kid Math</a></li>
-                <li><a href="../CipherLab/index.html" class="category-link">Cipher Lab</a></li>
-                <li><a href="../GeekGalaxy/index.html" class="category-link">Geek Galaxy</a></li>
-                <li><a href="../LifeHacks/index.html" class="category-link">Life Hacks</a></li>
-                <li><a href="../Math_Magik/index.html" class="category-link">Math Magik</a></li>
-                <li><a href="../Otaku_Ops/index.html" class="category-link">Otaku Ops</a></li>
-                <li><a href="../../index.html" class="home-link">🏠 Home</a></li>
-            </ul>
-            <button class="mobile-menu-btn" aria-label="Toggle menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </nav>
 
     <!-- Header Section -->
     <div class="header-section">
@@ -345,6 +91,30 @@
             </div>
         </div>
     </div>
+
+    <!-- Premium Content: Description, How it Works, FAQ -->
+    <section class="content-section premium-info-section" style="width:100vw; position:relative; left:50%; right:50%; margin-left:-50vw; margin-right:-50vw; background:var(--otaku-bg, #232946); padding:3rem 0;">
+      <div style="max-width:900px; margin:0 auto; padding:0 2rem;">
+        <h2 class="premium-heading" style="font-size:2rem; margin-bottom:0.5em; color:#50fa7b; font-weight:800; letter-spacing:-1px;">About This Calculator</h2>
+        <p style="font-size:1.15rem; color:#fff; max-width:800px; margin-bottom:1.5em;">
+          The Minecraft Portal Planner helps you link Nether and Overworld portals with pixel-perfect accuracy. Plan your coordinates, avoid portal mishaps, and optimize your Minecraft journeys!
+        </p>
+        <h2 class="premium-heading" style="font-size:1.5rem; margin-top:2em; margin-bottom:0.5em; color:#8BE9FD; font-weight:700;">How It Works</h2>
+        <ul style="font-size:1.05rem; color:#fff; margin-bottom:1.5em; list-style:disc inside; max-width:800px;">
+          <li><strong>Input Coordinates:</strong> Enter your Overworld or Nether coordinates.</li>
+          <li><strong>Conversion:</strong> Instantly see the matching portal location in the other dimension.</li>
+          <li><strong>Tips:</strong> Get advice for portal placement and troubleshooting.</li>
+          <li><strong>Share:</strong> Copy results to share with your server or friends.</li>
+        </ul>
+        <h2 class="premium-heading" style="font-size:1.5rem; margin-top:2em; margin-bottom:0.5em; color:#50fa7b; font-weight:700;">Frequently Asked Questions</h2>
+        <div class="faq-list" style="max-width:800px;">
+          <div class="faq"><h3 style="font-size:1.1rem; color:#8BE9FD; font-weight:600;">Does this work for Bedrock and Java?</h3><p style="color:#fff;">Yes, portal math is the same for both editions.</p></div>
+          <div class="faq"><h3 style="font-size:1.1rem; color:#8BE9FD; font-weight:600;">What's the Nether ratio?</h3><p style="color:#fff;">1 block in the Nether = 8 blocks in the Overworld.</p></div>
+          <div class="faq"><h3 style="font-size:1.1rem; color:#8BE9FD; font-weight:600;">Are my coordinates saved?</h3><p style="color:#fff;">No, all calculations are local and private.</p></div>
+          <div class="faq"><h3 style="font-size:1.1rem; color:#8BE9FD; font-weight:600;">Can I use decimals?</h3><p style="color:#fff;">Yes, for maximum precision.</p></div>
+        </div>
+      </div>
+    </section>
 
     <script>
         document.addEventListener('alpine:init', () => {
@@ -415,23 +185,10 @@
         });
     </script>
 
-    <div class="related-calculators"
-        style="margin-top: 2rem; padding: 1rem; background: rgba(0,0,0,0.1); border-radius: 8px;">
-        <h3 style="margin-top: 0;">Related Otaku Ops Tools</h3>
-        <a href="./Anime Training Montage Planner.html"
-            style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Anime
-            Training Montage Planner</a><a href="./Conspiracy Theory Plausibility Index.html"
-            style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Conspiracy
-            Theory Plausibility Index</a>
-        <a href="./index.html"
-            style="display: block; padding: 0.5rem; margin-top: 1rem; background: rgba(74,144,226,0.2); border-radius: 4px; text-decoration: none; color: inherit; font-weight: bold;">←
-            Back to Otaku Ops Hub</a>
-    </div>
-
     <script>
         // 🎅 Santa Claude's Interactive Enhancements
         document.addEventListener('DOMContentLoaded', function () {
-            console.log('🎅 Santa Claude's enhancements loaded!');
+            console.log("🎅 Santa Claude's enhancements loaded!");
 
             // Enhanced button interactions
             const buttons = document.querySelectorAll('button, .btn');
@@ -472,98 +229,7 @@
             });
         });
     </script>
-
-    <!-- Newsletter Bar -->
-    <div class="newsletter-bar" x-data="newsletterForm()">
-        <div class="newsletter-container">
-            <div class="newsletter-content">
-                <div class="newsletter-info">
-                    <h3>&#127881; Join Our Calculator Community!</h3>
-                    <p>Get updates on new fun calculators and practical tools</p>
-                </div>
-                <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
-                    <input type="email" class="newsletter-input" placeholder="Enter your email for calculator updates"
-                        x-model="email" required>
-                    <button type="submit" class="newsletter-submit" :disabled="isSubmitting">
-                        <span x-show="isSubmitting" class="loading-spinner"></span>
-                        <span x-text="isSubmitting ? 'Subscribing...' : '&#128640; Subscribe'"></span>
-                    </button>
-                </form>
-                <div x-show="showSuccess" class="newsletter-success" style="display: none;">
-                    <p style="color: var(--accent-light); font-weight: 600;">
-                        &#9989; Awesome! You'll get updates on the coolest new calculators!
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>&#127919; About Docket.One</h4>
-                    <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you
-                        should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the
-                        tools for modern life.</p>
-                    <p>Practical meets playful. Because adulting is hard enough.</p>
-                </div>
-
-                <div class="footer-section">
-                    <h4>&#127914; Calculator Categories</h4>
-                    <ul class="footer-links">
-                        <li><a href="/pages/BigKidMath/"><span class="calculator-emoji">&#129518;</span> BigKidMath -
-                                Adult Life Tools</a></li>
-                        <li><a href="/pages/CipherLab/"><span class="calculator-emoji">&#128272;</span> CipherLab -
-                                Secret Codes & Security</a></li>
-                        <li><a href="/pages/GeekGalaxy/"><span class="calculator-emoji">&#128640;</span> GeekGalaxy -
-                                Sci-Fi & Fantasy Fun</a></li>
-                        <li><a href="/pages/LifeHacks/"><span class="calculator-emoji">&#9889;</span> LifeHacks -
-                                Productivity & Wellness</a></li>
-                        <li><a href="/pages/Math_Magik/"><span class="calculator-emoji">&#127917;</span> Math Magik -
-                                Mathematical Wizardry</a></li>
-                        <li><a href="/pages/Otaku_Ops/"><span class="calculator-emoji">&#127999;</span> Otaku Ops -
-                                Anime & Culture</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h4>&#128172; Support & Info</h4>
-                    <ul class="footer-links">
-                        <li><a href="/pages/support/help.html"><span class="calculator-emoji">&#10067;</span> Help &
-                                FAQ</a></li>
-                        <li><a href="/privacy"><span class="calculator-emoji">&#128274;</span> Privacy Policy</a></li>
-                        <li><a href="/terms"><span class="calculator-emoji">&#128203;</span> Terms of Service</a></li>
-                        <li><a href="/accessibility"><span class="calculator-emoji">&#9855;</span> Accessibility</a>
-                        </li>
-                        <li><a href="/pages/support/contact.html"><span class="calculator-emoji">&#128231;</span>
-                                Contact Us</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <button class="request-calculator-btn" @click="showModal = true">
-                        &#128161; Request a Calculator
-                    </button>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <div class="footer-logo">&#129518; Docket.One</div>
-                <div class="footer-copyright">
-                    © 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
-                </div>
-                <div class="social-links">
-                    <a href="#" class="social-link" aria-label="Twitter">&#120143;</a>
-                    <a href="#" class="social-link" aria-label="LinkedIn">&#128188;</a>
-                    <a href="#" class="social-link" aria-label="GitHub">&#128025;</a>
-                    <a href="#" class="social-link" aria-label="Email">&#128231;</a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
+    <!-- Footer (Handled by JS) -->
     <!-- Request Modal -->
     <div x-data="calculatorRequestForm()" x-show="showModal" x-cloak class="modal-overlay" @click.self="closeModal()"
         style="display: none;">

@@ -61,6 +61,7 @@
     <script src="../../common/navbar-enhanced.js"></script>
     <script src="../../common/footer/premium-footer.js"></script>
     <script src="../../common/add-breadcrumbs.js"></script>
+    <script src="../../common/footer/footer-inject.js"></script>
     <script src="../../common/add-keyboard-accessibility.js"></script>
 </head>
 <body x-data="{ showModal: false, showShareModal: false }">
@@ -134,6 +135,40 @@
     
     <!-- Hidden canvas for generating share images -->
     <canvas id="shareCanvas" width="1200" height="630"></canvas>
+
+    <section class="content-section">
+        <div class="container">
+            <h2>The Story of the Shavian Alphabet</h2>
+            <p>The Shavian alphabet is a phonetic alphabet for the English language that was created as a result of a contest funded by the will of the Irish playwright George Bernard Shaw. Shaw was a passionate advocate for spelling reform, and he believed that the traditional Latin alphabet was a poor representation of the sounds of English.</p>
+            <p>The winning design, by Ronald Kingsley Read, was a simple and elegant alphabet of 48 characters, each representing a single sound. The alphabet is named in honor of Shaw, and it is a fascinating example of a constructed script.</p>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <h2>How the Shavian Alphabet Works</h2>
+            <p>The Shavian alphabet is designed to be a one-to-one mapping of sounds to symbols. This means that each character represents a single phoneme, and each phoneme is represented by a single character. This makes it a much more efficient and consistent writing system than the traditional Latin alphabet.</p>
+            <p>The alphabet is divided into four groups of characters: tall, deep, short, and compound. The tall characters are for unvoiced consonants, the deep characters are for voiced consonants, the short characters are for vowels and nasals, and the compound characters are for liquids, diphthongs, and other sounds.</p>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq">
+                <h3>Is the Shavian alphabet still used today?</h3>
+                <p>While not in widespread use, the Shavian alphabet has a small but dedicated community of users. It is also of interest to linguists, phoneticians, and enthusiasts of constructed scripts.</p>
+            </div>
+            <div class="faq">
+                <h3>Can I learn to read and write in Shavian?</h3>
+                <p>Yes! The Shavian alphabet is relatively easy to learn, especially if you have a basic understanding of phonetics. There are a number of resources available online to help you get started.</p>
+            </div>
+            <div class="faq">
+                <h3>What are the advantages of the Shavian alphabet?</h3>
+                <p>The main advantage of the Shavian alphabet is its phonetic consistency. It is a much more accurate representation of the sounds of English than the Latin alphabet, which can make it easier for learners to read and write.</p>
+            </div>
+        </div>
+    </section>
     
     <script>
         function shavianTranslator() {
@@ -310,93 +345,6 @@
         }
     </script>
     <script src="../../common/mobile-menu.js"></script>
-    <!-- Newsletter Bar -->
-    <div class="newsletter-bar" x-data="newsletterForm()">
-        <div class="newsletter-container">
-            <div class="newsletter-content">
-                <div class="newsletter-info">
-                    <h3>🎉 Join Our Calculator Community!</h3>
-                    <p>Get updates on new fun calculators and practical tools</p>
-                </div>
-                <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
-                    <input type="email" class="newsletter-input" placeholder="Enter your email for calculator updates"
-                        x-model="email" required>
-                    <button type="submit" class="newsletter-submit" :disabled="isSubmitting">
-                        <span x-show="isSubmitting" class="loading-spinner"></span>
-                        <span x-text="isSubmitting ? 'Subscribing...' : '🚀 Subscribe'"></span>
-                    </button>
-                </form>
-                <div x-show="showSuccess" class="newsletter-success">
-                    <p style="color: var(--accent-light); font-weight: 600;">
-                        ✅ Awesome! You'll get updates on the coolest new calculators!
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>🎮 About Docket.One</h4>
-                    <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you
-                        should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the
-                        tools for modern life.</p>
-                    <p>Practical meets playful. Because adulting is hard enough.</p>
-                </div>
-
-                <div class="footer-section">
-                    <h4>🎯 Calculator Categories</h4>
-                    <ul class="footer-links">
-                        <li><a href="https://docket.one/pages/BigKidMath/"><span class="calculator-emoji">🧠</span>
-                                BigKidMath - Adult Life Tools</a></li>
-                        <li><a href="https://docket.one/pages/CipherLab/"><span class="calculator-emoji">🔐</span>
-                                CipherLab - Secret Codes & Security</a>
-                        </li>
-                        <li><a href="https://docket.one/pages/GeekGalaxy/"><span class="calculator-emoji">🚀</span>
-                                GeekGalaxy - Sci-Fi & Fantasy Fun</a></li>
-                        <li><a href="https://docket.one/pages/LifeHacks/"><span class="calculator-emoji">⚡</span>
-                                LifeHacks - Productivity & Wellness</a></li>
-                        <li><a href="https://docket.one/pages/Math_Magik/"><span class="calculator-emoji">🧙‍♀️</span>
-                                Math Magik - Mathematical Wizardry</a>
-                        </li>
-                        <li><a href="https://docket.one/pages/Otaku_Ops/"><span class="calculator-emoji">🗾</span> Otaku
-                                Ops - Anime & Culture</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h4>💬 Support & Info</h4>
-                    <ul class="footer-links">
-                        <li><a href="pages/support/help.html"><span class="calculator-emoji">❓</span> Help &
-                                FAQ</a></li>
-                        <li><a href="pages/support/privacy.html"><span class="calculator-emoji">🔒</span> Privacy
-                                Policy</a></li>
-                        <li><a href="pages/support/terms.html"><span class="calculator-emoji">📋</span> Terms of
-                                Service</a></li>
-                        <li><a href="pages/support/accessibility.html"><span class="calculator-emoji">♿</span>
-                                Accessibility</a></li>
-                        <li><a href="pages/support/contact.html"><span class="calculator-emoji">📧</span> Contact
-                                Us</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <div class="footer-logo">🧮 Docket.One</div>
-                <div class="footer-copyright">
-                    © 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
-                </div>
-                <div class="social-links">
-                    <a href="#" class="social-link" aria-label="Twitter">𝕏</a>
-                    <a href="#" class="social-link" aria-label="LinkedIn">💼</a>
-                    <a href="#" class="social-link" aria-label="GitHub">🐙</a>
-                    <a href="#" class="social-link" aria-label="Email">📧</a>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <!-- Footer (Handled by JS) -->
 </body>
 </html>

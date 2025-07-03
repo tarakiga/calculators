@@ -9,6 +9,7 @@
     <!-- Single instance of each import -->
     <link rel="stylesheet" href="../../common/navbar-enhanced.css">
     <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <link rel="stylesheet" href="../../styles/fire-number.css">
     <link rel="stylesheet" href="../../common/global-calculator.css">
     <link rel="stylesheet" href="../../common/themes/dark-theme.css">
     <link rel="stylesheet" href="../../common/footer/premium-footer.css">
@@ -16,177 +17,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <script src="../../common/footer/premium-footer.js"></script>
-    <style>
-        .calculator {
-            max-width: 600px;
-            margin: 2rem auto;
-            padding: 2rem;
-            background: var(--surface-elevated);
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .input-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .input-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        .input-group input[type="number"] {
-            width: 100%;
-            padding: 0.75rem;
-            border: 2px solid var(--border-color);
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .input-group input[type="number"]:focus {
-            border-color: var(--proc-primary);
-            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
-            outline: none;
-        }
-
-        .range-container {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .range-container input[type="range"] {
-            flex: 1;
-            height: 8px;
-            -webkit-appearance: none;
-            background: linear-gradient(to right, var(--deadline-red), var(--proc-warning), var(--productivity-green));
-            border-radius: 4px;
-            outline: none;
-        }
-
-        .range-container input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 24px;
-            height: 24px;
-            background: var(--proc-primary);
-            border-radius: 50%;
-            cursor: pointer;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
-        .range-value {
-            min-width: 60px;
-            font-weight: 600;
-            color: var(--proc-primary);
-        }
-
-        button {
-            width: 100%;
-            padding: 1rem;
-            background: linear-gradient(135deg, var(--proc-primary), var(--lazy-purple));
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.2);
-        }
-
-        .results {
-            max-width: 600px;
-            margin: 2rem auto;
-            padding: 2rem;
-            background: var(--surface-elevated);
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            display: none;
-            animation: slideIn 0.5s ease-out;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .result-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem;
-            margin-bottom: 0.5rem;
-            background: rgba(139, 92, 246, 0.1);
-            border-radius: 8px;
-        }
-
-        .result-label {
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        .result-value {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: var(--proc-primary);
-        }
-
-        .explanation {
-            margin-top: 2rem;
-            padding: 1.5rem;
-            background: rgba(139, 92, 246, 0.05);
-            border-radius: 8px;
-        }
-
-        .explanation h3 {
-            margin-bottom: 1rem;
-            color: var(--proc-primary);
-        }
-
-        .highlight {
-            color: var(--proc-primary);
-            font-weight: 600;
-        }
-
-        .loading {
-            position: relative;
-            pointer-events: none;
-        }
-
-        .loading::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 20px;
-            height: 20px;
-            margin: -10px 0 0 -10px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-top-color: white;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
-
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-    </style>
+    <script src="../../common/footer/footer-inject.js"></script>
+    <script src="../../common/navbar-enhanced.js"></script>
 
     <script src="../../common/add-breadcrumbs.js"></script>
     <script src="../../common/add-keyboard-accessibility.js"></script>
@@ -194,41 +26,7 @@
 
 <body x-data="{ showModal: false }">
     <!-- Enhanced Navigation Bar -->
-    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-    <nav class="main-nav">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <a href="../../index.html">🧮 Docket One</a>
-            </div>
-            <div class="nav-search">
-                <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input"
-                    aria-label="Search calculators">
-                <div id="search-results" class="search-results"></div>
-            </div>
-            <ul class="nav-links">
-                <li><a href="../BigKidMath/index.html" class="category-link">Big Kid Math</a></li>
-                <li><a href="../CipherLab/index.html" class="category-link">Cipher Lab</a></li>
-                <li><a href="../GeekGalaxy/index.html" class="category-link">Geek Galaxy</a></li>
-                <li><a href="../LifeHacks/index.html" class="category-link">Life Hacks</a></li>
-                <li><a href="../Math_Magik/index.html" class="category-link">Math Magik</a></li>
-                <li><a href="../Otaku_Ops/index.html" class="category-link">Otaku Ops</a></li>
-                <li><a href="../../index.html" class="home-link">🏠 Home</a></li>
-            </ul>
-            <button class="mobile-menu-btn" aria-label="Toggle menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </nav>
-
-
-
-
-
+    
     <header>
         <h1>FIRE Number Calculator</h1>
         <p class="subtitle">Calculate your Financial Independence/Retire Early target</p>
@@ -347,26 +145,10 @@
             calculateFIRE();
         });
     </script>
-
-    <div class="related-calculators"
-        style="margin-top: 2rem; padding: 1rem; background: rgba(0,0,0,0.1); border-radius: 8px;">
-        <h3 style="margin-top: 0;">Related Math Magik Tools</h3>
-        <a href="./Double Pendulum Chaos.html"
-            style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Double
-            Pendulum Chaos</a><a href="./entropy and feigenbaums constant.html"
-            style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">entropy
-            and feigenbaums constant</a><a href="./Inflation Impact Calculator.html"
-            style="display: block; padding: 0.5rem; margin: 0.25rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; color: inherit;">Inflation
-            Impact Calculator</a>
-        <a href="./index.html"
-            style="display: block; padding: 0.5rem; margin-top: 1rem; background: rgba(74,144,226,0.2); border-radius: 4px; text-decoration: none; color: inherit; font-weight: bold;">←
-            Back to Math Magik Hub</a>
-    </div>
-
     <script>
         // 🎅 Santa Claude's Interactive Enhancements
         document.addEventListener('DOMContentLoaded', function () {
-            console.log('🎅 Santa Claude's enhancements loaded!');
+            console.log("🎅 Santa Claude's enhancements loaded!");
 
             // Enhanced button interactions
             const buttons = document.querySelectorAll('button, .btn');
@@ -407,97 +189,8 @@
             });
         });
     </script>
-    <!-- Newsletter Bar -->
-    <div class="newsletter-bar" x-data="newsletterForm()">
-        <div class="newsletter-container">
-            <div class="newsletter-content">
-                <div class="newsletter-info">
-                    <h3>&#127881; Join Our Calculator Community!</h3>
-                    <p>Get updates on new fun calculators and practical tools</p>
-                </div>
-                <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
-                    <input type="email" class="newsletter-input" placeholder="Enter your email for calculator updates"
-                        x-model="email" required>
-                    <button type="submit" class="newsletter-submit" :disabled="isSubmitting">
-                        <span x-show="isSubmitting" class="loading-spinner"></span>
-                        <span x-text="isSubmitting ? 'Subscribing...' : '&#128640; Subscribe'"></span>
-                    </button>
-                </form>
-                <div x-show="showSuccess" class="newsletter-success" style="display: none;">
-                    <p style="color: var(--accent-light); font-weight: 600;">
-                        &#9989; Awesome! You'll get updates on the coolest new calculators!
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>&#127919; About Docket.One</h4>
-                    <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you
-                        should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the
-                        tools for modern life.</p>
-                    <p>Practical meets playful. Because adulting is hard enough.</p>
-                </div>
-
-                <div class="footer-section">
-                    <h4>&#127914; Calculator Categories</h4>
-                    <ul class="footer-links">
-                        <li><a href="/pages/BigKidMath/"><span class="calculator-emoji">&#129518;</span> BigKidMath -
-                                Adult Life Tools</a></li>
-                        <li><a href="/pages/CipherLab/"><span class="calculator-emoji">&#128272;</span> CipherLab -
-                                Secret Codes & Security</a></li>
-                        <li><a href="/pages/GeekGalaxy/"><span class="calculator-emoji">&#128640;</span> GeekGalaxy -
-                                Sci-Fi & Fantasy Fun</a></li>
-                        <li><a href="/pages/LifeHacks/"><span class="calculator-emoji">&#9889;</span> LifeHacks -
-                                Productivity & Wellness</a></li>
-                        <li><a href="/pages/Math_Magik/"><span class="calculator-emoji">&#127917;</span> Math Magik -
-                                Mathematical Wizardry</a></li>
-                        <li><a href="/pages/Otaku_Ops/"><span class="calculator-emoji">&#127999;</span> Otaku Ops -
-                                Anime & Culture</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h4>&#128172; Support & Info</h4>
-                    <ul class="footer-links">
-                        <li><a href="/pages/support/help.html"><span class="calculator-emoji">&#10067;</span> Help &
-                                FAQ</a></li>
-                        <li><a href="/privacy"><span class="calculator-emoji">&#128274;</span> Privacy Policy</a></li>
-                        <li><a href="/terms"><span class="calculator-emoji">&#128203;</span> Terms of Service</a></li>
-                        <li><a href="/accessibility"><span class="calculator-emoji">&#9855;</span> Accessibility</a>
-                        </li>
-                        <li><a href="/pages/support/contact.html"><span class="calculator-emoji">&#128231;</span>
-                                Contact Us</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <button class="request-calculator-btn" @click="showModal = true">
-                        &#128161; Request a Calculator
-                    </button>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <div class="footer-logo">&#129518; Docket.One</div>
-                <div class="footer-copyright">
-                    Â© 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
-                </div>
-                <div class="social-links">
-                    <a href="#" class="social-link" aria-label="Twitter">&#120143;</a>
-                    <a href="#" class="social-link" aria-label="LinkedIn">&#128188;</a>
-                    <a href="#" class="social-link" aria-label="GitHub">&#128025;</a>
-                    <a href="#" class="social-link" aria-label="Email">&#128231;</a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
+     
+    <!-- Footer (Handled by JS) -->
     <!-- Request Modal -->
     <div x-data="calculatorRequestForm()" x-show="showModal" x-cloak class="modal-overlay" @click.self="closeModal()"
         style="display: none;">
@@ -576,6 +269,30 @@
             </div>
         </div>
     </div>
+
+    <!-- Premium Content: Description, How it Works, FAQ -->
+    <section class="content-section premium-info-section" style="width:100vw; position:relative; left:50%; right:50%; margin-left:-50vw; margin-right:-50vw; background:var(--space-dark, #181a20); padding:3rem 0;">
+      <div style="max-width:900px; margin:0 auto; padding:0 2rem;">
+        <h2 class="premium-heading" style="font-size:2rem; margin-bottom:0.5em; color:#F6AD55; font-weight:800; letter-spacing:-1px;">About This Calculator</h2>
+        <p style="font-size:1.15rem; color:#fff; max-width:800px; margin-bottom:1.5em;">
+          The FIRE Number Calculator helps you find your Financial Independence/Retire Early target. Discover how much you need to save to retire on your terms, and how long it might take to get there.
+        </p>
+        <h2 class="premium-heading" style="font-size:1.5rem; margin-top:2em; margin-bottom:0.5em; color:#F6E05E; font-weight:700;">How It Works</h2>
+        <ul style="font-size:1.05rem; color:#fff; margin-bottom:1.5em; list-style:disc inside; max-width:800px;">
+          <li><strong>Annual Expenses:</strong> Enter your yearly living costs.</li>
+          <li><strong>Withdrawal Rate:</strong> Choose a safe withdrawal percentage (4% is standard).</li>
+          <li><strong>Current Savings:</strong> See how close you are to your FIRE goal.</li>
+          <li><strong>Results:</strong> Get your FIRE number, years to FIRE, and monthly investment needed.</li>
+        </ul>
+        <h2 class="premium-heading" style="font-size:1.5rem; margin-top:2em; margin-bottom:0.5em; color:#F6AD55; font-weight:700;">Frequently Asked Questions</h2>
+        <div class="faq-list" style="max-width:800px;">
+          <div class="faq"><h3 style="font-size:1.1rem; color:#F6E05E; font-weight:600;">What is the 4% rule?</h3><p style="color:#fff;">It's a guideline for safe withdrawals in retirement.</p></div>
+          <div class="faq"><h3 style="font-size:1.1rem; color:#F6E05E; font-weight:600;">Can I change the withdrawal rate?</h3><p style="color:#fff;">Yes, adjust for your risk tolerance.</p></div>
+          <div class="faq"><h3 style="font-size:1.1rem; color:#F6E05E; font-weight:600;">Does this account for inflation?</h3><p style="color:#fff;">Yes, years to FIRE assumes 3% inflation.</p></div>
+          <div class="faq"><h3 style="font-size:1.1rem; color:#F6E05E; font-weight:600;">Is my data saved?</h3><p style="color:#fff;">No, all calculations are local and private.</p></div>
+        </div>
+      </div>
+    </section>
 
 </body>
 

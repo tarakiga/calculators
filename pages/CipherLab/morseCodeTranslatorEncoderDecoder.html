@@ -3,708 +3,834 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Morse Code Translator | CipherLab - Docket One</title>
-    <meta name="description" content="Professional Morse code translator with audio playback and visual display.">
+    <title>NATO Phonetic Alphabet Converter | CipherLab - Docket One</title>
+    <meta name="description" content="Convert text to NATO phonetic alphabet instantly! Perfect for radio communications, aviation, military operations, and clear voice transmission. Alpha, Bravo, Charlie - made easy!">
     
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
+    <!-- Enhanced Social Media Meta Tags -->
+    <meta property="og:title" content="NATO Phonetic Alphabet Converter | CipherLab | Docket One">
+    <meta property="og:description" content="Master radio communications with the NATO phonetic alphabet! Convert any text to Alpha, Bravo, Charlie format instantly. Perfect for aviation and military use.">
+    <meta property="og:image" content="https://docket.one/social-preview.jpg">
+    <meta property="og:url" content="https://docket.one/pages/CipherLab/NATO-Phonetic-Alphabet-Converter.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Docket One Calculators">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="NATO Phonetic Alphabet Converter">
+    <meta name="twitter:description" content="Convert text to NATO phonetic alphabet for clear radio communications! Alpha, Bravo, Charlie made simple.">
+    <meta name="twitter:image" content="https://docket.one/social-preview.jpg">
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    
-    <style>
-        :root {
-            --primary: #7c3aed;
-            --primary-light: #8b5cf6;
-            --secondary: #06b6d4;
-            --success: #10b981;
-            --gray-50: #f9fafb;
-            --gray-100: #f3f4f6;
-            --gray-200: #e5e7eb;
-            --gray-600: #4b5563;
-            --gray-800: #1f2937;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--gray-50);
-            color: var(--gray-800);
-            line-height: 1.6;
-        }
-        
-        .hero {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 50%, var(--secondary) 100%);
-            color: white;
-            padding: 4rem 2rem;
-            text-align: center;
-        }
-        
-        .hero-title {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-        }
-        
-        .hero-subtitle {
-            font-size: 1.125rem;
-            opacity: 0.9;
-        }
-        
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 3rem 2rem;
-        }
-        
-        .translator-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 2rem;
-        }
-        
-        .translator-panel, .reference-panel {
-            background: white;
-            border-radius: 16px;
-            padding: 2rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            border: 1px solid var(--gray-200);
-        }
-        
-        .mode-selector {
-            display: flex;
-            background: var(--gray-100);
-            border-radius: 8px;
-            padding: 4px;
-            margin-bottom: 2rem;
-        }
-        
-        .mode-button {
-            flex: 1;
-            padding: 0.75rem;
-            border: none;
-            border-radius: 6px;
-            background: transparent;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .mode-button.active {
-            background: var(--primary);
-            color: white;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        .input-field, .output-field {
-            width: 100%;
-            padding: 1rem;
-            border: 2px solid var(--gray-200);
-            border-radius: 12px;
-            font-size: 1rem;
-            min-height: 120px;
-            margin-bottom: 1rem;
-            resize: vertical;
-            font-family: 'JetBrains Mono', monospace;
-        }
-        
-        .input-field:focus {
-            outline: none;
-            border-color: var(--primary);
-        }
-        
-        .output-field {
-            background: var(--gray-50);
-            font-weight: 600;
-        }
-        
-        .morse-display {
-            background: #1a1a1a;
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin: 1rem 0;
-            min-height: 80px;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .morse-symbol {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            height: 30px;
-            border-radius: 4px;
-            font-weight: 600;
-            color: white;
-        }
-        
-        .morse-dot {
-            width: 30px;
-            background: var(--success);
-        }
-        
-        .morse-dash {
-            width: 60px;
-            background: var(--secondary);
-        }
-        
-        .morse-space {
-            width: 15px;
-            background: var(--gray-600);
-            opacity: 0.5;
-        }
-        
-        .controls {
-            display: flex;
-            gap: 1rem;
-            margin: 1rem 0;
-            flex-wrap: wrap;
-        }
-        
-        .btn {
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-        }
-        
-        .btn-success {
-            background: var(--success);
-            color: white;
-        }
-        
-        .btn-secondary {
-            background: var(--gray-200);
-            color: var(--gray-800);
-        }
-        
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        
-        .btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-        
-        .reference-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 1rem;
-            margin: 1rem 0;
-        }
-        
-        .reference-section {
-            background: var(--gray-50);
-            border-radius: 8px;
-            padding: 1rem;
-        }
-        
-        .reference-section h4 {
-            margin-bottom: 0.5rem;
-            font-size: 0.875rem;
-            font-weight: 600;
-        }
-        
-        .reference-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 0.25rem 0;
-            font-size: 0.75rem;
-        }
-        
-        .reference-morse {
-            font-family: 'JetBrains Mono', monospace;
-            color: var(--primary);
-        }
-        
-        @media (max-width: 768px) {
-            .translator-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .hero {
-                padding: 2rem 1rem;
-            }
-            
-            .hero-title {
-                font-size: 2rem;
-            }
-            
-            .container {
-                padding: 2rem 1rem;
-            }
-            
-            .controls {
-                flex-direction: column;
-            }
-            
-            .morse-symbol {
-                height: 24px;
-            }
-            
-            .morse-dot {
-                width: 24px;
-            }
-            
-            .morse-dash {
-                width: 48px;
-            }
-        }
-    </style>
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script>
-
     <link rel="stylesheet" href="../../common/navbar-enhanced.css">
+    <link rel="stylesheet" href="../../styles/nato-phonetics.css">
     <link rel="stylesheet" href="../../common/santa-improvements.css">
     <link rel="stylesheet" href="../../common/global-calculator.css">
     <link rel="stylesheet" href="../../common/themes/dark-theme.css">
     <link rel="stylesheet" href="../../common/footer/premium-footer.css">
     <script src="../../common/footer/premium-footer.js"></script>
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
-    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script>
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
-    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script>
-    <link rel="stylesheet" href="../../common/navbar-enhanced.css">
-    <link rel="stylesheet" href="../../common/santa-improvements.css">
-    <link rel="stylesheet" href="../../common/global-calculator.css">
-    <link rel="stylesheet" href="../../common/themes/dark-theme.css">
-    <link rel="stylesheet" href="../../common/footer/premium-footer.css">
-    <script src="../../common/footer/premium-footer.js"></script>
+    <script src="../../common/navbar-enhanced.js"></script>
+    <script src="../../common/footer/footer-inject.js"></script>
     <script src="../../common/add-breadcrumbs.js"></script>
     <script src="../../common/add-keyboard-accessibility.js"></script></head>
-<body x-data="{ showModal: false }">
-    <!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-<!-- 🎅 Santa Claude's Force-Added Navigation Bar -->
-<nav class="main-nav">
-    <div class="nav-container">
-        <div class="nav-logo">
-            <a href="../../index.html">🧮 Docket One</a>
-        </div>
-        <div class="nav-search">
-            <input type="text" id="calc-search" placeholder="Search calculators..." class="search-input" aria-label="Search calculators">
-            <div id="search-results" class="search-results"></div>
-        </div>
-        <ul class="nav-links">
-            <li><a href="../BigKidMath/index.html" class="category-link">Big Kid Math</a></li>
-            <li><a href="../CipherLab/index.html" class="category-link">Cipher Lab</a></li>
-            <li><a href="../GeekGalaxy/index.html" class="category-link">Geek Galaxy</a></li>
-            <li><a href="../LifeHacks/index.html" class="category-link">Life Hacks</a></li>
-            <li><a href="../Math_Magik/index.html" class="category-link">Math Magik</a></li>
-            <li><a href="../Otaku_Ops/index.html" class="category-link">Otaku Ops</a></li>
-            <li><a href="../../index.html" class="home-link">🏠 Home</a></li>
-        </ul>
-        <button class="mobile-menu-btn" aria-label="Toggle menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-    </div>
-</nav>
+<body x-data="natoPhoneticConverter()">
+    <!-- Enhanced Navigation Bar -->
 
+    <!-- Hero Section -->
     <section class="hero">
-        <h1 class="hero-title">📡 Morse Code Translator</h1>
-        <p class="hero-subtitle">Professional encoder/decoder with audio playback and visual display</p>
+        <div class="hero-badge">
+            <span>📡</span>
+            <span>Radio Communications</span>
+        </div>
+        <h1 class="hero-title">NATO Phonetic Converter</h1>
+        <p class="hero-subtitle">
+            Master crystal-clear radio communications! Convert any text to NATO phonetic alphabet (Alpha, Bravo, Charlie) with audio pronunciation. Perfect for aviation, military, and emergency services.
+        </p>
+        <div class="difficulty-badge">
+            <span>🎯</span>
+            <span>Mission Critical</span>
+        </div>
     </section>
 
-    <main class="container">
-        <div class="translator-grid" x-data="morseTranslator()">
-            <div class="translator-panel">
+    <div class="container">
+        <!-- Educational Section -->
+        <section class="educational-section">
+            <h2 class="section-title">
+                <span>🎖️</span>
+                <span>Why NATO Phonetic Alphabet?</span>
+            </h2>
+            
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-card-icon">📻</div>
+                    <div class="info-card-title">Crystal Clear Communication</div>
+                    <div class="info-card-text">Eliminates confusion over radio frequencies. Each letter has a distinct, internationally recognized word.</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-card-icon">✈️</div>
+                    <div class="info-card-title">Aviation Standard</div>
+                    <div class="info-card-text">Used worldwide by pilots, air traffic controllers, and aviation professionals for safety-critical communications.</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-card-icon">🚨</div>
+                    <div class="info-card-title">Emergency Services</div>
+                    <div class="info-card-text">Military, police, firefighters, and emergency responders rely on this system for accurate information transfer.</div>
+                </div>
+            </div>
+            
+            <p style="font-size: 1.125rem; line-height: 1.7; color: var(--text-secondary); text-align: center; max-width: 800px; margin: 0 auto;">
+                The NATO phonetic alphabet ensures that critical information is transmitted accurately, even in noisy environments or poor radio conditions. 
+                <strong style="color: var(--nato-primary);">When lives depend on clear communication, every letter matters!</strong> 📡
+            </p>
+        </section>
+
+        <!-- Calculator Layout -->
+        <div class="calculator-layout">
+            <!-- Input Panel -->
+            <div class="calculator-panel">
+                <h2 class="panel-title">
+                    <span>📝</span>
+                    <span>Message Input</span>
+                    <div class="signal-strength" x-show="inputText">
+                        <div class="signal-bar"></div>
+                        <div class="signal-bar"></div>
+                        <div class="signal-bar"></div>
+                        <div class="signal-bar"></div>
+                    </div>
+                </h2>
+
+                <!-- Mode Selector -->
                 <div class="mode-selector">
-                    <button @click="mode = 'encode'" :class="{ active: mode === 'encode' }" class="mode-button">
-                        Text → Morse
+                    <button 
+                        class="mode-button"
+                        :class="{ active: mode === 'text-to-nato' }"
+                        @click="mode = 'text-to-nato'; processText()"
+                    >
+                        📝 Text → NATO
                     </button>
-                    <button @click="mode = 'decode'" :class="{ active: mode === 'decode' }" class="mode-button">
-                        Morse → Text
+                    <button 
+                        class="mode-button"
+                        :class="{ active: mode === 'nato-to-text' }"
+                        @click="mode = 'nato-to-text'; processText()"
+                    >
+                        📻 NATO → Text
                     </button>
                 </div>
 
-                <label x-text="mode === 'encode' ? 'Enter text to encode:' : 'Enter Morse code to decode:'"></label>
-                <textarea 
-                    x-model="inputText" 
-                    @input="translate"
-                    class="input-field" 
-                    :placeholder="mode === 'encode' ? 'Type your message...' : 'Enter dots and dashes...'"></textarea>
-
-                <div x-show="outputText && mode === 'encode'" class="morse-display">
-                    <template x-for="(symbol, index) in morseSymbols" :key="index">
-                        <div 
-                            :class="{
-                                'morse-dot': symbol === '.',
-                                'morse-dash': symbol === '-',
-                                'morse-space': symbol === ' '
-                            }"
-                            class="morse-symbol"
-                            x-text="symbol === ' ' ? '' : symbol">
-                        </div>
-                    </template>
+                <!-- Input Text -->
+                <div class="input-group">
+                    <label class="input-label" x-text="mode === 'text-to-nato' ? 'Your Message to Transmit' : 'NATO Phonetic Input'"></label>
+                    <textarea 
+                        x-model="inputText"
+                        class="input-field"
+                        @input="processText()"
+                        :placeholder="mode === 'text-to-nato' ? 'Type your message to convert to NATO phonetic...' : 'Enter NATO phonetic words (Alpha Bravo Charlie...)'"
+                    ></textarea>
                 </div>
 
-                <div class="controls">
-                    <button @click="playMorse" :disabled="!outputText || mode !== 'encode'" class="btn btn-success">
-                        <span x-show="!isPlaying">🔊</span>
-                        <span x-show="isPlaying">⏹️</span>
-                        <span x-text="isPlaying ? 'Stop' : 'Play Morse'"></span>
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button @click="playAudio()" :disabled="!phoneticWords.length || isPlaying" class="btn btn-audio">
+                        <span x-show="!isPlaying">🔊 Transmit Audio</span>
+                        <span x-show="isPlaying">⏹️ Stop Transmission</span>
                     </button>
-                    
-                    <button @click="copyResult" :disabled="!outputText" class="btn btn-primary">
+                    <button @click="copyResult()" :disabled="!outputText" class="btn btn-primary">
                         📋 Copy Result
                     </button>
-                    
-                    <button @click="clearAll" class="btn btn-secondary">
+                    <button @click="clearAll()" class="btn btn-secondary">
                         🗑️ Clear All
+                    </button>
+                    <button @click="randomExample()" class="btn btn-secondary">
+                        🎲 Random Call Sign
                     </button>
                 </div>
 
-                <label x-text="mode === 'encode' ? 'Morse code result:' : 'Decoded text:'"></label>
-                <textarea 
-                    x-model="outputText" 
-                    class="output-field" 
-                    readonly
-                    :placeholder="mode === 'encode' ? 'Your Morse code...' : 'Your decoded text...'"></textarea>
+                <!-- Audio Controls -->
+                <div x-show="phoneticWords.length" class="audio-controls fade-in">
+                    <div class="audio-status">
+                        <div class="audio-indicator" :class="{ playing: isPlaying }"></div>
+                        <span x-text="isPlaying ? 'TRANSMITTING...' : 'READY TO TRANSMIT'"></span>
+                    </div>
+                    <div class="speed-control">
+                        <span style="font-size: 0.875rem;">Speed:</span>
+                        <input 
+                            type="range" 
+                            x-model="playbackSpeed" 
+                            min="0.5" 
+                            max="2" 
+                            step="0.1" 
+                            class="speed-slider"
+                        >
+                        <span style="font-size: 0.875rem;" x-text="playbackSpeed + 'x'"></span>
+                    </div>
+                </div>
             </div>
 
-            <div class="reference-panel">
-                <h3>📚 Morse Code Reference</h3>
-                
-                <div class="reference-grid">
-                    <div class="reference-section">
-                        <h4>Letters A-M</h4>
-                        <div class="reference-item"><span>A</span><span class="reference-morse">·−</span></div>
-                        <div class="reference-item"><span>B</span><span class="reference-morse">−···</span></div>
-                        <div class="reference-item"><span>C</span><span class="reference-morse">−·−·</span></div>
-                        <div class="reference-item"><span>D</span><span class="reference-morse">−··</span></div>
-                        <div class="reference-item"><span>E</span><span class="reference-morse">·</span></div>
-                        <div class="reference-item"><span>F</span><span class="reference-morse">··−·</span></div>
-                        <div class="reference-item"><span>G</span><span class="reference-morse">−−·</span></div>
-                        <div class="reference-item"><span>H</span><span class="reference-morse">····</span></div>
-                        <div class="reference-item"><span>I</span><span class="reference-morse">··</span></div>
-                        <div class="reference-item"><span>J</span><span class="reference-morse">·−−−</span></div>
-                        <div class="reference-item"><span>K</span><span class="reference-morse">−·−</span></div>
-                        <div class="reference-item"><span>L</span><span class="reference-morse">·−··</span></div>
-                        <div class="reference-item"><span>M</span><span class="reference-morse">−−</span></div>
-                    </div>
-                    
-                    <div class="reference-section">
-                        <h4>Letters N-Z</h4>
-                        <div class="reference-item"><span>N</span><span class="reference-morse">−·</span></div>
-                        <div class="reference-item"><span>O</span><span class="reference-morse">−−−</span></div>
-                        <div class="reference-item"><span>P</span><span class="reference-morse">·−−·</span></div>
-                        <div class="reference-item"><span>Q</span><span class="reference-morse">−−·−</span></div>
-                        <div class="reference-item"><span>R</span><span class="reference-morse">·−·</span></div>
-                        <div class="reference-item"><span>S</span><span class="reference-morse">···</span></div>
-                        <div class="reference-item"><span>T</span><span class="reference-morse">−</span></div>
-                        <div class="reference-item"><span>U</span><span class="reference-morse">··−</span></div>
-                        <div class="reference-item"><span>V</span><span class="reference-morse">···−</span></div>
-                        <div class="reference-item"><span>W</span><span class="reference-morse">·−−</span></div>
-                        <div class="reference-item"><span>X</span><span class="reference-morse">−··−</span></div>
-                        <div class="reference-item"><span>Y</span><span class="reference-morse">−·−−</span></div>
-                        <div class="reference-item"><span>Z</span><span class="reference-morse">−−··</span></div>
-                    </div>
-                    
-                    <div class="reference-section">
-                        <h4>Numbers 0-9</h4>
-                        <div class="reference-item"><span>0</span><span class="reference-morse">−−−−−</span></div>
-                        <div class="reference-item"><span>1</span><span class="reference-morse">·−−−−</span></div>
-                        <div class="reference-item"><span>2</span><span class="reference-morse">··−−−</span></div>
-                        <div class="reference-item"><span>3</span><span class="reference-morse">···−−</span></div>
-                        <div class="reference-item"><span>4</span><span class="reference-morse">····−</span></div>
-                        <div class="reference-item"><span>5</span><span class="reference-morse">·····</span></div>
-                        <div class="reference-item"><span>6</span><span class="reference-morse">−····</span></div>
-                        <div class="reference-item"><span>7</span><span class="reference-morse">−−···</span></div>
-                        <div class="reference-item"><span>8</span><span class="reference-morse">−−−··</span></div>
-                        <div class="reference-item"><span>9</span><span class="reference-morse">−−−−·</span></div>
+            <!-- Results Panel -->
+            <div class="calculator-panel">
+                <h2 class="panel-title">
+                    <span>📡</span>
+                    <span x-text="mode === 'text-to-nato' ? 'NATO Transmission' : 'Decoded Message'"></span>
+                </h2>
+
+                <!-- NATO Phonetic Display -->
+                <div x-show="mode === 'text-to-nato'" class="nato-display" id="nato-visual">
+                    <template x-for="(word, index) in phoneticWords" :key="index">
+                        <span 
+                            class="phonetic-word" 
+                            :class="{ playing: currentWordIndex === index && isPlaying }"
+                            x-text="word"
+                            @click="speakWord(word, index)"
+                        ></span>
+                    </template>
+                    <div x-show="!phoneticWords.length" style="color: var(--text-secondary); font-style: italic; text-align: center; padding: var(--space-xl);">
+                        🎯 Your NATO phonetic transmission will appear here...<br>
+                        <small>Click any word to hear individual pronunciation!</small>
                     </div>
                 </div>
 
-                <div style="margin-top: 2rem; padding: 1rem; background: var(--gray-50); border-radius: 8px; font-size: 0.875rem;">
-                    <h4 style="margin-bottom: 0.5rem;">💡 Usage Tips</h4>
-                    <p><strong>Encoding:</strong> Type normal text to convert to Morse code.</p>
-                    <p><strong>Decoding:</strong> Use dots (.) and dashes (-) with spaces between letters.</p>
-                    <p><strong>Audio:</strong> Click "Play Morse" to hear the code with proper timing.</p>
+                <!-- Text Output for NATO to Text Mode -->
+                <div x-show="mode === 'nato-to-text'" class="input-group">
+                    <label class="input-label">Decoded Message</label>
+                    <textarea 
+                        x-model="outputText"
+                        class="input-field output-field"
+                        readonly
+                        placeholder="Your decoded message will appear here..."
+                    ></textarea>
+                </div>
+
+                <!-- Transmission Complete Message -->
+                <div x-show="transmissionComplete" class="transmission-complete fade-in">
+                    ✅ TRANSMISSION COMPLETE - MESSAGE RECEIVED LOUD AND CLEAR!
+                </div>
+
+                <!-- Live Analysis -->
+                <div x-show="inputText" class="fade-in" style="margin-top: var(--space-lg);">
+                    <div style="background: var(--bg-secondary); border-radius: var(--radius); padding: var(--space-lg); border: 1px solid var(--border-color);">
+                        <h3 style="font-size: 1rem; font-weight: 600; color: var(--nato-primary); margin-bottom: var(--space-sm);">
+                            📊 Transmission Analysis
+                        </h3>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-md); font-size: 0.875rem;">
+                            <div>
+                                <strong>Characters:</strong> <span x-text="inputText.length"></span>
+                            </div>
+                            <div>
+                                <strong>Letters:</strong> <span x-text="getLetterCount()"></span>
+                            </div>
+                            <div>
+                                <strong>NATO Words:</strong> <span x-text="phoneticWords.length"></span>
+                            </div>
+                            <div>
+                                <strong>Duration:</strong> <span x-text="getEstimatedDuration()"></span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </main>
+
+        <!-- NATO Alphabet Reference -->
+        <section class="alphabet-section">
+            <h2 class="section-title">
+                <span>📚</span>
+                <span>NATO Phonetic Alphabet Reference</span>
+            </h2>
+            
+            <div class="alphabet-grid">
+                <template x-for="(item, letter) in natoAlphabet" :key="letter">
+                    <div class="alphabet-card" @click="addLetterToInput(letter)">
+                        <div class="alphabet-letter" x-text="letter"></div>
+                        <div class="alphabet-phonetic" x-text="item.word"></div>
+                        <div class="alphabet-pronunciation" x-text="'(' + item.pronunciation + ')'"></div>
+                    </div>
+                </template>
+            </div>
+        </section>
+
+        <!-- Practice Mode -->
+        <section class="practice-section" x-show="showPractice">
+            <h2 class="section-title" style="color: white;">
+                <span>🎯</span>
+                <span>NATO Training Challenge</span>
+            </h2>
+            
+            <div class="practice-challenge">
+                <div class="challenge-letter" x-text="practiceChallenge.letter"></div>
+                <p style="text-align: center; margin-bottom: var(--space-lg); font-size: 1.125rem;">
+                    What is the NATO phonetic word for this letter?
+                </p>
+                <div class="challenge-options">
+                    <template x-for="option in practiceChallenge.options" :key="option">
+                        <button 
+                            class="challenge-option"
+                            :class="practiceChallenge.answered ? (option === practiceChallenge.correct ? 'correct' : practiceChallenge.selected === option ? 'incorrect' : '') : ''"
+                            @click="answerChallenge(option)"
+                            :disabled="practiceChallenge.answered"
+                            x-text="option"
+                        ></button>
+                    </template>
+                </div>
+                <div style="text-align: center; margin-top: var(--space-lg);">
+                    <button @click="newChallenge()" class="btn btn-primary" style="background: rgba(255, 255, 255, 0.2); border: 1px solid rgba(255, 255, 255, 0.3);">
+                        🔄 New Challenge
+                    </button>
+                    <button @click="showPractice = false" class="btn btn-secondary" style="background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); color: white;">
+                        ✕ Close Practice
+                    </button>
+                </div>
+                <div x-show="practiceChallenge.answered && practiceChallenge.selected === practiceChallenge.correct" class="fade-in" style="text-align: center; margin-top: var(--space-md); font-weight: 600;">
+                    🎉 Excellent! Score: <span x-text="practiceScore"></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Famous Examples -->
+        <section class="examples-section">
+            <h2 class="section-title">
+                <span>📡</span>
+                <span>Real-World NATO Examples</span>
+            </h2>
+            
+            <div style="text-align: center; margin-bottom: var(--space-lg);">
+                <button @click="showPractice = !showPractice" class="btn btn-primary">
+                    <span x-show="!showPractice">🎯 Start Training Challenge</span>
+                    <span x-show="showPractice">📖 Back to Examples</span>
+                </button>
+            </div>
+            
+            <div class="examples-grid" x-show="!showPractice">
+                <div class="example-card" @click="loadExample('callsign')">
+                    <div class="example-title">
+                        <span>✈️</span>
+                        <span>Aviation Call Sign</span>
+                    </div>
+                    <div class="example-phonetic">Uniform November 1-2-3-4</div>
+                    <div class="example-note">
+                        <span>🎧</span>
+                        <span>Aircraft identification in air traffic control</span>
+                    </div>
+                </div>
+                
+                <div class="example-card" @click="loadExample('emergency')">
+                    <div class="example-title">
+                        <span>🚨</span>
+                        <span>Emergency Code</span>
+                    </div>
+                    <div class="example-phonetic">Mike Alpha Yankee Delta Alpha Yankee</div>
+                    <div class="example-note">
+                        <span>📻</span>
+                        <span>International distress signal spelling</span>
+                    </div>
+                </div>
+                
+                <div class="example-card" @click="loadExample('military')">
+                    <div class="example-title">
+                        <span>🎖️</span>
+                        <span>Military Operation</span>
+                    </div>
+                    <div class="example-phonetic">Alpha Bravo Charlie Delta</div>
+                    <div class="example-note">
+                        <span>⚡</span>
+                        <span>Clear tactical communication protocol</span>
+                    </div>
+                </div>
+
+                <div class="example-card" @click="loadExample('coordinates')">
+                    <div class="example-title">
+                        <span>🗺️</span>
+                        <span>Grid Coordinates</span>
+                    </div>
+                    <div class="example-phonetic">November Quebec 1-2-3-4-5-6</div>
+                    <div class="example-note">
+                        <span>📍</span>
+                        <span>Precise location reference system</span>
+                    </div>
+                </div>
+
+                <div class="example-card" @click="loadExample('password')">
+                    <div class="example-title">
+                        <span>🔐</span>
+                        <span>Secure Password</span>
+                    </div>
+                    <div class="example-phonetic">Tango Hotel Echo Papa Alpha Sierra Sierra</div>
+                    <div class="example-note">
+                        <span>🛡️</span>
+                        <span>Clear password communication over radio</span>
+                    </div>
+                </div>
+
+                <div class="example-card" @click="loadExample('license')">
+                    <div class="example-title">
+                        <span>🚗</span>
+                        <span>License Plate</span>
+                    </div>
+                    <div class="example-phonetic">Alpha Bravo Charlie 1-2-3</div>
+                    <div class="example-note">
+                        <span>👮</span>
+                        <span>Police radio vehicle identification</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <section class="content-section">
+        <div class="container">
+            <h2>History of the NATO Phonetic Alphabet</h2>
+            <p>The NATO phonetic alphabet, officially denoted as the International Radiotelephony Spelling Alphabet, was developed in the 1950s by the International Civil Aviation Organization (ICAO) to ensure clear communication for pilots and air traffic controllers, regardless of their native language. It was later adopted by NATO and is now the most widely used radiotelephone spelling alphabet in the world.</p>
+            <p>The words were chosen after a comprehensive study of their intelligibility over noisy radio channels. Each word is distinct and easily recognizable, which is why it has become the standard for military, civilian, and amateur radio communications.</p>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <h2>Why It's So Effective</h2>
+            <div class="comparison-grid">
+                <div class="comparison-card">
+                    <h3>Distinct Sounds</h3>
+                    <p>The words were chosen to be as distinct from one another as possible, minimizing the chance of confusion even in noisy conditions.</p>
+                </div>
+                <div class="comparison-card">
+                    <h3>Easy Pronunciation</h3>
+                    <p>The words are easy to pronounce for speakers of most languages, which is crucial for international communication.</p>
+                </div>
+                <div class="comparison-card">
+                    <h3>No Ambiguity</h3>
+                    <p>Unlike letters, which can sound similar (e.g., B, C, D, E), the NATO phonetic words are unambiguous.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq">
+                <h3>Is this the same as the police alphabet?</h3>
+                <p>While many police departments use the NATO phonetic alphabet, some have their own variations. The NATO alphabet is the international standard.</p>
+            </div>
+            <div class="faq">
+                <h3>Why do some words have a different pronunciation?</h3>
+                <p>The pronunciations listed are the official NATO pronunciations, which are designed to be as clear as possible over the radio. They may differ slightly from standard English pronunciation.</p>
+            </div>
+            <div class="faq">
+                <h3>Can I use this for anything other than radio communication?</h3>
+                <p>Absolutely! The NATO phonetic alphabet is a great way to spell out important information over the phone, in a noisy environment, or any time you need to be crystal clear.</p>
+            </div>
+        </div>
+    </section>
 
     <script>
-        document.addEventListener('alpine:init', () => {
-            Alpine.data('morseTranslator', () => ({
-                mode: 'encode',
+        function natoPhoneticConverter() {
+            return {
+                mode: 'text-to-nato',
                 inputText: '',
                 outputText: '',
-                morseSymbols: [],
+                phoneticWords: [],
                 isPlaying: false,
-                audioContext: null,
-                
-                morseCode: {
-                    'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 'F': '..-.', 
-                    'G': '--.', 'H': '....', 'I': '..', 'J': '.---', 'K': '-.-', 'L': '.-..', 
-                    'M': '--', 'N': '-.', 'O': '---', 'P': '.--.', 'Q': '--.-', 'R': '.-.', 
-                    'S': '...', 'T': '-', 'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-', 
-                    'Y': '-.--', 'Z': '--..', '0': '-----', '1': '.----', '2': '..---', 
-                    '3': '...--', '4': '....-', '5': '.....', '6': '-....', '7': '--...', 
-                    '8': '---..', '9': '----.', '.': '.-.-.-', ',': '--..--', '?': '..--..',
-                    ' ': '/'
+                currentWordIndex: -1,
+                playbackSpeed: 1.0,
+                transmissionComplete: false,
+                showPractice: false,
+                practiceScore: 0,
+
+                // NATO Phonetic Alphabet with pronunciations
+                natoAlphabet: {
+                    'A': { word: 'Alpha', pronunciation: 'AL-fah' },
+                    'B': { word: 'Bravo', pronunciation: 'BRAH-voh' },
+                    'C': { word: 'Charlie', pronunciation: 'CHAR-lee' },
+                    'D': { word: 'Delta', pronunciation: 'DELL-tah' },
+                    'E': { word: 'Echo', pronunciation: 'ECK-oh' },
+                    'F': { word: 'Foxtrot', pronunciation: 'FOKS-trot' },
+                    'G': { word: 'Golf', pronunciation: 'GOLF' },
+                    'H': { word: 'Hotel', pronunciation: 'hoh-TELL' },
+                    'I': { word: 'India', pronunciation: 'IN-dee-ah' },
+                    'J': { word: 'Juliet', pronunciation: 'JEW-lee-ett' },
+                    'K': { word: 'Kilo', pronunciation: 'KEY-loh' },
+                    'L': { word: 'Lima', pronunciation: 'LEE-mah' },
+                    'M': { word: 'Mike', pronunciation: 'MIKE' },
+                    'N': { word: 'November', pronunciation: 'no-VEM-ber' },
+                    'O': { word: 'Oscar', pronunciation: 'OSS-cah' },
+                    'P': { word: 'Papa', pronunciation: 'pah-PAH' },
+                    'Q': { word: 'Quebec', pronunciation: 'keh-BECK' },
+                    'R': { word: 'Romeo', pronunciation: 'ROW-me-oh' },
+                    'S': { word: 'Sierra', pronunciation: 'see-AIR-rah' },
+                    'T': { word: 'Tango', pronunciation: 'TANG-go' },
+                    'U': { word: 'Uniform', pronunciation: 'YOU-nee-form' },
+                    'V': { word: 'Victor', pronunciation: 'VIK-tah' },
+                    'W': { word: 'Whiskey', pronunciation: 'WISS-key' },
+                    'X': { word: 'X-ray', pronunciation: 'ECKS-ray' },
+                    'Y': { word: 'Yankee', pronunciation: 'YANG-key' },
+                    'Z': { word: 'Zulu', pronunciation: 'ZOO-loo' }
                 },
-                
-                morseToText: {},
-                
+
+                practiceChallenge: {
+                    letter: '',
+                    options: [],
+                    correct: '',
+                    selected: '',
+                    answered: false
+                },
+
                 init() {
-                    Object.entries(this.morseCode).forEach(([key, value]) => {
-                        this.morseToText[value] = key;
-                    });
-                    
-                    this.setupAudio();
                     this.inputText = 'HELLO WORLD';
-                    this.translate();
+                    this.processText();
+                    this.newChallenge();
                 },
-                
-                setupAudio() {
-                    try {
-                        this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                    } catch (e) {
-                        console.warn('Web Audio API not supported');
-                    }
-                },
-                
-                translate() {
-                    if (!this.inputText.trim()) {
+
+                processText() {
+                    this.transmissionComplete = false;
+                    
+                    if (!this.inputText) {
                         this.outputText = '';
-                        this.morseSymbols = [];
+                        this.phoneticWords = [];
                         return;
                     }
-                    
-                    if (this.mode === 'encode') {
-                        this.encodeToMorse();
+
+                    if (this.mode === 'text-to-nato') {
+                        this.textToNato();
                     } else {
-                        this.decodeFromMorse();
+                        this.natoToText();
                     }
                 },
-                
-                encodeToMorse() {
-                    const text = this.inputText.toUpperCase();
-                    let result = '';
-                    const symbols = [];
+
+                textToNato() {
+                    let words = [];
                     
-                    for (const char of text) {
-                        if (this.morseCode[char]) {
-                            const morse = this.morseCode[char];
-                            result += morse + ' ';
-                            
-                            for (const symbol of morse) {
-                                symbols.push(symbol);
-                            }
-                            symbols.push(' ');
+                    for (let char of this.inputText.toUpperCase()) {
+                        if (this.natoAlphabet[char]) {
+                            words.push(this.natoAlphabet[char].word);
+                        } else if (char === ' ') {
+                            words.push('(SPACE)');
+                        } else if (/[0-9]/.test(char)) {
+                            // Handle numbers
+                            const numberWords = {
+                                '0': 'Zero', '1': 'One', '2': 'Two', '3': 'Three', '4': 'Four',
+                                '5': 'Five', '6': 'Six', '7': 'Seven', '8': 'Eight', '9': 'Nine'
+                            };
+                            words.push(numberWords[char]);
+                        } else if (/[.,;:!?-]/.test(char)) {
+                            // Handle common punctuation
+                            const punctWords = {
+                                '.': 'STOP', ',': 'COMMA', ';': 'SEMICOLON', 
+                                ':': 'COLON', '!': 'EXCLAMATION', '?': 'QUESTION',
+                                '-': 'DASH'
+                            };
+                            words.push(punctWords[char] || char);
                         }
                     }
-                    
-                    this.outputText = result.trim();
-                    this.morseSymbols = symbols;
+
+                    this.phoneticWords = words;
+                    this.outputText = words.join(' ');
                 },
-                
-                decodeFromMorse() {
-                    const words = this.inputText.split(' / ');
-                    let result = '';
-                    
-                    for (let i = 0; i < words.length; i++) {
-                        const letters = words[i].split(' ').filter(l => l.length > 0);
-                        
-                        for (const morse of letters) {
-                            result += this.morseToText[morse] || '?';
-                        }
-                        
-                        if (i < words.length - 1) {
-                            result += ' ';
-                        }
+
+                natoToText() {
+                    // Create reverse mapping
+                    const reverseMap = {};
+                    for (let [letter, data] of Object.entries(this.natoAlphabet)) {
+                        reverseMap[data.word.toUpperCase()] = letter;
                     }
                     
-                    this.outputText = result;
-                    this.morseSymbols = [];
+                    // Add number and special mappings
+                    reverseMap['ZERO'] = '0'; reverseMap['ONE'] = '1'; reverseMap['TWO'] = '2';
+                    reverseMap['THREE'] = '3'; reverseMap['FOUR'] = '4'; reverseMap['FIVE'] = '5';
+                    reverseMap['SIX'] = '6'; reverseMap['SEVEN'] = '7'; reverseMap['EIGHT'] = '8';
+                    reverseMap['NINE'] = '9'; reverseMap['SPACE'] = ' '; reverseMap['(SPACE)'] = ' ';
+                    reverseMap['STOP'] = '.'; reverseMap['COMMA'] = ','; reverseMap['DASH'] = '-';
+
+                    const words = this.inputText.split(/\s+/);
+                    let decoded = '';
+
+                    for (let word of words) {
+                        const upperWord = word.toUpperCase().replace(/[()]/g, '');
+                        if (reverseMap[upperWord]) {
+                            decoded += reverseMap[upperWord];
+                        } else if (word.trim()) {
+                            decoded += word; // Keep unrecognized words as-is
+                        }
+                    }
+
+                    this.outputText = decoded;
+                    this.phoneticWords = [];
                 },
-                
-                playMorse() {
-                    if (!this.audioContext || !this.outputText || this.mode !== 'encode') return;
-                    
+
+                async playAudio() {
                     if (this.isPlaying) {
-                        this.isPlaying = false;
+                        this.stopAudio();
                         return;
                     }
-                    
+
+                    if (!this.phoneticWords.length) return;
+
                     this.isPlaying = true;
-                    
-                    const oscillator = this.audioContext.createOscillator();
-                    const gainNode = this.audioContext.createGain();
-                    
-                    oscillator.connect(gainNode);
-                    gainNode.connect(this.audioContext.destination);
-                    
-                    oscillator.frequency.value = 600;
-                    oscillator.type = 'sine';
-                    gainNode.gain.value = 0;
-                    
-                    oscillator.start();
-                    
-                    let time = this.audioContext.currentTime;
-                    const dotDuration = 0.1;
-                    const dashDuration = 0.3;
-                    const symbolGap = 0.1;
-                    const letterGap = 0.3;
-                    
-                    for (const char of this.outputText) {
-                        if (char === '.') {
-                            gainNode.gain.setValueAtTime(0.3, time);
-                            time += dotDuration;
-                            gainNode.gain.setValueAtTime(0, time);
-                            time += symbolGap;
-                        } else if (char === '-') {
-                            gainNode.gain.setValueAtTime(0.3, time);
-                            time += dashDuration;
-                            gainNode.gain.setValueAtTime(0, time);
-                            time += symbolGap;
-                        } else if (char === ' ') {
-                            time += letterGap;
+                    this.currentWordIndex = 0;
+
+                    for (let i = 0; i < this.phoneticWords.length; i++) {
+                        if (!this.isPlaying) break;
+
+                        this.currentWordIndex = i;
+                        const word = this.phoneticWords[i];
+                        
+                        if (word === '(SPACE)') {
+                            await this.delay(300 / this.playbackSpeed);
+                            continue;
                         }
+
+                        await this.speakWordPromise(word);
+                        await this.delay(200 / this.playbackSpeed); // Pause between words
                     }
+
+                    this.currentWordIndex = -1;
+                    this.isPlaying = false;
+                    this.transmissionComplete = true;
                     
+                    // Hide transmission complete after 3 seconds
                     setTimeout(() => {
-                        oscillator.stop();
-                        this.isPlaying = false;
-                    }, (time - this.audioContext.currentTime) * 1000);
+                        this.transmissionComplete = false;
+                    }, 3000);
                 },
-                
-                copyResult() {
-                    navigator.clipboard.writeText(this.outputText).then(() => {
-                        alert('Copied to clipboard!');
+
+                stopAudio() {
+                    this.isPlaying = false;
+                    this.currentWordIndex = -1;
+                    speechSynthesis.cancel();
+                },
+
+                async speakWord(word, index) {
+                    if (word === '(SPACE)') return;
+                    
+                    this.currentWordIndex = index;
+                    await this.speakWordPromise(word);
+                    this.currentWordIndex = -1;
+                },
+
+                speakWordPromise(word) {
+                    return new Promise((resolve) => {
+                        if (!('speechSynthesis' in window)) {
+                            resolve();
+                            return;
+                        }
+
+                        const utterance = new SpeechSynthesisUtterance(word);
+                        utterance.rate = this.playbackSpeed;
+                        utterance.pitch = 1.0;
+                        utterance.volume = 1.0;
+                        
+                        // Try to use a more authoritative voice
+                        const voices = speechSynthesis.getVoices();
+                        const preferredVoice = voices.find(voice => 
+                            voice.name.includes('Microsoft David') || 
+                            voice.name.includes('Alex') ||
+                            voice.name.includes('Male') ||
+                            voice.lang.startsWith('en')
+                        );
+                        if (preferredVoice) {
+                            utterance.voice = preferredVoice;
+                        }
+
+                        utterance.onend = () => resolve();
+                        utterance.onerror = () => resolve();
+                        
+                        speechSynthesis.speak(utterance);
                     });
                 },
-                
+
+                delay(ms) {
+                    return new Promise(resolve => setTimeout(resolve, ms));
+                },
+
+                async copyResult() {
+                    if (!this.outputText) return;
+                    
+                    try {
+                        await navigator.clipboard.writeText(this.outputText);
+                        
+                        // Visual feedback
+                        const button = event.target;
+                        const originalText = button.innerHTML;
+                        button.innerHTML = '✅ Copied!';
+                        button.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+                        
+                        setTimeout(() => {
+                            button.innerHTML = originalText;
+                            button.style.background = '';
+                        }, 2000);
+                    } catch (err) {
+                        console.error('Failed to copy:', err);
+                        alert('Could not copy to clipboard. Please select and copy manually.');
+                    }
+                },
+
                 clearAll() {
+                    this.stopAudio();
                     this.inputText = '';
                     this.outputText = '';
-                    this.morseSymbols = [];
+                    this.phoneticWords = [];
+                    this.transmissionComplete = false;
+                },
+
+                randomExample() {
+                    const examples = [
+                        'ALPHA SQUAD',
+                        'BRAVO TEAM',
+                        'CHARLIE COMPANY',
+                        'DELTA FORCE',
+                        'ECHO BASE',
+                        'FOXTROT UNIFORM',
+                        'GOLF COURSE',
+                        'HOTEL ROMEO',
+                        'INDIA OSCAR',
+                        'JULIET KILO',
+                        'LIMA MIKE',
+                        'NOVEMBER OSCAR',
+                        'PAPA QUEBEC',
+                        'SIERRA TANGO',
+                        'UNIFORM VICTOR',
+                        'WHISKEY X-RAY',
+                        'YANKEE ZULU',
+                        'MAYDAY',
+                        'SOS',
+                        'ROGER',
+                        'WILCO',
+                        'OVER',
+                        'OUT'
+                    ];
+                    
+                    const example = examples[Math.floor(Math.random() * examples.length)];
+                    this.inputText = example;
+                    this.mode = 'text-to-nato';
+                    this.processText();
+                },
+
+                loadExample(type) {
+                    this.mode = 'nato-to-text';
+                    
+                    switch(type) {
+                        case 'callsign':
+                            this.inputText = 'Uniform November One Two Three Four';
+                            break;
+                        case 'emergency':
+                            this.inputText = 'Mike Alpha Yankee Delta Alpha Yankee';
+                            break;
+                        case 'military':
+                            this.inputText = 'Alpha Bravo Charlie Delta';
+                            break;
+                        case 'coordinates':
+                            this.inputText = 'November Quebec One Two Three Four Five Six';
+                            break;
+                        case 'password':
+                            this.inputText = 'Tango Hotel Echo Papa Alpha Sierra Sierra';
+                            break;
+                        case 'license':
+                            this.inputText = 'Alpha Bravo Charlie One Two Three';
+                            break;
+                    }
+                    
+                    this.processText();
+                },
+
+                addLetterToInput(letter) {
+                    this.inputText += letter;
+                    this.mode = 'text-to-nato';
+                    this.processText();
+                },
+
+                getLetterCount() {
+                    return this.inputText.replace(/[^A-Za-z]/g, '').length;
+                },
+
+                getEstimatedDuration() {
+                    const wordCount = this.phoneticWords.filter(w => w !== '(SPACE)').length;
+                    const seconds = Math.ceil((wordCount * 1.5) / this.playbackSpeed);
+                    return seconds + 's';
+                },
+
+                // Practice Mode Functions
+                newChallenge() {
+                    const letters = Object.keys(this.natoAlphabet);
+                    const correctLetter = letters[Math.floor(Math.random() * letters.length)];
+                    const correctWord = this.natoAlphabet[correctLetter].word;
+                    
+                    // Generate 3 random wrong answers
+                    const wrongAnswers = [];
+                    while (wrongAnswers.length < 3) {
+                        const randomLetter = letters[Math.floor(Math.random() * letters.length)];
+                        const randomWord = this.natoAlphabet[randomLetter].word;
+                        if (randomWord !== correctWord && !wrongAnswers.includes(randomWord)) {
+                            wrongAnswers.push(randomWord);
+                        }
+                    }
+                    
+                    // Shuffle options
+                    const options = [correctWord, ...wrongAnswers].sort(() => Math.random() - 0.5);
+                    
+                    this.practiceChallenge = {
+                        letter: correctLetter,
+                        options: options,
+                        correct: correctWord,
+                        selected: '',
+                        answered: false
+                    };
+                },
+
+                answerChallenge(selected) {
+                    if (this.practiceChallenge.answered) return;
+                    
+                    this.practiceChallenge.selected = selected;
+                    this.practiceChallenge.answered = true;
+                    
+                    if (selected === this.practiceChallenge.correct) {
+                        this.practiceScore++;
+                        // Play success sound
+                        this.speakWordPromise('Correct');
+                    } else {
+                        // Play the correct answer
+                        setTimeout(() => {
+                            this.speakWordPromise(this.practiceChallenge.correct);
+                        }, 500);
+                    }
                 }
-            }));
+            }
+        }
+
+        // Enhanced Mobile Menu
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if (mobileMenuBtn && navLinks) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    mobileMenuBtn.classList.toggle('active');
+                    navLinks.classList.toggle('active');
+                    document.body.classList.toggle('menu-open');
+                });
+                
+                // Close menu when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!e.target.closest('.nav-container')) {
+                        mobileMenuBtn.classList.remove('active');
+                        navLinks.classList.remove('active');
+                        document.body.classList.remove('menu-open');
+                    }
+                });
+                
+                // Close menu when clicking a link
+                navLinks.addEventListener('click', function() {
+                    mobileMenuBtn.classList.remove('active');
+                    navLinks.classList.remove('active');
+                    document.body.classList.remove('menu-open');
+                });
+            }
+
+            // Load voices when available
+            if ('speechSynthesis' in window) {
+                speechSynthesis.onvoiceschanged = function() {
+                    // Voices are now loaded
+                };
+            }
         });
     </script>
-<!-- Newsletter Bar -->
-<div class="newsletter-bar" x-data="newsletterForm()">
-    <div class="newsletter-container">
-        <div class="newsletter-content">
-            <div class="newsletter-info">
-                <h3>&#127881; Join Our Calculator Community!</h3>
-                <p>Get updates on new fun calculators and practical tools</p>
-            </div>
-            <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
-                <input 
-                    type="email" 
-                    class="newsletter-input"
-                    placeholder="Enter your email for calculator updates"
-                    x-model="email"
-                    required
-                >
-                <button 
-                    type="submit" 
-                    class="newsletter-submit"
-                    :disabled="isSubmitting"
-                >
-                    <span x-show="isSubmitting" class="loading-spinner"></span>
-                    <span x-text="isSubmitting ? 'Subscribing...' : '&#128640; Subscribe'"></span>
-                </button>
-            </form>
-            <div x-show="showSuccess" class="newsletter-success" style="display: none;">
-                <p style="color: var(--accent-light); font-weight: 600;">
-                    &#9989; Awesome! You'll get updates on the coolest new calculators!
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Footer -->
-<footer class="footer">
-    <div class="footer-container">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h4>&#127919; About Docket.One</h4>
-                <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the tools for modern life.</p>
-                <p>Practical meets playful. Because adulting is hard enough.</p>
-            </div>
-
-            <div class="footer-section">
-                <h4>&#127914; Calculator Categories</h4>
-                <ul class="footer-links">
-                    <li><a href="/pages/BigKidMath/"><span class="calculator-emoji">&#129518;</span> BigKidMath - Adult Life Tools</a></li>
-                    <li><a href="/pages/CipherLab/"><span class="calculator-emoji">&#128272;</span> CipherLab - Secret Codes & Security</a></li>
-                    <li><a href="/pages/GeekGalaxy/"><span class="calculator-emoji">&#128640;</span> GeekGalaxy - Sci-Fi & Fantasy Fun</a></li>
-                    <li><a href="/pages/LifeHacks/"><span class="calculator-emoji">&#9889;</span> LifeHacks - Productivity & Wellness</a></li>
-                    <li><a href="/pages/Math_Magik/"><span class="calculator-emoji">&#127917;</span> Math Magik - Mathematical Wizardry</a></li>
-                    <li><a href="/pages/Otaku_Ops/"><span class="calculator-emoji">&#127999;</span> Otaku Ops - Anime & Culture</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-                <h4>&#128172; Support & Info</h4>
-                <ul class="footer-links">
-                    <li><a href="/pages/support/help.html"><span class="calculator-emoji">&#10067;</span> Help & FAQ</a></li>
-                    <li><a href="/privacy"><span class="calculator-emoji">&#128274;</span> Privacy Policy</a></li>
-                    <li><a href="/terms"><span class="calculator-emoji">&#128203;</span> Terms of Service</a></li>
-                    <li><a href="/accessibility"><span class="calculator-emoji">&#9855;</span> Accessibility</a></li>
-                    <li><a href="/pages/support/contact.html"><span class="calculator-emoji">&#128231;</span> Contact Us</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-                <button 
-                    class="request-calculator-btn"
-                    @click="showModal = true"
-                >
-                    &#128161; Request a Calculator
-                </button>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <div class="footer-logo">&#129518; Docket.One</div>
-            <div class="footer-copyright">
-                Â© 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
-            </div>
-            <div class="social-links">
-                <a href="#" class="social-link" aria-label="Twitter">&#120143;</a>
-                <a href="#" class="social-link" aria-label="LinkedIn">&#128188;</a>
-                <a href="#" class="social-link" aria-label="GitHub">&#128025;</a>
-                <a href="#" class="social-link" aria-label="Email">&#128231;</a>
-            </div>
-        </div>
-    </div>
-</footer>
+<!-- Footer (Handled by JS) -->
 
 <!-- Request Modal -->
 <div 

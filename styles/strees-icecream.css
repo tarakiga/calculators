@@ -1,0 +1,29 @@
+        @keyframes melt {
+            0% {
+                transform: translateY(0) scale(1);
+            }
+
+            50% {
+                transform: translateY(5px) scale(0.98);
+            }
+
+            100% {
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .animate-melt {
+            animation: melt 2s infinite;
+        }
+
+        .ice-cream-bg {
+            background: linear-gradient(135deg, #a5d8ff 0%, #74b9ff 100%);
+        }
+
+        .sprinkles {
+            background-image:
+                radial-gradient(circle at 10% 20%, #ff9ff3 1px, transparent 1px),
+                radial-gradient(circle at 30% 50%, #feca57 1px, transparent 1px),
+                radial-gradient(circle at 70% 80%, #ff6b6b 1px, transparent 1px);
+            background-size: 20px 20px;
+        }

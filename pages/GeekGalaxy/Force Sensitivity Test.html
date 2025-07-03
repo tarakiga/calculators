@@ -51,10 +51,11 @@
     <link rel="stylesheet" href="../../common/navbar-enhanced.css?v=20250609">
     <script src="../../common/navbar-enhanced.js"></script>
     <script src="../../common/add-keyboard-accessibility.js"></script>
+    <script src="../../common/footer/footer-inject.js"></script>
 </head>
 
 <body x-data="forceCalculator()" x-init="init()">
-
+    <!-- Navigation (Handled by JS) -->
     <div class="container text-center py-8">
         <h1 class="font-display text-4xl md:text-5xl font-extrabold text-white uppercase tracking-wider">
             The <span class="text-yellow-400">Force</span> Aptitude Holocron
@@ -167,6 +168,46 @@
         </div>
     </div>
     <canvas id="shareCanvas" width="1200" height="630" style="display: none;"></canvas>
+
+    <section class="content-section">
+        <div class="container">
+            <h2>What is the Force?</h2>
+            <p>The Force is an energy field created by all living things. It surrounds us, penetrates us, and binds the galaxy together. The Force is not just a power that a Jedi can use, but an ally. It is a living entity that has a will of its own.</p>
+            <p>There are two sides to the Force: the light side and the dark side. The light side is associated with peace, harmony, and selflessness, while the dark side is associated with anger, fear, and aggression. A Jedi seeks to live in balance with the Force, using its power for good and resisting the temptation of the dark side.</p>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <h2>The Jedi Trials</h2>
+            <p>To become a Jedi Knight, a Padawan must pass a series of trials to prove their worthiness. These trials are designed to test a Jedi's skills, their connection to the Force, and their ability to resist the dark side. The five trials are:</p>
+            <ul>
+                <li><strong>The Trial of Skill:</strong> A test of a Jedi's combat abilities.</li>
+                <li><strong>The Trial of Courage:</strong> A test of a Jedi's ability to face their fears.</li>
+                <li><strong>The Trial of Flesh:</strong> A test of a Jedi's ability to endure pain and loss.</li>
+                <li><strong>The Trial of Spirit:</strong> A test of a Jedi's ability to overcome their inner demons.</li>
+                <li><strong>The Trial of Insight:</strong> A test of a Jedi's ability to see the truth and make wise decisions.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq">
+                <h3>What are midichlorians?</h3>
+                <p>Midichlorians are microscopic life forms that reside within all living cells. They are the link between the living Force and the cosmic Force, and they are what allow a Jedi to feel and use the Force.</p>
+            </div>
+            <div class="faq">
+                <h3>Can anyone learn to use the Force?</h3>
+                <p>While anyone can learn to feel the Force, not everyone has the potential to become a Jedi. A high midichlorian count is a prerequisite for Jedi training, but it is not the only factor. A Jedi must also have the discipline, dedication, and emotional control to master the Force.</p>
+            </div>
+            <div class="faq">
+                <h3>What is the difference between a Jedi and a Sith?</h3>
+                <p>The main difference between a Jedi and a Sith is their relationship with the Force. The Jedi seek to live in balance with the Force, while the Sith seek to dominate it. The Jedi use the Force for good, while the Sith use it for their own selfish purposes.</p>
+            </div>
+        </div>
+    </section>
 
     <script>
         function forceCalculator() {
@@ -349,93 +390,6 @@
             }
         }
     </script>
-	<!-- Newsletter Bar -->
-    <div class="newsletter-bar" x-data="newsletterForm()">
-        <div class="newsletter-container">
-            <div class="newsletter-content">
-                <div class="newsletter-info">
-                    <h3>🎉 Join Our Calculator Community!</h3>
-                    <p>Get updates on new fun calculators and practical tools</p>
-                </div>
-                <form class="newsletter-form" @submit.prevent="submitNewsletter()" x-show="!showSuccess">
-                    <input type="email" class="newsletter-input" placeholder="Enter your email for calculator updates"
-                        x-model="email" required>
-                    <button type="submit" class="newsletter-submit" :disabled="isSubmitting">
-                        <span x-show="isSubmitting" class="loading-spinner"></span>
-                        <span x-text="isSubmitting ? 'Subscribing...' : '🚀 Subscribe'"></span>
-                    </button>
-                </form>
-                <div x-show="showSuccess" class="newsletter-success">
-                    <p style="color: var(--accent-light); font-weight: 600;">
-                        ✅ Awesome! You'll get updates on the coolest new calculators!
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>🎮 About Docket.One</h4>
-                    <p>Making life easier (and more fun) with calculators that actually matter. From figuring out if you
-                        should buy a car or just Uber everywhere, to calculating your caffeine half-life, we've got the
-                        tools for modern life.</p>
-                    <p>Practical meets playful. Because adulting is hard enough.</p>
-                </div>
-
-                <div class="footer-section">
-                    <h4>🎯 Calculator Categories</h4>
-                    <ul class="footer-links">
-                        <li><a href="https://docket.one/pages/BigKidMath/"><span class="calculator-emoji">🧠</span>
-                                BigKidMath - Adult Life Tools</a></li>
-                        <li><a href="https://docket.one/pages/CipherLab/"><span class="calculator-emoji">🔐</span>
-                                CipherLab - Secret Codes & Security</a>
-                        </li>
-                        <li><a href="https://docket.one/pages/GeekGalaxy/"><span class="calculator-emoji">🚀</span>
-                                GeekGalaxy - Sci-Fi & Fantasy Fun</a></li>
-                        <li><a href="https://docket.one/pages/LifeHacks/"><span class="calculator-emoji">⚡</span>
-                                LifeHacks - Productivity & Wellness</a></li>
-                        <li><a href="https://docket.one/pages/Math_Magik/"><span class="calculator-emoji">🧙‍♀️</span>
-                                Math Magik - Mathematical Wizardry</a>
-                        </li>
-                        <li><a href="https://docket.one/pages/Otaku_Ops/"><span class="calculator-emoji">🗾</span> Otaku
-                                Ops - Anime & Culture</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h4>💬 Support & Info</h4>
-                    <ul class="footer-links">
-                        <li><a href="pages/support/help.html"><span class="calculator-emoji">❓</span> Help &
-                                FAQ</a></li>
-                        <li><a href="pages/support/privacy.html"><span class="calculator-emoji">🔒</span> Privacy
-                                Policy</a></li>
-                        <li><a href="pages/support/terms.html"><span class="calculator-emoji">📋</span> Terms of
-                                Service</a></li>
-                        <li><a href="pages/support/accessibility.html"><span class="calculator-emoji">♿</span>
-                                Accessibility</a></li>
-                        <li><a href="pages/support/contact.html"><span class="calculator-emoji">📧</span> Contact
-                                Us</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <div class="footer-logo">🧮 Docket.One</div>
-                <div class="footer-copyright">
-                    © 2025 Docket.One. All rights reserved. Making calculations fun since... well, recently!
-                </div>
-                <div class="social-links">
-                    <a href="#" class="social-link" aria-label="Twitter">𝕏</a>
-                    <a href="#" class="social-link" aria-label="LinkedIn">💼</a>
-                    <a href="#" class="social-link" aria-label="GitHub">🐙</a>
-                    <a href="#" class="social-link" aria-label="Email">📧</a>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <!-- Footer (Handled by JS) -->
 </body>
 </html>
