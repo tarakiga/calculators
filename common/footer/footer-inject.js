@@ -81,9 +81,6 @@ class FooterInjector {
                     <li><a href=\"https://docket.one/pages/support/contact.html#feature\"><span\
                                 class=\"calculator-emoji\">&#128161;</span>\
                             Request Calculator</a></li>\
-                    <li><a href=\"https://docket.one/pages/support/contact.html#feature\"><span\
-                                class=\"calculator-emoji\">&#128640;</span>\
-                            Suggest Feature</a></li>\
                 </ul>\
             </div>\
         </div>\
