@@ -152,7 +152,6 @@ class EnhancedNavbar {
                         <li role="none"><a href="${this.currentPath}pages/LifeHacks/index.html" class="category-link" role="menuitem">Life Hacks</a></li>
                         <li role="none"><a href="${this.currentPath}pages/Math_Magik/index.html" class="category-link" role="menuitem">Math Magik</a></li>
                         <li role="none"><a href="${this.currentPath}pages/Otaku_Ops/index.html" class="category-link" role="menuitem">Otaku Ops</a></li>
-                        <li role="none"><a href="${this.currentPath}index.html" class="home-link" role="menuitem">🏠 Home</a></li>
                     </ul>
                 </div>
             `;
